@@ -1,8 +1,30 @@
-asm(".text\n\t.globl func_80078E54\nfunc_80078E54:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x3c04800b\n\t"
-    ".word 0x2484ea5c,0x3c02800f,0x3c03800b,0xac40bc40\n\t"
-    ".word 0x24020003,0xac62eb30,0x3c02800f,0xafbf0014\n\t"
-    ".word 0x0c01db8a,0xac40bc3c,0x3c04800b,0x24849a88\n\t"
-    ".word 0x3c02800f,0x2442ac90,0x02002821,0x8c830004\n\t"
-    ".word 0x24060001,0x0c016554,0xac620028,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x00001021,0x03e00008,0x27bd0018\n\t");
+typedef signed int s32;
+
+typedef struct Target {
+    char pad_00[0x28];
+    void *field_28;
+} Target;
+
+typedef struct State {
+    char pad_00[4];
+    Target *target;
+} State;
+
+extern s32 D_800AEB30;
+extern State D_800A9A88;
+extern char D_800AEA5C[];
+extern char D_800EAC90[];
+extern s32 D_800EBC3C;
+extern s32 D_800EBC40;
+extern void func_80059550(State *state, void *argument, s32 enabled);
+extern void func_80076E28(void *state);
+
+s32 func_80078E54(void *argument) {
+    D_800EBC40 = 0;
+    D_800AEB30 = 3;
+    D_800EBC3C = 0;
+    func_80076E28(D_800AEA5C);
+    D_800A9A88.target->field_28 = D_800EAC90;
+    func_80059550(&D_800A9A88, argument, 1);
+    return 0;
+}

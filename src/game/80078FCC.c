@@ -1,11 +1,31 @@
-asm(".text\n\t.globl func_80078FCC\nfunc_80078FCC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb00010,0x3c10800b,0x2610ea5c\n\t"
-    ".word 0x02002021,0x3c02800f,0x3c03800b,0xac40bc40\n\t"
-    ".word 0x24020004,0xac62eb30,0x3c02800f,0xafbf001c\n\t"
-    ".word 0x0c01db8a,0xac40bc3c,0x26040058,0x3c05800e\n\t"
-    ".word 0x0c023681,0x24a5534c,0x8e250004,0x02402021\n\t"
-    ".word 0x0c0168bc,0x24a50020,0x3c04800b,0x2484d9c8\n\t"
-    ".word 0x02202821,0x24020010,0x24060001,0x0c016554\n\t"
-    ".word 0xa2420001,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x00001021,0x03e00008,0x27bd0020\n\t");
+typedef signed int s32;
+
+typedef struct Owner {
+    char pad_00[4];
+    char *data;
+} Owner;
+
+extern s32 D_800AEB30;
+extern char D_800AD9C8[];
+extern char D_800AEA5C[];
+extern char D_800E534C[];
+extern s32 D_800EBC3C;
+extern s32 D_800EBC40;
+extern void func_80059550(void *state, Owner *owner, s32 enabled);
+extern void func_8005A2F0(void *argument, char *data);
+extern void func_80076E28(void *state);
+extern void func_8008DA04(void *destination, void *source);
+
+s32 func_80078FCC(Owner *owner, char *argument) {
+    char *state = D_800AEA5C;
+
+    D_800EBC40 = 0;
+    D_800AEB30 = 4;
+    D_800EBC3C = 0;
+    func_80076E28(state);
+    func_8008DA04(state + 0x58, D_800E534C);
+    func_8005A2F0(argument, owner->data + 0x20);
+    argument[1] = 0x10;
+    func_80059550(D_800AD9C8, owner, 1);
+    return 0;
+}
