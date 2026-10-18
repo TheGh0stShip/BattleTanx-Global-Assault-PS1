@@ -1,11 +1,39 @@
-asm(".text\n\t.globl func_8004FD34\nfunc_8004FD34:\n\t"
-    ".word 0x27bdffe8,0x00802821,0xafbf0010,0x8ca200a4\n\t"
-    ".word 0x00000000,0x10400005,0x00000000,0x0c0138ab\n\t"
-    ".word 0x24050014,0x08013f71,0x00000000,0x8ca30210\n\t"
-    ".word 0x8ca201fc,0x00000000,0x0043102a,0x14400012\n\t"
-    ".word 0x3c04800a,0x8ca3009c,0x24844ef4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8c420010,0x00000000,0x30420001\n\t"
-    ".word 0x10400005,0x00a02021,0x0c0138ab,0x24050016\n\t"
-    ".word 0x08013f71,0x00000000,0x0c013757,0x00a02021\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef unsigned int u32;
+
+typedef struct {
+    char pad000[0x10];
+    u32 flags;
+    char pad014[0xBC];
+} VehicleDefinition;
+
+typedef struct {
+    char pad000[0x9C];
+    u32 vehicle_type;
+    char pad0A0[4];
+    void *active_object;
+    char pad0A8[0x154];
+    int timer;
+    char pad200[0x10];
+    int deadline;
+} Tank;
+
+extern VehicleDefinition D_800A4EF4[];
+
+void func_8004E2AC(Tank *, int);
+void func_8004DD5C(Tank *);
+
+void func_8004FD34(Tank *tank) {
+    if (tank->active_object != 0) {
+        func_8004E2AC(tank, 20);
+    } else {
+        int deadline;
+
+        deadline = tank->deadline;
+        if (tank->timer >= deadline &&
+            (D_800A4EF4[tank->vehicle_type].flags & 1)) {
+            func_8004E2AC(tank, 22);
+        } else {
+            func_8004DD5C(tank);
+        }
+    }
+}

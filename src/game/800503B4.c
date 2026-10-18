@@ -1,11 +1,45 @@
-asm(".text\n\t.globl func_800503B4\nfunc_800503B4:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0xafbf0018,0x8e030184,0x24020001,0x10620006\n\t"
-    ".word 0x26110184,0x24020002,0x10620009,0x00000000\n\t"
-    ".word 0x08014110,0x00000000,0x0c013e4d,0x02002021\n\t"
-    ".word 0x10400012,0x24020002,0x08014110,0xae020184\n\t"
-    ".word 0x8e020180,0x00000000,0x30420001,0x14400008\n\t"
-    ".word 0x26040008,0x0c012576,0x26050190,0x8e230008\n\t"
-    ".word 0x00000000,0x0043102a,0x10400004,0x00000000\n\t"
-    ".word 0x8e250004,0x0c0138ab,0x02002021,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef unsigned int u32;
+
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    u32 state;
+    u32 next_state;
+    int distance;
+} MoveState;
+
+typedef struct {
+    char pad000[8];
+    Vector position;
+    char pad014[0x16C];
+    u32 flags;
+    MoveState move;
+    Vector target;
+} Tank;
+
+int func_8004F934(Tank *);
+int func_800495D8(Vector *, Vector *);
+void func_8004E2AC(Tank *, int);
+
+void func_800503B4(Tank *tank) {
+    MoveState *move;
+
+    move = &tank->move;
+    switch (move->state) {
+    case 1:
+        if (func_8004F934(tank)) {
+            move->state = 2;
+        }
+        break;
+    case 2:
+        if ((tank->flags & 1) ||
+            func_800495D8(&tank->position, &tank->target) < move->distance) {
+            func_8004E2AC(tank, move->next_state);
+        }
+        break;
+    }
+}
