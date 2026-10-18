@@ -221,6 +221,23 @@
       }
     },
     {
+      "name": "func_80049F84",
+      "address": "0x80049F84",
+      "size": "0xA8",
+      "source": "src/game/80049F84.c",
+      "symbols": {}
+    },
+    {
+      "name": "func_8004A8B0",
+      "address": "0x8004A8B0",
+      "size": "0x48",
+      "source": "src/game/8004A8B0.c",
+      "symbols": {
+        "func_800493C0": "0x800493C0",
+        "func_8004A794": "0x8004A794"
+      }
+    },
+    {
       "name": "func_8006B1AC",
       "address": "0x8006B1AC",
       "size": "0x90",
