@@ -1,7 +1,21 @@
-asm(".text\n\t.globl func_80099104\nfunc_80099104:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0x10e0000c\n\t"
-    ".word 0xafbf001c,0x24050005,0x00003021,0x24020003\n\t"
-    ".word 0xae02004c,0x3c02800a,0x244291e8,0x00c03821\n\t"
-    ".word 0x0c028b04,0xafa20010,0x14400005,0\n\t"
-    ".word 0x02002021,0x00002821,0x0c026354,0x00a03021\n\t"
-    ".word 0x8fbf001c,0x8fb00018,0x03e00008,0x27bd0020");
+typedef signed int s32;
+
+typedef struct State {
+    s32 fields[20];
+} State;
+
+extern unsigned char D_800991E8[];
+extern s32 func_800A2C10(State *state, s32 mode, s32 zero_a, s32 zero_b,
+                         void *table);
+extern void func_80098D50(State *state, s32 zero_a, s32 zero_b);
+
+void func_80099104(State *state, s32 unused_a, s32 unused_b, s32 enabled) {
+    if (enabled != 0) {
+        state->fields[19] = 3;
+        if (func_800A2C10(state, 5, 0, 0, D_800991E8) != 0) {
+            return;
+        }
+    }
+    asm volatile("");
+    func_80098D50(state, 0, 0);
+}
