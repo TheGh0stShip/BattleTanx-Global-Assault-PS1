@@ -1,8 +1,27 @@
-asm(".text\n\t.set noreorder\n\t.globl func_8001AE4C\nfunc_8001AE4C:\n\t"
-    "addiu $29,$29,-8\n\taddiu $5,$0,0x20\n\tlw $6,0($4)\n\tnop\n\t"
-    "mtc2 $6,$30\n\tnop\n\tnop\n\tswc2 $31,0($29)\n\tlw $3,0($29)\n\tnop\n\t"
-    "slt $2,$3,$5\n\t.word 0x10400002\n\tnop\n\taddu $5,$3,$0\n\tlw $4,4($4)\n\t"
-    "nop\n\tmtc2 $4,$30\n\tnop\n\tnop\n\taddiu $2,$29,4\n\tswc2 $31,0($2)\n\t"
-    "lw $3,4($29)\n\tnop\n\tslt $2,$3,$5\n\t.word 0x10400002\n\tnop\n\t"
-    "addu $5,$3,$0\n\taddiu $3,$0,0x12\n\tsubu $3,$3,$5\n\t.word 0x1C600002\n\t"
-    "addu $2,$3,$0\n\taddu $2,$0,$0\n\tjr $31\n\taddiu $29,$29,8");
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+int func_8001AE4C(int *values) {
+    int first;
+    int second;
+    int minimum = 32;
+    int result;
+
+    gte_ldlzc(values[0]);
+    gte_stlzc(&first);
+    if (first < minimum)
+        minimum = first;
+    gte_ldlzc(values[1]);
+    gte_stlzc(&second);
+    if (second < minimum)
+        minimum = second;
+    result = 18 - minimum;
+    if (result > 0)
+        return result;
+    return 0;
+}
