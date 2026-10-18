@@ -1,9 +1,16 @@
-asm(".text\n\t.globl func_800602F4\nfunc_800602F4:\n\t"
-    ".word 0x3c02800a,0x944260d8,0x27bdffe8,0xafb00010\n\t"
-    ".word 0x00808021,0x10400009,0xafbf0014,0x3c02800a\n\t"
-    ".word 0x8c436070,0x24020001,0x14620004,0x00000000\n\t"
-    ".word 0x3c04800b,0x080180ce,0x24848030,0x3c04800a\n\t"
-    ".word 0x24847448,0x02002821,0x0c016554,0x24060001\n\t"
-    ".word 0x0c016992,0x02002021,0x3c04800a,0x0c016992\n\t"
-    ".word 0x24847448,0x8fbf0014,0x8fb00010,0x00001021\n\t"
-    ".word 0x03e00008,0x27bd0018");
+extern unsigned short D_800A60D8;
+extern int D_800A6070;
+extern unsigned char D_800A7448;
+extern unsigned char D_800A8030;
+extern void func_80059550(void *, void *, int);
+extern void func_8005A648(void *);
+
+int func_800602F4(void *object) {
+    if (D_800A60D8 != 0 && D_800A6070 == 1)
+        func_80059550(&D_800A8030, object, 1);
+    else
+        func_80059550(&D_800A7448, object, 1);
+    func_8005A648(object);
+    func_8005A648(&D_800A7448);
+    return 0;
+}
