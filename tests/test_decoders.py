@@ -188,6 +188,8 @@ class Level(unittest.TestCase):
         self.assertEqual(len(b["placements"]), 3)
         self.assertEqual(b["placements"][1]["yaw_u16"], 16384)
         self.assertEqual((b["active_first"], b["active_count"]), (1, 2))
+        self.assertEqual(b["group_count"], 2)
+        self.assertEqual(b["groups"][0]["z1"], 20)
         self.assertEqual([x["opcode"] for x in b["object_records"]], [7, 7, 7])
         self.assertEqual(b["placements"][2]["object_record"], 2)
         self.assertEqual(b["model_names"], [{"pointer": 0x7C, "section_offset": 8, "name": "fixture"}])
@@ -197,6 +199,9 @@ class Level(unittest.TestCase):
         self.assertRaises(FormatError, level.decode_level_bin, d[:20])
         bad = bytearray(d)
         struct.pack_into("<I", bad, 8, 0x21)                 # placement section no longer a multiple of 12
+        self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
+        bad = bytearray(d)
+        struct.pack_into("<I", bad, 0x20, 3)                 # group count disagrees with section size
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
         bad = bytearray(d)
         struct.pack_into("<I", bad, 0x44 + 8, 2)             # not an object-record boundary

@@ -89,15 +89,18 @@ FLB is `u16 width`, `u16 height`, then `width * height` `u32` cells. Cell bits
 rotation, bits 18-23 select a terrain tile, and bits 24-31 remain opaque. A cell
 spans 512 model units. The grid is centered at the origin.
 
-Level BIN begins with five section offsets and three zero words. Placement
+Level BIN begins with five section offsets and three zero words. Section 0 is a
+`u32` group count. Section 1 contains that many 16-byte records:
+`{u16 placement_count, u16 first_placement, s16 x0,y0,z0,x1,y1,z1}`. These are
+the same group bounds and placement ranges used by the N64 engine. Placement
 records in section 2 are 12 bytes: signed x/y/z, unsigned yaw, and an offset
 into section 3. Section 3 is a packed object-constructor stream. Its first byte
 is an opcode dispatched through the 44-slot table at `0x800CD6A4`; 28 opcodes
 occur on disc, and their fixed record sizes tile all 75 files exactly. Every
 placement offset is checked against a decoded record boundary. Section 4 begins
 with absolute file offsets to NUL-terminated ASCII model names; all 4,656 table
-entries are decoded. Section 0 and the still-unidentified fields within object
-records are preserved.
+entries are decoded. The still-unidentified fields within object records are
+preserved.
 
 Font BIN files contain 82 records of three `u16` values: x, y, and width.
 All-zero records indicate absent glyphs.

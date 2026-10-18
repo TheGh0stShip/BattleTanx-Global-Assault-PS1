@@ -146,7 +146,10 @@ def run(root, out, previews=False, objs=False):
                     ent["family"] = "BIN-level"
                     ent["decoded"] = {"section_offsets": b["section_offsets"], "section_sizes": b["section_sizes"],
                                       "placements": len(b["placements"]), "active_first": b["active_first"],
-                                      "active_count": b["active_count"], "section1_bounds": b["section1_bounds"],
+                                      "active_count": b["active_count"], "groups": b["groups"],
+                                      "object_records": len(b["object_records"]),
+                                      "object_opcode_histogram": _top(x["opcode"] for x in b["object_records"]),
+                                      "model_names": len(b["model_names"]),
                                       "yaw_histogram_top": _top(p["yaw_u16"] for p in b["placements"])}
                 else:
                     stem = r.rsplit("/", 1)[-1].rsplit(".", 1)[0].upper()

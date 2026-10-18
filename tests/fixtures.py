@@ -91,8 +91,8 @@ def flb(w=64, h=256, tile=5):
 
 
 def level_bin(n=3):
-    sec0 = u32(0)
-    sec1 = struct.pack("<HH", n - 1, 1) + bytes(28)
+    sec0 = u32(2)
+    sec1 = struct.pack("<HHhhhhhh", n - 1, 1, -10, -5, -20, 10, 5, 20) + bytes(16)
     sec2 = b"".join(struct.pack("<hhhHI", 10 * i, 0, -10 * i, 16384 * i & 0xFFFF, 4 * i) for i in range(n))
     sec3 = b"".join(bytes([7, 0, 0, 0]) for _ in range(n))
     sec4 = u32(0x7C, 0) + b"fixture\0"

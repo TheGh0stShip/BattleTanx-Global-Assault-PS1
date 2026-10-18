@@ -77,9 +77,24 @@ def decode_level_bin(data, name="<bin>"):
     if (offs[3] - offs[2]) % 12:
         raise FormatError("%s: placement section length not a multiple of 12" % name)
     n = (offs[3] - offs[2]) // 12
-    cnt, first = r.u16(offs[1]), r.u16(offs[1] + 2)
-    if first + cnt > n:
-        raise FormatError("%s: active range %d+%d exceeds %d placements" % (name, first, cnt, n))
+    if offs[1] - offs[0] != 4:
+        raise FormatError("%s: group-count section is not four bytes" % name)
+    group_count = r.u32(offs[0], "group count")
+    if offs[2] - offs[1] != 16 * group_count:
+        raise FormatError("%s: group section size %d != 16*%d" %
+                          (name, offs[2] - offs[1], group_count))
+    groups = []
+    for i in range(group_count):
+        o = offs[1] + 16 * i
+        group = {"placement_count": r.u16(o), "first_placement": r.u16(o + 2),
+                 "x0": r.s16(o + 4), "y0": r.s16(o + 6), "z0": r.s16(o + 8),
+                 "x1": r.s16(o + 10), "y1": r.s16(o + 12), "z1": r.s16(o + 14)}
+        if group["first_placement"] + group["placement_count"] > n:
+            raise FormatError("%s: group %d placement range %d+%d exceeds %d" %
+                              (name, i, group["first_placement"], group["placement_count"], n))
+        groups.append(group)
+    cnt = groups[0]["placement_count"]
+    first = groups[0]["first_placement"]
     object_start, object_end = offs[3], offs[4]
     object_records = []
     object_by_offset = {}
@@ -134,17 +149,11 @@ def decode_level_bin(data, name="<bin>"):
                               (name, i, rec["data_offset"]))
         rec["object_record"] = object_by_offset[rec["data_offset"]]
         pl.append(rec)
-    sec1 = r.bytes(offs[1], offs[2] - offs[1])
-    bounds = None
-    if len(sec1) >= 32:
-        bounds = {"s16_0x14": r.s16(offs[1] + 20), "s16_0x18": r.s16(offs[1] + 24),
-                  "s16_0x1A": r.s16(offs[1] + 26), "s16_0x1E": r.s16(offs[1] + 30)}
     return {"section_offsets": offs, "section_sizes": [b - a for a, b in zip(offs, offs[1:] + [len(r)])],
-            "placements": pl, "active_first": first, "active_count": cnt, "section1_bounds": bounds,
+            "group_count": group_count, "groups": groups,
+            "placements": pl, "active_first": first, "active_count": cnt,
             "object_records": object_records,
             "model_names": model_names,
-            "section0_hex": r.bytes(offs[0], offs[1] - offs[0]).hex(),
-            "section1_hex": sec1.hex(),
             "section4_hex": r.bytes(offs[4], len(r) - offs[4]).hex()}
 
 
