@@ -46,7 +46,7 @@ is also reported separately and never inflates either executable measurement.
 | FUL | 7 files | TK_BMP renderer identification | decoded; 320x256 stride proven from executable, 160x120 proven from corpus |
 | MMM/3MDL | 76 files / 4,761 models | lower vertex flags and header flags | geometry, vertex grouping, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
-| FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
+| FLB | 75 files / 307,200 RGB blocks | tile 63 behavior | terrain cells and block RGB plane decoded |
 | Level BIN | 75 files / 30,758 placements | remaining object parameter names | groups, placements, model references, bounds records, and names decoded |
 | Font BIN | 4 files / 324 glyphs and 4 metrics records | 0 records | glyph rectangles, height, fixed advance, and space width decoded |
 | VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |

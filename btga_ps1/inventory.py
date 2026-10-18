@@ -139,7 +139,8 @@ def run(root, out, previews=False, objs=False, wavs=False):
                 tex_r = sib(r, "TEX")
                 nt = textures.decode_tex(_read_bytes(by_rel[tex_r]), tex_r)["count"] if tex_r else None
                 f = level.decode_flb(data, r, nt)
-                ent["decoded"] = {k: v for k, v in f.items() if k != "cells"} | {"paired_tex": tex_r, "tex_count": nt}
+                ent["decoded"] = {k: v for k, v in f.items() if k != "cells" and not k.startswith("_")} | {
+                    "paired_tex": tex_r, "tex_count": nt}
             elif ext == "BIN":
                 head = int.from_bytes(data[0:4], "little") if len(data) >= 4 else None
                 if head == 0x20:

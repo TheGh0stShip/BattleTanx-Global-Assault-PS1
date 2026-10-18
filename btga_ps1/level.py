@@ -51,14 +51,28 @@ def decode_flb(data, name="<flb>", tile_count=None):
         tiles[t] = tiles.get(t, 0) + 1
         if tile_count is not None and t >= tile_count:
             over += 1
+    if h & 1:
+        raise FormatError("%s: odd height cannot encode 2x2 RGB blocks" % name)
+    rgb_blocks = []
+    for y in range(0, h, 2):
+        for x in range(0, w, 2):
+            i = y * w + x
+            reserved = cells[i] >> 24
+            if reserved:
+                raise FormatError("%s: nonzero reserved high byte at cell (%d,%d)" % (name, x, y))
+            red = cells[i + 1] >> 24
+            green = cells[i + w] >> 24
+            blue = cells[i + w + 1] >> 24
+            rgb_blocks.append(red | (green << 8) | (blue << 16))
     return {"width": w, "height": h, "cells": cells, "tile_histogram": dict(sorted(tiles.items())),
             "cells_with_tile_beyond_tex": over,
-            "high_byte_histogram": _hist(v >> 24 for v in cells)}
+            "rgb_block_count": len(rgb_blocks), "rgb_histogram": _hist(rgb_blocks),
+            "_rgb_blocks": rgb_blocks}
 
 
 def flb_cell(v):
     return {"color_bgr555": v & 0x7FFF, "flag_bit15": (v >> 15) & 1, "uv_rotation": (v >> 16) & 3,
-            "tile": (v >> 18) & 0x3F, "opaque_bits_24_31": v >> 24}
+            "tile": (v >> 18) & 0x3F, "rgb_plane_byte": v >> 24}
 
 
 def _hist(it):

@@ -93,8 +93,12 @@ header.
 
 FLB is `u16 width`, `u16 height`, then `width * height` `u32` cells. Cell bits
 0-14 are BGR555 colour, bit 15 controls corner/UV order, bits 16-17 select UV
-rotation, bits 18-23 select a terrain tile, and bits 24-31 remain opaque. A cell
-spans 512 model units. The grid is centered at the origin.
+rotation, and bits 18-23 select a terrain tile. The high bytes form a second RGB
+plane over 2x2 cell blocks: top-left is reserved zero, top-right is red,
+bottom-left is green, and bottom-right is blue. Renderer `0x8003B738` gathers
+that pattern into a 24-bit value and interpolates its three channels through
+`0x8008BDF0`. All 307,200 reserved bytes are zero. A cell spans 512 model units.
+The grid is centered at the origin.
 
 Level BIN begins with five section offsets and three zero words. Section 0 is a
 `u32` group count. Section 1 contains that many 16-byte records:

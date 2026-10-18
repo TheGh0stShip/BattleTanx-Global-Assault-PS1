@@ -183,13 +183,21 @@ class Level(unittest.TestCase):
         f = level.decode_flb(fx.flb(), tile_count=6)
         self.assertEqual((f["width"], f["height"]), (64, 256))
         self.assertEqual(f["tile_histogram"], {5: 64 * 256})
+        self.assertEqual(f["rgb_block_count"], 32 * 128)
         self.assertEqual(level.flb_cell((7 << 18) | (3 << 16) | 0x8000 | 0x1234)["uv_rotation"], 3)
         self.assertEqual(level.decode_flb(fx.flb(), tile_count=5)["cells_with_tile_beyond_tex"], 64 * 256)
+        d = bytearray(fx.flb())
+        for index, value in ((1, 0x12), (64, 0x34), (65, 0x56)):
+            struct.pack_into("<I", d, 4 + 4 * index, struct.unpack_from("<I", d, 4 + 4 * index)[0] | value << 24)
+        self.assertEqual(level.decode_flb(bytes(d))["_rgb_blocks"][0], 0x563412)
 
     def test_flb_rejects(self):
         self.assertRaises(FormatError, level.decode_flb, fx.flb()[:-1])
         self.assertRaises(FormatError, level.decode_flb, fx.flb() + b"\0\0\0\0")   # trailing cell
         self.assertRaises(FormatError, level.decode_flb, struct.pack("<HH", 100, 1) + bytes(400))
+        d = bytearray(fx.flb())
+        struct.pack_into("<I", d, 4, 1 << 24)
+        self.assertRaises(FormatError, level.decode_flb, bytes(d))
 
     def test_level_bin(self):
         b = level.decode_level_bin(fx.level_bin())
