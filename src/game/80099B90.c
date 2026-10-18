@@ -28,10 +28,10 @@ u32 func_80099B90(RangeState *state, u32 offset) {
         quotient--;
         asm volatile(
             ".set noreorder\n\t"
-            ".word 0x0044001b\n\t"
+            "divu $0,$2,$4\n\t"
             "bnez $4,1f\n\t"
             "nop\n\t"
-            ".word 0x0007000d\n"
+            "break 0x1C00\n"
             "1:\n\t"
             "mflo $2\n\t"
             "nop\n\t"

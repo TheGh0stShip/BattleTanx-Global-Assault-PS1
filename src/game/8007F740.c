@@ -15,7 +15,7 @@ void func_8007F740(unsigned int divisor) {
         ".set noreorder\n\t"
         "divu $0,%0,%1\n\t"
         "bne %1,$0,1f\n\t"
-        ".word 0x0007000D\n"
+        "break 0x1C00\n"
         "1:\n\t"
         "mflo %0"
         : "+r"(value)
