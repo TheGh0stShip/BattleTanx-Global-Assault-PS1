@@ -1,9 +1,19 @@
-asm(".text\n\t.globl func_80082B20\nfunc_80082B20:\n\t"
-    ".word 0x27bdff98,0x00801021,0xafb20060,0x00a09021\n\t"
-    ".word 0xafb1005c,0x00c08821,0xafb00058,0x00008021\n\t"
-    ".word 0x27a40010,0xafbf0064,0x0c020969,0x00402821\n\t"
-    ".word 0x1040000b,0x02402821,0x27a40010,0x0c020a61\n\t"
-    ".word 0x02203021,0x00511026,0x2c500001,0x0c0209a8\n\t"
-    ".word 0x27a40010,0x14400003,0x02001021,0x00008021\n\t"
-    ".word 0x02001021,0x8fbf0064,0x8fb20060,0x8fb1005c\n\t"
-    ".word 0x8fb00058,0x03e00008,0x27bd0068\n\t");
+typedef unsigned int u32;
+
+extern int func_800825A4(u32 *handle, void *source);
+extern u32 func_80082984(u32 *handle, void *selector, u32 expected);
+extern int func_800826A0(u32 *handle);
+
+int func_80082B20(void *source, void *selector, u32 expected)
+{
+    u32 handle[18];
+    int result = 0;
+
+    if (func_800825A4(handle, source) != 0) {
+        result = func_80082984(handle, selector, expected) == expected;
+        if (func_800826A0(handle) == 0) {
+            result = 0;
+        }
+    }
+    return result;
+}
