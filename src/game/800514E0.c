@@ -1,10 +1,41 @@
-asm(".text\n\t.globl func_800514E0\nfunc_800514E0:\n\t"
-    ".word 0x3c02800d,0x8c422fe8,0x27bdffe8,0x2443ffff\n\t"
-    ".word 0x2c62000e,0x10400014,0xafbf0010,0x3c02800c\n\t"
-    ".word 0x2442f844,0x00031880,0x00621821,0x8c620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x08014553\n\t"
-    ".word 0x24050002,0x3c02800a,0x8c425b24,0x34038000\n\t"
-    ".word 0x00431021,0x8c436078,0x8c82000c,0x00000000\n\t"
-    ".word 0x14620002,0x24050007,0x24050001,0x00003021\n\t"
-    ".word 0x0c0144d0,0x00c03821,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad000[0xC];
+    int value;
+} Object;
+
+extern int D_800D2FE8;
+extern char *D_800A5B24;
+
+void func_80051340(Object *, int, int, int);
+
+void func_800514E0(Object *object) {
+    int action;
+
+    switch (D_800D2FE8) {
+    case 1:
+    case 2:
+    case 3:
+    case 11:
+        action = 2;
+        break;
+    case 4:
+    case 10:
+        action = 7;
+        if (*(int *)(D_800A5B24 + 0xE078) == object->value) {
+            action = 1;
+        }
+        break;
+    case 9:
+        return;
+    case 12:
+    case 13:
+    case 14:
+        action = 1;
+        break;
+    default:
+        action = 1;
+        break;
+    }
+
+    func_80051340(object, action, 0, 0);
+}
