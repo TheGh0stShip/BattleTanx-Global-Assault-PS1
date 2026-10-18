@@ -1,5 +1,17 @@
-asm(".text\n\t.globl func_8008A438\nfunc_8008A438:\n\t"
-    ".word 0x24840003,0x00042082,0x00042080,0x8f850040\n\t"
-    ".word 0x8f820044,0x00a41821,0x0043102b,0x14400003\n\t"
-    ".word 0x00003021,0x00a03021,0xaf830040,0x03e00008\n\t"
-    ".word 0x00c01021");
+void *func_8008A438(unsigned int size) {
+    register unsigned char *global_pointer asm("$28");
+    unsigned char *current;
+    unsigned char *next;
+    unsigned char *limit;
+    register void *result asm("$6") = 0;
+
+    size = ((size + 3) >> 2) << 2;
+    current = *(unsigned char **)(global_pointer + 0x40);
+    limit = *(unsigned char **)(global_pointer + 0x44);
+    next = current + size;
+    if (limit >= next) {
+        result = current;
+        *(unsigned char **)(global_pointer + 0x40) = next;
+    }
+    return result;
+}

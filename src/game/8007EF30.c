@@ -1,4 +1,12 @@
-asm(".text\n\t.set noreorder\n\t.globl func_8007EF30\nfunc_8007EF30:\n\t"
-    "lui $2,0x800F\n\taddiu $3,$2,-0x3E00\n\tlw $2,0x108($3)\n\tnop\n\t"
-    "xori $2,$2,2\n\t.word 0x10800003\n\tsltiu $5,$2,1\n\t.word 0x0801FBD6\n\t"
-    "addiu $2,$0,2\n\taddiu $2,$0,1\n\tsw $2,0x108($3)\n\tjr $31\n\taddu $2,$5,$0");
+extern unsigned char D_800EC200[];
+
+int func_8007EF30(int enabled) {
+    register int *state asm("$3");
+    int previous;
+
+    asm("lui $2,%%hi(D_800EC200)\n\t"
+        "addiu $3,$2,%%lo(D_800EC200)" : "=r"(state));
+    previous = state[0x108 / 4] == 2;
+    state[0x108 / 4] = enabled ? 2 : 1;
+    return previous;
+}
