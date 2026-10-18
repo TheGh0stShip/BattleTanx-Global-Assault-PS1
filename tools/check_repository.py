@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 FORBIDDEN_SUFFIXES = {
-    ".bin", ".cue", ".dis", ".exe", ".iso", ".obj", ".png", ".wav", ".xa"
+    ".bin", ".cue", ".dis", ".exe", ".flac", ".iso", ".mka", ".mkv",
+    ".mp4", ".obj", ".png", ".wav", ".xa"
 }
 FORBIDDEN_MAGIC = (b"PS-X EXE",)
 

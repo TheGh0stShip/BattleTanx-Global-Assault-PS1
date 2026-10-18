@@ -117,6 +117,10 @@ channel. The inventory's `--wav` option decodes every 16-byte SPU ADPCM frame
 to deterministic mono 16-bit PCM, using the record pitch to set the WAV sample
 rate and stopping at the first end-flagged frame.
 
+STR/PCK omit the 16-byte raw-sector prefix. `tools/extract_media.py` restores
+the sync pattern, synthesized BCD minute/second/frame address, and Mode-2 byte,
+then uses FFmpeg's `psxstr` demuxer for lossless FFV1 video and FLAC audio dumps.
+
 ## Coordinate rules
 
 Model +Y is up. OBJ export writes `(x, y, -z)` and reverses emit-mode-1 faces.

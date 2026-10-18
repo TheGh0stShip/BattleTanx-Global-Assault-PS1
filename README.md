@@ -50,7 +50,7 @@ is also reported separately and never inflates either executable measurement.
 | Level BIN | 75 files / 30,758 placements | object parameter names remain | partial |
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
-| STR/PCK | 20 files | media decoding | sector inventory only |
+| STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
 | Validation tests | 54 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
@@ -124,6 +124,16 @@ python3 -m btga_ps1.inventory /path/to/extracted out --previews --obj --wav
 
 The tool refuses to place output inside the input tree. Generated manifests,
 previews, models, and decoded sound-effect WAV files are deterministic.
+
+Headerless streamed media can be losslessly decoded to local FFV1/FLAC files
+with an FFmpeg build that includes the `psxstr` demuxer:
+
+```sh
+python3 tools/extract_media.py /path/to/extracted /path/to/local_media_dump
+```
+
+The extractor restores the missing 16-byte raw-sector prefix before decoding.
+Decoded media remains a local artifact and is rejected by repository checks.
 
 Technical format notes and executable evidence are recorded in
 [`docs/formats.md`](docs/formats.md). Platform assumptions are recorded in

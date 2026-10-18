@@ -3,7 +3,7 @@ import struct
 import tempfile
 import unittest
 
-from btga_ps1 import audio, level, metadata, models, textures
+from btga_ps1 import audio, level, media, metadata, models, textures
 from btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
 from btga_ps1.png import encode_rgba
 from tests import fixtures as fx
@@ -287,6 +287,16 @@ class Audio(unittest.TestCase):
         self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes(15))
         self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes([0x5C, 1]) + bytes(14))
         self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes([0x0C, 0]) + bytes(14))
+
+
+class Media(unittest.TestCase):
+    def test_mode2_rewrap(self):
+        raw = media.wrap_mode2_sectors(bytes(2 * 2336))
+        self.assertEqual(len(raw), 2 * 2352)
+        self.assertEqual(raw[:12], b"\x00" + b"\xFF" * 10 + b"\x00")
+        self.assertEqual(raw[12:16], bytes((0, 2, 0, 2)))
+        self.assertEqual(raw[2352 + 12:2352 + 16], bytes((0, 2, 1, 2)))
+        self.assertRaises(FormatError, media.wrap_mode2_sectors, bytes(1))
 
 
 class Png(unittest.TestCase):
