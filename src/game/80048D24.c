@@ -1,29 +1,79 @@
-asm(".text\n\t.globl func_80048D24\nfunc_80048D24:\n\t"
-    ".word 0x27BDFFD0,0xAFB00028,0x00808021,0xAFBF002C\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xA7A00018,0xA7A0001A\n\t"
-    ".word 0xAFA0001C,0xAFA00020,0x8E020218,0x00000000\n\t"
-    ".word 0x30420001,0x1040005C,0x00000000,0x8E020210\n\t"
-    ".word 0x00000000,0x18400058,0x00000000,0x0C0133D1\n\t"
-    ".word 0x00000000,0x8E020218,0x00000000,0x30420100\n\t"
-    ".word 0x10400022,0x02002021,0x8E02017C,0x00000000\n\t"
-    ".word 0x2443FFF6,0x2C620013,0x10400024,0x3C02800C\n\t"
-    ".word 0x2442F43C,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x02002021\n\t"
-    ".word 0x0C014009,0x27A50010,0x0801238C,0x00000000\n\t"
-    ".word 0x02002021,0x0C01413C,0x27A50010,0x0801238C\n\t"
-    ".word 0x00000000,0x02002021,0x0C013FB4,0x27A50010\n\t"
-    ".word 0x0801238C,0x00000000,0x02002021,0x0C01419A\n\t"
-    ".word 0x27A50010,0x0801238C,0x00000000,0x0C012240\n\t"
-    ".word 0x27A50010,0x02002021,0x0C0123CB,0x27A50010\n\t"
-    ".word 0x02002021,0x0C0122BF,0x27A50010,0x8E020218\n\t"
-    ".word 0x00000000,0x30420001,0x10400023,0x00000000\n\t"
-    ".word 0x8E020210,0x00000000,0x1840001F,0x00000000\n\t"
-    ".word 0x0C01344B,0x02002021,0x02002021,0x0C0123EC\n\t"
-    ".word 0x27A50010,0x10400003,0x00000000,0x0C0121C4\n\t"
-    ".word 0x02002021,0x8E040118,0x00000000,0x2C820190\n\t"
-    ".word 0x10400011,0x3C02800E,0x9443E338,0x24020064\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001012,0x00000000\n\t"
-    ".word 0x00821021,0xAE020118,0x8FBF002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct Move {
+    int dist;
+    int speed;
+    unsigned short heading;
+    unsigned short pad0A;
+    int pad0C;
+    int arrived;
+} Move;
+
+typedef struct AiTank {
+    char pad000[0x118];
+    unsigned int boost;
+    char pad11C[0x17C - 0x11C];
+    int behavior;
+    char pad180[0x210 - 0x180];
+    int health;
+    char pad214[0x218 - 0x214];
+    int status;
+} AiTank;
+
+extern unsigned short D_800DE338;
+
+void func_8004CF44(AiTank *);
+void func_80050024(AiTank *, Move *);
+void func_800504F0(AiTank *, Move *);
+void func_8004FED0(AiTank *, Move *);
+void func_80050668(AiTank *, Move *);
+void func_80048900(AiTank *, Move *);
+void func_80048F2C(AiTank *, Move *);
+void func_80048AFC(AiTank *, Move *);
+void func_8004D12C(AiTank *);
+int func_80048FB0(AiTank *, Move *);
+void func_80048710(AiTank *);
+
+void func_80048D24(AiTank *tank) {
+    Move move;
+
+    move.dist = 0;
+    move.speed = 0;
+    move.heading = 0;
+    move.pad0A = 0;
+    move.pad0C = 0;
+    move.arrived = 0;
+    if (!(tank->status & 1) || tank->health <= 0) {
+        return;
+    }
+    func_8004CF44(tank);
+    if (tank->status & 0x100) {
+        switch (tank->behavior) {
+        case 23:
+            func_80050024(tank, &move);
+            break;
+        case 26:
+            func_800504F0(tank, &move);
+            break;
+        case 10:
+            func_8004FED0(tank, &move);
+            break;
+        case 27:
+        case 28:
+            func_80050668(tank, &move);
+            break;
+        }
+    } else {
+        func_80048900(tank, &move);
+        func_80048F2C(tank, &move);
+        func_80048AFC(tank, &move);
+    }
+    if (!(tank->status & 1) || tank->health <= 0) {
+        return;
+    }
+    func_8004D12C(tank);
+    if (func_80048FB0(tank, &move)) {
+        func_80048710(tank);
+    }
+    if (tank->boost < 400) {
+        tank->boost += 100 / D_800DE338;
+    }
+}

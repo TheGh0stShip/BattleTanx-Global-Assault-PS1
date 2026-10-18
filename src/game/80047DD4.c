@@ -1,34 +1,90 @@
-asm(".text\n\t.globl func_80047DD4\nfunc_80047DD4:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x00809021,0xAFB10014\n\t"
-    ".word 0x00A08821,0x3222FFFF,0x000210C0,0x24420004\n\t"
-    ".word 0xAFB00010,0x02428021,0xAFBF001C,0x8E040000\n\t"
-    ".word 0x00000000,0x10800012,0x00001021,0x84830000\n\t"
-    ".word 0x8E020004,0x00000000,0x1462000D,0x00001021\n\t"
-    ".word 0x84830004,0x24020004,0x10620006,0x00000000\n\t"
-    ".word 0x2402004C,0x14620006,0x00001021,0x08011F95\n\t"
-    ".word 0x24020001,0x8C820008,0x00000000,0x0002102B\n\t"
-    ".word 0x14400009,0x3223FFFF,0x2402007F,0x10620046\n\t"
-    ".word 0x00602021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x08011FE4,0x00441021,0x2402007F,0x14620003\n\t"
-    ".word 0x00031100,0x08011FAB,0x00002021,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00432021,0x8E050000,0x00000000\n\t"
-    ".word 0x84A30004,0x24020004,0x10620017,0x2402004C\n\t"
-    ".word 0x1462002A,0x3223FFFF,0x00002821,0x24060001\n\t"
-    ".word 0x0C014BE7,0x00A03821,0x14400009,0x3223FFFF\n\t"
-    ".word 0x2402007F,0x10620024,0x00602021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x08011FE4,0x00441021\n\t"
-    ".word 0x8C420000,0x00000000,0xAE020000,0x84430000\n\t"
-    ".word 0x08011FEE,0x02001021,0x8CA50008,0x24060001\n\t"
-    ".word 0x0C014BE7,0x00003821,0x14400006,0x3223FFFF\n\t"
-    ".word 0x2402007F,0x10620010,0x00031100,0x08011FE2\n\t"
-    ".word 0x00431021,0x8C420000,0x00000000,0x8C420008\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0xAE020000\n\t"
-    ".word 0x84430000,0x08011FEE,0x02001021,0x2402007F\n\t"
-    ".word 0x14620003,0x00031100,0x08011FE8,0x00001821\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00431821,0x3222FFFF\n\t"
-    ".word 0x000210C0,0x24420004,0x02421021,0xAC430000\n\t"
-    ".word 0x84630000,0x00000000,0xAC430004,0x8FBF001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct WaypointObject {
+    short serial;
+    short pad02;
+    short type;
+    short pad06;
+    void *link;
+} WaypointObject;
+
+typedef struct WaypointRef {
+    WaypointObject *object;
+    int serial;
+} WaypointRef;
+
+typedef struct WaypointStack {
+    unsigned char active;
+    unsigned char done;
+    unsigned short depth;
+    WaypointRef refs[5];
+} WaypointStack;
+
+typedef struct UnitSlot {
+    short serial;
+    char pad02[0x114 - 0x2];
+} UnitSlot;
+
+extern UnitSlot D_800E3E68[];
+
+static inline WaypointObject *waypoint_from_index(unsigned int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return (WaypointObject *)&D_800E3E68[index];
+}
+
+static inline int waypoint_ref_valid(WaypointRef *ref) {
+    WaypointObject *object = ref->object;
+
+    if (object == 0 || object->serial != ref->serial) {
+        return 0;
+    }
+    switch (object->type) {
+    case 76:
+        return 1;
+    case 4:
+        return object->link != 0;
+    }
+    return 0;
+}
+
+static inline WaypointRef *waypoint_ref_reset(WaypointStack *stack, unsigned short index) {
+    WaypointObject *fallback = waypoint_from_index(index);
+    WaypointRef *ref = &stack->refs[index];
+
+    ref->object = fallback;
+    ref->serial = fallback->serial;
+    return ref;
+}
+
+void **func_80052F9C(WaypointObject *, void *, int, int);
+
+WaypointRef *func_80047DD4(WaypointStack *stack, unsigned short index) {
+    WaypointRef *ref = &stack->refs[index];
+    WaypointObject *object;
+    void **found;
+
+    if (!waypoint_ref_valid(ref)) {
+        return waypoint_ref_reset(stack, index);
+    }
+    object = waypoint_from_index(index);
+    switch (ref->object->type) {
+    case 76:
+        found = func_80052F9C(object, 0, 1, 0);
+        if (found == 0) {
+            return waypoint_ref_reset(stack, index);
+        }
+        ref->object = (WaypointObject *)*found;
+        ref->serial = ref->object->serial;
+        return ref;
+    case 4:
+        found = func_80052F9C(object, ref->object->link, 1, 0);
+        if (found == 0) {
+            return waypoint_ref_reset(stack, index);
+        }
+        ref->object = *(WaypointObject **)((WaypointObject *)*found)->link;
+        ref->serial = ref->object->serial;
+        return ref;
+    default:
+        return waypoint_ref_reset(stack, index);
+    }
+}

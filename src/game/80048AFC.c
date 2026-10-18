@@ -1,36 +1,113 @@
-asm(".text\n\t.globl func_80048AFC\nfunc_80048AFC:\n\t"
-    ".word 0x27BDFFC8,0xAFB10024,0x00808821,0xAFB20028\n\t"
-    ".word 0x3C02800E,0x8C43E30C,0x24027FFF,0xAFBF0034\n\t"
-    ".word 0xAFB40030,0xAFB3002C,0xAFB00020,0x9633002C\n\t"
-    ".word 0x0043102A,0x10400003,0x00A09021,0x080122DE\n\t"
-    ".word 0x240216C0,0x3C09002D,0x35298000,0x00690018\n\t"
-    ".word 0x00004012,0x00001010,0x00084302,0x00021500\n\t"
-    ".word 0x01024025,0x01001821,0x04610004,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x2624002C\n\t"
-    ".word 0x96450008,0x3046FFFF,0x0C011EB2,0x00008021\n\t"
-    ".word 0x3042FFFF,0x2C4200B7,0x14400006,0x3C020006\n\t"
-    ".word 0x8E430000,0x34423FFF,0x0043102A,0x10400002\n\t"
-    ".word 0x00000000,0x8E500004,0x0C007CA5,0x26240034\n\t"
-    ".word 0x3C14800D,0x24080FD7,0x9623002C,0x8E250168\n\t"
-    ".word 0x8E842FE0,0x8E29016C,0x00621821,0x00A42823\n\t"
-    ".word 0xA623002C,0x01090018,0x00009012,0x00001010\n\t"
-    ".word 0x00129302,0x00021500,0x02429025,0x18A00012\n\t"
-    ".word 0x28A20005,0x14400007,0x02202021,0x2405F800\n\t"
-    ".word 0x3266FFFF,0x0C010FD0,0x00C03821,0x08012335\n\t"
-    ".word 0x02401821,0x240504CC,0x9626002C,0x0C010FD0\n\t"
-    ".word 0x3267FFFF,0x30420010,0x10400027,0x02401821\n\t"
-    ".word 0x08012334,0x265204CC,0x02202021,0x02002821\n\t"
-    ".word 0x9626002C,0x0C010FD0,0x3267FFFF,0x30420010\n\t"
-    ".word 0x1040001C,0x3C080800,0x8E29016C,0x00000000\n\t"
-    ".word 0x01090018,0x00008012,0x00001010,0x00108302\n\t"
-    ".word 0x00021500,0x02028025,0x8E822FE0,0x265204CC\n\t"
-    ".word 0x2442000E,0x0C021B21,0xAE220168,0x30420001\n\t"
-    ".word 0x14400002,0x00000000,0x00108023,0x06000003\n\t"
-    ".word 0x00101023,0x08012330,0x00108303,0x00021303\n\t"
-    ".word 0x00028023,0x9622002C,0x00000000,0x00501021\n\t"
-    ".word 0xA622002C,0x02401821,0x28621001,0x14400002\n\t"
-    ".word 0x00000000,0x24031000,0x8E220034,0xAE23016C\n\t"
-    ".word 0xAFA20010,0x8E220038,0x27A40010,0x0C0125D0\n\t"
-    ".word 0xAFA20018,0xA622004E,0x8FBF0034,0x8FB40030\n\t"
-    ".word 0x8FB3002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector;
+
+typedef struct Move {
+    int dist;
+    int speed;
+    unsigned short heading;
+    char pad0A[0x10 - 0xA];
+    int arrived;
+} Move;
+
+typedef struct AiTank {
+    char pad000[0x2C];
+    unsigned short heading;
+    char pad02E[0x34 - 0x2E];
+    int velocity_x;
+    int velocity_z;
+    char pad03C[0x4E - 0x3C];
+    unsigned short course;
+    char pad050[0x168 - 0x50];
+    int stuck_until;
+    int traction;
+} AiTank;
+
+extern int D_800DE30C;
+extern int D_800D2FE0;
+
+unsigned short func_80047AC8(unsigned short *heading, unsigned int target, unsigned int step);
+short func_8001F294(int *velocity);
+int func_80043F40(AiTank *, int power, unsigned int heading, unsigned int old_heading);
+unsigned int func_80086C84(void);
+unsigned short func_80049740(Vector *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_to_int_result(int value) {
+    int result;
+
+    if (value >= 0) {
+        result = value >> 12;
+    } else {
+        result = -(-value >> 12);
+    }
+    return result;
+}
+
+void func_80048AFC(AiTank *tank, Move *move) {
+    unsigned short old_heading;
+    int step;
+    int push;
+    int traction;
+    int remaining;
+    int clamped;
+    Vector velocity;
+
+    old_heading = tank->heading;
+    if (D_800DE30C > 32767) {
+        step = 5824;
+    } else {
+        step = fixed_to_int_result(fixed_mul(D_800DE30C, 0x2D8000));
+    }
+    step = func_80047AC8(&tank->heading, move->heading, (unsigned short)step);
+    push = 0;
+    if ((unsigned short)step < 183 || move->dist > 0x63FFF) {
+        push = move->speed;
+    }
+    tank->heading += func_8001F294(&tank->velocity_x);
+    remaining = tank->stuck_until - D_800D2FE0;
+    traction = fixed_mul(4055, tank->traction);
+    if (remaining > 0) {
+        if (remaining >= 5) {
+            func_80043F40(tank, -2048, old_heading, old_heading);
+        } else if (func_80043F40(tank, 1228, tank->heading, old_heading) & 0x10) {
+            traction += 1228;
+        }
+    } else if (func_80043F40(tank, push, tank->heading, old_heading) & 0x10) {
+        push = fixed_mul(0x8000000, tank->traction);
+        traction += 1228;
+        tank->stuck_until = D_800D2FE0 + 14;
+        if (!(func_80086C84() & 1)) {
+            push = -push;
+        }
+        push = fixed_to_int(push);
+        tank->heading += push;
+    }
+    clamped = traction;
+    if (clamped > 4096) {
+        clamped = 4096;
+    }
+    tank->traction = clamped;
+    velocity.x = tank->velocity_x;
+    velocity.z = tank->velocity_z;
+    tank->course = func_80049740(&velocity);
+}

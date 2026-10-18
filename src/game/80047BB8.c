@@ -1,35 +1,113 @@
-asm(".text\n\t.globl func_80047BB8\nfunc_80047BB8:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x00C08821,0x24020001,0x10A2003D,0xAFBF0018\n\t"
-    ".word 0x10A00007,0x24020002,0x10A2004F,0x24020003\n\t"
-    ".word 0x10A20058,0x260400B8,0x08011F70,0x00000000\n\t"
-    ".word 0x260400B8,0xAE000180,0x0C0137F0,0xAE0000B4\n\t"
-    ".word 0x0C0135EC,0x260400D8,0x0C013970,0x2604017C\n\t"
-    ".word 0x8E25001C,0x0C00E4F0,0x02002021,0x0C012F61\n\t"
-    ".word 0x02002021,0x0C0133BD,0x02002021,0x8E020008\n\t"
-    ".word 0x8E030010,0xAE020170,0xAE030178,0x8E250018\n\t"
-    ".word 0x00000000,0x24A2FFF9,0x2C420002,0x14400007\n\t"
-    ".word 0x2402000E,0x10A20005,0x2402000F,0x10A20003\n\t"
-    ".word 0x24020010,0x14A20005,0x00000000,0x0C0138AB\n\t"
-    ".word 0x02002021,0x08011F23,0x00000000,0x0C013973\n\t"
-    ".word 0x02002021,0x8E020218,0x00000000,0x30420002\n\t"
-    ".word 0x10400007,0x3C02800E,0x8C433CC0,0x8E0400A8\n\t"
-    ".word 0x00000000,0x00641825,0x08011F70,0xAC433CC0\n\t"
-    ".word 0x0C013428,0x02002021,0x08011F70,0x00000000\n\t"
-    ".word 0x0C01274E,0x02002021,0x3C02800A,0x8C425B24\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x0C012FD9\n\t"
-    ".word 0x02002021,0x0C01344D,0x02002021,0x8E020218\n\t"
-    ".word 0x00000000,0x30420002,0x1040002F,0x3C02800E\n\t"
-    ".word 0x8E0300A8,0x8C443CC0,0x00031827,0x00832024\n\t"
-    ".word 0x08011F70,0xAC443CC0,0x0C01274E,0x02002021\n\t"
-    ".word 0x3C02800A,0x8C425B24,0x00000000,0x10400022\n\t"
-    ".word 0x00000000,0x0C012FD9,0x02002021,0x08011F70\n\t"
-    ".word 0x00000000,0x0C0137F0,0xAE0000B4,0x0C0135EC\n\t"
-    ".word 0x260400D8,0x8E020094,0x00000000,0x14400016\n\t"
-    ".word 0x00000000,0x0C013970,0x2604017C,0x8E030010\n\t"
-    ".word 0x8E020008,0xAE030178,0x8E03009C,0xAE020170\n\t"
-    ".word 0x2402000B,0x14620006,0x2402001C,0x8E020180\n\t"
-    ".word 0x00000000,0x34420020,0x08011F70,0xAE020180\n\t"
-    ".word 0xAE02017C,0x02002021,0x00002821,0x24060001\n\t"
-    ".word 0x0C014176,0x24070006,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct TankSpawn {
+    char pad00[0x18];
+    int mode;
+    int slot;
+} TankSpawn;
+
+typedef struct Tank {
+    char pad000[0x8];
+    int x;
+    char pad00C[0x4];
+    int z;
+    char pad014[0x94 - 0x14];
+    int respawn_link;
+    char pad098[0x9C - 0x98];
+    int zone;
+    char pad0A0[0xA8 - 0xA0];
+    int team_bit;
+    char pad0AC[0xB4 - 0xAC];
+    int path_index;
+    char path[0xD8 - 0xB8];
+    char steer[0x170 - 0xD8];
+    int last_x;
+    char pad174[0x178 - 0x174];
+    int last_z;
+    int behavior;
+    int behavior_flags;
+    char pad184[0x218 - 0x184];
+    int status;
+} Tank;
+
+enum TankMessage {
+    TANK_SPAWN,
+    TANK_REMOVE,
+    TANK_DEACTIVATE,
+    TANK_RESPAWN
+};
+
+extern int D_800E3CC0;
+extern void *D_800A5B24;
+
+void func_8004DFC0(void *path);
+void func_8004D7B0(void *steer);
+void func_8004E5C0(int *behavior);
+void func_800393C0(Tank *, int slot);
+void func_8004BD84(Tank *);
+void func_8004CEF4(Tank *);
+void func_8004E2AC(Tank *);
+void func_8004E5CC(Tank *);
+void func_8004D0A0(Tank *);
+void func_80049D38(Tank *);
+void func_8004BF64(Tank *);
+void func_8004D134(Tank *);
+void func_800505D8(Tank *, int, int, int);
+
+void func_80047BB8(Tank *tank, unsigned int message, TankSpawn *spawn) {
+    switch (message) {
+    case TANK_SPAWN:
+        tank->behavior_flags = 0;
+        tank->path_index = 0;
+        func_8004DFC0(tank->path);
+        func_8004D7B0(tank->steer);
+        func_8004E5C0(&tank->behavior);
+        func_800393C0(tank, spawn->slot);
+        func_8004BD84(tank);
+        func_8004CEF4(tank);
+        tank->last_x = tank->x;
+        tank->last_z = tank->z;
+        message = spawn->mode;
+        if (message - 7 < 2 || message == 14 || message == 15 || message == 16) {
+            func_8004E2AC(tank);
+        } else {
+            func_8004E5CC(tank);
+        }
+        if (tank->status & 2) {
+            D_800E3CC0 |= tank->team_bit;
+        } else {
+            func_8004D0A0(tank);
+        }
+        break;
+    case TANK_REMOVE:
+        func_80049D38(tank);
+        if (D_800A5B24 != 0) {
+            func_8004BF64(tank);
+        }
+        func_8004D134(tank);
+        if (tank->status & 2) {
+            D_800E3CC0 &= ~tank->team_bit;
+        }
+        break;
+    case TANK_DEACTIVATE:
+        func_80049D38(tank);
+        if (D_800A5B24 != 0) {
+            func_8004BF64(tank);
+        }
+        break;
+    case TANK_RESPAWN:
+        tank->path_index = 0;
+        func_8004DFC0(tank->path);
+        func_8004D7B0(tank->steer);
+        if (tank->respawn_link == 0) {
+            func_8004E5C0(&tank->behavior);
+            tank->last_x = tank->x;
+            tank->last_z = tank->z;
+            if (tank->zone == 11) {
+                tank->behavior_flags |= 0x20;
+            } else {
+                tank->behavior = 28;
+                func_800505D8(tank, 0, 1, 6);
+            }
+        }
+        break;
+    }
+}

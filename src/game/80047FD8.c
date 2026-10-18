@@ -1,22 +1,89 @@
-asm(".text\n\t.globl func_80047FD8\nfunc_80047FD8:\n\t"
-    ".word 0x27BDFFE8,0xAFBF0010,0x90820001,0x00000000\n\t"
-    ".word 0x10400016,0x3C03800D,0x94820002,0x00000000\n\t"
-    ".word 0x24420001,0xA4820002,0x90652FED,0x3043FFFF\n\t"
-    ".word 0x0065102B,0x14400008,0x00000000,0x14650005\n\t"
-    ".word 0x3C02800A,0x8C435B24,0x3402E06C,0x08012045\n\t"
-    ".word 0x00621021,0xA4800002,0x94850002,0x0C011F75\n\t"
-    ".word 0x00000000,0x08012044,0x00403021,0x94820002\n\t"
-    ".word 0x24030001,0xA0830001,0x000210C0,0x24420004\n\t"
-    ".word 0x00823021,0x8CC50000,0x00000000,0x10A00012\n\t"
-    ".word 0x00001021,0x84A30000,0x8CC20004,0x00000000\n\t"
-    ".word 0x1462000D,0x00001021,0x84A30004,0x24020004\n\t"
-    ".word 0x10620006,0x00000000,0x2402004C,0x14620006\n\t"
-    ".word 0x00001021,0x0801202C,0x24020001,0x8CA20008\n\t"
-    ".word 0x00000000,0x0002102B,0x14400018,0x00C01021\n\t"
-    ".word 0x94860002,0x2402007F,0x30C3FFFF,0x14620003\n\t"
-    ".word 0x00602821,0x0801203D,0x00001821,0x00051100\n\t"
-    ".word 0x00451021,0x00021080,0x00451021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00431821,0x000610C0\n\t"
-    ".word 0x24420004,0x00821021,0xAC430000,0x84630000\n\t"
-    ".word 0x00403021,0xACC30004,0x00C01021,0x8FBF0010\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0018\n");
+typedef struct WaypointObject {
+    short serial;
+    short pad02;
+    short type;
+    short pad06;
+    void *link;
+} WaypointObject;
+
+typedef struct WaypointRef {
+    WaypointObject *object;
+    int serial;
+} WaypointRef;
+
+typedef struct WaypointStack {
+    unsigned char active;
+    unsigned char done;
+    unsigned short depth;
+    WaypointRef refs[5];
+} WaypointStack;
+
+typedef struct UnitSlot {
+    short serial;
+    char pad02[0x114 - 0x2];
+} UnitSlot;
+
+extern UnitSlot D_800E3E68[];
+
+static inline WaypointObject *waypoint_from_index(unsigned int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return (WaypointObject *)&D_800E3E68[index];
+}
+
+static inline int waypoint_ref_valid(WaypointRef *ref) {
+    WaypointObject *object = ref->object;
+
+    if (object == 0 || object->serial != ref->serial) {
+        return 0;
+    }
+    switch (object->type) {
+    case 76:
+        return 1;
+    case 4:
+        return object->link != 0;
+    }
+    return 0;
+}
+
+static inline WaypointRef *waypoint_ref_reset(WaypointStack *stack, unsigned short index) {
+    WaypointObject *fallback = waypoint_from_index(index);
+    WaypointRef *ref = &stack->refs[index];
+
+    ref->object = fallback;
+    ref->serial = fallback->serial;
+    return ref;
+}
+
+typedef struct GameRules {
+    char pad00[0xD];
+    unsigned char player_count;
+} GameRules;
+
+extern GameRules D_800D2FE0;
+extern char *D_800A5B24;
+
+WaypointRef *func_80047DD4(WaypointStack *stack, unsigned short index);
+
+WaypointRef *func_80047FD8(WaypointStack *stack) {
+    WaypointRef *ref;
+
+    if (stack->done) {
+        stack->depth++;
+        if (stack->depth >= D_800D2FE0.player_count) {
+            if (stack->depth == D_800D2FE0.player_count) {
+                return (WaypointRef *)(D_800A5B24 + 0xE06C);
+            }
+            stack->depth = 0;
+        }
+        ref = func_80047DD4(stack, stack->depth);
+    } else {
+        stack->done = 1;
+        ref = &stack->refs[stack->depth];
+        if (!waypoint_ref_valid(ref)) {
+            ref = waypoint_ref_reset(stack, stack->depth);
+        }
+    }
+    return ref;
+}

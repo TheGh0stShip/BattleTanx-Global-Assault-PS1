@@ -73,7 +73,8 @@ def compile_object(item, config, prefix, work_root):
     run([str(cc1), str(ROOT / unit["source"]), *flags, "-o", str(assembly)])
     with processed.open("wb") as output:
         result = subprocess.run(
-            [sys.executable, str(maspsx), *config["maspsx_flags"], str(assembly)],
+            [sys.executable, str(maspsx), *config["maspsx_flags"],
+             *unit.get("maspsx_flags_extra", []), str(assembly)],
             stdout=output,
             stderr=subprocess.PIPE,
         )
@@ -81,12 +82,17 @@ def compile_object(item, config, prefix, work_root):
         sys.stderr.buffer.write(result.stderr)
         raise subprocess.CalledProcessError(result.returncode, result.args)
     run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
-    run([objcopy, "--set-section-alignment", ".text=4", str(obj), str(aligned)])
+    alignment = ["--set-section-alignment", ".text=4"]
+    if "rodata_address" in unit:
+        alignment += ["--set-section-alignment", ".rodata=4"]
+    run([objcopy, *alignment, str(obj), str(aligned)])
     address = parse_int(unit["address"])
     link = [
         linker, "-EL", "-m", "elf32ltsmip", "-Ttext", "0x%08X" % address,
         "-e", unit["name"], "-o", str(resolved), str(aligned),
     ]
+    if "rodata_address" in unit:
+        link.append("--section-start=.rodata=0x%08X" % parse_int(unit["rodata_address"]))
     for name, value in sorted(unit.get("symbols", {}).items()):
         link.extend(("--defsym", "%s=0x%08X" % (name, parse_int(value))))
     run(link)

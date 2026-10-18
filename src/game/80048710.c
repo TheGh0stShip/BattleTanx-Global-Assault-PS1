@@ -1,32 +1,72 @@
-asm(".text\n\t.globl func_80048710\nfunc_80048710:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x3C11800D,0xAFBF0018,0x8E0200E4,0x8E232FE0\n\t"
-    ".word 0x00000000,0x0062102A,0x1440005F,0x00000000\n\t"
-    ".word 0x8E0200E8,0x00000000,0x0062102A,0x14400067\n\t"
-    ".word 0x00000000,0x0C013544,0x00000000,0x02002021\n\t"
-    ".word 0x00408821,0x0C0123E4,0x02202821,0x1040001F\n\t"
-    ".word 0x02002021,0x0C021B21,0x00000000,0x3C038888\n\t"
-    ".word 0x34638889,0x00430019,0x24080400,0x00003810\n\t"
-    ".word 0x000720C2,0x00041900,0x00641823,0x00431023\n\t"
-    ".word 0x2442004B,0x00022300,0x8E0701EC,0x00000000\n\t"
-    ".word 0x01070018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x00440018,0x00004012\n\t"
-    ".word 0x00001810,0x00084302,0x00031D00,0x01034025\n\t"
-    ".word 0x01001021,0x08012207,0x00821823,0x0C011DBD\n\t"
-    ".word 0x02202821,0x00021300,0x8E0801EC,0x00000000\n\t"
-    ".word 0x01020018,0x00002012,0x00003810,0x00042302\n\t"
-    ".word 0x00073D00,0x00872025,0x00001821,0x04800003\n\t"
-    ".word 0x00041023,0x0801220D,0x00042303,0x00021303\n\t"
-    ".word 0x00022023,0x3C02800D,0x8C422FE0,0x00000000\n\t"
-    ".word 0x00441021,0x04600003,0xAE0200E8,0x08012218\n\t"
-    ".word 0x00031B03,0x00031023,0x00021303,0x00021823\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x00000000,0x00431021\n\t"
-    ".word 0x1220001E,0xAE0200E4,0x920200EE,0x00000000\n\t"
-    ".word 0x16220004,0x00000000,0x920200EF,0x08012227\n\t"
-    ".word 0x24420001,0x24020001,0xA21100EE,0xA20200EF\n\t"
-    ".word 0x02002021,0x3C02800D,0x8C422FE0,0x02202821\n\t"
-    ".word 0x08012239,0xAC820258,0x920500EE,0x0C011DBD\n\t"
-    ".word 0x02002021,0x8E030258,0x8E262FE0,0x00621821\n\t"
-    ".word 0x0066182A,0x10600005,0x02002021,0x920500EE\n\t"
-    ".word 0xAC860258,0x0C010519,0x00000000,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct AiTank {
+    char pad000[0xE4];
+    int next_fire;
+    int next_pick;
+    char pad0EC[0xEE - 0xEC];
+    unsigned char weapon;
+    unsigned char streak;
+    char pad0F0[0x1EC - 0xF0];
+    int skill;
+    char pad1F0[0x258 - 0x1F0];
+    int last_fire;
+} AiTank;
+
+extern int D_800D2FE0;
+
+int func_8004D510(AiTank *);
+int func_80048F90(AiTank *, int weapon);
+unsigned int func_80086C84(void);
+int func_800476F4(AiTank *, int weapon);
+void func_80041464(AiTank *, int weapon);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+void func_80048710(AiTank *tank) {
+    int weapon;
+    int pick;
+    int fire;
+
+    if (tank->next_fire <= D_800D2FE0) {
+        if (tank->next_pick > D_800D2FE0) {
+            return;
+        }
+        weapon = func_8004D510(tank);
+        if (func_80048F90(tank, weapon)) {
+            pick = (func_80086C84() % 15 + 75) << 12;
+            fire = pick - fixed_mul(fixed_mul(1024, tank->skill), pick);
+        } else {
+            pick = fixed_mul(tank->skill, func_800476F4(tank, weapon) << 12);
+            fire = 0;
+        }
+        tank->next_pick = D_800D2FE0 + fixed_to_int(pick);
+        tank->next_fire = D_800D2FE0 + fixed_to_int(fire);
+        if (weapon != 0) {
+            if (weapon == tank->weapon) {
+                tank->streak++;
+            } else {
+                tank->weapon = weapon;
+                tank->streak = 1;
+            }
+            tank->last_fire = D_800D2FE0;
+            func_80041464(tank, weapon);
+        }
+    } else if (tank->last_fire + func_800476F4(tank, tank->weapon) < D_800D2FE0) {
+        tank->last_fire = D_800D2FE0;
+        func_80041464(tank, tank->weapon);
+    }
+}

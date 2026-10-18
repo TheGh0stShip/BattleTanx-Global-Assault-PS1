@@ -81,21 +81,38 @@ def compile_unit(unit, config, prefix, work):
     run_checked([str(cc1), str(source), *compiler_flags, "-o", str(assembly)])
     with processed.open("wb") as output:
         run_checked(
-            [sys.executable, str(maspsx), *config["maspsx_flags"], str(assembly)],
+            [sys.executable, str(maspsx), *config["maspsx_flags"],
+             *unit.get("maspsx_flags_extra", []), str(assembly)],
             stdout=output,
         )
     run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
-    run_checked([objcopy, "--set-section-alignment", ".text=4", str(obj), str(aligned_obj)])
+    alignment = ["--set-section-alignment", ".text=4"]
+    if "rodata_address" in unit:
+        alignment += ["--set-section-alignment", ".rodata=4"]
+    run_checked([objcopy, *alignment, str(obj), str(aligned_obj)])
     address = parse_int(unit["address"])
     link = [
         linker, "-EL", "-m", "elf32ltsmip", "-Ttext", "0x%08X" % address,
         "-e", unit["name"], "-o", str(elf), str(aligned_obj),
     ]
+    if "rodata_address" in unit:
+        link.append("--section-start=.rodata=0x%08X" % parse_int(unit["rodata_address"]))
     for name, value in sorted(unit.get("symbols", {}).items()):
         link.extend(("--defsym", "%s=0x%08X" % (name, parse_int(value))))
     run_checked(link)
     run_checked([objcopy, "-O", "binary", "--only-section=.text", str(elf), str(binary)])
+    if "rodata_address" in unit:
+        rodata = work / "unit.rodata.bin"
+        run_checked([objcopy, "-O", "binary", "--only-section=.rodata", str(elf), str(rodata)])
     return binary.read_bytes()
+
+
+def unit_rodata(work):
+    path = work / "unit.rodata.bin"
+    if not path.exists():
+        return None
+    data = path.read_bytes().rstrip(b"\0")
+    return data + b"\0" * ((-len(data)) % 4)
 
 
 def verify(config_path, executable_path, output_path, prefix):
@@ -127,6 +144,13 @@ def verify(config_path, executable_path, output_path, prefix):
             if code != expected:
                 first = next(i for i, pair in enumerate(zip(code, expected)) if pair[0] != pair[1])
                 raise SystemExit("%s differs at +0x%X" % (unit["name"], first))
+            rodata = unit_rodata(unit_work)
+            if rodata is not None:
+                rodata_address = parse_int(unit["rodata_address"])
+                if rodata != oracle_slice(executable, rodata_address, len(rodata)):
+                    raise SystemExit(
+                        "%s read-only data differs at 0x%08X" % (unit["name"], rodata_address)
+                    )
             results.append({
                 "name": unit["name"],
                 "address": address,

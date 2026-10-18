@@ -1,12 +1,101 @@
-asm(".text\n\t.globl func_8004866C\nfunc_8004866C:\n\t"
-    ".word 0x3c02800a,0x8c425b24,0x27bdffe8,0x10400021\n\t"
-    ".word 0xafbf0010,0x3404e014,0x0c011ff6,0x00442021\n\t"
-    ".word 0x8c440000,0x00000000,0x84830004,0x24020005\n\t"
-    ".word 0x1062000c,0x28620006,0x10400005,0x24020004\n\t"
-    ".word 0x10620010,0x00000000,0x080121be,0x00000000\n\t"
-    ".word 0x2402004c,0x10620007,0x00000000,0x080121be\n\t"
-    ".word 0x00000000,0x0c012152,0x00000000,0x080121be\n\t"
-    ".word 0x00000000,0x0c01433e,0x00000000,0x080121be\n\t"
-    ".word 0x00000000,0x0c0123b9,0x00000000,0x0c01266b\n\t"
-    ".word 0x00000000,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct WaypointObject {
+    short serial;
+    short pad02;
+    short type;
+    short pad06;
+    void *link;
+} WaypointObject;
+
+typedef struct WaypointRef {
+    WaypointObject *object;
+    int serial;
+} WaypointRef;
+
+typedef struct WaypointStack {
+    unsigned char active;
+    unsigned char done;
+    unsigned short depth;
+    WaypointRef refs[5];
+} WaypointStack;
+
+typedef struct UnitSlot {
+    short serial;
+    char pad02[0x114 - 0x2];
+} UnitSlot;
+
+extern UnitSlot D_800E3E68[];
+
+static inline WaypointObject *waypoint_from_index(unsigned int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return (WaypointObject *)&D_800E3E68[index];
+}
+
+static inline int waypoint_ref_valid(WaypointRef *ref) {
+    WaypointObject *object = ref->object;
+
+    if (object == 0 || object->serial != ref->serial) {
+        return 0;
+    }
+    switch (object->type) {
+    case 76:
+        return 1;
+    case 4:
+        return object->link != 0;
+    }
+    return 0;
+}
+
+static inline WaypointRef *waypoint_ref_reset(WaypointStack *stack, unsigned short index) {
+    WaypointObject *fallback = waypoint_from_index(index);
+    WaypointRef *ref = &stack->refs[index];
+
+    ref->object = fallback;
+    ref->serial = fallback->serial;
+    return ref;
+}
+
+typedef struct World {
+    short serial;
+    short pad02;
+    short type;
+    short pad06;
+    char steps[0xE014 - 0x8];
+    WaypointStack first;
+    WaypointStack second;
+    WaypointRef current;
+    unsigned char flag;
+    unsigned char pad075;
+    unsigned short count;
+    int team;
+} World;
+
+extern World *D_800A5B24;
+
+WaypointRef *func_80047FD8(WaypointStack *stack);
+void func_80048548(WaypointObject *object);
+void func_80048EE4(WaypointObject *object);
+void func_80050CF8(WaypointObject *object);
+void func_800499AC(void);
+
+void func_8004866C(void) {
+    WaypointObject *object;
+
+    if (D_800A5B24 == 0) {
+        return;
+    }
+    object = func_80047FD8(&D_800A5B24->first)->object;
+    switch (object->type) {
+    case 5:
+        func_80048548(object);
+        break;
+    case 76:
+        func_80050CF8(object);
+        break;
+    case 4:
+        func_80048EE4(object);
+        break;
+    }
+    func_800499AC();
+}

@@ -1,50 +1,138 @@
-asm(".text\n\t.globl func_80048124\nfunc_80048124:\n\t"
-    ".word 0x27BDFFD0,0xAFBF002C,0xAFB40028,0xAFB30024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0x0C0123B7,0xAFB00018\n\t"
-    ".word 0x0C01263D,0x00008021,0x3C02800E,0x2451E33C\n\t"
-    ".word 0x3203FFFF,0x00031040,0x00431021,0x00022100\n\t"
-    ".word 0x00822023,0x00042080,0x00832023,0x000420C0\n\t"
-    ".word 0x00912021,0x0C0138AB,0x2405001D,0x26100001\n\t"
-    ".word 0x3202FFFF,0x2C420010,0x1440FFF2,0x3203FFFF\n\t"
-    ".word 0x00008821,0x241416A0,0x3C138000,0x00009021\n\t"
-    ".word 0x3222FFFF,0x00021840,0x00621821,0x00031880\n\t"
-    ".word 0x00621821,0x00031900,0x3C02800A,0x24424EF4\n\t"
-    ".word 0x00628021,0x86020004,0x86030006,0x04410002\n\t"
-    ".word 0x00402021,0x00042023,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x0083102A,0x10400002,0x00000000\n\t"
-    ".word 0x00602021,0x86020008,0x8603000A,0x04410002\n\t"
-    ".word 0x00402821,0x00052823,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x00A3102A,0x10400002,0x00840018\n\t"
-    ".word 0x00602821,0x00001012,0x00000000,0x00000000\n\t"
-    ".word 0x00A50018,0x00001812,0x00432021,0x0C022AFC\n\t"
-    ".word 0x00042300,0x04400003,0x00000000,0x08012099\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0xA60200A8,0x86020004,0x86030006,0x04410002\n\t"
-    ".word 0x00402821,0x00052823,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x00A3102A,0x10400002,0x00000000\n\t"
-    ".word 0x00602821,0x86020008,0x8603000A,0x04410002\n\t"
-    ".word 0x00402021,0x00042023,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x0083102A,0x10400003,0x00A4102A\n\t"
-    ".word 0x00602021,0x00A4102A,0x10400003,0x00041B00\n\t"
-    ".word 0x00A02021,0x00041B00,0x00731024,0x00524026\n\t"
-    ".word 0x04610002,0x00000000,0x00031823,0x06810002\n\t"
-    ".word 0x02803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20010,0xE85F0000,0x8FA50010\n\t"
-    ".word 0x00000000,0x24A7FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00A31804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20014,0xE85F0000,0x8FA40014,0x00000000\n\t"
-    ".word 0x00852823,0x04A0000F,0x2402000C,0x00441023\n\t"
-    ".word 0x04400003,0x00000000,0x080120DB,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x080120F1\n\t"
-    ".word 0x00A31804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x080120F3,0x00601021,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11000002,0x00000000\n\t"
-    ".word 0x00021023,0x04400003,0x00000000,0x080120FD\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0xA60200AA,0x26310001,0x3222FFFF,0x2C42000F\n\t"
-    ".word 0x1440FF67,0x00000000,0x8FBF002C,0x8FB40028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct TankZone {
+    char pad00[0x4];
+    short x0;
+    short x1;
+    short y0;
+    short y1;
+    char pad0C[0xA8 - 0xC];
+    unsigned short radius;
+    short inner;
+    char padAC[0xD0 - 0xAC];
+} TankZone;
+
+typedef struct Squadron {
+    char data[0x598];
+} Squadron;
+
+extern TankZone D_800A4EF4[];
+extern Squadron D_800DE33C[];
+
+void func_80048EDC(void);
+void func_800498F4(void);
+void func_8004E2AC(Squadron *, int);
+int func_8008ABF0(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int abs_max(int a, int b) {
+    int r = abs(a);
+
+    b = abs(b);
+    if (r < b) {
+        r = b;
+    }
+    return r;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : "+r"(numerator) : "r"(negative));
+    numerator = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(numerator);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        numerator <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)numerator / (d >> scale);
+            } else {
+                quotient = (unsigned int)numerator / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)numerator / (d >> -excess);
+        }
+    } else {
+        numerator <<= 12;
+        quotient = (unsigned int)numerator / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+void func_80048124(void) {
+    unsigned short squad;
+    unsigned short i;
+    TankZone *zone;
+    int width;
+    int depth;
+    int unit;
+
+    func_80048EDC();
+    func_800498F4();
+    for (squad = 0; squad < 16; squad++) {
+        func_8004E2AC(&D_800DE33C[squad], 29);
+    }
+    for (i = 0; i < 15; i++) {
+        unit = 5792;
+        zone = &D_800A4EF4[i];
+        width = abs_max(zone->x0, zone->x1);
+        depth = abs_max(zone->y0, zone->y1);
+        zone->radius = fixed_to_int(func_8008ABF0((width * width + depth * depth) << 12));
+        {
+            int inner_width = abs_max(zone->x0, zone->x1);
+            int inner_depth = abs(zone->y0);
+            int other = abs(zone->y1);
+
+            if (inner_depth < other) {
+                inner_depth = other;
+            }
+            if (inner_width < inner_depth) {
+                inner_depth = inner_width;
+            }
+            zone->inner = fixed_to_int(fixed_div(inner_depth << 12, unit));
+        }
+    }
+}
