@@ -20,14 +20,14 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching C text | 20,012 bytes | 727,508 bytes | 2.68% |
+| Matching C text | 20,028 bytes | 727,492 bytes | 2.68% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed function boundaries | 436 | candidate audit required | in progress |
-| Functions matched | 436 | 1,345 provisional candidates | 434 provisional starts matched (24.40%); 2 additional entries |
+| Reviewed function boundaries | 437 | candidate audit required | in progress |
+| Functions matched | 437 | 1,344 provisional candidates | 435 provisional starts matched (24.45%); 2 additional entries |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -50,8 +50,8 @@ The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is an early matching C reconstruction of the main executable. Four hundred thirty-six
-functions currently compile to 20,012 identical retail bytes. Compiler
+This is an early matching C reconstruction of the main executable. Four hundred thirty-seven
+functions currently compile to 20,028 identical retail bytes. Compiler
 corroboration and executable segmentation are the next decompilation milestones;
 the ignored matching report is generated directly by the exact-byte verifier.
 
