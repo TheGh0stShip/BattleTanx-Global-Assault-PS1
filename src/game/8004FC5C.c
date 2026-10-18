@@ -1,11 +1,42 @@
-asm(".text\n\t.globl func_8004FC5C\nfunc_8004FC5C:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x908300c9,0x00000000\n\t"
-    ".word 0x1060000a,0x24020001,0x1462001b,0x24030003\n\t"
-    ".word 0x8c8200cc,0x00000000,0x8c420218,0x00000000\n\t"
-    ".word 0x30420003,0x10430014,0x00000000,0x8c830098\n\t"
-    ".word 0x2402007f,0x14620003,0x00031100,0x08013f33\n\t"
-    ".word 0x00001021,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3c03800e,0x24633e68,0x00431021\n\t"
-    ".word 0x8c450078,0x00000000,0x10a00003,0x3c060019\n\t"
-    ".word 0x0c01383f,0x00003821,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef unsigned char u8;
+typedef unsigned int u32;
+
+typedef struct {
+    char pad000[0x78];
+    void *target;
+    char pad07C[0x98];
+} PoolEntry;
+
+typedef struct {
+    char pad000[0x98];
+    u32 target_index;
+    char pad09C[0x2D];
+    u8 mode;
+    char pad0CA[2];
+    void *mode_object;
+} Tank;
+
+typedef struct {
+    char pad000[0x218];
+    u32 flags;
+} ModeObject;
+
+extern PoolEntry D_800E3E68[];
+
+void func_8004E0FC(Tank *, void *, int, int);
+
+void func_8004FC5C(Tank *tank) {
+    PoolEntry *entry;
+
+    if (tank->mode == 0 ||
+        (tank->mode == 1 && (((ModeObject *)tank->mode_object)->flags & 3) != 3)) {
+        if (tank->target_index == 127) {
+            entry = 0;
+        } else {
+            entry = &D_800E3E68[tank->target_index];
+        }
+        if (entry->target != 0) {
+            func_8004E0FC(tank, entry->target, 0x190000, 0);
+        }
+    }
+}
