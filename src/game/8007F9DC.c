@@ -1,11 +1,43 @@
-asm(".text\n\t.globl func_8007F9DC\nfunc_8007F9DC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x3c11800b,0x26310c62\n\t"
-    ".word 0xafbf0018,0xafb00010,0x92220000,0x00000000\n\t"
-    ".word 0x2c420002,0x14400008,0x00808021,0x3c04800c\n\t"
-    ".word 0x24844bb4,0x3c02800b,0x8c420c5c,0x00000000\n\t"
-    ".word 0x0040f809,0x02002821,0x16000004,0x2624006a\n\t"
-    ".word 0x2405ffff,0x0c020799,0x24060014,0x3c040300\n\t"
-    ".word 0x3c02800b,0x8c420c58,0x12000002,0x34840001\n\t"
-    ".word 0x3c040300,0x8c420010,0x00000000,0x0040f809\n\t"
-    ".word 0x00000000,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef unsigned char u8;
+
+typedef struct DisplayInterface {
+    void *unknown_00[4];
+    void (*command)(unsigned int command);
+} DisplayInterface;
+
+extern u8 D_800B0C62;
+extern void (*D_800B0C5C)(void *state, void *value);
+extern DisplayInterface *D_800B0C58;
+extern u8 D_800C4BB4;
+extern void func_80081E64(void *state, int value, int duration);
+
+void func_8007F9DC(void *value)
+{
+    register u8 *state asm("$17");
+    register void *saved_value asm("$16");
+    register DisplayInterface *interface asm("$2");
+    register unsigned int command asm("$4");
+
+    asm(
+        "lui %0,%%hi(D_800B0C62)\n\t"
+        "addiu %0,%0,%%lo(D_800B0C62)"
+        : "=r"(state));
+    saved_value = value;
+    if (*state >= 2) {
+        D_800B0C5C(&D_800C4BB4, saved_value);
+    }
+    if (saved_value == 0) {
+        func_80081E64(state + 0x6A, -1, 20);
+    }
+    asm volatile(
+        "lui %1,0x0300\n\t"
+        "lui %0,%%hi(D_800B0C58)\n\t"
+        "lw %0,%%lo(D_800B0C58)(%0)\n\t"
+        "beqz %2,1f\n\t"
+        "ori %1,%1,1\n\t"
+        "lui %1,0x0300\n"
+        "1:"
+        : "=r"(interface), "=r"(command)
+        : "r"(saved_value));
+    interface->command(command);
+}
