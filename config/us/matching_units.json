@@ -1201,6 +1201,9 @@
     {"name": "func_8002A30C", "address": "0x8002A30C", "size": "0x6C", "source": "src/game/8002A30C.c", "symbols": {}},
     {"name": "func_80047688", "address": "0x80047688", "size": "0x6C", "source": "src/game/80047688.c", "symbols": {}},
     {"name": "func_80052F38", "address": "0x80052F38", "size": "0x64", "source": "src/game/80052F38.c", "symbols": {}},
-    {"name": "func_8007A0E8", "address": "0x8007A0E8", "size": "0x6C", "source": "src/game/8007A0E8.c", "symbols": {}}
+    {"name": "func_8007A0E8", "address": "0x8007A0E8", "size": "0x6C", "source": "src/game/8007A0E8.c", "symbols": {}},
+    {"name": "func_80034DF4", "address": "0x80034DF4", "size": "0x6C", "source": "src/game/80034DF4.c", "symbols": {}},
+    {"name": "func_800579A0", "address": "0x800579A0", "size": "0x6C", "source": "src/game/800579A0.c", "symbols": {}},
+    {"name": "func_8006ADBC", "address": "0x8006ADBC", "size": "0x6C", "source": "src/game/8006ADBC.c", "symbols": {}}
   ]
 }
