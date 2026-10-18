@@ -3,7 +3,7 @@ import struct
 import tempfile
 import unittest
 
-from btga_ps1 import level, models, textures
+from btga_ps1 import level, metadata, models, textures
 from btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
 from btga_ps1.png import encode_rgba
 from tests import fixtures as fx
@@ -216,6 +216,50 @@ class Level(unittest.TestCase):
         self.assertEqual(x["sectors"], 2)
         self.assertEqual(x["sector_kinds"], {"audio:ch0": 1, "video:ch0": 1})
         self.assertRaises(FormatError, level.inventory_xa, bytes(100))
+
+
+class Metadata(unittest.TestCase):
+    def test_ascii_text(self):
+        decoded = metadata.decode_ascii_text(b"first\r\nsecond")
+        self.assertEqual(decoded["lines"], ["first", "second"])
+        self.assertEqual(decoded["line_endings"], {"crlf": 1, "cr": 0, "lf": 0})
+        self.assertFalse(decoded["trailing_newline"])
+        self.assertRaises(FormatError, metadata.decode_ascii_text, b"bad\0text")
+        self.assertRaises(FormatError, metadata.decode_ascii_text, b"bad\xfftext")
+
+    def test_system_cnf(self):
+        decoded = metadata.decode_system_cnf(
+            b"BOOT=cdrom:\\SLUS_010.44;1\r\nTCB=4\r\nSTACK=801fff00\r\n")
+        self.assertEqual(decoded["boot_path"], "SLUS_010.44")
+        self.assertEqual(decoded["boot_version"], 1)
+        self.assertEqual(decoded["entries"][1], {"key": "TCB", "value": "4"})
+        self.assertRaises(FormatError, metadata.decode_system_cnf, b"TCB=4\r\n")
+        self.assertRaises(FormatError, metadata.decode_system_cnf,
+                          b"BOOT=cdrom:\\X;1\r\nBOOT=cdrom:\\Y;1\r\n")
+
+    def test_psx_exe(self):
+        header = bytearray(0x800)
+        header[:8] = b"PS-X EXE"
+        struct.pack_into("<III", header, 0x10, 0x80010000, 0, 0x80010000)
+        struct.pack_into("<I", header, 0x1C, 0x800)
+        header[0x4C:0x50] = b"TEST"
+        decoded = metadata.decode_psx_exe(bytes(header) + bytes(0x800))
+        self.assertEqual(decoded["entry"], 0x80010000)
+        self.assertEqual(decoded["header_marker"], "TEST")
+        self.assertEqual(decoded["text_offset"], 0x800)
+        self.assertRaises(FormatError, metadata.decode_psx_exe, bytes(header))
+        self.assertRaises(FormatError, metadata.decode_psx_exe, b"bad")
+
+    def test_licence_sectors(self):
+        sector = b"\0\0\x08\0" * 2 + bytes(2328)
+        decoded = metadata.decode_licence_sectors(sector * 2)
+        self.assertEqual(decoded["sector_bytes"], 2336)
+        self.assertEqual(len(decoded["sectors"]), 2)
+        self.assertEqual(decoded["sectors"][1]["payload_offset"], 2336 + 8)
+        bad = bytearray(sector)
+        bad[4] = 1
+        self.assertRaises(FormatError, metadata.decode_licence_sectors, bytes(bad))
+        self.assertRaises(FormatError, metadata.decode_licence_sectors, bytes(100))
 
 
 class Png(unittest.TestCase):

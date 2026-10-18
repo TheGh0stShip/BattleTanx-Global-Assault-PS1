@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-from . import level, models, textures
+from . import level, metadata, models, textures
 from .binio import FormatError
 from .png import encode_rgba
 
@@ -163,10 +163,24 @@ def run(root, out, previews=False, objs=False):
                 ent["decoded"] = {k: v for k, v in s.items() if k != "entries"} | {"entry_spu_offsets": [e["spu_offset"] for e in s["entries"]]}
             elif ext in ("STR", "PCK"):
                 ent["decoded"] = level.inventory_xa(data, r)
-            elif ext in ("TXT", "CNF", "44", "DAT"):
-                ent["status"] = "accepted-opaque"
-                ent["note"] = {"TXT": "plain text", "CNF": "PS1 boot config", "44": "PS-X EXE (analysis target)",
-                               "DAT": "disc licence sectors"}[ext]
+            elif ext == "TXT":
+                ent["family"] = "TXT-ASCII"
+                ent["decoded"] = metadata.decode_ascii_text(data, r)
+            elif ext == "CNF":
+                ent["family"] = "CNF-system"
+                ent["decoded"] = metadata.decode_system_cnf(data, r)
+            elif ext == "44":
+                ent["family"] = "PS-X-EXE"
+                dec = metadata.decode_psx_exe(data, r)
+                dec["header_sha256"] = sha(data[:dec["header_bytes"]])
+                dec["text_sha256"] = sha(data[dec["text_offset"]:])
+                ent["decoded"] = dec
+            elif ext == "DAT":
+                ent["family"] = "DAT-licence"
+                dec = metadata.decode_licence_sectors(data, r)
+                dec["sector_sha256"] = [sha(data[s["offset"]:s["offset"] + dec["sector_bytes"]])
+                                          for s in dec["sectors"]]
+                ent["decoded"] = dec
             else:
                 ent["status"] = "rejected"
                 ent["reason"] = "no decoder for this family"

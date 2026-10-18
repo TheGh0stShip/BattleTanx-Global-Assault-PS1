@@ -11,8 +11,8 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic C decompilation: 7.44%](https://img.shields.io/badge/semantic_C-7.44%25-yellow)
-![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
+![Semantic C decompilation: 7.46%](https://img.shields.io/badge/semantic_C-7.46%25-yellow)
+![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
 
@@ -25,8 +25,8 @@ is also reported separately and never inflates either executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching C | 43,888 code bytes | 545,948 code bytes | 7.44% |
-| Semantic functions | 656 functions | 1,109 raw instruction units | 37.17% by provisional function count |
+| Semantic matching C | 44,008 code bytes | 545,828 code bytes | 7.46% |
+| Semantic functions | 657 functions | 1,108 raw instruction units | 37.22% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
@@ -39,7 +39,7 @@ is also reported separately and never inflates either executable measurement.
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
-| Disc files structurally decoded | 733 files | 4 opaque files | 99.46% |
+| Disc files structurally decoded | 737 files | 0 files | 100% |
 | TEX | 256 files | 0 files | 100% |
 | IMG | 71 files | 0 files | 100% |
 | PLT | 71 files | 0 files | 100% |
@@ -51,12 +51,14 @@ is also reported separately and never inflates either executable measurement.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Validation tests | 50 tests | 0 tests | 100% passing with the local corpus |
+| Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
+| Validation tests | 54 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
-The four opaque corpus files are the game executable, boot configuration, text,
-and license data. “Structural” means the format tiles the file exactly with
-bounds-checked parsing; it does not mean every field's gameplay meaning is known.
+Every corpus file now has a bounds-checked structural decoder. This includes the
+game executable container, boot configuration, both text files, and raw licence
+sectors. “Structural” means the format tiles the file exactly; it does not mean
+every field's gameplay meaning or encoded media sample is known.
 
 One thousand eight hundred sixty-nine source units compile and link into all
 747,520 retail payload bytes. The reconstructed header and linked payload form

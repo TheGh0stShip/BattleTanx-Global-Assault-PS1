@@ -16,10 +16,16 @@ class RealCorpus(unittest.TestCase):
         self.assertEqual(m["file_count"], 737)
         rejected = {k: e["reason"] for k, e in m["files"].items() if e["status"] == "rejected"}
         self.assertEqual(rejected, {})
+        self.assertTrue(all(e["status"] == "accepted" for e in m["files"].values()))
+        self.assertTrue(all("decoded" in e for e in m["files"].values()))
         fam = m["summary"]
         self.assertEqual(fam["TEX:accepted"], 256)
         self.assertEqual(fam["MMM:accepted"], 76)
         self.assertEqual(fam["BIN-level:accepted"], 75)
+        self.assertEqual(fam["TXT-ASCII:accepted"], 2)
+        self.assertEqual(fam["CNF-system:accepted"], 1)
+        self.assertEqual(fam["PS-X-EXE:accepted"], 1)
+        self.assertEqual(fam["DAT-licence:accepted"], 1)
         models = [x for k, e in m["files"].items() if k.endswith(".MMM") for x in e["decoded"]["models"] if not x.get("empty")]
         self.assertEqual(len(models), 4761)
         self.assertTrue(all(x["cm01"]["bbox_matches_vertices"] for x in models))

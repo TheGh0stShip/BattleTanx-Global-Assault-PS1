@@ -1,8 +1,24 @@
 # Asset format evidence
 
 All multibyte fields described here are little-endian. Findings were checked
-against all 737 files in the US disc corpus; 733 are structurally decoded and
-the executable, configuration/text files, and license data remain opaque.
+against all 737 files in the US disc corpus, and every file is structurally
+decoded with exact bounds checks.
+
+## Disc metadata
+
+The two TXT files are strict ASCII, preserving their original line endings and
+whether the final line is terminated. SYSTEM.CNF is parsed as unique `KEY=VALUE`
+records; its `BOOT` value is separated into the disc path and ISO version.
+
+The PS-X executable is split into its 0x800-byte header and the text extent named
+by the header. Entry point, load address, initial register values, data/BSS/stack
+ranges, and the ASCII header marker are exposed by the inventory. The decoder
+requires the complete file to equal the header plus the declared text size.
+
+`license_data.dat` contains twelve 2,336-byte Mode 2 sectors. Each is split into
+the duplicated eight-byte subheader and a 2,328-byte payload; differing subheader
+copies or trailing bytes are rejected. Per-sector hashes identify the local
+payloads without placing them in the repository.
 
 ## Executable references
 
