@@ -54,8 +54,11 @@ IMG uses `3IMG` and contains the same image records without CLUTs. PLT uses
 BGR555 palettes. IMG record *i* pairs with PLT record *i*.
 
 FUL stores sequential one-based frame numbers followed by raw BGR555 frames.
-Observed geometry is 320x256, except TK_BMP at 160x120. These dimensions remain
-inference-backed because the renderer has not yet been located.
+Renderer `0x80076060` computes `(frame - 1) * 0x28004` and requests exactly
+`0x28004` bytes, proving a four-byte number followed by a 320x256 BGR555 image
+for AMAA, TITLE, LEGAL, FULLSCR, MS_BMP and MB_BMP. TK_BMP is 160x120 by exact
+file tiling, sequential frame numbers, and row autocorrelation; its renderer
+remains to be identified.
 
 ## Models
 

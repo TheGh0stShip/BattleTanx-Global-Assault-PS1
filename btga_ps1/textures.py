@@ -4,7 +4,8 @@ Evidence (SLUS_010.44, load address 0x80010000):
   * TEX entry reader 0x8003CB80, called from the TEX loader at 0x8003CCE8.
   * IMG descriptor loop in the level loader 0x8003D5B8 (0x8003D7C4..0x8003D850).
   * PLT records are walked with a 40-byte stride by 0x8003D0CC (8-byte header + 16 colours).
-  * FUL frames: \\assets\\*.ful string references; frame size proven by file arithmetic only.
+  * FUL frames: renderer 0x80076060 proves the 0x28004-byte frame stride used by
+    the 320x256 files; TK_BMP's 160x120 geometry is corpus-proven.
 """
 from .binio import FormatError, Reader, bgr555_to_rgba
 
@@ -199,9 +200,11 @@ FUL_FRAME_SIZES = {320 * 256 * 2: (320, 256), 160 * 120 * 2: (160, 120)}
 def decode_ful(data, name="<ful>", width=None, height=None):
     """FUL: repeated {u32 frame_number (1-based, sequential), width*height BGR555}.
 
-    The file stores no dimensions.  320x256 is proven by row autocorrelation and file
-    arithmetic for six files; TK_BMP.FUL is 160x120 by the same evidence.  Callers may
-    override; geometry that does not tile the file exactly is rejected."""
+    The file stores no dimensions.  Renderer 0x80076060 computes
+    ``(frame - 1) * 0x28004`` and reads 0x28004 bytes, proving the four-byte
+    number plus 320x256 BGR555 pixels used by six files. TK_BMP.FUL is 160x120
+    by exact corpus tiling, sequential numbers, and row autocorrelation. Callers
+    may override; geometry that does not tile the file exactly is rejected."""
     r = Reader(data, name)
     candidates = [(width, height)] if width else [FUL_FRAME_SIZES[k] for k in sorted(FUL_FRAME_SIZES, reverse=True)]
     for (w, h) in candidates:
@@ -210,7 +213,8 @@ def decode_ful(data, name="<ful>", width=None, height=None):
             continue
         n = len(r) // fs
         if all(r.u32(k * fs) == k + 1 for k in range(n)):
-            return {"width": w, "height": h, "frames": n,
+            evidence = "executable_stride_0x28004" if (w, h) == (320, 256) else "corpus_tiling_and_rows"
+            return {"width": w, "height": h, "frames": n, "geometry_evidence": evidence,
                     "frame_offsets": [k * fs + 4 for k in range(n)], "_reader": r}
     raise FormatError("%s: no frame geometry tiles the file with sequential frame numbers" % name)
 

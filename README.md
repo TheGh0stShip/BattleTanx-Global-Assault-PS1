@@ -43,7 +43,7 @@ is also reported separately and never inflates either executable measurement.
 | TEX | 256 files | 0 files | 100% |
 | IMG | 71 files | 0 files | 100% |
 | PLT | 71 files | 0 files | 100% |
-| FUL | 7 files | 0 files | 100% structural; dimensions need code confirmation |
+| FUL | 7 files | TK_BMP renderer identification | decoded; 320x256 stride proven from executable, 160x120 proven from corpus |
 | MMM/3MDL | 76 files / 4,761 models | lower vertex flags and header flags | geometry, vertex grouping, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |

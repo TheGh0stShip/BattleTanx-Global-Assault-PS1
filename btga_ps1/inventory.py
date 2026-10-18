@@ -109,6 +109,7 @@ def run(root, out, previews=False, objs=False, wavs=False):
             elif ext == "FUL":
                 ful = textures.decode_ful(data, r)
                 ent["decoded"] = {"width": ful["width"], "height": ful["height"], "frames": ful["frames"],
+                                  "geometry_evidence": ful["geometry_evidence"],
                                   "frame_offsets": ful["frame_offsets"],
                                   "frame_sha256": [sha(data[o:o + 2 * ful["width"] * ful["height"]]) for o in ful["frame_offsets"]]}
                 if previews:

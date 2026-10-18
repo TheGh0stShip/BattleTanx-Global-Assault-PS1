@@ -97,10 +97,12 @@ class Ful(unittest.TestCase):
     def test_frames(self):
         f = textures.decode_ful(fx.ful(frames=3))
         self.assertEqual((f["width"], f["height"], f["frames"]), (320, 256, 3))
+        self.assertEqual(f["geometry_evidence"], "executable_stride_0x28004")
 
     def test_small_frames(self):
         f = textures.decode_ful(fx.ful(160, 120, 2))
         self.assertEqual((f["width"], f["height"]), (160, 120))
+        self.assertEqual(f["geometry_evidence"], "corpus_tiling_and_rows")
 
     def test_rejects(self):
         d = bytearray(fx.ful(frames=2))
