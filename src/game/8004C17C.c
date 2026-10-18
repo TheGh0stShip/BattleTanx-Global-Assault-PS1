@@ -1,17 +1,105 @@
-asm(".text\n\t.globl func_8004C17C\nfunc_8004C17C:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0xafbf0020\n\t"
-    ".word 0xafb20018,0xafb10014,0xafb00010,0x8e6400f8\n\t"
-    ".word 0x00000000,0x14800004,0x266200f8,0x9451000a\n\t"
-    ".word 0x0801306e,0x00000000,0x94910002,0x0c0129e5\n\t"
-    ".word 0x02202021,0x00401821,0x10600025,0x267000f8\n\t"
-    ".word 0x02209021,0x94710002,0x0c0129e5,0x02202021\n\t"
-    ".word 0x00401821,0x1060001e,0x24020002,0x90650000\n\t"
-    ".word 0x00000000,0x14a2fff6,0x3244ffff,0x9462000c\n\t"
-    ".word 0x00000000,0x14440003,0x24020001,0x08013073\n\t"
-    ".word 0xa0620012,0x9462000e,0x00000000,0x14440003\n\t"
-    ".word 0x266400fc,0x08013073,0xa0650012,0x00002821\n\t"
-    ".word 0x0c012858,0xa660014a,0xa6000006,0xae6000f8\n\t"
-    ".word 0xa600000a,0xa6000014,0xa6000016,0xae000018\n\t"
-    ".word 0x8e620180,0x2403fe7f,0x00431024,0xae620180\n\t"
-    ".word 0x8fbf0020,0x8fb3001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+
+typedef struct PathNode {
+    u8 type;
+    u8 pad_01;
+    u16 next;
+    u8 pad_04[8];
+    u16 left;
+    u16 right;
+    u8 pad_10[2];
+    u8 mark;
+} PathNode;
+
+typedef struct PathList {
+    PathNode *current;
+    u8 pad_04[2];
+    u16 field_06;
+    u8 pad_08[2];
+    u16 head;
+    u8 pad_0C[8];
+    u16 field_14;
+    u16 field_16;
+    u32 field_18;
+} PathList;
+
+typedef struct PathEntity {
+    u8 pad_000[0xF8];
+    PathList list;
+    u8 pad_114[0x36];
+    u16 field_14A;
+    u8 pad_14C[0x34];
+    u32 flags_180;
+} PathEntity;
+
+extern PathNode *func_8004A794(unsigned int id);
+extern void func_8004A160(void *value, int mode);
+
+void func_8004C17C(PathEntity *entity) {
+    register PathEntity *entity_reg asm("$19") = entity;
+    register PathList *list asm("$16");
+    register unsigned int id asm("$17");
+    register unsigned int previous asm("$18");
+    PathNode *node;
+
+    {
+        register PathList *initial asm("$2") = &entity_reg->list;
+        register PathNode *current asm("$4") = initial->current;
+
+        if (current == 0) {
+            id = initial->head;
+        } else {
+            id = current->next;
+        }
+    }
+
+    node = func_8004A794(id);
+    list = &entity_reg->list;
+    if (node == 0) {
+        return;
+    }
+
+loop:
+    previous = id;
+    id = node->next;
+    node = func_8004A794(id);
+    if (node == 0) {
+        return;
+    }
+
+    {
+        register u8 type asm("$5") = node->type;
+        register unsigned int previous_id asm("$4") = (u16)previous;
+
+        if (type != 2) {
+            goto loop;
+        }
+        if (node->left == previous_id) {
+            node->mark = 1;
+            goto loop;
+        }
+        if (node->right == previous_id) {
+            node->mark = type;
+            goto loop;
+        }
+    }
+
+cleanup:
+    {
+        register void *value asm("$4") = (u8 *)entity_reg + 0xFC;
+        register int mode asm("$5") = 0;
+
+        __asm__ volatile("" : "+r"(value), "+r"(mode));
+        entity_reg->field_14A = 0;
+        func_8004A160(value, mode);
+    }
+    list->field_06 = 0;
+    entity_reg->list.current = 0;
+    list->head = 0;
+    list->field_14 = 0;
+    list->field_16 = 0;
+    list->field_18 = 0;
+    entity_reg->flags_180 &= ~0x180;
+}
