@@ -4,7 +4,7 @@ VENV_PYTHON := $(VENV)/bin/python
 VENV_STAMP := $(VENV)/.installed
 EXE := baseroms/us/SLUS_010.44
 
-.PHONY: all setup verify split function-inventory inventory test check clean-generated
+.PHONY: all setup verify split function-inventory psyq-report inventory test check clean-generated
 
 all: split
 
@@ -24,6 +24,16 @@ split: setup verify
 
 function-inventory: split
 	$(PYTHON) tools/inventory_functions.py asm/us/main.s build/us/function_candidates.json
+
+psyq-report: function-inventory
+	@test -n "$(PSYQ_SIGNATURES)" || (echo "set PSYQ_SIGNATURES to one catalogue version directory" >&2; exit 2)
+	@test -n "$(PSYQ_VERSION)" || (echo "set PSYQ_VERSION to the catalogue version" >&2; exit 2)
+	$(PYTHON) tools/psyq_signatures.py \
+		--executable $(EXE) \
+		--candidates build/us/function_candidates.json \
+		--signatures "$(PSYQ_SIGNATURES)" \
+		--version "$(PSYQ_VERSION)" \
+		--output build/us/psyq-$(PSYQ_VERSION).json
 
 inventory: verify
 	@echo "usage: python3 -m btga_ps1.inventory EXTRACTED_DIR out --previews --obj"

@@ -25,6 +25,7 @@ source compiles to identical machine code.
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
+| Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
 | Reviewed function boundaries | 0 | candidate audit required | pending |
 | Functions matched | not measured | function inventory required | pending |
 
@@ -80,7 +81,8 @@ make check
 The initial split accounts for the entire file and writes generated assembly
 under ignored paths. It awards no matching progress. See
 [`docs/DECOMPILATION.md`](docs/DECOMPILATION.md) for the evidence gates and
-current memory map.
+current memory map. SDK and compiler evidence is tracked separately in
+[`docs/SDK.md`](docs/SDK.md).
 
 ## Tests
 
