@@ -1,8 +1,47 @@
-asm(".text\n\t.globl func_800494FC\nfunc_800494FC:\n\t"
-    ".word 0x8c830008,0x8ca70008,0x8ca50000,0x8cc20000\n\t"
-    ".word 0x00671823,0x00451023,0x00031c03,0x00021403\n\t"
-    ".word 0x00620018,0x8c830000,0x8cc20008,0x00651823\n\t"
-    ".word 0x00471023,0x00004012,0x00031c03,0x00021403\n\t"
-    ".word 0x00430018,0x00001812,0x01031023,0x1c400003\n\t"
-    ".word 0x000217c3,0x03e00008,0x30420002,0x03e00008\n\t"
-    ".word 0x24020001");
+typedef signed int s32;
+
+typedef struct VecXZ {
+    s32 x;
+    s32 pad;
+    s32 z;
+} VecXZ;
+
+int func_800494FC(VecXZ *a, VecXZ *b, VecXZ *c) {
+    s32 az;
+    s32 bz;
+    s32 bx;
+    s32 cx;
+    s32 ax;
+    s32 cz;
+    register s32 first asm("$3");
+    register s32 second asm("$2");
+    register s32 side asm("$8");
+
+    az = a->z;
+    bz = b->z;
+    bx = b->x;
+    cx = c->x;
+    first = az - bz;
+    second = cx - bx;
+    asm volatile("" : "+r"(first), "+r"(second));
+    side = (first >> 16) * (second >> 16);
+    ax = a->x;
+    cz = c->z;
+    first = ax - bx;
+    second = cz - bz;
+    asm volatile("" : "+r"(side));
+    first >>= 16;
+    second >>= 16;
+    asm volatile("" : "+r"(first), "+r"(second));
+    asm volatile(
+        ".set noreorder\n\t"
+        "mult $2,$3\n\t"
+        "mflo $3\n\t"
+        "subu $2,$8,$3");
+    asm volatile("" : "+r"(second));
+
+    if (second > 0) {
+        return 1;
+    }
+    return (second >> 31) & 2;
+}
