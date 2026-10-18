@@ -72,8 +72,9 @@ vertex-group count, vertex count, primitive count, flags, and chunk size.
 Vertices are four 16-bit words: signed x, y and z, followed by a preserved flag
 word. Bit 15 terminates a vertex group. The declared count equals the number of
 terminators in 4,695 of 4,761 models; the other 66 declare exactly one additional
-empty group. No other difference occurs across the corpus. The lower 15 flag
-bits remain opaque.
+empty group. No other difference occurs across the corpus. All 163,804 vertex
+flag words are either `0x0000` or the group terminator `0x8000`; the decoder
+rejects every other bit.
 
 The command stream dispatches on `word & 0xFC`; `word >> 8` is the payload. Its
 commands set corner colours, normals, UVs, vertex indices, texture slots,

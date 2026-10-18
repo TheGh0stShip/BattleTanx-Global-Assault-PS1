@@ -44,7 +44,7 @@ is also reported separately and never inflates either executable measurement.
 | IMG | 71 files | 0 files | 100% |
 | PLT | 71 files | 0 files | 100% |
 | FUL | 7 files | TK_BMP renderer identification | decoded; 320x256 stride proven from executable, 160x120 proven from corpus |
-| MMM/3MDL | 76 files / 4,761 models | lower vertex flags and header flags | geometry, vertex grouping, and command stream decoded |
+| MMM/3MDL | 76 files / 4,761 models | header flags | geometry, vertex grouping, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files / 307,200 RGB blocks | 0 cells | terrain cells, RGB plane, and tile-63 sentinel decoded |
 | Level BIN | 75 files / 30,758 placements | remaining object parameter names | groups, placements, model references, bounds records, and names decoded |

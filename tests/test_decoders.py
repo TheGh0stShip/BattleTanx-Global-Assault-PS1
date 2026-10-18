@@ -173,6 +173,9 @@ class Models(unittest.TestCase):
         bad_groups = bytearray(mmm)
         struct.pack_into("<I", bad_groups, 8 + 12 + 0x24 + 4, 3)
         self.assertRaises(FormatError, models.decode_mmm, bytes(bad_groups), "t", models.decode_ttt(ttt))
+        bad_vertex_flag = bytearray(mmm)
+        struct.pack_into("<H", bad_vertex_flag, 8 + 12 + 0x24 + 24 + 6, 1)
+        self.assertRaises(FormatError, models.decode_mmm, bytes(bad_vertex_flag), "t", models.decode_ttt(ttt))
         mmm2, ttt2 = fx.mmm_ttt([m, m], [[0], [0]])
         self.assertRaises(FormatError, models.decode_mmm, mmm, "t", models.decode_ttt(ttt2))   # count mismatch
         self.assertRaises(FormatError, models.decode_ttt, ttt.replace(b"LBTX", b"XBTX"))

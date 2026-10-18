@@ -193,6 +193,8 @@ def decode_mmm(data, name="<mmm>", ttt=None):
             raise FormatError("%s: chunk size %d too small" % (where, size))
         verts = [(r.s16(m + 24 + 8 * k), r.s16(m + 26 + 8 * k), r.s16(m + 28 + 8 * k), r.u16(m + 30 + 8 * k))
                  for k in range(nverts)]
+        if any(v[3] & 0x7FFF for v in verts):
+            raise FormatError("%s: vertex flag contains bits other than group-end bit 15" % where)
         vertex_group_ends = [k for k, v in enumerate(verts) if v[3] & 0x8000]
         empty_vertex_groups = unk4 - len(vertex_group_ends)
         if empty_vertex_groups not in (0, 1):

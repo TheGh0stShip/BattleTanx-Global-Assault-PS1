@@ -32,6 +32,7 @@ class RealCorpus(unittest.TestCase):
         self.assertEqual(sum(not x["primitive_count_matches_header"] for x in models), 1)
         self.assertEqual(sum(x["mdl"]["empty_vertex_groups"] for x in models), 66)
         self.assertTrue(all(x["mdl"]["empty_vertex_groups"] in (0, 1) for x in models))
+        self.assertEqual(sum(x["vertex_group_end_count"] for x in models), 15829)
         levels = [e["decoded"] for e in m["files"].values() if e["family"] == "BIN-level"]
         self.assertEqual(sum(x["model_references"] for x in levels), 1756)
         self.assertEqual(sum(x["bounds_records"] for x in levels), 141)
