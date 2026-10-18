@@ -23,5 +23,5 @@
     "Matching MIPS functions",
     "Level script format research"
   ],
-  "notes": "Asset decoders cover 733 of 737 files. Three hundred fifty-two functions totaling 16,092 bytes match the executable exactly."
+  "notes": "Asset decoders cover 733 of 737 files. Three hundred fifty-three functions totaling 16,108 bytes match the executable exactly."
 }
