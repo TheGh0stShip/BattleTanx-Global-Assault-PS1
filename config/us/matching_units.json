@@ -918,6 +918,18 @@
     {"name": "func_800940B4", "address": "0x800940B4", "size": "0x10", "source": "src/game/800940B4.c", "symbols": {}},
     {"name": "func_80094158", "address": "0x80094158", "size": "0x0C", "source": "src/game/80094158.c", "symbols": {}},
     {"name": "func_80094188", "address": "0x80094188", "size": "0x0C", "source": "src/game/80094188.c", "symbols": {}},
-    {"name": "func_80094A38", "address": "0x80094A38", "size": "0x10", "source": "src/game/80094A38.c", "symbols": {}}
+    {"name": "func_80094A38", "address": "0x80094A38", "size": "0x10", "source": "src/game/80094A38.c", "symbols": {}},
+    {"name": "func_80096E6C", "address": "0x80096E6C", "size": "0x10", "source": "src/game/80096E6C.c", "symbols": {}},
+    {"name": "func_80096FFC", "address": "0x80096FFC", "size": "0x10", "source": "src/game/80096FFC.c", "symbols": {}},
+    {"name": "func_8009700C", "address": "0x8009700C", "size": "0x10", "source": "src/game/8009700C.c", "symbols": {}},
+    {"name": "func_80098D10", "address": "0x80098D10", "size": "0x10", "source": "src/game/80098D10.c", "symbols": {}},
+    {"name": "func_80098D20", "address": "0x80098D20", "size": "0x20", "source": "src/game/80098D20.c", "symbols": {}},
+    {"name": "func_80098D40", "address": "0x80098D40", "size": "0x10", "source": "src/game/80098D40.c", "symbols": {}},
+    {"name": "func_8009D07C", "address": "0x8009D07C", "size": "0x18", "source": "src/game/8009D07C.c", "symbols": {}},
+    {"name": "func_8009D094", "address": "0x8009D094", "size": "0x18", "source": "src/game/8009D094.c", "symbols": {}},
+    {"name": "func_8009D788", "address": "0x8009D788", "size": "0x10", "source": "src/game/8009D788.c", "symbols": {}},
+    {"name": "func_8009DA40", "address": "0x8009DA40", "size": "0x10", "source": "src/game/8009DA40.c", "symbols": {}},
+    {"name": "func_8009DA58", "address": "0x8009DA58", "size": "0x10", "source": "src/game/8009DA58.c", "symbols": {}},
+    {"name": "func_8009DA68", "address": "0x8009DA68", "size": "0x10", "source": "src/game/8009DA68.c", "symbols": {}}
   ]
 }
