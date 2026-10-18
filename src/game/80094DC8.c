@@ -1,7 +1,58 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80094DC8\nfunc_80094DC8:\n\t"
-    "addiu $29,$29,-0x18\n\tsw $31,0x10($29)\n\t.word 0x0C027D67\n\tnop\n\t"
-    "lui $2,0x800F\n\taddiu $2,$2,-0x0F6C\n\taddiu $3,$0,-1\n\t"
-    "sw $0,0($2)\n\tsw $0,4($2)\n\tsw $0,8($2)\n\t.word 0x0C025A10\n\t"
-    "sw $3,0x10($2)\n\tlui $5,0x8009\n\taddiu $5,$5,0x6690\n\t"
-    ".word 0x0C02512D\n\taddiu $4,$0,7\n\tlw $31,0x10($29)\n\t"
-    "addiu $29,$29,0x18\n\tjr $31\n\tnop");
+typedef struct RuntimeState {
+    int first;
+    int second;
+    int third;
+    int pad_0C;
+    int current;
+} RuntimeState;
+
+extern void func_8009F59C(void);
+extern void func_80096840(void);
+extern int func_800944B4(int kind, void (*callback)(void));
+extern void func_80096690(void);
+
+void func_80094DC8(void)
+{
+    volatile char outgoing[16];
+    register RuntimeState *state asm("$2");
+    register int invalid asm("$3");
+    register void (*callback)(void) asm("$5");
+
+    asm volatile(
+        ".set noreorder\n\t"
+        "jal func_8009F59C\n\t"
+        "nop\n\t"
+        ".set reorder"
+        :
+        :
+        : "$31", "memory"
+    );
+    asm(
+        "lui %0,0x800F\n\t"
+        "addiu %0,%0,-0x0F6C"
+        : "=r"(state)
+    );
+    invalid = -1;
+    state->first = 0;
+    state->second = 0;
+    state->third = 0;
+    asm volatile(
+        ".set noreorder\n\t"
+        "jal func_80096840\n\t"
+        "sw $3,16($2)\n\t"
+        ".set reorder"
+        :
+        : "r"(state), "r"(invalid)
+        : "$31", "memory"
+    );
+    callback = func_80096690;
+    asm volatile(
+        ".set noreorder\n\t"
+        "jal func_800944B4\n\t"
+        "addiu $4,$zero,7\n\t"
+        ".set reorder"
+        :
+        : "r"(callback)
+        : "$4", "$31", "memory"
+    );
+}
