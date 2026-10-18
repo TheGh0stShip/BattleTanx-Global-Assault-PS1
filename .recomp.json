@@ -1,0 +1,27 @@
+{
+  "$schema": "https://recomp.fyi/schema/v1.json",
+  "game": "BattleTanx: Global Assault",
+  "system": "PS1",
+  "type": "decomp",
+  "original": {
+    "region": "USA",
+    "revision": "1.0",
+    "serial": "SLUS-01044"
+  },
+  "project": "BattleTanx: Global Assault PS1",
+  "status": "exploring",
+  "approach": "Matching C decompilation with format research and deterministic validation",
+  "maintainers": [
+    {
+      "name": "TheGh0stShip",
+      "link": "https://github.com/TheGh0stShip"
+    }
+  ],
+  "help": [
+    "Original compiler identification",
+    "Executable segmentation",
+    "Matching MIPS functions",
+    "Level script format research"
+  ],
+  "notes": "Asset decoders cover 733 of 737 files. Executable matching has not started."
+}

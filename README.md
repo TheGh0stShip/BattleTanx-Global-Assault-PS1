@@ -7,18 +7,51 @@ game's proprietary asset formats and a deterministic corpus inventory tool.
 No game image, executable, extracted asset, disassembly, or generated preview is
 distributed by this repository. Supply files from a legally obtained copy.
 
-## Status
+## Progress
 
-- TEX, IMG, PLT and FUL image containers
-- MMM/CM01/3MDL models and TTT texture tables
-- FLB terrain grids and partially understood level BIN files
-- font BIN files and VAGS.SFX metadata
-- STR/PCK Mode-2 sector inventories
-- deterministic PNG previews, OBJ exports and JSON manifests
-- 30 synthetic-fixture tests plus an optional full-corpus test
+![Executable matching: 0.00%](https://img.shields.io/badge/executable_matching-0.00%25-red)
+![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
+![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
+
+The executable percentage is the authoritative decompilation measurement. It is
+`matched text bytes / 747,520 text bytes` from `SLUS_010.44`; asset research is
+reported separately and never inflates it. A byte counts only after reconstructed
+source compiles to identical machine code.
+
+| Executable work | Complete | Remaining | Progress |
+|---|---:|---:|---:|
+| Matching C text | 0 bytes | 747,520 bytes | 0.00% |
+| Original compiler identified | 0 | 1 | 0.00% |
+| Reproducible target build | 0 | 1 | 0.00% |
+| Executable segment map | 0 | 1 | 0.00% |
+| Functions identified | not measured | segmentation required | pending |
+| Functions matched | not measured | function inventory required | pending |
+
+| Asset work | Complete | Remaining | Coverage |
+|---|---:|---:|---:|
+| Disc files structurally decoded | 733 files | 4 opaque files | 99.46% |
+| TEX | 256 files | 0 files | 100% |
+| IMG | 71 files | 0 files | 100% |
+| PLT | 71 files | 0 files | 100% |
+| FUL | 7 files | 0 files | 100% structural; dimensions need code confirmation |
+| MMM/3MDL | 76 files / 4,761 models | 0 files | 100% structural |
+| TTT | 76 files / 8,781 references | 0 files | 100% structural |
+| FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
+| Level BIN | 75 files / 30,758 placements | sections 0, 3 and 4 | partial |
+| Font BIN | 4 files / 328 records | glyph height semantics | partial |
+| VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
+| STR/PCK | 20 files | media decoding | sector inventory only |
+| Synthetic decoder tests | 30 tests | 0 tests | 100% passing |
+| Deliberate fault checks | 12 checks | 0 checks | 100% detected |
+
+The four opaque corpus files are the game executable, boot configuration, text,
+and license data. “Structural” means the format tiles the file exactly with
+bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
 This is not yet a matching C reconstruction of the main executable. Compiler
 identification and executable segmentation are the next decompilation milestone.
+Update this table whenever a unit changes, and replace the manual executable byte
+count with a generated matching report once the target build exists.
 
 ## Requirements
 
