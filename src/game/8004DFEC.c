@@ -1,14 +1,46 @@
-asm(".text\n\t.globl func_8004DFEC\nfunc_8004DFEC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0xafbf0018,0xafb00010\n\t"
-    ".word 0x908300c9,0x24020002,0x1062000d,0x00008821\n\t"
-    ".word 0x28620003,0x10400005,0x24020001,0x1062000a\n\t"
-    ".word 0x02201021,0x0801382a,0x00000000,0x24020003\n\t"
-    ".word 0x10620010,0x02201021,0x0801382a,0x00000000\n\t"
-    ".word 0x08013829,0x249100cc,0x8c9000cc,0x0c011d96\n\t"
-    ".word 0x02002021,0x10400015,0x02201021,0x0c011da2\n\t"
-    ".word 0x02002021,0x10400011,0x02201021,0x08013829\n\t"
-    ".word 0x26110170,0x8c8400cc,0x00000000,0x1080000a\n\t"
-    ".word 0x2402001e,0x84830004,0x00000000,0x14620007\n\t"
-    ".word 0x02201021,0x84820018,0x00000000,0x18400003\n\t"
-    ".word 0x02201021,0x24910008,0x02201021,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef unsigned char u8;
+typedef signed short s16;
+
+typedef struct TargetObject {
+    u8 pad_00[4];
+    s16 type;
+    u8 pad_06[0x18 - 6];
+    s16 health;
+} TargetObject;
+
+typedef struct Vehicle {
+    u8 pad_000[0xC9];
+    u8 target_kind;
+    u8 pad_0CA[2];
+    void *target;
+} Vehicle;
+
+extern int func_80047658(void *target);
+extern int func_80047688(void *target);
+
+void *func_8004DFEC(Vehicle *vehicle) {
+    void *result = 0;
+
+    switch (vehicle->target_kind) {
+    case 2:
+        result = &vehicle->target;
+        break;
+    case 1: {
+        void *target = vehicle->target;
+
+        if (func_80047658(target) && func_80047688(target)) {
+            result = (u8 *)target + 0x170;
+        }
+        break;
+    }
+    case 3: {
+        TargetObject *target = vehicle->target;
+
+        if (target != 0 && target->type == 30 && target->health > 0) {
+            result = (u8 *)target + 8;
+        }
+        break;
+    }
+    }
+    return result;
+}
