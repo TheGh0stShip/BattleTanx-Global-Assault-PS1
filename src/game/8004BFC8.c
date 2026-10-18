@@ -1,10 +1,65 @@
-asm(".text\n\t.globl func_8004BFC8\nfunc_8004BFC8:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x00809021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafbf0020,0xafb3001c,0x0c012e9b\n\t"
-    ".word 0xafb00010,0x02201821,0x2650011c,0x24130003\n\t"
-    ".word 0xae220004,0x1060000c,0x02002021,0x90620000\n\t"
-    ".word 0x00000000,0x10530006,0x00000000,0x94640002\n\t"
-    ".word 0x0c0129e5,0x00000000,0x08012fff,0x00401821\n\t"
-    ".word 0x24700004,0x02002021,0x0c012576,0x26450128\n\t"
-    ".word 0xae220008,0x8fbf0020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef signed int s32;
+
+typedef struct PathNode {
+    u8 type;
+    u8 pad_01;
+    u16 link;
+    s32 x;
+    s32 z;
+} PathNode;
+
+typedef struct PathEntity {
+    u8 pad_000[0x11C];
+    struct {
+        s32 x;
+        s32 pad;
+        s32 z;
+    } start;
+    struct {
+        s32 x;
+        s32 pad;
+        s32 z;
+    } goal;
+} PathEntity;
+
+typedef struct RouteItem {
+    u8 pad_00[4];
+    s32 key;
+    s32 distance;
+} RouteItem;
+
+extern PathNode *func_8004A794(u16 link);
+extern s32 func_8004BA6C(PathEntity *entity, PathNode *node);
+extern s32 func_800495D8(s32 *left, s32 *right);
+
+void func_8004BFC8(PathEntity *entity, RouteItem *item) {
+    register PathEntity *entity_reg asm("$18") = entity;
+    register RouteItem *item_reg asm("$17") = item;
+    register s32 *position asm("$16");
+    register int position_type asm("$19");
+    PathNode *node;
+
+    item_reg->key = func_8004BA6C(entity_reg, (PathNode *)item_reg);
+    node = (PathNode *)item_reg;
+    position = &entity_reg->start.x;
+    position_type = 3;
+    __asm__ volatile("" : "+r"(position_type));
+
+loop:
+    if (node == 0) {
+        goto done;
+    }
+    if (node->type == position_type) {
+        goto found;
+    }
+    node = func_8004A794(node->link);
+    goto loop;
+
+found:
+    position = &node->x;
+
+done:
+    item_reg->distance = func_800495D8(position, &entity_reg->goal.x);
+}
