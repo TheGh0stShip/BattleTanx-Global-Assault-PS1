@@ -352,6 +352,20 @@
       "symbols": {"D_800AACD8": "0x800AACD8"}
     },
     {
+      "name": "func_8005F9C0",
+      "address": "0x8005F9C0",
+      "size": "0x60",
+      "source": "src/game/8005F9C0.c",
+      "symbols": {"D_800AACD6": "0x800AACD6", "D_800AACD7": "0x800AACD7", "D_800AACD8": "0x800AACD8", "D_800AACD9": "0x800AACD9", "D_800AACDA": "0x800AACDA", "D_800E4994": "0x800E4994"}
+    },
+    {
+      "name": "func_8005FA20",
+      "address": "0x8005FA20",
+      "size": "0x54",
+      "source": "src/game/8005FA20.c",
+      "symbols": {"D_800AACD9": "0x800AACD9", "D_800AACDA": "0x800AACDA", "D_800E4A90": "0x800E4A90", "func_8003DEF8": "0x8003DEF8", "func_80059A80": "0x80059A80", "func_80075AEC": "0x80075AEC"}
+    },
+    {
       "name": "func_8006B1AC",
       "address": "0x8006B1AC",
       "size": "0x90",
