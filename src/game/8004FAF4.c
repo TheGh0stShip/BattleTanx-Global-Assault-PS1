@@ -1,6 +1,19 @@
-asm(".text\n\t.globl func_8004FAF4\nfunc_8004FAF4:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x2405feff\n\t"
-    ".word 0x3c03800d,0xafbf0014,0x8e020218,0x8c632fe0\n\t"
-    ".word 0x00451024,0x24630078,0xae020218,0x0c01382f\n\t"
-    ".word 0xae030188,0x0c0135f6,0x02002021,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018");
+typedef unsigned char u8;
+
+typedef struct VehicleState {
+    u8 pad_000[0x188];
+    int deadline;
+    u8 pad_18C[0x218 - 0x18C];
+    unsigned int flags;
+} VehicleState;
+
+extern int D_800D2FE0;
+extern void func_8004E0BC(VehicleState *state);
+extern void func_8004D7D8(VehicleState *state);
+
+void func_8004FAF4(VehicleState *state) {
+    state->flags &= ~0x100;
+    state->deadline = D_800D2FE0 + 120;
+    func_8004E0BC(state);
+    func_8004D7D8(state);
+}
