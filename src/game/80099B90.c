@@ -1,7 +1,45 @@
-asm(".text\n\t.globl func_80099B90\nfunc_80099B90:\n\t"
-    ".word 0x8c82000c,0x8c860008,0x00452821,0x00c5102b\n\t"
-    ".word 0x10400010,0x00001821,0x8c840018,0\n\t"
-    ".word 0x1080000c,0x00a61823,0x00641021,0x2442ffff\n\t"
-    ".word 0x0044001b,0x14800002,0,0x0007000d\n\t"
-    ".word 0x00001012,0,0,0x00440018\n\t"
-    ".word 0x00001812,0x03e00008,0x00601021");
+typedef unsigned int u32;
+
+typedef struct RangeState {
+    u32 pad_00[2];
+    u32 limit;
+    u32 base;
+    u32 pad_10[2];
+    u32 quantum;
+} RangeState;
+
+u32 func_80099B90(RangeState *state, u32 offset) {
+    register u32 adjusted asm("$5");
+    register u32 limit asm("$6");
+    register u32 quantum asm("$4");
+    register u32 quotient asm("$2");
+    register u32 value asm("$3");
+
+    adjusted = state->base + offset;
+    value = 0;
+    limit = state->limit;
+    if (!(limit < adjusted)) {
+        goto done;
+    }
+    quantum = state->quantum;
+    value = adjusted - limit;
+    if (quantum != 0) {
+        quotient = value + quantum;
+        quotient--;
+        asm volatile(
+            ".set noreorder\n\t"
+            ".word 0x0044001b\n\t"
+            "bnez $4,1f\n\t"
+            "nop\n\t"
+            ".word 0x0007000d\n"
+            "1:\n\t"
+            "mflo $2\n\t"
+            "nop\n\t"
+            "nop\n\t"
+            "mult $2,$4\n\t"
+            "mflo $3");
+        asm volatile("" : "+r"(value), "+r"(quotient));
+    }
+done:
+    return value;
+}
