@@ -998,6 +998,7 @@
     {"name": "func_8009F860", "address": "0x8009F860", "size": "0x28", "source": "src/game/8009F860.c", "compiler_flags_extra": ["-fno-delayed-branch"], "symbols": {"func_800A42C4": "0x800A42C4", "func_800A42D4": "0x800A42D4"}},
     {"name": "func_800A3134", "address": "0x800A3134", "size": "0x34", "source": "src/game/800A3134.c", "symbols": {"func_800A3168": "0x800A3168", "func_800A3954": "0x800A3954", "D_800A3318": "0x800A3318"}},
     {"name": "func_8002C9F8", "address": "0x8002C9F8", "size": "0x44", "source": "src/game/8002C9F8.c", "symbols": {}},
-    {"name": "func_8002E21C", "address": "0x8002E21C", "size": "0x44", "source": "src/game/8002E21C.c", "symbols": {}}
+    {"name": "func_8002E21C", "address": "0x8002E21C", "size": "0x44", "source": "src/game/8002E21C.c", "symbols": {}},
+    {"name": "func_800877E4", "address": "0x800877E4", "size": "0x4C", "source": "src/game/800877E4.c", "symbols": {"D_800EE588": "0x800EE588"}}
   ]
 }
