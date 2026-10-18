@@ -113,8 +113,12 @@ min_offset[3], s16 max_offset[3], u16 reserved}`. This agrees with the N64
 entry dispatcher, and the reserved word is zero in every PS1 record. Other
 still-unidentified object fields remain preserved.
 
-Font BIN files contain 82 records of three `u16` values: x, y, and width.
-All-zero records indicate absent glyphs.
+Font BIN files contain 81 glyph records `{u16 x, u16 y, u16 width}`, followed by
+one metrics record `{u16 glyph_height, u16 fixed_advance, u16 space_width}`.
+Loader `0x800579A0` copies that final record into the runtime font descriptor;
+the drawing and measurement routines use its three fields at offsets 0, 2 and
+4. All-zero glyph records indicate absent glyphs. Every nonempty rectangle,
+including its decoded height, fits within the paired TEX sheet.
 
 ## Audio and media
 

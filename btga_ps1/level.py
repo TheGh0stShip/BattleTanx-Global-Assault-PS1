@@ -183,14 +183,18 @@ FONT_SHEETS = {"BT14LN": "BT14PT", "LOUS16LN": "LOUS16", "SURP10LN": "SURP10", "
 
 
 def decode_font_bin(data, name="<font>", sheet_size=None):
-    """6-byte glyph rects {u16 x, u16 y, u16 width}; an all-zero record is an absent glyph.
+    """81 glyph rects followed by one metrics record; every record is three u16.
 
     sheet_size: (w, h) of the paired font TEX; present glyphs must start inside it and
-    end at or before its right edge."""
+    fit within it using the metrics-record glyph height."""
     r = Reader(data, name)
-    if len(r) == 0 or len(r) % 6:
-        raise FormatError("%s: size %d not a positive multiple of 6" % (name, len(r)))
-    glyphs = [{"x": r.u16(6 * k), "y": r.u16(6 * k + 2), "width": r.u16(6 * k + 4)} for k in range(len(r) // 6)]
+    if len(r) != 82 * 6:
+        raise FormatError("%s: size %d != 82 six-byte records" % (name, len(r)))
+    glyphs = [{"x": r.u16(6 * k), "y": r.u16(6 * k + 2), "width": r.u16(6 * k + 4)} for k in range(81)]
+    metrics = {"glyph_height": r.u16(81 * 6), "fixed_advance": r.u16(81 * 6 + 2),
+               "space_width": r.u16(81 * 6 + 4)}
+    if not all(metrics.values()):
+        raise FormatError("%s: zero font metric in %s" % (name, metrics))
     absent = 0
     for k, g in enumerate(glyphs):
         if g["width"] == 0:
@@ -200,9 +204,9 @@ def decode_font_bin(data, name="<font>", sheet_size=None):
             continue
         if sheet_size is not None:
             sw, sh = sheet_size
-            if g["x"] + g["width"] > sw or g["y"] >= sh:
+            if g["x"] + g["width"] > sw or g["y"] + metrics["glyph_height"] > sh:
                 raise FormatError("%s: glyph %d (%d,%d,w%d) outside %dx%d sheet" % (name, k, g["x"], g["y"], g["width"], sw, sh))
-    return {"glyphs": glyphs, "absent": absent}
+    return {"glyphs": glyphs, "metrics": metrics, "absent": absent}
 
 
 def decode_sfx(data, name="<sfx>"):

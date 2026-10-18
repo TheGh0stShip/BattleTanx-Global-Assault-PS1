@@ -229,10 +229,16 @@ class Level(unittest.TestCase):
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_reserved))
 
     def test_font(self):
-        g = level.decode_font_bin(struct.pack("<9H", 0, 0, 5, 5, 0, 6, 0, 0, 0), sheet_size=(16, 8))
-        self.assertEqual(g["absent"], 1)
-        self.assertRaises(FormatError, level.decode_font_bin, struct.pack("<3H", 12, 0, 6), sheet_size=(16, 8))
-        self.assertRaises(FormatError, level.decode_font_bin, struct.pack("<3H", 1, 0, 0))
+        data = struct.pack("<6H", 0, 0, 5, 5, 0, 6) + bytes(79 * 6) + struct.pack("<3H", 8, 10, 4)
+        g = level.decode_font_bin(data, sheet_size=(16, 8))
+        self.assertEqual(g["absent"], 79)
+        self.assertEqual(g["metrics"], {"glyph_height": 8, "fixed_advance": 10, "space_width": 4})
+        bad = bytearray(data)
+        struct.pack_into("<H", bad, 6, 12)
+        self.assertRaises(FormatError, level.decode_font_bin, bytes(bad), sheet_size=(16, 8))
+        bad = bytearray(data)
+        struct.pack_into("<3H", bad, 12, 1, 0, 0)
+        self.assertRaises(FormatError, level.decode_font_bin, bytes(bad))
         self.assertRaises(FormatError, level.decode_font_bin, b"\0" * 5)
 
     def test_sfx(self):

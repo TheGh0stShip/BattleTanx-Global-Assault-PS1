@@ -163,7 +163,8 @@ def run(root, out, previews=False, objs=False, wavs=False):
                     sheet = textures.decode_tex(_read_bytes(by_rel[sheet_r]), sheet_r)["entries"][0] if sheet_r else None
                     g = level.decode_font_bin(data, r, (sheet["width"], sheet["height"]) if sheet else None)
                     ent["family"] = "BIN-font"
-                    ent["decoded"] = {"glyphs": len(g["glyphs"]), "absent_glyphs": g["absent"], "paired_sheet": sheet_r,
+                    ent["decoded"] = {"glyphs": len(g["glyphs"]), "absent_glyphs": g["absent"],
+                                      "metrics": g["metrics"], "paired_sheet": sheet_r,
                                       "glyph_rects": g["glyphs"]}
             elif ext == "SFX":
                 s = level.decode_sfx(data, r)

@@ -48,7 +48,7 @@ is also reported separately and never inflates either executable measurement.
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
 | Level BIN | 75 files / 30,758 placements | remaining object parameter names | groups, placements, model references, bounds records, and names decoded |
-| Font BIN | 4 files / 328 records | glyph height semantics | partial |
+| Font BIN | 4 files / 324 glyphs and 4 metrics records | 0 records | glyph rectangles, height, fixed advance, and space width decoded |
 | VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
 | STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
