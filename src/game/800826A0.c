@@ -1,10 +1,31 @@
-asm(".text\n\t.globl func_800826A0\nfunc_800826A0:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0x3c02800f\n\t"
-    ".word 0x2445dc9c,0xafbf0018,0xafb00010,0x8e240000\n\t"
-    ".word 0x8ca20008,0x00000000,0x0082102b,0x1040000e\n\t"
-    ".word 0x00001821,0x00041080,0x00458021,0x8e0201c8\n\t"
-    ".word 0x00000000,0x14510003,0x00000000,0x0c020c65\n\t"
-    ".word 0x02202021,0x8e02000c,0x8e250008,0x0040f809\n\t"
-    ".word 0x24040007,0x00401821,0x00601021,0x2403ffff\n\t"
-    ".word 0xae230000,0xae200008,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef signed int s32;
+typedef unsigned int u32;
+
+typedef struct RuntimeHandle {
+    s32 index;
+    u32 unknown_04;
+    void *value;
+} RuntimeHandle;
+
+typedef int (*ReleaseCallback)(int message, void *value);
+
+extern unsigned char D_800EDC9C;
+extern void func_80083194(RuntimeHandle *handle);
+
+int func_800826A0(RuntimeHandle *handle)
+{
+    unsigned char *runtime = &D_800EDC9C;
+    unsigned char *slot;
+    int result = 0;
+
+    if ((u32)handle->index < *(u32 *)(runtime + 8)) {
+        slot = runtime + handle->index * 4;
+        if (*(RuntimeHandle **)(slot + 0x1C8) == handle) {
+            func_80083194(handle);
+        }
+        result = (*(ReleaseCallback *)(slot + 0x0C))(7, handle->value);
+    }
+    handle->index = -1;
+    handle->value = 0;
+    return result;
+}

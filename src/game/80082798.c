@@ -1,12 +1,31 @@
-asm(".text\n\t.globl func_80082798\nfunc_80082798:\n\t"
-    ".word 0x27bdffd8,0xafb10014,0x00808821,0x00003821\n\t"
-    ".word 0xafbf0020,0xafb3001c,0xafb20018,0x0c020afb\n\t"
-    ".word 0xafb00010,0x00409021,0x12400017,0x00008021\n\t"
-    ".word 0x3c02800f,0x2453dc9c,0x8e620268,0x00000000\n\t"
-    ".word 0x1040000a,0x02202021,0x00002821,0x00a03021\n\t"
-    ".word 0x0040f809,0x00a03821,0x14400005,0x02202021\n\t"
-    ".word 0x0c020c65,0x02202021,0x24100001,0x02202021\n\t"
-    ".word 0x0c020c53,0x00002821,0x14400004,0x02401021\n\t"
-    ".word 0x1200ffed,0x00000000,0x02401021,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef int (*RuntimeProbe)(void *handle, int first, int second, int third);
+
+extern unsigned char D_800EDC9C;
+extern void *func_80082BEC(void *handle, int first, int second, int third);
+extern void func_80083194(void *handle);
+extern int func_8008314C(void *handle, int value);
+
+void *func_80082798(void *handle, int first, int second)
+{
+    unsigned char *runtime;
+    void *result;
+    int released;
+
+    result = func_80082BEC(handle, first, second, 0);
+    released = 0;
+    if (result != 0) {
+        runtime = &D_800EDC9C;
+        do {
+            RuntimeProbe probe = *(RuntimeProbe *)(runtime + 0x268);
+            if (probe != 0 && probe(handle, 0, 0, 0) == 0) {
+                func_80083194(handle);
+                released = 1;
+            }
+            if (func_8008314C(handle, 0) != 0) {
+                break;
+            }
+        } while (released == 0);
+    }
+
+    return result;
+}
