@@ -25,8 +25,8 @@ is also reported separately and never inflates either executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching C | 51,252 code bytes | 538,584 code bytes | 8.69% |
-| Semantic functions | 702 functions | 1,063 raw instruction units | 39.77% by provisional function count |
+| Semantic matching C | 51,284 code bytes | 538,552 code bytes | 8.69% |
+| Semantic functions | 703 functions | 1,062 raw instruction units | 39.83% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |

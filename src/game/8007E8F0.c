@@ -1,3 +1,15 @@
-asm(".text\n\t.set noreorder\n\t.globl func_8007E8F0\nfunc_8007E8F0:\n\t"
-    "lui $24,%hi(D_8007E90C)\n\taddiu $24,$24,%lo(D_8007E90C)\n\t"
-    "mfc0 $8,$14\n\tnop\n\tsw $8,0($24)\n\tjr $31\n\tnop");
+extern unsigned int D_8007E90C;
+
+void func_8007E8F0(void)
+{
+    asm volatile(
+        "lui $24,%%hi(D_8007E90C)\n\t"
+        "addiu $24,$24,%%lo(D_8007E90C)\n\t"
+        "mfc0 $8,$14\n\t"
+        "nop\n\t"
+        "sw $8,0($24)"
+        :
+        :
+        : "$8", "$24", "memory"
+    );
+}
