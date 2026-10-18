@@ -1,6 +1,12 @@
-asm(".text\n\t.set noreorder\n\t.globl func_800201C0\nfunc_800201C0:\n\t"
-    "addiu $29,$29,-0x30\n\taddiu $4,$0,0x10\n\tsw $31,0x28($29)\n\t"
-    ".word 0x0C007CCC\n\taddu $5,$29,$4\n\t.word 0x0C007DB5\n\t"
-    "addiu $4,$29,0x10\n\taddu $4,$2,$0\n\t.word 0x0C007E36\n\t"
-    "addiu $5,$29,0x10\n\tlw $31,0x28($29)\n\tnop\n\tjr $31\n\t"
-    "addiu $29,$29,0x30");
+extern void func_8001F330(int value, void *buffer);
+extern void *func_8001F6D4(void *buffer);
+extern void func_8001F8D8(void *value, void *buffer);
+
+void func_800201C0(void) {
+    unsigned char buffer[24];
+    void *value;
+
+    func_8001F330(16, buffer);
+    value = func_8001F6D4(buffer);
+    func_8001F8D8(value, buffer);
+}
