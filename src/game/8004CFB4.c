@@ -1,6 +1,31 @@
-asm(".text\n\t.globl func_8004CFB4\nfunc_8004CFB4:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0xafbf0014,0x94830148\n\t"
-    ".word 0x948200fc,0,0x14620006,0x00008021\n\t"
-    ".word 0x0c012f88,0,0x10400002,0\n\t"
-    ".word 0x24500004,0x02001021,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Waypoint {
+    char pad00[4];
+    Vector position;
+} Waypoint;
+typedef struct GoalTank {
+    char pad000[0xFC];
+    unsigned short route;
+    char pad0FE[0x148 - 0xFE];
+    unsigned short route_seen;
+} GoalTank;
+Waypoint *func_8004BE20(GoalTank *);
+
+Vector *func_8004CFB4(GoalTank *tank) {
+    Vector *goal = 0;
+    Waypoint *waypoint;
+
+    do {
+    } while (0);
+    if (tank->route_seen == tank->route) {
+        waypoint = func_8004BE20(tank);
+        if (waypoint != 0) {
+            goal = &waypoint->position;
+        }
+    }
+    return goal;
+}

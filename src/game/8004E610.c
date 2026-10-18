@@ -1,10 +1,38 @@
-asm(".text\n\t.globl func_8004E610\nfunc_8004E610:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x8c82017c,0x00000000\n\t"
-    ".word 0x2443fffa,0x2c620014,0x10400016,0x00a03821\n\t"
-    ".word 0x3c02800c,0x2442f750,0x00031880,0x00621821\n\t"
-    ".word 0x8c620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8c8600c0,0x08013999,0x24050006,0x8c8600c0\n\t"
-    ".word 0x8c85017c,0x24020019,0x0c0140dc,0xac82017c\n\t"
-    ".word 0x080139a1,0x00000000,0x8c850188,0x0c0138ab\n\t"
-    ".word 0x00000000,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct TransitionTank {
+    char pad000[0xC0];
+    void *target;
+    char pad0C4[0x17C - 0xC4];
+    int state;
+    char pad180[0x188 - 0x180];
+    int next_state;
+} TransitionTank;
+void func_80050370(TransitionTank *, int, void *, void *);
+void func_8004E2AC(TransitionTank *, int);
+
+void func_8004E610(TransitionTank *tank, void *context) {
+    int state;
+
+    switch (tank->state) {
+    case 6:
+    case 18:
+    case 19:
+    case 20:
+    case 22:
+        tank->state = 25;
+        func_80050370(tank, 6, tank->target, context);
+        break;
+    case 9:
+    case 11:
+    case 12:
+    case 13:
+        state = tank->state;
+        tank->state = 25;
+        func_80050370(tank, state, tank->target, context);
+        break;
+    case 25:
+        func_8004E2AC(tank, tank->next_state);
+        return;
+    default:
+        return;
+    }
+}

@@ -1,40 +1,103 @@
-asm(".text\n\t.globl func_8004DD5C\nfunc_8004DD5C:\n\t"
-    ".word 0x27BDFFD8,0xAFB20018,0x00809021,0xAFBF0024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB10014,0xAFB00010\n\t"
-    ".word 0x924300C9,0x24020001,0x14620047,0x00002821\n\t"
-    ".word 0x8E4400CC,0x00000000,0x10800044,0x00A08821\n\t"
-    ".word 0x8C820218,0x00000000,0x30420001,0x10400040\n\t"
-    ".word 0x3C02800E,0x0C011DA2,0x00000000,0x1040003A\n\t"
-    ".word 0x00002821,0x8E4400CC,0x8E430208,0x8C820208\n\t"
-    ".word 0x8C63000C,0x8C42000C,0x00000000,0x10430033\n\t"
-    ".word 0x00A08821,0x8C820218,0x00000000,0x30420002\n\t"
-    ".word 0x1440006C,0x00609821,0x00002821,0x00A08821\n\t"
-    ".word 0x3C02800E,0x24543E68,0x3223FFFF,0x2402007F\n\t"
-    ".word 0x14620003,0x00602021,0x0801378D,0x00008021\n\t"
-    ".word 0x00041100,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x00548021,0x8E02000C,0x00000000\n\t"
-    ".word 0x1053000F,0x02002021,0x00002821,0x24060003\n\t"
-    ".word 0x0C014BE7,0x24070001,0x00402821,0x14A0000D\n\t"
-    ".word 0x02002021,0x00002821,0x24060001,0x0C014BE7\n\t"
-    ".word 0x00C03821,0x00402821,0x14A00007,0x00A01021\n\t"
-    ".word 0x26310001,0x3222FFFF,0x2C420005,0x1440FFDF\n\t"
-    ".word 0x3223FFFF,0x00A01021,0x10400042,0x02402021\n\t"
-    ".word 0x080137E5,0x00000000,0x00A08821,0x3C02800E\n\t"
-    ".word 0x8E430208,0x24543E68,0x8C73000C,0x3223FFFF\n\t"
-    ".word 0x2402007F,0x14620003,0x00602021,0x080137BA\n\t"
-    ".word 0x00008021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x00548021,0x8E02000C\n\t"
-    ".word 0x00000000,0x1053000F,0x02002021,0x00002821\n\t"
-    ".word 0x24060003,0x0C014BE7,0x24070001,0x00402821\n\t"
-    ".word 0x14A0000D,0x02002021,0x00002821,0x24060001\n\t"
-    ".word 0x0C014BE7,0x00C03821,0x00402821,0x14A00007\n\t"
-    ".word 0x00A01021,0x26310001,0x3222FFFF,0x2C420005\n\t"
-    ".word 0x1440FFDF,0x3223FFFF,0x00A01021,0x14400011\n\t"
-    ".word 0x02402021,0x264300B8,0x3C02800D,0x8C442FE0\n\t"
-    ".word 0x3C020FA0,0xAE4000B8,0xAC600004,0xAC620008\n\t"
-    ".word 0xA0600010,0xA0600011,0x2484012C,0xAC64000C\n\t"
-    ".word 0x8E420180,0x2403FFFE,0x00431024,0x080137E8\n\t"
-    ".word 0xAE420180,0x00402821,0x8C8601F4,0x0C01383F\n\t"
-    ".word 0x24070001,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Track {
+    int dist;
+    int hit;
+    int best;
+    int timer;
+    unsigned char seen;
+    unsigned char mode;
+    char pad12[2];
+    struct ScanTank *target;
+} Track;
+typedef struct ScanTeam {
+    char pad00[0xC];
+    int team;
+} ScanTeam;
+typedef struct Waypoint {
+    char pad000[0xC];
+    int team;
+    char pad010[0x114 - 0x10];
+} Waypoint;
+typedef struct ScanTank {
+    char pad000[0xB8];
+    Track track;
+    char pad0D0[0x180 - 0xD0];
+    int status;
+    char pad184[0x1F4 - 0x184];
+    int weapon;
+    char pad1F8[0x208 - 0x1F8];
+    ScanTeam *owner;
+    char pad20C[0x218 - 0x20C];
+    int flags;
+} ScanTank;
+extern Waypoint D_800E3E68[];
+extern int D_800D2FE0;
+int func_80047688(ScanTank *);
+void *func_80052F9C(Waypoint *, int, int, int);
+void func_8004E0FC(ScanTank *, void *, int, int);
+
+static inline Waypoint *waypoint_at(int index) {
+    return &D_800E3E68[index];
+}
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return waypoint_at(index);
+}
+
+static inline void *scan_targets(int team) {
+    void *result = 0;
+    unsigned short i;
+
+    for (i = 0; i < 5; i++) {
+        Waypoint *candidate = waypoint(i);
+        if (candidate->team == team) {
+            continue;
+        }
+        if ((result = func_80052F9C(candidate, 0, 3, 1)) != 0) {
+            break;
+        }
+        if ((result = func_80052F9C(candidate, 0, 1, 1)) != 0) {
+            break;
+        }
+    }
+    return result;
+}
+
+void func_8004DD5C(ScanTank *tank) {
+    void *result;
+
+    if (tank->track.mode == 1 && tank->track.target != 0) {
+        if (tank->track.target->flags & 1) {
+            if (func_80047688(tank->track.target)
+                && tank->track.target->owner->team != tank->owner->team) {
+                if (tank->track.target->flags & 2) {
+                    return;
+                }
+                result = scan_targets(tank->owner->team);
+                if (result == 0) {
+                    return;
+                }
+                func_8004E0FC(tank, result, tank->weapon, 1);
+                return;
+            }
+        }
+    }
+    result = scan_targets(tank->owner->team);
+    if (result == 0) {
+        Track *track = &tank->track;
+        int best = 64000 << 12;
+        int timer = D_800D2FE0 + 300;
+
+        tank->track.dist = 0;
+        track->hit = 0;
+        track->best = best;
+        track->seen = 0;
+        track->mode = 0;
+        track->timer = timer;
+        tank->status &= ~1;
+        return;
+    }
+    func_8004E0FC(tank, result, tank->weapon, 1);
+}

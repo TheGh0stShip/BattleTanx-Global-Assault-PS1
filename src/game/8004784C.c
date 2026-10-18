@@ -1,32 +1,31 @@
-asm(".text\n\t.globl func_8004784C\nfunc_8004784C:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0x24080E66,0xAFBF001C,0xAFB10014\n\t"
-    ".word 0x01070018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x00C2102A,0x1440002A\n\t"
-    ".word 0x00008821,0x00C71023,0x24080E66,0x01020018\n\t"
-    ".word 0x00004812,0x00001810,0x00094B02,0x00031D00\n\t"
-    ".word 0x01234825,0x01201021,0x00021300,0x24090199\n\t"
-    ".word 0x0047001A,0x14E00002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14E10004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001012,0x00000000\n\t"
-    ".word 0x00000000,0x01220018,0x00008812,0x00004010\n\t"
-    ".word 0x00118B02,0x00084500,0x02288825,0x320300FF\n\t"
-    ".word 0x24020064,0x00431023,0x02220018,0x00004012\n\t"
-    ".word 0x00001810,0x00084302,0x00031D00,0x01034025\n\t"
-    ".word 0x01001021,0x00828021,0x0C021B21,0x00000000\n\t"
-    ".word 0x3C0351EB,0x3463851F,0x00430019,0x00004010\n\t"
-    ".word 0x00082142,0x00041840,0x00641821,0x000318C0\n\t"
-    ".word 0x00641821,0x00031880,0x00431023,0x304200FF\n\t"
-    ".word 0x320300FF,0x0043102B,0x10400029,0x24020001\n\t"
-    ".word 0x0C021B21,0x00000000,0x3C044014,0x34840141\n\t"
-    ".word 0x00440019,0x324500FF,0x00002010,0x00441823\n\t"
-    ".word 0x00031842,0x00832021,0x00042242,0x00041840\n\t"
-    ".word 0x00641821,0x00031880,0x00641821,0x00032180\n\t"
-    ".word 0x00832023,0x00441023,0x00051900,0x00651823\n\t"
-    ".word 0x00031840,0x24420E66,0x00430018,0x00002012\n\t"
-    ".word 0x00004010,0x00042302,0x00084500,0x00882025\n\t"
-    ".word 0x00111843,0x24021000,0x00431023,0x8FA30030\n\t"
-    ".word 0x00440018,0x00004812,0x00004010,0x00094B02\n\t"
-    ".word 0x00084500,0x01284825,0x00001021,0xAC690000\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult\t%2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high) : "r"(a), "r"(b));
+    return low;
+}
+unsigned int func_80086C84(void);
+int func_8004784C(unsigned char chance, unsigned char spread, int dist, int range, int *out) {
+    int scaled;
+    int falloff;
+    unsigned char odds;
+    int scale;
+    int jitter;
+
+    odds = chance;
+    if (dist < fixed_mul(3686, range)) {
+        falloff = 0;
+    } else {
+        scaled = fixed_mul(3686, dist - range);
+        falloff = fixed_mul(409, (scaled << 12) / range);
+        odds = chance + fixed_mul(falloff, 100 - chance);
+    }
+    if ((unsigned char)(func_80086C84() % 100) >= odds) {
+        return 1;
+    }
+    jitter = fixed_mul(func_80086C84() % 819 + 3686, scale = (short)spread * 30);
+    *out = fixed_mul(4096 - (falloff >> 1), jitter);
+    return 0;
+}

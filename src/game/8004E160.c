@@ -1,17 +1,57 @@
-asm(".text\n\t.globl func_8004E160\nfunc_8004E160:\n\t"
-    ".word 0x27bdffb0,0x00804021,0xafb10044,0x00a08821\n\t"
-    ".word 0xafb00040,0x251000b8,0x3c02800d,0x8c432fe0\n\t"
-    ".word 0x3c020fa0,0x02202021,0x25050008,0xafbf0048\n\t"
-    ".word 0xad0000b8,0xae000004,0xae020008,0xa2000010\n\t"
-    ".word 0xa2000011,0x2463012c,0xae03000c,0xad0600b8\n\t"
-    ".word 0x3c060008,0x34c67007,0x8d020180,0x2403fffe\n\t"
-    ".word 0x00431024,0xad020180,0x3c02800c,0xa2070010\n\t"
-    ".word 0xa440628c,0x27a20018,0x8d030000,0x00003821\n\t"
-    ".word 0xafa20014,0x0c006760,0xafa30010,0x3042ffff\n\t"
-    ".word 0x1040000c,0x24020007,0x97a30038,0x00000000\n\t"
-    ".word 0x14620008,0x00000000,0x8fa20018,0x00000000\n\t"
-    ".word 0x10400004,0x00000000,0x84420000,0x00000000\n\t"
-    ".word 0xae020004,0x8e220000,0x00000000,0xae020014\n\t"
-    ".word 0x8e230008,0x24020002,0xa2020011,0xae03001c\n\t"
-    ".word 0x8fbf0048,0x8fb10044,0x8fb00040,0x03e00008\n\t"
-    ".word 0x27bd0050\n\t");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Track {
+    int dist;
+    int hit;
+    int best;
+    int timer;
+    unsigned char seen;
+    unsigned char mode;
+    char pad12[2];
+    Vector target;
+} Track;
+typedef struct TrackTank {
+    int id;
+    char pad004[4];
+    Vector position;
+    char pad014[0xB8 - 0x14];
+    Track track;
+    char pad0D8[0x180 - 0xD8];
+    int status;
+} TrackTank;
+typedef struct ProbeHit {
+    short *object;
+    char pad04[0x1C];
+    unsigned short type;
+    char pad22[2];
+} ProbeHit;
+extern short D_800C628C;
+extern int D_800D2FE0;
+unsigned short func_80019D80(Vector *, Vector *, int, int, int, ProbeHit *);
+
+void func_8004E160(TrackTank *tank, Vector *pos, int dist, int seen) {
+    ProbeHit hit;
+    Track *track = &tank->track;
+    int best = 64000 << 12;
+    int timer = D_800D2FE0 + 300;
+
+    tank->track.dist = 0;
+    track->hit = 0;
+    track->best = best;
+    track->seen = 0;
+    track->mode = 0;
+    track->timer = timer;
+    tank->track.dist = dist;
+    tank->status &= ~1;
+    track->seen = seen;
+    D_800C628C = 0;
+    if (func_80019D80(pos, &tank->position, 0x87007, 0, tank->id, &hit) && hit.type == 7 && hit.object != 0) {
+        track->hit = *hit.object;
+    }
+    track->target.x = pos->x;
+    track->target.z = pos->z;
+    track->mode = 2;
+}

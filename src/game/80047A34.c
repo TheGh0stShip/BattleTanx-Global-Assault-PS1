@@ -1,11 +1,30 @@
-asm(".text\n\t.globl func_80047A34\nfunc_80047A34:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x28a2099a\n\t"
-    ".word 0x1440001c,0xafbf0014,0x10c0000d,0x00a03821\n\t"
-    ".word 0x84c30004,0x24020004,0x14620009,0x00000000\n\t"
-    ".word 0x8e050008,0x8e060010,0x0c014eec,0x2404002d\n\t"
-    ".word 0x3c05800a,0x8e040098,0x08011eac,0x24a54d24\n\t"
-    ".word 0x8e050008,0x8e060010,0x0c014eec,0x2404002f\n\t"
-    ".word 0x8e020218,0x00000000,0x30420002,0x10400005\n\t"
-    ".word 0x3c05800a,0x8e040098,0x24a54d24,0x0c0218d3\n\t"
-    ".word 0x00003021,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct HitInfo { char pad0[4]; short kind; } HitInfo;
+typedef struct ControlTank {
+    char pad000[8];
+    int x;
+    char pad00C[4];
+    int z;
+    char pad014[0x98 - 0x14];
+    int sound;
+    char pad09C[0x218 - 0x9C];
+    int status;
+} ControlTank;
+extern char D_800A4D24[];
+void func_80053BB0(int, int, int, int);
+void func_8008634C(int, void *, int);
+void func_80047A34(ControlTank *tank, int damage, HitInfo *hit) {
+    int amount;
+
+    if (damage >= 2458) {
+        amount = damage;
+        if (hit != 0 && hit->kind == 4) {
+            func_80053BB0(45, tank->x, tank->z, amount);
+            func_8008634C(tank->sound, D_800A4D24, 0);
+        } else {
+            func_80053BB0(47, tank->x, tank->z, amount);
+            if (tank->status & 2) {
+                func_8008634C(tank->sound, D_800A4D24, 0);
+            }
+        }
+    }
+}

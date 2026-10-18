@@ -1,13 +1,35 @@
-asm(".text\n\t.globl func_8004778C\nfunc_8004778C:\n\t"
-    ".word 0x27bdfeb8,0xafb1013c,0x00c08821,0xafbf0140\n\t"
-    ".word 0x1220001a,0xafb00138,0x3084ffff,0x27b00018\n\t"
-    ".word 0x02003021,0x00003821,0x3c02800c,0xa440628c\n\t"
-    ".word 0x0c005eab,0xafa00010,0x3044ffff,0x00001821\n\t"
-    ".word 0x10800019,0x00802821,0x02003021,0x8cc20000\n\t"
-    ".word 0x00000000,0x14510007,0x24630001,0x2484ffff\n\t"
-    ".word 0x0065102a,0x1440fff9,0x24c60024,0x08011e0e\n\t"
-    ".word 0x00001021,0x08011e0e,0x00801021,0x3084ffff\n\t"
-    ".word 0x27a60018,0x00003821,0x3c02800c,0xa440628c\n\t"
-    ".word 0x24020001,0x0c005eab,0xafa20010,0x3044ffff\n\t"
-    ".word 0x14800002,0x00801021,0x00001021,0x8fbf0140\n\t"
-    ".word 0x8fb1013c,0x8fb00138,0x03e00008,0x27bd0148\n\t");
+typedef struct ProbeHit {
+    int owner;
+    char pad04[0x24 - 4];
+} ProbeHit;
+extern short D_800C628C;
+unsigned short func_80017AAC(unsigned short, int, ProbeHit *, int, int);
+int func_8004778C(unsigned short id, int arg, int owner) {
+    ProbeHit hits[8];
+    ProbeHit *list;
+    int count;
+    int remaining;
+    int i;
+
+    if (owner != 0) {
+        list = hits;
+        D_800C628C = 0;
+        remaining = func_80017AAC(id, arg, list, 0, 0);
+        count = remaining;
+        for (i = 0; i < count; i++) {
+            if (list[i].owner != owner) {
+                return remaining;
+            }
+            remaining--;
+        }
+        return 0;
+    } else {
+        D_800C628C = 0;
+        count = func_80017AAC(id, arg, hits, 0, 1);
+        remaining = count;
+        if (remaining != 0) {
+            return remaining;
+        }
+    }
+    return 0;
+}

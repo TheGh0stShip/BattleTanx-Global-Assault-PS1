@@ -1,8 +1,27 @@
-asm(".text\n\t.globl func_80047688\nfunc_80047688:\n\t"
-    ".word 0x8c820218,0,0x30420008,0x10400003\n\t"
-    ".word 0x24020001,0x03e00008,0x00001021,0x8c830584\n\t"
-    ".word 0,0x10620007,0x3c02800d,0x10600003\n\t"
-    ".word 0x2c620004,0x1040000b,0x00001021,0x03e00008\n\t"
-    ".word 0x24020001,0x8c432fe0,0x8c840588,0\n\t"
-    ".word 0x00641823,0x2863002d,0x14600002,0x24020001\n\t"
-    ".word 0x00001021,0x03e00008,0");
+typedef struct ControlTank {
+    char pad000[0x218];
+    int status;
+    char pad21C[0x584 - 0x21C];
+    unsigned int control_state;
+    int control_time;
+} ControlTank;
+
+extern int D_800D2FE0;
+
+int func_80047688(ControlTank *tank) {
+    if (tank->status & 8) {
+        return 0;
+    }
+    switch (tank->control_state) {
+    case 0:
+    case 2:
+    case 3:
+        return 1;
+    case 1:
+        if (D_800D2FE0 - tank->control_time < 45) {
+            return 1;
+        }
+        break;
+    }
+    return 0;
+}
