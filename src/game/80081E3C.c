@@ -1,4 +1,22 @@
-asm(".text\n\t.globl func_80081E3C\nfunc_80081E3C:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x3c058008,0x24a5163c\n\t"
-    ".word 0x0c025114,0x24040002,0x8fbf0010,0x27bd0018\n\t"
-    ".word 0x03e00008,0");
+extern void func_8008163C(void);
+extern int func_80094450(int kind, void (*callback)(void));
+
+int func_80081E3C(void)
+{
+    volatile char outgoing[16];
+    register void (*callback)(void) asm("$5");
+    register int result asm("$2");
+
+    asm volatile("" : : : "$31", "memory");
+    callback = func_8008163C;
+    asm volatile(
+        ".set noreorder\n\t"
+        "jal func_80094450\n\t"
+        "addiu $4,$zero,2\n\t"
+        ".set reorder"
+        : "=r"(result)
+        : "r"(callback)
+        : "$4", "$31", "memory"
+    );
+    return result;
+}

@@ -11,7 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic C decompilation: 8.54%](https://img.shields.io/badge/semantic_C-8.54%25-yellow)
+![Semantic C decompilation: 8.59%](https://img.shields.io/badge/semantic_C-8.59%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -25,8 +25,8 @@ is also reported separately and never inflates either executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching C | 50,380 code bytes | 539,456 code bytes | 8.54% |
-| Semantic functions | 684 functions | 1,081 raw instruction units | 38.75% by provisional function count |
+| Semantic matching C | 50,652 code bytes | 539,184 code bytes | 8.59% |
+| Semantic functions | 691 functions | 1,074 raw instruction units | 39.15% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
