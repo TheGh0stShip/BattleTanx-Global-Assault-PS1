@@ -1,13 +1,48 @@
-asm(".text\n\t.globl func_8007FF18\nfunc_8007FF18:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x3c12800b,0x26520c62\n\t"
-    ".word 0xafbf001c,0xafb10014,0xafb00010,0x92420000\n\t"
-    ".word 0x00000000,0x2c420002,0x14400008,0x00808821\n\t"
-    ".word 0x3c04800c,0x24844c80,0x3c02800b,0x8c420c5c\n\t"
-    ".word 0x00000000,0x0040f809,0x02202821,0x2630001c\n\t"
-    ".word 0x02002021,0x0c02018e,0x02202821,0x3c0400ff\n\t"
-    ".word 0x3484ffff,0x02002821,0x24060040,0x8e22001c\n\t"
-    ".word 0x3c03800b,0x8c630c58,0x00441025,0xae22001c\n\t"
-    ".word 0x8c640018,0x8c620008,0x00000000,0x0040f809\n\t"
-    ".word 0x00003821,0x2644000e,0x02202821,0x0c0229ef\n\t"
-    ".word 0x2406005c,0x02201021,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef void (*DisplayNotify)(void *state, void *value);
+
+typedef struct DisplayInterface {
+    void *unknown_00[2];
+    void (*dispatch)(void *context, void *value, int first, int second);
+    void *unknown_0C[3];
+    void *context;
+} DisplayInterface;
+
+extern unsigned char D_800B0C62[];
+extern DisplayNotify D_800B0C5C;
+extern DisplayInterface *D_800B0C58;
+extern unsigned char D_800C4C80;
+extern void func_80080638(void *data, void *packet);
+extern void func_8008A7BC(void *destination, const void *source,
+                          unsigned int size);
+
+void *func_8007FF18(void *argument)
+{
+    register unsigned char *state asm("$18") = D_800B0C62;
+    unsigned char *packet = argument;
+    unsigned char *data;
+
+    asm("" : "+r"(state));
+    if (state[0] >= 2)
+        D_800B0C5C(&D_800C4C80, packet);
+    data = packet + 28;
+    func_80080638(data, packet);
+    {
+        register unsigned int mask asm("$4") = 0x00FFFFFF;
+        register void *dispatch_data asm("$5") = data;
+        register int size asm("$6") = 64;
+        register DisplayInterface *interface asm("$3");
+        unsigned int flags = *(volatile unsigned int *)data;
+
+        asm(
+            "lui %0,%%hi(D_800B0C58)\n\t"
+            "lw %0,%%lo(D_800B0C58)(%0)"
+            : "=r"(interface)
+            : "r"(flags)
+        );
+        flags |= mask;
+        *(unsigned int *)data = flags;
+        interface->dispatch(interface->context, dispatch_data, size, 0);
+    }
+    func_8008A7BC(state + 14, packet, 92);
+    return packet;
+}
