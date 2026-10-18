@@ -10,14 +10,18 @@ from pathlib import Path
 TEXT_START = 0x80010000
 TEXT_END = 0x800C6800
 FUNCTION_RE = re.compile(r"^glabel func_([0-9A-Fa-f]{8})$")
+NAMED_FUNCTIONS = {"glabel entrypoint": 0x800860B0}
 
 
 def scan(text):
     addresses = []
     for line in text.splitlines():
-        match = FUNCTION_RE.match(line.strip())
+        stripped = line.strip()
+        match = FUNCTION_RE.match(stripped)
         if match:
             addresses.append(int(match.group(1), 16))
+        elif stripped in NAMED_FUNCTIONS:
+            addresses.append(NAMED_FUNCTIONS[stripped])
     if addresses != sorted(set(addresses)):
         raise ValueError("function candidates are duplicated or out of order")
     for address in addresses:

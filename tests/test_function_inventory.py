@@ -15,6 +15,12 @@ class FunctionInventory(unittest.TestCase):
             [0x80010000, 0x80010010],
         )
 
+    def test_includes_named_entrypoint(self):
+        self.assertEqual(
+            inventory_functions.scan("glabel entrypoint\n"),
+            [0x800860B0],
+        )
+
     def test_rejects_duplicates(self):
         with self.assertRaises(ValueError):
             inventory_functions.scan(
