@@ -186,6 +186,10 @@ class Level(unittest.TestCase):
         self.assertEqual(f["rgb_block_count"], 32 * 128)
         self.assertEqual(level.flb_cell((7 << 18) | (3 << 16) | 0x8000 | 0x1234)["uv_rotation"], 3)
         self.assertEqual(level.decode_flb(fx.flb(), tile_count=5)["cells_with_tile_beyond_tex"], 64 * 256)
+        sentinel = level.decode_flb(fx.flb(tile=63), tile_count=5)
+        self.assertEqual(sentinel["sentinel_tile_cells"], 64 * 256)
+        self.assertEqual(sentinel["cells_with_tile_beyond_tex"], 0)
+        self.assertIsNone(level.flb_cell(63 << 18)["tile"])
         d = bytearray(fx.flb())
         for index, value in ((1, 0x12), (64, 0x34), (65, 0x56)):
             struct.pack_into("<I", d, 4 + 4 * index, struct.unpack_from("<I", d, 4 + 4 * index)[0] | value << 24)

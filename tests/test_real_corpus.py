@@ -42,6 +42,8 @@ class RealCorpus(unittest.TestCase):
                          [(10, 11, 4), (10, 12, 6), (15, 17, 8), (15, 17, 8)])
         terrains = [e["decoded"] for e in m["files"].values() if e["family"] == "FLB"]
         self.assertEqual(sum(x["rgb_block_count"] for x in terrains), 307200)
+        self.assertEqual(sum(x["cells_with_tile_beyond_tex"] for x in terrains), 0)
+        self.assertEqual(sum(x["sentinel_tile_cells"] for x in terrains), 36037)
 
 
 if __name__ == "__main__":

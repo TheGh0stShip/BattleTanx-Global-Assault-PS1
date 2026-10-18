@@ -46,10 +46,13 @@ def decode_flb(data, name="<flb>", tile_count=None):
     cells = [r.u32(4 + 4 * k) for k in range(w * h)]
     tiles = {}
     over = 0
+    sentinel = 0
     for v in cells:
         t = (v >> 18) & 0x3F
         tiles[t] = tiles.get(t, 0) + 1
-        if tile_count is not None and t >= tile_count:
+        if t == 0x3F:
+            sentinel += 1
+        elif tile_count is not None and t >= tile_count:
             over += 1
     if h & 1:
         raise FormatError("%s: odd height cannot encode 2x2 RGB blocks" % name)
@@ -65,14 +68,15 @@ def decode_flb(data, name="<flb>", tile_count=None):
             blue = cells[i + w + 1] >> 24
             rgb_blocks.append(red | (green << 8) | (blue << 16))
     return {"width": w, "height": h, "cells": cells, "tile_histogram": dict(sorted(tiles.items())),
-            "cells_with_tile_beyond_tex": over,
+            "sentinel_tile_cells": sentinel, "cells_with_tile_beyond_tex": over,
             "rgb_block_count": len(rgb_blocks), "rgb_histogram": _hist(rgb_blocks),
             "_rgb_blocks": rgb_blocks}
 
 
 def flb_cell(v):
+    tile = (v >> 18) & 0x3F
     return {"color_bgr555": v & 0x7FFF, "flag_bit15": (v >> 15) & 1, "uv_rotation": (v >> 16) & 3,
-            "tile": (v >> 18) & 0x3F, "rgb_plane_byte": v >> 24}
+            "raw_tile": tile, "tile": None if tile == 0x3F else tile, "rgb_plane_byte": v >> 24}
 
 
 def _hist(it):

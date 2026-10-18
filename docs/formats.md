@@ -98,7 +98,11 @@ plane over 2x2 cell blocks: top-left is reserved zero, top-right is red,
 bottom-left is green, and bottom-right is blue. Renderer `0x8003B738` gathers
 that pattern into a 24-bit value and interpolates its three channels through
 `0x8008BDF0`. All 307,200 reserved bytes are zero. A cell spans 512 model units.
-The grid is centered at the origin.
+The grid is centered at the origin. Raw tile value 63 is a sentinel rather than
+a TEX index. The loader writes only the level's 5–31 real textures into its
+64-slot runtime descriptor table, while corpus references beyond those counts
+are exclusively value 63. There are 36,037 sentinel cells and no invalid real
+texture references.
 
 Level BIN begins with five section offsets and three zero words. Section 0 is a
 `u32` group count. Section 1 contains that many 16-byte records:
