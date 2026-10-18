@@ -1,0 +1,12 @@
+asm(".text\n\t.set noreorder\n\t.set noat\n\t.globl func_8008AB30\nfunc_8008AB30:\n\t"
+    "mtc2 $8,$9\n\tmtc2 $9,$10\n\tmtc2 $10,$11\n\tnop\n\t.word 0x4AA00428\n\t"
+    "mfc2 $11,$25\n\tmfc2 $12,$26\n\tmfc2 $13,$27\n\tadd $11,$11,$12\n\t"
+    "add $2,$11,$13\n\tmtc2 $2,$30\n\tnop\n\tnop\n\tmfc2 $3,$31\n\t"
+    "addiu $1,$0,-2\n\tand $3,$3,$1\n\taddiu $14,$0,0x1F\n\tsub $14,$14,$3\n\t"
+    "sra $14,$14,1\n\taddi $11,$3,-0x18\n\t.word 0x05600003\n\tnop\n\t"
+    ".word 0x10000004\n\tsllv $12,$2,$11\n\taddiu $11,$0,0x18\n\tsub $11,$11,$3\n\t"
+    "srav $12,$2,$11\n\taddi $12,$12,-0x40\n\tsll $12,$12,1\n\tlui $13,0x800B\n\t"
+    "addu $13,$13,$12\n\tlh $13,0x4F00($13)\n\tnop\n\tmtc2 $13,$8\n\t"
+    "mtc2 $8,$9\n\tmtc2 $9,$10\n\tmtc2 $10,$11\n\tnop\n\tnop\n\t"
+    ".word 0x4B90003D\n\tmfc2 $8,$25\n\tmfc2 $9,$26\n\tmfc2 $10,$27\n\t"
+    "srav $8,$8,$14\n\tsrav $9,$9,$14\n\tsrav $10,$10,$14\n\tjr $31\n\tnop");
