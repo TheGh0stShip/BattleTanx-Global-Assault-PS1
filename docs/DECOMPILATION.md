@@ -34,8 +34,9 @@ The first split deliberately emits the entire loaded range for inspection. It
 does not count unknown bytes as decompiled. The next milestones are broader
 compiler corroboration, function-boundary recovery, and section ownership.
 
-One thousand seven hundred eighty-nine production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and match all 593,416 retail bytes after the pinned assembler compatibility pass.
+One thousand eight hundred sixty-nine production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
+and collectively match all 747,520 retail payload bytes after the pinned assembler compatibility pass.
+This proves complete isolated source coverage; producing one linked executable remains a separate build milestone.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.

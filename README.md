@@ -9,7 +9,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 ## Progress
 
-![Executable matching: 79.38%](https://img.shields.io/badge/executable_matching-79.38%25-brightgreen)
+![Executable matching: 100%](https://img.shields.io/badge/executable_matching-100%25-brightgreen)
 ![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 
@@ -20,15 +20,16 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching source text | 593,416 bytes | 154,104 bytes | 79.38% |
+| Matching source text | 747,520 bytes | 0 bytes | 100% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed source-unit boundaries | 1,789 | range classification required | in progress |
-| Source units matched | 1,789 | 0 provisional candidates | all 1,779 provisional starts represented; 10 additional entries |
-| Classified data units | 26 ranges / 3,652 bytes | remaining data segmentation | exact bytes verified |
+| Reviewed source-unit boundaries | 1,869 | semantic naming and consolidation | byte coverage complete |
+| Source units matched | 1,869 | 0 provisional candidates | all 1,779 provisional starts represented; 10 additional entries |
+| Classified data units | 38 ranges / 140,796 bytes | semantic field recovery | exact bytes verified |
+| Classified zero padding | 66 ranges / 16,888 bytes | 0 bytes | 100% |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -51,8 +52,8 @@ The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is an early matching reconstruction of the main executable. One thousand seven hundred eighty-nine
-source units currently compile to 593,416 identical retail bytes. Compiler
+This is an early matching reconstruction of the main executable. One thousand eight hundred sixty-nine
+source units currently compile to all 747,520 retail payload bytes. Compiler
 corroboration and executable segmentation are the next decompilation milestones;
 the ignored matching report is generated directly by the exact-byte verifier.
 
