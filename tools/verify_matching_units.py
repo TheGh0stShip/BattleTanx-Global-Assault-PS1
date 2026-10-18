@@ -56,7 +56,8 @@ def compile_unit(unit, config, prefix, work):
     elf = work / "unit.elf"
     binary = work / "unit.bin"
 
-    run_checked([str(cc1), str(source), *config["compiler_flags"], "-o", str(assembly)])
+    compiler_flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
+    run_checked([str(cc1), str(source), *compiler_flags, "-o", str(assembly)])
     with processed.open("wb") as output:
         run_checked(
             [sys.executable, str(maspsx), *config["maspsx_flags"], str(assembly)],
