@@ -1,7 +1,17 @@
-asm(".text\n\t.globl func_8007EAC8\nfunc_8007EAC8:\n\t"
-    ".word 0x27bdffe8,0x00802821,0xafb00010,0x3c10800f\n\t"
-    ".word 0x2610c288,0xafbf0014,0x0c01fa5d,0x02002021\n\t"
-    ".word 0x02002021,0x0c0250a5,0x00002821,0x00401821\n\t"
-    ".word 0x2402ffff,0x14620002,0x24630001,0x00001821\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x00601021,0x03e00008\n\t"
-    ".word 0x27bd0018");
+typedef signed int s32;
+
+extern char D_800EC288[];
+extern void func_8007E974(void *state, void *argument);
+extern s32 func_80094294(void *state, s32 index);
+
+s32 func_8007EAC8(void *argument) {
+    s32 result;
+
+    func_8007E974(D_800EC288, argument);
+    result = func_80094294(D_800EC288, 0);
+    if (result == -1)
+        result = 0;
+    else
+        result++;
+    return result;
+}
