@@ -9,7 +9,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 ## Progress
 
-![Executable matching: 5.46%](https://img.shields.io/badge/executable_matching-5.46%25-red)
+![Executable matching: 5.52%](https://img.shields.io/badge/executable_matching-5.52%25-red)
 ![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 
@@ -20,14 +20,14 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching C text | 40,808 bytes | 706,712 bytes | 5.46% |
+| Matching C text | 41,272 bytes | 706,248 bytes | 5.52% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed function boundaries | 679 | candidate audit required | in progress |
-| Functions matched | 679 | 1,106 provisional candidates | 673 provisional starts matched (37.83%); 6 additional entries |
+| Reviewed function boundaries | 686 | candidate audit required | in progress |
+| Functions matched | 686 | 1,099 provisional candidates | 680 provisional starts matched (38.22%); 6 additional entries |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -50,8 +50,8 @@ The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is an early matching C reconstruction of the main executable. Six hundred seventy-nine
-functions currently compile to 40,808 identical retail bytes. Compiler
+This is an early matching C reconstruction of the main executable. Six hundred eighty-six
+functions currently compile to 41,272 identical retail bytes. Compiler
 corroboration and executable segmentation are the next decompilation milestones;
 the ignored matching report is generated directly by the exact-byte verifier.
 
