@@ -1,7 +1,30 @@
-asm(".text\n\t.globl func_80082D90\nfunc_80082D90:\n\t"
-    ".word 0x27bdffe8,0x3c02800f,0x2442dc9c,0x00042080\n\t"
-    ".word 0x00822021,0xafbf0010,0x8c8301c8,0\n\t"
-    ".word 0x1060000c,0xac8001c8,0x8c880218,0x14e00002\n\t"
-    ".word 0xac800218,0x00003021,0x8c620010,0\n\t"
-    ".word 0x00461021,0x11000003,0xac620010,0x0100f809\n\t"
-    ".word 0x00602021,0x8fbf0010,0,0x03e00008,0x27bd0018");
+typedef void (*DetachCallback)(void *value);
+
+extern unsigned char D_800EDC9C;
+
+void func_80082D90(int slot, int unused, int adjustment, int keep_adjustment)
+{
+    register unsigned char *base asm("$2");
+    register unsigned char *entry asm("$4");
+    register void *value asm("$3");
+    register DetachCallback callback asm("$8");
+
+    base = &D_800EDC9C;
+    asm("" : "+r"(base));
+    entry = (unsigned char *)(slot << 2);
+    entry += (int)base;
+    value = *(void **)(entry + 0x1C8);
+
+    *(void **)(entry + 0x1C8) = 0;
+    if (value != 0) {
+        callback = *(DetachCallback *)(entry + 0x218);
+        *(DetachCallback *)(entry + 0x218) = 0;
+        if (keep_adjustment == 0) {
+            adjustment = 0;
+        }
+        *(int *)((unsigned char *)value + 0x10) += adjustment;
+        if (callback != 0) {
+            callback(value);
+        }
+    }
+}
