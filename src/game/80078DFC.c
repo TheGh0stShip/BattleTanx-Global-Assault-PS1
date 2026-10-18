@@ -1,7 +1,27 @@
-asm(".text\n\t.globl func_80078DFC\nfunc_80078DFC:\n\t"
-    ".word 0x27bdffe8,0x00802821,0x3c02800f,0x3c03800b\n\t"
-    ".word 0xac40bc40,0x24020002,0xac62eb30,0x3c02800f\n\t"
-    ".word 0x3c04800b,0x24849a88,0xac40bc3c,0x3c02800f\n\t"
-    ".word 0x2442ac8c,0xafbf0010,0x8c830004,0x24060001\n\t"
-    ".word 0x0c016554,0xac620028,0x8fbf0010,0x00001021\n\t"
-    ".word 0x03e00008,0x27bd0018");
+typedef signed int s32;
+
+typedef struct Target {
+    char pad_00[0x28];
+    void *field_28;
+} Target;
+
+typedef struct State {
+    char pad_00[4];
+    Target *target;
+} State;
+
+extern s32 D_800AEB30;
+extern State D_800A9A88;
+extern char D_800EAC8C[];
+extern s32 D_800EBC3C;
+extern s32 D_800EBC40;
+extern void func_80059550(State *state, void *argument, s32 enabled);
+
+s32 func_80078DFC(void *argument) {
+    D_800EBC40 = 0;
+    D_800AEB30 = 2;
+    D_800EBC3C = 0;
+    D_800A9A88.target->field_28 = D_800EAC8C;
+    func_80059550(&D_800A9A88, argument, 1);
+    return 0;
+}

@@ -1,7 +1,25 @@
-asm(".text\n\t.globl func_800640A8\nfunc_800640A8:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x8e020004,0x00a02021,0x0c0168bc,0x24450020\n\t"
-    ".word 0x3c04800b,0x2484b6f0,0x3c02800b,0x02002821\n\t"
-    ".word 0x9042ba5a,0x24060001,0x0c016554,0xa4820014\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x00001021,0x03e00008\n\t"
-    ".word 0x27bd0018");
+typedef signed int s32;
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Owner {
+    char pad_00[4];
+    char *data;
+} Owner;
+
+typedef struct State {
+    char pad_00[0x14];
+    u16 field_14;
+} State;
+
+extern State D_800AB6F0;
+extern u8 D_800ABA5A;
+extern void func_80059550(State *state, Owner *owner, s32 enabled);
+extern void func_8005A2F0(void *argument, char *data);
+
+s32 func_800640A8(Owner *owner, void *argument) {
+    func_8005A2F0(argument, owner->data + 0x20);
+    D_800AB6F0.field_14 = D_800ABA5A;
+    func_80059550(&D_800AB6F0, owner, 1);
+    return 0;
+}
