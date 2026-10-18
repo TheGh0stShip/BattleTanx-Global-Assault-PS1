@@ -1,10 +1,37 @@
-asm(".text\n\t.globl func_8004FB48\nfunc_8004FB48:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x8c820180,0x00000000\n\t"
-    ".word 0x30420001,0x10400019,0x24870184,0x94e20004\n\t"
-    ".word 0x94e30006,0x24420001,0x0043001a,0x14600002\n\t"
-    ".word 0x00000000,0x0007000d,0x2401ffff,0x14610004\n\t"
-    ".word 0x3c018000,0x14410002,0x00000000,0x0006000d\n\t"
-    ".word 0x00001810,0x3c060006,0x34c64000,0x00032840\n\t"
-    ".word 0x00a32821,0x00052880,0x24a50008,0x00e52821\n\t"
-    ".word 0xa4e30004,0x0c013858,0x24070001,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef unsigned short u16;
+typedef unsigned int u32;
+
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    u32 flags;
+    u16 point_index;
+    u16 point_count;
+    Vector points[1];
+} Path;
+
+typedef struct {
+    char pad000[0x180];
+    u32 flags;
+    Path path;
+} Tank;
+
+void func_8004E160(Tank *, Vector *, int, int);
+
+void func_8004FB48(Tank *tank) {
+    Path *path;
+    Vector *point;
+    int point_index;
+
+    path = &tank->path;
+    if (tank->flags & 1) {
+        point_index = (path->point_index + 1) % path->point_count;
+        point = &path->points[point_index];
+        path->point_index = point_index;
+        func_8004E160(tank, point, 0x64000, 1);
+    }
+}
