@@ -66,6 +66,19 @@
       }
     },
     {
+      "name": "func_80048FB0",
+      "address": "0x80048FB0",
+      "size": "0xD8",
+      "source": "src/game/80048FB0.c",
+      "symbols": {
+        "D_800A4EF4": "0x800A4EF4",
+        "D_800DE30C": "0x800DE30C",
+        "func_80047AC8": "0x80047AC8",
+        "func_80047B8C": "0x80047B8C",
+        "func_80047B98": "0x80047B98"
+      }
+    },
+    {
       "name": "func_80049360",
       "address": "0x80049360",
       "size": "0x14",
@@ -189,6 +202,22 @@
         "D_800E3CBC": "0x800E3CBC",
         "D_800E3CC0": "0x800E3CC0",
         "D_800E3CC4": "0x800E3CC4"
+      }
+    },
+    {
+      "name": "func_80049E4C",
+      "address": "0x80049E4C",
+      "size": "0x24",
+      "source": "src/game/80049E4C.c",
+      "symbols": {}
+    },
+    {
+      "name": "func_80049E70",
+      "address": "0x80049E70",
+      "size": "0x58",
+      "source": "src/game/80049E70.c",
+      "symbols": {
+        "D_800DE33C": "0x800DE33C"
       }
     },
     {
