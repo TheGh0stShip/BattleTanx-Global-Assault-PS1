@@ -57,7 +57,7 @@ range, all providers for each proposed label, and all ambiguous names.
 ## Compiler status
 
 GCC 2.8.1 with the PSX patches, `-O2 -G0`, is the leading game-code compiler.
-It produces exact matches for one hundred fifty-six game-owned functions totaling 7,324 bytes;
+It produces exact matches for one hundred eighty-three game-owned functions totaling 8,076 bytes;
 GCC 2.7.2 assigns the non-leaf function's saved registers differently, while
 GCC 2.95.2 inserts argument sign-extension instructions absent from retail. The
 the additional matches corroborate basic expression and store scheduling,
