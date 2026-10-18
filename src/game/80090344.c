@@ -1,7 +1,30 @@
-asm(".text\n\t.globl func_80090344\nfunc_80090344:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00a08021,0x3c020007\n\t"
-    ".word 0x3442eff0,0x0050102b,0x10400003,0xafbf0014\n\t"
-    ".word 0x3c100007,0x3610eff0,0x0c0269fe,0x02002821\n\t"
-    ".word 0x3c02800b,0x8c427728,0,0x14400003\n\t"
-    ".word 0x02001021,0x3c01800b,0xac207724,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018");
+typedef unsigned int u32;
+
+extern u32 D_800B7724;
+extern u32 D_800B7728;
+extern void func_8009A7F8(void *state, u32 value);
+
+static inline u32 clear_state_flag(u32 value) {
+    register u32 result asm("$2");
+
+    asm volatile(
+        "lui %0,%%hi(D_800B7728)\n\t"
+        "lw %0,%%lo(D_800B7728)(%0)\n\t"
+        "nop\n\t"
+        "bnez %0,1f\n\t"
+        "move %0,%1\n\t"
+        "lui $1,%%hi(D_800B7724)\n\t"
+        "sw $0,%%lo(D_800B7724)($1)\n"
+        "1:"
+        : "=&r"(result)
+        : "r"(value)
+        : "$1", "memory");
+    return result;
+}
+
+u32 func_80090344(void *state, u32 value) {
+    if (value > 0x7EFF0)
+        value = 0x7EFF0;
+    func_8009A7F8(state, value);
+    return clear_state_flag(value);
+}
