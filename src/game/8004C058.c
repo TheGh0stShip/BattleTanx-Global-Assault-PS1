@@ -1,11 +1,25 @@
-asm(".text\n\t.globl func_8004C058\nfunc_8004C058:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb3001c\n\t"
-    ".word 0x00a09821,0x3264ffff,0xafbf0020,0xafb20018\n\t"
-    ".word 0x0c0129e5,0xafb10014,0x2611010c,0x00409021\n\t"
-    ".word 0x9602010c,0x8e500008,0x1040000e,0x00000000\n\t"
-    ".word 0x96240000,0x0c0129e5,0x00000000,0x00401821\n\t"
-    ".word 0x8c620008,0x00000000,0x0202102a,0x14400005\n\t"
-    ".word 0x00000000,0x94620010,0x00000000,0x1440fff4\n\t"
-    ".word 0x24710010,0x96220000,0x00000000,0xa6420010\n\t"
-    ".word 0xa6330000,0x8fbf0020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef signed int s32;
+
+extern u8 *func_8004A794(u16 id);
+
+void func_8004C058(u8 *list, u16 id) {
+    u8 *node = func_8004A794(id);
+    u16 *link = (u16 *)(list + 0x10C);
+    s32 value = *(s32 *)(node + 8);
+
+    while (*link != 0) {
+        u8 *current = func_8004A794(*link);
+        if (value < *(s32 *)(current + 8)) {
+            break;
+        }
+        link = (u16 *)(current + 0x10);
+        if (*link == 0) {
+            break;
+        }
+    }
+
+    *(u16 *)(node + 0x10) = *link;
+    *link = id;
+}
