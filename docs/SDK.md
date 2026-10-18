@@ -56,8 +56,14 @@ range, all providers for each proposed label, and all ambiguous names.
 
 ## Compiler status
 
-The game-owned compiler remains unidentified. Selecting a compiler requires
-matching code-generation evidence from multiple representative game functions,
+GCC 2.8.1 with the PSX patches, `-O2 -G0`, is the leading game-code compiler.
+It produces an exact 144-byte match for `func_8006B1AC`; GCC 2.7.2 assigns its
+saved registers differently, while GCC 2.95.2 inserts argument sign-extension
+instructions absent from retail. The project keeps the overall compiler gate
+open until multiple representative game functions corroborate this result.
+
+Final compiler selection requires matching code-generation evidence from
+additional representative game functions,
 including stack layout, delay-slot scheduling, switch lowering, signed and
 unsigned division, structure copies, and small-data behavior. Library version
 counts alone are not sufficient.

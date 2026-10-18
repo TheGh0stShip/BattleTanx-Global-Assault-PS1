@@ -35,6 +35,11 @@ does not count any byte as decompiled. The next milestones are library/compiler
 fingerprinting, function-boundary recovery, section ownership, and the first
 independently compiled matching unit.
 
+The first production C unit, `func_8006B1AC`, compiles with the PSX-patched GCC
+2.8.1 at `-O2 -G0` and matches all 144 retail bytes after the pinned assembler
+compatibility pass. Its verifier links at the retail address, resolves its one
+external call, extracts `.text`, and rejects the first differing byte.
+
 The initial control-flow scan exposes 1,779 aligned call-target candidates.
 `make function-inventory` records them in an ignored deterministic report. They
 remain provisional until instruction flow, returns, jump tables, embedded data,

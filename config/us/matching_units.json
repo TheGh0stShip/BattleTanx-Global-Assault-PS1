@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "compiler": "gcc-2.8.1-psx",
+  "compiler_flags": [
+    "-quiet",
+    "-msoft-float",
+    "-mgas",
+    "-G0",
+    "-fgnu-linker",
+    "-O2"
+  ],
+  "maspsx_flags": [
+    "--dont-expand-li"
+  ],
+  "units": [
+    {
+      "name": "func_8006B1AC",
+      "address": "0x8006B1AC",
+      "size": "0x90",
+      "source": "src/game/8006B1AC.c",
+      "symbols": {
+        "func_8002380C": "0x8002380C"
+      }
+    }
+  ]
+}
