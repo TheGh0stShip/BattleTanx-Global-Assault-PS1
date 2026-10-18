@@ -124,7 +124,20 @@ def interpret_3mdl(r, base, nverts, size, ntex, where):
             block_end = at + pl          # skip target: guard word + payload bytes
             if block_end > end or block_end < p + 4 * nmask + extra:
                 raise FormatError("%s: guard block 0x%X..0x%X outside stream" % (where, at, block_end))
-            guards.append({"tag": tag, "masks": masks, "params": params.hex(), "start": at - base, "end": block_end})
+            guard = {"tag": tag, "masks": masks, "params": params.hex(),
+                     "start": at - base, "end": block_end}
+            if tag == TAG_SKIP2:
+                label_bytes = params.split(b"\0", 1)[0]
+                if not label_bytes or params[len(label_bytes):].strip(b"\0"):
+                    raise FormatError("%s: named visibility block at 0x%X has invalid label padding" %
+                                      (where, at))
+                try:
+                    guard["submesh_name"] = label_bytes.decode("ascii")
+                except UnicodeDecodeError:
+                    raise FormatError("%s: named visibility block at 0x%X has a non-ASCII label" %
+                                      (where, at))
+                guard["visibility_channel_masks"] = masks
+            guards.append(guard)
             p += 4 * nmask + extra
         elif tag == TAG_NOP or tag in TAG_NOP2:
             pass
@@ -153,7 +166,8 @@ def interpret_3mdl(r, base, nverts, size, ntex, where):
                 "uv_aux": list(state["uv_aux"][:n]) if textured else None,
                 "texture_slot": state["texture"] if textured else None,
                 "semitrans": state["semitrans"],
-                "guards": [{"tag": g["tag"], "masks": g["masks"], "params": g["params"]} for g in guards],
+                "guards": [{k: g[k] for k in ("tag", "masks", "params", "submesh_name",
+                                               "visibility_channel_masks") if k in g} for g in guards],
             })
     if not terminated:
         raise FormatError("%s: stream not terminated by 0x68" % where)

@@ -158,6 +158,15 @@ class Models(unittest.TestCase):
         p = mm["models"][1]["primitives"][0]
         self.assertEqual(p["guards"][0]["masks"], [2])
 
+    def test_named_visibility_block(self):
+        v, w = fx.quad_model()
+        params = b"Mesh07" + bytes(10)
+        guarded = [0x00003470, 4, 0] + list(struct.unpack("<4I", params)) + w[-7:-1]
+        mm, _ = self.build(words=w[:-7] + guarded + [0x68], verts=v)
+        guard = mm["models"][1]["primitives"][0]["guards"][0]
+        self.assertEqual(guard["submesh_name"], "Mesh07")
+        self.assertEqual(guard["visibility_channel_masks"], [4, 0])
+
     def test_rejects(self):
         v, w = fx.quad_model()
         bad_idx = list(w)

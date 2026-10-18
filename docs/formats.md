@@ -83,7 +83,12 @@ pair agrees; both invariants are enforced.
 The command stream dispatches on `word & 0xFC`; `word >> 8` is the payload. Its
 commands set corner colours, normals, UVs, vertex indices, texture slots,
 primitive type, semitransparency, and guarded regions. Tag `0x68` ends the
-stream. Quad emission maps stored corners to GPU slots as c0, c1, c3, c2.
+stream. Quad emission maps stored corners to GPU slots as c0, c1, c3, c2. The
+corpus's `0x70` guarded regions carry two visibility-channel masks followed by
+a 16-byte NUL-padded ASCII submesh name (`ObjectNN` or `MeshNN`). The first mask
+selects one named submesh bit and the second is zero in every record. The
+renderer compares these masks with its two runtime visibility words before
+entering the region. All 307 guarded primitives expose both masks and the name.
 
 TTT uses `TT01`, followed by one `LBTX` texture-index list per model. Every index
 selects a record in the same-named IMG/PLT set. Texture-slot bounds are relevant
@@ -170,7 +175,6 @@ texel coordinates and normalize as `(u + 0.5) / width` and
 ## Next executable work
 
 1. Trace the authoring provenance of opcode 25; the PS1 runtime ignores it.
-2. Trace writes to model scratch state used by guarded blocks.
-3. Recover construction of the terrain tile table at `0x800DDFF8`.
-4. Trace SPU voice setup to identify the remaining SFX entry words.
-5. Identify the original compiler before creating the matching C build.
+2. Recover construction of the terrain tile table at `0x800DDFF8`.
+3. Trace SPU voice setup to identify the remaining SFX entry words.
+4. Identify the original compiler before creating the matching C build.
