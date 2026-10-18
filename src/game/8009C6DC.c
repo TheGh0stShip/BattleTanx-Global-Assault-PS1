@@ -1,10 +1,44 @@
-asm(".text\n\t.globl func_8009C6DC\nfunc_8009C6DC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb00010\n\t"
-    ".word 0xafbf0018,0x0c0271fe,0x00a08021,0x3c03800c\n\t"
-    ".word 0x8c638ba4,0x00108142,0x8c620000,0x00108400\n\t"
-    ".word 0x34420088,0xac620000,0x3c03800c,0x8c638b6c\n\t"
-    ".word 0x26220004,0xac620000,0x3c02800c,0x8c428b70\n\t"
-    ".word 0x36100020,0xac500000,0x3c03800c,0x8c638b9c\n\t"
-    ".word 0x8e220000,0x3c040100,0xac620000,0x3c02800c\n\t"
-    ".word 0x8c428b74,0x34840201,0xac440000,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef unsigned int u32;
+
+extern volatile u32 *D_800B8BA4;
+extern volatile u32 *D_800B8B6C;
+extern volatile u32 *D_800B8B70;
+extern volatile u32 *D_800B8B9C;
+extern volatile u32 *D_800B8B74;
+extern void func_8009C7F8(void *source, u32 value);
+
+void func_8009C6DC(void *source, u32 value)
+{
+    register void *saved_source asm("$17") = source;
+    register u32 packed asm("$16") = value;
+
+    func_8009C7F8(saved_source, packed);
+    asm volatile(
+        "lui $3,%%hi(D_800B8BA4)\n\t"
+        "lw $3,%%lo(D_800B8BA4)($3)\n\t"
+        "srl %1,%1,5\n\t"
+        "lw $2,0($3)\n\t"
+        "sll %1,%1,16\n\t"
+        "ori $2,$2,0x88\n\t"
+        "sw $2,0($3)\n\t"
+        "lui $3,%%hi(D_800B8B6C)\n\t"
+        "lw $3,%%lo(D_800B8B6C)($3)\n\t"
+        "addiu $2,%0,4\n\t"
+        "sw $2,0($3)\n\t"
+        "lui $2,%%hi(D_800B8B70)\n\t"
+        "lw $2,%%lo(D_800B8B70)($2)\n\t"
+        "ori %1,%1,0x20\n\t"
+        "sw %1,0($2)\n\t"
+        "lui $3,%%hi(D_800B8B9C)\n\t"
+        "lw $3,%%lo(D_800B8B9C)($3)\n\t"
+        "lw $2,0(%0)\n\t"
+        "lui $4,0x0100\n\t"
+        "sw $2,0($3)\n\t"
+        "lui $2,%%hi(D_800B8B74)\n\t"
+        "lw $2,%%lo(D_800B8B74)($2)\n\t"
+        "ori $4,$4,0x0201\n\t"
+        "sw $4,0($2)"
+        : "+r"(saved_source), "+r"(packed)
+        :
+        : "$2", "$3", "$4", "memory");
+}
