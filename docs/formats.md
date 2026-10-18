@@ -91,7 +91,11 @@ spans 512 model units. The grid is centered at the origin.
 
 Level BIN begins with five section offsets and three zero words. Placement
 records in section 2 are 12 bytes: signed x/y/z, unsigned yaw, and an offset
-into section 4. Sections 0, 3, and 4 remain opaque and are preserved by range.
+into section 3. Section 3 is a packed object-constructor stream. Its first byte
+is an opcode dispatched through the 44-slot table at `0x800CD6A4`; 28 opcodes
+occur on disc, and their fixed record sizes tile all 75 files exactly. Every
+placement offset is checked against a decoded record boundary. Sections 0 and
+4 and the still-unidentified fields within object records are preserved.
 
 Font BIN files contain 82 records of three `u16` values: x, y, and width.
 All-zero records indicate absent glyphs.
@@ -112,7 +116,7 @@ texel coordinates and normalize as `(u + 0.5) / width` and
 
 ## Next executable work
 
-1. Trace the section-4 object script interpreter from `0x80025094`.
+1. Name the remaining fields in the section-3 object records handled by `0x80025094`.
 2. Trace writes to model scratch state used by guarded blocks.
 3. Recover construction of the terrain tile table at `0x800DDFF8`.
 4. Trace SPU voice setup to identify the remaining SFX entry words.

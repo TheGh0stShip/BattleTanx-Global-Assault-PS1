@@ -47,7 +47,7 @@ is also reported separately and never inflates either executable measurement.
 | MMM/3MDL | 76 files / 4,761 models | 0 files | 100% structural |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
-| Level BIN | 75 files / 30,758 placements | sections 0, 3 and 4 | partial |
+| Level BIN | 75 files / 30,758 placements | section-3 records decoded; field names remain | partial |
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |

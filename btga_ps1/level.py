@@ -8,7 +8,10 @@ Evidence (SLUS_010.44):
     into the 64-entry tile table at 0x800DDFF8 ((v >> 15) & 0x1F8 at 0x8003B238).
   * Level BIN: raw load 0x8003DE58; parse 0x8002429C: header words 0-4 are byte offsets
     rebased to pointers; (off3-off2)/12 placements (0xAAAAAAAB multiply); placement
-    {s16 x, s16 y, s16 z, u16 yaw, u32 offset into section 4} consumed at 0x800245B4.
+    {s16 x, s16 y, s16 z, u16 yaw, u32 offset into section 3} consumed at 0x800245B4.
+    The call at 0x800245F8 adds that offset to rebased header word 3. The first byte
+    is dispatched through the 44-slot table at 0x800CD6A4. Record sizes below tile
+    the object region of all 75 level BIN files exactly.
   * Font BIN: "assets\\bt14ln.bin" etc.; 6-byte glyph rectangles (layout proven by
     contiguity of x+width across every record).
   * VAGS.SFX: loader 0x80054B10: words [1]=data offset, [2]=data bytes (SPU upload),
@@ -17,6 +20,14 @@ Evidence (SLUS_010.44):
 from .binio import FormatError, Reader
 
 FLB_WIDTHS = (64, 128, 256)   # the only widths the sampler at 0x8003AF64 addresses
+
+OBJECT_RECORD_SIZES = {
+    0: 4, 1: 8, 3: 20, 4: 16, 5: 8, 6: 4, 7: 4, 9: 4,
+    10: 12, 11: 4, 12: 8, 13: 16, 14: 8, 15: 12, 17: 4,
+    20: 4, 21: 24, 24: 12, 25: 12, 26: 40, 27: 4,
+    30: 16, 31: 8, 32: 16, 35: 8, 37: 24, 38: 4,
+    42: 4, 43: 8,
+}
 
 
 def decode_flb(data, name="<flb>", tile_count=None):
@@ -69,14 +80,34 @@ def decode_level_bin(data, name="<bin>"):
     cnt, first = r.u16(offs[1]), r.u16(offs[1] + 2)
     if first + cnt > n:
         raise FormatError("%s: active range %d+%d exceeds %d placements" % (name, first, cnt, n))
-    sec4 = len(r) - offs[4]
+    object_start, object_end = offs[3], offs[4]
+    object_records = []
+    object_by_offset = {}
+    pos = object_start
+    while pos < object_end:
+        rel = pos - object_start
+        opcode = r.u8(pos, "object opcode")
+        size = OBJECT_RECORD_SIZES.get(opcode)
+        if size is None:
+            raise FormatError("%s: unknown object opcode %d at section-3 offset 0x%X" % (name, opcode, rel))
+        if pos + size > object_end:
+            raise FormatError("%s: object opcode %d at 0x%X overruns section 3" % (name, opcode, rel))
+        raw = r.bytes(pos, size)
+        rec = {"offset": rel, "opcode": opcode, "size": size, "raw_hex": raw.hex(),
+               "u16": [r.u16(pos + 2 * k) for k in range(size // 2)],
+               "u32": [r.u32(pos + 4 * k) for k in range(size // 4)]}
+        object_by_offset[rel] = len(object_records)
+        object_records.append(rec)
+        pos += size
     pl = []
     for i in range(n):
         o = offs[2] + 12 * i
         rec = {"x": r.s16(o), "y": r.s16(o + 2), "z": r.s16(o + 4), "yaw_u16": r.u16(o + 6),
                "data_offset": r.u32(o + 8)}
-        if rec["data_offset"] >= sec4:
-            raise FormatError("%s: placement %d data offset 0x%X beyond section 4 (0x%X)" % (name, i, rec["data_offset"], sec4))
+        if rec["data_offset"] not in object_by_offset:
+            raise FormatError("%s: placement %d data offset 0x%X is not a section-3 object boundary" %
+                              (name, i, rec["data_offset"]))
+        rec["object_record"] = object_by_offset[rec["data_offset"]]
         pl.append(rec)
     sec1 = r.bytes(offs[1], offs[2] - offs[1])
     bounds = None
@@ -85,7 +116,10 @@ def decode_level_bin(data, name="<bin>"):
                   "s16_0x1A": r.s16(offs[1] + 26), "s16_0x1E": r.s16(offs[1] + 30)}
     return {"section_offsets": offs, "section_sizes": [b - a for a, b in zip(offs, offs[1:] + [len(r)])],
             "placements": pl, "active_first": first, "active_count": cnt, "section1_bounds": bounds,
-            "section0_hex": r.bytes(offs[0], offs[1] - offs[0]).hex()}
+            "object_records": object_records,
+            "section0_hex": r.bytes(offs[0], offs[1] - offs[0]).hex(),
+            "section1_hex": sec1.hex(),
+            "section4_hex": r.bytes(offs[4], len(r) - offs[4]).hex()}
 
 
 FONT_SHEETS = {"BT14LN": "BT14PT", "LOUS16LN": "LOUS16", "SURP10LN": "SURP10", "VERDA8LN": "VERDA8PT"}

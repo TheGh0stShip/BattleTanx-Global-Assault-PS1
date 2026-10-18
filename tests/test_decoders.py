@@ -188,6 +188,8 @@ class Level(unittest.TestCase):
         self.assertEqual(len(b["placements"]), 3)
         self.assertEqual(b["placements"][1]["yaw_u16"], 16384)
         self.assertEqual((b["active_first"], b["active_count"]), (1, 2))
+        self.assertEqual([x["opcode"] for x in b["object_records"]], [7, 7, 7])
+        self.assertEqual(b["placements"][2]["object_record"], 2)
 
     def test_level_bin_rejects(self):
         d = fx.level_bin()
@@ -196,7 +198,7 @@ class Level(unittest.TestCase):
         struct.pack_into("<I", bad, 8, 0x21)                 # placement section no longer a multiple of 12
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
         bad = bytearray(d)
-        struct.pack_into("<I", bad, 0x44 + 8, 0xFFFF)        # placement data offset beyond section 4
+        struct.pack_into("<I", bad, 0x44 + 8, 2)             # not an object-record boundary
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
 
     def test_font(self):
