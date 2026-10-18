@@ -1,6 +1,19 @@
-asm(".text\n\t.globl func_80038FC8\nfunc_80038FC8:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x8483002c,0x24020001\n\t"
-    ".word 0x14620005,0x00802821,0x0c00df99,0\n\t"
-    ".word 0x0800e400,0,0x14600003,0\n\t"
-    ".word 0x0c00e161,0x00a02021,0x8fbf0010,0\n\t"
-    ".word 0x03e00008,0x27bd0018");
+typedef unsigned char u8;
+
+typedef struct ObjectState {
+    u8 pad_00[0x2C];
+    short mode;
+} ObjectState;
+
+extern void func_80037E64(ObjectState *object);
+extern void func_80038584(ObjectState *object);
+
+void func_80038FC8(ObjectState *object) {
+    ObjectState *current = object;
+
+    if (object->mode == 1) {
+        func_80037E64(object);
+    } else if (object->mode == 0) {
+        func_80038584(current);
+    }
+}
