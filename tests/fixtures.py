@@ -95,7 +95,7 @@ def level_bin(n=3):
     sec1 = struct.pack("<HH", n - 1, 1) + bytes(28)
     sec2 = b"".join(struct.pack("<hhhHI", 10 * i, 0, -10 * i, 16384 * i & 0xFFFF, 4 * i) for i in range(n))
     sec3 = b"".join(bytes([7, 0, 0, 0]) for _ in range(n))
-    sec4 = u32(0)
+    sec4 = u32(0x7C, 0) + b"fixture\0"
     offs = [0x20]
     for s in (sec0, sec1, sec2, sec3):
         offs.append(offs[-1] + len(s))

@@ -99,6 +99,31 @@ def decode_level_bin(data, name="<bin>"):
         object_by_offset[rel] = len(object_records)
         object_records.append(rec)
         pos += size
+    name_ptrs = []
+    pos = offs[4]
+    while pos + 4 <= len(r):
+        ptr = r.u32(pos, "model-name pointer")
+        if ptr == 0:
+            break
+        if ptr < offs[4] or ptr >= len(r):
+            raise FormatError("%s: model-name pointer 0x%X outside section 4" % (name, ptr))
+        name_ptrs.append(ptr)
+        pos += 4
+    model_names = []
+    if name_ptrs:
+        string_start = min(name_ptrs)
+        if any(r.bytes(pos, string_start - pos)):
+            raise FormatError("%s: nonzero bytes between model-name table and strings" % name)
+        for ptr in name_ptrs:
+            end = data.find(b"\0", ptr)
+            if end < 0:
+                raise FormatError("%s: unterminated model name at 0x%X" % (name, ptr))
+            raw_name = r.bytes(ptr, end - ptr)
+            try:
+                text = raw_name.decode("ascii")
+            except UnicodeDecodeError:
+                raise FormatError("%s: non-ASCII model name at 0x%X" % (name, ptr))
+            model_names.append({"pointer": ptr, "section_offset": ptr - offs[4], "name": text})
     pl = []
     for i in range(n):
         o = offs[2] + 12 * i
@@ -117,6 +142,7 @@ def decode_level_bin(data, name="<bin>"):
     return {"section_offsets": offs, "section_sizes": [b - a for a, b in zip(offs, offs[1:] + [len(r)])],
             "placements": pl, "active_first": first, "active_count": cnt, "section1_bounds": bounds,
             "object_records": object_records,
+            "model_names": model_names,
             "section0_hex": r.bytes(offs[0], offs[1] - offs[0]).hex(),
             "section1_hex": sec1.hex(),
             "section4_hex": r.bytes(offs[4], len(r) - offs[4]).hex()}

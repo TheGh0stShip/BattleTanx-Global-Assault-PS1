@@ -190,6 +190,7 @@ class Level(unittest.TestCase):
         self.assertEqual((b["active_first"], b["active_count"]), (1, 2))
         self.assertEqual([x["opcode"] for x in b["object_records"]], [7, 7, 7])
         self.assertEqual(b["placements"][2]["object_record"], 2)
+        self.assertEqual(b["model_names"], [{"pointer": 0x7C, "section_offset": 8, "name": "fixture"}])
 
     def test_level_bin_rejects(self):
         d = fx.level_bin()

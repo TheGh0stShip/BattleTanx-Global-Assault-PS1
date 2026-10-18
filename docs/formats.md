@@ -94,8 +94,10 @@ records in section 2 are 12 bytes: signed x/y/z, unsigned yaw, and an offset
 into section 3. Section 3 is a packed object-constructor stream. Its first byte
 is an opcode dispatched through the 44-slot table at `0x800CD6A4`; 28 opcodes
 occur on disc, and their fixed record sizes tile all 75 files exactly. Every
-placement offset is checked against a decoded record boundary. Sections 0 and
-4 and the still-unidentified fields within object records are preserved.
+placement offset is checked against a decoded record boundary. Section 4 begins
+with absolute file offsets to NUL-terminated ASCII model names; all 4,656 table
+entries are decoded. Section 0 and the still-unidentified fields within object
+records are preserved.
 
 Font BIN files contain 82 records of three `u16` values: x, y, and width.
 All-zero records indicate absent glyphs.
