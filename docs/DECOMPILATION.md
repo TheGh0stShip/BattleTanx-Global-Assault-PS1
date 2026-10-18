@@ -31,14 +31,14 @@ bytes. The loaded range is `0x80010000..0x800C6800`; execution begins at
 | `0x000800..0x0B7000` | `0x80010000..0x800C6800` | 747,520 | mixed code/data, pending segmentation |
 
 The first split deliberately emits the entire loaded range for inspection. It
-does not count any byte as decompiled. The next milestones are library/compiler
-fingerprinting, function-boundary recovery, section ownership, and the first
-independently compiled matching unit.
+does not count unknown bytes as decompiled. The next milestones are broader
+compiler corroboration, function-boundary recovery, and section ownership.
 
-The first production C unit, `func_8006B1AC`, compiles with the PSX-patched GCC
-2.8.1 at `-O2 -G0` and matches all 144 retail bytes after the pinned assembler
-compatibility pass. Its verifier links at the retail address, resolves its one
-external call, extracts `.text`, and rejects the first differing byte.
+Three production C units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
+and match all 180 retail bytes after the pinned assembler compatibility pass.
+The verifier links each unit at its retail address, resolves declared external
+calls, extracts `.text`, permits only zero object-section tail padding, and
+rejects the first differing byte.
 
 The initial control-flow scan exposes 1,779 aligned call-target candidates.
 `make function-inventory` records them in an ignored deterministic report. They

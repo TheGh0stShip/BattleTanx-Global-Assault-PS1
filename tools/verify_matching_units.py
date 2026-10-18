@@ -89,13 +89,20 @@ def verify(config_path, executable_path, output_path, prefix):
             address = parse_int(unit["address"])
             size = parse_int(unit["size"])
             expected = oracle_slice(executable, address, size)
-            if len(actual) != size:
+            if len(actual) < size:
                 raise SystemExit(
-                    "%s emitted 0x%X bytes, expected 0x%X"
+                    "%s emitted only 0x%X bytes, expected 0x%X"
                     % (unit["name"], len(actual), size)
                 )
-            if actual != expected:
-                first = next(i for i, pair in enumerate(zip(actual, expected)) if pair[0] != pair[1])
+            code = actual[:size]
+            padding = actual[size:]
+            if any(padding):
+                raise SystemExit(
+                    "%s emitted nonzero data after its expected 0x%X-byte extent"
+                    % (unit["name"], size)
+                )
+            if code != expected:
+                first = next(i for i, pair in enumerate(zip(code, expected)) if pair[0] != pair[1])
                 raise SystemExit("%s differs at +0x%X" % (unit["name"], first))
             results.append({
                 "name": unit["name"],

@@ -20,14 +20,14 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching C text | 144 bytes | 747,376 bytes | 0.02% |
+| Matching C text | 180 bytes | 747,340 bytes | 0.02% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed function boundaries | 0 | candidate audit required | pending |
-| Functions matched | 1 | 1,778 provisional candidates | 0.06% of provisional starts |
+| Reviewed function boundaries | 3 | candidate audit required | in progress |
+| Functions matched | 3 | 1,776 provisional candidates | 0.17% of provisional starts |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -43,17 +43,17 @@ source compiles to identical machine code.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Portable tests | 33 tests | 0 tests | 100% passing |
+| Validation tests | 43 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is not yet a matching C reconstruction of the main executable. Compiler
-identification and executable segmentation are the next decompilation milestone.
-Update this table whenever a unit changes, and replace the manual executable byte
-count with a generated matching report once the target build exists.
+This is an early matching C reconstruction of the main executable. Three
+game-owned functions currently compile to 180 identical retail bytes. Compiler
+corroboration and executable segmentation are the next decompilation milestones;
+the ignored matching report is generated directly by the exact-byte verifier.
 
 ## Requirements
 

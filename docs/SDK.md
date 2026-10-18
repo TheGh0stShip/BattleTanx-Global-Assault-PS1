@@ -57,10 +57,11 @@ range, all providers for each proposed label, and all ambiguous names.
 ## Compiler status
 
 GCC 2.8.1 with the PSX patches, `-O2 -G0`, is the leading game-code compiler.
-It produces an exact 144-byte match for `func_8006B1AC`; GCC 2.7.2 assigns its
-saved registers differently, while GCC 2.95.2 inserts argument sign-extension
-instructions absent from retail. The project keeps the overall compiler gate
-open until multiple representative game functions corroborate this result.
+It produces exact matches for three game-owned functions totaling 180 bytes;
+GCC 2.7.2 assigns the non-leaf function's saved registers differently, while
+GCC 2.95.2 inserts argument sign-extension instructions absent from retail. The
+two additional leaf matches corroborate basic expression and store scheduling,
+but the overall compiler gate stays open pending more representative functions.
 
 Final compiler selection requires matching code-generation evidence from
 additional representative game functions,

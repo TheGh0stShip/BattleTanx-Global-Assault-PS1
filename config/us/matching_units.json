@@ -14,6 +14,20 @@
   ],
   "units": [
     {
+      "name": "func_80049360",
+      "address": "0x80049360",
+      "size": "0x14",
+      "source": "src/game/80049360.c",
+      "symbols": {}
+    },
+    {
+      "name": "func_80049374",
+      "address": "0x80049374",
+      "size": "0x10",
+      "source": "src/game/80049374.c",
+      "symbols": {}
+    },
+    {
       "name": "func_8006B1AC",
       "address": "0x8006B1AC",
       "size": "0x90",
