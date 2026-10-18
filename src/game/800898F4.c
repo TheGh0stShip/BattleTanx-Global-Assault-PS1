@@ -1,10 +1,37 @@
-asm(".text\n\t.globl func_800898F4\nfunc_800898F4:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x309000ff,0x24020002\n\t"
-    ".word 0x16020008,0xafbf0014,0x3c048009,0x0c02458b\n\t"
-    ".word 0x24849858,0x0c024581,0x00002021,0x0802265d\n\t"
-    ".word 0x00000000,0x3c02800f,0x2443eae8,0x9062003a\n\t"
-    ".word 0x00000000,0x10400004,0x24020001,0xa062003b\n\t"
-    ".word 0x0802265d,0x00000000,0x0c022426,0x24040001\n\t"
-    ".word 0x10400005,0x00000000,0x0c022696,0x00000000\n\t"
-    ".word 0x0802265d,0x00000000,0x0c022392,0x02002021\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef unsigned char u8;
+
+typedef struct RuntimeState {
+    u8 unknown_00[0x3A];
+    u8 transition_pending;
+    u8 transition_started;
+} RuntimeState;
+
+extern RuntimeState D_800EEAE8;
+extern void func_80089858(void);
+extern void func_8009162C(void (*callback)(void));
+extern void func_80091604(int value);
+extern int func_80089098(int value);
+extern void func_80089A58(void);
+extern void func_80088E48(u8 mode);
+
+void func_800898F4(unsigned int mode)
+{
+    mode &= 0xFF;
+    if (mode == 2) {
+        func_8009162C(func_80089858);
+        func_80091604(0);
+        return;
+    }
+
+    if (D_800EEAE8.transition_pending != 0) {
+        D_800EEAE8.transition_started = 1;
+        asm volatile("" ::: "memory");
+        return;
+    }
+
+    if (func_80089098(1) != 0) {
+        func_80089A58();
+        return;
+    }
+    func_80088E48(mode);
+}
