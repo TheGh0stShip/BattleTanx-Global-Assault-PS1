@@ -7,6 +7,11 @@ __pycache__/
 build/
 dist/
 out/
+asm/
+assets/extracted/
+baseroms/
+include/
+.splache
 
 # Original media and derived output must remain local.
 *.bin

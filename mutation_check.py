@@ -19,7 +19,14 @@ fails = 0
 for label, rel, old, new in MUTATIONS:
     with tempfile.TemporaryDirectory() as tmp:
         dst = os.path.join(tmp, "pkg")
-        shutil.copytree(HERE, dst, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "out*"))
+        shutil.copytree(
+            HERE,
+            dst,
+            ignore=shutil.ignore_patterns(
+                ".git", ".venv", ".splache", "__pycache__", "*.pyc",
+                "asm", "baseroms", "build", "out*",
+            ),
+        )
         p = os.path.join(dst, rel)
         with open(p) as fh:
             src = fh.read()
@@ -27,8 +34,10 @@ for label, rel, old, new in MUTATIONS:
             print("NOT APPLIED  %s" % label); fails += 1; continue
         with open(p, "w") as fh:
             fh.write(src.replace(old, new, 1))
+        env = os.environ.copy()
+        env.pop("BTGA_PS1_EXTRACTED", None)
         r = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-t", "."], cwd=dst,
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, env=env)
         killed = r.returncode != 0
         print("%-8s %s" % ("KILLED" if killed else "SURVIVED", label))
         fails += not killed

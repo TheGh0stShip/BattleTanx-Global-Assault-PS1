@@ -23,7 +23,7 @@ source compiles to identical machine code.
 | Matching C text | 0 bytes | 747,520 bytes | 0.00% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
-| Executable segment map | 0 | 1 | 0.00% |
+| Executable segment map | 1 | 0 | 100% |
 | Functions identified | not measured | segmentation required | pending |
 | Functions matched | not measured | function inventory required | pending |
 
@@ -41,7 +41,7 @@ source compiles to identical machine code.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Synthetic decoder tests | 30 tests | 0 tests | 100% passing |
+| Portable tests | 33 tests | 0 tests | 100% passing |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 The four opaque corpus files are the game executable, boot configuration, text,
@@ -57,6 +57,28 @@ count with a generated matching report once the target build exists.
 
 - Python 3.9 or newer
 - No runtime dependencies outside the Python standard library
+
+Executable splitting uses the pinned development dependencies in
+`requirements.txt`.
+
+## Executable setup
+
+The supported US executable has SHA-1
+`5c3280f903d442922a7764a4d9f9f6f9fd0c0c34` and SHA-256
+`7bc99c17872dc244886ab85033be1596c206b298da450bea8c774851b4ab8f2f`.
+Place it locally at `baseroms/us/SLUS_010.44`; that directory is ignored.
+
+```sh
+make setup
+make verify
+make split
+make check
+```
+
+The initial split accounts for the entire file and writes generated assembly
+under ignored paths. It awards no matching progress. See
+[`docs/DECOMPILATION.md`](docs/DECOMPILATION.md) for the evidence gates and
+current memory map.
 
 ## Tests
 

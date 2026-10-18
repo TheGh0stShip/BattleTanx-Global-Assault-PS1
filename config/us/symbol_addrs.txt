@@ -1,0 +1,1 @@
+entrypoint = 0x800860B0;

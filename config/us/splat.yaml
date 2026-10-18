@@ -1,0 +1,32 @@
+name: BattleTanx Global Assault (USA)
+sha1: 5c3280f903d442922a7764a4d9f9f6f9fd0c0c34
+
+options:
+  basename: battletanx_ga
+  target_path: baseroms/us/SLUS_010.44
+  base_path: ../..
+  platform: psx
+  compiler: PSYQ
+  asm_path: asm/us
+  src_path: src
+  build_path: build/us
+  ld_script_path: build/us/battletanx_ga.ld
+  create_undefined_funcs_auto: true
+  create_undefined_syms_auto: true
+  symbol_addrs_path: config/us/symbol_addrs.txt
+  undefined_funcs_auto_path: build/us/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/us/undefined_syms_auto.txt
+  find_file_boundaries: false
+  gp_value: 0
+
+segments:
+  - name: psx_header
+    type: bin
+    start: 0x0
+  - name: main
+    type: code
+    start: 0x800
+    vram: 0x80010000
+    subsegments:
+      - [0x800, asm, main]
+  - [0xB7000]
