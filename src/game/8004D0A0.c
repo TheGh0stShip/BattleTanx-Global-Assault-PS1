@@ -1,10 +1,38 @@
-asm(".text\n\t.globl func_8004D0A0\nfunc_8004D0A0:\n\t"
-    ".word 0x27bdffc8,0xafb00030,0x00808021,0xafbf0034\n\t"
-    ".word 0x9603014c,0x3402ffff,0x14620018,0x2604014c\n\t"
-    ".word 0x84850010,0x84860018,0x2402ff6a,0xafa20010\n\t"
-    ".word 0x24020096,0xafa20014,0x2402ff9c,0xafa20018\n\t"
-    ".word 0x9482000c,0xafa00020,0xafa00024,0x24420064\n\t"
-    ".word 0x00021400,0x00021403,0xafa2001c,0x94830008\n\t"
-    ".word 0x3c02f800,0xafa2002c,0xafa30028,0x8e040000\n\t"
-    ".word 0x0c0058bc,0x00003821,0xa602014c,0x8fbf0034\n\t"
-    ".word 0x8fb00030,0x03e00008,0x27bd0038\n\t");
+typedef unsigned char u8;
+typedef signed short s16;
+typedef unsigned short u16;
+typedef signed int s32;
+typedef unsigned int u32;
+
+typedef struct EffectState {
+    u16 id;
+    u8 pad_02[6];
+    u16 value;
+    u8 pad_0A[2];
+    u16 height;
+    u8 pad_0E[2];
+    s16 x;
+    u8 pad_12[6];
+    s16 z;
+} EffectState;
+
+typedef struct Object {
+    s32 kind;
+    u8 pad_004[0x14C - 4];
+    EffectState effect;
+} Object;
+
+extern u16 func_800162F0(s32 kind, s16 x, s16 z, s32 zero,
+                         s32 min_y, s32 max_y, s32 min_x, s32 height,
+                         s32 zero_2, s32 zero_3, u16 value, u32 mask);
+
+void func_8004D0A0(Object *object) {
+    EffectState *effect = &object->effect;
+
+    if (effect->id == 0xFFFF) {
+        effect->id = func_800162F0(object->kind, effect->x, effect->z, 0,
+                                   -150, 150, -100,
+                                   (s16)(effect->height + 100),
+                                   0, 0, effect->value, 0xF8000000);
+    }
+}
