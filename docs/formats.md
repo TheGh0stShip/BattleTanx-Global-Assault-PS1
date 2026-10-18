@@ -106,8 +106,12 @@ is an opcode dispatched through the 44-slot table at `0x800CD6A4`; 28 opcodes
 occur on disc, and their fixed record sizes tile all 75 files exactly. Every
 placement offset is checked against a decoded record boundary. Section 4 begins
 with absolute file offsets to NUL-terminated ASCII model names; all 4,656 table
-entries are decoded. The still-unidentified fields within object records are
-preserved.
+entries are decoded. Opcodes 0, 1, 11, 14, 35, 42 and 43 use their `u16` at
+`+2` as an index into that table (or `0xFFFF` for no model); all 1,756 such
+references are validated. Opcode 30 is decoded as `{u8 opcode, u8 mode, s16
+min_offset[3], s16 max_offset[3], u16 reserved}`. This agrees with the N64
+entry dispatcher, and the reserved word is zero in every PS1 record. Other
+still-unidentified object fields remain preserved.
 
 Font BIN files contain 82 records of three `u16` values: x, y, and width.
 All-zero records indicate absent glyphs.

@@ -90,15 +90,22 @@ def flb(w=64, h=256, tile=5):
     return struct.pack("<HH", w, h) + struct.pack("<%dI" % len(cells), *cells)
 
 
-def level_bin(n=3):
+def level_bin(n=3, object_records=None):
+    if object_records is None:
+        object_records = [bytes([7, 0, 0, 0]) for _ in range(n)]
+    n = len(object_records)
     sec0 = u32(2)
     sec1 = struct.pack("<HHhhhhhh", n - 1, 1, -10, -5, -20, 10, 5, 20) + bytes(16)
-    sec2 = b"".join(struct.pack("<hhhHI", 10 * i, 0, -10 * i, 16384 * i & 0xFFFF, 4 * i) for i in range(n))
-    sec3 = b"".join(bytes([7, 0, 0, 0]) for _ in range(n))
-    sec4 = u32(0x7C, 0) + b"fixture\0"
+    object_offsets, sec3 = [], b""
+    for record in object_records:
+        object_offsets.append(len(sec3))
+        sec3 += record
+    sec2 = b"".join(struct.pack("<hhhHI", 10 * i, 0, -10 * i, 16384 * i & 0xFFFF, object_offsets[i])
+                    for i in range(n))
     offs = [0x20]
     for s in (sec0, sec1, sec2, sec3):
         offs.append(offs[-1] + len(s))
+    sec4 = u32(offs[4] + 8, 0) + b"fixture\0"
     return u32(*offs, 0, 0, 0) + sec0 + sec1 + sec2 + sec3 + sec4
 
 

@@ -29,6 +29,10 @@ OBJECT_RECORD_SIZES = {
     42: 4, 43: 8,
 }
 
+# These opcodes read the u16 at +2 through the same model-name lookup in the
+# PS1 dispatcher and the corresponding N64 entry-script dispatcher.
+OBJECT_MODEL_REFERENCE_OPCODES = frozenset((0, 1, 11, 14, 35, 42, 43))
+
 
 def decode_flb(data, name="<flb>", tile_count=None):
     r = Reader(data, name)
@@ -111,6 +115,15 @@ def decode_level_bin(data, name="<bin>"):
         rec = {"offset": rel, "opcode": opcode, "size": size, "raw_hex": raw.hex(),
                "u16": [r.u16(pos + 2 * k) for k in range(size // 2)],
                "u32": [r.u32(pos + 4 * k) for k in range(size // 4)]}
+        if opcode == 30:
+            rec["fields"] = {
+                "mode": r.u8(pos + 1),
+                "min_offset": [r.s16(pos + 2), r.s16(pos + 4), r.s16(pos + 6)],
+                "max_offset": [r.s16(pos + 8), r.s16(pos + 10), r.s16(pos + 12)],
+                "reserved_u16": r.u16(pos + 14),
+            }
+            if rec["fields"]["reserved_u16"] != 0:
+                raise FormatError("%s: opcode 30 at 0x%X has nonzero reserved word" % (name, rel))
         object_by_offset[rel] = len(object_records)
         object_records.append(rec)
         pos += size
@@ -139,6 +152,15 @@ def decode_level_bin(data, name="<bin>"):
             except UnicodeDecodeError:
                 raise FormatError("%s: non-ASCII model name at 0x%X" % (name, ptr))
             model_names.append({"pointer": ptr, "section_offset": ptr - offs[4], "name": text})
+    for rec in object_records:
+        if rec["opcode"] in OBJECT_MODEL_REFERENCE_OPCODES:
+            model_index = rec["u16"][1]
+            if model_index != 0xFFFF and model_index >= len(model_names):
+                raise FormatError("%s: opcode %d at 0x%X references model %d of %d" %
+                                  (name, rec["opcode"], rec["offset"], model_index, len(model_names)))
+            fields = rec.setdefault("fields", {})
+            fields["model_name_index"] = None if model_index == 0xFFFF else model_index
+            fields["model_name"] = None if model_index == 0xFFFF else model_names[model_index]["name"]
     pl = []
     for i in range(n):
         o = offs[2] + 12 * i

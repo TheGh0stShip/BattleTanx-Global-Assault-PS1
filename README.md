@@ -47,12 +47,12 @@ is also reported separately and never inflates either executable measurement.
 | MMM/3MDL | 76 files / 4,761 models | lower vertex flags and header flags | geometry, vertex grouping, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
-| Level BIN | 75 files / 30,758 placements | object parameter names remain | partial |
+| Level BIN | 75 files / 30,758 placements | remaining object parameter names | groups, placements, model references, bounds records, and names decoded |
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
 | STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
-| Validation tests | 57 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 58 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 Every corpus file now has a bounds-checked structural decoder. This includes the

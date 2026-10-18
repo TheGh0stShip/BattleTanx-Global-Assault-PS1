@@ -215,6 +215,19 @@ class Level(unittest.TestCase):
         struct.pack_into("<I", bad, 0x44 + 8, 2)             # not an object-record boundary
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
 
+    def test_level_object_fields(self):
+        bounds = struct.pack("<BBhhhhhhH", 30, 2, -1, -2, -3, 4, 5, 6, 0)
+        b = level.decode_level_bin(fx.level_bin(object_records=[bytes([0, 0, 0, 0]), bounds]))
+        self.assertEqual(b["object_records"][0]["fields"],
+                         {"model_name_index": 0, "model_name": "fixture"})
+        self.assertEqual(b["object_records"][1]["fields"],
+                         {"mode": 2, "min_offset": [-1, -2, -3], "max_offset": [4, 5, 6],
+                          "reserved_u16": 0})
+        bad_ref = bytearray(fx.level_bin(object_records=[bytes([0, 0, 2, 0])]))
+        self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_ref))
+        bad_reserved = bytearray(fx.level_bin(object_records=[bounds[:-2] + b"\1\0"]))
+        self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_reserved))
+
     def test_font(self):
         g = level.decode_font_bin(struct.pack("<9H", 0, 0, 5, 5, 0, 6, 0, 0, 0), sheet_size=(16, 8))
         self.assertEqual(g["absent"], 1)
