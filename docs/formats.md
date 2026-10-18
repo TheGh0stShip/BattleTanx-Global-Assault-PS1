@@ -113,7 +113,9 @@ u32 flags, u32 volume, u16 pitch, s16 sentinel}`. All samples are contiguous;
 the final sample ends at the declared data size. The corpus uses flag 1, maximum
 SPU volume `0x3FFF`, sentinel `-1`, and three base pitches. STR and PCK files
 contain raw 2,336-byte Mode-2 sectors and are inventoried by sector kind and
-channel.
+channel. The inventory's `--wav` option decodes every 16-byte SPU ADPCM frame
+to deterministic mono 16-bit PCM, using the record pitch to set the WAV sample
+rate and stopping at the first end-flagged frame.
 
 ## Coordinate rules
 

@@ -49,7 +49,7 @@ is also reported separately and never inflates either executable measurement.
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
 | Level BIN | 75 files / 30,758 placements | object parameter names remain | partial |
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
-| VAGS.SFX | 1 file / 57 entries | flag meaning and ADPCM decoding | partial |
+| VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
 | STR/PCK | 20 files | media decoding | sector inventory only |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
 | Validation tests | 54 tests | 0 tests | 100% passing with the local corpus |
@@ -119,11 +119,11 @@ BTGA_PS1_EXTRACTED=/path/to/extracted \
 ## Inventory
 
 ```sh
-python3 -m btga_ps1.inventory /path/to/extracted out --previews --obj
+python3 -m btga_ps1.inventory /path/to/extracted out --previews --obj --wav
 ```
 
 The tool refuses to place output inside the input tree. Generated manifests,
-previews and models are deterministic.
+previews, models, and decoded sound-effect WAV files are deterministic.
 
 Technical format notes and executable evidence are recorded in
 [`docs/formats.md`](docs/formats.md). Platform assumptions are recorded in

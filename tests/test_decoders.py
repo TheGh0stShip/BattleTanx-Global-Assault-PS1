@@ -3,7 +3,7 @@ import struct
 import tempfile
 import unittest
 
-from btga_ps1 import level, metadata, models, textures
+from btga_ps1 import audio, level, metadata, models, textures
 from btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
 from btga_ps1.png import encode_rgba
 from tests import fixtures as fx
@@ -271,6 +271,22 @@ class Metadata(unittest.TestCase):
         bad[4] = 1
         self.assertRaises(FormatError, metadata.decode_licence_sectors, bytes(bad))
         self.assertRaises(FormatError, metadata.decode_licence_sectors, bytes(100))
+
+
+class Audio(unittest.TestCase):
+    def test_spu_adpcm_and_wav(self):
+        frame = bytes([0x0C, 1]) + bytes([0x11]) + bytes(13)
+        dec = audio.decode_spu_adpcm(frame)
+        self.assertEqual(dec["samples"][:2], [1, 1])
+        self.assertEqual(dec["decoded_frames"], 1)
+        wav = audio.encode_wav_mono16(dec["samples"], audio.pitch_sample_rate(0x400))
+        self.assertEqual(wav[:12], b"RIFF" + struct.pack("<I", len(wav) - 8) + b"WAVE")
+        self.assertEqual(struct.unpack_from("<I", wav, 24)[0], 11025)
+
+    def test_spu_adpcm_rejects(self):
+        self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes(15))
+        self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes([0x5C, 1]) + bytes(14))
+        self.assertRaises(FormatError, audio.decode_spu_adpcm, bytes([0x0C, 0]) + bytes(14))
 
 
 class Png(unittest.TestCase):

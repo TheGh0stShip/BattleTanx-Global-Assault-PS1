@@ -1,9 +1,9 @@
 """Corpus inventory: classify, decode and fingerprint every file of the extracted disc.
 
-usage: python -m btga_ps1.inventory EXTRACTED_DIR OUT_DIR [--previews] [--obj]
+usage: python -m btga_ps1.inventory EXTRACTED_DIR OUT_DIR [--previews] [--obj] [--wav]
 
 Writes OUT_DIR/manifest.json (deterministic: sorted keys, no timestamps, no host paths),
-and with --previews / --obj, PNG texture sheets and OBJ models under OUT_DIR.  Nothing is
+and with --previews / --obj / --wav, PNG sheets, OBJ models, and WAV effects under OUT_DIR. Nothing is
 ever written inside EXTRACTED_DIR.
 """
 import hashlib
@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-from . import level, metadata, models, textures
+from . import audio, level, metadata, models, textures
 from .binio import FormatError
 from .png import encode_rgba
 
@@ -58,7 +58,7 @@ def _sheet(images):
     return W, H, canvas
 
 
-def run(root, out, previews=False, objs=False):
+def run(root, out, previews=False, objs=False, wavs=False):
     root = os.path.abspath(root)
     out = os.path.abspath(out)
     if out == root or out.startswith(root + os.sep):
@@ -167,6 +167,14 @@ def run(root, out, previews=False, objs=False):
                     "entry_spu_offsets": [e["spu_offset"] for e in s["entries"]],
                     "entry_data_bytes": [e["data_bytes"] for e in s["entries"]],
                     "pitch_histogram": _top(e["pitch"] for e in s["entries"])}
+                if wavs:
+                    for i, e in enumerate(s["entries"]):
+                        start = s["data_offset"] + e["spu_offset"]
+                        raw = data[start:start + e["data_bytes"]]
+                        dec = audio.decode_spu_adpcm(raw, "%s entry %d" % (r, i))
+                        rate = audio.pitch_sample_rate(e["pitch"])
+                        _write_bytes(out, "wav/%s/%03d.wav" % (r.replace("/", "_"), i),
+                                     audio.encode_wav_mono16(dec["samples"], rate))
             elif ext in ("STR", "PCK"):
                 ent["decoded"] = level.inventory_xa(data, r)
             elif ext == "TXT":
@@ -252,11 +260,12 @@ def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
     previews = "--previews" in argv
     objs = "--obj" in argv
+    wavs = "--wav" in argv
     args = [a for a in argv if not a.startswith("--")]
     if len(args) != 2:
         print(__doc__)
         return 2
-    m = run(args[0], args[1], previews, objs)
+    m = run(args[0], args[1], previews, objs, wavs)
     for k, v in m["summary"].items():
         print("%-28s %d" % (k, v))
     rej = [(r, e["reason"]) for r, e in m["files"].items() if e["status"] == "rejected"]
