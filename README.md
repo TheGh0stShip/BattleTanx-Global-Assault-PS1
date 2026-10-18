@@ -10,19 +10,23 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 ## Progress
 
-![Executable matching: 100%](https://img.shields.io/badge/executable_matching-100%25-brightgreen)
+![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
+![Semantic C decompilation: 5.42%](https://img.shields.io/badge/semantic_C-5.42%25-yellow)
 ![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
 
-The executable percentage is the authoritative decompilation measurement. It is
-`matched text bytes / 747,520 text bytes` from `SLUS_010.44`; asset research is
-reported separately and never inflates it. A byte counts only after reconstructed
-source compiles to identical machine code.
+The ByteMatch percentage is the authoritative semantic decompilation measurement:
+matching code emitted from C divided by all executable code bytes. Raw instruction
+blobs do not receive semantic credit. Exact reconstruction is tracked separately;
+all reconstructed source units compile and link to the retail bytes. Asset research
+is also reported separately and never inflates either executable measurement.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching source text | 747,520 bytes | 0 bytes | 100% |
+| Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
+| Semantic matching C | 31,956 code bytes | 557,880 code bytes | 5.42% |
+| Semantic functions | 575 functions | 1,190 raw instruction units | 32.58% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
@@ -59,8 +63,9 @@ One thousand eight hundred sixty-nine source units compile and link into all
 a complete executable matching both supported hashes. Semantic naming,
 consolidation, and compiler corroboration remain active decompilation work;
 ignored reports are generated directly by the exact-byte verifiers.
-CI also publishes an objdiff-compatible `SLUS_01044_report` artifact so public
-progress indexes can ingest the same unit and byte totals.
+CI also publishes an objdiff-compatible `SLUS_01044_report` artifact. It awards
+matched-code credit only to semantic C while retaining exact totals for every code
+and data unit.
 
 ## Requirements
 
