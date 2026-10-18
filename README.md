@@ -20,14 +20,14 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching C text | 14,332 bytes | 733,188 bytes | 1.92% |
+| Matching C text | 14,380 bytes | 733,140 bytes | 1.92% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed function boundaries | 321 | candidate audit required | in progress |
-| Functions matched | 321 | 1,459 provisional candidates | 320 provisional starts matched (17.99%); 1 additional entry |
+| Reviewed function boundaries | 322 | candidate audit required | in progress |
+| Functions matched | 322 | 1,458 provisional candidates | 321 provisional starts matched (18.04%); 1 additional entry |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -51,7 +51,7 @@ and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
 This is an early matching C reconstruction of the main executable. Two hundred ninety-five
-functions currently compile to 14,332 identical retail bytes. Compiler
+functions currently compile to 14,380 identical retail bytes. Compiler
 corroboration and executable segmentation are the next decompilation milestones;
 the ignored matching report is generated directly by the exact-byte verifier.
 
