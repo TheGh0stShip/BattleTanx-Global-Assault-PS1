@@ -1,4 +1,30 @@
-asm(".text\n\t.set noreorder\n\t.globl func_8008AB00\nfunc_8008AB00:\n\t"
-    "lh $8,0($4)\n\tlh $9,2($4)\n\tlh $10,4($4)\n\taddu $7,$31,$0\n\t"
-    ".word 0x0C022ACC\n\tnop\n\tsh $8,0($5)\n\tsh $9,2($5)\n\t"
-    "sh $10,4($5)\n\taddu $31,$7,$0\n\tjr $31\n\tnop");
+typedef struct Vector16 {
+    short x;
+    short y;
+    short z;
+} Vector16;
+
+extern void func_8008AB30(void);
+
+void func_8008AB00(const Vector16 *input, Vector16 *output)
+{
+    register int x asm("$8") = input->x;
+    register int y asm("$9") = input->y;
+    register int z asm("$10") = input->z;
+    register unsigned int saved_return asm("$7");
+
+    asm volatile(
+        ".set noreorder\n\t"
+        "addu $7,$31,$zero\n\t"
+        "jal func_8008AB30\n\t"
+        "nop\n\t"
+        ".set reorder"
+        : "+r"(x), "+r"(y), "+r"(z), "=r"(saved_return)
+        :
+        : "memory"
+    );
+    output->x = x;
+    output->y = y;
+    output->z = z;
+    asm volatile("addu $31,$7,$zero" : : "r"(saved_return) : "memory");
+}
