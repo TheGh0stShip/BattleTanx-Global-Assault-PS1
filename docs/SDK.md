@@ -62,6 +62,8 @@ GCC 2.7.2 assigns the non-leaf function's saved registers differently, while
 GCC 2.95.2 inserts argument sign-extension instructions absent from retail. The
 additional matches corroborate basic expression and store scheduling,
 branches, global-address construction, structure strides, and a non-leaf call.
+Those units also survive one final retail-address link and reproduce the full
+PS-X EXE, including its metadata-built header, at both supported hashes.
 The overall compiler gate stays open pending more representative functions.
 
 Final compiler selection requires matching code-generation evidence from

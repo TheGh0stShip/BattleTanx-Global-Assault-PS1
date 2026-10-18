@@ -1,8 +1,9 @@
 # BattleTanx: Global Assault (PlayStation)
 
 Reverse-engineering and decompilation project for the US PlayStation release
-(`SLUS-01044`). The current milestone provides bounds-checked decoders for the
-game's proprietary asset formats and a deterministic corpus inventory tool.
+(`SLUS-01044`). The current milestone provides an exact reproducible executable
+build, bounds-checked decoders for the game's proprietary asset formats, and a
+deterministic corpus inventory tool.
 
 No game image, executable, extracted asset, disassembly, or generated preview is
 distributed by this repository. Supply files from a legally obtained copy.
@@ -22,7 +23,7 @@ source compiles to identical machine code.
 |---|---:|---:|---:|
 | Matching source text | 747,520 bytes | 0 bytes | 100% |
 | Original compiler identified | 0 | 1 | 0.00% |
-| Reproducible target build | 0 | 1 | 0.00% |
+| Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
@@ -45,17 +46,18 @@ source compiles to identical machine code.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Validation tests | 47 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 48 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is an early matching reconstruction of the main executable. One thousand eight hundred sixty-nine
-source units currently compile to all 747,520 retail payload bytes. Compiler
-corroboration and executable segmentation are the next decompilation milestones;
-the ignored matching report is generated directly by the exact-byte verifier.
+One thousand eight hundred sixty-nine source units compile and link into all
+747,520 retail payload bytes. The reconstructed header and linked payload form
+a complete executable matching both supported hashes. Semantic naming,
+consolidation, and compiler corroboration remain active decompilation work;
+ignored reports are generated directly by the exact-byte verifiers.
 
 ## Requirements
 
@@ -77,11 +79,14 @@ make setup
 make verify
 make split
 make function-inventory
+make verify-matching
+make verify-linked
 make check
 ```
 
 The initial split accounts for the entire file and writes generated assembly
-under ignored paths. It awards no matching progress. See
+under ignored paths. `make verify-linked` reconstructs and verifies a complete
+executable under `build/us/`; that output remains local. See
 [`docs/DECOMPILATION.md`](docs/DECOMPILATION.md) for the evidence gates and
 current memory map. SDK and compiler evidence is tracked separately in
 [`docs/SDK.md`](docs/SDK.md).

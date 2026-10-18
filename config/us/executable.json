@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "magic": "PS-X EXE",
+  "entrypoint": "0x800860B0",
+  "global_pointer": "0x00000000",
+  "load_address": "0x80010000",
+  "payload_size": "0x000B6800",
+  "data_address": "0x00000000",
+  "data_size": "0x00000000",
+  "bss_address": "0x00000000",
+  "bss_size": "0x00000000",
+  "stack_address": "0x801FFFF0",
+  "stack_size": "0x00000000",
+  "region_marker": "Sony Computer Entertainment Inc. for North America area",
+  "sha1": "5c3280f903d442922a7764a4d9f9f6f9fd0c0c34",
+  "sha256": "7bc99c17872dc244886ab85033be1596c206b298da450bea8c774851b4ab8f2f"
+}

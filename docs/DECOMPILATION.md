@@ -28,21 +28,27 @@ bytes. The loaded range is `0x80010000..0x800C6800`; execution begins at
 | File range | Loaded range | Size | Classification |
 |---|---|---:|---|
 | `0x000000..0x000800` | not loaded | 2,048 | PS-X EXE header |
-| `0x000800..0x0B7000` | `0x80010000..0x800C6800` | 747,520 | mixed code/data, pending segmentation |
+| `0x000800..0x0B7000` | `0x80010000..0x800C6800` | 747,520 | exact source coverage; semantic classification continues |
 
-The first split deliberately emits the entire loaded range for inspection. It
-does not count unknown bytes as decompiled. The next milestones are broader
-compiler corroboration, function-boundary recovery, and section ownership.
+The first split deliberately emits the entire loaded range for inspection and
+awards no progress by itself. Exact source units now cover the complete range;
+the next milestones are broader compiler corroboration, semantic reconstruction,
+function-boundary review, and section ownership.
 
 One thousand eight hundred sixty-nine production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
 and collectively match all 747,520 retail payload bytes after the pinned assembler compatibility pass.
-This proves complete isolated source coverage; producing one linked executable remains a separate build milestone.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.
 
+`make verify-linked` independently places all exact unit sections at their
+retail addresses, performs one final link, extracts the contiguous payload,
+reconstructs the PS-X EXE header from checked-in metadata, and requires the
+complete output to match both supported hashes. Generated executable and report
+files remain under the ignored `build/` directory.
+
 The initial control-flow scan exposes 1,779 aligned call-target candidates, all of which now have exact source coverage.
-`make function-inventory` records them in an ignored deterministic report. They
+`make function-inventory` records them in an ignored deterministic report.
 Their classification remains provisional until instruction flow, returns, jump tables, embedded data,
 and callerless entry points are audited; the candidate count is not a completed function count.
 
