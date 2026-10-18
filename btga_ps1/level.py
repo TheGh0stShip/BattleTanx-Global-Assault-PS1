@@ -160,6 +160,30 @@ def decode_level_bin(data, name="<bin>"):
                 raise FormatError("%s: opcode 37 at 0x%X has nonzero reserved bytes" % (name, rel))
         elif opcode == 38:
             rec["fields"] = {"player_rgb": list(raw[1:4])}
+        elif opcode == 31:
+            rec["fields"] = {"team_index": r.u8(pos + 1), "actor_id": r.u16(pos + 2),
+                             "actor_definition_offset": r.s32(pos + 4)}
+        elif opcode == 10:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in (2, 4, 6)],
+                             "behavior": r.u8(pos + 8), "variant": r.u8(pos + 9)}
+            if r.u16(pos + 10):
+                raise FormatError("%s: opcode 10 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 15:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in (2, 4, 6, 10)],
+                             "building_kind": r.u8(pos + 8), "variant": r.u8(pos + 9)}
+        elif opcode == 20:
+            rec["fields"] = {"crate_resource_index": r.u16(pos + 2)}
+            if r.u8(pos + 1):
+                raise FormatError("%s: opcode 20 at 0x%X has nonzero reserved byte" % (name, rel))
+        elif opcode == 21:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in (2, 4, 6, 8, 10)],
+                             "spawn_flag": r.u8(pos + 12), "subrecord_offset": r.s32(pos + 16),
+                             "mission_kind": r.u8(pos + 20)}
+            if raw[13:16] != b"\0\0\0" or raw[21:24] != b"\0\0\0":
+                raise FormatError("%s: opcode 21 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 32:
+            rec["fields"] = {"team_index": r.u8(pos + 1),
+                             "resource_indices": [r.u16(pos + k) for k in range(2, 16, 2)]}
         object_by_offset[rel] = len(object_records)
         object_records.append(rec)
         pos += size

@@ -126,8 +126,12 @@ entry dispatcher, and the reserved word is zero in every PS1 record. Other
 cross-platform matches decode opcode 6's grid row/column, opcode 7's turret
 mode and spawn parameter, opcode 27's randomized-hazard selector, opcode 37's
 seven environment RGB triplets, and opcode 38's per-player RGB triplet. In
-total, 3,890 of 5,698 records now have semantic fields. Other unidentified
-object fields remain preserved.
+addition, corresponding constructor structures decode opcode 10 destructible
+props, opcode 15 buildings, opcode 20 crates, opcode 21 mission props, opcode
+31 multiplayer actors, and opcode 32 effect props. Their resource indices,
+kinds, teams, table offsets, and reserved bytes are exposed. In total, 4,530 of
+5,698 records now have semantic fields. Other unidentified object fields remain
+preserved.
 
 Font BIN files contain 81 glyph records `{u16 x, u16 y, u16 width}`, followed by
 one metrics record `{u16 glyph_height, u16 fixed_advance, u16 space_width}`.

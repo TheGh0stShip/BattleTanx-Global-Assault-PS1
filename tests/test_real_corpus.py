@@ -36,7 +36,7 @@ class RealCorpus(unittest.TestCase):
         levels = [e["decoded"] for e in m["files"].values() if e["family"] == "BIN-level"]
         self.assertEqual(sum(x["model_references"] for x in levels), 1756)
         self.assertEqual(sum(x["bounds_records"] for x in levels), 141)
-        self.assertEqual(sum(x["semantic_object_records"] for x in levels), 3890)
+        self.assertEqual(sum(x["semantic_object_records"] for x in levels), 4530)
         fonts = [e["decoded"] for e in m["files"].values() if e["family"] == "BIN-font"]
         self.assertEqual(sum(x["glyphs"] for x in fonts), 324)
         self.assertEqual(sorted((x["metrics"]["glyph_height"], x["metrics"]["fixed_advance"],

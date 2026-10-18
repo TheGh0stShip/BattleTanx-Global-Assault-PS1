@@ -241,7 +241,13 @@ class Level(unittest.TestCase):
         bounds = struct.pack("<BBhhhhhhH", 30, 2, -1, -2, -3, 4, 5, 6, 0)
         palette = bytes([37]) + bytes(range(1, 22)) + bytes(2)
         records = [bytes([0, 0, 0, 0]), bounds, bytes([6, 2, 3, 0]), bytes([7, 20, 1, 0]),
-                   bytes([27, 1, 0, 0]), palette, bytes([38, 10, 20, 30])]
+                   bytes([27, 1, 0, 0]), palette, bytes([38, 10, 20, 30]),
+                   struct.pack("<BBHi", 31, 2, 17, -4),
+                   struct.pack("<BB3HBBH", 10, 0, 1, 2, 3, 4, 5, 0),
+                   struct.pack("<BB3HBBH", 15, 0, 1, 2, 3, 4, 5, 6),
+                   struct.pack("<BBH", 20, 0, 9),
+                   struct.pack("<BB5HB3xiB3x", 21, 0, 1, 2, 3, 4, 5, 1, -1, 3),
+                   struct.pack("<BB7H", 32, 2, 1, 2, 3, 4, 5, 6, 7)]
         b = level.decode_level_bin(fx.level_bin(object_records=records))
         self.assertEqual(b["object_records"][0]["fields"],
                          {"model_name_index": 0, "model_name": "fixture"})
@@ -254,6 +260,13 @@ class Level(unittest.TestCase):
         self.assertEqual(b["object_records"][5]["fields"]["environment_rgb"][0], [1, 2, 3])
         self.assertEqual(b["object_records"][5]["fields"]["environment_rgb"][-1], [19, 20, 21])
         self.assertEqual(b["object_records"][6]["fields"], {"player_rgb": [10, 20, 30]})
+        self.assertEqual(b["object_records"][7]["fields"],
+                         {"team_index": 2, "actor_id": 17, "actor_definition_offset": -4})
+        self.assertEqual(b["object_records"][8]["fields"]["resource_indices"], [1, 2, 3])
+        self.assertEqual(b["object_records"][9]["fields"]["building_kind"], 4)
+        self.assertEqual(b["object_records"][10]["fields"], {"crate_resource_index": 9})
+        self.assertEqual(b["object_records"][11]["fields"]["subrecord_offset"], -1)
+        self.assertEqual(b["object_records"][12]["fields"]["resource_indices"], [1, 2, 3, 4, 5, 6, 7])
         bad_ref = bytearray(fx.level_bin(object_records=[bytes([0, 0, 2, 0])]))
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_ref))
         bad_reserved = bytearray(fx.level_bin(object_records=[bounds[:-2] + b"\1\0"]))
