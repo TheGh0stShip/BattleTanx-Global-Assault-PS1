@@ -1,13 +1,58 @@
-asm(".text\n\t.globl func_800509F4\nfunc_800509F4:\n\t"
-    ".word 0x27bdffd0,0xafb00020,0x00808021,0xafbf002c\n\t"
-    ".word 0xafb20028,0xafb10024,0x8e030094,0x00000000\n\t"
-    ".word 0x1060001e,0x00008821,0x27a40010,0x8c620000\n\t"
-    ".word 0x26050008,0xafa20010,0x8c620004,0x26120184\n\t"
-    ".word 0x0c012576,0xafa20018,0x27a40010,0x26050194\n\t"
-    ".word 0x0c012576,0x00408021,0x00402021,0x0204182a\n\t"
-    ".word 0x8e42001c,0x00000000,0x10620003,0x00602821\n\t"
-    ".word 0x080142a3,0xae43001c,0x14a00002,0x00901823\n\t"
-    ".word 0x02041823,0x3c020006,0x34424000,0x0043102a\n\t"
-    ".word 0x14400003,0x02201021,0x24110001,0x02201021\n\t"
-    ".word 0x8fbf002c,0x8fb20028,0x8fb10024,0x8fb00020\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad000[0x10];
+    Vector target;
+    int nearer_target;
+} MoveState;
+
+typedef struct {
+    char pad000[8];
+    Vector position;
+    char pad014[0x80];
+    Vector *reference;
+    char pad098[0xEC];
+    MoveState move;
+} Tank;
+
+int func_800495D8(Vector *, Vector *);
+
+int func_800509F4(Tank *tank) {
+    Vector point;
+    Vector *reference;
+    MoveState *move;
+    int first_distance;
+    int second_distance;
+    int nearer_target;
+    int difference;
+    int result;
+
+    result = 0;
+    reference = tank->reference;
+    if (reference != 0) {
+        point.x = reference->x;
+        point.z = reference->y;
+        move = &tank->move;
+        first_distance = func_800495D8(&point, &tank->position);
+        second_distance = func_800495D8(&point, &move->target);
+        nearer_target = first_distance < second_distance;
+        if (nearer_target != move->nearer_target) {
+            move->nearer_target = nearer_target;
+            result = 1;
+        } else {
+            if (nearer_target) {
+                difference = second_distance - first_distance;
+            } else {
+                difference = first_distance - second_distance;
+            }
+            if (difference <= 0x64000) {
+                result = 1;
+            }
+        }
+    }
+    return result;
+}

@@ -1,12 +1,43 @@
-asm(".text\n\t.globl func_80050804\nfunc_80050804:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x8e020218,0x2403feff,0x00431024,0xae020218\n\t"
-    ".word 0x24020002,0x10a20010,0x26030184,0x2ca20003\n\t"
-    ".word 0x10400005,0x24020001,0x10a20008,0x3c02800d\n\t"
-    ".word 0x08014224,0x00000000,0x24020004,0x10a2000b\n\t"
-    ".word 0x3c02800d,0x08014224,0x00000000,0x8c422fe0\n\t"
-    ".word 0x08014223,0xae050184,0x3c02800d,0x8c422fe0\n\t"
-    ".word 0xae050184,0x08014223,0x24420258,0x8c422fe0\n\t"
-    ".word 0xae050184,0x2442012c,0xac620004,0x0c013757\n\t"
-    ".word 0x02002021,0x0c013601,0x02002021,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef unsigned int u32;
+
+typedef struct {
+    u32 state;
+    int deadline;
+} MoveState;
+
+typedef struct {
+    char pad000[0x184];
+    MoveState move;
+    char pad18C[0x8C];
+    u32 flags;
+} Tank;
+
+extern int D_800D2FE0;
+
+void func_8004DD5C(Tank *);
+void func_8004D804(Tank *);
+
+void func_80050804(Tank *tank, u32 state) {
+    MoveState *move;
+
+    tank->flags &= ~0x100;
+    move = &tank->move;
+
+    switch (state) {
+    case 1:
+        move->state = state;
+        move->deadline = D_800D2FE0;
+        break;
+    case 2:
+        move->state = state;
+        move->deadline = D_800D2FE0 + 600;
+        break;
+    case 4:
+        move->state = state;
+        move->deadline = D_800D2FE0 + 300;
+        break;
+    }
+
+    func_8004DD5C(tank);
+    func_8004D804(tank);
+}
