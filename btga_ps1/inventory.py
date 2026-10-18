@@ -163,7 +163,10 @@ def run(root, out, previews=False, objs=False):
                                       "glyph_rects": g["glyphs"]}
             elif ext == "SFX":
                 s = level.decode_sfx(data, r)
-                ent["decoded"] = {k: v for k, v in s.items() if k != "entries"} | {"entry_spu_offsets": [e["spu_offset"] for e in s["entries"]]}
+                ent["decoded"] = {k: v for k, v in s.items() if k != "entries"} | {
+                    "entry_spu_offsets": [e["spu_offset"] for e in s["entries"]],
+                    "entry_data_bytes": [e["data_bytes"] for e in s["entries"]],
+                    "pitch_histogram": _top(e["pitch"] for e in s["entries"])}
             elif ext in ("STR", "PCK"):
                 ent["decoded"] = level.inventory_xa(data, r)
             elif ext == "TXT":

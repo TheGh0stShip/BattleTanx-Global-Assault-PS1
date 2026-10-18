@@ -108,9 +108,12 @@ All-zero records indicate absent glyphs.
 ## Audio and media
 
 VAGS.SFX uses `1SFX`, with data offset, data byte count, table byte count, and
-entry count. Each 20-byte table entry begins with a VAG offset; the remaining
-words are unresolved. STR and PCK files contain raw 2,336-byte Mode-2 sectors
-and are inventoried by sector kind and channel.
+entry count. Each 20-byte table entry is `{u32 SPU offset, u32 sample bytes,
+u32 flags, u32 volume, u16 pitch, s16 sentinel}`. All samples are contiguous;
+the final sample ends at the declared data size. The corpus uses flag 1, maximum
+SPU volume `0x3FFF`, sentinel `-1`, and three base pitches. STR and PCK files
+contain raw 2,336-byte Mode-2 sectors and are inventoried by sector kind and
+channel.
 
 ## Coordinate rules
 

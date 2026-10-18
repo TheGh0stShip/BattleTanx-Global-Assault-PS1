@@ -192,10 +192,20 @@ def decode_sfx(data, name="<sfx>"):
     ents = []
     for i in range(count):
         o = 20 + 20 * i
-        ents.append({"spu_offset": r.u32(o), "words": [r.u32(o + 4 * k) for k in range(1, 5)]})
+        packed = r.u32(o + 16)
+        ents.append({"spu_offset": r.u32(o), "data_bytes": r.u32(o + 4),
+                     "flags": r.u32(o + 8), "volume": r.u32(o + 12),
+                     "pitch": packed & 0xFFFF,
+                     "sentinel_s16": packed >> 16 if packed < 0x80000000 else (packed >> 16) - 0x10000})
     starts = [e["spu_offset"] for e in ents]
     if any(s >= data_len for s in starts):
         raise FormatError("%s: entry offset beyond VAG data" % name)
+    for i, e in enumerate(ents):
+        expected_end = starts[i + 1] if i + 1 < count else data_len
+        if e["spu_offset"] + e["data_bytes"] != expected_end:
+            raise FormatError("%s: entry %d does not end at the next sample" % (name, i))
+        if e["flags"] != 1 or e["volume"] != 0x3FFF or e["sentinel_s16"] != -1:
+            raise FormatError("%s: entry %d has unexpected playback constants" % (name, i))
     return {"data_offset": data_off, "data_bytes": data_len, "count": count, "entries": ents}
 
 

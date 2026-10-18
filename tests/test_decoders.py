@@ -217,6 +217,9 @@ class Level(unittest.TestCase):
     def test_sfx(self):
         s = level.decode_sfx(fx.sfx())
         self.assertEqual(s["count"], 2)
+        self.assertEqual(s["entries"][0]["data_bytes"], 32)
+        self.assertEqual(s["entries"][0]["pitch"], 0x400)
+        self.assertEqual(s["entries"][0]["sentinel_s16"], -1)
         self.assertRaises(FormatError, level.decode_sfx, fx.sfx()[:-1])
 
     def test_xa(self):

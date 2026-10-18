@@ -49,7 +49,7 @@ is also reported separately and never inflates either executable measurement.
 | FLB | 75 files | 0 files | 100% structural; high byte and tile 63 unresolved |
 | Level BIN | 75 files / 30,758 placements | object parameter names remain | partial |
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
-| VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
+| VAGS.SFX | 1 file / 57 entries | flag meaning and ADPCM decoding | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
 | Validation tests | 54 tests | 0 tests | 100% passing with the local corpus |

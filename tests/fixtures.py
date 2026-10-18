@@ -103,7 +103,8 @@ def level_bin(n=3):
 
 
 def sfx(count=2, data_len=64):
-    table = b"".join(u32(16 * i, 0, 0, 0, 0) for i in range(count))
+    size = data_len // count
+    table = b"".join(u32(size * i, size, 1, 0x3FFF, 0xFFFF0400) for i in range(count))
     return b"1SFX" + u32(20 + len(table), data_len, len(table), count) + table + bytes(data_len)
 
 
