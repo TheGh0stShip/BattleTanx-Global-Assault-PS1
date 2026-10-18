@@ -1,10 +1,49 @@
-asm(".text\n\t.globl func_800505D8\nfunc_800505D8:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x8e020218,0x00000000,0x34420100,0xae020218\n\t"
-    ".word 0x3c02800d,0x8c422fe0,0x26030184,0x00451021\n\t"
-    ".word 0xac620004,0x24021800,0xa4620008,0x9602002c\n\t"
-    ".word 0xac67000c,0x14c00008,0xa462000a,0x960402b8\n\t"
-    ".word 0x3c050024,0x34a5700f,0x0c011de3,0x00003021\n\t"
-    ".word 0x10400002,0x24020001,0x24020004,0xae020184\n\t"
-    ".word 0x0c01382f,0x02002021,0x0c0135f6,0x02002021\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct SteeringState {
+    int mode;
+    int deadline;
+    u16 speed;
+    u16 heading;
+    int value;
+} SteeringState;
+
+typedef struct Tank {
+    u8 pad_000[0x2C];
+    u16 heading;
+    u8 pad_02E[0x184 - 0x2E];
+    SteeringState steering;
+    u8 pad_194[0x218 - 0x194];
+    int flags;
+    u8 pad_21C[0x2B8 - 0x21C];
+    u16 field_2B8;
+} Tank;
+
+extern int D_800D2FE0;
+extern int func_8004778C(u16, int, int);
+extern void func_8004E0BC(Tank *);
+extern void func_8004D7D8(Tank *);
+
+void func_800505D8(Tank *tank, int delay, int supplied, int value) {
+    SteeringState *steering;
+
+    tank->flags |= 0x100;
+    steering = &tank->steering;
+    steering->deadline = D_800D2FE0 + delay;
+    steering->speed = 0x1800;
+    steering->heading = tank->heading;
+    steering->value = value;
+    if (supplied != 0)
+        goto set_four;
+    if (func_8004778C(tank->field_2B8, 0x24700F, 0) == 0)
+        goto set_one;
+set_four:
+    steering->mode = 4;
+    goto mode_done;
+set_one:
+    steering->mode = 1;
+mode_done:
+    func_8004E0BC(tank);
+    func_8004D7D8(tank);
+}
