@@ -617,6 +617,26 @@
     {"name": "func_8007F7D8", "address": "0x8007F7D8", "size": "0x10", "source": "src/game/8007F7D8.c", "symbols": {"D_800EC334": "0x800EC334"}},
     {"name": "func_8007F7E8", "address": "0x8007F7E8", "size": "0xC", "source": "src/game/8007F7E8.c", "symbols": {"D_800EC334": "0x800EC334"}},
     {"name": "func_8007F7F4", "address": "0x8007F7F4", "size": "0x18", "source": "src/game/8007F7F4.c", "symbols": {"D_800EC334": "0x800EC334"}},
-    {"name": "func_800861B0", "address": "0x800861B0", "size": "0x8", "source": "src/game/800861B0.c", "symbols": {}}
+    {"name": "func_800861B0", "address": "0x800861B0", "size": "0x8", "source": "src/game/800861B0.c", "symbols": {}},
+    {"name": "func_800150C4", "address": "0x800150C4", "size": "0x8", "source": "src/game/800150C4.c", "symbols": {}},
+    {"name": "func_800229F8", "address": "0x800229F8", "size": "0x10", "source": "src/game/800229F8.c", "symbols": {"D_800A4380": "0x800A4380"}},
+    {"name": "func_80022A90", "address": "0x80022A90", "size": "0x2C", "source": "src/game/80022A90.c", "symbols": {"func_8003DE58": "0x8003DE58"}},
+    {"name": "func_80022ABC", "address": "0x80022ABC", "size": "0x20", "source": "src/game/80022ABC.c", "symbols": {"D_800AE290": "0x800AE290"}},
+    {"name": "func_8002380C", "address": "0x8002380C", "size": "0x20", "source": "src/game/8002380C.c", "symbols": {"func_80022B64": "0x80022B64"}},
+    {"name": "func_80024284", "address": "0x80024284", "size": "0xC", "source": "src/game/80024284.c", "symbols": {"D_800D5A88": "0x800D5A88"}},
+    {"name": "func_80024290", "address": "0x80024290", "size": "0xC", "source": "src/game/80024290.c", "symbols": {"D_800D5A88": "0x800D5A88"}},
+    {"name": "func_80024700", "address": "0x80024700", "size": "0x20", "source": "src/game/80024700.c", "symbols": {"func_80068DA4": "0x80068DA4"}},
+    {"name": "func_8002D120", "address": "0x8002D120", "size": "0x8", "source": "src/game/8002D120.c", "symbols": {}},
+    {"name": "func_80034250", "address": "0x80034250", "size": "0x8", "source": "src/game/80034250.c", "symbols": {}},
+    {"name": "func_80034634", "address": "0x80034634", "size": "0x2C", "source": "src/game/80034634.c", "symbols": {"D_800D2FE0": "0x800D2FE0"}},
+    {"name": "func_80034660", "address": "0x80034660", "size": "0x8", "source": "src/game/80034660.c", "symbols": {}},
+    {"name": "func_80034668", "address": "0x80034668", "size": "0x8", "source": "src/game/80034668.c", "symbols": {}},
+    {"name": "func_80034DE4", "address": "0x80034DE4", "size": "0x8", "source": "src/game/80034DE4.c", "symbols": {}},
+    {"name": "func_80034DEC", "address": "0x80034DEC", "size": "0x8", "source": "src/game/80034DEC.c", "symbols": {}},
+    {"name": "func_80035868", "address": "0x80035868", "size": "0x8", "source": "src/game/80035868.c", "symbols": {}},
+    {"name": "func_80035870", "address": "0x80035870", "size": "0x8", "source": "src/game/80035870.c", "symbols": {}},
+    {"name": "func_80035EE4", "address": "0x80035EE4", "size": "0x8", "source": "src/game/80035EE4.c", "symbols": {}},
+    {"name": "func_80039064", "address": "0x80039064", "size": "0x28", "source": "src/game/80039064.c", "symbols": {}},
+    {"name": "func_8003908C", "address": "0x8003908C", "size": "0x8", "source": "src/game/8003908C.c", "symbols": {}}
   ]
 }

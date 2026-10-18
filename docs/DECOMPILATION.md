@@ -35,7 +35,7 @@ does not count unknown bytes as decompiled. The next milestones are broader
 compiler corroboration, function-boundary recovery, and section ownership.
 
 One hundred twenty-eight production C units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and match all 6,972 retail bytes after the pinned assembler compatibility pass.
+and match all 7,324 retail bytes after the pinned assembler compatibility pass.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.
