@@ -1,8 +1,25 @@
-asm(".text\n\t.globl func_8008272C\nfunc_8008272C:\n\t"
-    ".word 0x27bdffd8,0xafb00020,0x00008021,0x27a50010\n\t"
-    ".word 0x27a60014,0xafbf0024,0x0c0207a5,0x27a70018\n\t"
-    ".word 0x8fa30010,0x2402ffff,0x1062000b,0x3c02800f\n\t"
-    ".word 0x2442dc9c,0x00031880,0x00621821,0x8fa50014\n\t"
-    ".word 0x8fa60018,0x8c62000c,0x00000000,0x0040f809\n\t"
-    ".word 0x24040008,0x00408021,0x02001021,0x8fbf0024\n\t"
-    ".word 0x8fb00020,0x03e00008,0x27bd0028\n\t");
+typedef int (*RuntimeCallback)(int operation, void *first, void *second);
+
+extern unsigned char D_800EDC9C;
+extern void func_80081E94(int unused, int *slot, void **first, void **second);
+
+int func_8008272C(int input)
+{
+    int slot;
+    void *first;
+    void *second;
+    int result = 0;
+
+    func_80081E94(input, &slot, &first, &second);
+    if (slot != -1) {
+        register unsigned char *base asm("$2") = &D_800EDC9C;
+        register unsigned char *entry asm("$3") =
+            (unsigned char *)(slot << 2);
+        RuntimeCallback callback;
+
+        entry += (int)base;
+        callback = *(RuntimeCallback *)(entry + 0x0C);
+        result = callback(8, first, second);
+    }
+    return result;
+}
