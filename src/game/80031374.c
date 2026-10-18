@@ -1,6 +1,38 @@
-asm(".text\n\t.globl func_80031374\nfunc_80031374:\n\t"
-    ".word 0x8c82003c,0,0x1840000e,0\n\t"
-    ".word 0x8c82002c,0,0x8c43000c,0\n\t"
-    ".word 0x10600009,0,0x00601021,0x8c43000c\n\t"
-    ".word 0,0x1460fffc,0,0x03e00008,0\n\t"
-    ".word 0x8c82002c,0x03e00008,0");
+typedef struct LinkNode {
+    unsigned char unknown[12];
+    struct LinkNode *next;
+} LinkNode;
+
+typedef struct LinkState {
+    unsigned char unknown[44];
+    LinkNode *head;
+    unsigned char unknown_30[12];
+    int status;
+} LinkState;
+
+unsigned int func_80031374(LinkState *state) {
+    register unsigned int result asm("$2") = state->status;
+    register LinkNode *next asm("$3");
+
+    if ((int)result <= 0) {
+        goto nonpositive_status;
+    }
+    result = (unsigned int)state->head;
+    next = ((LinkNode *)result)->next;
+    if (next != 0) {
+        do {
+            result = (unsigned int)next;
+            next = ((LinkNode *)result)->next;
+        } while (next != 0);
+        return result;
+    }
+    goto final_return;
+
+nonpositive_status:
+    asm volatile("");
+    result = (unsigned int)state->head;
+
+final_return:
+    asm volatile("");
+    return result;
+}
