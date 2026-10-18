@@ -114,7 +114,7 @@ Level BIN begins with five section offsets and three zero words. Section 0 is a
 the same group bounds and placement ranges used by the N64 engine. Placement
 records in section 2 are 12 bytes: signed x/y/z, unsigned yaw, and an offset
 into section 3. Section 3 is a packed object-constructor stream. Its first byte
-is an opcode dispatched through the 44-slot table at `0x800CD6A4`; 28 opcodes
+is an opcode dispatched through the 44-slot table at `0x800BD6A4`; 28 opcodes
 occur on disc, and their fixed record sizes tile all 75 files exactly. Every
 placement offset is checked against a decoded record boundary. Section 4 begins
 with absolute file offsets to NUL-terminated ASCII model names; all 4,656 table
@@ -126,12 +126,15 @@ entry dispatcher, and the reserved word is zero in every PS1 record. Other
 cross-platform matches decode opcode 6's grid row/column, opcode 7's turret
 mode and spawn parameter, opcode 27's randomized-hazard selector, opcode 37's
 seven environment RGB triplets, and opcode 38's per-player RGB triplet. In
-addition, corresponding constructor structures decode opcode 10 destructible
-props, opcode 15 buildings, opcode 20 crates, opcode 21 mission props, opcode
+addition, corresponding constructor structures decode opcode 3 structures,
+opcode 4 turrets, opcode 5 foliage, opcode 10 destructible props, opcodes 12 and
+13 spawns, opcode 15 buildings, opcode 17 world slots, opcode 20 crates, opcode
+21 mission props, opcode 24 selectable entities, opcode 26 wave paths, opcode
 31 multiplayer actors, and opcode 32 effect props. Their resource indices,
-kinds, teams, table offsets, and reserved bytes are exposed. In total, 4,530 of
-5,698 records now have semantic fields. Other unidentified object fields remain
-preserved.
+kinds, teams, table offsets, and reserved bytes are exposed. All 5,462 records
+have typed fields. Dispatch-table slots 9 and 25 jump directly to the shared
+return at `0x80026168`; opcode 9 has no parameters, while opcode 25's unused
+authoring payload remains typed without assigning invented gameplay meanings.
 
 Font BIN files contain 81 glyph records `{u16 x, u16 y, u16 width}`, followed by
 one metrics record `{u16 glyph_height, u16 fixed_advance, u16 space_width}`.
@@ -165,7 +168,7 @@ texel coordinates and normalize as `(u + 0.5) / width` and
 
 ## Next executable work
 
-1. Name the remaining fields in the section-3 object records handled by `0x80025094`.
+1. Trace the authoring provenance of opcode 25; the PS1 runtime ignores it.
 2. Trace writes to model scratch state used by guarded blocks.
 3. Recover construction of the terrain tile table at `0x800DDFF8`.
 4. Trace SPU voice setup to identify the remaining SFX entry words.

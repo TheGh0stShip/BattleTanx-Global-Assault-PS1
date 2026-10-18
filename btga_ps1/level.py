@@ -10,7 +10,7 @@ Evidence (SLUS_010.44):
     rebased to pointers; (off3-off2)/12 placements (0xAAAAAAAB multiply); placement
     {s16 x, s16 y, s16 z, u16 yaw, u32 offset into section 3} consumed at 0x800245B4.
     The call at 0x800245F8 adds that offset to rebased header word 3. The first byte
-    is dispatched through the 44-slot table at 0x800CD6A4. Record sizes below tile
+    is dispatched through the 44-slot table at 0x800BD6A4. Record sizes below tile
     the object region of all 75 level BIN files exactly.
   * Font BIN: "assets\\bt14ln.bin" etc.; 6-byte glyph rectangles (layout proven by
     contiguity of x+width across every record).
@@ -184,6 +184,53 @@ def decode_level_bin(data, name="<bin>"):
         elif opcode == 32:
             rec["fields"] = {"team_index": r.u8(pos + 1),
                              "resource_indices": [r.u16(pos + k) for k in range(2, 16, 2)]}
+        elif opcode == 3:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in range(2, 18, 2)],
+                             "variant": r.u8(pos + 18), "alternate_state": bool(r.u8(pos + 19))}
+        elif opcode == 4:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in range(2, 12, 2)],
+                             "derive_selection": bool(r.u8(pos + 12))}
+            if raw[13:16] != b"\0\0\0":
+                raise FormatError("%s: opcode 4 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 5:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in (2, 4, 6)]}
+        elif opcode == 9:
+            # Dispatch-table slot 9 is the shared return at 0x80026168.
+            rec["fields"] = {"no_parameters": True}
+            if raw[1:4] != b"\0\0\0":
+                raise FormatError("%s: opcode 9 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 12:
+            rec["fields"] = {"spawn_kind": r.u8(pos + 1), "player_index": r.u8(pos + 2),
+                             "optional_resource_index": None if r.u16(pos + 4) == 0xFFFF else r.u16(pos + 4)}
+            if r.u8(pos + 3) or r.u16(pos + 6):
+                raise FormatError("%s: opcode 12 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 13:
+            rec["fields"] = {"spawn_kind": r.u8(pos + 1), "parameter": r.u8(pos + 2),
+                             "player_index": r.u8(pos + 3), "resource_indices": [r.u16(pos + 4), r.u16(pos + 6)],
+                             "quantity": r.s32(pos + 8),
+                             "optional_resource_index": None if r.u16(pos + 12) == 0xFFFF else r.u16(pos + 12),
+                             "variant": r.u8(pos + 14)}
+            if r.u8(pos + 15):
+                raise FormatError("%s: opcode 13 at 0x%X has nonzero reserved byte" % (name, rel))
+        elif opcode == 17:
+            rec["fields"] = {"world_slot": r.u8(pos + 1), "value": r.u16(pos + 2)}
+        elif opcode == 24:
+            rec["fields"] = {"resource_indices": [r.u16(pos + k) for k in (2, 4, 6)],
+                             "selection": r.u8(pos + 8)}
+            if raw[9:12] != b"\0\0\0":
+                raise FormatError("%s: opcode 24 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 25:
+            # Dispatch-table slot 25 is the shared return at 0x80026168.  Keep the
+            # unused authoring payload typed, but do not assign gameplay meanings.
+            rec["fields"] = {"engine_noop": True, "authoring_byte": r.u8(pos + 1),
+                             "authoring_u16": [r.u16(pos + k) for k in range(2, 12, 2)]}
+        elif opcode == 26:
+            rec["fields"] = {"mode": r.u8(pos + 1), "start_vertex_offset": r.s32(pos + 4),
+                             "end_vertex_offset": r.s32(pos + 8), "segment_length": r.u16(pos + 12),
+                             "wave_parameter": r.u16(pos + 14),
+                             "segment_offsets": [r.s32(pos + k) for k in range(16, 40, 4)]}
+            if r.u16(pos + 2):
+                raise FormatError("%s: opcode 26 at 0x%X has nonzero reserved bytes" % (name, rel))
         object_by_offset[rel] = len(object_records)
         object_records.append(rec)
         pos += size

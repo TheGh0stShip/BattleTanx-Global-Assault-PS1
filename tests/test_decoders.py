@@ -247,7 +247,16 @@ class Level(unittest.TestCase):
                    struct.pack("<BB3HBBH", 15, 0, 1, 2, 3, 4, 5, 6),
                    struct.pack("<BBH", 20, 0, 9),
                    struct.pack("<BB5HB3xiB3x", 21, 0, 1, 2, 3, 4, 5, 1, -1, 3),
-                   struct.pack("<BB7H", 32, 2, 1, 2, 3, 4, 5, 6, 7)]
+                   struct.pack("<BB7H", 32, 2, 1, 2, 3, 4, 5, 6, 7),
+                   struct.pack("<BB8HBB", 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1),
+                   struct.pack("<BB5HB3x", 4, 0, 1, 2, 3, 4, 5, 1),
+                   struct.pack("<BB3H", 5, 0, 1, 2, 3), bytes([9, 0, 0, 0]),
+                   struct.pack("<4BHH", 12, 2, 3, 0, 0xFFFF, 0),
+                   struct.pack("<4B2HiH2B", 13, 2, 3, 4, 5, 6, -7, 0xFFFF, 8, 0),
+                   struct.pack("<BBH", 17, 2, 300),
+                   struct.pack("<BB3HB3x", 24, 0, 1, 2, 3, 0xFF),
+                   struct.pack("<BB5H", 25, 4, 1, 2, 3, 4, 5),
+                   struct.pack("<BBHiiHH6i", 26, 1, 0, 4, 8, 12, 13, 1, 2, 3, 4, 5, -1)]
         b = level.decode_level_bin(fx.level_bin(object_records=records))
         self.assertEqual(b["object_records"][0]["fields"],
                          {"model_name_index": 0, "model_name": "fixture"})
@@ -267,6 +276,16 @@ class Level(unittest.TestCase):
         self.assertEqual(b["object_records"][10]["fields"], {"crate_resource_index": 9})
         self.assertEqual(b["object_records"][11]["fields"]["subrecord_offset"], -1)
         self.assertEqual(b["object_records"][12]["fields"]["resource_indices"], [1, 2, 3, 4, 5, 6, 7])
+        self.assertEqual(b["object_records"][13]["fields"]["resource_indices"], list(range(1, 9)))
+        self.assertTrue(b["object_records"][14]["fields"]["derive_selection"])
+        self.assertEqual(b["object_records"][15]["fields"]["resource_indices"], [1, 2, 3])
+        self.assertEqual(b["object_records"][16]["fields"], {"no_parameters": True})
+        self.assertIsNone(b["object_records"][17]["fields"]["optional_resource_index"])
+        self.assertEqual(b["object_records"][18]["fields"]["quantity"], -7)
+        self.assertEqual(b["object_records"][19]["fields"], {"world_slot": 2, "value": 300})
+        self.assertEqual(b["object_records"][20]["fields"]["selection"], 0xFF)
+        self.assertTrue(b["object_records"][21]["fields"]["engine_noop"])
+        self.assertEqual(b["object_records"][22]["fields"]["segment_offsets"], [1, 2, 3, 4, 5, -1])
         bad_ref = bytearray(fx.level_bin(object_records=[bytes([0, 0, 2, 0])]))
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_ref))
         bad_reserved = bytearray(fx.level_bin(object_records=[bounds[:-2] + b"\1\0"]))
