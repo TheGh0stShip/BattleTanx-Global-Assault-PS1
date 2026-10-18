@@ -34,8 +34,8 @@ The first split deliberately emits the entire loaded range for inspection. It
 does not count unknown bytes as decompiled. The next milestones are broader
 compiler corroboration, function-boundary recovery, and section ownership.
 
-Six hundred fifty-eight production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and match all 39,116 retail bytes after the pinned assembler compatibility pass.
+Six hundred sixty-one production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
+and match all 39,228 retail bytes after the pinned assembler compatibility pass.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.
@@ -50,6 +50,10 @@ The pointer table at `0x800B6AEC` establishes a callerless entry at `0x8009450C`
 The preceding accessor at `0x800944F4` therefore ends at `0x8009450C`; both
 routines now match exactly. The callerless entry is outside the initial
 call-target count and is reported as an additional entry.
+
+The return at `0x80094B00` and its delay slot end the global-pointer setter at
+`0x80094AFC`. The independent prologue at `0x80094B08` begins another matched
+routine and is likewise reported outside the initial call-target count.
 
 ## Local resources
 
