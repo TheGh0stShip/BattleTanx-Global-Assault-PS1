@@ -686,6 +686,9 @@
     {"name": "func_8005F92C", "address": "0x8005F92C", "size": "0x58", "source": "src/game/8005F92C.c", "symbols": {"D_800A6B48": "0x800A6B48", "D_800EAFBC": "0x800EAFBC", "func_8003DEF8": "0x8003DEF8", "func_80059550": "0x80059550", "func_80059A80": "0x80059A80", "func_80075AEC": "0x80075AEC"}},
     {"name": "func_8006110C", "address": "0x8006110C", "size": "0x50", "source": "src/game/8006110C.c", "symbols": {"D_800EAD64": "0x800EAD64", "D_800EADD0": "0x800EADD0", "func_8007A900": "0x8007A900"}},
     {"name": "func_8005F4F0", "address": "0x8005F4F0", "size": "0x78", "source": "src/game/8005F4F0.c", "symbols": {"D_800AEA46": "0x800AEA46", "D_800BFB70": "0x800BFB70", "D_800C60C0": "0x800C60C0", "D_800EAFBC": "0x800EAFBC", "func_8006AB60": "0x8006AB60", "func_8007586C": "0x8007586C", "func_80075AEC": "0x80075AEC", "func_80076060": "0x80076060", "func_80076184": "0x80076184", "func_8007646C": "0x8007646C"}},
-    {"name": "func_8005F700", "address": "0x8005F700", "size": "0x58", "source": "src/game/8005F700.c", "symbols": {"D_800EAFBC": "0x800EAFBC", "func_8005A2A0": "0x8005A2A0", "func_8005A2F0": "0x8005A2F0"}}
+    {"name": "func_8005F700", "address": "0x8005F700", "size": "0x58", "source": "src/game/8005F700.c", "symbols": {"D_800EAFBC": "0x800EAFBC", "func_8005A2A0": "0x8005A2A0", "func_8005A2F0": "0x8005A2F0"}},
+    {"name": "func_80065504", "address": "0x80065504", "size": "0x84", "source": "src/game/80065504.c", "symbols": {"D_800ABA84": "0x800ABA84", "D_800ABD60": "0x800ABD60", "D_800AC080": "0x800AC080", "D_800D2FEC": "0x800D2FEC", "func_80054A30": "0x80054A30"}},
+    {"name": "func_8006ABF4", "address": "0x8006ABF4", "size": "0x88", "source": "src/game/8006ABF4.c", "symbols": {"D_800C60C0": "0x800C60C0", "func_80068F34": "0x80068F34", "func_80068F9C": "0x80068F9C", "func_8006A8E4": "0x8006A8E4", "func_8008DA04": "0x8008DA04", "func_80090184": "0x80090184", "func_80092830": "0x80092830"}},
+    {"name": "func_800736EC", "address": "0x800736EC", "size": "0x60", "source": "src/game/800736EC.c", "symbols": {}}
   ]
 }
