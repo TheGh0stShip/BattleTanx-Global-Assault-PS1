@@ -1,6 +1,40 @@
-asm(".text\n\t.globl func_8003BCBC\nfunc_8003BCBC:\n\t"
-    ".word 0x00a41023,0x3c030100,0x0062001a,0x14400002\n\t"
-    ".word 0,0x0007000d,0x2401ffff,0x14410004\n\t"
-    ".word 0x3c018000,0x14610002,0,0x0006000d\n\t"
-    ".word 0x00001812,0x3c02800e,0x2442dff8,0xac460010\n\t"
-    ".word 0xac440014,0xac450018,0x03e00008,0xac43001c");
+typedef struct RangeState {
+    unsigned int unknown[4];
+    unsigned int value;
+    unsigned int start;
+    unsigned int end;
+    int scale;
+} RangeState;
+
+extern RangeState D_800DDFF8;
+
+void func_8003BCBC(int start, int end,
+                   unsigned int value) {
+    register int delta asm("$2") = end - start;
+    register int scale asm("$3") = 0x1000000;
+
+    asm("" : "+r"(delta), "+r"(scale));
+    asm volatile(
+        ".set noreorder\n\t"
+        ".set nomacro\n\t"
+        ".word 0x0062001A\n\t"
+        ".word 0x14400002\n\t"
+        "nop\n\t"
+        ".word 0x0007000D\n"
+        "addiu $1,$0,-1\n\t"
+        ".word 0x14410004\n\t"
+        "lui $1,0x8000\n\t"
+        ".word 0x14610002\n\t"
+        "nop\n\t"
+        ".word 0x0006000D\n"
+        "mflo %0"
+        : "+r"(scale)
+        : "r"(delta)
+        : "$1"
+    );
+
+    D_800DDFF8.value = value;
+    D_800DDFF8.start = start;
+    D_800DDFF8.end = end;
+    D_800DDFF8.scale = scale;
+}
