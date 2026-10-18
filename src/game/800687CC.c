@@ -1,0 +1,13 @@
+asm(".text\n\t.set noreorder\n\t.globl func_800687CC\nfunc_800687CC:\n\t"
+    "addiu $29,$29,-0x20\n\tsw $17,0x14($29)\n\taddu $17,$4,$0\n\tsw $18,0x18($29)\n\t"
+    "addu $18,$5,$0\n\tsll $6,$6,16\n\tsw $16,0x10($29)\n\tsra $16,$6,16\n\t"
+    ".word 0x12000016\n\tsw $31,0x1C($29)\n\t.word 0x0C022B58\n\taddu $4,$16,$0\n\t"
+    "addu $4,$16,$0\n\t.word 0x0C022B30\n\taddu $16,$2,$0\n\taddiu $12,$0,0x1000\n\t"
+    "andi $15,$2,0xFFFF\n\tsub $13,$0,$16\n\tsll $13,$13,16\n\tor $13,$13,$15\n\t"
+    "sll $14,$16,16\n\tsw $12,0($17)\n\tsw $0,4($17)\n\tsw $13,8($17)\n\t"
+    "sw $14,0xC($17)\n\tsw $15,0x10($17)\n\taddu $4,$17,$0\n\t.word 0x0C01A32A\n\t"
+    "addu $5,$18,$0\n\t.word 0x0801A21C\n\tnop\n\tlw $12,0($18)\n\t"
+    "lw $13,4($18)\n\tctc2 $12,$0\n\tctc2 $13,$1\n\tlw $12,8($18)\n\t"
+    "lw $13,0xC($18)\n\tlw $14,0x10($18)\n\tctc2 $12,$2\n\tctc2 $13,$3\n\t"
+    "ctc2 $14,$4\n\tlw $31,0x1C($29)\n\tlw $18,0x18($29)\n\tlw $17,0x14($29)\n\t"
+    "lw $16,0x10($29)\n\tjr $31\n\taddiu $29,$29,0x20");
