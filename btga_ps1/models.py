@@ -193,6 +193,11 @@ def decode_mmm(data, name="<mmm>", ttt=None):
             raise FormatError("%s: chunk size %d too small" % (where, size))
         verts = [(r.s16(m + 24 + 8 * k), r.s16(m + 26 + 8 * k), r.s16(m + 28 + 8 * k), r.u16(m + 30 + 8 * k))
                  for k in range(nverts)]
+        vertex_group_ends = [k for k, v in enumerate(verts) if v[3] & 0x8000]
+        empty_vertex_groups = unk4 - len(vertex_group_ends)
+        if empty_vertex_groups not in (0, 1):
+            raise FormatError("%s: %d vertex groups but %d group terminators" %
+                              (where, unk4, len(vertex_group_ends)))
         ntex = len(ttt["models"][i]["textures"]) if ttt is not None else 256
         stream = interpret_3mdl(r, m, nverts, size, ntex, where)
         if stream["end_offset"] != size:
@@ -206,8 +211,9 @@ def decode_mmm(data, name="<mmm>", ttt=None):
             "index": i, "empty": False, "table_words": [off, f1, f2], "offset": o, "length": 0x24 + size,
             "cm01": {"bbox_min_div4": hdr[0:3], "bbox_max_div4": hdr[4:7], "bbox_matches_vertices": bbox_ok,
                      "cull_radius_s16_0x22": hdr[15], "opaque_s16_0x14_0x20": hdr[8:15]},
-            "mdl": {"unknown_0x04": unk4, "vertex_count": nverts, "primitive_count_field": nprims,
-                    "flags_0x10": flags, "chunk_size": size},
+            "mdl": {"vertex_group_count": unk4, "vertex_group_end_indices": vertex_group_ends,
+                    "empty_vertex_groups": empty_vertex_groups, "vertex_count": nverts,
+                    "primitive_count_field": nprims, "flags_0x10": flags, "chunk_size": size},
             "vertices": verts, **stream,
             "primitive_count_matches": nprims == len(stream["primitives"]),
         })

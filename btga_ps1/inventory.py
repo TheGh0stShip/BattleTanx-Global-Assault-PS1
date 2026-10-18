@@ -237,7 +237,7 @@ def _model_summary(m, data, ttt):
             "double_sided": sum(1 for p in prims if p["cull"] == "double_sided"),
             "texture_slots": ttt["models"][m["index"]]["textures"] if ttt is not None else None,
             "cm01": m["cm01"], "mdl": m["mdl"],
-            "vertex_pad_bit15_count": sum(1 for v in m["vertices"] if v[3] & 0x8000)}
+            "vertex_group_end_count": len(m["mdl"]["vertex_group_end_indices"])}
 
 
 def _write_png(out, r, images, suffix=""):

@@ -30,6 +30,8 @@ class RealCorpus(unittest.TestCase):
         self.assertEqual(len(models), 4761)
         self.assertTrue(all(x["cm01"]["bbox_matches_vertices"] for x in models))
         self.assertEqual(sum(not x["primitive_count_matches_header"] for x in models), 1)
+        self.assertEqual(sum(x["mdl"]["empty_vertex_groups"] for x in models), 66)
+        self.assertTrue(all(x["mdl"]["empty_vertex_groups"] in (0, 1) for x in models))
 
 
 if __name__ == "__main__":

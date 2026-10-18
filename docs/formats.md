@@ -65,8 +65,12 @@ rebases the record to the CM01 header and its following 3MDL chunk.
 
 CM01 is 0x24 bytes. It stores divided bounding minima and maxima, opaque words,
 and a signed cull radius at offset 0x22. The 3MDL header contains its magic,
-an unresolved word, vertex count, primitive count, flags, and chunk size.
-Vertices are four signed 16-bit words: x, y, z, and a preserved pad value.
+vertex-group count, vertex count, primitive count, flags, and chunk size.
+Vertices are four 16-bit words: signed x, y and z, followed by a preserved flag
+word. Bit 15 terminates a vertex group. The declared count equals the number of
+terminators in 4,695 of 4,761 models; the other 66 declare exactly one additional
+empty group. No other difference occurs across the corpus. The lower 15 flag
+bits remain opaque.
 
 The command stream dispatches on `word & 0xFC`; `word >> 8` is the payload. Its
 commands set corner colours, normals, UVs, vertex indices, texture slots,

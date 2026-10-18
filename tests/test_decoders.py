@@ -123,6 +123,9 @@ class Models(unittest.TestCase):
         m = mm["models"][1]
         self.assertTrue(m["primitive_count_matches"])
         self.assertTrue(m["cm01"]["bbox_matches_vertices"])
+        self.assertEqual(m["mdl"]["vertex_group_count"], 1)
+        self.assertEqual(m["mdl"]["vertex_group_end_indices"], [3])
+        self.assertEqual(m["mdl"]["empty_vertex_groups"], 0)
         (p,) = m["primitives"]
         self.assertEqual(p["vertices"], [0, 1, 2, 3])
         self.assertEqual(p["uvs"], [(0, 0), (63, 0), (63, 63), (0, 63)])
@@ -165,6 +168,9 @@ class Models(unittest.TestCase):
         m = fx.model(v, w)
         mmm, ttt = fx.mmm_ttt([m], [[0]])
         self.assertRaises(FormatError, models.decode_mmm, mmm[:-4], "t", models.decode_ttt(ttt))
+        bad_groups = bytearray(mmm)
+        struct.pack_into("<I", bad_groups, 8 + 12 + 0x24 + 4, 3)
+        self.assertRaises(FormatError, models.decode_mmm, bytes(bad_groups), "t", models.decode_ttt(ttt))
         mmm2, ttt2 = fx.mmm_ttt([m, m], [[0], [0]])
         self.assertRaises(FormatError, models.decode_mmm, mmm, "t", models.decode_ttt(ttt2))   # count mismatch
         self.assertRaises(FormatError, models.decode_ttt, ttt.replace(b"LBTX", b"XBTX"))
