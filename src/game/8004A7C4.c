@@ -1,7 +1,33 @@
-asm(".text\n\t.globl func_8004A7C4\nfunc_8004A7C4:\n\t"
-    ".word 0x3085ffff,0x14a00003,0x3c02800a,0x080129fd\n\t"
-    ".word 0x00002821,0x000518c0,0x00651823,0x00031880\n\t"
-    ".word 0x8c425b24,0x24630008,0x00432821,0x3c02800a\n\t"
-    ".word 0x8c425b24,0x34038000,0x00431021,0x8c436008\n\t"
-    ".word 0x00000000,0xaca30004,0xac456008,0x24020001\n\t"
-    ".word 0xa4a40008,0x03e00008,0xa0a20000\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct PoolEntry {
+    u8 active;
+    u8 pad_01[3];
+    struct PoolEntry *next;
+    u16 value;
+    u8 pad_0A[0x1C - 0xA];
+} PoolEntry;
+
+typedef struct RuntimePool {
+    u8 pad_0000[8];
+    PoolEntry entries[0x800];
+    PoolEntry *head;
+} RuntimePool;
+
+extern RuntimePool *D_800A5B24;
+
+void func_8004A7C4(unsigned int value) {
+    PoolEntry *entry;
+    u16 index = value;
+
+    if (index == 0) {
+        entry = 0;
+    } else {
+        entry = &D_800A5B24->entries[index];
+    }
+    entry->next = D_800A5B24->head;
+    D_800A5B24->head = entry;
+    entry->value = value;
+    entry->active = 1;
+}
