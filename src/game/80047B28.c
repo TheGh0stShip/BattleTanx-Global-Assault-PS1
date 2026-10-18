@@ -1,0 +1,7 @@
+asm(".text\n\t.globl func_80047B28\nfunc_80047B28:\n\t"
+    ".word 0x3083ffff,0x30a2ffff,0x0043102b,0x10400004\n\t"
+    ".word 0,0x00852023,0x08011ed4,0x2405ffff\n\t"
+    ".word 0x00a42023,0x24050001,0x3083ffff,0x34028000\n\t"
+    ".word 0x0043102b,0x10400003,0,0x00042027\n\t"
+    ".word 0x00052823,0xa4c40000,0x00051400,0x03e00008\n\t"
+    ".word 0x00021403");
