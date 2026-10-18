@@ -1,11 +1,62 @@
-asm(".text\n\t.globl func_8004BD84\nfunc_8004BD84:\n\t"
-    ".word 0x27bdffe8,0x00801021,0x3c060001,0x244400f8\n\t"
-    ".word 0x3c05800a,0xafbf0010,0xac4000f8,0xa4800004\n\t"
-    ".word 0xa4800006,0xa4800008,0xa480000c,0xa480000e\n\t"
-    ".word 0xa4800010,0xa4800012,0xac80001c,0xac800020\n\t"
-    ".word 0xac80002c,0xac800024,0xac800038,0xac800030\n\t"
-    ".word 0xac80003c,0x8c43009c,0x24a54ef4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00451021,0x944200a8,0x34c64000,0x00021300\n\t"
-    ".word 0x00461021,0x0c01305a,0xac820040,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Tracker {
+    int object;
+    u16 field_04;
+    u16 field_06;
+    u16 field_08;
+    u8 pad_0A[2];
+    u16 field_0C;
+    u16 field_0E;
+    u16 field_10;
+    u16 field_12;
+    u8 pad_14[8];
+    int field_1C;
+    int field_20;
+    int field_24;
+    u8 pad_28[4];
+    int field_2C;
+    int field_30;
+    u8 pad_34[4];
+    int field_38;
+    int field_3C;
+    int radius;
+} Tracker;
+
+typedef struct Tank {
+    u8 pad_000[0x9C];
+    int type;
+    u8 pad_0A0[0xF8 - 0xA0];
+    Tracker tracker;
+} Tank;
+
+typedef struct TankDefinition {
+    u8 pad_00[0xA8];
+    u16 reach;
+    u8 pad_AA[0xD0 - 0xAA];
+} TankDefinition;
+
+extern TankDefinition D_800A4EF4[];
+extern void func_8004C168(Tracker *);
+
+void func_8004BD84(Tank *tank) {
+    Tracker *tracker = &tank->tracker;
+    tracker->object = 0;
+    tracker->field_04 = 0;
+    tracker->field_06 = 0;
+    tracker->field_08 = 0;
+    tracker->field_0C = 0;
+    tracker->field_0E = 0;
+    tracker->field_10 = 0;
+    tracker->field_12 = 0;
+    tracker->field_1C = 0;
+    tracker->field_20 = 0;
+    tracker->field_2C = 0;
+    tracker->field_24 = 0;
+    tracker->field_38 = 0;
+    tracker->field_30 = 0;
+    tracker->field_3C = 0;
+    tracker->radius = (D_800A4EF4[tank->type].reach << 12) + 0x14000;
+    func_8004C168(tracker);
+}
