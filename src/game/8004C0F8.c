@@ -1,8 +1,31 @@
-asm(".text\n\t.globl func_8004C0F8\nfunc_8004C0F8:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x249100f8,0xafbf001c\n\t"
-    ".word 0xafb20018,0xafb00010,0x96300014,0x00000000\n\t"
-    ".word 0x16000003,0x00a09021,0x08013054,0x00001021\n\t"
-    ".word 0x0c0129e5,0x02002021,0x00401821,0x94620010\n\t"
-    ".word 0x00000000,0xa6220014,0x12400002,0xa4600010\n\t"
-    ".word 0xae430000,0x02001021,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Tracker {
+    u8 pad_00[0x14];
+    u16 handle;
+} Tracker;
+
+typedef struct Tank {
+    u8 pad_000[0xF8];
+    Tracker tracker;
+} Tank;
+
+typedef struct Object {
+    u8 pad_00[0x10];
+    u16 handle;
+} Object;
+
+extern Object *func_8004A794(u16);
+
+u16 func_8004C0F8(Tank *tank, Object **output) {
+    Tracker *tracker = &tank->tracker;
+    u16 handle = tracker->handle;
+    Object *object;
+    if (handle == 0) return 0;
+    object = func_8004A794(handle);
+    tracker->handle = object->handle;
+    object->handle = 0;
+    if (output != 0) *output = object;
+    return handle;
+}

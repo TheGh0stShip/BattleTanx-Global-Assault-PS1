@@ -1,11 +1,47 @@
-asm(".text\n\t.globl func_80050454\nfunc_80050454:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0x3c04000f\n\t"
-    ".word 0x3484a000,0xafbf001c,0xafb20018,0xafb10014\n\t"
-    ".word 0x8e020218,0x24030001,0x34420100,0xae020218\n\t"
-    ".word 0x3c02800d,0x8c422fe0,0x26110184,0xae030184\n\t"
-    ".word 0xae240008,0x2442003c,0xae220004,0x8e020008\n\t"
-    ".word 0x00a09021,0xae22000c,0x8e020010,0x3405f000\n\t"
-    ".word 0xae220014,0x9606002c,0x0c0125a0,0x2604019c\n\t"
-    ".word 0x02002021,0x0c01382f,0xae320024,0x0c0135f6\n\t"
-    ".word 0x02002021,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct SteeringState {
+    int mode;
+    int deadline;
+    int magnitude;
+    int x;
+    u8 pad_10[4];
+    int z;
+    u8 pad_18[0x24 - 0x18];
+    int value;
+} SteeringState;
+
+typedef struct Tank {
+    u8 pad_000[8];
+    int x;
+    u8 pad_00C[4];
+    int z;
+    u8 pad_014[0x2C - 0x14];
+    u16 heading;
+    u8 pad_02E[0x184 - 0x2E];
+    SteeringState steering;
+    u8 pad_1AC[0x218 - 0x1AC];
+    int flags;
+} Tank;
+
+extern int D_800D2FE0;
+extern void func_80049680(void *, int, u16);
+extern void func_8004E0BC(Tank *);
+extern void func_8004D7D8(Tank *);
+
+void func_80050454(Tank *tank, int value) {
+    SteeringState *steering;
+
+    tank->flags |= 0x100;
+    steering = &tank->steering;
+    steering->mode = 1;
+    steering->magnitude = 0xFA000;
+    steering->deadline = D_800D2FE0 + 60;
+    steering->x = tank->x;
+    steering->z = tank->z;
+    func_80049680((u8 *)tank + 0x19C, 0xF000, tank->heading);
+    steering->value = value;
+    func_8004E0BC(tank);
+    func_8004D7D8(tank);
+}
