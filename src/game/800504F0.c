@@ -1,11 +1,61 @@
-asm(".text\n\t.globl func_800504F0\nfunc_800504F0:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0xaca00000,0x9603002c,0x24021000,0xaca20004\n\t"
-    ".word 0xaca00010,0x0c0123cb,0xa4a30008,0x02002021\n\t"
-    ".word 0x3c050060,0x0c010bcd,0x34a51008,0x1440000e\n\t"
-    ".word 0x26040034,0x26040184,0x8e020008,0x8c830018\n\t"
-    ".word 0x00000000,0x00431021,0xae020008,0x8e020010\n\t"
-    ".word 0x8c830020,0xae00003c,0xae000050,0x00431021\n\t"
-    ".word 0xae020010,0x26040034,0x960502b8,0x0c007829\n\t"
-    ".word 0x2606000c,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector;
+
+typedef struct SteeringState {
+    u8 pad_00[0x18];
+    int dx;
+    u8 pad_1C[4];
+    int dz;
+} SteeringState;
+
+typedef struct Tank {
+    u8 pad_000[8];
+    Vector position;
+    u8 pad_018[0x2C - 0x18];
+    u16 heading;
+    u8 pad_02E[0x3C - 0x2E];
+    int field_03C;
+    u8 pad_040[0x50 - 0x40];
+    int field_050;
+    u8 pad_054[0x184 - 0x54];
+    SteeringState steering;
+    u8 pad_1A8[0x2B8 - 0x1A8];
+    u16 field_2B8;
+} Tank;
+
+typedef struct Move {
+    int distance;
+    int speed;
+    u16 heading;
+    u8 pad_0A[6];
+    int arrived;
+} Move;
+
+extern void func_80048F2C(Tank *);
+extern int func_80042F34(Tank *, int);
+extern void func_8001E0A4(void *, u16, void *);
+
+void func_800504F0(Tank *tank, Move *move) {
+    move->distance = 0;
+    move->heading = tank->heading;
+    move->speed = 4096;
+    move->arrived = 0;
+    func_80048F2C(tank);
+    if (func_80042F34(tank, 0x601008) == 0) {
+        SteeringState *steering = &tank->steering;
+        __asm__("" : "+r"(steering));
+        tank->position.x += steering->dx;
+        tank->position.z += steering->dz;
+        tank->field_03C = 0;
+        tank->field_050 = 0;
+    }
+    func_8001E0A4((u8 *)tank + 0x34, tank->field_2B8,
+                  (u8 *)tank + 0x0C);
+}
