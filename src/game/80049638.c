@@ -1,28 +1,38 @@
-__asm__(
-    ".set noreorder\n"
-    ".text\n"
-    ".align 2\n"
-    ".globl func_80049638\n"
-    ".ent func_80049638\n"
-    "func_80049638:\n"
-    "lw $6,0($4)\n"
-    "nop\n"
-    "mult $5,$6\n"
-    "mflo $3\n"
-    "mfhi $2\n"
-    "srl $3,$3,12\n"
-    "sll $2,$2,20\n"
-    "or $3,$3,$2\n"
-    "lw $6,8($4)\n"
-    "sw $3,0($4)\n"
-    "mult $5,$6\n"
-    "mflo $3\n"
-    "mfhi $2\n"
-    "srl $3,$3,12\n"
-    "sll $2,$2,20\n"
-    "or $3,$3,$2\n"
-    "jr $31\n"
-    "sw $3,8($4)\n"
-    ".end func_80049638\n"
-    ".set reorder\n"
-);
+typedef signed int s32;
+typedef struct VecXZ {
+    s32 x;
+    s32 pad;
+    s32 z;
+} VecXZ;
+
+void func_80049638(VecXZ *vector, s32 scale) {
+    register s32 value asm("$6");
+    register s32 result asm("$3");
+
+    value = vector->x;
+    asm volatile("" : "+r"(value), "+r"(scale));
+    asm volatile(
+        ".set noreorder\n\t"
+        "nop\n\t"
+        "mult $5,$6\n\t"
+        "mflo $3\n\t"
+        "mfhi $2\n\t"
+        "srl $3,$3,12\n\t"
+        "sll $2,$2,20\n\t"
+        "or $3,$3,$2");
+    asm volatile("" : "+r"(result));
+
+    value = vector->z;
+    vector->x = result;
+    asm volatile("" : "+r"(value), "+r"(scale));
+    asm volatile(
+        ".set noreorder\n\t"
+        "mult $5,$6\n\t"
+        "mflo $3\n\t"
+        "mfhi $2\n\t"
+        "srl $3,$3,12\n\t"
+        "sll $2,$2,20\n\t"
+        "or $3,$3,$2");
+    asm volatile("" : "+r"(result));
+    vector->z = result;
+}
