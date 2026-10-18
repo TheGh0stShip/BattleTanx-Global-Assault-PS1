@@ -1,6 +1,18 @@
-asm(".text\n\t.globl func_800A1AB0\nfunc_800A1AB0:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x8e020004,0x2403fffd,0xae000020,0x00431024\n\t"
-    ".word 0xae020004,0x0c023e8d,0,0x0c023ee5\n\t"
-    ".word 0,0xae000020,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018");
+typedef struct State {
+    int unused_00;
+    unsigned int flags;
+    int pad_08[6];
+    int active;
+} State;
+
+extern void func_8008FA34(void);
+extern void func_8008FB94(void);
+
+void func_800A1AB0(State *state) {
+    state->active = 0;
+    state->flags &= ~2;
+    asm volatile("" : : : "memory");
+    func_8008FA34();
+    func_8008FB94();
+    state->active = 0;
+}
