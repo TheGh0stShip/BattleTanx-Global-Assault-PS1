@@ -1,15 +1,36 @@
-asm(".text\n\t.globl func_80028314\nfunc_80028314:\n\t"
-    ".word 0x27bdffd8,0x00803021,0xafb1001c,0xafbf0020\n\t"
-    ".word 0xafb00018,0x8cc3001c,0x24100001,0x10700028\n\t"
-    ".word 0x00a08821,0x10600007,0x24020002,0x10620014\n\t"
-    ".word 0x24020005,0x1062000d,0x00000000,0x0800a0f5\n\t"
-    ".word 0x00000000,0x3c02800d,0x8c422fe0,0x8cc30024\n\t"
-    ".word 0x00000000,0x00431023,0x2842002e,0x14400018\n\t"
-    ".word 0x00000000,0x0800a0f5,0xacd0001c,0x94c4002c\n\t"
-    ".word 0x0c006c25,0x00000000,0x0800a0f5,0xae300000\n\t"
-    ".word 0x3c02800d,0x8c422fe0,0x8cc30024,0x00000000\n\t"
-    ".word 0x00431023,0x28420010,0x14400009,0x3c0200e4\n\t"
-    ".word 0x34429d0a,0x24c40008,0x2405006c,0xae300000\n\t"
-    ".word 0xafa20010,0x8cc70028,0x0c008d78,0x24060333\n\t"
-    ".word 0x8fbf0020,0x8fb1001c,0x8fb00018,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct {
+    char pad0[8];
+    int pos[3];
+    char pad14[8];
+    unsigned int state;
+    char pad20[4];
+    int start;
+    int param;
+    unsigned short sound;
+} Effect;
+
+extern int D_800D2FE0;
+extern void func_8001B094(int);
+extern void func_800235E0(int *, int, int, int, int);
+
+void func_80028314(Effect *e, int *done) {
+    switch (e->state) {
+    case 1:
+        break;
+    case 0:
+        if (D_800D2FE0 - e->start >= 46) {
+            e->state = 1;
+        }
+        break;
+    case 5:
+        func_8001B094(e->sound);
+        *done = 1;
+        break;
+    case 2:
+        if (D_800D2FE0 - e->start >= 16) {
+            *done = 1;
+            func_800235E0(e->pos, 108, 819, e->param, 0xE49D0A);
+        }
+        break;
+    }
+}

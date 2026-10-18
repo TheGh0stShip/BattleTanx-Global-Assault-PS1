@@ -1,10 +1,19 @@
-asm(".text\n\t.globl func_8002D098\nfunc_8002D098:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00a08021,0xafbf0014\n\t"
-    ".word 0x8c830018,0x24050002,0x1065000c,0x2c620003\n\t"
-    ".word 0x10400005,0x24020001,0x1062000e,0x00000000\n\t"
-    ".word 0x0800b444,0x00000000,0x24020003,0x10620007\n\t"
-    ".word 0x24020001,0x0800b444,0x00000000,0x94840028\n\t"
-    ".word 0x0c006c25,0x00000000,0x24020001,0x0800b444\n\t"
-    ".word 0xae020000,0x8c830008,0x8c820014,0x00000000\n\t"
-    ".word 0xac62003c,0xac850018,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct { char pad[60]; int value; } Target;
+typedef struct { int pad[2]; Target *target; int pad2[2]; int value; unsigned int state; int pad3[3]; unsigned short sound; } Trigger;
+void func_8001B094(int);
+
+void func_8002D098(Trigger *t, int *done) {
+    switch (t->state) {
+    case 2:
+        func_8001B094(t->sound);
+        *done = 1;
+        break;
+    case 3:
+        *done = 1;
+        break;
+    case 1:
+        t->target->value = t->value;
+        t->state = 2;
+        break;
+    }
+}

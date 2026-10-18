@@ -1,9 +1,20 @@
-asm(".text\n\t.globl func_80033690\nfunc_80033690:\n\t"
-    ".word 0x3c02800d,0x94433254,0x3c02800d,0x24452fe4\n\t"
-    ".word 0x2402ffff,0x00032400,0x00041c03,0x10620015\n\t"
-    ".word 0xaca00010,0x3c02800d,0x8c463258,0x24080008\n\t"
-    ".word 0x2407ffff,0x00041283,0x00c21821,0x84620004\n\t"
-    ".word 0x00000000,0x14480005,0x00000000,0x8ca20010\n\t"
-    ".word 0x00000000,0x24420001,0xaca20010,0x94630002\n\t"
-    ".word 0x00000000,0x00032400,0x00041403,0x1447fff2\n\t"
-    ".word 0x00041283,0x03e00008,0x00000000\n\t");
+typedef struct { short pad; short next; short type; short rest[29]; } Node;
+typedef struct { int pad[4]; int count; } Stats;
+extern short D_800D3254;
+extern Node *D_800D3258;
+extern Stats D_800D2FE4;
+
+void func_80033690(void) {
+    short i;
+    Node *n;
+
+    D_800D2FE4.count = 0;
+    i = D_800D3254;
+    while (i != -1) {
+        n = &D_800D3258[i];
+        if (n->type == 8) {
+            D_800D2FE4.count++;
+        }
+        i = n->next;
+    }
+}

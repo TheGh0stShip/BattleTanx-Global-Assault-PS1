@@ -1,18 +1,31 @@
-asm(".text\n\t.globl func_80096AF0\nfunc_80096AF0:\n\t"
-    ".word 0x3c04800f,0x8c84f050,0x27bdffe8,0xafbf0010\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f054\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f058\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f05c\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f060\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f064\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f068\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c04800f,0x8c84f06c\n\t"
-    ".word 0x0c026bb5,0x00000000,0x3c01800f,0xac20f07c\n\t"
-    ".word 0x3c02800f,0x8c42f07c,0x3c01800f,0xac22f078\n\t"
-    ".word 0x3c02800f,0x8c42f078,0x3c01800f,0xac22f074\n\t"
-    ".word 0x3c02800f,0x8c42f074,0x3c01800f,0xac22f070\n\t"
-    ".word 0x3c01800f,0xac20f08c,0x3c02800f,0x8c42f08c\n\t"
-    ".word 0x3c01800f,0xac22f088,0x3c02800f,0x8c42f088\n\t"
-    ".word 0x3c01800f,0xac22f084,0x3c02800f,0x8c42f084\n\t"
-    ".word 0x3c01800f,0xac22f080,0x8fbf0010,0x27bd0018\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+extern int D_800EF050;
+extern int D_800EF054;
+extern int D_800EF058;
+extern int D_800EF05C;
+extern int D_800EF060;
+extern int D_800EF064;
+extern int D_800EF068;
+extern int D_800EF06C;
+extern volatile int D_800EF070;
+extern volatile int D_800EF074;
+extern volatile int D_800EF078;
+extern volatile int D_800EF07C;
+extern volatile int D_800EF080;
+extern volatile int D_800EF084;
+extern volatile int D_800EF088;
+extern volatile int D_800EF08C;
+int func_8009AED4(int);
+
+void func_80096AF0(void)
+{
+    func_8009AED4(D_800EF050);
+    func_8009AED4(D_800EF054);
+    func_8009AED4(D_800EF058);
+    func_8009AED4(D_800EF05C);
+    func_8009AED4(D_800EF060);
+    func_8009AED4(D_800EF064);
+    func_8009AED4(D_800EF068);
+    func_8009AED4(D_800EF06C);
+    D_800EF070 = D_800EF074 = D_800EF078 = D_800EF07C = 0;
+    D_800EF080 = D_800EF084 = D_800EF088 = D_800EF08C = 0;
+}

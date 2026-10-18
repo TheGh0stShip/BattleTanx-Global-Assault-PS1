@@ -1,27 +1,69 @@
-asm(".text\n\t.globl func_800283E8\nfunc_800283E8:\n\t"
-    ".word 0x27BDFFC8,0xAFBE0030,0x0080F021,0xAFB50024\n\t"
-    ".word 0x3C157FFF,0x36B5FFFF,0x3C02800D,0xAFB60028\n\t"
-    ".word 0x0000B021,0xAFB40020,0x94543268,0x2402FFFF\n\t"
-    ".word 0xAFBF0034,0xAFB7002C,0xAFB3001C,0xAFB20018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x00142400,0x00041C03\n\t"
-    ".word 0x1062003E,0xAFA5003C,0x3C17800D,0x8EE33258\n\t"
-    ".word 0x00041283,0x00431021,0x8C530008,0x00000000\n\t"
-    ".word 0x1260002E,0x00141400,0x8E620208,0x8FA6003C\n\t"
-    ".word 0x8C42000C,0x00000000,0x10460028,0x00141400\n\t"
-    ".word 0x0C011DA2,0x02602021,0x10400023,0x00141400\n\t"
-    ".word 0x8E700008,0x8FC20000,0x8E710010,0x02028023\n\t"
-    ".word 0x8FC20008,0x02002021,0x02228823,0x0C022B8C\n\t"
-    ".word 0x02202821,0x30520FFF,0x0C022B58,0x02402021\n\t"
-    ".word 0x00500018,0x00003812,0x00003010,0x00073B02\n\t"
-    ".word 0x00063500,0x00E63825,0x00E08021,0x0C022B30\n\t"
-    ".word 0x02402021,0x00510018,0x00003812,0x00001810\n\t"
-    ".word 0x00073B02,0x00031D00,0x00E33825,0x00E01021\n\t"
-    ".word 0x02028021,0x0215102A,0x10400003,0x00141400\n\t"
-    ".word 0x0200A821,0x0260B021,0x8EE33258,0x00021283\n\t"
-    ".word 0x00431021,0x94540002,0x2402FFFF,0x00142400\n\t"
-    ".word 0x00041C03,0x1462FFC5,0x00000000,0x3C03020C\n\t"
-    ".word 0x3463FFFF,0x0075182A,0x10600002,0x02C01021\n\t"
-    ".word 0x00001021,0x8FBF0034,0x8FBE0030,0x8FB7002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[0x208 - 0x14];
+    Owner *owner;
+} Tank;
+
+typedef struct {
+    unsigned short id;
+    unsigned short next;
+    char pad4[4];
+    Tank *tank;
+    char pad0C[0x40 - 0xC];
+} Node;
+
+extern Node *D_800D3258;
+extern unsigned short D_800D3268;
+extern int func_80047688(Tank *);
+extern int func_8008AE30(int, int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+Tank *func_800283E8(Vector *from, int team) {
+    int best = 0x7FFFFFFF;
+    Tank *found = 0;
+    short id;
+
+    for (id = D_800D3268; id != -1; id = D_800D3258[id].next) {
+        Tank *tank = D_800D3258[id].tank;
+
+        if (tank != 0 && tank->owner->team != team && func_80047688(tank)) {
+            int dx = tank->pos.x - from->x;
+            int dz = tank->pos.z - from->z;
+            int angle = func_8008AE30(dx, dz) & 0xFFF;
+            int dist = fixed_mul(func_8008AD60(angle), dx);
+
+            dist += fixed_mul(func_8008ACC0(angle), dz);
+            if (dist < best) {
+                best = dist;
+                found = tank;
+            }
+        }
+    }
+    if (best <= 0x20CFFFF) {
+        return found;
+    }
+    return 0;
+}

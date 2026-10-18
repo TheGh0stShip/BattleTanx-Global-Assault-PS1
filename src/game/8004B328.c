@@ -1,65 +1,219 @@
-asm(".text\n\t.globl func_8004B328\nfunc_8004B328:\n\t"
-    ".word 0x27BDFF50,0xAFB5009C,0x0080A821,0xAFB600A0\n\t"
-    ".word 0x0000B021,0xAFB40098,0x00A0A021,0xAFB20090\n\t"
-    ".word 0x26B200F8,0x24020001,0xAFBF00A8,0xAFB700A4\n\t"
-    ".word 0xAFB30094,0xAFB1008C,0x10C20004,0xAFB00088\n\t"
-    ".word 0x24020011,0x14C20003,0x27A40080,0x24160001\n\t"
-    ".word 0x27A40080,0x0C0129A5,0x24050003,0x8FA30080\n\t"
-    ".word 0x00000000,0x14600003,0x0040B821,0x08012DBC\n\t"
-    ".word 0x00001021,0x0C0129E5,0x3284FFFF,0x00408021\n\t"
-    ".word 0x02002021,0x24110003,0x1080000A,0x26B3011C\n\t"
-    ".word 0x90820000,0x00000000,0x10510006,0x24930004\n\t"
-    ".word 0x94840002,0x0C0129E5,0x00000000,0x08012CEC\n\t"
-    ".word 0x00402021,0x02002021,0x0C012A2C,0x27A50018\n\t"
-    ".word 0x27A40018,0x27A60020,0x8E450040,0x0C01251A\n\t"
-    ".word 0x27A70030,0x92030000,0x24020002,0x14620010\n\t"
-    ".word 0x00000000,0x12C00003,0x00000000,0x08012D08\n\t"
-    ".word 0xA617000C,0xA617000E,0x8FA20080,0x00000000\n\t"
-    ".word 0xA4540002,0x96420006,0x24110001,0x00511021\n\t"
-    ".word 0x08012D51,0xA6420006,0x08012D33,0x26A4011C\n\t"
-    ".word 0x8FA20080,0xA617001A,0xA4540002,0x96420006\n\t"
-    ".word 0x00000000,0x24420001,0xA6420006,0x96040002\n\t"
-    ".word 0x0C0129E5,0x00000000,0x00408821,0x00402021\n\t"
-    ".word 0x27B00040,0x0C012A2C,0x02002821,0x27A40018\n\t"
-    ".word 0x0C01250E,0x02002821,0x1040002B,0x02202021\n\t"
-    ".word 0x24100003,0x1080FFE8,0x00000000,0x90820000\n\t"
-    ".word 0x00000000,0x10500006,0x00000000,0x94840002\n\t"
-    ".word 0x0C0129E5,0x00000000,0x08012D27,0x00402021\n\t"
-    ".word 0x24840004,0x12C0000C,0x26500030,0x02002821\n\t"
-    ".word 0x0C01253F,0x02603021,0x38420002,0x2C510001\n\t"
-    ".word 0x02602021,0x02002821,0x0C01253F,0x27A60030\n\t"
-    ".word 0x08012D4A,0x38420001,0x02002821,0x0C01253F\n\t"
-    ".word 0x02603021,0x38420001,0x2C510001,0x02602021\n\t"
-    ".word 0x02002821,0x0C01253F,0x27A60020,0x38420002\n\t"
-    ".word 0x2C420001,0x12200002,0x00001821,0x0062182B\n\t"
-    ".word 0x08012D51,0x2C710001,0x24110001,0x12200004\n\t"
-    ".word 0x26500030,0x16C00002,0x27B00030,0x27B00020\n\t"
-    ".word 0x8E620000,0x02A02021,0xAFA20070,0x8E620008\n\t"
-    ".word 0x00002821,0x0C012558,0xAFA20078,0x27A40070\n\t"
-    ".word 0x02002821,0x3C060008,0x34C67007,0x3047FFFF\n\t"
-    ".word 0x8EA30000,0x3C02800C,0xA440628C,0x27A20048\n\t"
-    ".word 0xAFA20014,0x0C006760,0xAFA30010,0x3042FFFF\n\t"
-    ".word 0x10400039,0x00000000,0x8E43003C,0x00000000\n\t"
-    ".word 0x10600009,0x00000000,0x8FA20048,0x00000000\n\t"
-    ".word 0x10400005,0x00000000,0x84420000,0x00000000\n\t"
-    ".word 0x1062002D,0x00000000,0x97A30068,0x24020007\n\t"
-    ".word 0x14620014,0x02602821,0x26A400FC,0x00002821\n\t"
-    ".word 0x24020001,0x26B000F8,0xAE42001C,0x0C012858\n\t"
-    ".word 0xA6A0014A,0x00001021,0xA6000006,0xAEA000F8\n\t"
-    ".word 0xA600000A,0xA6000014,0xA6000016,0xAE000018\n\t"
-    ".word 0x8EA30180,0x2404FE7F,0x00641824,0x08012DBC\n\t"
-    ".word 0xAEA30180,0x8FA40080,0x8FA20050,0x00000000\n\t"
-    ".word 0xAC820004,0x8FA20058,0x00000000,0xAC82000C\n\t"
-    ".word 0x8E460040,0x0C01261B,0x24840004,0x8FA40080\n\t"
-    ".word 0x27A50048,0x0C0124E1,0x24840010,0x1220001E\n\t"
-    ".word 0x32E2FFFF,0x8FA30080,0x16C00019,0x24020011\n\t"
-    ".word 0x08012DBA,0x24020012,0x8FA30080,0x8E020000\n\t"
-    ".word 0x00000000,0xAC620004,0x8E020008,0x1220000F\n\t"
-    ".word 0xAC62000C,0x12C00004,0x00602021,0x24020001\n\t"
-    ".word 0x08012DB2,0xA0820018,0x24020002,0xA0620018\n\t"
-    ".word 0x8FA60080,0x27A40018,0x90C50018,0x0C0124F9\n\t"
-    ".word 0x24C60010,0x08012DBC,0x32E2FFFF,0x24020003\n\t"
-    ".word 0xA0620018,0x32E2FFFF,0x8FBF00A8,0x8FB700A4\n\t"
-    ".word 0x8FB600A0,0x8FB5009C,0x8FB40098,0x8FB30094\n\t"
-    ".word 0x8FB20090,0x8FB1008C,0x8FB00088,0x03E00008\n\t"
-    ".word 0x27BD00B0\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector4;
+typedef struct {
+    int a;
+    int b;
+} Segment;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    Vector position;
+} PathNode;
+typedef struct {
+    char pad0[0xC];
+    unsigned short left;
+    unsigned short right;
+    char pad10[0x1A - 0x10];
+    unsigned short link;
+} Junction;
+typedef struct {
+    char pad0[2];
+    unsigned short prev;
+    Vector position;
+    Segment dir;
+    unsigned char kind;
+} Pending;
+typedef struct {
+    short id;
+} HitObject;
+typedef struct {
+    HitObject *object;
+    char pad4[4];
+    Vector4 position;
+    char pad18[0x20 - 0x18];
+    unsigned short kind;
+    char pad22[0x28 - 0x22];
+} Hit;
+typedef struct {
+    int active;
+    unsigned short pad4;
+    unsigned short count;
+    char pad8[2];
+    unsigned short next;
+    char padC[0x14 - 0xC];
+    unsigned short a14;
+    unsigned short a16;
+    int a18;
+    int stuck;
+    char pad20[0x24 - 0x20];
+    Vector home;
+    Vector target;
+    int target_id;
+    int width;
+} Route;
+typedef struct {
+    int id;
+    char pad4[0xF8 - 0x4];
+    Route route;
+    char pad13C[0x14A - 0x13C];
+    short f14A;
+    char pad14C[0x180 - 0x14C];
+    int flags;
+} Tank;
+extern short D_800C628C;
+extern unsigned short func_8004A694(Pending **, int);
+extern PathNode *func_8004A794(unsigned short);
+extern void func_8004A8B0(PathNode *, Segment *);
+extern void func_80049468(Segment *, int, Vector4 *, Vector4 *);
+extern int func_80049438(Segment *, Segment *);
+extern int func_800494FC(Vector *, Vector *, Vector *);
+extern int func_80049560(Tank *, int);
+extern unsigned short func_80019D80(Vector4 *, Vector *, int, unsigned short, int, Hit *);
+extern int func_8004A160(unsigned short *, int);
+extern void func_8004986C(Vector *, Vector *, int);
+extern void func_80049384(Segment *, Hit *);
+extern void func_800493E4(Segment *, int, Segment *);
+
+static inline void reset_route(Tank *tank, Route *route) {
+    tank->f14A = 0;
+    func_8004A160(&route->pad4, 0);
+    route->count = 0;
+    route->active = 0;
+    route->next = 0;
+    route->a14 = 0;
+    route->a16 = 0;
+    route->a18 = 0;
+    tank->flags &= ~0x180;
+}
+
+unsigned short func_8004B328(Tank *tank, unsigned short id, int mode) {
+    Route *route = &tank->route;
+    int flag = 0;
+    unsigned short index;
+    PathNode *node;
+    PathNode *p;
+    PathNode *q;
+    PathNode *w;
+    Vector *pos;
+    Vector *ppos;
+    Vector *target;
+    int ok;
+    int r2;
+    unsigned short reach;
+    Segment seg;
+    Vector4 a;
+    Vector4 b;
+    Segment seg2;
+    Hit hit;
+    Vector4 from;
+    Pending *pending;
+
+    if (mode == 1 || mode == 17) {
+        flag = 1;
+    }
+    index = func_8004A694(&pending, 3);
+    if (pending == 0) {
+        return 0;
+    }
+    node = func_8004A794(id);
+    p = node;
+    while (1) {
+        if (p == 0) {
+            pos = &tank->route.home;
+            break;
+        }
+        if (p->kind == 3) {
+            pos = &p->position;
+            break;
+        }
+        p = func_8004A794(p->prev);
+    }
+    func_8004A8B0(node, &seg);
+    func_80049468(&seg, route->width, &a, &b);
+    if (node->kind == 2) {
+        if (flag) {
+            ((Junction *)node)->left = index;
+        } else {
+            ((Junction *)node)->right = index;
+        }
+        pending->prev = id;
+        route->count++;
+        ok = 1;
+    } else {
+        ((Junction *)node)->link = index;
+        pending->prev = id;
+        route->count++;
+        q = func_8004A794(node->prev);
+        func_8004A8B0(q, &seg2);
+        if (func_80049438(&seg, &seg2) != 0) {
+            w = q;
+            while (1) {
+                if (w == 0) {
+                    ppos = &tank->route.home;
+                    break;
+                }
+                if (w->kind == 3) {
+                    ppos = &w->position;
+                    break;
+                }
+                w = func_8004A794(w->prev);
+            }
+            if (flag) {
+                ok = func_800494FC(ppos, &route->target, pos) == 2;
+                r2 = func_800494FC(pos, &route->target, (Vector *)&b) == 1;
+            } else {
+                ok = func_800494FC(ppos, &route->target, pos) == 1;
+                r2 = func_800494FC(pos, &route->target, (Vector *)&a) == 2;
+            }
+            ok = (ok && r2) == 0;
+        } else {
+            ok = 1;
+        }
+    }
+    target = &route->target;
+    if (ok) {
+        target = (Vector *)&b;
+        if (!flag) {
+            target = (Vector *)&a;
+        }
+    }
+    from.x = pos->x;
+    from.z = pos->z;
+    reach = func_80049560(tank, 0);
+    D_800C628C = 0;
+    if (func_80019D80(&from, target, 0x87007, reach, tank->id, &hit) != 0 &&
+        !(route->target_id != 0 && hit.object != 0 && route->target_id == hit.object->id)) {
+        if (hit.kind == 7) {
+            route->stuck = 1;
+            reset_route(tank, &tank->route);
+            return 0;
+        }
+        pending->position.x = hit.position.x;
+        pending->position.z = hit.position.z;
+        func_8004986C(&pending->position, pos, route->width);
+        func_80049384(&pending->dir, &hit);
+        if (ok) {
+            pending->kind = flag ? 17 : 18;
+        }
+        return index;
+    }
+    pending->position.x = target->x;
+    pending->position.z = target->z;
+    if (ok) {
+        pending->kind = flag ? 1 : 2;
+        func_800493E4(&seg, pending->kind, &pending->dir);
+    } else {
+        pending->kind = 3;
+    }
+    return index;
+}

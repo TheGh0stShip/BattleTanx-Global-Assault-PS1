@@ -1,69 +1,101 @@
-asm(".text\n\t.globl func_8007FFD8\nfunc_8007FFD8:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x3C11800B,0x26310C62,0xAFBF0020,0xAFB3001C\n\t"
-    ".word 0xAFB20018,0x92220000,0x00000000,0x2C420002\n\t"
-    ".word 0x14400008,0x3C130800,0x3C04800C,0x24844CB4\n\t"
-    ".word 0x3C02800B,0x8C420C5C,0x00000000,0x0040F809\n\t"
-    ".word 0x02002821,0x3C020500,0x96030002,0x96040000\n\t"
-    ".word 0x3C05800B,0x8CA50C58,0x306303FF,0x00031A80\n\t"
-    ".word 0x308403FF,0x00822025,0x8CA20010,0x00000000\n\t"
-    ".word 0x0040F809,0x00642025,0x26240072,0x96220072\n\t"
-    ".word 0x86030008,0x00021400,0x00021403,0x14430013\n\t"
-    ".word 0x00000000,0x94820002,0x8603000A,0x00021400\n\t"
-    ".word 0x00021403,0x1443000D,0x00000000,0x94820004\n\t"
-    ".word 0x8603000C,0x00021400,0x00021403,0x14430007\n\t"
-    ".word 0x00000000,0x94820006,0x8603000E,0x00021400\n\t"
-    ".word 0x00021403,0x1043006E,0x00000000,0x0C025297\n\t"
-    ".word 0x00000000,0x86040008,0xA2020012,0x304200FF\n\t"
-    ".word 0x00041880,0x00641821,0x00031840,0x8604000A\n\t"
-    ".word 0x10400003,0x24660260,0x0802003F,0x24910013\n\t"
-    ".word 0x24910010,0x8603000C,0x00000000,0x10600005\n\t"
-    ".word 0x00031080,0x00431021,0x00021040,0x08020048\n\t"
-    ".word 0x00C23821,0x24C70A00,0x8602000E,0x00000000\n\t"
-    ".word 0x14400002,0x02229021,0x263200F0,0x28C201F4\n\t"
-    ".word 0x14400005,0x240501F4,0x28C20CDB,0x10400002\n\t"
-    ".word 0x24050CDA,0x00C02821,0x00A03021,0x24C50050\n\t"
-    ".word 0x00E5102A,0x14400006,0x2A220010,0x28E20CDB\n\t"
-    ".word 0x10400002,0x24050CDA,0x00E02821,0x2A220010\n\t"
-    ".word 0x14400012,0x00A03821,0x92020012,0x00000000\n\t"
-    ".word 0x10400005,0x2A220137,0x10400006,0x02202021\n\t"
-    ".word 0x08020073,0x00808821,0x2A220101,0x14400008\n\t"
-    ".word 0x02202021,0x92020012,0x00000000,0x10400004\n\t"
-    ".word 0x24040100,0x08020072,0x24040136,0x24040010\n\t"
-    ".word 0x00808821,0x26250002,0x0245102A,0x14400011\n\t"
-    ".word 0x00A01821,0x92020012,0x00000000,0x10400005\n\t"
-    ".word 0x2A420139,0x10400006,0x02401821,0x08020088\n\t"
-    ".word 0x00609021,0x2A420103,0x14400006,0x02401821\n\t"
-    ".word 0x92020012,0x00000000,0x10400002,0x24030102\n\t"
-    ".word 0x24030138,0x00609021,0x30E30FFF,0x00031B00\n\t"
-    ".word 0x30C40FFF,0x3C020600,0x3C05800B,0x8CA50C58\n\t"
-    ".word 0x00822025,0x8CA20010,0x00000000,0x0040F809\n\t"
-    ".word 0x00642025,0x324303FF,0x00031A80,0x322403FF\n\t"
-    ".word 0x3C020700,0x3C05800B,0x8CA50C58,0x00822025\n\t"
-    ".word 0x8CA20010,0x00000000,0x0040F809,0x00642025\n\t"
-    ".word 0x3C04800B,0x24840CDC,0x8C830000,0x8E020010\n\t"
-    ".word 0x00000000,0x14620019,0x00000000,0x9482FFF0\n\t"
-    ".word 0x86030000,0x00021400,0x00021403,0x14430013\n\t"
-    ".word 0x2484FFF0,0x94820002,0x86030002,0x00021400\n\t"
-    ".word 0x00021403,0x1443000D,0x00000000,0x94820004\n\t"
-    ".word 0x86030004,0x00021400,0x00021403,0x14430007\n\t"
-    ".word 0x00000000,0x94820006,0x86030006,0x00021400\n\t"
-    ".word 0x00021403,0x1043003A,0x00000000,0x0C025297\n\t"
-    ".word 0x00000000,0xA2020012,0x304200FF,0x24030001\n\t"
-    ".word 0x14430002,0x00000000,0x36730008,0x92020011\n\t"
-    ".word 0x00000000,0x10400002,0x00000000,0x36730010\n\t"
-    ".word 0x92020010,0x00000000,0x10400002,0x00000000\n\t"
-    ".word 0x36730020,0x3C02800B,0x90420C63,0x00000000\n\t"
-    ".word 0x10400002,0x00000000,0x36730080,0x86030004\n\t"
-    ".word 0x00000000,0x28620119,0x1440000E,0x28620161\n\t"
-    ".word 0x10400003,0x28620191,0x080200E7,0x36730001\n\t"
-    ".word 0x10400003,0x28620231,0x080200E7,0x36730040\n\t"
-    ".word 0x10400003,0x00000000,0x080200E7,0x36730002\n\t"
-    ".word 0x36730003,0x92020012,0x86030006,0x14400002\n\t"
-    ".word 0x28620121,0x28620101,0x14400002,0x00000000\n\t"
-    ".word 0x36730024,0x3C02800B,0x8C420C58,0x00000000\n\t"
-    ".word 0x8C420010,0x00000000,0x0040F809,0x02602021\n\t"
-    ".word 0x3C04800B,0x24840CCC,0x02002821,0x0C0229EF\n\t"
-    ".word 0x24060014,0x02001021,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+
+typedef struct {
+    RECT disp;
+    RECT screen;
+    unsigned char isinter;
+    unsigned char isrgb24;
+    unsigned char pad0;
+    unsigned char pad1;
+} DISPENV;
+
+typedef struct {
+    volatile unsigned char level;
+    unsigned char reverse;
+    char pad02[12];
+    unsigned char draw[92];
+    volatile DISPENV disp;
+} GpuState;
+
+typedef struct {
+    char pad[16];
+    int (*ctl)(unsigned long cmd);
+} GpuDriver;
+
+extern GpuState D_800B0C62;
+extern GpuDriver *D_800B0C58;
+extern int (*D_800B0C5C)(char *fmt, ...);
+extern char D_800C4CB4[];
+extern int func_80094A5C(void);
+extern void func_8008A7BC(void *dst, void *src, int len);
+
+DISPENV *func_8007FFD8(DISPENV *env_in) {
+    DISPENV *env = env_in;
+    long h_start;
+    long h_end;
+    long v_start;
+    long v_end;
+    long mode;
+    long fits;
+    volatile RECT *rect;
+
+    mode = 0x08000000;
+    if (D_800B0C62.level >= 2) {
+        D_800B0C5C(D_800C4CB4, env);
+    }
+    D_800B0C58->ctl(0x05000000 | ((env->disp.y & 0x3FF) << 10) | (env->disp.x & 0x3FF));
+    rect = &D_800B0C62.disp.screen;
+    if (rect->x != env->screen.x || rect->y != env->screen.y || rect->w != env->screen.w || rect->h != env->screen.h) {
+        env->pad0 = func_80094A5C();
+        h_start = env->screen.x * 10 + 608;
+        v_start = env->screen.y + (env->pad0 ? 19 : 16);
+        h_end = env->screen.w ? h_start + env->screen.w * 10 : h_start + 2560;
+        v_end = env->screen.h ? v_start + env->screen.h : v_start + 240;
+        h_start = h_start < 500 ? 500 : (h_start > 3290 ? 3290 : h_start);
+        h_end = h_end < h_start + 80 ? h_start + 80 : (h_end > 3290 ? 3290 : h_end);
+        v_start = v_start < 16 ? 16 : (v_start > (env->pad0 ? 310 : 256) ? (env->pad0 ? 310 : 256) : v_start);
+        v_end = v_end < v_start + 2 ? v_start + 2
+                                    : (v_end > (env->pad0 ? 312 : 258) ? (env->pad0 ? 312 : 258) : v_end);
+        D_800B0C58->ctl(0x06000000 | ((h_end & 0xFFF) << 12) | (h_start & 0xFFF));
+        D_800B0C58->ctl(0x07000000 | ((v_end & 0x3FF) << 10) | (v_start & 0x3FF));
+    }
+    if (*(long *)&D_800B0C62.disp.isinter != *(long *)&env->isinter ||
+        (rect = &D_800B0C62.disp.disp, rect->x) != env->disp.x || rect->y != env->disp.y || rect->w != env->disp.w || rect->h != env->disp.h) {
+        env->pad0 = func_80094A5C();
+        if (env->pad0 == 1) {
+            mode |= 0x08;
+        }
+        if (env->isrgb24) {
+            mode |= 0x10;
+        }
+        if (env->isinter) {
+            mode |= 0x20;
+        }
+        if (D_800B0C62.reverse) {
+            mode |= 0x80;
+        }
+        if (env->disp.w > 280) {
+            if (env->disp.w <= 352) {
+                mode |= 0x01;
+            } else if (env->disp.w <= 400) {
+                mode |= 0x40;
+            } else if (env->disp.w <= 560) {
+                mode |= 0x02;
+            } else {
+                mode |= 0x03;
+            }
+        }
+        fits = env->disp.h <= (env->pad0 ? 288 : 256);
+        if (!fits) {
+            mode |= 0x24;
+        }
+        D_800B0C58->ctl(mode);
+    }
+    func_8008A7BC((void *)&D_800B0C62.disp, env, sizeof(DISPENV));
+    return env;
+}

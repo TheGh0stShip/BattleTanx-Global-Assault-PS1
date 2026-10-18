@@ -1,10 +1,29 @@
-asm(".text\n\t.globl func_800531D4\nfunc_800531D4:\n\t"
-    ".word 0x27bdffe8,0xafbf0014,0x1080001c,0xafb00010\n\t"
-    ".word 0x90820006,0x00000000,0x30420002,0x10400017\n\t"
-    ".word 0x3c02800d,0x00058080,0x00902821,0x8c432fe0\n\t"
-    ".word 0x8ca200dc,0x00000000,0x00621023,0x2842003d\n\t"
-    ".word 0x1440000e,0x3c02800b,0x2442e74c,0x02021021\n\t"
-    ".word 0xaca300dc,0x90840007,0x8c450000,0x0c018c06\n\t"
-    ".word 0x2406002d,0x3c02800a,0x24425b3c,0x02021021\n\t"
-    ".word 0x90440000,0x0c01528c,0x00000000,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    unsigned char channel;
+    char pad8[0xDC - 8];
+    int last_time[1];
+} Emitter;
+typedef struct {
+    unsigned char id;
+    char pad[3];
+} SoundRef;
+extern int D_800D2FE0;
+extern int D_800AE74C[];
+extern SoundRef D_800A5B3C[];
+extern void func_80063018(int, int, int);
+extern void func_80054A30(int);
+
+void func_800531D4(Emitter *emitter, int index) {
+    int now;
+
+    if (emitter != 0 && (emitter->flags & 2)) {
+        now = D_800D2FE0;
+        if (now - emitter->last_time[index] > 60) {
+            emitter->last_time[index] = now;
+            func_80063018(emitter->channel, D_800AE74C[index], 45);
+            func_80054A30(D_800A5B3C[index].id);
+        }
+    }
+}

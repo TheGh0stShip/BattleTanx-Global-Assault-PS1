@@ -1,8 +1,8 @@
-asm(".text\n\t.globl func_80098028\nfunc_80098028:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x92040000,0x0c02529e,0x00000000,0x304200ff\n\t"
-    ".word 0x24030043,0x1443000e,0x02001021,0x92040001\n\t"
-    ".word 0x0c02529e,0x00000000,0x304200ff,0x24030044\n\t"
-    ".word 0x14430007,0x02001021,0x92030002,0x2402003a\n\t"
-    ".word 0x14620003,0x02001021,0x26100003,0x02001021\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern unsigned char func_80094A78(int);
+
+unsigned char *func_80098028(unsigned char *path) {
+    if (func_80094A78(path[0]) == 'C' && func_80094A78(path[1]) == 'D' && path[2] == ':') {
+        path += 3;
+    }
+    return path;
+}

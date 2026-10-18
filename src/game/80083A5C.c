@@ -1,13 +1,41 @@
-asm(".text\n\t.globl func_80083A5C\nfunc_80083A5C:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb00010\n\t"
-    ".word 0x00008021,0x2e220004,0xafbf001c,0x10400020\n\t"
-    ".word 0xafb20018,0x3c02800f,0x2452df08,0x00111080\n\t"
-    ".word 0x00511021,0x00021080,0x00521821,0x8c700004\n\t"
-    ".word 0x2e220002,0x10400017,0x02001021,0x8c620000\n\t"
-    ".word 0x00000000,0x1440000a,0x00111040,0x00511021\n\t"
-    ".word 0x00021080,0x00521021,0x8c440050,0x0c02452b\n\t"
-    ".word 0x00000000,0x3042ffff,0x02028021,0x00111040\n\t"
-    ".word 0x00511021,0x00021080,0x00521021,0x94420058\n\t"
-    ".word 0x00000000,0x14400003,0x02001021,0x3210ffff\n\t"
-    ".word 0x02001021,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    int pending;
+    unsigned int position;
+    int pad8;
+    int ready;
+    int enabled;
+} Channel;
+typedef struct {
+    int handle;
+    int pad4;
+    unsigned short wide;
+    unsigned short step;
+} ChannelRate;
+typedef struct {
+    Channel channels[4];
+    ChannelRate rates[4];
+} ChannelBank;
+extern ChannelBank D_800EDF08;
+extern unsigned short func_800914AC(int handle);
+
+unsigned int func_80083A5C(unsigned int index) {
+    unsigned int pos = 0;
+
+    if (index >= 4) {
+        goto done;
+    }
+    pos = D_800EDF08.channels[index].position;
+    if (index >= 2) {
+        goto done;
+    }
+    if (D_800EDF08.channels[index].pending == 0) {
+        pos += func_800914AC(D_800EDF08.rates[index].handle);
+    }
+    if (D_800EDF08.rates[index].wide != 0) {
+        goto done;
+    }
+mask:
+    pos &= 0xFFFF;
+done:
+    return pos;
+}

@@ -1,41 +1,94 @@
-asm(".text\n\t.globl func_80023EA0\nfunc_80023EA0:\n\t"
-    ".word 0x27BDFFA8,0x3C02800D,0x24435A8C,0x3C05800D\n\t"
-    ".word 0x3C06800D,0x3C07800D,0x3C08800D,0x8C425A8C\n\t"
-    ".word 0x00840018,0xAFBF0050,0xAFB3004C,0xAFB20048\n\t"
-    ".word 0xAFB10044,0xAFB00040,0x8C630004,0x8CA45A78\n\t"
-    ".word 0x8CC55A84,0x8CE65A7C,0x8D07366C,0x00008821\n\t"
-    ".word 0xAFA20018,0xAFA3001C,0xAFA40024,0xAFA5002C\n\t"
-    ".word 0xAFA60028,0x00009012,0x18E00032,0xAFB20020\n\t"
-    ".word 0x3C02800D,0x245332F4,0x3C02800D,0x24503670\n\t"
-    ".word 0x8E040008,0x2402FFFF,0x1482002A,0x00000000\n\t"
-    ".word 0x8E020000,0x00000000,0x84430000,0x8E020004\n\t"
-    ".word 0x00000000,0x1462001E,0x3C02800D,0xA3A00030\n\t"
-    ".word 0x8E020000,0x00000000,0x84430004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00533821\n\t"
-    ".word 0x8CE20004,0x00000000,0x1040000B,0x00000000\n\t"
-    ".word 0x10640009,0x00002821,0x24060006,0x27A20030\n\t"
-    ".word 0xAFA20010,0x8E040000,0x8CE20004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70018,0x93A20030,0x00000000\n\t"
-    ".word 0x10400002,0x24020001,0xAE020004,0x3C02800D\n\t"
-    ".word 0x8C42366C,0x26310001,0x0222102A,0x1440FFD4\n\t"
-    ".word 0x2610000C,0x3C04800D,0x3C02800D,0x8C835A70\n\t"
-    ".word 0x8C42366C,0x00000000,0x0062182A,0x10600042\n\t"
-    ".word 0x3C02800D,0x24513670,0x3C02800D,0x245332F4\n\t"
-    ".word 0x00808021,0x8C825A70,0x00000000,0x00021840\n\t"
-    ".word 0x00621821,0x00031880,0x00712021,0x8C820008\n\t"
-    ".word 0x00000000,0x0242102A,0x14400033,0x00000000\n\t"
-    ".word 0x8C820000,0x00000000,0x84430000,0x8C820004\n\t"
-    ".word 0x00000000,0x14620025,0x3C02800D,0xA3A00030\n\t"
-    ".word 0x8C820000,0x00000000,0x84430004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00533821\n\t"
-    ".word 0x8CE20004,0x00000000,0x1040000B,0x2402FFFF\n\t"
-    ".word 0x10620009,0x00002821,0x24060006,0x27A20030\n\t"
-    ".word 0xAFA20010,0x8C840000,0x8CE20004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70018,0x93A20030,0x00000000\n\t"
-    ".word 0x1040000A,0x3C02800D,0x8E025A70,0x00000000\n\t"
-    ".word 0x00021840,0x00621821,0x00031880,0x00711821\n\t"
-    ".word 0x24020001,0xAC620004,0x3C02800D,0x8E035A70\n\t"
-    ".word 0x8C42366C,0x24630001,0xAE035A70,0x0062182A\n\t"
-    ".word 0x1460FFC4,0x02002021,0x8FBF0050,0x8FB3004C\n\t"
-    ".word 0x8FB20048,0x8FB10044,0x8FB00040,0x03E00008\n\t"
-    ".word 0x27BD0058\n");
+typedef struct Node {
+    short id;
+    short next;
+    short kind;
+} Node;
+
+typedef struct NodeClass {
+    void (*update)();
+    void (*touch)();
+    void (*draw)();
+} NodeClass;
+
+typedef struct {
+    Node *node;
+    int id;
+    int dist;
+} Contact;
+
+typedef struct {
+    int x;
+    int z;
+} Point;
+
+typedef struct {
+    Point center;
+    int radius_sq;
+    int a;
+    int b;
+    int c;
+} Blast;
+
+typedef struct {
+    unsigned char hit;
+    char pad1[3];
+    int x;
+    int z;
+} Reply;
+
+extern Point D_800D5A8C;
+extern int D_800D5A78;
+extern int D_800D5A7C;
+extern int D_800D5A84;
+extern int D_800D5A70;
+extern int D_800D366C;
+extern Contact D_800D3670[];
+extern NodeClass D_800D32F4[];
+
+void func_80023EA0(int radius) {
+    Blast blast;
+    Reply reply;
+    int r2;
+    int i;
+    Contact *c;
+    NodeClass *cls;
+
+    blast.center.x = D_800D5A8C.x;
+    blast.center.z = D_800D5A8C.z;
+    r2 = radius * radius;
+    blast.a = D_800D5A78;
+    blast.c = D_800D5A84;
+    blast.b = D_800D5A7C;
+    blast.radius_sq = r2;
+    for (i = 0; i < D_800D366C; i++) {
+        if (D_800D3670[i].dist != -1) {
+            break;
+        }
+        if (D_800D3670[i].node->id == D_800D3670[i].id) {
+            reply.hit = 0;
+            cls = &D_800D32F4[D_800D3670[i].node->kind];
+            if (cls->touch != 0 && D_800D3670[i].node->kind != -1) {
+                cls->touch(D_800D3670[i].node, 0, 6, &blast, &reply);
+            }
+            if (reply.hit) {
+                D_800D3670[i].id = 1;
+            }
+        }
+    }
+    for (; D_800D5A70 < D_800D366C; D_800D5A70++) {
+        c = &D_800D3670[D_800D5A70];
+        if (r2 < c->dist) {
+            break;
+        }
+        if (c->node->id == c->id) {
+            reply.hit = 0;
+            cls = &D_800D32F4[c->node->kind];
+            if (cls->touch != 0 && c->node->kind != -1) {
+                cls->touch(c->node, 0, 6, &blast, &reply);
+            }
+            if (reply.hit) {
+                D_800D3670[D_800D5A70].id = 1;
+            }
+        }
+    }
+}

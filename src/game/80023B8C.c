@@ -1,51 +1,119 @@
-asm(".text\n\t.globl func_80023B8C\nfunc_80023B8C:\n\t"
-    ".word 0x27BDFFA8,0x3C09800D,0x91235A88,0x8FA80068\n\t"
-    ".word 0x30E200FF,0xAFBF0054,0xAFBE0050,0xAFB7004C\n\t"
-    ".word 0xAFB60048,0xAFB50044,0xAFB40040,0xAFB3003C\n\t"
-    ".word 0xAFB20038,0xAFB10034,0x0062182B,0x14600003\n\t"
-    ".word 0xAFB00030,0x08008F9C,0x00001021,0x00008821\n\t"
-    ".word 0x2413FFFF,0x3C02800D,0x00409021,0x3C02800D\n\t"
-    ".word 0x24573670,0x3C02800D,0x245E32F4,0x03C0A021\n\t"
-    ".word 0x3C02800D,0xAC405A74,0x3C02800D,0xAC465A84\n\t"
-    ".word 0x3C02800D,0xAC455A78,0x8C820000,0x3C03800D\n\t"
-    ".word 0xAE40366C,0xA1275A88,0xAC625A8C,0x3C02800D\n\t"
-    ".word 0x8C840008,0x24635A8C,0xAC485A7C,0xAFA80028\n\t"
-    ".word 0xAC640004,0x8E820004,0x00000000,0x10400061\n\t"
-    ".word 0x00111840,0x3C02800D,0x24423260,0x00621021\n\t"
-    ".word 0x84440000,0x00000000,0x1093005A,0x3C02800D\n\t"
-    ".word 0x3C15800D,0x26B65A8C,0x8C433258,0x00041180\n\t"
-    ".word 0xA3A00018,0x00628021,0x86030004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x005E3821\n\t"
-    ".word 0x8CE20004,0x00000000,0x1040000B,0x00000000\n\t"
-    ".word 0x10730009,0x02002021,0x00002821,0x27A20018\n\t"
-    ".word 0x24060005,0xAFA20010,0x8CE20004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70028,0x93A20018,0x00000000\n\t"
-    ".word 0x10400038,0x24020300,0x8E43366C,0x00000000\n\t"
-    ".word 0x10620034,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00572021,0xAC900000,0x86020000,0x00000000\n\t"
-    ".word 0xAC820004,0x93A30018,0x24020002,0x14620003\n\t"
-    ".word 0x00000000,0x08008F6C,0xAC930008,0x8EA35A8C\n\t"
-    ".word 0x8FA2001C,0x00000000,0x00621023,0x04410004\n\t"
-    ".word 0x00022303,0x00021023,0x00021303,0x00022023\n\t"
-    ".word 0x8EC30004,0x8FA20020,0x00000000,0x00621023\n\t"
-    ".word 0x04400003,0x00401821,0x08008F5E,0x00021303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00840018\n\t"
-    ".word 0x00002012,0x00000000,0x00000000,0x00420018\n\t"
-    ".word 0x8E43366C,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00571021,0x00004012,0x00881821\n\t"
-    ".word 0xAC430008,0x8E42366C,0x00000000,0x24420001\n\t"
-    ".word 0xAE42366C,0x86040002,0x00000000,0x1493FFAA\n\t"
-    ".word 0x3C02800D,0x26310001,0x2A22004A,0x1440FF99\n\t"
-    ".word 0x2694000C,0x3C10800D,0x3C02800D,0x24513670\n\t"
-    ".word 0x8E05366C,0x0C008E31,0x02202021,0x8E02366C\n\t"
-    ".word 0x3C03800D,0x18400013,0xAC605A70,0x02202021\n\t"
-    ".word 0x00602821,0x2407FFFF,0x00403021,0x8CA35A70\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00441021,0x8C420008,0x00000000,0x14470005\n\t"
-    ".word 0x24620001,0xACA25A70,0x0046102A,0x1440FFF3\n\t"
-    ".word 0x00000000,0x8FAA006C,0x00000000,0x01405821\n\t"
-    ".word 0x014B0018,0x24020001,0x3C03800D,0x00005012\n\t"
-    ".word 0xAC6A5A80,0x8FBF0054,0x8FBE0050,0x8FB7004C\n\t"
-    ".word 0x8FB60048,0x8FB50044,0x8FB40040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0058\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Node {
+    short id;
+    short next;
+    short kind;
+    char pad06[0x40 - 6];
+} Node;
+typedef struct QueryResult {
+    unsigned char type;
+    char pad01[3];
+    int x;
+    int z;
+} QueryResult;
+typedef struct QueryInfo {
+    int param;
+} QueryInfo;
+typedef struct NodeClass {
+    void (*update)();
+    void (*query)(Node *, int, int, QueryInfo *, QueryResult *);
+    void (*draw)();
+} NodeClass;
+typedef struct SortEntry {
+    Node *node;
+    int id;
+    int dist;
+} SortEntry;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+extern Node *D_800D3258;
+extern short D_800D3260[];
+extern NodeClass D_800D32F4[];
+extern int D_800D366C;
+extern SortEntry D_800D3670[];
+extern int D_800D5A70;
+extern int D_800D5A74;
+extern int D_800D5A78;
+extern int D_800D5A7C;
+extern int D_800D5A80;
+extern int D_800D5A84;
+extern unsigned char D_800D5A88;
+extern Pos2 D_800D5A8C;
+void func_800238C4(SortEntry *, int);
+
+static inline int imul(int a, int b) {
+    return a * b;
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void copy_pos(Pos2 *dst, Vector *src) {
+    dst->x = src->x;
+    dst->z = src->z;
+}
+
+int func_80023B8C(Vector *pos, int arg1, int arg2, unsigned char priority, int param, int radius) {
+    QueryResult result;
+    QueryInfo info;
+    int kind;
+    int index;
+    Node *node;
+    SortEntry *entry;
+    int dx;
+    int dz;
+
+    if (D_800D5A88 >= priority) {
+        return 0;
+    }
+    D_800D5A74 = 0;
+    D_800D5A84 = arg2;
+    D_800D5A78 = arg1;
+    D_800D366C = 0;
+    copy_pos(&D_800D5A8C, pos);
+    D_800D5A7C = param;
+    D_800D5A88 = priority;
+    info.param = param;
+    for (kind = 0; kind < 74; kind++) {
+        if (D_800D32F4[kind].query == 0) {
+            continue;
+        }
+        index = D_800D3260[kind];
+        while (index != -1) {
+            node = &D_800D3258[index];
+            result.type = 0;
+            if (D_800D32F4[node->kind].query != 0 && node->kind != -1) {
+                D_800D32F4[node->kind].query(node, 0, 5, &info, &result);
+            }
+            if (result.type != 0 && D_800D366C != 768) {
+                entry = &D_800D3670[D_800D366C];
+                entry->node = node;
+                entry->id = node->id;
+                if (result.type == 2) {
+                    entry->dist = -1;
+                } else {
+                    dx = to_int(D_800D5A8C.x - result.x);
+                    dz = to_int(D_800D5A8C.z - result.z);
+                    D_800D3670[D_800D366C].dist = dx * dx + dz * dz;
+                }
+                D_800D366C++;
+            }
+            index = node->next;
+        }
+    }
+    func_800238C4(D_800D3670, D_800D366C);
+    for (D_800D5A70 = 0; D_800D5A70 < D_800D366C; D_800D5A70++) {
+        if (D_800D3670[D_800D5A70].dist != -1) {
+            break;
+        }
+    }
+    D_800D5A80 = imul(radius, radius);
+    return 1;
+}

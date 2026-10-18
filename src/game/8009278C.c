@@ -1,12 +1,42 @@
-asm(".text\n\t.globl func_8009278C\nfunc_8009278C:\n\t"
-    ".word 0x14a00002,0x24030010,0x8c830008,0x8c82000c\n\t"
-    ".word 0x00000000,0x00620018,0x00003012,0x8c820010\n\t"
-    ".word 0x00000000,0x00c20018,0x2402fffc,0x00003012\n\t"
-    ".word 0x24c30003,0x03e00008,0x00621024,0x3c02800f\n\t"
-    ".word 0x24030001,0xa043ef0c,0x2442ef0c,0xa0430001\n\t"
-    ".word 0x03e00008,0x00000000,0x27bdffe8,0x24020001\n\t"
-    ".word 0x308400ff,0xafb00010,0x00408021,0x14900006\n\t"
-    ".word 0xafbf0014,0x3c04800f,0x2484ef44,0x0c025d46\n\t"
-    ".word 0x24050008,0x2c420001,0x10400002,0x3c02800f\n\t"
-    ".word 0xa050ef0c,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+extern int func_80097518(void *, int);
+
+typedef struct {
+    int pad0[2];
+    int width;
+    int height;
+    int depth;
+} Hdr8009278C;
+
+typedef struct {
+    unsigned char ready;
+    volatile unsigned char b1;
+} S8009278C;
+extern S8009278C D_800EEF0C;
+extern char D_800EEF44[];
+
+int func_8009278C(Hdr8009278C *h, int fixed) {
+    int w = 16;
+    int size;
+
+    if (fixed == 0) {
+        w = h->width;
+    }
+    size = w * h->height * h->depth;
+    return (size + 3) & ~3;
+}
+
+void func_800927C8(void) {
+    D_800EEF0C.ready = 1;
+    D_800EEF0C.b1 = 1;
+}
+
+void func_800927E4(unsigned char kind) {
+    int ok = 1;
+
+    if (kind == 1) {
+        ok = func_80097518(D_800EEF44, 8) == 0;
+    }
+    if (ok) {
+        D_800EEF0C.ready = 1;
+    }
+}

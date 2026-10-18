@@ -1,29 +1,64 @@
-asm(".text\n\t.globl func_8004F934\nfunc_8004F934:\n\t"
-    ".word 0x27BDFE88,0xAFB3016C,0x00809821,0x3C04800A\n\t"
-    ".word 0xAFBF0170,0xAFB20168,0xAFB10164,0xAFB00160\n\t"
-    ".word 0x8E63009C,0x24844EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x3C03800D\n\t"
-    ".word 0x8C702FE4,0x00441021,0x26110014,0x86230004\n\t"
-    ".word 0x86040014,0x945200A8,0x00641823,0x0C021B21\n\t"
-    ".word 0xAFA30030,0x8FA30030,0x30420FFF,0x00620018\n\t"
-    ".word 0x00001812,0xAFA30030,0x86020014,0x00000000\n\t"
-    ".word 0x00621821,0xAFA30030,0x86220006,0x86230002\n\t"
-    ".word 0x00000000,0x00431023,0x0C021B21,0xAFA20038\n\t"
-    ".word 0x8FA30038,0x30420FFF,0x00620018,0x00008021\n\t"
-    ".word 0x00001812,0xAFA30038,0x86220002,0x8FA40030\n\t"
-    ".word 0x00621821,0x04800003,0xAFA30038,0x08013E85\n\t"
-    ".word 0x00041303,0x00041023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8FA60038,0x00000000,0x04C00003\n\t"
-    ".word 0x00022C03,0x08013E8F,0x00061303,0x00061023\n\t"
-    ".word 0x00021303,0x00021023,0x00002021,0x00023380\n\t"
-    ".word 0x00063403,0x00803821,0x00121823,0x00031C00\n\t"
-    ".word 0x00031C03,0x00121400,0x00021403,0xAFA20014\n\t"
-    ".word 0xAFA2001C,0x24020032,0xAFA30010,0xAFA30018\n\t"
-    ".word 0xAFA00020,0xAFA20024,0xAFA00028,0x0C006BB5\n\t"
-    ".word 0xAFA0002C,0x3044FFFF,0x3C050104,0x34A5500F\n\t"
-    ".word 0x27A60040,0x00003821,0x3C02800C,0xA440628C\n\t"
-    ".word 0x24020001,0x0C005EAB,0xAFA20010,0x3042FFFF\n\t"
-    ".word 0x14400008,0x02001021,0x02602021,0x27A50030\n\t"
-    ".word 0x3C060019,0x0C013858,0x00003821,0x24100001\n\t"
-    ".word 0x02001021,0x8FBF0170,0x8FB3016C,0x8FB20168\n\t"
-    ".word 0x8FB10164,0x8FB00160,0x03E00008,0x27BD0178\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0x14];
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+} Map;
+typedef struct {
+    char pad0[0xA8];
+    unsigned short radius;
+    char padAA[0xD0 - 0xAA];
+} VehicleType;
+typedef struct {
+    char pad0[0x9C];
+    int type;
+} Tank;
+extern Map *D_800D2FE4;
+extern VehicleType D_800A4EF4[];
+extern short D_800C628C;
+extern unsigned int func_80086C84(void);
+extern unsigned short func_8001AED4(int, short, short, int, short, short, short, short, int, int, int, int);
+extern unsigned short func_80017AAC(unsigned short, int, void *, int, int);
+extern void func_8004E160(Tank *, Vector *, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+int func_8004F934(Tank *tank) {
+    int result;
+    Map *map;
+    short *bounds;
+    unsigned short radius;
+    unsigned short box;
+    Vector point;
+    char found[288];
+
+    radius = D_800A4EF4[tank->type].radius;
+    map = D_800D2FE4;
+    bounds = &map->x0;
+    point.x = bounds[2] - map->x0;
+    point.x *= func_80086C84() & 0xFFF;
+    point.x += map->x0;
+    point.z = bounds[3] - bounds[1];
+    point.z *= func_80086C84() & 0xFFF;
+    point.z += bounds[1];
+    result = 0;
+    box = func_8001AED4(0, fixed_to_int(point.x) >> 2, fixed_to_int(point.z) >> 2, 0, -radius, radius, -radius,
+                        radius, 0, 50, 0, 0);
+    D_800C628C = 0;
+    if (func_80017AAC(box, 0x104500F, found, 0, 1) == 0) {
+        func_8004E160(tank, &point, 0x190000, 0);
+        result = 1;
+    }
+    return result;
+}

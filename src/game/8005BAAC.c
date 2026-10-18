@@ -1,29 +1,38 @@
-asm(".text\n\t.globl func_8005BAAC\nfunc_8005BAAC:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0xAFBF0014,0x0C021475\n\t"
-    ".word 0x00808021,0x30420001,0x1040002F,0x00000000\n\t"
-    ".word 0x8E050004,0x00000000,0x90A20041,0x00000000\n\t"
-    ".word 0x30420001,0x10400003,0x00002021,0x0C0168BC\n\t"
-    ".word 0x24A50040,0x8E030004,0x00000000,0x90620041\n\t"
-    ".word 0x00000000,0x304200FE,0xA0620041,0x8E030004\n\t"
-    ".word 0x00000000,0x90620041,0x00000000,0x34420010\n\t"
-    ".word 0xA0620041,0x8E030004,0x00000000,0x90620061\n\t"
-    ".word 0x00000000,0x304200FE,0xA0620061,0x8E030004\n\t"
-    ".word 0x00000000,0x90620061,0x00000000,0x34420010\n\t"
-    ".word 0xA0620061,0x8E030004,0x00000000,0x90620081\n\t"
-    ".word 0x00000000,0x304200FE,0xA0620081,0x8E030004\n\t"
-    ".word 0x00000000,0x90620081,0x00000000,0x34420010\n\t"
-    ".word 0x08016EF3,0xA0620081,0x8E040004,0x00000000\n\t"
-    ".word 0x90820041,0x00000000,0x30420080,0x10400003\n\t"
-    ".word 0x24840040,0x0C0168BC,0x00002821,0x8E020004\n\t"
-    ".word 0x24030001,0xA0430041,0x8E020004,0x00000000\n\t"
-    ".word 0xA0430061,0x8E020004,0x00000000,0xA0430081\n\t"
-    ".word 0x0C021475,0x00000000,0x30420002,0x10400011\n\t"
-    ".word 0x00000000,0x8E030004,0x00000000,0x90620041\n\t"
-    ".word 0x00000000,0x30420001,0x1440000A,0x00000000\n\t"
-    ".word 0x90620061,0x00000000,0x304200FE,0xA0620061\n\t"
-    ".word 0x8E030004,0x00000000,0x90620061,0x08016F13\n\t"
-    ".word 0x34420010,0x8E050004,0x00000000,0x90A20061\n\t"
-    ".word 0x00000000,0x30420080,0x10400003,0x24A40060\n\t"
-    ".word 0x0C0168BC,0x24A50080,0x8E030004,0x24020001\n\t"
-    ".word 0xA0620061,0x8FBF0014,0x8FB00010,0x00001021\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+} Menu;
+
+extern int func_800851D4(void);
+extern void func_8005A2F0(void *, void *);
+
+int func_8005BAAC(Menu *menu) {
+    if (func_800851D4() & 1) {
+        if (menu->base[0x41] & 1) {
+            func_8005A2F0(0, menu->base + 0x40);
+        }
+        menu->base[0x41] &= 0xFE;
+        menu->base[0x41] |= 0x10;
+        menu->base[0x61] &= 0xFE;
+        menu->base[0x61] |= 0x10;
+        menu->base[0x81] &= 0xFE;
+        menu->base[0x81] |= 0x10;
+    } else {
+        if (menu->base[0x41] & 0x80) {
+            func_8005A2F0(menu->base + 0x40, 0);
+        }
+        menu->base[0x41] = 1;
+        menu->base[0x61] = 1;
+        menu->base[0x81] = 1;
+    }
+    if ((func_800851D4() & 2) && !(menu->base[0x41] & 1)) {
+        menu->base[0x61] &= 0xFE;
+        menu->base[0x61] |= 0x10;
+    } else {
+        if (menu->base[0x61] & 0x80) {
+            func_8005A2F0(menu->base + 0x60, menu->base + 0x80);
+        }
+        menu->base[0x61] = 1;
+    }
+    return 0;
+}

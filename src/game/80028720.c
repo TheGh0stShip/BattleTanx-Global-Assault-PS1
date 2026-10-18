@@ -1,44 +1,116 @@
-asm(".text\n\t.globl func_80028720\nfunc_80028720:\n\t"
-    ".word 0x27BDFFB0,0xAFB3003C,0x00A09821,0xAFB40040\n\t"
-    ".word 0x0080A021,0xAFB20038,0x00C09021,0xAFB50044\n\t"
-    ".word 0x3C04800D,0x3C03800A,0x246344D4,0x328500FF\n\t"
-    ".word 0x00051080,0x00451021,0x00021080,0x00451021\n\t"
-    ".word 0x00021080,0x00431021,0x24842E14,0xAFBF004C\n\t"
-    ".word 0xAFB60048,0xAFB10034,0xAFB00030,0x8C420018\n\t"
-    ".word 0x8FB60060,0x00021080,0x00441021,0x8C510000\n\t"
-    ".word 0x16C00007,0x00E0A821,0x00A02021,0x02602821\n\t"
-    ".word 0x0C00A15F,0x3246FFFF,0x1040007D,0x00001021\n\t"
-    ".word 0x24040011,0x0C008DF4,0x24050040,0x00408021\n\t"
-    ".word 0x12000077,0x00001021,0xA6120014,0xA200001B\n\t"
-    ".word 0xA200001A,0x8E620000,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x0800A1FE,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8E630008\n\t"
-    ".word 0x00000000,0x04600003,0x00022C03,0x0800A208\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E630004,0x00000000,0x04600003\n\t"
-    ".word 0x00023403,0x0800A212,0x00031B03,0x00031023\n\t"
-    ".word 0x00021303,0x00021823,0x8E220008,0x00031B80\n\t"
-    ".word 0x94420006,0x00031C03,0x00431021,0x00021400\n\t"
-    ".word 0x8E630004,0x00000000,0x04600003,0x00024C03\n\t"
-    ".word 0x0800A221,0x00034303,0x00031023,0x00021303\n\t"
-    ".word 0x00024023,0x8E220008,0x00000000,0x84440004\n\t"
-    ".word 0x9443000E,0xAFA40010,0x8E220008,0x00000000\n\t"
-    ".word 0x8442000C,0x00000000,0xAFA20014,0x8E220008\n\t"
-    ".word 0x00000000,0x84420008,0x00000000,0xAFA20018\n\t"
-    ".word 0x8E220008,0x02002021,0x84470010,0x00081380\n\t"
-    ".word 0x00021403,0x00621821,0x00031C00,0x00031C03\n\t"
-    ".word 0x3242FFFF,0xAFA20028,0x24021000,0xAFA90020\n\t"
-    ".word 0xAFA30024,0xAFA2002C,0xAFA7001C,0x0C0058BC\n\t"
-    ".word 0x00003821,0xA6020024,0x240200FF,0xA202001C\n\t"
-    ".word 0x2402FC18,0x3C04800A,0x248444D4,0x328300FF\n\t"
-    ".word 0xA2000019,0xAE02002C,0xA6120016,0xAE000034\n\t"
-    ".word 0x8E6A0000,0x8E6B0004,0x8E6C0008,0xAE0A0008\n\t"
-    ".word 0xAE0B000C,0xAE0C0010,0xAE020028,0xAE020030\n\t"
-    ".word 0x00031080,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x00441021,0x3C03800B,0xA215001D\n\t"
-    ".word 0xA2000018,0xA2000006,0x8C440048,0x9062ED57\n\t"
-    ".word 0x00000000,0x30420001,0x10400003,0xAE040038\n\t"
-    ".word 0x00041040,0xAE020038,0xAE16003C,0x02001021\n\t"
-    ".word 0x8FBF004C,0x8FB60048,0x8FB50044,0x8FB40040\n\t"
-    ".word 0x8FB3003C,0x8FB20038,0x8FB10034,0x8FB00030\n\t"
-    ".word 0x03E00008,0x27BD0050\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+} Shape;
+
+typedef struct {
+    char pad0[0x18];
+    int shape;
+    char pad1C[0x48 - 0x1C];
+    int health;
+    char pad4C[0x54 - 0x4C];
+} Kind;
+
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7;
+    Vector pos;
+    unsigned short angle;
+    unsigned short angle2;
+    unsigned char state;
+    unsigned char b19;
+    unsigned char b1A;
+    unsigned char b1B;
+    unsigned char alpha;
+    unsigned char owner;
+    char pad1E[6];
+    unsigned short cell;
+    char pad26[2];
+    int t28;
+    int t2C;
+    int t30;
+    int t34;
+    int health;
+    int forced;
+} Building;
+
+extern Kind D_800A44D4[];
+extern Shape *D_800D2E14[];
+extern unsigned char D_800AED57;
+extern Building *func_800237D0(int, int);
+extern int func_8002857C(unsigned char, Vector *, unsigned short);
+extern unsigned short func_800162F0(Building *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+Building *func_80028720(unsigned char kind, Vector *pos, unsigned short angle, unsigned char owner, int forced) {
+    Shape *shape = D_800D2E14[D_800A44D4[kind].shape];
+    Building *b;
+    int x;
+    int z;
+    int y0;
+    int y1;
+    int health;
+
+    if (forced == 0 && !func_8002857C(kind, pos, angle)) {
+        return 0;
+    }
+    b = func_800237D0(17, 64);
+    if (b == 0) {
+        return 0;
+    }
+    b->angle = angle;
+    b->b1B = 0;
+    b->b1A = 0;
+    x = to_cell(pos->x);
+    z = to_cell(pos->z);
+    y0 = (short)(shape->box->y0 + to_cell(pos->y));
+    y1 = (short)(shape->box->y1 + to_cell(pos->y));
+    b->cell = func_800162F0(b, x, z, 0, shape->box->x0, shape->box->x1, shape->box->z0, shape->box->z1, y0, y1,
+                            angle, 4096);
+    b->alpha = 255;
+    b->b19 = 0;
+    b->t2C = -1000;
+    b->angle2 = angle;
+    b->t34 = 0;
+    b->pos = *pos;
+    b->t28 = -1000;
+    b->t30 = -1000;
+    b->owner = owner;
+    b->state = 0;
+    b->flags = 0;
+    health = D_800A44D4[kind].health;
+    b->health = health;
+    if (D_800AED57 & 1) {
+        b->health = health * 2;
+    }
+    b->forced = forced;
+    return b;
+}

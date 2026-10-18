@@ -1,8 +1,23 @@
-asm(".text\n\t.globl func_800903A4\nfunc_800903A4:\n\t"
-    ".word 0x27bdfff8,0x3c02800b,0x8c4276f0,0x00042100\n\t"
-    ".word 0x00822021,0x24020001,0xa4850004,0xafa20004\n\t"
-    ".word 0x080240fe,0xafa00000,0x8fa30004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0xafa20004,0x8fa20000,0x00000000,0x24420001\n\t"
-    ".word 0xafa20000,0x8fa20000,0x00000000,0x28420002\n\t"
-    ".word 0x1440fff1,0x00000000,0x03e00008,0x27bd0008\n\t");
+typedef struct {
+    short x;
+    short y;
+    short value;
+    short pad;
+    int extra[2];
+} Entry800903A4;
+extern Entry800903A4 *D_800B76F0;
+
+void func_800903A4(int index, short value) {
+    struct {
+        int count;
+        volatile int value;
+    } d;
+
+    D_800B76F0[index].value = value;
+    d.value = 1;
+    d.count = 0;
+    while (*(volatile int *)&d.count < 2) {
+        d.value = d.value * 13;
+        (*(volatile int *)&d.count)++;
+    }
+}

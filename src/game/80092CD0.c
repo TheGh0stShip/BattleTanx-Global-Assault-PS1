@@ -1,8 +1,33 @@
-asm(".text\n\t.globl func_80092CD0\nfunc_80092CD0:\n\t"
-    ".word 0x27bdffe8,0x00002021,0xafb00010,0x3c10800f\n\t"
-    ".word 0x2610ef0c,0xafbf0014,0xa2000002,0xa2000004\n\t"
-    ".word 0x0c027172,0xae00000c,0x0c02726f,0x00000000\n\t"
-    ".word 0x8e040094,0x0c025c45,0x00000000,0x8e040098\n\t"
-    ".word 0x0c025d56,0x00000000,0x8e04009c,0x0c025c4a\n\t"
-    ".word 0x00000000,0x0c02459b,0x00000000,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern void func_8009C5C8(int);
+extern void func_8009C9BC(void);
+extern void func_80097114(int);
+extern void func_80097558(int);
+extern void func_80097128(int);
+extern void func_8009166C(void);
+
+typedef struct {
+    char pad0[2];
+    unsigned char b2;
+    char pad3;
+    unsigned char b4;
+    char pad5[7];
+    int w12;
+    char pad16[132];
+    int a;
+    int b;
+    int c;
+} S80092CD0;
+extern S80092CD0 D_800EEF0C;
+
+void func_80092CD0(void) {
+    S80092CD0 *s = &D_800EEF0C;
+    s->b2 = 0;
+    s->b4 = 0;
+    s->w12 = 0;
+    func_8009C5C8(0);
+    func_8009C9BC();
+    func_80097114(s->a);
+    func_80097558(s->b);
+    func_80097128(s->c);
+    func_8009166C();
+}

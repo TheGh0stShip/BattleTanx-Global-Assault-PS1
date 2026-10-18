@@ -1,11 +1,25 @@
-asm(".text\n\t.globl func_8006AB60\nfunc_8006AB60:\n\t"
-    ".word 0x3c02800c,0x8c4260c0,0x27bdffe0,0xafbf0018\n\t"
-    ".word 0xafb10014,0x30420001,0x10400019,0xafb00010\n\t"
-    ".word 0x2490ffff,0x3c02800b,0x2442de00,0x00108080\n\t"
-    ".word 0x02028021,0x8e040000,0x0c024061,0x00000000\n\t"
-    ".word 0x0c01a3cd,0x2444006d,0x8e050000,0x00408021\n\t"
-    ".word 0x2611006c,0x0c023681,0x02202021,0x02002021\n\t"
-    ".word 0x02202821,0x0c024a0c,0x24060002,0x02002021\n\t"
-    ".word 0x0c01aa39,0x24050001,0x0c01a3e7,0x02002021\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int D_800C60C0;
+extern char *D_800ADE00[];
+extern int func_80090184(char *s);
+extern char *func_80068F34(int size);
+extern void func_8008DA04(char *dst, char *src);
+extern void func_80092830(char *a, char *b, int n);
+extern void func_8006A8E4(char *a, int b);
+extern void func_80068F9C(char *a);
+
+void func_8006AB60(int index) {
+    char *buf;
+    char *text;
+
+    int slot;
+
+    if (D_800C60C0 & 1) {
+        slot = index - 1;
+        buf = func_80068F34(func_80090184(D_800ADE00[slot]) + 109);
+        text = buf + 108;
+        func_8008DA04(text, D_800ADE00[slot]);
+        func_80092830(buf, text, 2);
+        func_8006A8E4(buf, 1);
+        func_80068F9C(buf);
+    }
+}

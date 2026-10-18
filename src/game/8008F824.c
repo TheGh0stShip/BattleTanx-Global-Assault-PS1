@@ -1,23 +1,57 @@
-asm(".text\n\t.globl func_8008F824\nfunc_8008F824:\n\t"
-    ".word 0x3C02800F,0x8C42EE00,0x27BDFFE8,0x30420004\n\t"
-    ".word 0x10400003,0xAFBF0010,0x0C023D8A,0x00000000\n\t"
-    ".word 0x8FBF0010,0x00000000,0x03E00008,0x27BD0018\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x3C10800F,0x2610EDF4\n\t"
-    ".word 0x02002021,0x00002821,0xAFBF0014,0x0C022A92\n\t"
-    ".word 0x24060044,0x24040002,0x00002821,0x00A03021\n\t"
-    ".word 0x24020206,0xAE020020,0x24020185,0x0C02677B\n\t"
-    ".word 0xAE020014,0x24040001,0x00802821,0x0C02677B\n\t"
-    ".word 0x24060007,0x24040001,0x24050002,0x0C02677B\n\t"
-    ".word 0x2406004C,0x24040001,0x24050003,0x3C060001\n\t"
-    ".word 0x0C02677B,0x34C6C200,0x3C020001,0x3442C200\n\t"
-    ".word 0x3C048009,0x2484F7A0,0x0C026813,0xAE020008\n\t"
-    ".word 0x24040001,0x00802821,0x0C02677B,0x24060017\n\t"
-    ".word 0x0C023D04,0x24040001,0x0C023CDA,0x24040001\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n\t"
-    ".word 0x27BDFFE8,0x00803821,0x3C02800F,0xAFB00010\n\t"
-    ".word 0x2450EDF4,0xAFBF0014,0x8E02001C,0x00000000\n\t"
-    ".word 0x1440000B,0x00001821,0x8E060020,0x00000000\n\t"
-    ".word 0x10C00007,0x00000000,0x00E0F809,0x00602021\n\t"
-    ".word 0xAE02001C,0x10400002,0x2403FFFF,0x8E030020\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x00601021,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+extern void func_8008F628(void);
+extern void func_8008AA48(void *, int, int);
+extern int func_80099DEC(int, int, int);
+extern void func_8009A04C(void *);
+extern void func_8008F7A0(void);
+extern void func_8008F410(int);
+extern void func_8008F368(int);
+
+typedef struct {
+    char pad0[8];
+    int baud;
+    int flags;
+    char pad16[4];
+    int low_water;
+    char pad24[4];
+    void *ring;
+    int size;
+    char pad36[32];
+} S8008F824;
+extern S8008F824 D_800EEDF4;
+
+void func_8008F824(void) {
+    if (D_800EEDF4.flags & 4) {
+        func_8008F628();
+    }
+}
+
+void func_8008F854(void) {
+    S8008F824 *s = &D_800EEDF4;
+
+    func_8008AA48(s, 0, 68);
+    s->size = 518;
+    s->low_water = 389;
+    func_80099DEC(2, 0, 0);
+    func_80099DEC(1, 1, 7);
+    func_80099DEC(1, 2, 76);
+    func_80099DEC(1, 3, 115200);
+    s->baud = 115200;
+    func_8009A04C(func_8008F7A0);
+    func_80099DEC(1, 1, 23);
+    func_8008F410(1);
+    func_8008F368(1);
+}
+
+int func_8008F914(void *(*alloc)(int, int, int), int arg) {
+    S8008F824 *s = &D_800EEDF4;
+    int r = 0;
+
+    if (s->ring == 0 && s->size != 0) {
+        s->ring = alloc(r, arg, s->size);
+        r = -1;
+        if (s->ring != 0) {
+            r = s->size;
+        }
+    }
+    return r;
+}

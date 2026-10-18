@@ -1,12 +1,25 @@
-asm(".text\n\t.globl func_80086B4C\nfunc_80086B4C:\n\t"
-    ".word 0xafa50004,0xafa60008,0xafa7000c,0x27bdffe8\n\t"
-    ".word 0xafb00010,0x00008021,0x24020001,0xafbf0014\n\t"
-    ".word 0x1082000e,0xafa5001c,0x10800007,0x24020002\n\t"
-    ".word 0x10820010,0x24020003,0x10820013,0x02001021\n\t"
-    ".word 0x08021af9,0x00000000,0x8fa40020,0x0c021a9c\n\t"
-    ".word 0x00000000,0x08021af8,0x00408021,0x8fa40020\n\t"
-    ".word 0x8fa50024,0x0c021aad,0x00000000,0x08021af8\n\t"
-    ".word 0x00408021,0x8fa40020,0x0c021ac0,0x00000000\n\t"
-    ".word 0x08021af9,0x02001021,0x0c021acd,0x00000000\n\t"
-    ".word 0x00408021,0x02001021,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern int func_80086A70(int a);
+extern int func_80086AB4(int a, int b);
+extern void func_80086B00(int a);
+extern int func_80086B34(void);
+
+int func_80086B4C(int cmd, int first, ...) {
+    int result = 0;
+    int a;
+
+    switch ((unsigned int)cmd) {
+    case 0:
+        result = func_80086A70((&first)[1]);
+        break;
+    case 1:
+        result = func_80086AB4((&first)[1], ((int *)__builtin_next_arg(first))[1]);
+        break;
+    case 2:
+        func_80086B00((&first)[1]);
+        break;
+    case 3:
+        result = func_80086B34();
+        break;
+    }
+    return result;
+}

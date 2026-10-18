@@ -1,8 +1,17 @@
-asm(".text\n\t.globl func_800344D4\nfunc_800344D4:\n\t"
-    ".word 0x3c02800d,0x8c432fe0,0x27bdffe8,0xafb00010\n\t"
-    ".word 0x00808021,0xafbf0014,0x8e020014,0x00000000\n\t"
-    ".word 0x0043102a,0x10400003,0x24020001,0x0800d14d\n\t"
-    ".word 0xaca20000,0x0c021b21,0x00000000,0x8e030018\n\t"
-    ".word 0x30420fff,0x0043102b,0x10400005,0x00000000\n\t"
-    ".word 0x0c00d151,0x26040008,0x0800d142,0x00000000\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; Vector pos; int end_time; unsigned int chance; } Spawner;
+extern int D_800D2FE0;
+unsigned int func_80086C84(void);
+void func_80034544(Vector *);
+
+void func_800344D4(Spawner *s, int *done) {
+    int now = D_800D2FE0;
+
+    if (s->end_time < now) {
+        *done = 1;
+        return;
+    }
+    while ((func_80086C84() & 0xFFF) < s->chance) {
+        func_80034544(&s->pos);
+    }
+}

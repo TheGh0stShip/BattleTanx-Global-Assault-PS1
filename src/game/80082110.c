@@ -1,11 +1,25 @@
-asm(".text\n\t.globl func_80082110\nfunc_80082110:\n\t"
-    ".word 0x27bdffd8,0xafb20020,0x3c12800f,0xafb1001c\n\t"
-    ".word 0x2651dc9c,0xafbf0024,0xafb00018,0x8e300008\n\t"
-    ".word 0x00000000,0x2e02000a,0x10400015,0x00801821\n\t"
-    ".word 0x00101080,0x00511021,0x00002021,0x02002821\n\t"
-    ".word 0xac43000c,0x8e220008,0x27a60010,0xafa00010\n\t"
-    ".word 0x24420001,0x0060f809,0xae220008,0x10400008\n\t"
-    ".word 0x2402ffff,0x8e43dc9c,0x00000000,0x14620004\n\t"
-    ".word 0x00000000,0x8fa20010,0xae50dc9c,0xae220004\n\t"
-    ".word 0x8fbf0024,0x8fb20020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x00001021,0x03e00008,0x27bd0028\n\t");
+typedef int (*Handler)(int, int, int *);
+typedef struct {
+    int current;
+    int current_arg;
+    unsigned int count;
+    Handler handlers[10];
+} HandlerTable;
+extern HandlerTable D_800EDC9C;
+
+int func_80082110(Handler handler) {
+    HandlerTable *t = &D_800EDC9C;
+    unsigned int index = t->count;
+    int arg;
+
+    if (index < 10) {
+        t->handlers[index] = handler;
+        t->count++;
+        arg = 0;
+        if (handler(0, index, &arg) != 0 && D_800EDC9C.current == -1) {
+            D_800EDC9C.current = index;
+            t->current_arg = arg;
+        }
+    }
+    return 0;
+}

@@ -1,55 +1,113 @@
-asm(".text\n\t.globl func_80031BC4\nfunc_80031BC4:\n\t"
-    ".word 0x27BDFEB8,0xAFB20140,0x00A09021,0x3C050020\n\t"
-    ".word 0x27A60018,0x00003821,0x3C02800C,0xAFB1013C\n\t"
-    ".word 0x00808821,0xAFBF0144,0xAFB00138,0x96240006\n\t"
-    ".word 0x24100001,0xA440628C,0xAFB00010,0x0C005EAB\n\t"
-    ".word 0x3084FFFF,0x3042FFFF,0x10400003,0x02202021\n\t"
-    ".word 0x0C00C91C,0x24052710,0x86220018,0x00000000\n\t"
-    ".word 0x1C400022,0x00000000,0x96240006,0x0C006C25\n\t"
-    ".word 0x00000000,0x3C04800D,0xAE500000,0x92230016\n\t"
-    ".word 0x24845A98,0x00641821,0x90620000,0x00000000\n\t"
-    ".word 0x2442FFFF,0xA0620000,0x92230016,0x00000000\n\t"
-    ".word 0x00642021,0x90820000,0x00000000,0x144000A5\n\t"
-    ".word 0x2402007F,0x14620003,0x00031100,0x0800C729\n\t"
-    ".word 0x00001821,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00431821\n\t"
-    ".word 0x24020002,0x0800C7C2,0xAC620058,0x8E220034\n\t"
-    ".word 0x00000000,0x14400013,0x24420199,0x3C10800D\n\t"
-    ".word 0x8E022FE0,0x8E23003C,0x00000000,0x00431023\n\t"
-    ".word 0x2842005B,0x1440006F,0x02202021,0x3C050003\n\t"
-    ".word 0x0C00C64A,0x34A52000,0x10400003,0x24020004\n\t"
-    ".word 0x0800C7A6,0xAE220034,0x8E022FE0,0x0800C7A6\n\t"
-    ".word 0xAE22003C,0x8E230038,0xAE220034,0x0062102A\n\t"
-    ".word 0x10400002,0x3C10800E,0xAE230034,0x8E08E30C\n\t"
-    ".word 0x8E290034,0x00000000,0x01090018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x3C050003,0x34A52000,0x02202021,0x0C00C64A\n\t"
-    ".word 0x00452821,0x14400016,0x00000000,0x8E220034\n\t"
-    ".word 0x00000000,0x2442F99A,0x1840000D,0xAE220034\n\t"
-    ".word 0x8E10E30C,0x00000000,0x02020018,0x00002812\n\t"
-    ".word 0x00004010,0x00052B02,0x00084500,0x00A82825\n\t"
-    ".word 0x0C00C64A,0x02202021,0x14400005,0x00000000\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0xAE200034,0xAE22003C\n\t"
-    ".word 0x8E230034,0x00000000,0x18600036,0x3C02800E\n\t"
-    ".word 0x8C48E30C,0x00000000,0x01030018,0x00008012\n\t"
-    ".word 0x00004810,0x00108302,0x00094D00,0x02098025\n\t"
-    ".word 0x96240014,0x0C022B58,0x00042102,0x00500018\n\t"
-    ".word 0x00001812,0x00004810,0x00031B02,0x00094D00\n\t"
-    ".word 0x00691825,0x96240014,0x8E220008,0x00042102\n\t"
-    ".word 0x00431021,0x0C022B30,0xAE220008,0x00500018\n\t"
-    ".word 0x00001812,0x00004010,0x00031B02,0x00084500\n\t"
-    ".word 0x00681825,0x8E220010,0x8E240008,0x00431021\n\t"
-    ".word 0x04800003,0xAE220010,0x0800C798,0x00041303\n\t"
-    ".word 0x00041023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E260010,0x00000000,0x04C00003,0x00022C03\n\t"
-    ".word 0x0800C7A2,0x00061303,0x00061023,0x00021303\n\t"
-    ".word 0x00021023,0x96240006,0x00023380,0x0C0057D9\n\t"
-    ".word 0x00063403,0x0C00C60C,0x02202021,0x8E220008\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x0800C7B1\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021400,0x8E240010,0x00000000,0x04800003\n\t"
-    ".word 0x00021C03,0x0800C7BB,0x00041303,0x00041023\n\t"
-    ".word 0x00021303,0x00021023,0xAFA00010,0x00602021\n\t"
-    ".word 0x00022C00,0x00052C03,0x00003021,0x0C018730\n\t"
-    ".word 0x00C03821,0x8FBF0144,0x8FB20140,0x8FB1013C\n\t"
-    ".word 0x8FB00138,0x03E00008,0x27BD0148\n");
+typedef struct { void *obj; int pad[8]; } Hit;
+typedef struct { char pad[88]; int state; char rest[0x114 - 92]; } Waypoint;
+typedef struct {
+    short pad[3];
+    unsigned short cell;
+    int x;
+    int y;
+    int z;
+    unsigned short angle;
+    unsigned char team;
+    char pad1;
+    short hp;
+    short pad2[13];
+    int speed;
+    int max_speed;
+    int last_time;
+} Gate;
+extern short D_800C628C;
+extern unsigned char D_800D5A98[];
+extern Waypoint D_800E3E68[];
+extern int D_800D2FE0;
+extern int D_800DE30C;
+int func_80017AAC(int, int, Hit *, int, int);
+void func_80032470(Gate *, int);
+void func_8001B094(int);
+int func_80031928(Gate *, int);
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_80015F64(int, int, int);
+void func_80031830(Gate *);
+void func_80061CC0(int, int, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline short quarter(int v) {
+    return (to_int(v) << 14) >> 16;
+}
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline unsigned short query_cell(unsigned short cell, int mask, Hit *hits, int a, int b) {
+    D_800C628C = 0;
+    return func_80017AAC(cell, mask, hits, a, b);
+}
+
+void func_80031BC4(Gate *gate, int *done) {
+    Gate *g = gate;
+
+    Hit hits[8];
+    int step;
+
+    if (query_cell(g->cell, 0x200000, hits, 0, 1) != 0) {
+        func_80032470(g, 10000);
+    }
+    if (g->hp <= 0) {
+        func_8001B094(g->cell);
+        *done = 1;
+        D_800D5A98[g->team]--;
+        if (D_800D5A98[g->team] == 0) {
+            waypoint_at(g->team)->state = 2;
+        }
+        return;
+    }
+    if (g->speed == 0) {
+        if (D_800D2FE0 - g->last_time > 90) {
+            if (func_80031928(g, 0x32000) != 0) {
+                g->speed = 4;
+            } else {
+                g->last_time = D_800D2FE0;
+            }
+        }
+    } else {
+        g->speed += 409;
+        if (g->max_speed < g->speed) {
+            g->speed = g->max_speed;
+        }
+        if (func_80031928(g, fixed_mul(D_800DE30C, g->speed) + 0x32000) == 0) {
+            g->speed -= 1638;
+            if (g->speed <= 0 || func_80031928(g, fixed_mul(D_800DE30C, g->speed)) == 0) {
+                g->speed = 0;
+                g->last_time = D_800D2FE0;
+            }
+        }
+        if (g->speed > 0) {
+            step = fixed_mul(D_800DE30C, g->speed);
+            g->x += fixed_mul(func_8008AD60(g->angle >> 4), step);
+            g->z += fixed_mul(func_8008ACC0(g->angle >> 4), step);
+            func_80015F64(g->cell, quarter(g->x), quarter(g->z));
+        }
+    }
+    func_80031830(g);
+    func_80061CC0((short)to_int(g->x), (short)to_int(g->z), 0, 0, 0);
+}

@@ -1,18 +1,46 @@
-asm(".text\n\t.globl func_80099CE8\nfunc_80099CE8:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x00809021,0xafb40020\n\t"
-    ".word 0x00a0a021,0xafbf0024,0xafb3001c,0xafb10014\n\t"
-    ".word 0xafb00010,0x8e420000,0x00000000,0x1040002d\n\t"
-    ".word 0x00c09821,0x1260002b,0x00000000,0x8e510004\n\t"
-    ".word 0x0c0266e4,0x02602821,0x00403021,0x10c0001a\n\t"
-    ".word 0x00000000,0x8e420008,0x16200009,0x00c28021\n\t"
-    ".word 0x00002021,0x8e450014,0x8e420010,0x00000000\n\t"
-    ".word 0x0040f809,0x02003021,0x08026762,0x00408821\n\t"
-    ".word 0x24040001,0x02203021,0x8e450014,0x8e420010\n\t"
-    ".word 0x00000000,0x0040f809,0x02003821,0x00408821\n\t"
-    ".word 0x12200004,0x00000000,0xae510004,0x08026768\n\t"
-    ".word 0xae500008,0xae400000,0x8e420000,0x00000000\n\t"
-    ".word 0x10400008,0x02802821,0x8e50000c,0x02603021\n\t"
-    ".word 0x0c0229ef,0x02302021,0x02138021,0xae50000c\n\t"
-    ".word 0x8e420000,0x8fbf0024,0x8fb40020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef void *(*AllocFn)(int op, void *ctx, ...);
+
+typedef struct Buffer {
+    int ok;
+    char *data;
+    unsigned int capacity;
+    unsigned int used;
+    AllocFn alloc;
+    void *ctx;
+    unsigned int granule;
+} Buffer;
+
+extern unsigned int func_80099B90(Buffer *, unsigned int);
+extern void func_8008A7BC(void *, void *, unsigned int);
+
+int func_80099CE8(Buffer *b, void *src, unsigned int n) {
+    char *p;
+    unsigned int grow;
+    unsigned int size;
+    unsigned int used;
+
+    if (b->ok != 0 && n != 0) {
+        p = b->data;
+        grow = func_80099B90(b, n);
+        if (grow != 0) {
+            size = grow + b->capacity;
+            if (p == 0) {
+                p = b->alloc(0, b->ctx, size);
+            } else {
+                p = b->alloc(1, b->ctx, p, size);
+            }
+            if (p != 0) {
+                b->data = p;
+                b->capacity = size;
+            } else {
+                b->ok = 0;
+            }
+        }
+        if (b->ok != 0) {
+            used = b->used;
+            func_8008A7BC(p + used, src, n);
+            b->used = used + n;
+        }
+    }
+    return b->ok;
+}

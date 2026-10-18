@@ -1,10 +1,61 @@
-asm(".text\n\t.globl func_80089098\nfunc_80089098:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x3c02800f\n\t"
-    ".word 0x2443eae8,0xafbf0014,0x8c650064,0x00000000\n\t"
-    ".word 0x10a0000b,0x24040001,0x90620031,0x00000000\n\t"
-    ".word 0x14400004,0x00000000,0xa0640031,0x0802243a\n\t"
-    ".word 0x00000000,0x00a0f809,0x02002021,0x00402021\n\t"
-    ".word 0x10800008,0x00000000,0x12000006,0x3c03800f\n\t"
-    ".word 0x2463eae8,0x8c620020,0x00000000,0x24420001\n\t"
-    ".word 0xac620020,0x8fbf0014,0x8fb00010,0x00801021\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    char pad34[4];
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    char pad94[4];
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+
+int func_80089098(int arg) {
+    StreamState *s = &D_800EEAE8;
+    int (*cb)(int) = (int (*)(int))s->w64;
+    int result = 1;
+
+    if (cb != 0) {
+        if (s->b31 == 0) {
+            s->b31 = result;
+        } else {
+            result = cb(arg);
+        }
+    }
+    if (result != 0 && arg != 0) {
+        D_800EEAE8.w20++;
+    }
+    return result;
+}

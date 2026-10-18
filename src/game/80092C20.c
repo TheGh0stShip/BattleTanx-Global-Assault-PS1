@@ -1,12 +1,53 @@
-asm(".text\n\t.globl func_80092C20\nfunc_80092C20:\n\t"
-    ".word 0x27bdffe0,0x00002021,0xafbf001c,0x0c025c45\n\t"
-    ".word 0xafb00018,0x00002021,0x3c10800f,0x2610ef0c\n\t"
-    ".word 0x0c025d56,0xae020094,0x00002021,0x0c025c4a\n\t"
-    ".word 0xae020098,0x0c0245bd,0xae02009c,0x0c02713e\n\t"
-    ".word 0x00002021,0x3c048009,0x0c027172,0x24842afc\n\t"
-    ".word 0x8e02000c,0x00000000,0x8c45004c,0x8c440054\n\t"
-    ".word 0x0c0273b7,0x00052ac2,0x8e02000c,0x00000000\n\t"
-    ".word 0x8c440010,0x00003821,0xafa00010,0x8c450018\n\t"
-    ".word 0x8c46001c,0x38840003,0x0c027393,0x2c840001\n\t"
-    ".word 0x24020001,0x00401821,0xa2030002,0xa2000004\n\t"
-    ".word 0x8fbf001c,0x8fb00018,0x03e00008,0x27bd0020\n\t");
+extern int func_80097114(int);
+extern int func_80097558(int);
+extern int func_80097128(int);
+extern void func_800916F4(void);
+extern void func_8009C4F8(int);
+extern void func_8009C5C8(void *);
+extern void func_80092AFC(void);
+extern void func_8009CEDC(int, unsigned int);
+extern void func_8009CE4C(int, int, int, int, int);
+
+typedef struct {
+    char pad0[16];
+    int format;
+    char pad20[4];
+    int rate;
+    int channels;
+    char pad32[44];
+    unsigned int size;
+    char pad80[4];
+    int addr;
+} Info80092C20;
+
+typedef struct {
+    char pad0[2];
+    unsigned char b2;
+    char pad3;
+    unsigned char b4;
+    char pad5[7];
+    Info80092C20 *info;
+    char pad16[132];
+    int a;
+    int b;
+    int c;
+} S80092C20;
+extern S80092C20 D_800EEF0C;
+
+int func_80092C20(void) {
+    S80092C20 *s;
+    int a = func_80097114(0);
+
+    s = &D_800EEF0C;
+    s->a = a;
+    s->b = func_80097558(0);
+    s->c = func_80097128(0);
+    func_800916F4();
+    func_8009C4F8(0);
+    func_8009C5C8(func_80092AFC);
+    func_8009CEDC(s->info->addr, s->info->size >> 11);
+    func_8009CE4C(s->info->format == 3, s->info->rate, s->info->channels, 0, 0);
+    s->b2 = 1;
+    s->b4 = 0;
+    return 1;
+}

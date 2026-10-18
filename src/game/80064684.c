@@ -1,34 +1,87 @@
-asm(".text\n\t.globl func_80064684\nfunc_80064684:\n\t"
-    ".word 0x27BDFFC8,0xAFB20018,0x8FB20048,0xAFB3001C\n\t"
-    ".word 0x8FB3004C,0xAFB40020,0x8FB40050,0xAFB50024\n\t"
-    ".word 0x97B50054,0xAFB7002C,0x0080B821,0xAFBE0030\n\t"
-    ".word 0x00A0F021,0xAFB00010,0x00C08021,0xAFB10014\n\t"
-    ".word 0x00E08821,0xAFB60028,0x97B60060,0x3C02800E\n\t"
-    ".word 0xA44052CC,0x3C02800B,0xAFBF0034,0x0C016A22\n\t"
-    ".word 0xAC40BA84,0x3C02800E,0xAC405308,0x3C02800E\n\t"
-    ".word 0xAC505330,0x3C02800E,0xAC4052B8,0x3C02800E\n\t"
-    ".word 0xAC40530C,0x3C02800E,0xAC515334,0x3C02800E\n\t"
-    ".word 0xA452533C,0x3C02800E,0xA4535340,0x00141400\n\t"
-    ".word 0x1C400009,0x3C02800B,0x3C03800B,0x3C02800F\n\t"
-    ".word 0x2442AF58,0xAC62C148,0x3C03800E,0x00141023\n\t"
-    ".word 0x080191D8,0xA46252D4,0x3C03800F,0x2463AE14\n\t"
-    ".word 0xAC43C148,0x3C02800E,0xA45452D4,0x00151400\n\t"
-    ".word 0x1C400009,0x3C02800B,0x3C03800B,0x3C02800F\n\t"
-    ".word 0x2442AF58,0xAC62C228,0x3C03800E,0x00151023\n\t"
-    ".word 0x080191E8,0xA46252D8,0x3C03800F,0x2463AE14\n\t"
-    ".word 0xAC43C228,0x3C02800E,0xA45552D8,0x3C05800E\n\t"
-    ".word 0x24A552C0,0x8FA40058,0x8FA2005C,0x3C10800E\n\t"
-    ".word 0xAE0252B4,0x3C02800E,0xAC575338,0x3C02800E\n\t"
-    ".word 0xAC5E52D0,0x3C02800E,0x0C0190B0,0xA45652F4\n\t"
-    ".word 0x3C05800E,0x8E0452B4,0x0C0190B0,0x24A552DC\n\t"
-    ".word 0x3C04800B,0x2484C464,0x00002821,0x3C03800B\n\t"
-    ".word 0x2463C080,0x24020001,0x24060001,0xA0620080\n\t"
-    ".word 0xA06200A0,0xA06200C0,0xA06200E0,0xA0620100\n\t"
-    ".word 0xA0620120,0xA0620160,0xA0620180,0xA06201A0\n\t"
-    ".word 0xA06201C0,0xA06201E0,0xA0620200,0xA0620220\n\t"
-    ".word 0xA0620240,0xA0620260,0xA0620280,0xA06202A0\n\t"
-    ".word 0xA06202C0,0xA06202E0,0xA0620300,0xA0620320\n\t"
-    ".word 0x0C016554,0xA0620380,0x8FBF0034,0x8FBE0030\n\t"
-    ".word 0x8FB7002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct Dialog {
+    char data[0x400];
+} Dialog;
+
+extern short D_800E52CC;
+extern int D_800ABA84;
+extern int D_800E5308;
+extern int D_800E5330;
+extern int D_800E52B8;
+extern int D_800E530C;
+extern int D_800E5334;
+extern short D_800E533C;
+extern short D_800E5340;
+extern int *D_800AC148;
+extern int *D_800AC228;
+extern int D_800EAE14;
+extern int D_800EAF58;
+extern short D_800E52D4;
+extern short D_800E52D8;
+extern short D_800E52F4;
+extern int D_800E52B4;
+extern int D_800E5338;
+extern int D_800E52D0;
+extern int D_800E52C0;
+extern int D_800E52DC;
+extern Dialog D_800AC080;
+extern int D_800AC464;
+extern void func_8005A888(void);
+extern void func_800642C0(int, int *);
+extern void func_80059550(void *, void *, int);
+
+void func_80064684(int start, int end, int c, int d, unsigned short e, unsigned short f, short step0,
+                   short step1, int text0, int text1, short h) {
+    D_800E52CC = 0;
+    D_800ABA84 = 0;
+    func_8005A888();
+    D_800E5308 = 0;
+    D_800E5330 = c;
+    D_800E52B8 = 0;
+    D_800E530C = 0;
+    D_800E5334 = d;
+    D_800E533C = e;
+    D_800E5340 = f;
+    if (step0 <= 0) {
+        D_800AC148 = &D_800EAF58;
+        D_800E52D4 = -step0;
+    } else {
+        D_800AC148 = &D_800EAE14;
+        D_800E52D4 = step0;
+    }
+    if (step1 <= 0) {
+        D_800AC228 = &D_800EAF58;
+        D_800E52D8 = -step1;
+    } else {
+        D_800AC228 = &D_800EAE14;
+        D_800E52D8 = step1;
+    }
+    D_800E52B4 = text1;
+    D_800E5338 = start;
+    D_800E52D0 = end;
+    D_800E52F4 = h;
+    func_800642C0(text0, &D_800E52C0);
+    func_800642C0(D_800E52B4, &D_800E52DC);
+    D_800AC080.data[0x80] = 1;
+    D_800AC080.data[0xA0] = 1;
+    D_800AC080.data[0xC0] = 1;
+    D_800AC080.data[0xE0] = 1;
+    D_800AC080.data[0x100] = 1;
+    D_800AC080.data[0x120] = 1;
+    D_800AC080.data[0x160] = 1;
+    D_800AC080.data[0x180] = 1;
+    D_800AC080.data[0x1A0] = 1;
+    D_800AC080.data[0x1C0] = 1;
+    D_800AC080.data[0x1E0] = 1;
+    D_800AC080.data[0x200] = 1;
+    D_800AC080.data[0x220] = 1;
+    D_800AC080.data[0x240] = 1;
+    D_800AC080.data[0x260] = 1;
+    D_800AC080.data[0x280] = 1;
+    D_800AC080.data[0x2A0] = 1;
+    D_800AC080.data[0x2C0] = 1;
+    D_800AC080.data[0x2E0] = 1;
+    D_800AC080.data[0x300] = 1;
+    D_800AC080.data[0x320] = 1;
+    D_800AC080.data[0x380] = 1;
+    func_80059550(&D_800AC464, 0, 1);
+}

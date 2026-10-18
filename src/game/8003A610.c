@@ -1,21 +1,42 @@
-asm(".text\n\t.globl func_8003A610\nfunc_8003A610:\n\t"
-    ".word 0x3C03800A,0x8C6248B4,0x27BDFFE8,0xAFBF0010\n\t"
-    ".word 0x38420001,0x0C00EA73,0xAC6248B4,0x00402021\n\t"
-    ".word 0x0C022E79,0x24051002,0x0C01FDE3,0x00000000\n\t"
-    ".word 0x3C02800A,0x8C4348A8,0x24020002,0x10620003\n\t"
-    ".word 0x24020004,0x1462002F,0x3C02800A,0x3C02800A\n\t"
-    ".word 0x8C4448AC,0x00000000,0x10800006,0x24020004\n\t"
-    ".word 0x14620008,0x3C02800A,0x24020001,0x14820005\n\t"
-    ".word 0x3C02800A,0x3C02800A,0x8C4248B0,0x0800E9A9\n\t"
-    ".word 0x000218C0,0x3C04800A,0x8C4248B0,0x8C8448AC\n\t"
-    ".word 0x000218C0,0x00621821,0x00031880,0x00621821\n\t"
-    ".word 0x000318C0,0x3C02800E,0x2442DB9C,0x00621821\n\t"
-    ".word 0x00041040,0x00441021,0x000210C0,0x00441023\n\t"
-    ".word 0x00021080,0x00621821,0x84620004,0x00000000\n\t"
-    ".word 0x00021400,0x00022403,0x000217C2,0x00822021\n\t"
-    ".word 0x84620006,0x00042043,0x00021400,0x00022C03\n\t"
-    ".word 0x000217C2,0x00A22821,0x0C022E47,0x00052843\n\t"
-    ".word 0x3C02800A,0x8C4248A8,0x00000000,0x2442FFFE\n\t"
-    ".word 0x2C420003,0x10400003,0x00000000,0x0C00EA47\n\t"
-    ".word 0x00000000,0x8FBF0010,0x00000000,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct { short x; short y; short w; short h; char rest[0x5C - 8]; } DrawEnv;
+typedef struct { char data[0x14]; } DispEnv;
+typedef struct { DrawEnv draw[2]; DispEnv disp; int ot; char pad[0x128 - 0xD0]; } Screen;
+extern Screen D_800DDB9C[];
+extern int D_800A48A8;
+extern int D_800A48AC;
+extern int D_800A48B0;
+extern int D_800A48B4;
+extern int func_8003A9CC(void);
+extern void func_8008B9E4(int, int);
+extern void func_8007F78C(void);
+extern void func_8008B91C(short, short);
+static inline void set_center(int w, int h)
+{
+    func_8008B91C((short)w / 2, (short)h / 2);
+}
+extern void func_8003A91C(void);
+
+static inline Screen *current_screen(void)
+{
+    return &D_800DDB9C[D_800A48B0];
+}
+
+void func_8003A610(void)
+{
+    DrawEnv *env;
+
+    D_800A48B4 ^= 1;
+    func_8008B9E4(func_8003A9CC(), 4098);
+    func_8007F78C();
+    if (D_800A48A8 == 2 || D_800A48A8 == 4) {
+        if (D_800A48AC == 0 || (D_800A48A8 == 4 && D_800A48AC == 1)) {
+            env = &current_screen()->draw[D_800A48AC];
+        } else {
+            env = &current_screen()->draw[D_800A48AC];
+        }
+        set_center(env->w, env->h);
+    }
+    if ((unsigned int)(D_800A48A8 - 2) < 3) {
+        func_8003A91C();
+    }
+}

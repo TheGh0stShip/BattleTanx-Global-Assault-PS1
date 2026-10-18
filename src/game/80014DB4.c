@@ -1,9 +1,52 @@
-asm(".text\n\t.globl func_80014DB4\nfunc_80014DB4:\n\t"
-    ".word 0x24020444,0xa4820000,0x24820008,0xa4800002\n\t"
-    ".word 0xa4800004,0xac800008,0xac400004,0xac400008\n\t"
-    ".word 0x3c02800c,0x2443d4d0,0x9442d4d0,0x94650002\n\t"
-    ".word 0x94630004,0xa4820014,0x24820014,0xa4450002\n\t"
-    ".word 0xa4430004,0x3c02800c,0x2443d4d8,0x9442d4d8\n\t"
-    ".word 0x94650002,0x94630004,0xa482001c,0x2482001c\n\t"
-    ".word 0xa4450002,0xa4430004,0x24021000,0xa4820024\n\t"
-    ".word 0x03e00008,0xa4820026\n\t");
+typedef struct SVec3 {
+    short x;
+    short y;
+    short z;
+} SVec3;
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct View {
+    short fov;
+    short unk02;
+    short unk04;
+    char pad06[2];
+    Vector pos;
+    SVec3 rot;
+    char pad1A[2];
+    SVec3 color;
+    char pad22[2];
+    short scale_x;
+    short scale_y;
+} View;
+extern SVec3 D_800BD4D0;
+extern SVec3 D_800BD4D8;
+
+static inline void zero_vec(Vector *v) {
+    v->x = 0;
+    v->y = 0;
+    v->z = 0;
+}
+
+static inline void copy_svec(SVec3 *dst, SVec3 *src) {
+    short x = src->x;
+    short y = src->y;
+    short z = src->z;
+
+    dst->x = x;
+    dst->y = y;
+    dst->z = z;
+}
+
+void func_80014DB4(View *view) {
+    view->fov = 1092;
+    view->unk02 = 0;
+    view->unk04 = 0;
+    zero_vec(&view->pos);
+    copy_svec(&view->rot, &D_800BD4D0);
+    copy_svec(&view->color, &D_800BD4D8);
+    view->scale_x = 4096;
+    view->scale_y = 4096;
+}

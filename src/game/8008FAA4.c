@@ -1,16 +1,39 @@
-asm(".text\n\t.globl func_8008FAA4\nfunc_8008FAA4:\n\t"
-    ".word 0x27bdffd8,0xafb40020,0x0080a021,0xafb00010\n\t"
-    ".word 0x00008021,0xafb10014,0x02008821,0xafb3001c\n\t"
-    ".word 0x24130105,0x3c02800f,0xafb20018,0x2452edf4\n\t"
-    ".word 0xafbf0024,0x00002021,0x00802821,0x0c02677b\n\t"
-    ".word 0x00803021,0x30420105,0x10530015,0x00000000\n\t"
-    ".word 0x8e430018,0x00000000,0x10600009,0x00000000\n\t"
-    ".word 0x26100001,0x2e020032,0x14400005,0x00000000\n\t"
-    ".word 0x0060f809,0x00008021,0x0c023e09,0x00408821\n\t"
-    ".word 0x8e420004,0x00000000,0x30420008,0x10400002\n\t"
-    ".word 0x00000000,0x24110001,0x1220ffe7,0x00002021\n\t"
-    ".word 0x1620000b,0x02201021,0x24040001,0x24050004\n\t"
-    ".word 0x3c03800f,0x2463edf4,0x8c62000c,0x328600ff\n\t"
-    ".word 0x00441025,0x0c02677b,0xac62000c,0x02201021\n\t"
-    ".word 0x8fbf0024,0x8fb40020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+extern int func_80099DEC(int, int, int);
+extern int func_8008F824(void);
+
+typedef struct {
+    char pad0[4];
+    volatile int status;
+    char pad8[4];
+    int flags;
+    char pad16[8];
+    int (*poll)(void);
+} S8008FAA4;
+extern S8008FAA4 D_800EEDF4;
+
+int func_8008FAA4(unsigned char c) {
+    unsigned int tries = 0;
+    int err = tries;
+
+    do {
+        if ((func_80099DEC(0, 0, 0) & 0x105) == 0x105) {
+            break;
+        }
+        if (D_800EEDF4.poll != 0) {
+            tries++;
+            if (tries >= 50) {
+                err = D_800EEDF4.poll();
+                tries = 0;
+                func_8008F824();
+            }
+        }
+        if (D_800EEDF4.status & 8) {
+            err = 1;
+        }
+    } while (err == 0);
+    if (err == 0) {
+        D_800EEDF4.flags |= 1;
+        func_80099DEC(1, 4, c);
+    }
+    return err;
+}

@@ -1,27 +1,68 @@
-asm(".text\n\t.globl func_80092350\nfunc_80092350:\n\t"
-    ".word 0x27BDFFA0,0xAFBE0058,0x00E0F021,0x8FA70074\n\t"
-    ".word 0xAFB60050,0x8FB60070,0xAFB70054,0x0080B821\n\t"
-    ".word 0xAFB1003C,0x00A08821,0xAFB30044,0x00C09821\n\t"
-    ".word 0xAFBF005C,0xAFB5004C,0xAFB40048,0xAFB20040\n\t"
-    ".word 0x10E00023,0xAFB00038,0x27A20078,0xAFA20010\n\t"
-    ".word 0x27A40018,0x24050020,0x24060001,0x0C026CAA\n\t"
-    ".word 0x0220A021,0x00408021,0x12000019,0x27B20018\n\t"
-    ".word 0x2415000A,0x02E02021,0x02202821,0x02603021\n\t"
-    ".word 0x03C03821,0xAFB60010,0x0C024753,0xAFB20014\n\t"
-    ".word 0x02121021,0x9042FFFF,0x00000000,0x14550002\n\t"
-    ".word 0x2411FFFF,0x02808821,0x2413FFFF,0xAFA00010\n\t"
-    ".word 0x02402021,0x24050020,0x24060001,0x0C026CAA\n\t"
-    ".word 0x00003821,0x00408021,0x1600FFEB,0x02E02021\n\t"
-    ".word 0x8FBF005C,0x8FBE0058,0x8FB70054,0x8FB60050\n\t"
-    ".word 0x8FB5004C,0x8FB40048,0x8FB30044,0x8FB20040\n\t"
-    ".word 0x8FB1003C,0x8FB00038,0x03E00008,0x27BD0060\n\t"
-    ".word 0x27BDFFD8,0x00002021,0xAFBF0020,0xAFB3001C\n\t"
-    ".word 0xAFB20018,0xAFB10014,0x0C01FE03,0xAFB00010\n\t"
-    ".word 0x0C01FE60,0x00002021,0x0C022E25,0x3C13800F\n\t"
-    ".word 0x2670EE70,0x02002021,0x00002821,0x0C022A92\n\t"
-    ".word 0x2406009C,0x3C028008,0x24516058,0x8E220004\n\t"
-    ".word 0x24120032,0x14520004,0x00000000,0x0C025292\n\t"
-    ".word 0x24040001,0x8E220004,0xAE60EE70,0xAE000004\n\t"
-    ".word 0xAE000008,0x14520003,0xAE00000C,0x24020118\n\t"
-    ".word 0xA602003A,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+extern int func_8009B2A8(char *, int, int, int, ...);
+extern void func_80091D4C(int, int, int, int, int, char *);
+extern void func_8007F80C(int);
+extern void func_8007F980(int);
+extern void func_8008B894(void);
+extern void func_8008AA48(void *, int, int);
+extern void func_80094A48(int);
+
+void func_80092350(int a0, int x, int y, int a3, int a4, char *fmt, ...) {
+    char buf[32];
+    int len;
+    int x0;
+
+    if (fmt != 0) {
+        x0 = x;
+        len = func_8009B2A8(buf, 32, 1, fmt, &fmt + 1);
+        while (len != 0) {
+            func_80091D4C(a0, x, y, a3, a4, buf);
+            x = -1;
+            if (buf[len - 1] == '\n') {
+                x = x0;
+            }
+            y = -1;
+            len = func_8009B2A8(buf, 32, 1, 0, 0);
+        }
+    }
+}
+
+typedef struct {
+    int w0;
+    int w4;
+    int w8;
+    int w12;
+    char pad16[42];
+    short h58;
+} S80092450;
+extern S80092450 D_800EEE70;
+
+typedef struct {
+    int w0;
+    int mode;
+} Cfg80092450;
+extern Cfg80092450 D_80086058;
+
+void func_80092450(void) {
+    S80092450 *s;
+    Cfg80092450 *c;
+    int mode;
+
+    func_8007F80C(0);
+    func_8007F980(0);
+    func_8008B894();
+    s = &D_800EEE70;
+    func_8008AA48(s, 0, 156);
+    c = &D_80086058;
+    mode = c->mode;
+    if (mode == 50) {
+        func_80094A48(1);
+        mode = c->mode;
+    }
+    D_800EEE70.w0 = 0;
+    s->w4 = 0;
+    s->w8 = 0;
+    s->w12 = 0;
+    if (mode == 50) {
+        s->h58 = 280;
+    }
+}

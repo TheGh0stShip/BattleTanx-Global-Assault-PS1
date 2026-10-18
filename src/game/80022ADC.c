@@ -1,10 +1,28 @@
-asm(".text\n\t.globl func_80022ADC\nfunc_80022ADC:\n\t"
-    ".word 0x3c02800a,0x8c426070,0x00000000,0x2443fffd\n\t"
-    ".word 0x2c620006,0x10400014,0x00002021,0x3c02800c\n\t"
-    ".word 0x2442d68c,0x00031880,0x00621821,0x8c620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x08008ad1\n\t"
-    ".word 0x00002021,0x08008ad1,0x24040001,0x08008ad1\n\t"
-    ".word 0x24040002,0x08008ad1,0x24040003,0x08008ad1\n\t"
-    ".word 0x24040004,0x24040005,0x3c03800b,0x2463e290\n\t"
-    ".word 0x24820121,0x00021080,0x00431021,0x8c420000\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+extern int D_800A6070;
+extern int D_800AE290[];
+
+int func_80022ADC(void) {
+    int i = 0;
+
+    switch (D_800A6070) {
+    case 3:
+        i = 0;
+        break;
+    case 4:
+        i = 1;
+        break;
+    case 5:
+        i = 2;
+        break;
+    case 6:
+        i = 3;
+        break;
+    case 7:
+        i = 4;
+        break;
+    case 8:
+        i = 5;
+        break;
+    }
+    return D_800AE290[i + 289];
+}

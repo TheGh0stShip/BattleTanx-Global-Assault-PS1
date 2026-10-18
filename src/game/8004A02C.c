@@ -1,21 +1,64 @@
-asm(".text\n\t.globl func_8004A02C\nfunc_8004A02C:\n\t"
-    ".word 0x10800016,0x00003021,0x90830000,0x24070002\n\t"
-    ".word 0x10670004,0x24020003,0x14620012,0x30C2FFFF\n\t"
-    ".word 0x9486001A,0x90830012,0x24020001,0x10620007\n\t"
-    ".word 0x28620002,0x1440000B,0x30C2FFFF,0x10670006\n\t"
-    ".word 0x00000000,0x08012824,0x00000000,0x9486000C\n\t"
-    ".word 0x08012824,0x30C2FFFF,0x9486000E,0x00000000\n\t"
-    ".word 0x30C2FFFF,0x10400030,0x00402021,0x3C0C800A\n\t"
-    ".word 0x240B0003,0x24090002,0x240A0004,0x24080001\n\t"
-    ".word 0x000410C0,0x00441023,0x00021080,0x8D835B24\n\t"
-    ".word 0x24420008,0x00621821,0x90660000,0x00000000\n\t"
-    ".word 0x10CB0007,0x28C20004,0x10400008,0x00000000\n\t"
-    ".word 0x10C90009,0x00000000,0x0801283F,0xA4A00000\n\t"
-    ".word 0xA4A40000,0x03E00008,0x00601021,0xA4A00000\n\t"
-    ".word 0x03E00008,0x00001021,0x1060000F,0x00003821\n\t"
-    ".word 0x90640012,0x00000000,0x10880007,0x28820002\n\t"
-    ".word 0x14400009,0x00000000,0x10860006,0x00E02021\n\t"
-    ".word 0x08012853,0x00000000,0x9467000C,0x08012853\n\t"
-    ".word 0x00E02021,0x9467000E,0x00000000,0x00E02021\n\t"
-    ".word 0x1480FFD8,0x000410C0,0xA4A00000,0x03E00008\n\t"
-    ".word 0x00001021\n");
+typedef struct {
+    unsigned char kind;
+    char pad1[11];
+    unsigned short branch_a;
+    unsigned short branch_b;
+    char pad10[2];
+    unsigned char branch;
+    char pad13[7];
+    unsigned short link;
+} Node;
+typedef struct {
+    char pad0[8];
+    Node nodes[1];
+} NodeSystem;
+extern NodeSystem *D_800A5B24;
+
+static inline unsigned short node_next(Node *node) {
+    unsigned short id = 0;
+
+    if (node != 0) {
+        switch (node->kind) {
+        case 3:
+            id = node->link;
+        case 2:
+            switch (node->branch) {
+            case 0:
+                break;
+            case 1:
+                id = node->branch_a;
+                break;
+            case 2:
+                id = node->branch_b;
+                break;
+            }
+            break;
+        }
+    }
+    return id;
+}
+
+Node *func_8004A02C(Node *node, unsigned short *out) {
+    unsigned short id = node_next(node);
+    Node *cur;
+
+    while (id != 0) {
+        cur = &D_800A5B24->nodes[id];
+        switch (cur->kind) {
+        case 3:
+            *out = id;
+            return cur;
+        case 4:
+            *out = 0;
+            return 0;
+        case 2:
+            id = node_next(cur);
+            break;
+        default:
+            *out = 0;
+            return 0;
+        }
+    }
+    *out = 0;
+    return 0;
+}

@@ -1,31 +1,41 @@
-asm(".text\n\t.globl func_80053E14\nfunc_80053E14:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x00809021,0xAFBF001C\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x92430292,0x24020064\n\t"
-    ".word 0x307000FF,0x12020020,0x02002021,0x00002821\n\t"
-    ".word 0x00A03021,0x0C024338,0x00608821,0x00002821\n\t"
-    ".word 0x3C02800E,0x8C464658,0x02002021,0x2407FFFF\n\t"
-    ".word 0x30A200FF,0x00021880,0x00621821,0x00031880\n\t"
-    ".word 0x00661821,0x84620012,0x00000000,0x14440003\n\t"
-    ".word 0x00000000,0x08014FA9,0xA4670012,0x24A50001\n\t"
-    ".word 0x30A200FF,0x2C420018,0x1440FFF2,0x30A200FF\n\t"
-    ".word 0x00002021,0x24050001,0x0C0241F1,0x02252804\n\t"
-    ".word 0x24020064,0xA2420292,0x92430290,0x24020064\n\t"
-    ".word 0x307000FF,0x12020020,0x02002021,0x00002821\n\t"
-    ".word 0x00A03021,0x0C024338,0x00608821,0x00002821\n\t"
-    ".word 0x3C02800E,0x8C464658,0x02002021,0x2407FFFF\n\t"
-    ".word 0x30A200FF,0x00021880,0x00621821,0x00031880\n\t"
-    ".word 0x00661821,0x84620012,0x00000000,0x14440003\n\t"
-    ".word 0x00000000,0x08014FCD,0xA4670012,0x24A50001\n\t"
-    ".word 0x30A200FF,0x2C420018,0x1440FFF2,0x30A200FF\n\t"
-    ".word 0x00002021,0x24050001,0x0C0241F1,0x02252804\n\t"
-    ".word 0x24020064,0xA2420290,0x92430291,0x24020064\n\t"
-    ".word 0x307000FF,0x12020020,0x02002021,0x00002821\n\t"
-    ".word 0x00A03021,0x0C024338,0x00608821,0x00002821\n\t"
-    ".word 0x3C02800E,0x8C464658,0x02002021,0x2407FFFF\n\t"
-    ".word 0x30A200FF,0x00021880,0x00621821,0x00031880\n\t"
-    ".word 0x00661821,0x84620012,0x00000000,0x14440003\n\t"
-    ".word 0x00000000,0x08014FF1,0xA4670012,0x24A50001\n\t"
-    ".word 0x30A200FF,0x2C420018,0x1440FFF2,0x30A200FF\n\t"
-    ".word 0x00002021,0x24050001,0x0C0241F1,0x02252804\n\t"
-    ".word 0x24020064,0xA2420291,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    char pad0[0x12];
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[0x290];
+    unsigned char voice_b;
+    unsigned char voice_c;
+    unsigned char voice_a;
+} Obj;
+extern Sound *D_800E4658;
+extern void func_80090CE0(int, int, int);
+extern void func_800907C4(int, int);
+
+static inline void stop_voice(unsigned char voice) {
+    unsigned char i;
+
+    func_80090CE0(voice, 0, 0);
+    for (i = 0; i < 24; i++) {
+        if (D_800E4658[i].voice == voice) {
+            D_800E4658[i].voice = -1;
+            break;
+        }
+    }
+    func_800907C4(0, 1 << voice);
+}
+
+void func_80053E14(Obj *obj) {
+    if (obj->voice_a != 100) {
+        stop_voice(obj->voice_a);
+        obj->voice_a = 100;
+    }
+    if (obj->voice_b != 100) {
+        stop_voice(obj->voice_b);
+        obj->voice_b = 100;
+    }
+    if (obj->voice_c != 100) {
+        stop_voice(obj->voice_c);
+        obj->voice_c = 100;
+    }
+}

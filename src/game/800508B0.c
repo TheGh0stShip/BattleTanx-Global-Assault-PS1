@@ -1,22 +1,53 @@
-asm(".text\n\t.globl func_800508B0\nfunc_800508B0:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0xAFBF0018\n\t"
-    ".word 0xAFB00010,0x8E220184,0x00000000,0x2443FFFF\n\t"
-    ".word 0x2C620005,0x10400042,0x26300184,0x3C02800C\n\t"
-    ".word 0x2442F7B8,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x8E030004,0x00000000,0x0043102A\n\t"
-    ".word 0x14400033,0x00000000,0x0C01382F,0x02202021\n\t"
-    ".word 0x0C0135F6,0x02202021,0x24020003,0xAE020000\n\t"
-    ".word 0x02202021,0x0C010519,0x24050008,0x08014278\n\t"
-    ".word 0x00000000,0x8E220218,0x00000000,0x30420008\n\t"
-    ".word 0x14400023,0x02202021,0x3C02800D,0x8C422FE0\n\t"
-    ".word 0x24030002,0xAE030000,0x2442012C,0x0C013757\n\t"
-    ".word 0xAE020004,0x0C013601,0x02202021,0x08014278\n\t"
-    ".word 0x00000000,0x3C02800D,0x8C422FE0,0x8E030004\n\t"
-    ".word 0x00000000,0x0043102A,0x14400011,0x24020005\n\t"
-    ".word 0xAE020000,0x02202021,0x0C010519,0x2405000D\n\t"
-    ".word 0x08014278,0x00000000,0x8E220218,0x00000000\n\t"
-    ".word 0x30420080,0x14400006,0x3C02800D,0x8C422FE0\n\t"
-    ".word 0x24030004,0xAE030000,0x24420096,0xAE020004\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct {
+    unsigned int state;
+    int timer;
+} Move;
+typedef struct {
+    char pad0[0x184];
+    Move move;
+    char pad18C[0x218 - 0x18C];
+    int status;
+} Tank;
+extern int D_800D2FE0;
+extern void func_8004E0BC(Tank *);
+extern void func_8004D7D8(Tank *);
+extern void func_80041464(Tank *, int);
+extern void func_8004DD5C(Tank *);
+extern void func_8004D804(Tank *);
+
+void func_800508B0(Tank *tank) {
+    Move *move = &tank->move;
+
+    switch (move->state) {
+    case 1:
+        break;
+    case 2:
+        if (D_800D2FE0 >= move->timer) {
+            func_8004E0BC(tank);
+            func_8004D7D8(tank);
+            move->state = 3;
+            func_80041464(tank, 8);
+        }
+        break;
+    case 3:
+        if (!(tank->status & 8)) {
+            move->state = 2;
+            move->timer = D_800D2FE0 + 300;
+            func_8004DD5C(tank);
+            func_8004D804(tank);
+        }
+        break;
+    case 4:
+        if (D_800D2FE0 >= move->timer) {
+            move->state = 5;
+            func_80041464(tank, 13);
+        }
+        break;
+    case 5:
+        if (!(tank->status & 0x80)) {
+            move->state = 4;
+            move->timer = D_800D2FE0 + 150;
+        }
+        break;
+    }
+}

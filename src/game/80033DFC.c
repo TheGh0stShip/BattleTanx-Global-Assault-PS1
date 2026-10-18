@@ -1,24 +1,49 @@
-asm(".text\n\t.globl func_80033DFC\nfunc_80033DFC:\n\t"
-    ".word 0x27BDFFD0,0xAFB3001C,0x00809821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB60028,0x00C0B021,0xAFB50024\n\t"
-    ".word 0x00E0A821,0x3C02800D,0x8C432FE8,0x24020003\n\t"
-    ".word 0xAFBF002C,0xAFB20018,0xAFB10014,0x1062000B\n\t"
-    ".word 0xAFB00010,0x2C620004,0x10400005,0x24020001\n\t"
-    ".word 0x10620006,0x00001021,0x0800CF9B,0x00000000\n\t"
-    ".word 0x2402000B,0x14620002,0x00001021,0x24020001\n\t"
-    ".word 0x10400033,0x3C03800D,0x92620001,0x24722FE4\n\t"
-    ".word 0x00521021,0x90510034,0x92420009,0x00000000\n\t"
-    ".word 0x0222102A,0x1040002A,0x24040015,0x0C008DF4\n\t"
-    ".word 0x24050020,0x00408021,0x12000025,0x02802821\n\t"
-    ".word 0x02C03021,0x8EC80000,0x8EC90004,0x8ECA0008\n\t"
-    ".word 0xAE08000C,0xAE090010,0xAE0A0014,0xA2110018\n\t"
-    ".word 0x8E820000,0x8E640004,0x8C420010,0x32A7FFFF\n\t"
-    ".word 0x0C0098FC,0x00442021,0x3C03800D,0x8C633258\n\t"
-    ".word 0xAE02001C,0x02031823,0x00031982,0xA443003A\n\t"
-    ".word 0x8E430004,0x24020001,0x10620003,0x2402000B\n\t"
-    ".word 0x1462000A,0x00000000,0x96650002,0x0C0098C0\n\t"
-    ".word 0x02802021,0x02002021,0x00402821,0x0C00CD3E\n\t"
-    ".word 0x00003021,0x0800CFCF,0x00000000,0xAE000008\n\t"
-    ".word 0x8FBF002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad; unsigned int mode; char pad2; unsigned char limit; char pad3[42]; unsigned char counts[8]; } Rules;
+typedef struct { char pad[16]; int base; } Header;
+typedef struct { Header *header; } Ctx;
+typedef struct { unsigned char pad; unsigned char team; unsigned short body; int offset; } Def;
+typedef struct { char pad[58]; short slot; } Unit;
+typedef struct { int pad[2]; int link; Vector pos; unsigned char count; char pad2[3]; Unit *unit; } Spawn;
+extern Rules D_800D2FE4;
+extern unsigned int D_800D2FE8;
+extern char *D_800D3258;
+Spawn *func_800237D0(int, int);
+Unit *func_800263F0(int, Ctx *, Vector *, int);
+int func_80026300(Ctx *, int);
+void func_800334F8(Spawn *, int, int);
+
+static inline int mode_allows_spawn(void) {
+    switch (D_800D2FE8) {
+    case 1:
+    case 3:
+    case 11:
+        return 1;
+    }
+    return 0;
+}
+
+void func_80033DFC(Def *def, Ctx *ctx, Vector *pos, unsigned short id) {
+    Rules *rules;
+    Spawn *s;
+    int count;
+
+    if (mode_allows_spawn()) {
+        rules = &D_800D2FE4;
+        count = rules->counts[def->team];
+        if (count < rules->limit) {
+            s = func_800237D0(21, 32);
+            if (s != 0) {
+                s->pos = *pos;
+                s->count = count;
+                s->unit = func_800263F0(ctx->header->base + def->offset, ctx, pos, id);
+                s->unit->slot = (unsigned int)((char *)s - D_800D3258) >> 6;
+                if (rules->mode == 1 || rules->mode == 11) {
+                    func_800334F8(s, func_80026300(ctx, def->body), 0);
+                } else {
+                    s->link = 0;
+                }
+            }
+        }
+    }
+}

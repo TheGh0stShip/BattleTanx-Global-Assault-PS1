@@ -1,23 +1,83 @@
-asm(".text\n\t.globl func_80052A88\nfunc_80052A88:\n\t"
-    ".word 0x27BDFF88,0xAFB3005C,0x00809821,0xAFB40060\n\t"
-    ".word 0x00A0A021,0xAFB7006C,0x00C0B821,0xAFB50064\n\t"
-    ".word 0x0000A821,0xAFB20058,0x02A09021,0xAFB60068\n\t"
-    ".word 0x24160001,0xAFB10054,0x02A08821,0xAFBF0070\n\t"
-    ".word 0xAFB00050,0x8E6200A8,0x00000000,0x00518021\n\t"
-    ".word 0x96070008,0xAFB60010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0x8E050000,0x8E060004,0x0C010C17,0x02802021\n\t"
-    ".word 0x14400008,0x26520001,0x2A420005,0x1440FFF1\n\t"
-    ".word 0x2631000C,0x16A00005,0x24020004,0x08014AEF\n\t"
-    ".word 0x2402FFFF,0x08014AC3,0x24150001,0xAFA00034\n\t"
-    ".word 0xAFB40030,0xAFA20038,0x8E6200B0,0x00000000\n\t"
-    ".word 0xAFA2003C,0x96020008,0x00000000,0xA7A2002C\n\t"
-    ".word 0x8E020000,0xAFA00024,0xAFA20020,0x8E030004\n\t"
-    ".word 0x24020002,0xAFA20040,0xAFA30028,0x92620007\n\t"
-    ".word 0x00000000,0xA3A2002E,0x926200A4,0x12E00004\n\t"
-    ".word 0xA3A2002F,0xAFA00048,0x08014AE8,0xAFA00044\n\t"
-    ".word 0x8E6200B4,0x27A30020,0xAC620024,0x8E6200B8\n\t"
-    ".word 0x00000000,0xAC620028,0x27A40020,0x0C00FBBE\n\t"
-    ".word 0xAFA0004C,0x8C450000,0x0C014A89,0x02602021\n\t"
-    ".word 0x00001021,0x8FBF0070,0x8FB7006C,0x8FB60068\n\t"
-    ".word 0x8FB50064,0x8FB40060,0x8FB3005C,0x8FB20058\n\t"
-    ".word 0x8FB10054,0x8FB00050,0x03E00008,0x27BD0078\n");
+typedef struct {
+    int x;
+    int z;
+    unsigned short heading;
+    short pad;
+} Spawn;
+typedef struct {
+    int x;
+    int y;
+    int z;
+    unsigned short heading;
+    unsigned char team;
+    unsigned char kind;
+    void *position;
+    int zero14;
+    int four;
+    int model;
+    int two;
+    int extra0;
+    int extra1;
+    int zero2C;
+} Desc;
+typedef struct {
+    int id;
+} Spawned;
+typedef struct {
+    char pad0[7];
+    unsigned char team;
+    char pad8[0xA4 - 8];
+    unsigned char kind;
+    char padA5[0xA8 - 0xA5];
+    Spawn *spawns;
+    char padAC[0xB0 - 0xAC];
+    int model;
+    int extra0;
+    int extra1;
+} Unit;
+extern int func_8004305C(void *, int, int, unsigned short, int, int, int);
+extern Spawned *func_8003EEF8(Desc *);
+extern void func_80052A24(Unit *, int);
+
+static inline void set_extra(Desc *d, Unit *u) {
+    d->extra0 = u->extra0;
+    d->extra1 = u->extra1;
+}
+
+int func_80052A88(Unit *unit, void *position, int plain) {
+    Desc desc;
+    Spawn *spawn;
+    int found = 0;
+    int i;
+
+    for (i = 0; i < 5; i++) {
+        spawn = &unit->spawns[i];
+        if (func_8004305C(position, spawn->x, spawn->z, spawn->heading, 1, 0, 0) != 0) {
+            found = 1;
+            break;
+        }
+    }
+    if (found == 0) {
+        return -1;
+    }
+    desc.zero14 = 0;
+    desc.position = position;
+    desc.four = 4;
+    desc.model = unit->model;
+    desc.heading = spawn->heading;
+    desc.x = spawn->x;
+    desc.y = 0;
+    desc.z = spawn->z;
+    desc.two = 2;
+    desc.team = unit->team;
+    desc.kind = unit->kind;
+    if (plain != 0) {
+        desc.extra1 = 0;
+        desc.extra0 = 0;
+    } else {
+        set_extra(&desc, unit);
+    }
+    desc.zero2C = 0;
+    func_80052A24(unit, func_8003EEF8(&desc)->id);
+    return 0;
+}

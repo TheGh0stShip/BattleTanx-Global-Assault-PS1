@@ -1,12 +1,35 @@
-asm(".text\n\t.globl func_80063E3C\nfunc_80063E3C:\n\t"
-    ".word 0x27bdffe8,0x3c02800b,0xac44b974,0x3c02800b\n\t"
-    ".word 0x30c6ffff,0xafbf0010,0x10c0000a,0xac45b97c\n\t"
-    ".word 0x3c03800b,0x2463b9f4,0x24020050,0xa4620022\n\t"
-    ".word 0x2402001e,0xa4620024,0x3c02800b,0x08018fb0\n\t"
-    ".word 0x2442ad70,0x3c02800a,0x8043606c,0x24020001\n\t"
-    ".word 0x14620007,0x3c03800b,0x2463b9f4,0x24020046\n\t"
-    ".word 0xa4620024,0x3c02800b,0x08018fb0,0x2442ad64\n\t"
-    ".word 0x2463b9f4,0x24020023,0xa4620024,0x3c02800b\n\t"
-    ".word 0x2442ad7c,0xac620008,0x3c04800b,0x2484ba38\n\t"
-    ".word 0x00002821,0x0c016554,0x24060001,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct Panel {
+    int pad0[2];
+    int *style;
+    int pad1[5];
+    short pad2;
+    short width;
+    short height;
+} Panel;
+
+extern int D_800AB974;
+extern int D_800AB97C;
+extern Panel D_800AB9F4;
+extern signed char D_800A606C;
+extern int D_800AAD64;
+extern int D_800AAD70;
+extern int D_800AAD7C;
+extern int D_800ABA38;
+extern void func_80059550(void *, int, int);
+
+void func_80063E3C(int a, int b, unsigned short wide) {
+    D_800AB974 = a;
+    D_800AB97C = b;
+    if (wide) {
+        D_800AB9F4.width = 80;
+        D_800AB9F4.height = 30;
+        D_800AB9F4.style = &D_800AAD70;
+    } else if (D_800A606C == 1) {
+        D_800AB9F4.height = 70;
+        D_800AB9F4.style = &D_800AAD64;
+    } else {
+        D_800AB9F4.height = 35;
+        D_800AB9F4.style = &D_800AAD7C;
+    }
+    func_80059550(&D_800ABA38, 0, 1);
+}

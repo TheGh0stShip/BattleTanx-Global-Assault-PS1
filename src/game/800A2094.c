@@ -1,24 +1,71 @@
-asm(".text\n\t.globl func_800A2094\nfunc_800A2094:\n\t"
-    ".word 0x27BDFFD0,0xAFB00018,0x00808021,0xAFB20020\n\t"
-    ".word 0x00A09021,0xAFB1001C,0x24110001,0xAFBF0028\n\t"
-    ".word 0x1240000C,0xAFB30024,0x8E020010,0x8E03000C\n\t"
-    ".word 0x00511021,0xAE020010,0x0043102B,0x14400005\n\t"
-    ".word 0x00000000,0x0C028679,0x00002021,0x08028877\n\t"
-    ".word 0x02201021,0x8E020004,0x00000000,0x30420020\n\t"
-    ".word 0x1040000D,0x3C02800A,0x8E020004,0x00000000\n\t"
-    ".word 0x34420040,0xAE020004,0x12400033,0x02201021\n\t"
-    ".word 0x8E020004,0x00000000,0x34420080,0xAE020004\n\t"
-    ".word 0x08028877,0x02201021,0x24531994,0x8E020004\n\t"
-    ".word 0x00000000,0x30420040,0x1040000B,0x00000000\n\t"
-    ".word 0x8E020004,0x00000000,0x30420080,0x10400002\n\t"
-    ".word 0x00000000,0x24120001,0x8E020004,0x2403FF3F\n\t"
-    ".word 0x00431024,0xAE020004,0x16400002,0x2404000A\n\t"
-    ".word 0xAE000010,0x24020006,0xAE020008,0x24020001\n\t"
-    ".word 0x3C07800F,0x8E030004,0x00003021,0xAE000020\n\t"
-    ".word 0xAE000020,0x34630020,0xAE030004,0xAFA20010\n\t"
-    ".word 0xAFB30014,0x8E050000,0x0C023FC7,0x24E7FD0C\n\t"
-    ".word 0x8E030004,0x2404FFDF,0x00641824,0xAE030004\n\t"
-    ".word 0x8E030004,0x00000000,0x30630040,0x1460FFD7\n\t"
-    ".word 0x00408821,0x02201021,0x8FBF0028,0x8FB30024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int pad2C;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_800A1994(int, int, int, int);
+
+int func_800A2094(Link *c, int retry) {
+    int result = 1;
+
+    if (retry != 0 && ++c->tries >= c->limit) {
+        func_800A19E4(0);
+    } else if (c->flags & 0x20) {
+        c->flags |= 0x40;
+        if (retry != 0) {
+            c->flags |= 0x80;
+        }
+    } else {
+        do {
+            if (c->flags & 0x40) {
+                if (c->flags & 0x80) {
+                    retry = 1;
+                }
+                c->flags &= ~0xC0;
+            }
+            if (retry == 0) {
+                c->tries = 0;
+            }
+            c->unk08 = 6;
+            c->unk20 = 0;
+            c->flags |= 0x20;
+            c->unk20 = 0;
+            result = func_8008FF1C(10, c->unk00, 0, &D_800EFD0C, 1, func_800A1994);
+            c->flags &= ~0x20;
+        } while (c->flags & 0x40);
+    }
+    return result;
+}

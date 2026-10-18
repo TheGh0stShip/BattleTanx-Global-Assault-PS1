@@ -1,19 +1,68 @@
-asm(".text\n\t.globl func_8005A430\nfunc_8005A430:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x8E030004,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x1040000B,0x00002021,0x90620001,0x00000000\n\t"
-    ".word 0x30420080,0x14400006,0x00602021,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440FFF7,0x00002021\n\t"
-    ".word 0x1080002E,0x00000000,0x90820020,0x00000000\n\t"
-    ".word 0x1040000B,0x24830020,0x90620001,0x00000000\n\t"
-    ".word 0x30420010,0x14400007,0x00000000,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440FFF7,0x00000000\n\t"
-    ".word 0x00001821,0x14600005,0x00000000,0x0C01767F\n\t"
-    ".word 0x02002021,0x0801693F,0x00000000,0x90820001\n\t"
-    ".word 0x00000000,0x3042007F,0xA0820001,0x90620001\n\t"
-    ".word 0x00000000,0x34420080,0xA0620001,0x96020014\n\t"
-    ".word 0x00000000,0x14400008,0x3C03800B,0x3C03800B\n\t"
-    ".word 0x9062ACD7,0x00000000,0x10400008,0x00000000\n\t"
-    ".word 0x0801694F,0xA060ACD7,0x9062ACD8,0x00000000\n\t"
-    ".word 0x10400002,0x00000000,0xA060ACD8,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct Item {
+    unsigned char valid;
+    unsigned char flags;
+    char pad2[6];
+    int value;
+    char padC[0x20 - 0xC];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+    char pad8[0x14 - 8];
+    unsigned short side;
+} Menu;
+extern unsigned char D_800AACD7;
+extern unsigned char D_800AACD8;
+extern void func_8005DCD0(Menu *);
+extern void func_8005D9FC(Menu *);
+
+static inline Item *find_selected(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x80) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_selectable(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x10) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_prev_selectable(Item *first, Item *p) {
+    for (; p >= first; p--) {
+        if (p->flags & 0x10) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+void func_8005A430(Menu *menu) {
+    Item *cur;
+    Item *next;
+
+    cur = find_selected(menu->items);
+    if (cur == 0) {
+        return;
+    }
+    next = find_selectable(cur + 1);
+    if (next == 0) {
+        func_8005D9FC(menu);
+    } else {
+        cur->flags &= 0x7F;
+        next->flags |= 0x80;
+    }
+    if (menu->side == 0) {
+        if (D_800AACD7 != 0) {
+            D_800AACD7 = 0;
+        }
+    } else if (D_800AACD8 != 0) {
+        D_800AACD8 = 0;
+    }
+}

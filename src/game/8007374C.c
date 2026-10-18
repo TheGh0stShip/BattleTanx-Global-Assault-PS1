@@ -1,26 +1,42 @@
-asm(".text\n\t.globl func_8007374C\nfunc_8007374C:\n\t"
-    ".word 0x27BDFFF0,0x000510C0,0x00473821,0x24028300\n\t"
-    ".word 0xA7A20004,0xA7A20002,0xA7A20000,0x24027D00\n\t"
-    ".word 0xA7A2000C,0xA7A2000A,0xA7A20008,0x84E20000\n\t"
-    ".word 0x87A30008,0x00000000,0x0043102A,0x94E30000\n\t"
-    ".word 0x10400002,0x00000000,0xA7A30008,0x84E20002\n\t"
-    ".word 0x87A3000A,0x00000000,0x0043102A,0x94E30002\n\t"
-    ".word 0x10400002,0x00000000,0xA7A3000A,0x84E20004\n\t"
-    ".word 0x87A3000C,0x00000000,0x0043102A,0x94E30004\n\t"
-    ".word 0x10400002,0x00000000,0xA7A3000C,0x84E30000\n\t"
-    ".word 0x87A20000,0x00000000,0x0043102A,0x94E30000\n\t"
-    ".word 0x10400002,0x00000000,0xA7A30000,0x97A20002\n\t"
-    ".word 0x84E30002,0x00021400,0x00021403,0x0043102A\n\t"
-    ".word 0x94E30002,0x10400002,0x00000000,0xA7A30002\n\t"
-    ".word 0x97A20004,0x84E30004,0x00021400,0x00021403\n\t"
-    ".word 0x0043102A,0x94E30004,0x10400002,0x00000000\n\t"
-    ".word 0xA7A30004,0x24A50001,0x00A6102A,0x10400005\n\t"
-    ".word 0x24E70008,0x84E20006,0x00000000,0x1040FFC7\n\t"
-    ".word 0x00000000,0x87A20008,0x87A30000,0x00000000\n\t"
-    ".word 0x00431021,0x00021FC2,0x00431021,0x00021043\n\t"
-    ".word 0xA4820000,0x97A30002,0x87A2000A,0x00031C00\n\t"
-    ".word 0x00031C03,0x00431021,0x00021FC2,0x00431021\n\t"
-    ".word 0x00021043,0xA4820002,0x97A30004,0x87A2000C\n\t"
-    ".word 0x00031C00,0x00031C03,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0xA4820004,0x00A01021\n\t"
-    ".word 0x03E00008,0x27BD0010\n");
+typedef struct {
+    short x, y, z, end;
+} Point;
+
+int func_8007374C(Point *out, int i, int count, Point *points) {
+    Point max;
+    Point min;
+    Point *p;
+
+    max.z = -32000;
+    max.y = -32000;
+    max.x = -32000;
+    min.z = 32000;
+    min.y = 32000;
+    min.x = 32000;
+    do {
+        p = &points[i];
+        if (p->x < min.x) {
+            min.x = p->x;
+        }
+        if (p->y < min.y) {
+            min.y = p->y;
+        }
+        if (p->z < min.z) {
+            min.z = p->z;
+        }
+        if (p->x > max.x) {
+            max.x = p->x;
+        }
+        if (max.y < p->y) {
+            max.y = p->y;
+        }
+        if (max.z < p->z) {
+            max.z = p->z;
+        }
+        i++;
+    } while (i < count && points[i].end == 0);
+    out->x = (min.x + max.x) / 2;
+    out->y = (min.y + max.y) / 2;
+    out->z = (min.z + max.z) / 2;
+    return i;
+}

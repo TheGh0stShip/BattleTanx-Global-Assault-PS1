@@ -1,13 +1,44 @@
-asm(".text\n\t.globl func_800611D4\nfunc_800611D4:\n\t"
-    ".word 0x3c02800a,0x8c426070,0x00000000,0x2443ffff\n\t"
-    ".word 0x2c620008,0x10400024,0x3c02800c,0x2442fdd0\n\t"
-    ".word 0x00031880,0x00621821,0x8c620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3c02800f,0x2442ae88\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442af40\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442adc0\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442aefc\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442af04\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442aef4\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442aee8\n\t"
-    ".word 0x03e00008,0xac820008,0x3c02800f,0x2442ac3c\n\t"
-    ".word 0x03e00008,0xac820008\n\t");
+extern unsigned int D_800A6070;
+extern int D_800EAC3C;
+extern int D_800EADC0;
+extern int D_800EAE88;
+extern int D_800EAEE8;
+extern int D_800EAEF4;
+extern int D_800EAEFC;
+extern int D_800EAF04;
+extern int D_800EAF40;
+
+typedef struct Holder {
+    int pad[2];
+    int *target;
+} Holder;
+
+void func_800611D4(Holder *holder) {
+    switch (D_800A6070) {
+    case 5:
+        holder->target = &D_800EAE88;
+        break;
+    case 6:
+        holder->target = &D_800EAF40;
+        break;
+    case 4:
+        holder->target = &D_800EADC0;
+        break;
+    case 3:
+        holder->target = &D_800EAEFC;
+        break;
+    case 7:
+        holder->target = &D_800EAF04;
+        break;
+    case 8:
+        holder->target = &D_800EAEF4;
+        break;
+    case 2:
+        holder->target = &D_800EAEE8;
+        break;
+    case 1:
+    default:
+        holder->target = &D_800EAC3C;
+        break;
+    }
+}

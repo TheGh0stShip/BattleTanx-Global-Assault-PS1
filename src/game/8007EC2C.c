@@ -1,9 +1,32 @@
-asm(".text\n\t.globl func_8007EC2C\nfunc_8007EC2C:\n\t"
-    ".word 0x27bdffe8,0x3c04800f,0x2483c200,0xafbf0010\n\t"
-    ".word 0x8c660110,0x8c680114,0x8c62010c,0xac600110\n\t"
-    ".word 0xac600114,0xac60010c,0x1040000e,0xac600128\n\t"
-    ".word 0x10c00006,0x00000000,0x8c84c200,0x00c0f809\n\t"
-    ".word 0x00002821,0x0801fb24,0x00000000,0x11000005\n\t"
-    ".word 0x00003021,0x8c84c200,0x8c65011c,0x0100f809\n\t"
-    ".word 0x00c03821,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct Pending {
+    int handle;
+    char pad4[264];
+    int active;
+    void (*callback)(int, int);
+    void (*callback4)(int, int, int, int);
+    int pad118;
+    int arg;
+    char pad120[8];
+    int busy;
+} Pending;
+
+extern Pending D_800EC200;
+
+void func_8007EC2C(void) {
+    Pending *p = &D_800EC200;
+    void (*cb)(int, int) = p->callback;
+    void (*cb4)(int, int, int, int) = p->callback4;
+    int active = p->active;
+
+    p->callback = 0;
+    p->callback4 = 0;
+    p->active = 0;
+    p->busy = 0;
+    if (active != 0) {
+        if (cb != 0) {
+            cb(D_800EC200.handle, 0);
+        } else if (cb4 != 0) {
+            cb4(D_800EC200.handle, p->arg, 0, 0);
+        }
+    }
+}

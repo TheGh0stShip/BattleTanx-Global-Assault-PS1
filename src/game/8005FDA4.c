@@ -1,13 +1,33 @@
-asm(".text\n\t.globl func_8005FDA4\nfunc_8005FDA4:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0x3c02800b\n\t"
-    ".word 0x9043ace5,0x24020001,0xafbf0018,0x14620004\n\t"
-    ".word 0xafb00010,0x3c03800f,0x24020005,0xac62afbc\n\t"
-    ".word 0x3c10800e,0x3c05800f,0x24a5c0f8,0x3c03800e\n\t"
-    ".word 0x8204482c,0x8063483c,0x00041080,0x00451021\n\t"
-    ".word 0x0c02188f,0xac430000,0x10400013,0x3c02800e\n\t"
-    ".word 0x80424824,0x00000000,0x10400008,0x00000000\n\t"
-    ".word 0x8204482c,0x0c02189c,0x24050001,0x3c03800b\n\t"
-    ".word 0x3c02800f,0x08017f92,0x2442ad64,0x96240014\n\t"
-    ".word 0x0c02189c,0x00002821,0x3c03800b,0x3c02800f\n\t"
-    ".word 0x2442add0,0xac62967c,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x24020001,0x03e00008,0x27bd0020\n\t");
+typedef struct Item {
+    char pad[0x14];
+    unsigned short index;
+} Item;
+
+extern unsigned char D_800AACE5;
+extern int D_800EAFBC;
+extern signed char D_800E482C;
+extern signed char D_800E483C;
+extern signed char D_800E4824;
+extern int D_800EC0F8[];
+extern int *D_800A967C;
+extern int D_800EAD64;
+extern int D_800EADD0;
+extern int func_8008623C(int);
+extern void func_80086270(int, int);
+
+int func_8005FDA4(Item *item) {
+    if (D_800AACE5 == 1) {
+        D_800EAFBC = 5;
+    }
+    D_800EC0F8[D_800E482C] = D_800E483C;
+    if (func_8008623C(D_800E482C)) {
+        if (D_800E4824) {
+            func_80086270(D_800E482C, 1);
+            D_800A967C = &D_800EAD64;
+        } else {
+            func_80086270(item->index, 0);
+            D_800A967C = &D_800EADD0;
+        }
+    }
+    return 1;
+}

@@ -1,19 +1,35 @@
-asm(".text\n\t.globl func_80049D38\nfunc_80049D38:\n\t"
-    ".word 0x27bdff90,0xafb10064,0x00808821,0x27a40018\n\t"
-    ".word 0x24070001,0xafbf006c,0xafb20068,0xafb00060\n\t"
-    ".word 0x8e220208,0x8e2300a8,0x8c52000c,0x00038027\n\t"
-    ".word 0xafa00010,0x8e2500b0,0x0c0127b2,0x02403021\n\t"
-    ".word 0x8fa20018,0x00000000,0x10400010,0x00002021\n\t"
-    ".word 0x27a50018,0x3082ffff,0x00021080,0x00a21021\n\t"
-    ".word 0x8c430004,0x00000000,0x8c6200b0,0x24840001\n\t"
-    ".word 0x00501024,0xac6200b0,0x8fa30018,0x3082ffff\n\t"
-    ".word 0x0043102b,0x1440fff4,0x3082ffff,0x27a40018\n\t"
-    ".word 0x02403021,0x24020001,0xafa20010,0x8e2500ac\n\t"
-    ".word 0x0c0127b2,0x00003821,0x8fa20018,0x00000000\n\t"
-    ".word 0x10400010,0x00002021,0x27a50018,0x3082ffff\n\t"
-    ".word 0x00021080,0x00a21021,0x8c430004,0x00000000\n\t"
-    ".word 0x8c6200ac,0x24840001,0x00501024,0xac6200ac\n\t"
-    ".word 0x8fa30018,0x3082ffff,0x0043102b,0x1440fff4\n\t"
-    ".word 0x3082ffff,0xae2000b0,0xae2000ac,0x8fbf006c\n\t"
-    ".word 0x8fb20068,0x8fb10064,0x8fb00060,0x03e00008\n\t"
-    ".word 0x27bd0070\n\t");
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+typedef struct {
+    char pad0[0xA8];
+    unsigned int bits;
+    unsigned int enemy_mask;
+    unsigned int friend_mask;
+    char padB4[0x208 - 0xB4];
+    Owner *owner;
+} Tank;
+typedef struct {
+    unsigned int count;
+    Tank *tanks[16];
+} TankList;
+extern void func_80049EC8(TankList *, unsigned int, int, int, int);
+
+void func_80049D38(Tank *tank) {
+    TankList list;
+    unsigned int clear = ~tank->bits;
+    int team = tank->owner->team;
+    unsigned short i;
+
+    func_80049EC8(&list, tank->friend_mask, team, 1, 0);
+    for (i = 0; i < list.count; i++) {
+        list.tanks[i]->friend_mask &= clear;
+    }
+    func_80049EC8(&list, tank->enemy_mask, team, 0, 1);
+    for (i = 0; i < list.count; i++) {
+        list.tanks[i]->enemy_mask &= clear;
+    }
+    tank->friend_mask = 0;
+    tank->enemy_mask = 0;
+}

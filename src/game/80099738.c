@@ -1,17 +1,60 @@
-asm(".text\n\t.globl func_80099738\nfunc_80099738:\n\t"
-    ".word 0x27bdffd8,0xafb10014,0x00808821,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb00010,0x00c08021,0xafb3001c\n\t"
-    ".word 0x00e09821,0xafbf0020,0x0c028b2e,0x00002821\n\t"
-    ".word 0x14400004,0x3c02800f,0x0c028b72,0x02202021\n\t"
-    ".word 0x3c02800f,0x2443f124,0x12000003,0xac600004\n\t"
-    ".word 0x080265e5,0x24020008,0x24020007,0xac620008\n\t"
-    ".word 0x02402021,0x3c10800f,0x2610f124,0x0c024061\n\t"
-    ".word 0xae04000c,0x02202021,0x26050004,0x24420001\n\t"
-    ".word 0x24030001,0xae020010,0xae020014,0x24020009\n\t"
-    ".word 0xae020020,0x2602004c,0xae020024,0x24020008\n\t"
-    ".word 0xae020028,0xae02002c,0x24020002,0xae03001c\n\t"
-    ".word 0xae030030,0xae020034,0x8fa2003c,0x3c06800a\n\t"
-    ".word 0xac930080,0xac82007c,0x8fa20038,0x24c696c4\n\t"
-    ".word 0x0c02656a,0xac820084,0x8fbf0020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+extern int func_800A2CB8(void *, int);
+extern void func_800A2DC8(void *);
+extern int func_80090184(char *);
+
+typedef struct Entry {
+    int type;
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+} Entry;
+
+typedef struct Ctx {
+    char pad0[0x74];
+    void *callback;
+    int pad78;
+    void *next_callback;
+    int *out0;
+    int *out1;
+} Ctx;
+
+typedef struct StreamState {
+    Ctx *current;
+    Entry list[3];
+    int result[2];
+} StreamState;
+
+extern StreamState D_800EF124;
+extern int func_800995A8(Ctx *, Entry *, void *);
+extern void func_800996C4(Ctx *, int, int, int, int);
+extern int func_8009940C(Ctx *, int, int, int, void *);
+
+int func_80099738(Ctx *c, char *name, int flag, int *out0, int *out1, void *callback) {
+    int len;
+    if (func_800A2CB8(c, 0) == 0) {
+        func_800A2DC8(c);
+    }
+    D_800EF124.list[0].type = 0;
+    if (flag != 0) {
+        D_800EF124.list[0].a = 8;
+    } else {
+        D_800EF124.list[0].a = 7;
+    }
+    D_800EF124.list[0].b = (int)name;
+    len = func_80090184(name) + 1;
+    D_800EF124.list[0].c = len;
+    D_800EF124.list[0].d = len;
+    D_800EF124.list[1].type = 1;
+    D_800EF124.list[1].a = 9;
+    D_800EF124.list[1].b = (int)D_800EF124.result;
+    D_800EF124.list[1].c = 8;
+    D_800EF124.list[1].d = 8;
+    D_800EF124.list[1].e = 1;
+    D_800EF124.list[2].type = 2;
+    c->next_callback = callback;
+    c->out0 = out0;
+    c->out1 = out1;
+    return func_800995A8(c, D_800EF124.list, func_800996C4);
+}

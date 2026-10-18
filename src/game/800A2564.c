@@ -1,18 +1,62 @@
-asm(".text\n\t.globl func_800A2564\nfunc_800A2564:\n\t"
-    ".word 0x27bdffd8,0xafb00018,0x00808021,0xafb1001c\n\t"
-    ".word 0x00008821,0x10e00016,0xafbf0020,0x24020001\n\t"
-    ".word 0x14c2002f,0x3c02800f,0x2447fd0c,0x90e20103\n\t"
-    ".word 0x00000000,0x1440002a,0x2404000a,0x02203021\n\t"
-    ".word 0x24020003,0xae020008,0xae000020,0xafa20010\n\t"
-    ".word 0x3c02800a,0x24421994,0xafa20014,0x8e050000\n\t"
-    ".word 0x0c023fc7,0x24e70104,0x08028991,0x0002882b\n\t"
-    ".word 0x0c023e69,0x00000000,0x24030003,0x14430018\n\t"
-    ".word 0x00000000,0x8e020014,0x8e03000c,0x24420001\n\t"
-    ".word 0xae020014,0x0043102b,0x10400011,0x2404000a\n\t"
-    ".word 0x00003021,0x24020002,0xae020008,0x24020001\n\t"
-    ".word 0xae000020,0xafa20010,0x3c02800a,0x24421994\n\t"
-    ".word 0x3c07800f,0xafa20014,0x8e050000,0x0c023fc7\n\t"
-    ".word 0x24e7fe0f,0x10400002,0x00000000,0x24110001\n\t"
-    ".word 0x16200003,0x02002021,0x0c0286be,0x24050004\n\t"
-    ".word 0x8fbf0020,0x8fb1001c,0x8fb00018,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AF8(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+void func_800A2564(Link *c, int a1, int kind, int ok) {
+    int sent = 0;
+
+    if (ok != 0) {
+        if (kind == 1 && D_800EFD0C.packet[0] == 0) {
+            c->unk08 = 3;
+            c->unk20 = 0;
+            sent = func_8008FF1C(10, c->unk00, sent, &D_800EFD0C.packet[1], 3, func_800A1994) != 0;
+        }
+    } else if (func_8008F9A4() == 3 && ++c->tries2 < c->limit) {
+        c->unk08 = 2;
+        c->unk20 = 0;
+        if (func_8008FF1C(10, c->unk00, 0, D_800EFD0C.packet, 1, func_800A1994) != 0) {
+            sent = 1;
+        }
+    }
+    if (sent == 0) {
+        func_800A1AF8(c, 4);
+    }
+}

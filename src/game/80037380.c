@@ -1,18 +1,22 @@
-asm(".text\n\t.globl func_80037380\nfunc_80037380:\n\t"
-    ".word 0x27bdffb8,0xafb20038,0x00809021,0xafb10034\n\t"
-    ".word 0x00a08821,0xafb3003c,0x00c09821,0x24040012\n\t"
-    ".word 0x24050038,0xafbf0040,0x0c008df4,0xafb00030\n\t"
-    ".word 0x00408021,0x1200002e,0x02202021,0x26060008\n\t"
-    ".word 0x8e450004,0x0c0098d0,0x24070001,0x02202021\n\t"
-    ".word 0x26060014,0x8e450008,0x0c0098d0,0x24070003\n\t"
-    ".word 0x8e620000,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x0800dd01,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8e660008,0x00000000\n\t"
-    ".word 0x04c00003,0x00022c03,0x0800dd0b,0x00061303\n\t"
-    ".word 0x00061023,0x00021303,0x00021023,0x02002021\n\t"
-    ".word 0x00023380,0x00063403,0x00003821,0x2403ffc4\n\t"
-    ".word 0x2402003c,0xafa20014,0xafa2001c,0x2402012c\n\t"
-    ".word 0xafa20024,0x24022000,0xafa30010,0xafa30018\n\t"
-    ".word 0xafa00020,0xafa00028,0x0c0058bc,0xafa2002c\n\t"
-    ".word 0x8fbf0040,0x8fb3003c,0x8fb20038,0x8fb10034\n\t"
-    ".word 0x8fb00030,0x03e00008,0x27bd0048\n\t");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { int f0; int a; int b; } Spec;
+extern char *func_800237D0(int, int);
+extern void func_80026340(int, int, void *, int);
+extern void func_800162F0(void *, short, short, int, int, int, int, int, int, int, int, int);
+
+static inline int to_int(int v)
+{
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+void func_80037380(Spec *spec, int owner, Vector *pos)
+{
+    char *obj;
+
+    obj = func_800237D0(18, 56);
+    if (obj != 0) {
+        func_80026340(owner, spec->a, obj + 8, 1);
+        func_80026340(owner, spec->b, obj + 20, 3);
+        func_800162F0(obj, to_int(pos->x) >> 2, to_int(pos->z) >> 2, 0, -60, 60, -60, 60, 0, 300, 0, 8192);
+    }
+}

@@ -1,11 +1,49 @@
-asm(".text\n\t.globl func_8001F294\nfunc_8001F294:\n\t"
-    ".word 0x8c83001c,0x24020014,0x00620018,0x00001012\n\t"
-    ".word 0x04400003,0x00000000,0x08007cb0,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x8c86001c\n\t"
-    ".word 0x00000000,0x10c00017,0x00401821,0x3c02800e\n\t"
-    ".word 0x8c48e30c,0x8c890014,0x00000000,0x01090018\n\t"
-    ".word 0x00002812,0x00003810,0x00052b02,0x00073d00\n\t"
-    ".word 0x00a72825,0x18a0000b,0x00000000,0x18c00005\n\t"
-    ".word 0x00c51023,0x04410007,0xac82001c,0x08007cca\n\t"
-    ".word 0xac80001c,0x00c51021,0x18400002,0xac82001c\n\t"
-    ".word 0xac80001c,0x03e00008,0x3062ffff\n\t");
+typedef struct Body {
+    char pad00[0x14];
+    int friction;
+    char pad18[0x1C - 0x18];
+    int speed;
+} Body;
+extern int D_800DE30C;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int imul(int a, int b) {
+    return a * b;
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+unsigned short func_8001F294(Body *body) {
+    int result = to_int(imul(body->speed, 20));
+    int speed;
+    int decel;
+
+    if ((speed = body->speed) != 0) {
+        decel = fixed_mul(D_800DE30C, body->friction);
+        if (decel > 0) {
+            if (speed > 0) {
+                body->speed = speed - decel;
+                if (body->speed < 0) {
+                    body->speed = 0;
+                }
+            } else {
+                body->speed = speed + decel;
+                if (body->speed > 0) {
+                    body->speed = 0;
+                }
+            }
+        }
+    }
+    return result;
+}

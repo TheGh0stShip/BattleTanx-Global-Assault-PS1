@@ -1,24 +1,56 @@
-asm(".text\n\t.globl func_80054F8C\nfunc_80054F8C:\n\t"
-    ".word 0x27BDFFD0,0xAFB20018,0x00809021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFB40020,0x00C0A021,0xAFB50024\n\t"
-    ".word 0x00E0A821,0xAFB10014,0x8FB10040,0x24040008\n\t"
-    ".word 0xAFBF0028,0x0C01A3BA,0xAFB00010,0x3C03E100\n\t"
-    ".word 0x34630200,0x24040010,0x00408021,0x24020001\n\t"
-    ".word 0xA2020003,0x0C01A3BA,0xAE030004,0x00403821\n\t"
-    ".word 0x10E00038,0x24020003,0xA0E20003,0x24020060\n\t"
-    ".word 0xA0E20007,0x92220000,0x00000000,0xA0E20004\n\t"
-    ".word 0x92220001,0x00000000,0xA0E20005,0x92220002\n\t"
-    ".word 0xA4F20008,0xA4F3000A,0xA4F4000C,0xA4F5000E\n\t"
-    ".word 0xA0E20006,0x92220003,0x00000000,0x2C4200FF\n\t"
-    ".word 0x10400005,0x3C0500FF,0x90E20007,0x00000000\n\t"
-    ".word 0x34420002,0xA0E20007,0x3C02800A,0x34A5FFFF\n\t"
-    ".word 0x3C06FF00,0x8C4248B4,0x8CE30000,0x000222C0\n\t"
-    ".word 0x00822021,0x000420C0,0x3C02800D,0x24425B8C\n\t"
-    ".word 0x00822021,0x8C820000,0x00661824,0x00451024\n\t"
-    ".word 0x00621825,0xACE30000,0x8C820000,0x00E51824\n\t"
-    ".word 0x00461024,0x00431025,0xAC820000,0x8E030000\n\t"
-    ".word 0x00451024,0x00661824,0x00621825,0xAE030000\n\t"
-    ".word 0x8C820000,0x02052824,0x00461024,0x00451025\n\t"
-    ".word 0xAC820000,0x8FBF0028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct {
+    unsigned long tag;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+    unsigned char code;
+    short x0;
+    short y0;
+    short w;
+    short h;
+} TILE;
+typedef struct {
+    unsigned long tag;
+    unsigned long code[1];
+} DR_MODE;
+typedef struct {
+    unsigned addr : 24;
+    unsigned len : 8;
+} P_TAG;
+typedef struct {
+    unsigned long ot[0x4008 / 4];
+} OrderingTable;
+extern OrderingTable D_800D5B8C[];
+extern int D_800A48B4;
+extern void *func_80068EE8(int);
+
+void func_80054F8C(int x, int y, int w, int h, unsigned char *color) {
+    DR_MODE *mode;
+    TILE *tile;
+    unsigned long *ot;
+
+    mode = func_80068EE8(sizeof(DR_MODE));
+    ((unsigned char *)mode)[3] = 1;
+    mode->code[0] = 0xE1000200;
+    tile = func_80068EE8(sizeof(TILE));
+    if (tile == 0) {
+        return;
+    }
+    ((unsigned char *)tile)[3] = 3;
+    tile->code = 0x60;
+    tile->r0 = color[0];
+    tile->g0 = color[1];
+    tile->b0 = color[2];
+    tile->x0 = x;
+    tile->y0 = y;
+    tile->w = w;
+    tile->h = h;
+    if (color[3] < 255) {
+        tile->code |= 2;
+    }
+    ot = D_800D5B8C[D_800A48B4].ot;
+    ((P_TAG *)tile)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)tile;
+    ((P_TAG *)mode)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)mode;
+}

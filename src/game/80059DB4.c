@@ -1,17 +1,33 @@
-asm(".text\n\t.globl func_80059DB4\nfunc_80059DB4:\n\t"
-    ".word 0x27bdffd8,0xafb10014,0x00008821,0x3c02800e\n\t"
-    ".word 0xafb3001c,0x2453474c,0xafbf0020,0xafb20018\n\t"
-    ".word 0xafb00010,0x00111400,0x00021303,0x00531821\n\t"
-    ".word 0x94620000,0x00000000,0x10400022,0x26220001\n\t"
-    ".word 0x80620002,0x00000000,0x0441001e,0x26220001\n\t"
-    ".word 0x00008021,0x3222ffff,0x00029100,0x3202ffff\n\t"
-    ".word 0x00521021,0x00531021,0x80440003,0x00000000\n\t"
-    ".word 0x18800003,0x00000000,0x0c016ae6,0x3084ffff\n\t"
-    ".word 0x26100001,0x3202ffff,0x2c420006,0x1440fff4\n\t"
-    ".word 0x3202ffff,0x3222ffff,0x00021100,0x00531821\n\t"
-    ".word 0x94620000,0x00000000,0x30420001,0x10400005\n\t"
-    ".word 0x26220001,0x8c64000c,0x0c015f90,0x00000000\n\t"
-    ".word 0x26220001,0x00408821,0x00021400,0x00021403\n\t"
-    ".word 0x2842000a,0x1440ffd3,0x00000000,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct {
+    unsigned short flags;
+    signed char state;
+    signed char sounds[6];
+    char pad9[3];
+    void *stream;
+} Channel;
+extern Channel D_800E474C[];
+extern void func_8005AB98(unsigned short);
+extern void func_80057E40(void *);
+
+static inline void stop_channel(unsigned short index) {
+    unsigned short j;
+
+    for (j = 0; j < 6; j++) {
+        if (D_800E474C[index].sounds[j] > 0) {
+            func_8005AB98(D_800E474C[index].sounds[j]);
+        }
+    }
+    if (D_800E474C[index].flags & 1) {
+        func_80057E40(D_800E474C[index].stream);
+    }
+}
+
+void func_80059DB4(void) {
+    short i;
+
+    for (i = 0; i < 10; i++) {
+        if (D_800E474C[i].flags != 0 && D_800E474C[i].state < 0) {
+            stop_channel(i);
+        }
+    }
+}

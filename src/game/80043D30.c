@@ -1,34 +1,79 @@
-asm(".text\n\t.globl func_80043D30\nfunc_80043D30:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00A09821,0xAFBF0020\n\t"
-    ".word 0xAFB20018,0xAFB10014,0xAFB00010,0x8E620000\n\t"
-    ".word 0x00000000,0x2443FFFA,0x2C620006,0x10400071\n\t"
-    ".word 0x00809021,0x3C02800C,0x2442F240,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x8E430008,0x8E640010,0x8E420010\n\t"
-    ".word 0x8E650018,0x00642023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x30510FFF,0x0C021B21,0x00118900,0x00021402\n\t"
-    ".word 0x00022040,0x00822021,0x00042080,0x00822021\n\t"
-    ".word 0x00041980,0x00641823,0x00031880,0x00621821\n\t"
-    ".word 0x00031C02,0x24630666,0x24080800,0x00680018\n\t"
-    ".word 0x00008012,0x00001010,0x00108302,0x00021500\n\t"
-    ".word 0x02028025,0x00118902,0x0C022B30,0x02202021\n\t"
-    ".word 0x00500018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x8E420220,0x02202021\n\t"
-    ".word 0x00431021,0x0C022B58,0xAE420220,0x00500018\n\t"
-    ".word 0x00001812,0x00004010,0x00031B02,0x00084500\n\t"
-    ".word 0x00681825,0x8E420228,0x00000000,0x00431023\n\t"
-    ".word 0xAE420228,0x8E63000C,0x2402007F,0x10620009\n\t"
-    ".word 0x00031100,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x08010FA2\n\t"
-    ".word 0x00433021,0x00003021,0x02402021,0x8E650008\n\t"
-    ".word 0x0C00FEDA,0x00003821,0x08010FC9,0x00000000\n\t"
-    ".word 0x02402021,0x8E650008,0x0C010188,0x24060001\n\t"
-    ".word 0x02402021,0x0C01537E,0x24050022,0x0C008A05\n\t"
-    ".word 0x00000000,0x10400017,0x00000000,0x8E440208\n\t"
-    ".word 0x24050019,0x0C014C38,0x00003021,0x08010FC9\n\t"
-    ".word 0x00000000,0x02402021,0x0C00FFA0,0x24050800\n\t"
-    ".word 0x08010FC9,0x00000000,0x8E420218,0x00000000\n\t"
-    ".word 0x30420400,0x14400003,0x02402021,0x0C00FFA0\n\t"
-    ".word 0x24050400,0x8E420218,0x00000000,0x34420200\n\t"
-    ".word 0xAE420218,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct {
+    char data[0x114];
+} RuntimeObject;
+typedef struct {
+    int type;
+    char pad4[4];
+    int source;
+    int object;
+    int x;
+    int y;
+    int z;
+} Event;
+typedef struct {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+    char pad14[0x208 - 0x14];
+    void *owner;
+    char pad20C[0x218 - 0x20C];
+    int status;
+    char pad21C[4];
+    int push_x;
+    int push_y;
+    int push_z;
+} Tank;
+extern RuntimeObject D_800E3E68[];
+extern int func_8008AE30(int, int);
+extern unsigned int func_80086C84(void);
+extern int func_8008ACC0(int);
+extern int func_8008AD60(int);
+extern void func_8003FB68(Tank *, int, RuntimeObject *, int);
+extern void func_80040620(Tank *, int, int);
+extern void func_80054DF8(Tank *, int);
+extern int func_80022814();
+extern void func_800530E0(void *, int, int);
+extern void func_8003FE80(Tank *, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80043D30(Tank *tank, Event *event) {
+    unsigned int angle;
+    int force;
+
+    switch (event->type) {
+    case 11:
+        angle = (func_8008AE30(tank->x - event->x, tank->z - event->z) & 0xFFF) << 4;
+        force = fixed_mul((((func_80086C84() >> 16) * 3277) >> 16) + 1638, 2048);
+        tank->push_x += fixed_mul(func_8008ACC0(angle >> 4), force);
+        tank->push_z -= fixed_mul(func_8008AD60(angle >> 4), force);
+        func_8003FB68(tank, event->source, event->object == 127 ? 0 : &D_800E3E68[event->object], 0);
+        break;
+    case 6:
+        func_80040620(tank, event->source, 1);
+        func_80054DF8(tank, 34);
+        if (func_80022814() != 0) {
+            func_800530E0(tank->owner, 25, 0);
+        }
+        break;
+    case 9:
+    case 10:
+        func_8003FE80(tank, 2048);
+        break;
+    case 8:
+        if (!(tank->status & 0x400)) {
+            func_8003FE80(tank, 1024);
+        }
+        tank->status |= 0x200;
+        break;
+    }
+}

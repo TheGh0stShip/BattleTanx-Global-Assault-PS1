@@ -1,42 +1,79 @@
-asm(".text\n\t.globl func_800320A0\nfunc_800320A0:\n\t"
-    ".word 0x27BDFFD0,0xAFB10024,0x00E08821,0xAFB00020\n\t"
-    ".word 0x00808021,0xAFB20028,0x8FB20040,0x24020003\n\t"
-    ".word 0x10C20071,0xAFBF002C,0x2CC20004,0x10400005\n\t"
-    ".word 0x00000000,0x10C0000A,0x00000000,0x0800C8C3\n\t"
-    ".word 0x00000000,0x24020005,0x10C20053,0x24020006\n\t"
-    ".word 0x10C20060,0x02002021,0x0800C8C3,0x00000000\n\t"
-    ".word 0x84A50004,0x00000000,0x28A20029,0x10400007\n\t"
-    ".word 0x28A20027,0x10400008,0x2402000C,0x10A20006\n\t"
-    ".word 0x24020001,0x0800C8C3,0xAE420000,0x24020034\n\t"
-    ".word 0x14A2003F,0x24020001,0x8E220014,0x00000000\n\t"
-    ".word 0x10400017,0x00402821,0x92030016,0x2402007F\n\t"
-    ".word 0x14620003,0x00602021,0x0800C860,0x00001021\n\t"
-    ".word 0x00041100,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00431021\n\t"
-    ".word 0x8CA3000C,0x8C42000C,0x00000000,0x14620004\n\t"
-    ".word 0x24050007,0x8E240014,0x0800C877,0x00000000\n\t"
-    ".word 0x92030016,0x2402007F,0x14620003,0x00602021\n\t"
-    ".word 0x0800C876,0x00002021,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00432021,0x2405000A,0x0C014C75\n\t"
-    ".word 0x00000000,0x96260010,0x86020018,0x96030018\n\t"
-    ".word 0x1840000E,0x00661023,0xA6020018,0x00021400\n\t"
-    ".word 0x1C40000B,0x24020001,0x96060014,0x26050008\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8E040020,0x0C00D652,0x00003821,0x24020001\n\t"
-    ".word 0x0800C8C3,0xAE420000,0x8E220000,0x00000000\n\t"
-    ".word 0x14400032,0x00000000,0x86020018,0x00000000\n\t"
-    ".word 0x1040002E,0x24020002,0xA2420000,0x8E020008\n\t"
-    ".word 0x00000000,0xAE420004,0x8E020010,0x0800C8C3\n\t"
-    ".word 0xAE420008,0x02203021,0x0C00C7C8,0x02403821\n\t"
-    ".word 0x0800C8C3,0x00000000,0x8E26000C,0x86020018\n\t"
-    ".word 0x96030018,0x1840000D,0x00661023,0xA6020018\n\t"
-    ".word 0x00021400,0x1C400009,0x26050008,0x96060014\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8E040020,0x0C00D652,0x00003821,0x92030016\n\t"
-    ".word 0x2402007F,0x14620003,0x00602021,0x0800C8C1\n\t"
-    ".word 0x00002021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00432021,0x0C014C75,0x2405000A,0x8FBF002C\n\t"
-    ".word 0x8FB20028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[12]; int team; char rest[0x114 - 16]; } Waypoint;
+typedef struct {
+    short pad;
+    short pad1;
+    short pad2;
+    unsigned short cell;
+    Vector pos;
+    unsigned short angle;
+    unsigned char waypoint;
+    char pad3;
+    short hp;
+    short pad4;
+    int pad5;
+    int model;
+} Wall;
+typedef struct { int pad; short type; } Msg;
+typedef struct { int zero; int pad[2]; int drain; unsigned short amount; short pad2; Waypoint *source; } Data;
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+extern Waypoint D_800E3E68[];
+void func_800531D4(Waypoint *, int);
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+void func_80031F20(Wall *, Msg *, Data *, void *);
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline void damage(Wall *w, int amount) {
+    if (w->hp > 0) {
+        w->hp -= amount;
+        if (w->hp <= 0) {
+            func_80035948(w->model, &w->pos, w->angle, 0, 0, 0, 0, 0);
+        }
+    }
+}
+
+void func_800320A0(Wall *wall, Msg *msg, unsigned int event, Data *data, int *out) {
+    Wall *w = wall;
+
+    switch (event) {
+    case 0:
+        switch (msg->type) {
+        case 12:
+        case 39:
+        case 40:
+        case 52:
+            if (data->source != 0 && data->source->team == waypoint_at(w->waypoint)->team) {
+                func_800531D4(data->source, 7);
+            } else {
+                func_800531D4(waypoint_at(w->waypoint), 10);
+            }
+            damage(w, data->amount);
+            *out = 1;
+            break;
+        default:
+            *out = 1;
+            break;
+        }
+        break;
+    case 5:
+        if (data->zero == 0 && w->hp != 0) {
+            ((Query *)out)->valid = 2;
+            ((Query *)out)->x = w->pos.x;
+            ((Query *)out)->z = w->pos.z;
+        }
+        break;
+    case 6:
+        func_80031F20(w, msg, data, out);
+        break;
+    case 3:
+        damage(w, data->drain);
+        func_800531D4(waypoint_at(w->waypoint), 10);
+        break;
+    }
+}

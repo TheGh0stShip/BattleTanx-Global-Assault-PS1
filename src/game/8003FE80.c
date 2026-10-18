@@ -1,37 +1,116 @@
-asm(".text\n\t.globl func_8003FE80\nfunc_8003FE80:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0xAFBF0028\n\t"
-    ".word 0xAFB30024,0xAFB1001C,0xAFB00018,0x8E420218\n\t"
-    ".word 0x00000000,0x30420800,0x10400004,0x34028000\n\t"
-    ".word 0x9653002C,0x0800FFB2,0x00000000,0x9643002C\n\t"
-    ".word 0x00000000,0x00629821,0x8E440040,0x8E46003C\n\t"
-    ".word 0x14800002,0x3C028000,0x24040002,0x00C21824\n\t"
-    ".word 0x00821024,0x00624826,0x04C10002,0x00C01821\n\t"
-    ".word 0x00031823,0x04810002,0x00803821,0x00073823\n\t"
-    ".word 0x4883F000,0x00000000,0x00000000,0x27A20010\n\t"
-    ".word 0xE85F0000,0x8FA40010,0x00000000,0x2488FFF4\n\t"
-    ".word 0x05010023,0x00000000,0x00831804,0x4887F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20014,0xE85F0000\n\t"
-    ".word 0x8FA60014,0x00000000,0x00C42023,0x0480000F\n\t"
-    ".word 0x2402000C,0x00461023,0x04400003,0x00000000\n\t"
-    ".word 0x0800FFDC,0x00471007,0x00021023,0x00471004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0800FFF2,0x00831804,0x00081023\n\t"
-    ".word 0x00471007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0800FFF4,0x00601021\n\t"
-    ".word 0x00031B00,0x0067001B,0x14E00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00000000,0x00601021\n\t"
-    ".word 0x11200002,0x00000000,0x00021023,0x00A20018\n\t"
-    ".word 0x00008012,0x00005010,0x00108302,0x000A5500\n\t"
-    ".word 0x020A8025,0x0C021B21,0x00000000,0x00021402\n\t"
-    ".word 0x00022040,0x00822021,0x00042080,0x00822021\n\t"
-    ".word 0x00041980,0x00641823,0x00031880,0x00621821\n\t"
-    ".word 0x00031C02,0x24630666,0x00700018,0x00008812\n\t"
-    ".word 0x00001010,0x00118B02,0x00021500,0x02228825\n\t"
-    ".word 0x3270FFFF,0x00108102,0x0C022B30,0x02002021\n\t"
-    ".word 0x00510018,0x00001812,0x00005010,0x00031B02\n\t"
-    ".word 0x000A5500,0x006A1825,0x8E420220,0x02002021\n\t"
-    ".word 0x00431021,0x0C022B58,0xAE420220,0x00510018\n\t"
-    ".word 0x00001812,0x00005010,0x00031B02,0x000A5500\n\t"
-    ".word 0x006A1825,0x8E420228,0x00000000,0x00431023\n\t"
-    ".word 0xAE420228,0x8FBF0028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct {
+    char pad0[0x2C];
+    unsigned short heading;
+    char pad1[0x3C - 0x2E];
+    int num;
+    int den;
+    char pad2[0x218 - 0x44];
+    unsigned int status;
+    char pad3[4];
+    int vx;
+    char pad4[4];
+    int vz;
+} Tank;
+extern unsigned int func_80086C84(void);
+extern int func_8008ACC0(int);
+extern int func_8008AD60(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+void func_8003FE80(Tank *t, int force)
+{
+    unsigned short heading;
+    int den;
+    int num;
+    int push;
+    int amount;
+    int angle;
+
+    if (t->status & 0x800) {
+        heading = t->heading;
+    } else {
+        heading = t->heading + 0x8000;
+    }
+    den = t->den;
+    num = t->num;
+    if (den == 0) {
+        den = 2;
+    }
+    push = fixed_mul(force, fixed_div(num, den));
+    amount = fixed_mul(((func_80086C84() >> 16) * 3277 >> 16) + 1638, push);
+    angle = heading >> 4;
+    t->vx += fixed_mul(func_8008ACC0(angle), amount);
+    t->vz -= fixed_mul(func_8008AD60(angle), amount);
+}

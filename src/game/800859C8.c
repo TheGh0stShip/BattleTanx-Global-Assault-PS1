@@ -1,27 +1,65 @@
-asm(".text\n\t.globl func_800859C8\nfunc_800859C8:\n\t"
-    ".word 0x27BDFFD0,0xAFB40020,0x0080A021,0x00A04021\n\t"
-    ".word 0xAFB60028,0x00E0B021,0x00004821,0xAFBF002C\n\t"
-    ".word 0xAFB50024,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x8D110000,0x8FB50044,0x12200002\n\t"
-    ".word 0x01201821,0x8E230004,0x00000000,0x30620001\n\t"
-    ".word 0x10400048,0x00008021,0x2407FFFE,0x00672824\n\t"
-    ".word 0x24C3000C,0x8E820000,0x01039021,0x0242102B\n\t"
-    ".word 0x10400008,0x02002021,0x8E430004,0x00000000\n\t"
-    ".word 0x30620001,0x10400004,0x24C2000C,0x00678024\n\t"
-    ".word 0x2604000C,0x24C2000C,0x00A21021,0x00449821\n\t"
-    ".word 0x0275102B,0x14400033,0x02802021,0x02202821\n\t"
-    ".word 0x01003021,0x0C0214F7,0x24070001,0x1200000D\n\t"
-    ".word 0x00000000,0x0C0214AF,0x02002021,0x02802021\n\t"
-    ".word 0x02402821,0x02003021,0x0C0214CB,0x00403821\n\t"
-    ".word 0x02802021,0x02202821,0x02403021,0x0C0214F7\n\t"
-    ".word 0x24070001,0x0C0214AF,0x02602021,0x02802021\n\t"
-    ".word 0x02202821,0x02603021,0x0C0214CB,0x00403821\n\t"
-    ".word 0x2632000C,0x02402021,0xAE330004,0x8FA60040\n\t"
-    ".word 0x0C0229EF,0x02C02821,0x02758023,0x2E020010\n\t"
-    ".word 0x14400010,0x02404821,0x02802021,0x02202821\n\t"
-    ".word 0x02A03021,0x2610FFF4,0x0C0214E5,0x36070001\n\t"
-    ".word 0x02002021,0x0C0214AF,0x00408821,0x02802021\n\t"
-    ".word 0x02202821,0x02003021,0x0C0214C0,0x00403821\n\t"
-    ".word 0x02404821,0x8FBF002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x01201021,0x03E00008,0x27BD0030\n");
+typedef struct Block {
+    struct Block *owner;
+    unsigned int size;
+    int pad8;
+} Block;
+
+typedef struct Heap {
+    char *end;
+} Heap;
+
+extern void func_800853DC(Heap *, Block *, void *, int);
+extern int func_800852BC(unsigned int);
+extern void func_8008532C(Heap *, Block *, unsigned int, int);
+extern void *func_8008A7BC(void *, void *, int);
+extern Block *func_80085394(Heap *, Block *, unsigned int, unsigned int);
+extern void func_80085300(Heap *, Block *, unsigned int, int);
+
+void *func_800859C8(Heap *heap, Block *slot, unsigned int slot_size, void *src, int src_len, unsigned int need) {
+    void *result = 0;
+    Block *blk = slot->owner;
+    unsigned int flags;
+    unsigned int size;
+    unsigned int next_size;
+    unsigned int next_total;
+    unsigned int total;
+    unsigned int rest;
+    Block *next;
+    char *dst;
+
+    flags = 0;
+    if (blk != 0) {
+        flags = blk->size;
+    }
+    if (flags & 1) {
+        size = flags & ~1;
+        next = (Block *)((char *)slot + (slot_size + 12));
+        next_size = 0;
+        next_total = 0;
+        if ((char *)next < heap->end && (next->size & 1)) {
+            next_size = next->size & ~1;
+            next_total = next_size + 12;
+        }
+        total = size + 12 + slot_size + next_total;
+        if (total >= need) {
+            func_800853DC(heap, blk, slot, 1);
+            if (next_size != 0) {
+                func_8008532C(heap, next, next_size, func_800852BC(next_size));
+                func_800853DC(heap, blk, next, 1);
+            }
+            func_8008532C(heap, blk, total, func_800852BC(total));
+            dst = (char *)blk + 12;
+            blk->size = total;
+            func_8008A7BC(dst, src, src_len);
+            rest = total - need;
+            if (rest >= 16) {
+                Block *split = func_80085394(heap, blk, need, (rest - 12) | 1);
+
+                rest -= 12;
+                func_80085300(heap, split, rest, func_800852BC(rest));
+            }
+            result = dst;
+        }
+    }
+    return result;
+}

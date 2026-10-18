@@ -1,18 +1,41 @@
-asm(".text\n\t.globl func_8003E0E4\nfunc_8003E0E4:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x8c8c0000,0x8c8d0004\n\t"
-    ".word 0x48cc0000,0x48cd0800,0x8c8c0008,0x8c8d000c\n\t"
-    ".word 0x8c8e0010,0x48cc1000,0x48cd1800,0x48ce2000\n\t"
-    ".word 0x94ac0000,0x94ad0006,0x94ae000c,0x488c4800\n\t"
-    ".word 0x488d5000,0x488e5800,0x00000000,0x00000000\n\t"
-    ".word 0x4a49e012,0x480c4800,0x480d5000,0x480e5800\n\t"
-    ".word 0xa4cc0000,0xa4cd0006,0xa4ce000c,0x24a20002\n\t"
-    ".word 0x944c0000,0x944d0006,0x944e000c,0x488c4800\n\t"
-    ".word 0x488d5000,0x488e5800,0x00000000,0x00000000\n\t"
-    ".word 0x4a49e012,0x24c20002,0x480c4800,0x480d5000\n\t"
-    ".word 0x480e5800,0xa44c0000,0xa44d0006,0xa44e000c\n\t"
-    ".word 0x24a20004,0x944c0000,0x944d0006,0x944e000c\n\t"
-    ".word 0x488c4800,0x488d5000,0x488e5800,0x00000000\n\t"
-    ".word 0x00000000,0x4a49e012,0x24c20004,0x480c4800\n\t"
-    ".word 0x480d5000,0x480e5800,0xa44c0000,0xa44d0006\n\t"
-    ".word 0xa44e000c,0x24a40014,0x0c0236aa,0x24c50014\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct { short m[3][3]; short pad; int t[3]; } Matrix;
+extern void func_8008DAA8(int *, int *);
+
+static inline void gte_SetRotMatrix(Matrix *r)
+{
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     : : "r"(r) : "$12", "$13", "$14");
+}
+
+static inline void gte_ldclmv(short *v)
+{
+    __asm__ volatile("lhu $12, 0(%0)\n\tlhu $13, 6(%0)\n\tlhu $14, 12(%0)\n\tmtc2 $12, $9\n\tmtc2 $13, $10\n\tmtc2 $14, $11"
+                     : : "r"(v) : "$12", "$13", "$14");
+}
+
+static inline void gte_rtir(void)
+{
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x049E012");
+}
+
+static inline void gte_stclmv(short *v)
+{
+    __asm__ volatile("mfc2 $12, $9\n\tmfc2 $13, $10\n\tmfc2 $14, $11\n\tsh $12, 0(%0)\n\tsh $13, 6(%0)\n\tsh $14, 12(%0)"
+                     : : "r"(v) : "$12", "$13", "$14", "memory");
+}
+
+void func_8003E0E4(Matrix *rot, Matrix *in, Matrix *out)
+{
+    gte_SetRotMatrix(rot);
+    gte_ldclmv(&in->m[0][0]);
+    gte_rtir();
+    gte_stclmv(&out->m[0][0]);
+    gte_ldclmv(&in->m[0][1]);
+    gte_rtir();
+    gte_stclmv(&out->m[0][1]);
+    gte_ldclmv(&in->m[0][2]);
+    gte_rtir();
+    gte_stclmv(&out->m[0][2]);
+    func_8008DAA8(in->t, out->t);
+}

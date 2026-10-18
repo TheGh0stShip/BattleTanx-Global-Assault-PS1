@@ -1,16 +1,36 @@
-asm(".text\n\t.globl func_80034670\nfunc_80034670:\n\t"
-    ".word 0x00803021,0x3c02800d,0x8c422fe0,0x8cc3001c\n\t"
-    ".word 0x00000000,0x00431023,0x28420033,0x14400003\n\t"
-    ".word 0x24020001,0x03e00008,0xaca20000,0x8cc20008\n\t"
-    ".word 0x00000000,0x8c420000,0x00000000,0x84430000\n\t"
-    ".word 0x8cc2000c,0x00000000,0x1462fff6,0x24020001\n\t"
-    ".word 0x3c03800e,0x94c20016,0x8c63e30c,0x00000000\n\t"
-    ".word 0x00430018,0x00002012,0x00003810,0x00042302\n\t"
-    ".word 0x00073d00,0x00872025,0x94c20010,0x00000000\n\t"
-    ".word 0x00441021,0xa4c20010,0x94c20018,0x00000000\n\t"
-    ".word 0x00430018,0x00002012,0x00004010,0x00042302\n\t"
-    ".word 0x00084500,0x00882025,0x94c20012,0x00000000\n\t"
-    ".word 0x00441021,0xa4c20012,0x94c2001a,0x00000000\n\t"
-    ".word 0x00430018,0x00003812,0x00004010,0x00073b02\n\t"
-    ".word 0x00084500,0x00e83825,0x94c20014,0x00e01821\n\t"
-    ".word 0x00431021,0x03e00008,0xa4c20014\n\t");
+typedef struct { short id; } Header;
+typedef struct { Header *header; } Owner;
+typedef struct {
+    int pad[2];
+    Owner *owner;
+    int id;
+    unsigned short rx, ry, rz;
+    unsigned short vx, vy, vz;
+    int start_time;
+} Spinner;
+extern int D_800D2FE0;
+extern int D_800DE30C;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80034670(Spinner *s, int *done) {
+    if (D_800D2FE0 - s->start_time > 50) {
+        *done = 1;
+        return;
+    }
+    if (s->owner->header->id != s->id) {
+        *done = 1;
+        return;
+    }
+    s->rx += fixed_mul(s->vx, D_800DE30C);
+    s->ry += fixed_mul(s->vy, D_800DE30C);
+    s->rz += fixed_mul(s->vz, D_800DE30C);
+}

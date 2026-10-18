@@ -1,12 +1,24 @@
-asm(".text\n\t.globl func_8003A91C\nfunc_8003A91C:\n\t"
-    ".word 0x27bdffe0,0xafbf001c,0xafb20018,0xafb10014\n\t"
-    ".word 0x0c01fdf6,0xafb00010,0x00408021,0x02002021\n\t"
-    ".word 0x3c1100ff,0x3c02800a,0x8c4248b0,0x3631ffff\n\t"
-    ".word 0x000228c0,0x00a22821,0x00052880,0x00a22821\n\t"
-    ".word 0x000528c0,0x3c02800e,0x2442db9c,0x00a22821\n\t"
-    ".word 0x0c020110,0x24a500cc,0x0c00ea7d,0x3c12ff00\n\t"
-    ".word 0x8e030000,0x8c420000,0x00721824,0x00511024\n\t"
-    ".word 0x00621825,0x0c00ea7d,0xae030000,0x26040040\n\t"
-    ".word 0x8c430000,0x02118024,0x00721824,0x00701825\n\t"
-    ".word 0x0c01fdfa,0xac430000,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct { unsigned addr : 24; unsigned len : 8; } Tag;
+typedef struct { char pad[0xCC]; int ot; char pad2[0x128 - 0xD0]; } Buf;
+extern Buf D_800DDB9C[];
+extern int D_800A48B0;
+extern Tag *func_8007F7D8(void);
+extern void func_80080440(Tag *, int *);
+extern Tag *func_8003A9F4(void);
+extern void func_8007F7E8(Tag *);
+
+static inline Buf *current_buf(void)
+{
+    return &D_800DDB9C[D_800A48B0];
+}
+
+void func_8003A91C(void)
+{
+    Tag *p;
+
+    p = func_8007F7D8();
+    func_80080440(p, &current_buf()->ot);
+    p->addr = func_8003A9F4()->addr;
+    func_8003A9F4()->addr = (unsigned int)p;
+    func_8007F7E8(p + 16);
+}

@@ -1,40 +1,121 @@
-asm(".text\n\t.globl func_8006A388\nfunc_8006A388:\n\t"
-    ".word 0x27BDFFA0,0xAFB00048,0x00808021,0x3C02800E\n\t"
-    ".word 0xAFB30054,0x24533E68,0xAFBF0058,0xAFB20050\n\t"
-    ".word 0x0C024061,0xAFB1004C,0x2403000A,0x14430088\n\t"
-    ".word 0x00001021,0x00003021,0x27A40038,0x00861821\n\t"
-    ".word 0x02061021,0x90420000,0x24C60001,0xA0620000\n\t"
-    ".word 0x28C2000A,0x1440FFFA,0x00861821,0x00003021\n\t"
-    ".word 0x93A70039,0x93A5003D,0x93A40040,0x93A3003F\n\t"
-    ".word 0x27A90038,0xA3A7003D,0x93A7003B,0x3C02800B\n\t"
-    ".word 0xA3A70040,0x93A7003C,0x2448DD4C,0xA3A50039\n\t"
-    ".word 0xA3A4003B,0xA3A3003C,0xA3A7003F,0x00001821\n\t"
-    ".word 0x01261021,0x90440000,0x00681021,0x90420000\n\t"
-    ".word 0x00000000,0x10440006,0x00061080,0x24630001\n\t"
-    ".word 0x28620015,0x1440FFF9,0x00681021,0x00061080\n\t"
-    ".word 0x03A21021,0xAC430010,0x28620015,0x1040005B\n\t"
-    ".word 0x24C60001,0x28C2000A,0x1440FFED,0x00001821\n\t"
-    ".word 0x8FA20014,0x8FA40010,0x00021880,0x00621821\n\t"
-    ".word 0x00031880,0x00621821,0x00641821,0x30650003\n\t"
-    ".word 0x00039083,0x10A0004E,0x00001021,0x2642FFFE\n\t"
-    ".word 0x2C420037,0x10400049,0x00008821,0x24060004\n\t"
-    ".word 0x27A40020,0x8C820000,0x24C6FFFF,0x00111880\n\t"
-    ".word 0x00711821,0x00031880,0x00711821,0x00628821\n\t"
-    ".word 0x28C20002,0x1040FFF7,0x2484FFFC,0x2A221B59\n\t"
-    ".word 0x1040003A,0x3C026666,0x34426667,0x02220018\n\t"
-    ".word 0x001117C3,0x00005010,0x000A1843,0x00621823\n\t"
-    ".word 0x00031080,0x00431021,0x16220031,0x00001021\n\t"
-    ".word 0x00008021,0x24060009,0x27A40034,0x8C820000\n\t"
-    ".word 0x24C6FFFF,0x00101880,0x00701821,0x00031880\n\t"
-    ".word 0x00701821,0x00628021,0x28C20005,0x1040FFF7\n\t"
-    ".word 0x2484FFFC,0x3C02003E,0x34424180,0x0050102A\n\t"
-    ".word 0x1440001F,0x00001021,0x3C02800A,0x8C4468A4\n\t"
-    ".word 0x3C02800A,0xAC456074,0x0C0184A3,0x248400E0\n\t"
-    ".word 0x24020001,0x3C05800B,0x3C04800E,0xACB2DD3C\n\t"
-    ".word 0x24A5DD3C,0xAC9253FC,0x248453FC,0x3C06800A\n\t"
-    ".word 0xACB00008,0xACB0000C,0xAC900008,0xAC90000C\n\t"
-    ".word 0x8E67000C,0x00401821,0xACC36070,0xACF00018\n\t"
-    ".word 0x8E66000C,0x3C03800B,0xA060BA5B,0xACB10004\n\t"
-    ".word 0xAC910004,0x0801A976,0xACD1000C,0x00001021\n\t"
-    ".word 0x8FBF0058,0x8FB30054,0x8FB20050,0x8FB1004C\n\t"
-    ".word 0x8FB00048,0x03E00008,0x27BD0060\n");
+typedef struct {
+    int index;
+    int timer;
+    int c;
+    int d;
+} Timer;
+
+typedef struct {
+    char pad[0xC];
+    int score;
+    char pad10[8];
+    int bonus;
+} Hud;
+
+typedef struct {
+    char pad[0xC];
+    Hud *hud;
+} Globals;
+
+extern Globals D_800E3E68;
+extern Timer D_800ADD3C;
+extern Timer D_800E53FC;
+extern int D_800A6074;
+extern int D_800A6070;
+extern int D_800A68A4;
+extern unsigned char D_800ABA5B;
+extern char D_800ADD4C[];
+extern int func_80090184(char *s);
+extern void func_8006128C(int arg);
+
+static inline void scramble(char *s) {
+    char swap;
+
+    swap = s[1];
+    s[1] = s[5];
+    s[5] = swap;
+    swap = s[3];
+    s[3] = s[8];
+    s[8] = swap;
+    swap = s[4];
+    s[4] = s[7];
+    s[7] = swap;
+}
+
+static inline int digit_value(char c) {
+    int j;
+
+    for (j = 0; j < 21; j++) {
+        if (D_800ADD4C[j] == c) {
+            break;
+        }
+    }
+    return j;
+}
+
+int func_8006A388(char *code) {
+    int digits[10];
+    char buf[10];
+    int i;
+    int head;
+    int mode;
+    int level;
+    int score;
+    int bonus;
+    Globals *g = &D_800E3E68;
+
+    if (func_80090184(code) != 10) {
+        return 0;
+    }
+    for (i = 0; i < 10; i++) {
+        buf[i] = code[i];
+    }
+    scramble(buf);
+    for (i = 0; i < 10; i++) {
+        digits[i] = digit_value(buf[i]);
+        if (digits[i] >= 21) {
+            return 0;
+        }
+    }
+    head = digits[1] * 21 + digits[0];
+    mode = head & 3;
+    level = head >> 2;
+    if (mode == 0) {
+        return 0;
+    }
+    if ((unsigned int)(level - 2) >= 55) {
+        return 0;
+    }
+    score = 0;
+    for (i = 4; i >= 2; i--) {
+        score = score * 21 + digits[i];
+    }
+    if (score > 7000) {
+        return 0;
+    }
+    if (score % 5 != 0) {
+        return 0;
+    }
+    bonus = 0;
+    for (i = 9; i >= 5; i--) {
+        bonus = bonus * 21 + digits[i];
+    }
+    if (bonus > 4080000) {
+        return 0;
+    }
+    D_800A6074 = mode;
+    func_8006128C(D_800A68A4 + 0xE0);
+    D_800ADD3C.index = level;
+    D_800E53FC.index = level;
+    D_800ADD3C.c = bonus;
+    D_800ADD3C.d = bonus;
+    D_800E53FC.c = bonus;
+    D_800E53FC.d = bonus;
+    D_800A6070 = 1;
+    g->hud->bonus = bonus;
+    D_800ABA5B = 0;
+    D_800ADD3C.timer = score;
+    D_800E53FC.timer = score;
+    g->hud->score = score;
+    return 1;
+}

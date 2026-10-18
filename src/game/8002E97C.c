@@ -1,17 +1,28 @@
-asm(".text\n\t.globl func_8002E97C\nfunc_8002E97C:\n\t"
-    ".word 0x27bdfeb0,0xafb30144,0x00809821,0xafbf014c\n\t"
-    ".word 0xafb40148,0xafb20140,0xafb1013c,0xafb00138\n\t"
-    ".word 0x96640038,0x3402ffff,0x1082002a,0x3c050010\n\t"
-    ".word 0x27a60018,0x24070002,0x00008021,0x3c02800c\n\t"
-    ".word 0xa440628c,0x0c005eab,0xafa00010,0x3052ffff\n\t"
-    ".word 0x12400020,0x3c02800d,0x245432f4,0x02008821\n\t"
-    ".word 0x27a20018,0x00512021,0x8c820000,0x00000000\n\t"
-    ".word 0x10400014,0x00000000,0x84430004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00543821\n\t"
-    ".word 0x8ce20004,0x00000000,0x1040000a,0x2402ffff\n\t"
-    ".word 0x10620008,0x02602821,0x00003021,0xafa00010\n\t"
-    ".word 0x8c840000,0x8ce20004,0x00000000,0x0040f809\n\t"
-    ".word 0x00c03821,0x26100001,0x0212102a,0x1440ffe4\n\t"
-    ".word 0x26310024,0x8fbf014c,0x8fb40148,0x8fb30144\n\t"
-    ".word 0x8fb20140,0x8fb1013c,0x8fb00138,0x03e00008\n\t"
-    ".word 0x27bd0150\n\t");
+typedef struct { int pad; short type; } Entity;
+typedef struct { Entity *obj; int pad[8]; } Hit;
+typedef void (*Handler)(Entity *, void *, int, int, int);
+typedef struct { int pad; Handler handler; int pad2; } TypeInfo;
+typedef struct { char pad[56]; unsigned short cell; } Obj;
+extern short D_800C628C;
+extern TypeInfo D_800D32F4[];
+int func_80017AAC(int, int, Hit *, int, int);
+
+void func_8002E97C(Obj *o) {
+    Hit hits[8];
+    int i;
+    int n;
+    Entity *e;
+
+    int cell = o->cell;
+
+    if (cell != 0xFFFF) {
+        D_800C628C = 0;
+        n = func_80017AAC(cell, 0x100000, hits, 2, 0) & 0xFFFF;
+        for (i = 0; i < n; i++) {
+            e = hits[i].obj;
+            if (e != 0 && D_800D32F4[e->type].handler != 0 && e->type != -1) {
+                D_800D32F4[e->type].handler(hits[i].obj, o, 0, 0, 0);
+            }
+        }
+    }
+}

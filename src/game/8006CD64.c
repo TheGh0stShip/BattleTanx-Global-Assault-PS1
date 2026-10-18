@@ -1,26 +1,63 @@
-asm(".text\n\t.globl func_8006CD64\nfunc_8006CD64:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0xAFB00010,0x00A08021\n\t"
-    ".word 0xAFBF0018,0x88C70003,0x98C70000,0x88C80007\n\t"
-    ".word 0x98C80004,0xAA07000F,0xBA07000C,0xAA080013\n\t"
-    ".word 0xBA080010,0x0C021B21,0x00808821,0x8623002C\n\t"
-    ".word 0x00021402,0x00031840,0x24630001,0x00430018\n\t"
-    ".word 0x9623002C,0x00005812,0x000B1403,0x00431023\n\t"
-    ".word 0x3042FFFF,0x00021202,0x0C021B21,0xA6020016\n\t"
-    ".word 0x8623002E,0x00021402,0x00031840,0x24630001\n\t"
-    ".word 0x00430018,0x9623002E,0x00005812,0x000B1403\n\t"
-    ".word 0x00431023,0x3042FFFF,0x00021202,0x0C021B21\n\t"
-    ".word 0xA6020018,0x86230030,0x00021402,0x00031840\n\t"
-    ".word 0x24630001,0x00430018,0x96230030,0x00005812\n\t"
-    ".word 0x000B1403,0x00431023,0x3042FFFF,0x00021202\n\t"
-    ".word 0x0C021B21,0xA602001A,0x00021402,0xA6020014\n\t"
-    ".word 0x24021000,0xAE020004,0x0C021B21,0xAE020008\n\t"
-    ".word 0x00021402,0x000218C0,0x00621821,0x00031C03\n\t"
-    ".word 0x8E22001C,0x24630018,0x00620018,0x00001012\n\t"
-    ".word 0x04410002,0x00000000,0x24420FFF,0x00021303\n\t"
-    ".word 0xA6020020,0x8E23001C,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00021023,0x04410002\n\t"
-    ".word 0x00000000,0x24420FFF,0x00021303,0xA6020022\n\t"
-    ".word 0x24020040,0xA2020024,0x24020020,0xA2020025\n\t"
-    ".word 0x24020080,0xA2020026,0x24020001,0xA202001F\n\t"
-    ".word 0x24020004,0xA2020027,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    short x, y, z, pad;
+} SVec;
+
+typedef struct {
+    int pad0;
+    int a;
+    int b;
+    SVec pos;
+    unsigned short angle;
+    short v16;
+    short v18;
+    short v1A;
+    short v1C;
+    signed char spin;
+    char active;
+    short speed;
+    short gravity;
+    unsigned char r, g, b2;
+    char kind;
+} Particle;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+typedef struct {
+    char pad[0x1C];
+    int scale;
+    char pad20[0xC];
+    short spread_x;
+    short spread_y;
+    short spread_z;
+} Emitter;
+
+extern unsigned int func_80086C84(void);
+
+static inline int rand_span(int lo, int span) {
+    return lo + ((int)(func_80086C84() >> 16) * span >> 16);
+}
+
+void func_8006CD64(Emitter *em, Particle *p, SVec *pos) {
+    p->pos = *pos;
+    p->v16 = (unsigned short)(((int)(func_80086C84() >> 16) * (em->spread_x * 2 + 1) >> 16) - em->spread_x) >> 8;
+    p->v18 = (unsigned short)(((int)(func_80086C84() >> 16) * (em->spread_y * 2 + 1) >> 16) - em->spread_y) >> 8;
+    p->v1A = (unsigned short)(((int)(func_80086C84() >> 16) * (em->spread_z * 2 + 1) >> 16) - em->spread_z) >> 8;
+    p->angle = func_80086C84() >> 16;
+    p->a = 4096;
+    p->b = 4096;
+    p->speed = (((int)(func_80086C84() >> 16) * 9 >> 16) + 24) * em->scale / 4096;
+    p->gravity = -(em->scale * 12) / 4096;
+    p->r = 64;
+    p->g = 32;
+    p->b2 = 128;
+    p->active = 1;
+    p->kind = 4;
+}

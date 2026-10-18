@@ -1,27 +1,61 @@
-asm(".text\n\t.globl func_80040480\nfunc_80040480:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFBF0024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0x8E140208,0x00000000,0x8E93000C,0x16800021\n\t"
-    ".word 0x00008821,0x3C04800A,0x8E02020C,0x8E03009C\n\t"
-    ".word 0x24844EF4,0xAE020210,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C420038,0x00000000,0xAE020300,0x00402821\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C420034,0x26040308\n\t"
-    ".word 0x0C01E8D1,0xAE020304,0x8E050304,0x0C01E8D1\n\t"
-    ".word 0x260403E8,0x0C01E877,0x02002021,0x08010180\n\t"
-    ".word 0x00000000,0x3C02800A,0x24524EF4,0x3C02800E\n\t"
-    ".word 0x2450E33C,0x8E020218,0x00000000,0x30420001\n\t"
-    ".word 0x10400027,0x00000000,0x8E020208,0x00000000\n\t"
-    ".word 0x10540007,0x00000000,0x12600021,0x00000000\n\t"
-    ".word 0x8C42000C,0x00000000,0x1453001D,0x00000000\n\t"
-    ".word 0x8E02020C,0x8E03009C,0xAE020210,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00521021,0x8C420038,0x00000000,0xAE020300\n\t"
-    ".word 0x00402821,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00521021,0x8C420034\n\t"
-    ".word 0x26040308,0x0C01E8D1,0xAE020304,0x8E050304\n\t"
-    ".word 0x0C01E8D1,0x260403E8,0x0C01E877,0x02002021\n\t"
-    ".word 0x26310001,0x2A220010,0x1440FFD2,0x26100598\n\t"
-    ".word 0x8FBF0024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct { char pad[0x34]; int ammo_a; int ammo_b; char pad2[0xD0 - 0x3C]; } Vehicle;
+typedef struct { char pad[0xC]; int team; } Owner;
+typedef struct {
+    char pad0[0x9C];
+    int type;
+    char pad1[0x208 - 0xA0];
+    Owner *owner;
+    int f20C;
+    int f210;
+    int f214;
+    unsigned int status;
+    char pad2[0x300 - 0x21C];
+    int ammo_a;
+    int ammo_b;
+    char counter_a[0x3E8 - 0x308];
+    char counter_b[0x598 - 0x3E8];
+} Tank;
+extern Vehicle D_800A4EF4[];
+extern Tank D_800DE33C[];
+extern void func_8007A344(void *, int);
+extern void func_8007A1DC(Tank *);
+
+static inline Vehicle *vehicle_info(int type)
+{
+    return &D_800A4EF4[type];
+}
+
+static inline void refill_tank(Tank *t)
+{
+    t->f210 = t->f20C;
+    t->ammo_a = vehicle_info(t->type)->ammo_b;
+    t->ammo_b = vehicle_info(t->type)->ammo_a;
+    func_8007A344(t->counter_a, t->ammo_a);
+    func_8007A344(t->counter_b, t->ammo_b);
+    func_8007A1DC(t);
+}
+
+void func_80040480(Tank *tank)
+{
+    Owner *owner;
+    int team;
+    Tank *t;
+    int i;
+
+    owner = tank->owner;
+    team = owner->team;
+    if (owner == 0) {
+        refill_tank(tank);
+        return;
+    }
+    for (i = 0; i < 16; i++) {
+        t = &D_800DE33C[i];
+        if (t->status & 1) {
+            if (t->owner == owner) {
+                refill_tank(t);
+            } else if (team != 0 && t->owner->team == team) {
+                refill_tank(t);
+            }
+        }
+    }
+}

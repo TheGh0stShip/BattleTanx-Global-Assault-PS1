@@ -1,23 +1,59 @@
-asm(".text\n\t.globl func_80030484\nfunc_80030484:\n\t"
-    ".word 0x27BDFFB8,0xAFB20038,0x00809021,0xAFB3003C\n\t"
-    ".word 0xAFB00030,0x3410FFFF,0xAFBF0040,0xAFB10034\n\t"
-    ".word 0x96420020,0x8E510008,0x10500004,0x00A09821\n\t"
-    ".word 0x0C006C25,0x00402021,0xA6500020,0x96240020\n\t"
-    ".word 0x8E500018,0x00042102,0x001017C2,0x02028021\n\t"
-    ".word 0x0C022B58,0x00108043,0x8E430010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E220008\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20020,0x96240020\n\t"
-    ".word 0x8E500018,0x00042102,0x001017C2,0x02028021\n\t"
-    ".word 0x0C022B30,0x00108043,0x8E430010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E22000C\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20028,0x8E220014\n\t"
-    ".word 0x00000000,0xAFA20024,0x8E420030,0x00000000\n\t"
-    ".word 0x10400009,0x27A50020,0x96260020,0xAFA00010\n\t"
-    ".word 0xAFA00014,0xAFA00018,0xAFA0001C,0x8E440030\n\t"
-    ".word 0x0C00D652,0x00003821,0x24040004,0x27A50020\n\t"
-    ".word 0x00003021,0x0C01BF6C,0x00C03821,0x16600002\n\t"
-    ".word 0x2402FF9C,0x2402FFFF,0xAE420034,0x8FBF0040\n\t"
-    ".word 0x8FB3003C,0x8FB20038,0x8FB10034,0x8FB00030\n\t"
-    ".word 0x03E00008,0x27BD0048\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; int x; int z; int pad2; int y; int pad3[2]; unsigned short angle; } Body;
+typedef struct {
+    int pad[2];
+    Body *body;
+    int pad2;
+    int offset;
+    int pad3;
+    int length;
+    int pad4;
+    unsigned short sound;
+    short pad5;
+    int pad6[3];
+    int model;
+    int state;
+} Arm;
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_8001B094(int);
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+void func_8006FDB0(int, Vector *, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int half_length(Arm *arm) {
+    return arm->length / 2;
+}
+
+void func_80030484(Arm *arm, int quiet) {
+    Body *body = arm->body;
+    Vector v;
+    int half;
+    int a;
+
+    if (arm->sound != 0xFFFF) {
+        func_8001B094(arm->sound);
+        arm->sound = 0xFFFF;
+    }
+    a = body->angle >> 4;
+    half = half_length(arm);
+    v.x = body->x + fixed_mul(func_8008AD60(a), arm->offset + half);
+    a = body->angle >> 4;
+    half = half_length(arm);
+    v.z = body->z + fixed_mul(func_8008ACC0(a), arm->offset + half);
+    v.y = body->y;
+    if (arm->model != 0) {
+        func_80035948(arm->model, &v, body->angle, 0, 0, 0, 0, 0);
+    }
+    func_8006FDB0(4, &v, 0, 0);
+    arm->state = quiet ? -100 : -1;
+}

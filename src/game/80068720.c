@@ -1,10 +1,30 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80068720\nfunc_80068720:\n\t"
-    "addiu $29,$29,-0x18\n\tlui $2,0x800E\n\tlw $2,0x53E8($2)\n\tsll $3,$6,5\n\t"
-    "addu $2,$2,$3\n\tlw $12,0($2)\n\tlw $13,4($2)\n\tctc2 $12,$0\n\tctc2 $13,$1\n\t"
-    "lw $12,8($2)\n\tlw $13,0xC($2)\n\tlw $14,0x10($2)\n\tctc2 $12,$2\n\t"
-    "ctc2 $13,$3\n\tctc2 $14,$4\n\taddiu $2,$2,0x14\n\tlw $12,0($2)\n\t"
-    "lw $13,4($2)\n\tlw $14,8($2)\n\tctc2 $12,$5\n\tctc2 $13,$6\n\tctc2 $14,$7\n\t"
-    "lh $2,0($4)\n\tnop\n\tsw $2,0($29)\n\tlh $2,2($4)\n\tnop\n\tsw $2,4($29)\n\t"
-    "lh $2,4($4)\n\tnop\n\tsw $2,8($29)\n\tlh $2,0($5)\n\tnop\n\tsw $2,0xC($29)\n\t"
-    "lh $2,2($5)\n\tnop\n\tsw $2,0x10($29)\n\tlh $2,4($5)\n\tnop\n\tsw $2,0x14($29)\n\t"
-    "addiu $2,$6,1\n\tjr $31\n\taddiu $29,$29,0x18");
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    short x, y, z;
+} SVec;
+
+extern Matrix *D_800E53E8;
+
+int func_80068720(SVec *a, SVec *b, int index) {
+    Matrix *m;
+    int v[6];
+
+    m = &D_800E53E8[index];
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     : : "r"(m) : "$12", "$13", "$14");
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tlw $14, 8(%0)\n\tctc2 $12, $5\n\tctc2 $13, $6\n\tctc2 $14, $7"
+                     : : "r"(m->t) : "$12", "$13", "$14");
+    v[0] = a->x;
+    v[1] = a->y;
+    v[2] = a->z;
+    v[3] = b->x;
+    v[4] = b->y;
+    v[5] = b->z;
+    return index + 1;
+}

@@ -1,17 +1,45 @@
-asm(".text\n\t.globl func_8005A54C\nfunc_8005A54C:\n\t"
-    ".word 0x00803021,0x8cc30004,0x00000000,0x90620000\n\t"
-    ".word 0x00000000,0x1040000b,0x00002821,0x90620001\n\t"
-    ".word 0x00000000,0x30420080,0x14400006,0x00602821\n\t"
-    ".word 0x24630020,0x90620000,0x00000000,0x1440fff7\n\t"
-    ".word 0x00002821,0x10a0002b,0x00000000,0x90a20020\n\t"
-    ".word 0x00000000,0x1040000b,0x24a30020,0x90620001\n\t"
-    ".word 0x00000000,0x30420010,0x14400007,0x00602021\n\t"
-    ".word 0x24630020,0x90620000,0x00000000,0x1440fff7\n\t"
-    ".word 0x00000000,0x00002021,0x14800012,0x00000000\n\t"
-    ".word 0x8cc40004,0x00000000,0x90820000,0x00000000\n\t"
-    ".word 0x1040000b,0x00000000,0x90820001,0x00000000\n\t"
-    ".word 0x30420010,0x14400007,0x00000000,0x24840020\n\t"
-    ".word 0x90820000,0x00000000,0x1440fff7,0x00000000\n\t"
-    ".word 0x00002021,0x90a20001,0x00000000,0x3042007f\n\t"
-    ".word 0xa0a20001,0x90820001,0x00000000,0x34420080\n\t"
-    ".word 0xa0820001,0x03e00008,0x00000000\n\t");
+typedef struct Item {
+    unsigned char valid;
+    unsigned char flags;
+    char pad2[6];
+    int value;
+    char padC[0x20 - 0xC];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+} Menu;
+
+static inline Item *find_selected(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x80) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_selectable(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x10) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+void func_8005A54C(Menu *menu) {
+    Item *cur;
+    Item *next;
+
+    cur = find_selected(menu->items);
+    if (cur == 0) {
+        return;
+    }
+    next = find_selectable(cur + 1);
+    if (next == 0) {
+        next = find_selectable(menu->items);
+    }
+    cur->flags &= 0x7F;
+    next->flags |= 0x80;
+}

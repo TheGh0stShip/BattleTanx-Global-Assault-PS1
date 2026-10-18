@@ -1,13 +1,41 @@
-asm(".text\n\t.globl func_80049EC8\nfunc_80049EC8:\n\t"
-    ".word 0x00805821,0x8fad0010,0x00004021,0x01004821\n\t"
-    ".word 0x240a0001,0x3c02800e,0x244ce33c,0x01451024\n\t"
-    ".word 0x1040001e,0x3124ffff,0x00041840,0x00641821\n\t"
-    ".word 0x00031100,0x00431023,0x00021080,0x00441023\n\t"
-    ".word 0x000210c0,0x004c1821,0x8c620218,0x00000000\n\t"
-    ".word 0x30420001,0x10400011,0x00000000,0x8c620208\n\t"
-    ".word 0x00000000,0x8c42000c,0x00000000,0x14460005\n\t"
-    ".word 0x00000000,0x10e00009,0x3102ffff,0x080127d6\n\t"
-    ".word 0x00021080,0x11a00005,0x3102ffff,0x00021080\n\t"
-    ".word 0x01621021,0xac430004,0x25080001,0x25290001\n\t"
-    ".word 0x3122ffff,0x2c420010,0x1440ffdc,0x000a5040\n\t"
-    ".word 0x3102ffff,0x03e00008,0xad620000\n\t");
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+typedef struct {
+    char pad0[0x208];
+    Owner *owner;
+    char pad20C[0x218 - 0x20C];
+    int status;
+    char pad21C[0x598 - 0x21C];
+} Tank;
+typedef struct {
+    int count;
+    Tank *tanks[16];
+} TankList;
+extern Tank D_800DE33C[];
+
+void func_80049EC8(TankList *list, int mask, int team, int friends, int enemies) {
+    unsigned short count = 0;
+    unsigned short i;
+    int bit;
+    Tank *tank;
+
+    for (i = 0, bit = 1; i < 16; i++, bit <<= 1) {
+        if (bit & mask) {
+            tank = &D_800DE33C[i];
+            if (tank->status & 1) {
+                if (tank->owner->team == team) {
+                    if (friends) {
+                        list->tanks[count] = tank;
+                        count++;
+                    }
+                } else if (enemies) {
+                    list->tanks[count] = tank;
+                    count++;
+                }
+            }
+        }
+    }
+    list->count = count;
+}

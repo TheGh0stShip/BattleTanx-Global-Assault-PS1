@@ -1,28 +1,60 @@
-asm(".text\n\t.globl func_8002E078\nfunc_8002E078:\n\t"
-    ".word 0x27BDFFC0,0xAFB50034,0x8FB50050,0xAFB60038\n\t"
-    ".word 0x0080B021,0xAFB20028,0x00A09021,0xAFB3002C\n\t"
-    ".word 0x00C09821,0xAFB40030,0x00E0A021,0xAFBF003C\n\t"
-    ".word 0xAFB10024,0x0C008AF5,0xAFB00020,0x00408821\n\t"
-    ".word 0x1220004E,0x24040028,0x0C008DF4,0x2405003C\n\t"
-    ".word 0x00408021,0x16000005,0x24020064,0x0C008E0B\n\t"
-    ".word 0x02202021,0x0800B87D,0x00000000,0x8EC80000\n\t"
-    ".word 0x8EC90004,0x8ECA0008,0xAE080008,0xAE09000C\n\t"
-    ".word 0xAE0A0010,0x8E480000,0x8E490004,0x8E4A0008\n\t"
-    ".word 0xAE080014,0xAE090018,0xAE0A001C,0xA613002C\n\t"
-    ".word 0xAE110024,0xA200002E,0xA200002F,0xAE020028\n\t"
-    ".word 0xA2140030,0xA2150031,0x8FA20054,0x00000000\n\t"
-    ".word 0xAE020034,0x8FA20058,0x00000000,0xAE020038\n\t"
-    ".word 0x8E480000,0x00000000,0x01004821,0x01090018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8E4A0004,0x00000000,0x01405821\n\t"
-    ".word 0x014B0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x8E480008,0x00000000\n\t"
-    ".word 0x01004821,0x01090018,0x00001812,0x00002810\n\t"
-    ".word 0x00031B02,0x00052D00,0x00651825,0x00822021\n\t"
-    ".word 0x0C022AFC,0x00832021,0x3C037FFF,0x3463FFFF\n\t"
-    ".word 0x02002021,0x2405000A,0xAC820020,0x24021000\n\t"
-    ".word 0x00003021,0x00C03821,0xAFA00010,0xAFA20014\n\t"
-    ".word 0xAFA20018,0x0C01B0CD,0xAFA3001C,0x8FBF003C\n\t"
-    ".word 0x8FB60038,0x8FB50034,0x8FB40030,0x8FB3002C\n\t"
-    ".word 0x8FB20028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct {
+    int pad[2];
+    Vector pos;
+    Vector dir;
+    int length;
+    int handle;
+    int life;
+    short kind;
+    unsigned char a;
+    unsigned char b;
+    unsigned char c;
+    unsigned char d;
+    short pad2;
+    int e;
+    int f;
+} Beam;
+int func_80022BD4(void);
+void func_8002382C(int);
+Beam *func_800237D0(int, int);
+int func_8008ABF0(int);
+void func_8006C334(Beam *, int, int, int, int, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8002E078(Vector *pos, Vector *dir, short kind, unsigned char c, unsigned char d, int e, int f) {
+    int handle;
+    Beam *beam;
+
+    handle = func_80022BD4();
+    if (handle == 0) {
+        return;
+    }
+    beam = func_800237D0(40, 60);
+    if (beam == 0) {
+        func_8002382C(handle);
+        return;
+    }
+    beam->pos = *pos;
+    beam->dir = *dir;
+    beam->kind = kind;
+    beam->handle = handle;
+    beam->a = 0;
+    beam->b = 0;
+    beam->life = 100;
+    beam->c = c;
+    beam->d = d;
+    beam->e = e;
+    beam->f = f;
+    beam->length = func_8008ABF0(fixed_mul(dir->x, dir->x) + fixed_mul(dir->y, dir->y) + fixed_mul(dir->z, dir->z));
+    func_8006C334(beam, 10, 0, 0, 0, 4096, 4096, 0x7FFFFFFF);
+}

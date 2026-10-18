@@ -1,36 +1,75 @@
-asm(".text\n\t.globl func_80088644\nfunc_80088644:\n\t"
-    ".word 0x27BDFFD8,0x00801821,0xAFB00010,0x00A08021\n\t"
-    ".word 0xAFB20018,0x00C09021,0xAFB3001C,0x00E09821\n\t"
-    ".word 0x3C02800F,0xAFB10014,0x2451E588,0x2624014C\n\t"
-    ".word 0x00602821,0x24060020,0xAFB40020,0x8FB40038\n\t"
-    ".word 0x24020053,0xAFBF0024,0xA22200EC,0x24020043\n\t"
-    ".word 0x0C0229EF,0xA22200ED,0x2624016C,0x02002821\n\t"
-    ".word 0x24060080,0x24020011,0x0C0229EF,0xA22200EE\n\t"
-    ".word 0x1240000D,0x24020012,0xA22200EE,0x262401EC\n\t"
-    ".word 0x02402821,0x0C0229EF,0x24060080,0x12600006\n\t"
-    ".word 0x24020013,0xA22200EE,0x2624026C,0x02602821\n\t"
-    ".word 0x0C0229EF,0x24060080,0x3C10800F,0x2610E588\n\t"
-    ".word 0x920400EE,0x0C021B8E,0x261100F0,0x02202021\n\t"
-    ".word 0x00002821,0x8FA3003C,0x24060040,0x00621821\n\t"
-    ".word 0x24631FFF,0x2402E000,0x00621824,0xAE0302EC\n\t"
-    ".word 0x00031B42,0x0C022A92,0xA20300EF,0x0C024061\n\t"
-    ".word 0x02802021,0x00403821,0x28E20020,0x14400002\n\t"
-    ".word 0x02202021,0x2407001F,0x18E00040,0x00003021\n\t"
-    ".word 0x3C02800B,0x244C0E40,0x3408821F,0x3C02800B\n\t"
-    ".word 0x244B0E64,0x3C02800B,0x244A0E74,0x3C02800B\n\t"
-    ".word 0x24490E84,0x02861021,0x90430000,0x00000000\n\t"
-    ".word 0x2462FFE0,0x2C420010,0x10400005,0x00002821\n\t"
-    ".word 0x2462FFE0,0x00021040,0x0802220A,0x004C1021\n\t"
-    ".word 0x2462FFD0,0x2C42000A,0x1440000B,0x2462FFC6\n\t"
-    ".word 0x2C420007,0x10400004,0x2462FFC6,0x00021040\n\t"
-    ".word 0x0802220A,0x004B1021,0x2462FFBF,0x2C42001A\n\t"
-    ".word 0x10400003,0x2462FFA5,0x0802220B,0x00682821\n\t"
-    ".word 0x2C420006,0x10400004,0x2462FFA5,0x00021040\n\t"
-    ".word 0x0802220A,0x004A1021,0x2462FF9F,0x2C42001A\n\t"
-    ".word 0x10400003,0x2462FF85,0x0802220B,0x24658220\n\t"
-    ".word 0x2C420004,0x10400004,0x2462FF85,0x00021040\n\t"
-    ".word 0x00491021,0x94450000,0x00000000,0x00051202\n\t"
-    ".word 0xA0820000,0x24840001,0xA0850000,0x24C60001\n\t"
-    ".word 0x00C7102A,0x1440FFCB,0x24840001,0x8FBF0024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct {
+    unsigned char pad0[0xEC];
+    char magic[2];
+    unsigned char type;
+    unsigned char blocks;
+    unsigned char title[64];
+    unsigned char pad130[0x1C];
+    unsigned char clut[32];
+    unsigned char icon[3][128];
+    int size;
+} CardHeader;
+
+extern CardHeader D_800EE588;
+extern unsigned short D_800B0E40[];
+extern unsigned short D_800B0E64[];
+extern unsigned short D_800B0E74[];
+extern unsigned short D_800B0E84[];
+
+extern void func_8008A7BC(void *, void *, int);
+extern void func_8008AA48(void *, int, int);
+extern int func_80086E38(int);
+extern int func_80090184(char *);
+
+void func_80088644(void *clut, void *icon1, void *icon2, void *icon3, unsigned char *title, int size)
+{
+    int i;
+    int n;
+    int total;
+    unsigned char *p;
+
+    D_800EE588.magic[0] = 'S';
+    D_800EE588.magic[1] = 'C';
+    func_8008A7BC(D_800EE588.clut, clut, 32);
+    D_800EE588.type = 0x11;
+    func_8008A7BC(D_800EE588.icon[0], icon1, 128);
+    if (icon2 != 0) {
+        D_800EE588.type = 0x12;
+        func_8008A7BC(D_800EE588.icon[1], icon2, 128);
+        if (icon3 != 0) {
+            D_800EE588.type = 0x13;
+            func_8008A7BC(D_800EE588.icon[2], icon3, 128);
+        }
+    }
+    total = (size + func_80086E38(D_800EE588.type) + 0x1FFF) & ~0x1FFF;
+    D_800EE588.size = total;
+    D_800EE588.blocks = (unsigned int)total >> 13;
+    func_8008AA48(D_800EE588.title, 0, 64);
+    n = func_80090184(title);
+    if (n >= 32) {
+        n = 31;
+    }
+    p = D_800EE588.title;
+    for (i = 0; i < n; i++) {
+        unsigned char c = title[i];
+        unsigned int code = 0;
+
+        if (c >= 0x20 && c < 0x30) {
+            code = D_800B0E40[c - 0x20];
+        } else if (c >= 0x30 && c < 0x3A) {
+            code = c + 0x821F;
+        } else if (c >= 0x3A && c < 0x41) {
+            code = D_800B0E64[c - 0x3A];
+        } else if (c >= 0x41 && c < 0x5B) {
+            code = c + 0x821F;
+        } else if (c >= 0x5B && c < 0x61) {
+            code = D_800B0E74[c - 0x5B];
+        } else if (c >= 0x61 && c < 0x7B) {
+            code = c - 0x7DE0;
+        } else if (c >= 0x7B && c < 0x7F) {
+            code = D_800B0E84[c - 0x7B];
+        }
+        *p++ = code >> 8;
+        *p++ = code;
+    }
+}

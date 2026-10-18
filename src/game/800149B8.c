@@ -1,65 +1,101 @@
-asm(".text\n\t.globl func_800149B8\nfunc_800149B8:\n\t"
-    ".word 0x00803821,0x24021000,0xA4E20024,0xA4E20026\n\t"
-    ".word 0xACE50048,0x94A20000,0x27BDFFE8,0x10C0001A\n\t"
-    ".word 0xA4E2004C,0x88C80003,0x98C80000,0x88C90007\n\t"
-    ".word 0x98C90004,0x88CA000B,0x98CA0008,0x88CB000F\n\t"
-    ".word 0x98CB000C,0xABA80003,0xBBA80000,0xABA90007\n\t"
-    ".word 0xBBA90004,0xABAA000B,0xBBAA0008,0xABAB000F\n\t"
-    ".word 0xBBAB000C,0x88C80013,0x98C80010,0x88C90017\n\t"
-    ".word 0x98C90014,0xABA80013,0xBBA80010,0xABA90017\n\t"
-    ".word 0x08005332,0xBBA90014,0x84A30004,0x24020004\n\t"
-    ".word 0x10620062,0x28620005,0x10400005,0x24020003\n\t"
-    ".word 0x10620026,0x3C02800C,0x08005319,0x00000000\n\t"
-    ".word 0x24020006,0x10620005,0x2402000C,0x1062003B\n\t"
-    ".word 0x3C02800C,0x08005319,0x00000000,0x3C02800B\n\t"
-    ".word 0x244BEE40,0x89680003,0x99680000,0x89690007\n\t"
-    ".word 0x99690004,0x896A000B,0x996A0008,0xABA80003\n\t"
-    ".word 0xBBA80000,0xABA90007,0xBBA90004,0xABAA000B\n\t"
-    ".word 0xBBAA0008,0x8968000F,0x9968000C,0x89690013\n\t"
-    ".word 0x99690010,0x896A0017,0x996A0014,0xABA8000F\n\t"
-    ".word 0xBBA8000C,0xABA90013,0xBBA90010,0xABAA0017\n\t"
-    ".word 0xBBAA0014,0x08005333,0x3C02800D,0x3C02800B\n\t"
-    ".word 0x244BEE28,0x89680003,0x99680000,0x89690007\n\t"
-    ".word 0x99690004,0x896A000B,0x996A0008,0xABA80003\n\t"
-    ".word 0xBBA80000,0xABA90007,0xBBA90004,0xABAA000B\n\t"
-    ".word 0xBBAA0008,0x8968000F,0x9968000C,0x89690013\n\t"
-    ".word 0x99690010,0x896A0017,0x996A0014,0xABA8000F\n\t"
-    ".word 0xBBA8000C,0xABA90013,0xBBA90010,0xABAA0017\n\t"
-    ".word 0xBBAA0014,0x08005333,0x3C02800D,0x3C02800B\n\t"
-    ".word 0x244BEE10,0x89680003,0x99680000,0x89690007\n\t"
-    ".word 0x99690004,0x896A000B,0x996A0008,0xABA80003\n\t"
-    ".word 0xBBA80000,0xABA90007,0xBBA90004,0xABAA000B\n\t"
-    ".word 0xBBAA0008,0x8968000F,0x9968000C,0x89690013\n\t"
-    ".word 0x99690010,0x896A0017,0x996A0014,0xABA8000F\n\t"
-    ".word 0xBBA8000C,0xABA90013,0xBBA90010,0xABAA0017\n\t"
-    ".word 0xBBAA0014,0x08005333,0x3C02800D,0x8CA20008\n\t"
-    ".word 0x00000000,0x10400020,0x3C03800B,0x8C42009C\n\t"
-    ".word 0x2463EDD4,0x00021080,0x00431021,0x8C420000\n\t"
-    ".word 0x00000000,0x88480003,0x98480000,0x88490007\n\t"
-    ".word 0x98490004,0x884A000B,0x984A0008,0x884B000F\n\t"
-    ".word 0x984B000C,0xABA80003,0xBBA80000,0xABA90007\n\t"
-    ".word 0xBBA90004,0xABAA000B,0xBBAA0008,0xABAB000F\n\t"
-    ".word 0xBBAB000C,0x88480013,0x98480010,0x88490017\n\t"
-    ".word 0x98490014,0xABA80013,0xBBA80010,0xABA90017\n\t"
-    ".word 0x08005332,0xBBA90014,0x3C02800C,0x244BD4E0\n\t"
-    ".word 0x89680003,0x99680000,0x89690007,0x99690004\n\t"
-    ".word 0x896A000B,0x996A0008,0xABA80003,0xBBA80000\n\t"
-    ".word 0xABA90007,0xBBA90004,0xABAA000B,0xBBAA0008\n\t"
-    ".word 0x8968000F,0x9968000C,0x89690013,0x99690010\n\t"
-    ".word 0x896A0017,0x996A0014,0xABA8000F,0xBBA8000C\n\t"
-    ".word 0xABA90013,0xBBA90010,0xABAA0017,0xBBAA0014\n\t"
-    ".word 0x3C02800D,0x90422FEC,0x00000000,0x2C420002\n\t"
-    ".word 0x1440000F,0x3C027482,0x8BA80009,0x9BA80006\n\t"
-    ".word 0x87A9000A,0xA8E80093,0xB8E80090,0xA4E90094\n\t"
-    ".word 0x8BA80015,0x9BA80012,0x87A90016,0xA8E80099\n\t"
-    ".word 0xB8E80096,0xA4E9009A,0x08005352,0x00000000\n\t"
-    ".word 0x8BA80003,0x9BA80000,0x87A90004,0xA8E80093\n\t"
-    ".word 0xB8E80090,0xA4E90094,0x8BA8000F,0x9BA8000C\n\t"
-    ".word 0x87A90010,0xA8E80099,0xB8E80096,0xA4E9009A\n\t"
-    ".word 0x84E40094,0x3442296B,0x00042400,0x00820018\n\t"
-    ".word 0x94E30092,0xA4E00014,0x00031880,0x94E20090\n\t"
-    ".word 0x000427C3,0xA4E30016,0x00021080,0xA4E20018\n\t"
-    ".word 0x00004010,0x00081383,0x00441023,0xA4E20000\n\t"
-    ".word 0x3C02800C,0x2443D4D8,0x9442D4D8,0x94640002\n\t"
-    ".word 0x94630004,0xA4E2001C,0x24E2001C,0xA4440002\n\t"
-    ".word 0xA4430004,0x03E00008,0x27BD0018\n");
+typedef struct SVec3 {
+    short x;
+    short y;
+    short z;
+} SVec3;
+typedef struct ViewPreset {
+    SVec3 single_a;
+    SVec3 split_a;
+    SVec3 single_b;
+    SVec3 split_b;
+} ViewPreset;
+typedef struct Vehicle {
+    char pad00[0x9C];
+    int type;
+} Vehicle;
+typedef struct ViewOwner {
+    unsigned short id;
+    char pad02[2];
+    short kind;
+    char pad06[2];
+    Vehicle *vehicle;
+} ViewOwner;
+typedef struct View {
+    short fov;
+    char pad02[0x14 - 2];
+    short rot_z;
+    short rot_y;
+    short rot_x;
+    char pad1A[2];
+    SVec3 color;
+    char pad22[2];
+    short scale_x;
+    short scale_y;
+    char pad28[0x48 - 0x28];
+    ViewOwner *owner;
+    unsigned short owner_id;
+    char pad4E[0x90 - 0x4E];
+    SVec3 angle;
+    SVec3 offset;
+} View;
+extern ViewPreset *D_800AEDD4[];
+extern ViewPreset D_800AEE10;
+extern ViewPreset D_800AEE28;
+extern ViewPreset D_800AEE40;
+extern ViewPreset D_800BD4E0;
+extern SVec3 D_800BD4D8;
+extern unsigned char D_800D2FEC;
+
+static inline void copy_svec(SVec3 *dst, SVec3 *src) {
+    short x = src->x;
+    short y = src->y;
+    short z = src->z;
+
+    dst->x = x;
+    dst->y = y;
+    dst->z = z;
+}
+
+void func_800149B8(View *view, ViewOwner *owner, ViewPreset *preset) {
+    ViewPreset p;
+
+    view->scale_x = 4096;
+    view->scale_y = 4096;
+    view->owner = owner;
+    view->owner_id = owner->id;
+    if (preset != 0) {
+        p = *preset;
+    } else {
+        switch (owner->kind) {
+        case 6:
+            p = D_800AEE40;
+            break;
+        case 3:
+            p = D_800AEE28;
+            break;
+        case 12:
+            p = D_800AEE10;
+            break;
+        case 4:
+            if (owner->vehicle != 0) {
+                p = *D_800AEDD4[owner->vehicle->type];
+                break;
+            }
+        default:
+            p = D_800BD4E0;
+            break;
+        }
+    }
+    if (D_800D2FEC >= 2) {
+        view->angle = p.split_a;
+        view->offset = p.split_b;
+    } else {
+        view->angle = p.single_a;
+        view->offset = p.single_b;
+    }
+    view->fov = (view->angle.z << 16) / 36000;
+    view->rot_z = 0;
+    view->rot_x = view->angle.x << 2;
+    view->rot_y = view->angle.y << 2;
+    copy_svec(&view->color, &D_800BD4D8);
+}

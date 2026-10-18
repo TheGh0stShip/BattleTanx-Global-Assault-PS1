@@ -1,32 +1,73 @@
-asm(".text\n\t.globl func_80064CF8\nfunc_80064CF8:\n\t"
-    ".word 0x3C02800D,0x90422FEC,0x27BDFFE0,0xAFB00010\n\t"
-    ".word 0x24100001,0xAFBF0018,0x14500027,0xAFB10014\n\t"
-    ".word 0x3C11800B,0x8E22D9E4,0x00000000,0x1440000B\n\t"
-    ".word 0x3C02800E,0x00002021,0x3C02800B,0x2442BD60\n\t"
-    ".word 0x24030004,0xA04300C0,0x24030007,0x0C01528C\n\t"
-    ".word 0xA0430120,0xAE30D9E4,0x3C02800E,0x8C445330\n\t"
-    ".word 0x3C028888,0x34428889,0x2483001E,0x00620019\n\t"
-    ".word 0x3C05800E,0x8CA25308,0x00003810,0x00071902\n\t"
-    ".word 0x00431021,0xACA25308,0x0044102B,0x14400053\n\t"
-    ".word 0x00001021,0x0C015353,0xACA45308,0x0C01528C\n\t"
-    ".word 0x2404000B,0x0C01528C,0x24040024,0x24020001\n\t"
-    ".word 0x080193B5,0xAE20D9E4,0x3C11800B,0x8E22D9E4\n\t"
-    ".word 0x00000000,0x1440000D,0x3C02800E,0x00002021\n\t"
-    ".word 0x3C02800B,0x2442C080,0x24050004,0x24030007\n\t"
-    ".word 0xA04500A0,0xA0430100,0xA0450180,0x0C01528C\n\t"
-    ".word 0xA04301E0,0xAE30D9E4,0x3C02800E,0x8C465330\n\t"
-    ".word 0x00000000,0x10C0000A,0x24C3001E,0x3C028888\n\t"
-    ".word 0x34428889,0x00620019,0x3C04800E,0x8C825308\n\t"
-    ".word 0x00003810,0x00071902,0x00431021,0xAC825308\n\t"
-    ".word 0x3C02800E,0x8C455334,0x00000000,0x10A0000A\n\t"
-    ".word 0x24A3001E,0x3C028888,0x34428889,0x00620019\n\t"
-    ".word 0x3C04800E,0x8C82530C,0x00003810,0x00071902\n\t"
-    ".word 0x00431021,0xAC82530C,0x00A6102B,0x10400004\n\t"
-    ".word 0x3C02800E,0x8C425308,0x080193A1,0x00C01821\n\t"
-    ".word 0x00A01821,0x3C02800E,0x8C42530C,0x00000000\n\t"
-    ".word 0x0043102A,0x14400011,0x00001021,0x3C02800E\n\t"
-    ".word 0x8C435330,0x3C02800E,0xAC435308,0x3C02800E\n\t"
-    ".word 0x8C435334,0x3C02800E,0x0C015353,0xAC43530C\n\t"
-    ".word 0x0C01528C,0x2404000B,0x0C01528C,0x24040024\n\t"
-    ".word 0x24020001,0x3C03800B,0xAC60D9E4,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Dialog {
+    char data[0x400];
+} Dialog;
+
+extern unsigned char D_800D2FEC;
+extern int D_800AD9E4;
+extern Dialog D_800ABD60;
+extern Dialog D_800AC080;
+extern unsigned int D_800E5330;
+extern unsigned int D_800E5334;
+extern int D_800E5308;
+extern int D_800E530C;
+extern void func_80054A30(int);
+extern void func_80054D4C(void);
+
+int func_80064CF8(void) {
+    unsigned int target0;
+    unsigned int target1;
+    int current;
+    int limit;
+
+    if (D_800D2FEC == 1) {
+        if (D_800AD9E4 == 0) {
+            D_800ABD60.data[0xC0] = 4;
+            D_800ABD60.data[0x120] = 7;
+            func_80054A30(0);
+            D_800AD9E4 = 1;
+        }
+        D_800E5308 += (D_800E5330 + 30) / 30;
+        if (D_800E5308 >= D_800E5330) {
+            D_800E5308 = D_800E5330;
+            func_80054D4C();
+            func_80054A30(11);
+            func_80054A30(36);
+            D_800AD9E4 = 0;
+            return 1;
+        }
+        return 0;
+    }
+    if (D_800AD9E4 == 0) {
+        D_800AC080.data[0xA0] = 4;
+        D_800AC080.data[0x100] = 7;
+        D_800AC080.data[0x180] = 4;
+        D_800AC080.data[0x1E0] = 7;
+        func_80054A30(0);
+        D_800AD9E4 = 1;
+    }
+    target0 = D_800E5330;
+    if (target0 != 0) {
+        D_800E5308 += (target0 + 30) / 30;
+    }
+    target1 = D_800E5334;
+    if (target1 != 0) {
+        D_800E530C += (target1 + 30) / 30;
+    }
+    if (target1 < target0) {
+        current = D_800E5308;
+        limit = target0;
+    } else {
+        limit = target1;
+        current = D_800E530C;
+    }
+    if (current < limit) {
+        return 0;
+    }
+    D_800E5308 = D_800E5330;
+    D_800E530C = D_800E5334;
+    func_80054D4C();
+    func_80054A30(11);
+    func_80054A30(36);
+    D_800AD9E4 = 0;
+    return 1;
+}

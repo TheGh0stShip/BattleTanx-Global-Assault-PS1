@@ -1,43 +1,81 @@
-asm(".text\n\t.globl func_8003159C\nfunc_8003159C:\n\t"
-    ".word 0x27BDFFB0,0xAFB3003C,0x00809821,0xAFB10034\n\t"
-    ".word 0x00A08821,0xAFB40040,0x00C0A021,0xAFB50044\n\t"
-    ".word 0x00E0A821,0xAFB60048,0x02A0B021,0x3C02800D\n\t"
-    ".word 0x8C432FE8,0x24020004,0xAFBF004C,0xAFB20038\n\t"
-    ".word 0x10620004,0xAFB00030,0x2402000A,0x14620087\n\t"
-    ".word 0x00000000,0x2404001E,0x0C008DF4,0x24050040\n\t"
-    ".word 0x00408021,0x12000081,0x00000000,0x96650002\n\t"
-    ".word 0x0C0098C0,0x02202021,0x02202021,0xAE02001C\n\t"
-    ".word 0x96650004,0x0C0098C0,0x00409021,0xAE020020\n\t"
-    ".word 0x96650008,0x0C0098C0,0x02202021,0xAE020024\n\t"
-    ".word 0x9665000A,0x0C0098C0,0x02202021,0xAE020028\n\t"
-    ".word 0x9665000C,0x0C0098C0,0x02202021,0xAE02002C\n\t"
-    ".word 0x9665000E,0x0C0098C0,0x02202021,0xAE020030\n\t"
-    ".word 0x8E8A0000,0x8E8B0004,0x8E8C0008,0xAE0A0008\n\t"
-    ".word 0xAE0B000C,0xAE0C0010,0xA6150014,0x92620001\n\t"
-    ".word 0x00000000,0xA2020016,0x8E820000,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x0800C5AE,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E830008,0x00000000,0x04600003,0x00022C03\n\t"
-    ".word 0x0800C5B8,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E830004,0x00000000\n\t"
-    ".word 0x04600003,0x00024C03,0x0800C5C2,0x00031B03\n\t"
-    ".word 0x00031023,0x00021303,0x00021823,0x00031B80\n\t"
-    ".word 0x8E420008,0x00031C03,0x94420006,0x8E860004\n\t"
-    ".word 0x00431021,0x00021400,0x04C00003,0x00024403\n\t"
-    ".word 0x0800C5D0,0x00063B03,0x00061023,0x00021303\n\t"
-    ".word 0x00023823,0x8E420008,0x00000000,0x84440004\n\t"
-    ".word 0x9443000E,0xAFA40010,0x8E420008,0x00000000\n\t"
-    ".word 0x8442000C,0x00000000,0xAFA20014,0x8E420008\n\t"
-    ".word 0x00000000,0x84420008,0x00000000,0xAFA20018\n\t"
-    ".word 0x8E420008,0x02002021,0x84460010,0x00071380\n\t"
-    ".word 0x00021403,0x00621821,0x00031C00,0x00031C03\n\t"
-    ".word 0x32C2FFFF,0xAFA20028,0x3C020004,0x00003821\n\t"
-    ".word 0xAFA80020,0xAFA30024,0xAFA2002C,0xAFA6001C\n\t"
-    ".word 0x0C0058BC,0x01203021,0xA6020006,0xAE000034\n\t"
-    ".word 0xAE00003C,0x92620006,0x24030064,0xA603001A\n\t"
-    ".word 0xA6030018,0x92030016,0x00021300,0xAE020038\n\t"
-    ".word 0x3C02800D,0x24425A98,0x00621821,0x90620000\n\t"
-    ".word 0x00000000,0x24420001,0xA0620000,0x8FBF004C\n\t"
-    ".word 0x8FB60048,0x8FB50044,0x8FB40040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0050\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { short pad[2]; short x0; unsigned short y0; short z0; short pad2; short x1; unsigned short y1; short z1; } Bounds;
+typedef struct { int pad[2]; Bounds *bounds; } Model;
+typedef struct {
+    unsigned char pad;
+    unsigned char team;
+    unsigned short body;
+    unsigned short part_a;
+    unsigned char speed;
+    unsigned char pad2;
+    unsigned short part_b;
+    unsigned short part_c;
+    unsigned short part_d;
+    unsigned short part_e;
+} Def;
+typedef struct {
+    short pad[3];
+    short handle;
+    Vector pos;
+    unsigned short id;
+    unsigned char team;
+    char pad1;
+    short w0;
+    short w1;
+    Model *body;
+    int part_a;
+    int part_b;
+    int part_c;
+    int part_d;
+    int part_e;
+    int z52;
+    int speed;
+    int z60;
+} Gate;
+extern unsigned int D_800D2FE8;
+extern unsigned char D_800D5A98[];
+Gate *func_800237D0(int, int);
+int func_80026300(void *, int);
+short func_800162F0(Gate *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline short quarter(int v) {
+    return (to_int(v) << 14) >> 16;
+}
+
+void func_8003159C(Def *def, void *ctx, Vector *pos, unsigned short id) {
+    Gate *g;
+    Model *body;
+    int speed;
+
+    if (D_800D2FE8 == 4 || D_800D2FE8 == 10) {
+        g = func_800237D0(30, 64);
+        if (g != 0) {
+            g->body = (Model *)func_80026300(ctx, def->body);
+            body = g->body;
+            g->part_a = func_80026300(ctx, def->part_a);
+            g->part_b = func_80026300(ctx, def->part_b);
+            g->part_c = func_80026300(ctx, def->part_c);
+            g->part_d = func_80026300(ctx, def->part_d);
+            g->part_e = func_80026300(ctx, def->part_e);
+            g->pos = *pos;
+            g->id = id;
+            g->team = def->team;
+            g->handle = func_800162F0(g, quarter(pos->x), quarter(pos->z), 0, body->bounds->x0, body->bounds->x1,
+                                      body->bounds->z0, body->bounds->z1, (short)(body->bounds->y0 + quarter(pos->y)),
+                                      (short)(body->bounds->y1 + quarter(pos->y)), id, 0x40000);
+            g->z52 = 0;
+            g->z60 = 0;
+            speed = def->speed;
+            g->w0 = g->w1 = 100;
+            g->speed = speed << 12;
+            D_800D5A98[g->team]++;
+        }
+    }
+}

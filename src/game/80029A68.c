@@ -1,9 +1,30 @@
-asm(".text\n\t.globl func_80029A68\nfunc_80029A68:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0x9083001d,0x2402007f\n\t"
-    ".word 0x14620003,0x00603021,0x0800a6aa,0x00001021\n\t"
-    ".word 0x00061100,0x00461021,0x00021080,0x00461021\n\t"
-    ".word 0x00021080,0x3c03800e,0x24633e68,0x00431021\n\t"
-    ".word 0x94870014,0xafa00010,0x904200a4,0x24850008\n\t"
-    ".word 0xafa20014,0x3c02800d,0x8c442f4c,0x0c01a525\n\t"
-    ".word 0x00003021,0x8fbf0018,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef struct {
+    char pad0[0xA4];
+    unsigned char team;
+    char pad1[0x114 - 0xA5];
+} Waypoint;
+
+typedef struct {
+    char pad0[8];
+    int pos[3];
+    unsigned short angle;
+    char pad16[0x1D - 0x16];
+    unsigned char owner;
+} Effect;
+
+extern Waypoint D_800E3E68[];
+extern int D_800D2F4C;
+extern void func_80069494(int, int *, int, int, int, int);
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80029A68(Effect *e) {
+    Waypoint *w = waypoint_get(e->owner);
+
+    func_80069494(D_800D2F4C, e->pos, 0, e->angle, 0, w->team);
+}

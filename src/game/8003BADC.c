@@ -1,11 +1,20 @@
-asm(".text\n\t.globl func_8003BADC\nfunc_8003BADC:\n\t"
-    ".word 0x00003021,0x00042023,0x3c02800e,0x8c47ddf0\n\t"
-    ".word 0x24a30100,0x94e50000,0x24020040,0x10a20006\n\t"
-    ".word 0x24840100,0x24020080,0x10a2000d,0x00031a43\n\t"
-    ".word 0x0800eed9,0x00000000,0x00031a43,0x24630080\n\t"
-    ".word 0x306300ff,0x00031a00,0x24630004,0x00e31821\n\t"
-    ".word 0x00041243,0x24420020,0x0800eed7,0x3042003f\n\t"
-    ".word 0x24630040,0x3063007f,0x00031a40,0x24630004\n\t"
-    ".word 0x00e31821,0x00041243,0x24420040,0x3042007f\n\t"
-    ".word 0x00021080,0x00623021,0x8cc20000,0x24038000\n\t"
-    ".word 0x00431024,0x03e00008,0xacc20000\n\t");
+typedef struct { unsigned short size; unsigned short pad; unsigned int cells[1]; } Grid;
+extern Grid *D_800DDDF0;
+
+void func_8003BADC(int x, int z) {
+    unsigned int *cell = 0;
+    Grid *g;
+
+    x = -x + 256;
+    z = z + 256;
+    g = D_800DDDF0;
+    switch (g->size) {
+    case 64:
+        cell = &((unsigned int (*)[64])g->cells)[((z >> 9) + 128) & 0xFF][((x >> 9) + 32) & 0x3F];
+        break;
+    case 128:
+        cell = &((unsigned int (*)[128])g->cells)[((z >> 9) + 64) & 0x7F][((x >> 9) + 64) & 0x7F];
+        break;
+    }
+    *cell &= 0xFFFF8000;
+}

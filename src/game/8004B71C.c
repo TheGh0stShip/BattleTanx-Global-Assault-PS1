@@ -1,24 +1,93 @@
-asm(".text\n\t.globl func_8004B71C\nfunc_8004B71C:\n\t"
-    ".word 0x27BDFFB0,0xAFB30044,0x00809821,0xAFB20040\n\t"
-    ".word 0x267200F8,0xAFBF0048,0xAFB1003C,0xAFB00038\n\t"
-    ".word 0x96500016,0x0C0129E5,0x02002021,0x00408821\n\t"
-    ".word 0x8E430018,0x24020001,0x10620008,0x00000000\n\t"
-    ".word 0x1060000C,0x24020002,0x1462000B,0x02602021\n\t"
-    ".word 0x9622000C,0x08012DDF,0x00000000,0x9622000E\n\t"
-    ".word 0x00000000,0x14400004,0x02602021,0x0C013016\n\t"
-    ".word 0x02002821,0x02602021,0x0C01303E,0x00002821\n\t"
-    ".word 0x3044FFFF,0xA642000A,0x14800003,0xA6420016\n\t"
-    ".word 0x08012E19,0xAE400018,0x0C0129E5,0x00000000\n\t"
-    ".word 0x00408821,0x9622000E,0x00000000,0x14400025\n\t"
-    ".word 0x24020001,0x9622000C,0x00000000,0x14400021\n\t"
-    ".word 0x24020002,0x0C021B21,0x00000000,0x00408021\n\t"
-    ".word 0x32030003,0x24020003,0x14620005,0x02202021\n\t"
-    ".word 0x00101082,0x38420001,0x08012E15,0x30420001\n\t"
-    ".word 0x27B00030,0x0C012A2C,0x02002821,0x02002021\n\t"
-    ".word 0x00002821,0x27B10020,0x27A60010,0x0C01251A\n\t"
-    ".word 0x02203821,0x26500030,0x02002021,0x0C012576\n\t"
-    ".word 0x27A50010,0x02002021,0x02202821,0x0C012576\n\t"
-    ".word 0x00408021,0x0202102A,0x14400002,0x24020002\n\t"
-    ".word 0x24020001,0xAE420018,0x8FBF0048,0x8FB30044\n\t"
-    ".word 0x8FB20040,0x8FB1003C,0x8FB00038,0x03E00008\n\t"
-    ".word 0x27BD0050\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector4;
+typedef struct {
+    int a;
+    int b;
+} Segment;
+typedef struct {
+    char pad0[0xC];
+    unsigned short left;
+    unsigned short right;
+} PathNode;
+typedef struct {
+    char pad0[0xA];
+    unsigned short next;
+    char padC[0x16 - 0xC];
+    unsigned short node;
+    int side;
+    char pad1C[0x30 - 0x1C];
+    Vector4 position;
+} Route;
+typedef struct {
+    char pad0[0xF8];
+    Route route;
+} Tank;
+extern PathNode *func_8004A794(unsigned short);
+extern void func_8004C058(Tank *, int);
+extern unsigned short func_8004C0F8(Tank *, int);
+extern unsigned int func_80086C84(void);
+extern void func_8004A8B0(PathNode *, Segment *);
+extern void func_80049468(Segment *, int, Vector4 *, Vector4 *);
+extern int func_800495D8(Vector4 *, Vector4 *);
+
+void func_8004B71C(Tank *tank) {
+    Route *route = &tank->route;
+    int id = route->node;
+    PathNode *node = func_8004A794(id);
+    unsigned short link;
+    unsigned short next;
+    unsigned int r;
+    int choose_left;
+    Vector4 a;
+    Vector4 b;
+    Segment segment;
+
+    if (route->side != 1) {
+        if (route->side == 0) {
+            goto advance;
+        }
+        if (route->side != 2) {
+            goto advance;
+        }
+        link = node->left;
+    } else {
+        link = node->right;
+    }
+    if (link == 0) {
+        do {
+            func_8004C058(tank, id);
+        } while (0);
+    }
+advance:
+    next = func_8004C0F8(tank, 0);
+    route->next = next;
+    route->node = next;
+    if (next == 0) {
+        route->side = 0;
+        return;
+    }
+    node = func_8004A794(next);
+    if (node->right != 0) {
+        route->side = 1;
+    } else if (node->left != 0) {
+        route->side = 2;
+    } else {
+        r = func_80086C84();
+        if ((r & 3) == 3) {
+            choose_left = (r & 4) == 0;
+        } else {
+            func_8004A8B0(node, &segment);
+            func_80049468(&segment, 0, &a, &b);
+            choose_left = func_800495D8(&route->position, &a) < func_800495D8(&route->position, &b);
+        }
+        if (choose_left) {
+            route->side = 2;
+        } else {
+            route->side = 1;
+        }
+    }
+}

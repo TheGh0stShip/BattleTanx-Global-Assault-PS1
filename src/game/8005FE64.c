@@ -1,13 +1,34 @@
-asm(".text\n\t.globl func_8005FE64\nfunc_8005FE64:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x3c02800f,0xafbf0014\n\t"
-    ".word 0x8ca30008,0x2442ae90,0x14620004,0x00808021\n\t"
-    ".word 0x3c02800b,0x08017fa8,0xa040ace4,0x3c03800b\n\t"
-    ".word 0x24020001,0xa062ace4,0x3c02800b,0x9043ace4\n\t"
-    ".word 0x3c02800e,0x00032600,0x00042603,0xa043482c\n\t"
-    ".word 0x3c03800f,0x2463c0f8,0x00041080,0x00431021\n\t"
-    ".word 0x90430000,0x3c02800e,0x0c0218b5,0xa043483c\n\t"
-    ".word 0x10400004,0x3c03800e,0x24020001,0x08017fbc\n\t"
-    ".word 0xa0624824,0x3c02800e,0xa0404824,0x3c04800b\n\t"
-    ".word 0x24849838,0x02002821,0x0c016554,0x24060001\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x00001021,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct Element {
+    int pad[2];
+    int *style;
+} Element;
+
+extern int D_800EAE90;
+extern unsigned char D_800AACE4;
+extern unsigned char D_800E482C;
+extern unsigned char D_800E483C;
+extern unsigned char D_800E4824;
+extern int D_800EC0F8[];
+extern int D_800A9838;
+extern int func_800862D4(int);
+extern void func_80059550(void *, void *, int);
+
+int func_8005FE64(void *menu, Element *element) {
+    signed char selection;
+
+    if (element->style == &D_800EAE90) {
+        D_800AACE4 = 0;
+    } else {
+        D_800AACE4 = 1;
+    }
+    selection = D_800AACE4;
+    D_800E482C = selection;
+    D_800E483C = D_800EC0F8[selection];
+    if (func_800862D4(selection)) {
+        D_800E4824 = 1;
+    } else {
+        D_800E4824 = 0;
+    }
+    func_80059550(&D_800A9838, menu, 1);
+    return 0;
+}

@@ -1,10 +1,45 @@
-asm(".text\n\t.globl func_80063DB8\nfunc_80063DB8:\n\t"
-    ".word 0x3083ffff,0x1060000e,0x24020001,0x1462000d\n\t"
-    ".word 0x3c02800b,0x3c02800b,0xac40aefc,0x3c02800b\n\t"
-    ".word 0xac40af0c,0x3c02800b,0xac40af1c,0x3c02800b\n\t"
-    ".word 0xac40af28,0x3c02800b,0x08018f88,0xac40af30\n\t"
-    ".word 0x3c02800b,0xac40aef4,0x3c02800b,0xac40af04\n\t"
-    ".word 0x3c02800b,0xac40af14,0x3c02800b,0xac40af24\n\t"
-    ".word 0x3c02800b,0xac40af2c,0x3c03800e,0x24634d4c\n\t"
-    ".word 0x3082ffff,0x00021100,0x00431021,0x03e00008\n\t"
-    ".word 0xac400004\n\t");
+typedef struct Slot16 {
+    int a;
+    int b;
+    int c;
+    int d;
+} Slot16;
+
+extern int D_800AAEF4;
+extern int D_800AAEFC;
+extern int D_800AAF04;
+extern int D_800AAF0C;
+extern int D_800AAF14;
+extern int D_800AAF1C;
+extern int D_800AAF24;
+extern int D_800AAF28;
+extern int D_800AAF2C;
+extern int D_800AAF30;
+extern Slot16 D_800E4D4C[];
+
+void func_80063DB8(unsigned short player) {
+    switch (player) {
+    case 0:
+        D_800AAEF4 = 0;
+        D_800AAF04 = 0;
+        D_800AAF14 = 0;
+        D_800AAF24 = 0;
+        D_800AAF2C = 0;
+        break;
+    case 1:
+        D_800AAEFC = 0;
+        D_800AAF0C = 0;
+        D_800AAF1C = 0;
+        D_800AAF28 = 0;
+        D_800AAF30 = 0;
+        break;
+    default:
+        D_800AAEF4 = 0;
+        D_800AAF04 = 0;
+        D_800AAF14 = 0;
+        D_800AAF24 = 0;
+        D_800AAF2C = 0;
+        break;
+    }
+    D_800E4D4C[player].b = 0;
+}

@@ -1,36 +1,95 @@
-asm(".text\n\t.globl func_8002E754\nfunc_8002E754:\n\t"
-    ".word 0x27BDFFB0,0xAFB3003C,0x00809821,0xAFB40040\n\t"
-    ".word 0x00A0A021,0xAFB50044,0x00C0A821,0xAFB00030\n\t"
-    ".word 0x00E08021,0x24040017,0x2405003C,0xAFBF004C\n\t"
-    ".word 0xAFB60048,0xAFB20038,0x0C008DF4,0xAFB10034\n\t"
-    ".word 0x00409021,0x1240006E,0x0200B021,0x96650002\n\t"
-    ".word 0x0C0098C0,0x02802021,0x02802021,0xAE420018\n\t"
-    ".word 0x96650004,0x0C0098C0,0x00408821,0xAE42001C\n\t"
-    ".word 0x96650006,0x0C0098C0,0x02802021,0xAE420020\n\t"
-    ".word 0x96650008,0x0C0098C0,0x02802021,0xAE420024\n\t"
-    ".word 0x9665000A,0x0C0098C0,0x02802021,0xAE420028\n\t"
-    ".word 0xA2400035,0xA2400034,0x8EA90000,0x8EAA0004\n\t"
-    ".word 0x8EAB0008,0xAE490008,0xAE4A000C,0xAE4B0010\n\t"
-    ".word 0xA6500014,0x92620014,0x00000000,0xA2420037\n\t"
-    ".word 0x304300FF,0x28620003,0x10400009,0x02802021\n\t"
-    ".word 0x10600007,0x3C03800D,0x24632FE4,0x8C620010\n\t"
-    ".word 0x00000000,0x24420001,0xAC620010,0x02802021\n\t"
-    ".word 0x02202821,0x02A03021,0x32D1FFFF,0x02203821\n\t"
-    ".word 0x2402000F,0x24100002,0xA2420016,0x240200F0\n\t"
-    ".word 0xAFA20014,0x24020001,0xAFB00010,0x0C009863\n\t"
-    ".word 0xAFA20018,0x02802021,0x02A02821,0xAE42002C\n\t"
-    ".word 0x96670002,0x02203021,0xAFB00010,0x0C009360\n\t"
-    ".word 0xAFB20014,0x8E430024,0x00000000,0x10600006\n\t"
-    ".word 0xA6420038,0x8C620008,0x00000000,0x9042000E\n\t"
-    ".word 0x0800BA34,0xA2420036,0xA2400036,0xAE400030\n\t"
-    ".word 0x8E640010,0x2402FFFF,0x1082001D,0x32C5FFFF\n\t"
-    ".word 0x8E820000,0x00000000,0x8C480010,0x3C02800D\n\t"
-    ".word 0x24422FE4,0x01044021,0x91030003,0x95070004\n\t"
-    ".word 0x00621821,0x95020006,0x90660034,0xAFA20010\n\t"
-    ".word 0x8D020008,0x00000000,0xAFA20014,0x91020001\n\t"
-    ".word 0x00000000,0xAFA20018,0x91020002,0xAFA00020\n\t"
-    ".word 0xAFA00024,0xAFB20028,0xAFA2001C,0x9102000E\n\t"
-    ".word 0x02A02021,0x0C00D335,0xAFA2002C,0xAE420030\n\t"
-    ".word 0x8FBF004C,0x8FB60048,0x8FB50044,0x8FB40040\n\t"
-    ".word 0x8FB3003C,0x8FB20038,0x8FB10034,0x8FB00030\n\t"
-    ".word 0x03E00008,0x27BD0050\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[14]; unsigned char size; } ModelInfo;
+typedef struct { int pad[2]; ModelInfo *info; } Model;
+typedef struct {
+    unsigned char pad;
+    unsigned char b1;
+    unsigned char b2;
+    unsigned char team;
+    unsigned short u4;
+    unsigned short u6;
+    int i8;
+    short pad2;
+    unsigned char alpha;
+} Emitter;
+typedef struct { char pad[16]; char *base; } Header;
+typedef struct { Header *header; } Ctx;
+typedef struct {
+    short pad;
+    unsigned short body;
+    unsigned short part_a;
+    unsigned short part_b;
+    unsigned short part_c;
+    unsigned short part_d;
+    int pad2;
+    int emitter;
+    unsigned char team;
+} Def;
+typedef struct {
+    int pad[2];
+    Vector pos;
+    short id;
+    unsigned char hp;
+    char pad1;
+    int body;
+    int part_a;
+    int part_b;
+    Model *part_c;
+    int part_d;
+    int model;
+    int particle;
+    unsigned char b52;
+    unsigned char b53;
+    unsigned char size;
+    unsigned char team;
+    short handle;
+} Turret;
+typedef struct { int pad; int mode; int pad2[2]; int count; char pad3[52 - 20]; unsigned char counts[8]; } Rules;
+extern Rules D_800D2FE4;
+Turret *func_800237D0(int, int);
+int func_80026300(Ctx *, int);
+int func_8002618C(Ctx *, int, Vector *, int, int, int, int);
+int func_80024D80(Ctx *, Vector *, int, int, int, Turret *);
+int func_80034CD4(Vector *, int, int, int, int, int, int, int, int, int, Turret *, int);
+
+void func_8002E754(Def *def, Ctx *ctx, Vector *pos, unsigned short id) {
+    Turret *t;
+    int body;
+    Emitter *e;
+    int team;
+
+    t = func_800237D0(23, 60);
+    if (t != 0) {
+        t->body = func_80026300(ctx, def->body);
+        body = t->body;
+        t->part_a = func_80026300(ctx, def->part_a);
+        t->part_b = func_80026300(ctx, def->part_b);
+        t->part_c = (Model *)func_80026300(ctx, def->part_c);
+        t->part_d = func_80026300(ctx, def->part_d);
+        t->b53 = 0;
+        t->b52 = 0;
+        t->pos = *pos;
+        t->id = id;
+        t->team = def->team;
+        team = t->team;
+        if (team < 3) {
+            if (team != 0) {
+                D_800D2FE4.count++;
+            }
+        }
+        t->hp = 15;
+        t->model = func_8002618C(ctx, body, pos, id, 2, 240, 1);
+        t->handle = func_80024D80(ctx, pos, id, def->body, 2, t);
+        if (t->part_c != 0) {
+            t->size = t->part_c->info->size;
+        } else {
+            t->size = 0;
+        }
+        t->particle = 0;
+        if (def->emitter != -1) {
+            e = (Emitter *)(ctx->header->base + def->emitter);
+            t->particle = func_80034CD4(pos, id, D_800D2FE4.counts[e->team], e->u4, e->u6, e->i8, e->b1, e->b2, 0, 0,
+                                        t, e->alpha);
+        }
+    }
+}

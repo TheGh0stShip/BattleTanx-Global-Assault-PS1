@@ -1,24 +1,72 @@
-asm(".text\n\t.globl func_800313C4\nfunc_800313C4:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0xAFB3001C,0x00C09821,0xAFB10014\n\t"
-    ".word 0x00E08821,0x24040002,0xAFBF0020,0x0C008DF4\n\t"
-    ".word 0x24050040,0x00402021,0x10800043,0x3402FFFF\n\t"
-    ".word 0xA4820020,0x8E020028,0x8E030024,0x00000000\n\t"
-    ".word 0x00431021,0xAC820010,0x8E020024,0x00000000\n\t"
-    ".word 0x00511021,0xAE020024,0xA4920022,0x8FA20038\n\t"
-    ".word 0xAC910018,0xAC82001C,0x8FA2003C,0x00000000\n\t"
-    ".word 0xAC820024,0x8FA20044,0x00000000,0xAC820030\n\t"
-    ".word 0x8FA20040,0x00000000,0xAC820028,0x8FA20048\n\t"
-    ".word 0xAC80000C,0xAC900008,0xAC930014,0xAC82002C\n\t"
-    ".word 0x8FA2004C,0x3243FFFF,0xAC82003C,0x2C620007\n\t"
-    ".word 0x10400010,0x3C02800C,0x2442E10C,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C020003,0x0800C530,0x34420D40\n\t"
-    ".word 0x0800C530,0x24020064,0x24020014,0xAC820038\n\t"
-    ".word 0xAC820034,0x8E02002C,0x00000000,0x14400003\n\t"
-    ".word 0x00401821,0x0800C543,0xAE04002C,0x8C62000C\n\t"
-    ".word 0x00000000,0x10400007,0x00000000,0x8C63000C\n\t"
-    ".word 0x00000000,0x8C62000C,0x00000000,0x1440FFFB\n\t"
-    ".word 0x00000000,0xAC64000C,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Segment Segment;
+struct Segment {
+    int pad[2];
+    void *chain;
+    Segment *next;
+    int offset;
+    int a2;
+    int length;
+    int s56;
+    unsigned short sound;
+    unsigned short kind;
+    int s60;
+    int s64;
+    int s72;
+    int s68;
+    int hp_max;
+    int hp;
+    int s76;
+};
+typedef struct { int pad[9]; int length; int base; Segment *segments; } Chain;
+Segment *func_800237D0(int, int);
+
+void func_800313C4(Chain *c, int kind, int a2, int length, int s56, int s60, int s64, int s68, int s72,
+                   int s76) {
+    Segment *s;
+    Segment *p;
+    int hp;
+
+    s = func_800237D0(2, 64);
+    if (s != 0) {
+        s->sound = 0xFFFF;
+        s->offset = c->base + c->length;
+        c->length += length;
+        s->kind = kind;
+        s->s56 = s56;
+        s->length = length;
+        s->s60 = s60;
+        s->s68 = s68;
+        s->s64 = s64;
+        s->s72 = s72;
+        s->next = 0;
+        s->chain = c;
+        s->a2 = a2;
+        s->s76 = s76;
+        switch ((unsigned short)kind) {
+        case 0:
+        case 2:
+        case 6:
+            hp = 200000;
+            s->hp_max = s->hp = hp;
+            break;
+        case 3:
+            hp = 100;
+            s->hp_max = s->hp = hp;
+            break;
+        case 1:
+        case 4:
+            hp = 20;
+            s->hp_max = s->hp = hp;
+            break;
+        }
+        if (c->segments == 0) {
+            c->segments = s;
+        } else {
+            p = c->segments;
+            while (p->next != 0) {
+                p = p->next;
+            }
+            p->next = s;
+        }
+    }
+}

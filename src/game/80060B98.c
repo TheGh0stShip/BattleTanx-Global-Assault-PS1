@@ -1,14 +1,24 @@
-asm(".text\n\t.globl func_80060B98\nfunc_80060B98:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafbf001c\n\t"
-    ".word 0xafb10014,0x0c021475,0xafb00010,0x30420002\n\t"
-    ".word 0x1040000e,0x3c11800a,0x8e430004,0x00000000\n\t"
-    ".word 0x90620041,0x00000000,0x304200fe,0xa0620041\n\t"
-    ".word 0x8e430004,0x00000000,0x90620041,0x00000000\n\t"
-    ".word 0x34420010,0x08018312,0xa0620041,0x8230606c\n\t"
-    ".word 0x24020001,0x16020012,0x00000000,0x8e450004\n\t"
-    ".word 0x00000000,0x90a20041,0x00000000,0x30420080\n\t"
-    ".word 0x10400003,0x24a40040,0x0c0168bc,0x24a50080\n\t"
-    ".word 0x8223606c,0x24020002,0x14620002,0x00000000\n\t"
-    ".word 0xa230606c,0x8e420004,0x00000000,0xa0500041\n\t"
-    ".word 0x8fbf001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x00001021,0x03e00008,0x27bd0020\n\t");
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+} Menu;
+
+extern signed char D_800A606C;
+extern int func_800851D4(void);
+extern void func_8005A2F0(void *, void *);
+
+int func_80060B98(Menu *menu) {
+    if (func_800851D4() & 2) {
+        menu->base[0x41] &= 0xFE;
+        menu->base[0x41] |= 0x10;
+    } else if (D_800A606C == 1) {
+        if (menu->base[0x41] & 0x80) {
+            func_8005A2F0(menu->base + 0x40, menu->base + 0x80);
+        }
+        if (D_800A606C == 2) {
+            D_800A606C = 1;
+        }
+        menu->base[0x41] = 1;
+    }
+    return 0;
+}

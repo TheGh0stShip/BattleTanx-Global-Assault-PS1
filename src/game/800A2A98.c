@@ -1,15 +1,56 @@
-asm(".text\n\t.globl func_800A2A98\nfunc_800A2A98:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafb20018,0x00c09021,0xafb3001c\n\t"
-    ".word 0x00e09821,0xafbf0024,0xafb40020,0x8e020004\n\t"
-    ".word 0x8fb4003c,0x30420001,0x10400003,0x00000000\n\t"
-    ".word 0x0c028679,0x00002021,0xae110038,0xae000034\n\t"
-    ".word 0xae12003c,0xae130040,0x8fa20038,0x00000000\n\t"
-    ".word 0xae020044,0x8fa20040,0x12800004,0xae020048\n\t"
-    ".word 0x8e020004,0x08028ac8,0x34420200,0x8e020004\n\t"
-    ".word 0x2403fdff,0x00431024,0xae020004,0x3c02800f\n\t"
-    ".word 0x02002021,0xac50fe14,0x8e020004,0x2403f7ff\n\t"
-    ".word 0x34420101,0xac820004,0x8c820004,0x00002821\n\t"
-    ".word 0x00431024,0xac820004,0x0c028825,0x00000000\n\t"
-    ".word 0x8fbf0024,0x8fb40020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    int limit;
+    int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int pad2C;
+    unsigned char cmd;
+    unsigned char seq;
+    char pad32[2];
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    char pad000[0x103];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *volatile D_800EFE14;
+extern void func_800A19E4(int);
+
+extern int func_800A2094(Link *, int);
+
+int func_800A2A98(Link *c, int a1, int a2, int a3, int a4, int flag, int a6) {
+    if (c->flags & 1) {
+        func_800A19E4(0);
+    }
+    c->data38 = a1;
+    c->count = 0;
+    c->data3C = a2;
+    c->data40 = a3;
+    c->data44 = a4;
+    c->done = (void *)a6;
+    if (flag != 0) {
+        c->flags |= 0x200;
+    } else {
+        c->flags &= ~0x200;
+    }
+    D_800EFE14 = c;
+    c->flags |= 0x101;
+    c->flags &= ~0x800;
+    return func_800A2094(c, 0);
+}

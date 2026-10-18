@@ -1,32 +1,91 @@
-asm(".text\n\t.globl func_8003CEDC\nfunc_8003CEDC:\n\t"
-    ".word 0x27BDFEF8,0x00801021,0x27A40048,0xAFA5010C\n\t"
-    ".word 0x00402821,0xAFBF0104,0xAFBE0100,0xAFB700FC\n\t"
-    ".word 0xAFB600F8,0xAFB500F4,0xAFB400F0,0xAFB300EC\n\t"
-    ".word 0xAFB200E8,0xAFB100E4,0x0C023681,0xAFB000E0\n\t"
-    ".word 0x27A40048,0x3C05800C,0x0C023655,0x24A5F090\n\t"
-    ".word 0x27A40088,0x0C020909,0x27A50048,0x8FB10094\n\t"
-    ".word 0x0C01A3CD,0x02202021,0x27A40088,0x00408021\n\t"
-    ".word 0x02002821,0x0C020A15,0x02203021,0x0C0209A8\n\t"
-    ".word 0x27A40088,0x02004021,0xAFB000D8,0xAFB000D0\n\t"
-    ".word 0x8D080000,0x00000000,0xAFA800DC,0x02004021\n\t"
-    ".word 0x25020004,0xAFA200D0,0x8D080004,0x00000000\n\t"
-    ".word 0xAFA800D4,0x02004021,0x25020008,0x8FA800D4\n\t"
-    ".word 0x0000F021,0x1100002D,0xAFA200D0,0x8FA8010C\n\t"
-    ".word 0x00000000,0x25170007,0x27A400D0,0x8FA600DC\n\t"
-    ".word 0x0C00F2E0,0x27A50020,0x00002821,0x8FB40028\n\t"
-    ".word 0x8FA30040,0x8FA20044,0x93B50020,0x93B60024\n\t"
-    ".word 0x84660008,0x8467000A,0x94510008,0x9452000A\n\t"
-    ".word 0x94700008,0x9473000A,0x0C023695,0x02802021\n\t"
-    ".word 0x02202021,0x8FA8010C,0x02402821,0x0C0236A4\n\t"
-    ".word 0xA5020000,0x3210003F,0xA6E2FFFB,0x24020002\n\t"
-    ".word 0x00541023,0x00508004,0xA2F0FFFD,0xA2F3FFFE\n\t"
-    ".word 0xA2F5FFFF,0xA2F60000,0x8FA8010C,0x27DE0001\n\t"
-    ".word 0x25080008,0xAFA8010C,0x8FA800D4,0x00000000\n\t"
-    ".word 0x03C8102B,0x1440FFD8,0x26F70008,0x8FA30040\n\t"
-    ".word 0x8FA20044,0x94650008,0x9466000A,0x94470008\n\t"
-    ".word 0x9442000A,0x3C04800E,0xAFA20010,0x8FA20028\n\t"
-    ".word 0x2484E0D4,0xAFA00018,0x0C022F1D,0xAFA20014\n\t"
-    ".word 0x8FA400D8,0x0C01A3E7,0x00000000,0x8FA2010C\n\t"
-    ".word 0x8FBF0104,0x8FBE0100,0x8FB700FC,0x8FB600F8\n\t"
-    ".word 0x8FB500F4,0x8FB400F0,0x8FB300EC,0x8FB200E8\n\t"
-    ".word 0x8FB100E4,0x8FB000E0,0x03E00008,0x27BD0108\n");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { char pad[8]; unsigned short x; unsigned short y; } Img;
+typedef struct {
+    int w;
+    int h;
+    int mode;
+    int *data;
+    unsigned int size;
+    int clut_count;
+    int *clut;
+    int clut_size;
+    Img *image;
+    Img *clut_image;
+} Conv;
+typedef struct { short tpage; short clut; unsigned char u; unsigned char v; unsigned char w; unsigned char h; } TexInfo;
+typedef struct { int *cursor; unsigned int count; int *base; int magic; } Reader;
+extern char D_800BF090[];
+extern int D_800DE0D4;
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_80082424(File *, char *);
+extern int *func_80068F34(int);
+extern void func_80068F9C(void *);
+extern int func_80082854(File *, void *, int);
+extern void func_800826A0(File *);
+extern void func_8003CB80(int **, Conv *, int);
+extern short func_8008DA54(int, int, int, int);
+extern short func_8008DA90(int, int);
+extern void func_8008BC74(int *, int, int, int, int, int, int);
+
+static inline int *load_file(File *file, char *path)
+{
+    int size;
+    int *buf;
+
+    func_80082424(file, path);
+    size = file->size;
+    buf = func_80068F34(size);
+    func_80082854(file, buf, size);
+    func_800826A0(file);
+    return buf;
+}
+
+static inline void build_path(char *path, char *name)
+{
+    func_8008DA04(path, name);
+    func_8008D954(path, D_800BF090);
+}
+
+static inline int read_word(Reader *r)
+{
+    return *r->cursor++;
+}
+
+static inline void set_tex(TexInfo *t, int mode, short tx, short ty, int cx, int cy,
+                           unsigned short u, unsigned short v, unsigned char w, unsigned char h)
+{
+    t->tpage = func_8008DA54(mode, 0, tx, ty);
+    t->clut = func_8008DA90(cx, cy);
+    t->u = (u & 0x3F) << (2 - mode);
+    t->v = v;
+    t->w = w;
+    t->h = h;
+}
+
+TexInfo *func_8003CEDC(char *name, TexInfo *out)
+{
+    Conv conv;
+    char path[64];
+    File file;
+    int *cursor;
+    unsigned int count;
+    int *base;
+    int magic;
+    unsigned int i;
+
+    build_path(path, name);
+    base = load_file(&file, path);
+    cursor = base;
+    magic = *cursor++;
+    count = *cursor++;
+    for (i = 0; i < count; i++) {
+        func_8003CB80(&cursor, &conv, magic);
+        set_tex(out, conv.mode, conv.image->x, conv.image->y, conv.clut_image->x, conv.clut_image->y,
+                conv.image->x, conv.image->y, conv.w, conv.h);
+        out++;
+    }
+    func_8008BC74(&D_800DE0D4, conv.image->x, conv.image->y, conv.clut_image->x, conv.clut_image->y, conv.mode, 0);
+    func_80068F9C(base);
+    return out;
+}

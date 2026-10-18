@@ -1,31 +1,94 @@
-asm(".text\n\t.globl func_80087D4C\nfunc_80087D4C:\n\t"
-    ".word 0x27BDFFD0,0xAFB10014,0x00808821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB3001C,0x00C09821,0xAFB20018\n\t"
-    ".word 0x00E09021,0x3C02800F,0xAFB00010,0x2450E588\n\t"
-    ".word 0xAFBF0028,0xAFB50024,0x92020004,0x00000000\n\t"
-    ".word 0x10400003,0x0000A821,0x0C021C78,0x00000000\n\t"
-    ".word 0x92020006,0x00000000,0x10400057,0x02A01021\n\t"
-    ".word 0x8E020030,0x00000000,0x16220053,0x02A01021\n\t"
-    ".word 0x8E04002C,0x0C021BF1,0x00000000,0x30420003\n\t"
-    ".word 0x24030003,0x1443004C,0x02A01021,0x92020008\n\t"
-    ".word 0x00000000,0x10400003,0x02802021,0x0C021F44\n\t"
-    ".word 0x02602821,0x24020001,0xAE1400C4,0xAE1400C8\n\t"
-    ".word 0xAE0000D0,0xAE1300D4,0xAE1200E8,0xA2020004\n\t"
-    ".word 0x16600005,0x00000000,0x0C021C4D,0x24040001\n\t"
-    ".word 0x08021FC0,0x24150001,0x8E0300BC,0x8E0400C0\n\t"
-    ".word 0x8E020034,0x00641821,0x00731821,0x0043102B\n\t"
-    ".word 0x1440002E,0x00000000,0x14800004,0x24110080\n\t"
-    ".word 0x2E620080,0x10400016,0x02809021,0x02241023\n\t"
-    ".word 0xAE0200CC,0x0262102B,0x10400002,0x2612003C\n\t"
-    ".word 0xAE1300CC,0x00922021,0x8E0600CC,0x0C0229EF\n\t"
-    ".word 0x02802821,0x8E0300C0,0x8E0200CC,0x00000000\n\t"
-    ".word 0x00621821,0x02233023,0x10C00008,0x00722021\n\t"
-    ".word 0x0C022A92,0x00002821,0x08021FAF,0x3C048008\n\t"
-    ".word 0x2402FF80,0x02628824,0xAE1100CC,0x3C048008\n\t"
-    ".word 0x24847B60,0x3C10800F,0x2610E588,0xAE1200D8\n\t"
-    ".word 0xAE1100DC,0x0C025802,0xAE0000E0,0x02402021\n\t"
-    ".word 0x8E0500BC,0x0C0255A1,0x02203021,0x10400003\n\t"
-    ".word 0x00000000,0x08021FC0,0x24150001,0x0C021C4D\n\t"
-    ".word 0x00002021,0x02A01021,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct CardWrite {
+    char pad0[4];
+    volatile unsigned char active;
+    unsigned char busy;
+    unsigned char open;
+    char pad7;
+    unsigned char verify;
+    char pad9[35];
+    int channel;
+    int port;
+    unsigned int limit;
+    char pad38[4];
+    char sector_buf[128];
+    unsigned int sector;
+    unsigned int offset;
+    char *start;
+    char *src;
+    unsigned int chunk;
+    unsigned int done;
+    unsigned int total;
+    char *buf;
+    unsigned int len;
+    unsigned int retries;
+    char padE4[4];
+    int callback;
+} CardWrite;
+
+extern CardWrite D_800EE588;
+extern void func_800871E0(void);
+extern unsigned int func_80086FC4(int);
+extern void func_80087D10(char *, unsigned int);
+extern void func_80087134(int);
+extern void *func_8008A7BC(void *, void *, unsigned int);
+extern void *func_8008AA48(void *, int, unsigned int);
+extern void func_80096008(void (*)(int, int));
+extern int func_80095684(char *, int, unsigned int);
+extern void func_80087B60(int, int);
+
+int func_80087D4C(int port, char *src, unsigned int size, int callback) {
+    CardWrite *card = &D_800EE588;
+    int ok = 0;
+    char *buf;
+    unsigned int len;
+    unsigned int pad;
+
+    if (card->active) {
+        func_800871E0();
+    }
+    if (card->open != 0 && port == card->port && (func_80086FC4(card->channel) & 3) == 3) {
+        if (card->verify) {
+            func_80087D10(src, size);
+        }
+        card->start = src;
+        card->src = src;
+        card->done = 0;
+        card->total = size;
+        card->callback = callback;
+        card->active = 1;
+        if (size == 0) {
+            func_80087134(1);
+            ok = 1;
+        } else if (card->sector + card->offset + size > card->limit) {
+            func_80087134(0);
+        } else {
+            if (card->offset != 0 || size < 128) {
+                len = 128;
+                card->chunk = len - card->offset;
+                buf = card->sector_buf;
+                if (size < card->chunk) {
+                    card->chunk = size;
+                }
+                func_8008A7BC(buf + card->offset, src, card->chunk);
+                pad = len - (card->offset + card->chunk);
+                if (pad != 0) {
+                    func_8008AA48((card->offset + card->chunk) + buf, 0, pad);
+                }
+            } else {
+                buf = src;
+                len = size & ~127;
+                card->chunk = len;
+            }
+            D_800EE588.buf = buf;
+            D_800EE588.len = len;
+            D_800EE588.retries = 0;
+            func_80096008(func_80087B60);
+            if (func_80095684(buf, D_800EE588.sector, len)) {
+                ok = 1;
+            } else {
+                func_80087134(0);
+            }
+        }
+    }
+    return ok;
+}

@@ -1,61 +1,161 @@
-asm(".text\n\t.globl func_800780A4\nfunc_800780A4:\n\t"
-    ".word 0x3C02800B,0x9042EB38,0x27BDFF40,0xAFB300B4\n\t"
-    ".word 0x00009821,0xAFBF00B8,0xAFB200B0,0xAFB100AC\n\t"
-    ".word 0x144000DF,0xAFB000A8,0x0C01DFA2,0x00000000\n\t"
-    ".word 0x3C02800F,0x8C43BC3C,0x00000000,0x2C62000F\n\t"
-    ".word 0x104000D7,0x3C02800C,0x24423EAC,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C03800F,0x24020001,0x0801E111\n\t"
-    ".word 0xAC62BC3C,0x3C02800F,0x0C01DC2E,0xAC40BC40\n\t"
-    ".word 0x0801E112,0x02601021,0x3C10800F,0x2602BBB4\n\t"
-    ".word 0x90450001,0x0C0220C9,0x24040002,0x00401821\n\t"
-    ".word 0x30620001,0x14400004,0x30620002,0x3C03800F\n\t"
-    ".word 0x0801E05B,0x24020005,0x14400006,0x3C02800F\n\t"
-    ".word 0x3C03800F,0x24020006,0xAC62BC3C,0x0801E111\n\t"
-    ".word 0xA200BBB4,0x24030003,0xAC43BC3C,0x24020001\n\t"
-    ".word 0x0801E111,0xA202BBB4,0x24040002,0x3C02800F\n\t"
-    ".word 0x9045BBB5,0x3C02800F,0x0C0220C9,0xAC40BC40\n\t"
-    ".word 0x30420003,0x14400003,0x3C03800F,0x24020002\n\t"
-    ".word 0xAC62BC3C,0x0C01DCF3,0x00000000,0x0801E112\n\t"
-    ".word 0x02601021,0x2404000E,0x3C02800F,0x9045BBB5\n\t"
-    ".word 0x3C06800F,0x24C6BC54,0x0C0220C9,0x27A70028\n\t"
-    ".word 0x14400002,0x24020001,0x00001021,0x304200FF\n\t"
-    ".word 0x10400004,0x3C03800F,0x24020008,0x0801E111\n\t"
-    ".word 0xAC62BC3C,0x24020009,0x0801E111,0xAC62BC3C\n\t"
-    ".word 0x24040002,0x3C02800F,0x2452BBB4,0x92450001\n\t"
-    ".word 0x3C02800F,0x0C0220C9,0xAC40BC40,0x30420003\n\t"
-    ".word 0x14400004,0x241100BE,0x3C03800F,0x24020002\n\t"
-    ".word 0xAC62BC3C,0x3C02800C,0x8C4360CC,0x24020001\n\t"
-    ".word 0x14620003,0x2410001E,0x24110130,0x24100050\n\t"
-    ".word 0x3C02800B,0x8C45E970,0x0C023681,0x27A40028\n\t"
-    ".word 0x92420001,0x00000000,0x14400004,0x27A40028\n\t"
-    ".word 0x3C05800C,0x0801E0A6,0x24A53E5C,0x3C05800C\n\t"
-    ".word 0x24A53E60,0x0C023655,0x00000000,0x27A40028\n\t"
-    ".word 0x24050003,0x02003021,0x24070064,0x24021000\n\t"
-    ".word 0xAFA20010,0xAFA20014,0x2402FFFF,0xAFA20020\n\t"
-    ".word 0x3C02800B,0x2442EA4C,0xAFB10018,0xAFA0001C\n\t"
-    ".word 0x0C015B92,0xAFA20024,0x0801E112,0x02601021\n\t"
-    ".word 0x3C02800F,0x0C01DD98,0xAC40BC40,0x0801E112\n\t"
-    ".word 0x02601021,0x24040002,0x3C02800F,0x9045BBB5\n\t"
-    ".word 0x3C02800F,0x0C0220C9,0xAC40BC40,0x30420003\n\t"
-    ".word 0x14400003,0x3C03800F,0x24020002,0xAC62BC3C\n\t"
-    ".word 0x0C01DDD5,0x00000000,0x0801E112,0x02601021\n\t"
-    ".word 0x27A40028,0x3C05800F,0x0C023681,0x24A5BC54\n\t"
-    ".word 0x0C021BE3,0x27A40028,0x24040001,0x3C03800F\n\t"
-    ".word 0x3C02800B,0x9070BBB5,0x0C021BAA,0x2452EAC0\n\t"
-    ".word 0x24040005,0x27A60028,0x24070002,0x3C02800F\n\t"
-    ".word 0x2442BC50,0xAFA20010,0x0C0220C9,0x02002821\n\t"
-    ".word 0x02008821,0x00408021,0x16000009,0x2404000A\n\t"
-    ".word 0x00009821,0x3C03800F,0x24020003,0xAC62BC48\n\t"
-    ".word 0x3C03800F,0x2402000D,0x0801E104,0xAC62BC3C\n\t"
-    ".word 0x02002821,0x00003021,0x02403821,0x24020064\n\t"
-    ".word 0xAFA20010,0x0C0220C9,0xAFA00014,0x2404000C\n\t"
-    ".word 0x02002821,0x0C0220C9,0x24060001,0x02202021\n\t"
-    ".word 0x0C02209C,0x02002821,0x00401821,0x24020001\n\t"
-    ".word 0x10620003,0x24040007,0x1462FFFF,0x24040007\n\t"
-    ".word 0x0C0220C9,0x02002821,0x24130001,0x326200FF\n\t"
-    ".word 0x1040000B,0x3C02800F,0x2403000E,0x0801E10F\n\t"
-    ".word 0xAC43BC3C,0x3C02800F,0x0C01DD6A,0xAC40BC40\n\t"
-    ".word 0x0801E112,0x02601021,0x3C02800F,0xAC40BC40\n\t"
-    ".word 0x02601021,0x8FBF00B8,0x8FB300B4,0x8FB200B0\n\t"
-    ".word 0x8FB100AC,0x8FB000A8,0x03E00008,0x27BD00C0\n");
+typedef struct PadState {
+    unsigned char ready;
+    unsigned char port;
+} PadState;
+
+extern unsigned int D_800EBC3C;
+extern int D_800C60CC;
+extern int D_800EBC40;
+extern int D_800EBC48;
+extern char D_800EBC50[];
+extern unsigned char D_800AEB38;
+extern PadState D_800EBBB4;
+extern char D_800EBC54[];
+extern char *D_800AE970;
+extern char D_800AEAC0[];
+extern char D_800C3E5C[];
+extern char D_800C3E60[];
+extern char D_800AEA4C[];
+extern unsigned int func_80088324(int, int, ...);
+extern int func_80088270(int, int);
+extern char *func_8008DA04(char *, char *);
+extern char *func_8008D954(char *, char *);
+extern void func_80086F8C(char *);
+extern void func_80086EA8(int);
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+extern void func_80077E88(void);
+extern void func_800770B8(void);
+extern void func_800773CC(void);
+extern void func_80077660(void);
+extern void func_80077754(void);
+extern void func_800775A8(void);
+
+static inline unsigned char card_has_file(char *info) {
+    if (func_80088324(14, D_800EBBB4.port, D_800EBC54, info) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+static inline unsigned char write_icon_block(int port, char *path) {
+    char *header = D_800AEAC0;
+    int fd;
+    int result;
+
+    func_80086EA8(1);
+    fd = func_80088324(5, port, path, 2, D_800EBC50);
+    if (fd == 0) {
+        D_800EBC48 = 3;
+        D_800EBC3C = 13;
+        return 0;
+    }
+    func_80088324(10, fd, 0, header, 100, 0);
+    func_80088324(12, fd, 1);
+    result = func_80088270(port, fd);
+    while (result != 1) {
+    }
+    func_80088324(7, fd);
+    return 1;
+}
+
+unsigned char func_800780A4(void) {
+    unsigned char ok = 0;
+    unsigned int status;
+    PadState *pad;
+    int x;
+    int y;
+    char text[128];
+
+    if (D_800AEB38 == 0) {
+        func_80077E88();
+        switch (D_800EBC3C) {
+        case 0:
+            D_800EBC3C = 1;
+            break;
+        case 1:
+            D_800EBC40 = 0;
+            func_800770B8();
+            break;
+        case 2:
+            status = func_80088324(2, D_800EBBB4.port);
+            if (!(status & 1)) {
+                D_800EBC3C = 5;
+                D_800EBBB4.ready = 0;
+            } else if (!(status & 2)) {
+                D_800EBC3C = 6;
+                D_800EBBB4.ready = 0;
+            } else {
+                D_800EBC3C = 3;
+                D_800EBBB4.ready = 1;
+            }
+            break;
+        case 3:
+            D_800EBC40 = 0;
+            if (!(func_80088324(2, D_800EBBB4.port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            func_800773CC();
+            break;
+        case 4:
+            if (card_has_file(text)) {
+                D_800EBC3C = 8;
+            } else {
+                D_800EBC3C = 9;
+            }
+            break;
+        case 9:
+            pad = &D_800EBBB4;
+            D_800EBC40 = 0;
+            if (!(func_80088324(2, pad->port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            x = 190;
+            y = 30;
+            if (D_800C60CC == 1) {
+                x = 304;
+                y = 80;
+            }
+            func_8008DA04(text, D_800AE970);
+            if (pad->port == 0) {
+                func_8008D954(text, D_800C3E5C);
+            } else {
+                func_8008D954(text, D_800C3E60);
+            }
+            func_80056E48(text, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+            break;
+        case 5:
+            D_800EBC40 = 0;
+            func_80077660();
+            break;
+        case 6:
+            D_800EBC40 = 0;
+            if (!(func_80088324(2, D_800EBBB4.port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            func_80077754();
+            break;
+        case 8:
+            func_8008DA04(text, D_800EBC54);
+            func_80086F8C(text);
+            ok = write_icon_block(D_800EBBB4.port, text);
+            if (ok) {
+                D_800EBC3C = 14;
+                D_800EBC40 = 0;
+            }
+            break;
+        case 13:
+            D_800EBC40 = 0;
+            func_800775A8();
+            break;
+        case 14:
+            D_800EBC40 = 0;
+            break;
+        case 7:
+        case 10:
+        case 11:
+        case 12:
+            break;
+        }
+    }
+    return ok;
+}

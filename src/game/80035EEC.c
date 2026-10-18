@@ -1,11 +1,26 @@
-asm(".text\n\t.globl func_80035EEC\nfunc_80035EEC:\n\t"
-    ".word 0x27bdffe8,0x14c0001f,0xafbf0010,0x84a50004\n\t"
-    ".word 0x00000000,0x28a20029,0x10400007,0x28a20027\n\t"
-    ".word 0x10400008,0x2402000c,0x10a20006,0x00000000\n\t"
-    ".word 0x0800d7dc,0x00000000,0x24020034,0x14a20011\n\t"
-    ".word 0x00000000,0x8c83002c,0x00000000,0x1860000a\n\t"
-    ".word 0x00000000,0x8ce20010,0x00000000,0x00621023\n\t"
-    ".word 0x1c400005,0xac82002c,0x8ce40014,0x240507d0\n\t"
-    ".word 0x0c014c38,0x00003021,0x8fa20028,0x24030001\n\t"
-    ".word 0xac430000,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct { char pad[44]; int hp; } Obj;
+typedef struct { int pad; short type; } Msg;
+typedef struct { int pad[4]; int amount; int source; } MsgData;
+void func_800530E0(int, int, int);
+
+void func_80035EEC(Obj *obj, Msg *msg, int sender, MsgData *data, int *handled) {
+    int v;
+
+    if (sender == 0) {
+        switch (msg->type) {
+        case 12:
+        case 39:
+        case 40:
+        case 52:
+            if (obj->hp > 0) {
+                v = obj->hp - data->amount;
+                obj->hp = v;
+                if (v <= 0) {
+                    func_800530E0(data->source, 2000, 0);
+                }
+            }
+            *handled = 1;
+            break;
+        }
+    }
+}

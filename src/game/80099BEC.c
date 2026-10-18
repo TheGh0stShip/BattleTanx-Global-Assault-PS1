@@ -1,13 +1,41 @@
-asm(".text\n\t.globl func_80099BEC\nfunc_80099BEC:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb40020\n\t"
-    ".word 0x00a0a021,0xafb3001c,0x00c09821,0x8fa20038\n\t"
-    ".word 0x00e02821,0xafb20018,0x24120001,0xafb10014\n\t"
-    ".word 0x00008821,0xafbf0024,0xae120000,0xae000004\n\t"
-    ".word 0xae000008,0xae00000c,0xae140010,0xae130014\n\t"
-    ".word 0x10a00004,0xae020018,0x0c0266e4,0x00000000\n\t"
-    ".word 0x00408821,0x1220000a,0x00002021,0x02602821\n\t"
-    ".word 0x0280f809,0x02203021,0x10400003,0xae020004\n\t"
-    ".word 0x0802671f,0xae110008,0xae000000,0x00009021\n\t"
-    ".word 0x02401021,0x8fbf0024,0x8fb40020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef void *(*AllocFn)(int op, void *ctx, ...);
+
+typedef struct Buffer {
+    int ok;
+    char *data;
+    unsigned int capacity;
+    unsigned int used;
+    AllocFn alloc;
+    void *ctx;
+    unsigned int granule;
+} Buffer;
+
+extern unsigned int func_80099B90(Buffer *, unsigned int);
+extern void func_8008A7BC(void *, void *, unsigned int);
+
+int func_80099BEC(Buffer *b, AllocFn alloc, void *ctx, unsigned int size, unsigned int granule) {
+    int ok = 1;
+    unsigned int grow = 0;
+    char *p;
+    b->ok = ok;
+    b->data = 0;
+    b->capacity = 0;
+    b->used = 0;
+    b->alloc = alloc;
+    b->ctx = ctx;
+    b->granule = granule;
+    if (size != 0) {
+        grow = func_80099B90(b, size);
+    }
+    if (grow != 0) {
+        p = alloc(0, ctx, grow);
+        b->data = p;
+        if (p != 0) {
+            b->capacity = grow;
+        } else {
+            b->ok = 0;
+            ok = 0;
+        }
+    }
+    return ok;
+}

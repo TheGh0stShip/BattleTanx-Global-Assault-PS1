@@ -1,12 +1,35 @@
-asm(".text\n\t.globl func_80063FFC\nfunc_80063FFC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb00010\n\t"
-    ".word 0x00a08021,0x3c02800c,0x3c03800c,0xac4060c8\n\t"
-    ".word 0x24020002,0xafbf0018,0x0c015353,0xac6260dc\n\t"
-    ".word 0x0c01abff,0x00002021,0x3c03800b,0x24020064\n\t"
-    ".word 0xa062ea46,0x3c02800a,0x8c436070,0x24020001\n\t"
-    ".word 0x14620005,0x3c02800b,0x0c01a8a4,0xa040ba5b\n\t"
-    ".word 0x0801901b,0x02002021,0xa040ba5b,0x02002021\n\t"
-    ".word 0x3c03800b,0x8e250004,0x24020002,0xa062ad00\n\t"
-    ".word 0x0c0168bc,0x24a50060,0x3c04800a,0x0c018475\n\t"
-    ".word 0x248466fc,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x24020003,0x03e00008,0x27bd0020\n\t");
+typedef struct Menu {
+    int pad;
+    char *base;
+} Menu;
+
+extern int D_800C60C8;
+extern int D_800C60DC;
+extern int D_800A6070;
+extern unsigned char D_800AEA46;
+extern unsigned char D_800ABA5B;
+extern unsigned char D_800AAD00;
+extern int D_800A66FC;
+extern void func_80054D4C(void);
+extern void func_8006AFFC(int);
+extern void func_8006A290(void);
+extern void func_8005A2F0(int, void *);
+extern void func_800611D4(void *);
+
+int func_80063FFC(Menu *menu, int arg) {
+    D_800C60C8 = 0;
+    D_800C60DC = 2;
+    func_80054D4C();
+    func_8006AFFC(0);
+    D_800AEA46 = 100;
+    if (D_800A6070 == 1) {
+        D_800ABA5B = 0;
+        func_8006A290();
+    } else {
+        D_800ABA5B = 0;
+    }
+    D_800AAD00 = 2;
+    func_8005A2F0(arg, menu->base + 0x60);
+    func_800611D4(&D_800A66FC);
+    return 3;
+}

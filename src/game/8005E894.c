@@ -1,24 +1,68 @@
-asm(".text\n\t.globl func_8005E894\nfunc_8005E894:\n\t"
-    ".word 0x3C02800B,0x2442A2A8,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442AA18,0x14820003,0x3C02800B,0x08017A3D\n\t"
-    ".word 0x00001821,0x2442A348,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442AAB8,0x14820003,0x3C02800B,0x08017A3D\n\t"
-    ".word 0x24030001,0x2442A3E8,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442AB58,0x14820002,0x24030003,0x24030002\n\t"
-    ".word 0x3C02800A,0x24426094,0x00032080,0x00821821\n\t"
-    ".word 0x8C620000,0x00000000,0x24420001,0xAC620000\n\t"
-    ".word 0x2C420004,0x14400004,0x3C02800A,0x24020001\n\t"
-    ".word 0xAC620000,0x3C02800A,0x244260A4,0x00821021\n\t"
-    ".word 0x8C420000,0x24040001,0x14440017,0x24020002\n\t"
-    ".word 0x8C630000,0x00000000,0x10620029,0x3C02800F\n\t"
-    ".word 0x2C620003,0x10400005,0x00000000,0x10640008\n\t"
-    ".word 0x00000000,0x08017A7D,0x3C02800F,0x24020003\n\t"
-    ".word 0x10620006,0x00000000,0x08017A7D,0x3C02800F\n\t"
-    ".word 0x3C02800F,0x08017A7E,0x2442AE24,0x3C02800F\n\t"
-    ".word 0x08017A7E,0x2442ADE0,0x8C630000,0x00000000\n\t"
-    ".word 0x10620013,0x3C02800F,0x2C620003,0x10400005\n\t"
-    ".word 0x00000000,0x10640008,0x00000000,0x08017A7D\n\t"
-    ".word 0x3C02800F,0x24020003,0x10620006,0x00000000\n\t"
-    ".word 0x08017A7D,0x3C02800F,0x3C02800F,0x08017A7E\n\t"
-    ".word 0x2442AF68,0x3C02800F,0x08017A7E,0x2442AE1C\n\t"
-    ".word 0x2442AF64,0xACA20008,0x03E00008,0x00001021\n");
+typedef struct Holder {
+    int pad[2];
+    int *target;
+} Holder;
+
+extern char D_800AA2A8[];
+extern char D_800AA348[];
+extern char D_800AA3E8[];
+extern char D_800AAA18[];
+extern char D_800AAAB8[];
+extern char D_800AAB58[];
+extern unsigned int D_800A6094[];
+extern int D_800A60A4[];
+extern int D_800EADE0;
+extern int D_800EAE1C;
+extern int D_800EAE24;
+extern int D_800EAF64;
+extern int D_800EAF68;
+
+int func_8005E894(char *menu, Holder *holder) {
+    int player;
+
+    if (menu == D_800AA2A8 || menu == D_800AAA18) {
+        player = 0;
+    } else if (menu == D_800AA348 || menu == D_800AAAB8) {
+        player = 1;
+    } else if (menu == D_800AA3E8 || menu == D_800AAB58) {
+        player = 2;
+    } else {
+        player = 3;
+    }
+    D_800A6094[player]++;
+    if (D_800A6094[player] >= 4) {
+        D_800A6094[player] = 1;
+    }
+    if (D_800A60A4[player] == 1) {
+        switch (D_800A6094[player]) {
+        case 2:
+            holder->target = &D_800EAF64;
+            break;
+        case 1:
+            holder->target = &D_800EAE24;
+            break;
+        case 3:
+            holder->target = &D_800EADE0;
+            break;
+        default:
+            holder->target = &D_800EAF64;
+            break;
+        }
+    } else {
+        switch (D_800A6094[player]) {
+        case 2:
+            holder->target = &D_800EAF64;
+            break;
+        case 1:
+            holder->target = &D_800EAF68;
+            break;
+        case 3:
+            holder->target = &D_800EAE1C;
+            break;
+        default:
+            holder->target = &D_800EAF64;
+            break;
+        }
+    }
+    return 0;
+}

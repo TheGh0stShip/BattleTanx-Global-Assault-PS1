@@ -1,49 +1,68 @@
-asm(".text\n\t.globl func_8003D1C0\nfunc_8003D1C0:\n\t"
-    ".word 0x27BDFFC0,0xAFB40028,0x0080A021,0xAFB70034\n\t"
-    ".word 0x00A0B821,0xAFB5002C,0x00C0A821,0xAFBE0038\n\t"
-    ".word 0x00E0F021,0xAFB1001C,0x00008821,0xAFBF003C\n\t"
-    ".word 0xAFB60030,0xAFB30024,0xAFB20020,0x12A00028\n\t"
-    ".word 0xAFB00018,0x3C16800A,0x3C13800E,0x3C12800E\n\t"
-    ".word 0x03C08021,0x8E020000,0x00000000,0x1040001C\n\t"
-    ".word 0x00000000,0x8E020004,0x00000000,0x10400018\n\t"
-    ".word 0x2402000C,0x8EC448D4,0xAFA20010,0x8E050000\n\t"
-    ".word 0x8E060004,0x8E070008,0x0C0234EE,0x00000000\n\t"
-    ".word 0x14400007,0xAE020020,0x8E62E050,0x8E030010\n\t"
-    ".word 0x8E040020,0x00431021,0x10800009,0xAE62E050\n\t"
-    ".word 0x24060001,0x8E040020,0x8E42E060,0x8E030010\n\t"
-    ".word 0x8E05000C,0x00431021,0x0C02363D,0xAE42E060\n\t"
-    ".word 0x26310001,0x0235102B,0x1440FFDE,0x26100028\n\t"
-    ".word 0x12800028,0x00008821,0x3C16800A,0x3C13800E\n\t"
-    ".word 0x3C12800E,0x02E08021,0x8E020000,0x00000000\n\t"
-    ".word 0x1040001C,0x00000000,0x8E020004,0x00000000\n\t"
-    ".word 0x10400018,0x2402000C,0x8EC448D4,0xAFA20010\n\t"
-    ".word 0x8E050000,0x8E060004,0x8E070008,0x0C0234EE\n\t"
-    ".word 0x00000000,0x14400007,0xAE020020,0x8E62E050\n\t"
-    ".word 0x8E030010,0x8E040020,0x00431021,0x10800009\n\t"
-    ".word 0xAE62E050,0x24060001,0x8E040020,0x8E42E060\n\t"
-    ".word 0x8E030010,0x8E05000C,0x00431021,0x0C02363D\n\t"
-    ".word 0xAE42E060,0x26310001,0x0234102B,0x1440FFDE\n\t"
-    ".word 0x26100028,0x12800027,0x00008821,0x3C16800A\n\t"
-    ".word 0x3C13800E,0x3C12800E,0x02E08021,0x8E030008\n\t"
-    ".word 0x24020001,0x10620003,0x0062102B,0x0800F4DE\n\t"
-    ".word 0x00022900,0x24050100,0x10A00016,0x24020028\n\t"
-    ".word 0x8EC448D4,0xAFA20010,0x8E060014,0x0C0234EE\n\t"
-    ".word 0x24070002,0x14400007,0xAE020024,0x8E62E064\n\t"
-    ".word 0x8E03001C,0x8E040024,0x00431021,0x10800009\n\t"
-    ".word 0xAE62E064,0x24060001,0x8E040024,0x8E42E05C\n\t"
-    ".word 0x8E03001C,0x8E050018,0x00431021,0x0C02363D\n\t"
-    ".word 0xAE42E05C,0x26310001,0x0234102B,0x1440FFDF\n\t"
-    ".word 0x26100028,0x12A00027,0x00008821,0x3C14800A\n\t"
-    ".word 0x3C13800E,0x3C12800E,0x03C08021,0x8E030008\n\t"
-    ".word 0x24020001,0x10620003,0x0062102B,0x0800F506\n\t"
-    ".word 0x00022900,0x24050100,0x10A00016,0x24020028\n\t"
-    ".word 0x8E8448D4,0xAFA20010,0x8E060014,0x0C0234EE\n\t"
-    ".word 0x24070002,0x14400007,0xAE020024,0x8E62E064\n\t"
-    ".word 0x8E03001C,0x8E040024,0x00431021,0x10800009\n\t"
-    ".word 0xAE62E064,0x24060001,0x8E040024,0x8E42E05C\n\t"
-    ".word 0x8E03001C,0x8E050018,0x00431021,0x0C02363D\n\t"
-    ".word 0xAE42E05C,0x26310001,0x0235102B,0x1440FFDF\n\t"
-    ".word 0x26100028,0x8FBF003C,0x8FBE0038,0x8FB70034\n\t"
-    ".word 0x8FB60030,0x8FB5002C,0x8FB40028,0x8FB30024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct {
+    int w;
+    int h;
+    unsigned int mode;
+    void *data;
+    int size;
+    int clut_count;
+    void *clut;
+    int clut_size;
+    void *image;
+    void *clut_image;
+} Conv;
+extern int D_800A48D4;
+extern int D_800DE050;
+extern int D_800DE05C;
+extern int D_800DE060;
+extern int D_800DE064;
+extern void *func_8008D3B8(int, int, int, int, int);
+extern void func_8008D8F4(void *, void *, int);
+
+static inline void load_image(Conv *c)
+{
+    if (c->w != 0 && c->h != 0) {
+        c->image = func_8008D3B8(D_800A48D4, c->w, c->h, c->mode, 12);
+        if (c->image == 0) {
+            D_800DE050 += c->size;
+        }
+        if (c->image != 0) {
+            D_800DE060 += c->size;
+            func_8008D8F4(c->image, c->data, 1);
+        }
+    }
+}
+
+static inline void load_clut(Conv *c)
+{
+    int clut_w;
+
+    clut_w = c->mode == 1 ? 256 : (c->mode == 0 ? 16 : 0);
+    if (clut_w != 0) {
+        c->clut_image = func_8008D3B8(D_800A48D4, clut_w, c->clut_count, 2, 40);
+        if (c->clut_image == 0) {
+            D_800DE064 += c->clut_size;
+        }
+        if (c->clut_image != 0) {
+            D_800DE05C += c->clut_size;
+            func_8008D8F4(c->clut_image, c->clut, 1);
+        }
+    }
+}
+
+void func_8003D1C0(unsigned int count_a, Conv *a, unsigned int count_b, Conv *b)
+{
+    unsigned int i;
+
+    for (i = 0; i < count_b; i++) {
+        load_image(&b[i]);
+    }
+    for (i = 0; i < count_a; i++) {
+        load_image(&a[i]);
+    }
+    for (i = 0; i < count_a; i++) {
+        load_clut(&a[i]);
+    }
+    for (i = 0; i < count_b; i++) {
+        load_clut(&b[i]);
+    }
+}

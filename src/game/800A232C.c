@@ -1,37 +1,103 @@
-asm(".text\n\t.globl func_800A232C\nfunc_800A232C:\n\t"
-    ".word 0x27BDFFC8,0xAFB10014,0x00808821,0xAFB40020\n\t"
-    ".word 0x0000A021,0xAFB7002C,0x0280B821,0xAFB60028\n\t"
-    ".word 0x0280B021,0xAFB50024,0x0280A821,0xAFB3001C\n\t"
-    ".word 0x2CF30001,0xAFBF0030,0xAFB20018,0x10E0003E\n\t"
-    ".word 0xAFB00010,0x3C02800F,0x2443FD0C,0x90620103\n\t"
-    ".word 0x00000000,0x24420003,0x10C20002,0x24020001\n\t"
-    ".word 0x24130001,0x90700105,0x90720104,0x16020007\n\t"
-    ".word 0x24020002,0x92220031,0x00000000,0x16420003\n\t"
-    ".word 0x24020002,0x0802890C,0x24170001,0x16020010\n\t"
-    ".word 0x320300FF,0x0C028657,0x02202021,0x324300FF\n\t"
-    ".word 0x304200FF,0x10620017,0x00000000,0x92220031\n\t"
-    ".word 0x00000000,0x14620006,0x320300FF,0x8E220018\n\t"
-    ".word 0x24160001,0x00561021,0x0802890C,0xAE220018\n\t"
-    ".word 0x24020003,0x1462000A,0x324200FF,0x92230031\n\t"
-    ".word 0x00000000,0x14430006,0x00000000,0x8E220018\n\t"
-    ".word 0x24150001,0x00551021,0x0802890C,0xAE220018\n\t"
-    ".word 0x24130001,0x3C10800F,0x2610FE0F,0x0C028648\n\t"
-    ".word 0x02002021,0x2610FEFD,0x92030103,0x00000000\n\t"
-    ".word 0x00701821,0x90630106,0x304200FF,0x10430002\n\t"
-    ".word 0x00000000,0x24130001,0x1660002F,0x00000000\n\t"
-    ".word 0x16A0001F,0x00000000,0x16C0002B,0x00000000\n\t"
-    ".word 0x0C028657,0x02202021,0x8E230028,0x92240032\n\t"
-    ".word 0xA2220031,0x8E220034,0x24630001,0x00802821\n\t"
-    ".word 0xAE230028,0x8E23002C,0x00441021,0xAE220034\n\t"
-    ".word 0x00651821,0x12E00012,0xAE23002C,0x8E230044\n\t"
-    ".word 0x00000000,0x0043102B,0x14400005,0x02202021\n\t"
-    ".word 0x0C028679,0x24040001,0x0802894A,0x00000000\n\t"
-    ".word 0x0C0289BD,0x00002821,0x14400010,0x00000000\n\t"
-    ".word 0x0C028679,0x00002021,0x0802894A,0x00000000\n\t"
-    ".word 0x8E220034,0x8E230044,0x00000000,0x0043102B\n\t"
-    ".word 0x14400006,0x24140001,0x8E220004,0x00000000\n\t"
-    ".word 0x34420400,0xAE220004,0x24140001,0x12800003\n\t"
-    ".word 0x02202021,0x0C0286BE,0x24050004,0x8FBF0030\n\t"
-    ".word 0x8FB7002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern unsigned char func_800A195C(Link *);
+extern unsigned char func_800A1920(unsigned char *);
+extern int func_800A26F4(Link *, int);
+extern void func_800A1AF8(Link *, int);
+
+void func_800A232C(Link *c, int a1, int length, int ok) {
+    int failed = 0;
+    int acked = 0;
+    int duplicate = 0;
+    int rejected = 0;
+    int bad = !ok;
+    unsigned char type;
+    unsigned char seq;
+
+    if (ok != 0) {
+        if (length != D_800EFD0C.packet[0] + 3) {
+            bad = 1;
+        }
+        type = D_800EFD0C.packet[2];
+        seq = D_800EFD0C.packet[1];
+        if (type == 1 && seq == c->seq) {
+            acked = 1;
+        } else if (type == 2 && seq == func_800A195C(c)) {
+        } else if (type == 2 && seq == c->seq) {
+            duplicate = 1;
+            c->errors++;
+        } else if (type == 3 && seq == c->seq) {
+            rejected = 1;
+            c->errors++;
+        } else {
+            bad = 1;
+        }
+        if (func_800A1920(D_800EFD0C.packet) != D_800EFD0C.packet[D_800EFD0C.packet[0] + 3]) {
+            bad = 1;
+        }
+    }
+    if (bad == 0) {
+        if (rejected != 0) {
+            func_800A19E4(0);
+        } else if (duplicate == 0) {
+            c->seq = func_800A195C(c);
+            c->sent++;
+            c->count += c->length;
+            c->total += c->length;
+            if (acked != 0) {
+                if (c->count >= c->data44) {
+                    func_800A19E4(1);
+                } else if (func_800A26F4(c, 0) == 0) {
+                    func_800A19E4(0);
+                }
+            } else {
+                if (c->count >= c->data44) {
+                    c->flags |= 0x400;
+                }
+                failed = 1;
+            }
+        } else {
+            failed = 1;
+        }
+    } else {
+        failed = 1;
+    }
+    if (failed != 0) {
+        func_800A1AF8(c, 4);
+    }
+}

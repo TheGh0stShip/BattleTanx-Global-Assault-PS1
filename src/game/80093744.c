@@ -1,17 +1,52 @@
-asm(".text\n\t.globl func_80093744\nfunc_80093744:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x3c10800f,0x2610efac\n\t"
-    ".word 0xafbf0014,0x8e04003c,0x0c024581,0x00000000\n\t"
-    ".word 0xae00003c,0xa2000005,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018,0x27bdffe8,0xafb00010\n\t"
-    ".word 0x00808021,0xafbf0014,0x0c024581,0x00002021\n\t"
-    ".word 0x320400ff,0x24020002,0x1482000b,0x3c02800f\n\t"
-    ".word 0x2443efac,0x8c640030,0x24020001,0xa0620007\n\t"
-    ".word 0x10800007,0x00000000,0x0080f809,0xac600030\n\t"
-    ".word 0x08024df5,0x00000000,0x0c024d97,0x00000000\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x308400ff,0x24020002\n\t"
-    ".word 0x14820009,0x00001821,0x3c048009,0x0c024581\n\t"
-    ".word 0x2484377c,0x2404001b,0x00002821,0x0c025c4f\n\t"
-    ".word 0x00a03021,0x00401821,0x14600003,0x00000000\n\t"
-    ".word 0x0c024d97,0x24040005,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern void *func_80091604(void *);
+extern void func_8009365C(unsigned char);
+extern int func_8009713C(int, int, int);
+
+typedef struct {
+    char pad0[5];
+    unsigned char b5;
+    char pad6;
+    volatile unsigned char b7;
+    char pad8[40];
+    void (*cb)(void);
+    char pad52[8];
+    void *prev;
+} S80093744;
+extern S80093744 D_800EEFAC;
+
+void func_80093744(void) {
+    S80093744 *s = &D_800EEFAC;
+
+    func_80091604(s->prev);
+    s->prev = 0;
+    s->b5 = 0;
+}
+
+void func_8009377C(unsigned char mode) {
+    S80093744 *s;
+    void (*cb)(void);
+
+    func_80091604(0);
+    if (mode == 2) {
+        s = &D_800EEFAC;
+        s->b7 = 1;
+        if ((cb = s->cb) != 0) {
+            s->cb = 0;
+            cb();
+        }
+    } else {
+        func_8009365C(mode);
+    }
+}
+
+void func_800937E4(unsigned char mode) {
+    int ok = 0;
+
+    if (mode == 2) {
+        func_80091604(func_8009377C);
+        ok = func_8009713C(27, 0, 0);
+    }
+    if (ok == 0) {
+        func_8009365C(5);
+    }
+}

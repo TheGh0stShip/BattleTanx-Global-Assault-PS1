@@ -1,28 +1,86 @@
-asm(".text\n\t.globl func_80099164\nfunc_80099164:\n\t"
-    ".word 0x27BDFFE0,0xAFB00018,0x00808021,0x10E00015\n\t"
-    ".word 0xAFBF001C,0x8E020070,0x00000000,0x10400005\n\t"
-    ".word 0x24050001,0x0040F809,0x00003021,0x24020001\n\t"
-    ".word 0xAE020054,0x24020002,0xAE02004C,0x3C02800A\n\t"
-    ".word 0x92050058,0x244291E8,0xAFA20010,0x8E060064\n\t"
-    ".word 0x8E07006C,0x0C028B04,0x02002021,0x14400005\n\t"
-    ".word 0x00000000,0x02002021,0x00002821,0x0C026354\n\t"
-    ".word 0x00A03021,0x8FBF001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0020,0x27BDFFE8,0x00E03021,0x3C02800F\n\t"
-    ".word 0x8C44F124,0x8FA70028,0x10800034,0xAFBF0010\n\t"
-    ".word 0x8C83004C,0x00000000,0x2C62000A,0x1040002C\n\t"
-    ".word 0x3C02800C,0x244254E8,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x0C026459,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C026441,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C026438,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C026411,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C0263EF,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C0263BF,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C0263A4,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C02638C,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x0C026383,0x30A500FF,0x080264B4,0x00000000\n\t"
-    ".word 0x24050002,0x0C026354,0x00003021,0x8FBF0010\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0018,0x27BDFFE8\n\t"
-    ".word 0x3C04800F,0x2484F124,0x00002821,0xAFBF0010\n\t"
-    ".word 0x0C022A92,0x24060058,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+extern void func_8008AA48(void *, int, int);
+extern int func_800A2C10(void *, int, int, int, void *);
+extern void func_80098D50(void *, int, int);
+extern void func_80099104(void *, unsigned char, int, int);
+extern void func_800990E0(void *, unsigned char, int, int);
+extern void func_80099044(void *, unsigned char, int, int);
+extern void func_80098FBC(void *, unsigned char, int, int);
+extern void func_80098EFC(void *, unsigned char, int, int);
+extern void func_80098E90(void *, unsigned char, int, int);
+extern void func_80098E30(void *, unsigned char, int, int);
+extern void func_80098E0C(void *, unsigned char, int, int);
+
+typedef struct Req80099164 {
+    char pad0[76];
+    unsigned int state;
+    char pad80[4];
+    int flushed;
+    unsigned char kind;
+    char pad89[11];
+    int arg100;
+    char pad104[4];
+    int arg108;
+    void (*flush)(struct Req80099164 *, int, int);
+} Req80099164;
+extern Req80099164 *D_800EF124;
+
+void func_800991E8(int unused, unsigned char kind, int a2, int a3, int a4);
+
+void func_80099164(Req80099164 *p, unsigned char kind, int a2, int go) {
+    if (go != 0) {
+        if (p->flush != 0) {
+            p->flush(p, 1, 0);
+            p->flushed = 1;
+        }
+        p->state = 2;
+        if (func_800A2C10(p, p->kind, p->arg100, p->arg108, func_800991E8) != 0) {
+            return;
+        }
+    }
+    func_80098D50(p, 0, 0);
+}
+
+void func_800991E8(int unused, unsigned char kind, int a2, int a3, int a4) {
+    Req80099164 *p = D_800EF124;
+
+    if (p == 0) {
+        return;
+    }
+    switch (p->state) {
+    case 1:
+        func_80099164(p, kind, a3, a4);
+        break;
+    case 2:
+        func_80099104(p, kind, a3, a4);
+        break;
+    case 3:
+        func_800990E0(p, kind, a3, a4);
+        break;
+    case 4:
+        func_80099044(p, kind, a3, a4);
+        break;
+    case 5:
+        func_80098FBC(p, kind, a3, a4);
+        break;
+    case 6:
+        func_80098EFC(p, kind, a3, a4);
+        break;
+    case 7:
+        func_80098E90(p, kind, a3, a4);
+        break;
+    case 8:
+        func_80098E30(p, kind, a3, a4);
+        break;
+    case 9:
+        func_80098E0C(p, kind, a3, a4);
+        break;
+    case 0:
+    default:
+        func_80098D50(p, 2, 0);
+        break;
+    }
+}
+
+void func_800992E0(void) {
+    func_8008AA48(&D_800EF124, 0, 88);
+}

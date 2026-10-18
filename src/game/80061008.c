@@ -1,11 +1,30 @@
-asm(".text\n\t.globl func_80061008\nfunc_80061008:\n\t"
-    ".word 0x27bdffe8,0x00a02021,0xafbf0010,0x8c820008\n\t"
-    ".word 0x00000000,0x8c420000,0x00000000,0x8c460000\n\t"
-    ".word 0x00000000,0x90c30000,0x2402004e,0x1062000c\n\t"
-    ".word 0x2862004f,0x10400005,0x24020045,0x1062000c\n\t"
-    ".word 0x24850020,0x08018423,0x00000000,0x2402005a\n\t"
-    ".word 0x10620005,0x24850020,0x08018423,0x00000000\n\t"
-    ".word 0x08018423,0x2485fec0,0x08018423,0x2485fee0\n\t"
-    ".word 0x90c30001,0x24020058,0x14620002,0x00000000\n\t"
-    ".word 0x2485ffa0,0x0c0168bc,0x00000000,0x8fbf0010\n\t"
-    ".word 0x00001021,0x03e00008,0x27bd0018\n\t");
+typedef struct Element {
+    int pad[2];
+    unsigned char ***name;
+} Element;
+
+extern void func_8005A2F0(Element *, void *);
+
+int func_80061008(void *menu, Element *element) {
+    char *target;
+
+    switch (***element->name) {
+    case 'N':
+        target = (char *)element - 0x140;
+        break;
+    case 'Z':
+        target = (char *)element - 0x120;
+        break;
+    case 'E':
+        target = (char *)element + 0x20;
+        if ((**element->name)[1] == 'X') {
+            target = (char *)element - 0x60;
+        }
+        break;
+    default:
+        target = (char *)element + 0x20;
+        break;
+    }
+    func_8005A2F0(element, target);
+    return 0;
+}

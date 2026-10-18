@@ -1,33 +1,78 @@
-asm(".text\n\t.globl func_80085BB8\nfunc_80085BB8:\n\t"
-    ".word 0x27BDFFB8,0xAFB50034,0x0080A821,0xAFB40030\n\t"
-    ".word 0x0000A021,0x24A20003,0x27A50018,0xAFB7003C\n\t"
-    ".word 0x00C0B821,0xAFB60038,0x27B6001C,0x02C03021\n\t"
-    ".word 0xAFBE0040,0x00E0F021,0x2403FFFC,0xAFB10024\n\t"
-    ".word 0x00438824,0xAFBF0044,0xAFB3002C,0xAFB20028\n\t"
-    ".word 0x0C0216DA,0xAFB00020,0x00409821,0x8FA20018\n\t"
-    ".word 0x8E720004,0x02A23023,0x16200005,0x02468023\n\t"
-    ".word 0x0C021775,0x02A02021,0x08021760,0x02801021\n\t"
-    ".word 0x0211102B,0x14400024,0x02602821,0x02118023\n\t"
-    ".word 0x2E020010,0x14400027,0x2612FFF4,0x02602821\n\t"
-    ".word 0x00D13021,0x8FA4001C,0x0C0214E5,0x36470001\n\t"
-    ".word 0x8FA4001C,0x00408821,0x8C820000,0x02303021\n\t"
-    ".word 0x00C2102B,0x1040000B,0x00000000,0x8CC20004\n\t"
-    ".word 0x00000000,0x30420001,0x10400006,0x02202821\n\t"
-    ".word 0x0C0214F7,0x00003821,0x8E230004,0x2402FFFE\n\t"
-    ".word 0x00629024,0x0C0214AF,0x02402021,0x8FA4001C\n\t"
-    ".word 0x02202821,0x02403021,0x0C0214C0,0x00403821\n\t"
-    ".word 0x0802175F,0x02A0A021,0x02403021,0x8FA4001C\n\t"
-    ".word 0x02003821,0x0C021626,0xAFB10010,0x10400003\n\t"
-    ".word 0x00000000,0x0802175F,0x02A0A021,0x12E00021\n\t"
-    ".word 0x0251102B,0x14400008,0x02602821,0x02A02821\n\t"
-    ".word 0x8FA40018,0x0C0229EF,0x02003021,0x8FB40018\n\t"
-    ".word 0x08021760,0x02801021,0x02403021,0x8FA4001C\n\t"
-    ".word 0x02A03821,0xAFB00010,0x0C021672,0xAFB10014\n\t"
-    ".word 0x00408021,0x1600000E,0x02202821,0xAFA00010\n\t"
-    ".word 0x02C02021,0x03C03021,0x0C02158C,0x00003821\n\t"
-    ".word 0x00408021,0x12000007,0x02A02821,0x02002021\n\t"
-    ".word 0x0C0229EF,0x02403021,0x0C021775,0x02A02021\n\t"
-    ".word 0x0200A021,0x02801021,0x8FBF0044,0x8FBE0040\n\t"
-    ".word 0x8FB7003C,0x8FB60038,0x8FB50034,0x8FB40030\n\t"
-    ".word 0x8FB3002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0048\n");
+typedef struct Block {
+    struct Block *owner;
+    unsigned int size;
+    struct Block *prev;
+    struct Block *next;
+} Block;
+
+typedef struct Heap {
+    char *end;
+} Heap;
+
+extern Block *func_80085B68(void *, char **, Heap **);
+extern void func_80085DD4(void *);
+extern Block *func_80085394(Heap *, Block *, unsigned int, unsigned int);
+extern void func_800853DC(Heap *, Block *, Block *, int);
+extern unsigned int func_800852BC(unsigned int);
+extern void func_80085300(Heap *, Block *, unsigned int, unsigned int);
+extern int func_80085898(Heap *, Block *, unsigned int, unsigned int, unsigned int);
+extern void *func_8008A7BC(void *, void *, unsigned int);
+extern void *func_800859C8(Heap *, Block *, unsigned int, void *, unsigned int, unsigned int);
+extern void *func_80085630(Heap **, unsigned int, int, int, unsigned char);
+
+void *func_80085BB8(void *ptr, unsigned int size, int may_move, int from_top) {
+    void *result = 0;
+    char *base;
+    Heap *heap;
+    Block *blk;
+    Block *split;
+    Block *next;
+    unsigned int cur;
+    unsigned int offset;
+    unsigned int avail;
+    void *moved;
+
+    size = (size + 3) & ~3;
+    blk = func_80085B68(ptr, &base, &heap);
+    cur = blk->size;
+    offset = (char *)ptr - base;
+    avail = cur - offset;
+    if (size == 0) {
+        func_80085DD4(ptr);
+        return result;
+    }
+    if (avail >= size) {
+        avail -= size;
+        if (avail >= 16) {
+            cur = avail - 12;
+            split = func_80085394(heap, blk, offset + size, cur | 1);
+            next = (Block *)((char *)split + avail);
+            if ((char *)next < heap->end && (next->size & 1)) {
+                func_800853DC(heap, split, next, 0);
+                cur = split->size & ~1;
+            }
+            func_80085300(heap, split, cur, func_800852BC(cur));
+        }
+        result = ptr;
+    } else if (func_80085898(heap, blk, cur, avail, size)) {
+        result = ptr;
+    } else if (may_move) {
+        if (cur >= size) {
+            func_8008A7BC(base, ptr, avail);
+            result = base;
+        } else {
+            moved = func_800859C8(heap, blk, cur, ptr, avail, size);
+            if (moved != 0) {
+                result = moved;
+            } else {
+                moved = func_80085630(&heap, size, from_top, 0, 0);
+                if (moved != 0) {
+                    func_8008A7BC(moved, ptr, cur);
+                    func_80085DD4(ptr);
+                    result = moved;
+                }
+            }
+        }
+    }
+    return result;
+}

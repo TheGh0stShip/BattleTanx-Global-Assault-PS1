@@ -1,28 +1,47 @@
-asm(".text\n\t.globl func_800770B8\nfunc_800770B8:\n\t"
-    ".word 0x27BDFFA0,0xAFB00050,0x3C10800B,0x8E05E964\n\t"
-    ".word 0x27A40020,0xAFBF005C,0xAFB20058,0x0C023681\n\t"
-    ".word 0xAFB10054,0x27A40020,0x3C05800C,0x0C023655\n\t"
-    ".word 0x24A53E4C,0x8E05E964,0x27B00038,0x0C023681\n\t"
-    ".word 0x02002021,0x02002021,0x3C05800C,0x0C023655\n\t"
-    ".word 0x24A53E50,0x3C02800B,0x8C43EB34,0x00000000\n\t"
-    ".word 0x14600007,0x24020001,0x3C02800B,0x2448EA58\n\t"
-    ".word 0x3C02800B,0x2452EA50,0x0801DC59,0x02408821\n\t"
-    ".word 0x14620006,0x3C02800B,0x2448EA50,0x3C02800B\n\t"
-    ".word 0x2451EA58,0x0801DC59,0x01009021,0x2451EA50\n\t"
-    ".word 0x02204021,0x3C02800B,0x2452EA58,0x3C02800C\n\t"
-    ".word 0x8C4360CC,0x24020001,0x1462001C,0x27A40020\n\t"
-    ".word 0x24050002,0x24060100,0x2407006E,0x24101000\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F58,0xAFA80018\n\t"
-    ".word 0x27A40038,0x24050002,0x24060100,0x24070082\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F58,0xAFB10018\n\t"
-    ".word 0x24050002,0x24060100,0x3C02800B,0x8C44E304\n\t"
-    ".word 0x24070096,0xAFB00010,0xAFB00014,0x0C015F58\n\t"
-    ".word 0xAFB20018,0x0801DC92,0x00000000,0x24050002\n\t"
-    ".word 0x2406001E,0x2407006E,0x24101000,0xAFB00010\n\t"
-    ".word 0xAFB00014,0x0C015F0C,0xAFA80018,0x27A40038\n\t"
-    ".word 0x24050002,0x2406001E,0x24070082,0xAFB00010\n\t"
-    ".word 0xAFB00014,0x0C015F0C,0xAFB10018,0x24050002\n\t"
-    ".word 0x2406001E,0x3C02800B,0x8C44E304,0x24070096\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F0C,0xAFB20018\n\t"
-    ".word 0x8FBF005C,0x8FB20058,0x8FB10054,0x8FB00050\n\t"
-    ".word 0x03E00008,0x27BD0060\n");
+extern int D_800C60CC;
+extern int D_800AEB34;
+extern char *D_800AE964;
+extern char *D_800AE304;
+extern char D_800C3E4C[];
+extern char D_800C3E50[];
+extern char D_800AEA50[];
+extern char D_800AEA58[];
+extern char *func_8008DA04(char *, char *);
+extern char *func_8008D954(char *, char *);
+extern void func_80057D60(char *, int, int, int, int, int, void *);
+extern void func_80057C30(char *, int, int, int, int, int, void *);
+
+void func_800770B8(void) {
+    char line1[24];
+    char line2[24];
+    void *color1;
+    void *color2;
+    void *color3;
+
+    func_8008DA04(line1, D_800AE964);
+    func_8008D954(line1, D_800C3E4C);
+    func_8008DA04(line2, D_800AE964);
+    func_8008D954(line2, D_800C3E50);
+    if (D_800AEB34 == 0) {
+        color1 = D_800AEA58;
+        color2 = D_800AEA50;
+        color3 = D_800AEA50;
+    } else if (D_800AEB34 == 1) {
+        color1 = D_800AEA50;
+        color2 = D_800AEA58;
+        color3 = D_800AEA50;
+    } else {
+        color1 = D_800AEA50;
+        color2 = D_800AEA50;
+        color3 = D_800AEA58;
+    }
+    if (D_800C60CC == 1) {
+        func_80057D60(line1, 2, 256, 110, 4096, 4096, color1);
+        func_80057D60(line2, 2, 256, 130, 4096, 4096, color2);
+        func_80057D60(D_800AE304, 2, 256, 150, 4096, 4096, color3);
+    } else {
+        func_80057C30(line1, 2, 30, 110, 4096, 4096, color1);
+        func_80057C30(line2, 2, 30, 130, 4096, 4096, color2);
+        func_80057C30(D_800AE304, 2, 30, 150, 4096, 4096, color3);
+    }
+}

@@ -1,13 +1,23 @@
-asm(".text\n\t.globl func_80037088\nfunc_80037088:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x8fa30028\n\t"
-    ".word 0x24020005,0x10c20006,0xafbf0014,0x24020006\n\t"
-    ".word 0x10c2000e,0x00000000,0x0800dc4c,0x00000000\n\t"
-    ".word 0x8ce20000,0x00000000,0x1440001b,0x24020001\n\t"
-    ".word 0xa0620000,0x8e020008,0x00000000,0xac620004\n\t"
-    ".word 0x8e020010,0x0800dc4c,0xac620008,0x8e02001c\n\t"
-    ".word 0x00000000,0x14400010,0x24020001,0x0c021b21\n\t"
-    ".word 0xae02001c,0x3c038888,0x34638889,0x00430019\n\t"
-    ".word 0x3c05800d,0x00004010,0x00082142,0x00041900\n\t"
-    ".word 0x00641823,0x00031880,0x8ca42fe0,0x00431023\n\t"
-    ".word 0x00822023,0xae040020,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct { unsigned char flag; char pad[3]; int x; int z; } Reply;
+typedef struct { char pad[8]; int x; int y; int z; char pad2[8]; int started; int start_time; } Obj;
+extern unsigned int func_80086C84(void);
+extern int D_800D2FE0;
+
+void func_80037088(Obj *obj, int unused, int msg, int *arg, Reply *reply)
+{
+    switch (msg) {
+    case 5:
+        if (*arg == 0) {
+            reply->flag = 1;
+            reply->x = obj->x;
+            reply->z = obj->z;
+        }
+        break;
+    case 6:
+        if (obj->started == 0) {
+            obj->started = 1;
+            obj->start_time = D_800D2FE0 - func_80086C84() % 60;
+        }
+        break;
+    }
+}

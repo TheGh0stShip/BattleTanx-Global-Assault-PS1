@@ -1,21 +1,74 @@
-asm(".text\n\t.globl func_8004A554\nfunc_8004A554:\n\t"
-    ".word 0x00C04021,0x94AA0000,0x3107FFFF,0x14E00003\n\t"
-    ".word 0x3C02800A,0x08012962,0x00003821,0x000718C0\n\t"
-    ".word 0x00671823,0x00031880,0x8C425B24,0x24630008\n\t"
-    ".word 0x00433821,0x10E00040,0x00001021,0xA4A60000\n\t"
-    ".word 0x94E3001A,0x24050001,0x1060002C,0xA4E40002\n\t"
-    ".word 0x3C02800A,0x8C495B24,0x24060002,0x240C0003\n\t"
-    ".word 0x240B0001,0x00604021,0x3103FFFF,0x14600003\n\t"
-    ".word 0x000310C0,0x08012978,0x00003821,0x00431023\n\t"
-    ".word 0x00021080,0x24420008,0x01223821,0x10E00016\n\t"
-    ".word 0x00002021,0x90E20000,0x00000000,0x10460004\n\t"
-    ".word 0x00000000,0x144C0012,0x3082FFFF,0x94E4001A\n\t"
-    ".word 0x90E30012,0x00000000,0x106B0007,0x28620002\n\t"
-    ".word 0x1440000B,0x3082FFFF,0x10660006,0x00401821\n\t"
-    ".word 0x08012992,0x00000000,0x94E4000C,0x08012991\n\t"
-    ".word 0x3082FFFF,0x94E4000E,0x00000000,0x3082FFFF\n\t"
-    ".word 0x00401821,0x1440FFDB,0x24A50001,0x3144FFFF\n\t"
-    ".word 0x14800003,0xA4EA001A,0x080129A0,0x00003821\n\t"
-    ".word 0x3C02800A,0x000418C0,0x00641823,0x00031880\n\t"
-    ".word 0x8C425B24,0x24630008,0x00433821,0xA4E80002\n\t"
-    ".word 0x03E00008,0x30A2FFFF,0x03E00008,0x00000000\n");
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    char pad4[8];
+    unsigned short branch_a;
+    unsigned short branch_b;
+    char pad10[2];
+    unsigned char branch;
+    char pad13[7];
+    unsigned short link;
+} Node;
+typedef struct {
+    char pad0[8];
+    Node nodes[1];
+} NodeSystem;
+extern NodeSystem *D_800A5B24;
+
+static inline Node *node_lookup(unsigned short id) {
+    if (id == 0) {
+        return 0;
+    }
+    return &D_800A5B24->nodes[id];
+}
+
+static inline unsigned short node_next(Node *node) {
+    unsigned short id = 0;
+
+    if (node != 0) {
+        switch (node->kind) {
+        case 3:
+            id = node->link;
+        case 2:
+            switch (node->branch) {
+            case 0:
+                break;
+            case 1:
+                id = node->branch_a;
+                break;
+            case 2:
+                id = node->branch_b;
+                break;
+            }
+            break;
+        }
+    }
+    return id;
+}
+
+unsigned short func_8004A554(unsigned short prev, unsigned short *head, unsigned short id) {
+    unsigned short last = id;
+    unsigned short old = *head;
+    Node *node = node_lookup(last);
+    unsigned short next;
+    unsigned short count;
+
+    if (node == 0) {
+        return 0;
+    }
+    *head = id;
+    node->prev = prev;
+    count = 1;
+    next = node->link;
+    while (next != 0) {
+        last = next;
+        node = node_lookup(last);
+        next = node_next(node);
+        count++;
+    }
+    node->link = old;
+    node = node_lookup(old);
+    node->prev = last;
+    return count;
+}

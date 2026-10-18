@@ -1,25 +1,71 @@
-asm(".text\n\t.globl func_8003C8D4\nfunc_8003C8D4:\n\t"
-    ".word 0x3C02800A,0x8C4248DC,0x27BDFF28,0xAFBF00D0\n\t"
-    ".word 0xAFB300CC,0xAFB200C8,0xAFB100C4,0x10400032\n\t"
-    ".word 0xAFB000C0,0x3C10800E,0x8E04DDEC,0x00000000\n\t"
-    ".word 0x10800003,0x00000000,0x0C01A3E7,0x00000000\n\t"
-    ".word 0x27A40010,0x3C05800C,0x24A5EA74,0x0C023681\n\t"
-    ".word 0xAE00DDEC,0x27A40010,0x3C03800A,0x3C02800D\n\t"
-    ".word 0x8C423028,0x246348E0,0x00021080,0x00431021\n\t"
-    ".word 0x8C450000,0x0C023655,0x00809821,0x27A40010\n\t"
-    ".word 0x3C05800C,0x0C023655,0x24A5EA7C,0x3C02800E\n\t"
-    ".word 0x8C52DDF0,0x27A40078,0x0C020909,0x02602821\n\t"
-    ".word 0x27A40078,0x8FB10084,0x02402821,0x0C020A15\n\t"
-    ".word 0x02203021,0x27A40078,0x0C0209A8,0x00408021\n\t"
-    ".word 0x1611FFF5,0x27A40078,0x0C008C08,0x00000000\n\t"
-    ".word 0x0C009192,0x00000000,0x0C016A45,0x00000000\n\t"
-    ".word 0x0800F28E,0x00000000,0x0C00EF6D,0x00000000\n\t"
-    ".word 0x0C01A369,0x3C040001,0x3C03800D,0x0C008C08\n\t"
-    ".word 0xAC623258,0x0C009192,0x00000000,0x3C040001\n\t"
-    ".word 0x0C01A369,0x34849000,0x3C03800E,0x0C016A45\n\t"
-    ".word 0xAC6253F4,0x3C02800A,0x8C4448D8,0x0C01A3E7\n\t"
-    ".word 0x00000000,0x3C02800A,0x8C4448D4,0x0C01A3E7\n\t"
-    ".word 0x00000000,0x3C02800D,0x8C422FE4,0x00000000\n\t"
-    ".word 0x8C44001C,0x0C01A369,0x00042080,0x3C03800D\n\t"
-    ".word 0xAC622E00,0x8FBF00D0,0x8FB300CC,0x8FB200C8\n\t"
-    ".word 0x8FB100C4,0x8FB000C0,0x03E00008,0x27BD00D8\n");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { char pad[0x1C]; int count; } Level;
+extern int D_800A48DC;
+extern void *D_800DDDEC;
+extern void *D_800DDDF0;
+extern char D_800BEA74[];
+extern char D_800BEA7C[];
+extern char *D_800A48E0[];
+extern int D_800D3028;
+extern void *D_800D3258;
+extern void *D_800E53F4;
+extern void *D_800A48D8;
+extern void *D_800A48D4;
+extern Level *D_800D2FE4;
+extern void *D_800D2E00;
+extern void func_80068F9C(void *);
+extern void *func_80068DA4(int);
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_80082424(File *, char *);
+extern int func_80082854(File *, void *, int);
+extern void func_800826A0(File *);
+extern void func_80023020(void);
+extern void func_80024648(void);
+extern void func_8005A914(void);
+extern void func_8003BDB4(void);
+
+static inline void read_file(char *path, void *buf)
+{
+    File file;
+    int size;
+    int n;
+
+    do {
+        func_80082424(&file, path);
+        size = file.size;
+        n = func_80082854(&file, buf, size);
+        func_800826A0(&file);
+    } while (n != size);
+}
+
+void func_8003C8D4(void)
+{
+    char path[104];
+    void *buf;
+
+    if (D_800A48DC != 0) {
+        if (D_800DDDEC != 0) {
+            func_80068F9C(D_800DDDEC);
+        }
+        D_800DDDEC = 0;
+        func_8008DA04(path, D_800BEA74);
+        func_8008D954(path, D_800A48E0[D_800D3028]);
+        func_8008D954(path, D_800BEA7C);
+        buf = D_800DDDF0;
+        read_file(path, buf);
+        func_80023020();
+        func_80024648();
+        func_8005A914();
+    } else {
+        func_8003BDB4();
+        D_800D3258 = func_80068DA4(0x10000);
+        func_80023020();
+        func_80024648();
+        D_800E53F4 = func_80068DA4(0x19000);
+        func_8005A914();
+        func_80068F9C(D_800A48D8);
+        func_80068F9C(D_800A48D4);
+        D_800D2E00 = func_80068DA4(D_800D2FE4->count * 4);
+    }
+}

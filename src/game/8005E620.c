@@ -1,41 +1,107 @@
-asm(".text\n\t.globl func_8005E620\nfunc_8005E620:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFB20018\n\t"
-    ".word 0x00A09021,0x3C02800B,0x2442A2A8,0xAFBF0020\n\t"
-    ".word 0xAFB3001C,0x12220005,0xAFB00010,0x3C02800B\n\t"
-    ".word 0x2442AA18,0x16220003,0x3C02800B,0x080179A8\n\t"
-    ".word 0x00009821,0x2442A348,0x12220004,0x3C02800B\n\t"
-    ".word 0x2442AAB8,0x16220003,0x3C02800B,0x080179A8\n\t"
-    ".word 0x24130001,0x2442A3E8,0x12220004,0x3C02800B\n\t"
-    ".word 0x2442AB58,0x16220002,0x24130003,0x24130002\n\t"
-    ".word 0x3C02800A,0x24426084,0x00131880,0x00628021\n\t"
-    ".word 0x8E020000,0x00000000,0x14400006,0x2442FFFF\n\t"
-    ".word 0x24020005,0xAE020000,0x8E020000,0x00000000\n\t"
-    ".word 0x2442FFFF,0x0C0178BB,0xAE020000,0x1440FFF4\n\t"
-    ".word 0x3C02800A,0x24426084,0x00131880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x14400005,0x24020004\n\t"
-    ".word 0x24020001,0xA2420020,0x080179C7,0xA2420040\n\t"
-    ".word 0xA2420020,0xA2420040,0x24020010,0xA2420021\n\t"
-    ".word 0xA2420041,0x3C02800B,0x2442A2A8,0x12220004\n\t"
-    ".word 0x3C02800B,0x2442AA18,0x16220003,0x3C02800B\n\t"
-    ".word 0x080179E9,0x00008021,0x2442A348,0x12220004\n\t"
-    ".word 0x3C02800B,0x2442AAB8,0x16220003,0x3C02800B\n\t"
-    ".word 0x080179E9,0x24100001,0x2442A3E8,0x12220004\n\t"
-    ".word 0x3C02800B,0x2442AB58,0x16220003,0x3C02800B\n\t"
-    ".word 0x080179E9,0x24100002,0x2442A488,0x12220004\n\t"
-    ".word 0x3C02800B,0x2442ABF8,0x16220017,0x3C02800A\n\t"
-    ".word 0x24100003,0x3210FFFF,0x02202021,0x0C017381\n\t"
-    ".word 0x02002821,0x3C06800A,0x24C660C4,0x00102880\n\t"
-    ".word 0x3C04800B,0x3C02800A,0x244260DC,0x02028021\n\t"
-    ".word 0x82030000,0x24849AFC,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00441021,0x8C420000,0x00A62821\n\t"
-    ".word 0xACA20000,0x3C02800A,0x24426084,0x00131880\n\t"
-    ".word 0x00621821,0x8C630000,0x00000000,0x2C620005\n\t"
-    ".word 0x10400014,0x3C02800C,0x2442FC70,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C02800F,0x08017A1B,0x2442AE2C\n\t"
-    ".word 0x3C02800F,0x08017A1B,0x2442AE48,0x3C02800F\n\t"
-    ".word 0x08017A1B,0x2442AE40,0x3C02800F,0x08017A1B\n\t"
-    ".word 0x2442AE44,0x3C02800F,0x2442ADD0,0x0C017525\n\t"
-    ".word 0xAE420008,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x00001021,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Choice {
+    int key;
+    int name;
+    int icon;
+} Choice;
+
+typedef struct Row {
+    int pad[2];
+    int *target;
+    char pad2[0x14];
+    unsigned char state0;
+    unsigned char flag0;
+    char pad3[0x1E];
+    unsigned char state1;
+    unsigned char flag1;
+} Row;
+
+extern char D_800AA2A8[];
+extern char D_800AA348[];
+extern char D_800AA3E8[];
+extern char D_800AA488[];
+extern char D_800AAA18[];
+extern char D_800AAAB8[];
+extern char D_800AAB58[];
+extern char D_800AABF8[];
+extern unsigned int D_800A6084[];
+extern signed char D_800A60DC[];
+extern int D_800A60C4[];
+extern Choice D_800A9AFC[];
+extern int D_800EADD0;
+extern int D_800EAE2C;
+extern int D_800EAE40;
+extern int D_800EAE44;
+extern int D_800EAE48;
+extern int func_8005E2EC(void);
+extern void func_8005CE04(void *, unsigned short);
+extern void func_8005D494(void);
+
+static inline void refresh_player_choice(char *menu) {
+    unsigned short slot;
+
+    if (menu == D_800AA2A8 || menu == D_800AAA18) {
+        slot = 0;
+    } else if (menu == D_800AA348 || menu == D_800AAAB8) {
+        slot = 1;
+    } else if (menu == D_800AA3E8 || menu == D_800AAB58) {
+        slot = 2;
+    } else if (menu == D_800AA488 || menu == D_800AABF8) {
+        slot = 3;
+    } else {
+        return;
+    }
+    func_8005CE04(menu, slot);
+    D_800A60C4[slot] = D_800A9AFC[D_800A60DC[slot]].key;
+}
+
+int func_8005E620(char *menu, Row *row) {
+    int player;
+
+    if (menu == D_800AA2A8 || menu == D_800AAA18) {
+        player = 0;
+    } else if (menu == D_800AA348 || menu == D_800AAAB8) {
+        player = 1;
+    } else if (menu == D_800AA3E8 || menu == D_800AAB58) {
+        player = 2;
+    } else {
+        player = 3;
+    }
+    do {
+        if (D_800A6084[player] == 0) {
+            D_800A6084[*&player] = 5;
+        }
+        D_800A6084[player]--;
+    } while (func_8005E2EC());
+    if (D_800A6084[player] == 0) {
+        row->state0 = 1;
+        row->state1 = 1;
+        row->flag0 = 1;
+        row->flag1 = 1;
+    } else {
+        row->state0 = 4;
+        row->state1 = 4;
+        row->flag0 = 16;
+        row->flag1 = 16;
+    }
+    refresh_player_choice(menu);
+    switch (D_800A6084[player]) {
+    case 1:
+        row->target = &D_800EAE2C;
+        break;
+    case 2:
+        row->target = &D_800EAE48;
+        break;
+    case 3:
+        row->target = &D_800EAE40;
+        break;
+    case 4:
+        row->target = &D_800EAE44;
+        break;
+    case 0:
+    default:
+        row->target = &D_800EADD0;
+        break;
+    }
+    func_8005D494();
+    return 0;
+}

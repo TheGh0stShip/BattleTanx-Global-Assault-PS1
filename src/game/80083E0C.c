@@ -1,23 +1,57 @@
-asm(".text\n\t.globl func_80083E0C\nfunc_80083E0C:\n\t"
-    ".word 0x00052E00,0x00052E03,0x00063600,0x00063603\n\t"
-    ".word 0x3C02800F,0x2449DF78,0x852700AC,0x852800AE\n\t"
-    ".word 0x24E2FFFF,0x04A10002,0x2503FFFF,0x00021023\n\t"
-    ".word 0x04C10002,0x00000000,0x00031823,0x00A21021\n\t"
-    ".word 0x0047001A,0x14E00002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14E10004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00002812,0x00C31021\n\t"
-    ".word 0x00000000,0x0048001A,0x15000002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x15010004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x00003012\n\t"
-    ".word 0x3C03800F,0x2463E028,0x000410C0,0x00441021\n\t"
-    ".word 0x00021080,0x00441023,0x00021080,0x00431021\n\t"
-    ".word 0x84430024,0xA0450022,0x00A32821,0xA0460023\n\t"
-    ".word 0x84420026,0x852300A4,0x00C23021,0x00A3102A\n\t"
-    ".word 0x14400006,0x00000000,0x852300A6,0x00000000\n\t"
-    ".word 0x0065102A,0x10400003,0x3C02800F,0x00602821\n\t"
-    ".word 0x3C02800F,0x2447DF78,0x84E300A8,0x00000000\n\t"
-    ".word 0x00C3102A,0x14400006,0x00000000,0x84E300AA\n\t"
-    ".word 0x00000000,0x0066102A,0x10400002,0x00000000\n\t"
-    ".word 0x00603021,0x3C03800F,0x2463E028,0x000410C0\n\t"
-    ".word 0x00441021,0x00021080,0x00441023,0x00021080\n\t"
-    ".word 0x00431021,0xA4450024,0x03E00008,0xA4460026\n");
+typedef struct {
+    unsigned short pad0[2];
+    unsigned short enabled;
+    unsigned short expired;
+    unsigned char pad8[0x1A];
+    signed char dx, dy;
+    short x, y;
+    unsigned char pad28[0x64];
+} Bank;
+
+typedef struct {
+    unsigned char pad[0xA4];
+    short min_x;
+    short max_x;
+    short min_y;
+    short max_y;
+    short scale_x;
+    short scale_y;
+} BankLimits;
+
+extern Bank D_800EE028[];
+extern BankLimits D_800EDF78;
+
+void func_80083E0C(int bank, signed char dx_in, signed char dy_in)
+{
+    int dx = dx_in;
+    int dy = dy_in;
+    int sx = D_800EDF78.scale_x;
+    int sy = D_800EDF78.scale_y;
+    int rx = sx - 1;
+    int ry = sy - 1;
+
+    if (dx < 0) {
+        rx = -rx;
+    }
+    if (dy < 0) {
+        ry = -ry;
+    }
+    dx = (dx + rx) / sx;
+    dy = (dy + ry) / sy;
+    D_800EE028[bank].dx = dx;
+    dx += D_800EE028[bank].x;
+    D_800EE028[bank].dy = dy;
+    dy += D_800EE028[bank].y;
+    if (dx < D_800EDF78.min_x) {
+        dx = D_800EDF78.min_x;
+    } else if (dx > D_800EDF78.max_x) {
+        dx = D_800EDF78.max_x;
+    }
+    if (dy < D_800EDF78.min_y) {
+        dy = D_800EDF78.min_y;
+    } else if (dy > D_800EDF78.max_y) {
+        dy = D_800EDF78.max_y;
+    }
+    D_800EE028[bank].x = dx;
+    D_800EE028[bank].y = dy;
+}

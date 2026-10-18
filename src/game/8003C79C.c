@@ -1,21 +1,46 @@
-asm(".text\n\t.globl func_8003C79C\nfunc_8003C79C:\n\t"
-    ".word 0x27BDFFD8,0x34048000,0x3C02800E,0xAC40E060\n\t"
-    ".word 0x3C02800E,0xAC40E05C,0x3C02800E,0xAC40E050\n\t"
-    ".word 0x3C02800E,0xAFBF0024,0xAFB00020,0x0C01A3CD\n\t"
-    ".word 0xAC40E064,0x24040088,0x3C10800A,0x0C01A3CD\n\t"
-    ".word 0xAE0248D8,0x00402021,0x24060800,0x3C02800A\n\t"
-    ".word 0xAC4448D4,0x24020400,0xAFA20014,0x24020100\n\t"
-    ".word 0x8E0548D8,0x00003821,0xAFA00010,0x0C0234C6\n\t"
-    ".word 0xAFA20018,0x0C00F80C,0x3C10800E,0x3C04800C\n\t"
-    ".word 0x2484EB08,0x261048CC,0x0C00F3B7,0x02002821\n\t"
-    ".word 0x24040002,0x3C05800C,0x24A5EB18,0x0C015E68\n\t"
-    ".word 0x02003021,0x3C04800C,0x2484EAC0,0x3C10800E\n\t"
-    ".word 0x261048D4,0x0C00F3B7,0x02002821,0x00002021\n\t"
-    ".word 0x3C05800C,0x24A5EAD0,0x0C015E68,0x02003021\n\t"
-    ".word 0x3C04800C,0x2484EAE4,0x3C10800E,0x261048E4\n\t"
-    ".word 0x0C00F3B7,0x02002821,0x24040003,0x3C05800C\n\t"
-    ".word 0x24A5EAF4,0x0C015E68,0x02003021,0x0C00F124\n\t"
-    ".word 0x00000000,0x0C01A3CD,0x24047D00,0x00402021\n\t"
-    ".word 0x24057D00,0x3C02800E,0x0C01FDC2,0xAC44DDEC\n\t"
-    ".word 0x0C01FDD0,0x24040002,0x8FBF0024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+extern int D_800DE050;
+extern int D_800DE05C;
+extern int D_800DE060;
+extern int D_800DE064;
+extern void *D_800A48D8;
+extern void *D_800A48D4;
+extern void *D_800DDDEC;
+extern char D_800BEB08[];
+extern char D_800BEB18[];
+extern char D_800BEAC0[];
+extern char D_800BEAD0[];
+extern char D_800BEAE4[];
+extern char D_800BEAF4[];
+extern int D_800E48CC;
+extern int D_800E48D4;
+extern int D_800E48E4;
+extern void *func_80068F34(int);
+extern void func_8008D318(void *, void *, int, int, int, int, int);
+extern void func_8003E030(void);
+extern void func_8003CEDC(char *, int *);
+extern void func_800579A0(int, char *, int *);
+extern void func_8003C490(void);
+extern void func_8007F708(void *, int);
+extern void func_8007F740(int);
+
+void func_8003C79C(void)
+{
+    D_800DE060 = 0;
+    D_800DE05C = 0;
+    D_800DE050 = 0;
+    D_800DE064 = 0;
+    D_800A48D8 = func_80068F34(0x8000);
+    D_800A48D4 = func_80068F34(136);
+    func_8008D318(D_800A48D4, D_800A48D8, 2048, 0, 0, 1024, 256);
+    func_8003E030();
+    func_8003CEDC(D_800BEB08, &D_800E48CC);
+    func_800579A0(2, D_800BEB18, &D_800E48CC);
+    func_8003CEDC(D_800BEAC0, &D_800E48D4);
+    func_800579A0(0, D_800BEAD0, &D_800E48D4);
+    func_8003CEDC(D_800BEAE4, &D_800E48E4);
+    func_800579A0(3, D_800BEAF4, &D_800E48E4);
+    func_8003C490();
+    D_800DDDEC = func_80068F34(32000);
+    func_8007F708(D_800DDDEC, 32000);
+    func_8007F740(2);
+}

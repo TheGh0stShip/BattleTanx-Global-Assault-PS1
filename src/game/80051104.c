@@ -1,37 +1,101 @@
-asm(".text\n\t.globl func_80051104\nfunc_80051104:\n\t"
-    ".word 0x27BDFFC8,0xAFBE0030,0x0080F021,0xAFB7002C\n\t"
-    ".word 0x0000B821,0xAFBF0034,0xAFB60028,0xAFB50024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x97C20048,0x00000000,0x10400073\n\t"
-    ".word 0x00009821,0x32E3FFFF,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x24420018,0x03C2A021,0x96920008\n\t"
-    ".word 0x0000A821,0x02A0B021,0x03C02021,0x080144AB\n\t"
-    ".word 0x02A02821,0x1240005F,0x00000000,0x8E2200A8\n\t"
-    ".word 0x00000000,0x00531024,0x14400046,0x03C02021\n\t"
-    ".word 0x8E820004,0x00000000,0x14400024,0x00008021\n\t"
-    ".word 0x0C011D96,0x02202021,0x10400013,0x24020009\n\t"
-    ".word 0x8E23017C,0x00000000,0x1062000C,0x2C62000A\n\t"
-    ".word 0x10400005,0x24020006,0x10620008,0x00008021\n\t"
-    ".word 0x0801447F,0x00000000,0x2C620017,0x10400005\n\t"
-    ".word 0x2C620012,0x14400004,0x00008021,0x0801447F\n\t"
-    ".word 0x24100001,0x00008021,0x12000009,0x00000000\n\t"
-    ".word 0x8E22017C,0x8E850000,0x00000000,0x10450003\n\t"
-    ".word 0x00000000,0x0C0138AB,0x02202021,0x2652FFFF\n\t"
-    ".word 0x8E2200A8,0x080144A9,0x02629825,0x8E850000\n\t"
-    ".word 0x0040F809,0x02202021,0x00401821,0x1C600004\n\t"
-    ".word 0x02C3102A,0x8E2200A8,0x080144A9,0x02629825\n\t"
-    ".word 0x10400004,0x02A01021,0x0220A821,0x0060B021\n\t"
-    ".word 0x00408821,0x2E420002,0x1440000E,0x03C02021\n\t"
-    ".word 0x1220000D,0x02202821,0x8E22017C,0x8E850000\n\t"
-    ".word 0x00000000,0x10450003,0x00000000,0x0C0138AB\n\t"
-    ".word 0x02202021,0x8E2200A8,0x2652FFFF,0x02629825\n\t"
-    ".word 0x03C02021,0x02202821,0x0C014BCE,0x00000000\n\t"
-    ".word 0x00408821,0x1620FFAF,0x00000000,0x1240000D\n\t"
-    ".word 0x00000000,0x12A0000B,0x00000000,0x8EA2017C\n\t"
-    ".word 0x8E850000,0x00000000,0x10450003,0x00000000\n\t"
-    ".word 0x0C0138AB,0x02A02021,0x8EA200A8,0x00000000\n\t"
-    ".word 0x02629825,0x26F70001,0x97C30048,0x32E2FFFF\n\t"
-    ".word 0x0043102B,0x1440FF90,0x32E3FFFF,0x8FBF0034\n\t"
-    ".word 0x8FBE0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0038\n");
+typedef struct Tank {
+    char pad0[0xA8];
+    int bits;
+    char padAC[0x17C - 0xAC];
+    unsigned int state;
+} Tank;
+typedef struct {
+    int op;
+    int (*fn)(Tank *, int);
+    unsigned short arg;
+    short padA;
+} Command;
+typedef struct {
+    char pad0[0x18];
+    Command cmds[4];
+    unsigned short count;
+} Marker;
+extern Tank *func_80052F38(Marker *, Tank *);
+extern int func_80047658(Tank *);
+extern void func_8004E2AC(Tank *, int);
+
+void func_80051104(Marker *m) {
+    unsigned short i;
+    int used = 0;
+
+    for (i = 0; i < m->count; i++) {
+        Command *c = &m->cmds[i];
+        unsigned int n = c->arg;
+        Tank *best = 0;
+        int best_score = 0;
+        Tank *t;
+
+        for (t = func_80052F38(m, 0); t != 0; t = func_80052F38(m, t)) {
+            if (n == 0) {
+                goto next_command;
+            }
+            if (t->bits & used) {
+                continue;
+            }
+            if (c->fn == 0) {
+                int ok = 0;
+
+                if (func_80047658(t) != 0) {
+                    switch (t->state) {
+                    case 6:
+                    case 9:
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                        ok = 1;
+                        break;
+                    default:
+                        ok = 0;
+                        break;
+                    }
+                }
+                if (ok) {
+                    if (t->state != c->op) {
+                        func_8004E2AC(t, c->op);
+                    }
+                    n--;
+                }
+                used |= t->bits;
+            } else {
+                int score = c->fn(t, c->op);
+
+                if (score <= 0) {
+                    used |= t->bits;
+                    continue;
+                }
+                if (best_score < score) {
+                    Tank *tmp = best;
+
+                    best = t;
+                    best_score = score;
+                    t = tmp;
+                }
+                if (n < 2) {
+                    continue;
+                }
+                if (t == 0) {
+                    continue;
+                }
+                if (t->state != c->op) {
+                    func_8004E2AC(t, c->op);
+                }
+                n--;
+                used |= t->bits;
+            }
+        }
+        if (n != 0 && best != 0) {
+            if (best->state != c->op) {
+                func_8004E2AC(best, c->op);
+            }
+            used |= best->bits;
+        }
+    next_command:;
+    }
+}

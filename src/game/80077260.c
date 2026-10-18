@@ -1,24 +1,27 @@
-asm(".text\n\t.globl func_80077260\nfunc_80077260:\n\t"
-    ".word 0x27BDFFC0,0x240800BE,0x2406001E,0xAFB20030\n\t"
-    ".word 0x2412006E,0x3C02800C,0x8C4360CC,0x24020001\n\t"
-    ".word 0xAFBF003C,0xAFB40038,0xAFB30034,0xAFB1002C\n\t"
-    ".word 0x14620004,0xAFB00028,0x24080130,0x24060050\n\t"
-    ".word 0x241200C8,0x24050003,0x24070064,0x3C02800B\n\t"
-    ".word 0x2453E964,0x24101000,0x3111FFFF,0x2414FFFF\n\t"
-    ".word 0x3C02800B,0x8E640020,0x2442EA4C,0xAFB00010\n\t"
-    ".word 0xAFB00014,0xAFB10018,0xAFA0001C,0xAFB40020\n\t"
-    ".word 0x0C015B92,0xAFA20024,0x3C02800F,0x8C42BC38\n\t"
-    ".word 0x00000000,0x10400014,0x24050003,0x02403021\n\t"
-    ".word 0x2407008C,0x3C02800B,0x8E640024,0x2442EA58\n\t"
-    ".word 0xAFB00010,0xAFB00014,0xAFB10018,0xAFA0001C\n\t"
-    ".word 0xAFB40020,0x0C015B92,0xAFA20024,0x24050003\n\t"
-    ".word 0x26460032,0x2407008C,0x3C02800B,0x8E640028\n\t"
-    ".word 0x0801DCE4,0x2442EA54,0x02403021,0x2407008C\n\t"
-    ".word 0x3C02800B,0x8E640024,0x2442EA54,0xAFB00010\n\t"
-    ".word 0xAFB00014,0xAFB10018,0xAFA0001C,0xAFB40020\n\t"
-    ".word 0x0C015B92,0xAFA20024,0x24050003,0x26460032\n\t"
-    ".word 0x2407008C,0x3C02800B,0x8E640028,0x2442EA58\n\t"
-    ".word 0xAFB00010,0xAFB00014,0xAFB10018,0xAFA0001C\n\t"
-    ".word 0xAFB40020,0x0C015B92,0xAFA20024,0x8FBF003C\n\t"
-    ".word 0x8FB40038,0x8FB30034,0x8FB20030,0x8FB1002C\n\t"
-    ".word 0x8FB00028,0x03E00008,0x27BD0040\n");
+extern int D_800C60CC;
+extern int D_800EBC38;
+extern void *D_800AE964[];
+extern char D_800AEA4C[];
+extern char D_800AEA54[];
+extern char D_800AEA58[];
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+
+void func_80077260(void) {
+    unsigned short x = 190;
+    int y = 30;
+    int row = 110;
+
+    if (D_800C60CC == 1) {
+        x = 304;
+        y = 80;
+        row = 200;
+    }
+    func_80056E48(D_800AE964[8], 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+    if (D_800EBC38 != 0) {
+        func_80056E48(D_800AE964[9], 3, row, 140, 4096, 4096, x, 0, -1, D_800AEA58);
+        func_80056E48(D_800AE964[10], 3, row + 50, 140, 4096, 4096, x, 0, -1, D_800AEA54);
+    } else {
+        func_80056E48(D_800AE964[9], 3, row, 140, 4096, 4096, x, 0, -1, D_800AEA54);
+        func_80056E48(D_800AE964[10], 3, row + 50, 140, 4096, 4096, x, 0, -1, D_800AEA58);
+    }
+}

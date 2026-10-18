@@ -1,20 +1,56 @@
-asm(".text\n\t.globl func_8003CA54\nfunc_8003CA54:\n\t"
-    ".word 0x27BDFFE0,0xAFB00018,0x00808021,0xAFBF001C\n\t"
-    ".word 0x8E020000,0x00000000,0x1040001F,0x00000000\n\t"
-    ".word 0x8E020004,0x00000000,0x1040001B,0x3C02800A\n\t"
-    ".word 0x8C4448D4,0x2402000C,0xAFA20010,0x8E050000\n\t"
-    ".word 0x8E060004,0x8E070008,0x0C0234EE,0x00000000\n\t"
-    ".word 0x14400008,0xAE020020,0x3C05800E,0x8CA2E050\n\t"
-    ".word 0x8E030010,0x8E040020,0x00431021,0x1080000A\n\t"
-    ".word 0xACA2E050,0x24060001,0x3C02800E,0x8E040020\n\t"
-    ".word 0x8C43E060,0x8E070010,0x8E05000C,0x00671821\n\t"
-    ".word 0x0C02363D,0xAC43E060,0x8E030008,0x24020001\n\t"
-    ".word 0x10620003,0x0062102B,0x0800F2C2,0x00022900\n\t"
-    ".word 0x24050100,0x10A00019,0x3C02800A,0x8C4448D4\n\t"
-    ".word 0x24020028,0xAFA20010,0x8E060014,0x0C0234EE\n\t"
-    ".word 0x24070002,0x14400008,0xAE020024,0x3C05800E\n\t"
-    ".word 0x8CA2E064,0x8E03001C,0x8E040024,0x00431021\n\t"
-    ".word 0x1080000A,0xACA2E064,0x24060001,0x3C02800E\n\t"
-    ".word 0x8E040024,0x8C43E05C,0x8E07001C,0x8E050018\n\t"
-    ".word 0x00671821,0x0C02363D,0xAC43E05C,0x8FBF001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int w;
+    int h;
+    unsigned int mode;
+    void *data;
+    int size;
+    int clut_count;
+    void *clut;
+    int clut_size;
+    void *image;
+    void *clut_image;
+} Conv;
+extern int D_800A48D4;
+extern int D_800DE050;
+extern int D_800DE05C;
+extern int D_800DE060;
+extern int D_800DE064;
+extern void *func_8008D3B8(int, int, int, int, int);
+extern void func_8008D8F4(void *, void *, int);
+
+static inline void load_image(Conv *c)
+{
+    if (c->w != 0 && c->h != 0) {
+        c->image = func_8008D3B8(D_800A48D4, c->w, c->h, c->mode, 12);
+        if (c->image == 0) {
+            D_800DE050 += c->size;
+        }
+        if (c->image != 0) {
+            D_800DE060 += c->size;
+            func_8008D8F4(c->image, c->data, 1);
+        }
+    }
+}
+
+static inline void load_clut(Conv *c)
+{
+    int clut_w;
+
+    clut_w = c->mode == 1 ? 256 : (c->mode == 0 ? 16 : 0);
+    if (clut_w != 0) {
+        c->clut_image = func_8008D3B8(D_800A48D4, clut_w, c->clut_count, 2, 40);
+        if (c->clut_image == 0) {
+            D_800DE064 += c->clut_size;
+        }
+        if (c->clut_image != 0) {
+            D_800DE05C += c->clut_size;
+            func_8008D8F4(c->clut_image, c->clut, 1);
+        }
+    }
+}
+
+void func_8003CA54(Conv *c)
+{
+    load_image(c);
+    load_clut(c);
+}

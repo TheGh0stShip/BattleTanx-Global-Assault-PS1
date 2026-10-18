@@ -1,34 +1,69 @@
-asm(".text\n\t.globl func_8002CD34\nfunc_8002CD34:\n\t"
-    ".word 0x27BDFFD0,0x8FA30040,0xAFB00020,0x00808021\n\t"
-    ".word 0xAFB10024,0x02008821,0xAFB20028,0x24120003\n\t"
-    ".word 0x10D20070,0xAFBF002C,0x2CC20004,0x10400005\n\t"
-    ".word 0x00000000,0x10C0000A,0x02002021,0x0800B3C9\n\t"
-    ".word 0x00000000,0x24020005,0x10C2000A,0x24020006\n\t"
-    ".word 0x10C2001B,0x00000000,0x0800B3C9,0x00000000\n\t"
-    ".word 0x00E03021,0x0C00B28F,0x00603821,0x0800B3C9\n\t"
-    ".word 0x00000000,0x8CE20000,0x00000000,0x1440005C\n\t"
-    ".word 0x00000000,0x8E020018,0x00000000,0x14400058\n\t"
-    ".word 0x24020001,0xA0620000,0x8E020008,0x00000000\n\t"
-    ".word 0x8C420020,0x00000000,0xAC620004,0x8E020008\n\t"
-    ".word 0x00000000,0x8C420028,0x0800B3C9,0xAC620008\n\t"
-    ".word 0x8E020018,0x00000000,0x14400049,0x00000000\n\t"
-    ".word 0x8E020008,0x8CE40000,0x8CE50004,0x8C430020\n\t"
-    ".word 0x8C420028,0x00642023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x30420FFF,0x8E030018,0x00000000,0x1072003C\n\t"
-    ".word 0x00023100,0x8E020010,0x00000000,0x10400020\n\t"
-    ".word 0x2605001C,0x3C02800C,0x244BD92C,0x89680003\n\t"
-    ".word 0x99680000,0x89690007,0x99690004,0xABA8001B\n\t"
-    ".word 0xBBA80018,0xABA9001F,0xBBA9001C,0x24020064\n\t"
-    ".word 0xAFA20010,0x8E040010,0x0C01CE35,0x27A70018\n\t"
-    ".word 0x8E02001C,0x00000000,0x04410004,0x00022303\n\t"
-    ".word 0x00021023,0x00021303,0x00022023,0x8E220024\n\t"
-    ".word 0x00000000,0x04410004,0x00022B03,0x00021023\n\t"
-    ".word 0x00021303,0x00022823,0x0C00EEB7,0x00000000\n\t"
-    ".word 0x0C021B21,0x00000000,0x00021402,0x30420001\n\t"
-    ".word 0x14400005,0x24040033,0x8E25001C,0x8E260024\n\t"
-    ".word 0x0800B3BD,0x24040005,0x8E25001C,0x8E260024\n\t"
-    ".word 0x0C014DE4,0x00000000,0x96240028,0x24020003\n\t"
-    ".word 0x0C006C25,0xAE220018,0x8E220008,0x0800B3C9\n\t"
-    ".word 0xAC40003C,0x02002021,0x0C00B2FB,0x00E03021\n\t"
-    ".word 0x8FBF002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { unsigned char b[8]; } Tint;
+typedef struct { char pad[32]; Vector pos; int pad2[4]; int value; } Target;
+typedef struct { int pad[2]; Target *target; int pad2; int model; int pad3; int state; Vector pos; unsigned short sound; } Crate;
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+typedef struct { int x; int z; } Hit2;
+extern Tint D_800BD92C;
+int func_8008AE30(int, int);
+void func_800738D4(int, Vector *, int, Tint *, int);
+void func_8003BADC(int, int);
+unsigned int func_80086C84(void);
+void func_80053790(int, int, int);
+void func_8001B094(int);
+void func_8002CA3C(Crate *, int, void *, void *);
+void func_8002CBEC(Crate *, int, void *);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline void smash(Crate *c, int angle) {
+    Tint tint;
+
+    if (c->state != 3) {
+        if (c->model != 0) {
+            tint = D_800BD92C;
+            func_800738D4(c->model, &c->pos, angle, &tint, 100);
+            func_8003BADC(to_int(c->pos.x), to_int(c->pos.z));
+        }
+        if (((func_80086C84() >> 16) & 1) == 0) {
+            func_80053790(5, c->pos.x, c->pos.z);
+        } else {
+            func_80053790(51, c->pos.x, c->pos.z);
+        }
+        c->state = 3;
+        func_8001B094(c->sound);
+        c->target->value = 0;
+    }
+}
+
+void func_8002CD34(Crate *c, int msg, unsigned int event, void *data, void *out) {
+    Crate *self = c;
+
+    switch (event) {
+    case 0:
+        func_8002CA3C(c, msg, data, out);
+        break;
+    case 5:
+        if (*(int *)data == 0 && c->state == 0) {
+            ((Query *)out)->valid = 1;
+            ((Query *)out)->x = c->target->pos.x;
+            ((Query *)out)->z = c->target->pos.z;
+        }
+        break;
+    case 6:
+        if (c->state == 0) {
+            smash(self, (func_8008AE30(c->target->pos.x - ((Hit2 *)data)->x, c->target->pos.z - ((Hit2 *)data)->z) &
+                         0xFFF)
+                            << 4);
+        }
+        break;
+    case 3:
+        func_8002CBEC(c, msg, data);
+        break;
+    }
+}

@@ -1,10 +1,22 @@
-asm(".text\n\t.globl func_8009CE4C\nfunc_8009CE4C:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00e08821,0xafb20018,0x8fb20030,0xafbf001c\n\t"
-    ".word 0x0c028c2d,0x24040001,0x32100001,0x3c01800f\n\t"
-    ".word 0xac20f200,0x3c01800f,0xac31f1f8,0x3c01800f\n\t"
-    ".word 0xac30f214,0x3c01800f,0xac20f208,0x3c01800f\n\t"
-    ".word 0xac20f20c,0x3c01800f,0xa420f224,0x3c01800f\n\t"
-    ".word 0xac20f210,0x3c01800f,0xac32f1fc,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern void func_800A30B4(int);
+extern int D_800EF200;
+extern int D_800EF1F8;
+extern int D_800EF214;
+extern int D_800EF208;
+extern int D_800EF20C;
+extern short D_800EF224;
+extern int D_800EF210;
+extern int D_800EF1FC;
+
+void func_8009CE4C(int flag, int a1, int a2, int a3, int a4) {
+    func_800A30B4(1);
+    D_800EF200 = 0;
+    D_800EF1F8 = a3;
+    D_800EF214 = flag & 1;
+    D_800EF208 = 0;
+    D_800EF20C = 0;
+    D_800EF224 = 0;
+    D_800EF210 = 0;
+    D_800EF1FC = a4;
+    __asm__ volatile("");
+}

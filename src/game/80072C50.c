@@ -1,25 +1,39 @@
-asm(".text\n\t.globl func_80072C50\nfunc_80072C50:\n\t"
-    ".word 0x27BDFFC8,0xAFB20028,0x00A09021,0xAFB00020\n\t"
-    ".word 0x00C08021,0xAFB3002C,0x00E09821,0x24040045\n\t"
-    ".word 0x24050028,0xAFBF0030,0x0C008DF4,0xAFB10024\n\t"
-    ".word 0x00408821,0x1220004A,0x00000000,0x8E490000\n\t"
-    ".word 0x8E4A0004,0x8E4B0008,0xAE290010,0xAE2A0014\n\t"
-    ".word 0xAE2B0018,0x16000018,0x00000000,0x0C021B21\n\t"
-    ".word 0x24108000,0x00021402,0x00501021,0x0C021B21\n\t"
-    ".word 0xAE22001C,0x00021402,0x24424000,0x0C021B21\n\t"
-    ".word 0xAE220020,0x00021402,0x8E23001C,0x00501021\n\t"
-    ".word 0xAE220024,0x8E220020,0x00031840,0xAE23001C\n\t"
-    ".word 0x8E230024,0x00021040,0xAE220020,0x00031840\n\t"
-    ".word 0x0801CB48,0xAE230024,0x8E090000,0x8E0A0004\n\t"
-    ".word 0x8E0B0008,0xAE29001C,0xAE2A0020,0xAE2B0024\n\t"
-    ".word 0x0C021B21,0x00000000,0xAFA00010,0x00131840\n\t"
-    ".word 0x00731821,0x00031880,0x00731821,0x00034200\n\t"
-    ".word 0x00021402,0x3C030003,0x05010002,0x00438021\n\t"
-    ".word 0x25080FFF,0x02202021,0x00002821,0x00A03021\n\t"
-    ".word 0x00A03821,0x00081303,0xAFA20014,0x24020C00\n\t"
-    ".word 0xAFA20018,0x0C01B0CD,0xAFB0001C,0x02202021\n\t"
-    ".word 0x24050003,0x00003021,0x00C03821,0xAE220008\n\t"
-    ".word 0x24021000,0xAFA20014,0x24020800,0xAFA00010\n\t"
-    ".word 0xAFA20018,0x0C01B0CD,0xAFB0001C,0xAE22000C\n\t"
-    ".word 0x8FBF0030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0038\n");
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    int pad0;
+    int pad4;
+    int a;
+    int b;
+    Vector pos;
+    Vector vel;
+} Shell;
+
+extern Shell *func_800237D0(int kind, int size);
+extern unsigned int func_80086C84(void);
+extern int func_8006C334(Shell *s, int kind, int a, int b, int c, int size, int d, int seed);
+
+void func_80072C50(int unused, Vector *pos, Vector *vel, int scale) {
+    Shell *s;
+    int seed;
+
+    s = func_800237D0(69, 40);
+    if (s != 0) {
+        s->pos = *pos;
+        if (vel == 0) {
+            s->vel.x = (func_80086C84() >> 16) - 32768;
+            s->vel.y = (func_80086C84() >> 16) + 16384;
+            s->vel.z = (func_80086C84() >> 16) - 32768;
+            s->vel.x *= 2;
+            s->vel.y *= 2;
+            s->vel.z *= 2;
+        } else {
+            s->vel = *vel;
+        }
+        seed = (func_80086C84() >> 16) + 0x30000;
+        s->a = func_8006C334(s, 0, 0, 0, 0, scale * 13 * 256 / 4096, 3072, seed);
+        s->b = func_8006C334(s, 3, 0, 0, 0, 4096, 2048, seed);
+    }
+}

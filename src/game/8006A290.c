@@ -1,17 +1,50 @@
-asm(".text\n\t.globl func_8006A290\nfunc_8006A290:\n\t"
-    ".word 0x3c06800b,0x24c5dd3c,0x8ca20004,0x2403ffff\n\t"
-    ".word 0x1043000e,0x00002021,0x3c02800e,0x24cadd3c\n\t"
-    ".word 0x244953fc,0x8d470000,0x8d480004,0xad270000\n\t"
-    ".word 0xad280004,0x8d470008,0x8d48000c,0xad270008\n\t"
-    ".word 0xad28000c,0x03e00008,0xaca30004,0x3c03800e\n\t"
-    ".word 0x3c02800a,0x944260d8,0x246553fc,0x10400006\n\t"
-    ".word 0xac6053fc,0x3c02800a,0x8c4260d4,0x00000000\n\t"
-    ".word 0x2442ffff,0xac6253fc,0x3c02800e,0x8c423e74\n\t"
-    ".word 0xaca0000c,0xaca00008,0xac400018,0x3c02800a\n\t"
-    ".word 0x8c436074,0x24020002,0x1062000e,0x2c620003\n\t"
-    ".word 0x10400005,0x24020001,0x10620008,0x3c02800e\n\t"
-    ".word 0x0801a8dd,0x00000000,0x24020003,0x10620007\n\t"
-    ".word 0x3c02800e,0x0801a8dd,0x00000000,0x0801a8dc\n\t"
-    ".word 0x2404005a,0x0801a8dc,0x2404003c,0x2404001e\n\t"
-    ".word 0x3c02800e,0x8c433e74,0x3c02800e,0xac445400\n\t"
-    ".word 0x03e00008,0xac64000c\n\t");
+typedef struct {
+    int index;
+    int timer;
+    int c;
+    int d;
+} Timer;
+
+typedef struct {
+    char pad[0xC];
+    int timer;
+    char pad10[8];
+    int value;
+} Hud;
+
+extern Timer D_800ADD3C;
+extern Timer D_800E53FC;
+extern unsigned short D_800A60D8;
+extern int D_800A60D4;
+extern Hud *D_800E3E74;
+extern unsigned int D_800A6074;
+
+void func_8006A290(void) {
+    int time = 0;
+
+    if (D_800ADD3C.timer != -1) {
+        D_800E53FC = D_800ADD3C;
+        D_800ADD3C.timer = -1;
+        return;
+    }
+    D_800E53FC.index = 0;
+    if (D_800A60D8 != 0) {
+        D_800E53FC.index = D_800A60D4 - 1;
+    }
+    D_800E53FC.d = 0;
+    D_800E53FC.c = 0;
+    D_800E3E74->value = 0;
+    switch (D_800A6074) {
+    case 1:
+        time = 90;
+        break;
+    case 2:
+        time = 60;
+        break;
+    case 3:
+        time = 30;
+        break;
+    }
+    D_800E53FC.timer = time;
+    D_800E3E74->timer = time;
+}

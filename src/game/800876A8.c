@@ -1,13 +1,64 @@
-asm(".text\n\t.globl func_800876A8\nfunc_800876A8:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0x3c02800f\n\t"
-    ".word 0xafb10014,0x2451e588,0xafbf001c,0xafb20018\n\t"
-    ".word 0x92220004,0x00000000,0x10400003,0x00009021\n\t"
-    ".word 0x0c021c78,0x00000000,0x0c021bf1,0x02002021\n\t"
-    ".word 0x30420001,0x10400015,0x02401021,0x0c025802\n\t"
-    ".word 0x00002021,0x0c02593f,0x02002021,0x00101882\n\t"
-    ".word 0x30630004,0x32040003,0x14400007,0x00641825\n\t"
-    ".word 0x00031080,0x00511021,0x24030003,0xac43000c\n\t"
-    ".word 0x08021dd0,0x24120001,0x00031080,0x00511021\n\t"
-    ".word 0x24030001,0xac43000c,0x02401021,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef void (*CardCallback)(int, int, int, int);
+typedef struct {
+    char name[20];
+    unsigned char selected;
+    char pad15[3];
+    int size;
+    char pad1c[12];
+} DirEntry;
+typedef struct {
+    int w0;
+    volatile unsigned char active;
+    volatile unsigned char busy;
+    volatile unsigned char open;
+    volatile unsigned char readonly;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    char pad_a[2];
+    int slot_state[8];
+    char pad2c[4];
+    int port;
+    char pad34[8];
+    unsigned char buf[0x80];
+    int wBC;
+    int wC0;
+    int wC4;
+    char padC8[0xC];
+    int wD4;
+    char padD8[0xC];
+    CardCallback done;
+    CardCallback error;
+    char padEC[0x210];
+    unsigned int checksum;
+    DirEntry entries[15];
+    int count;
+    int loaded;
+} CardState;
+extern CardState D_800EE588;
+
+extern void func_800871E0(void);
+extern int func_80086FC4(unsigned int port);
+extern void func_80096008(int a);
+extern int func_800964FC(unsigned int port);
+
+int func_800876A8(unsigned int port) {
+    int result = 0;
+    int slot;
+    int rc;
+
+    if (D_800EE588.active != 0) {
+        func_800871E0();
+    }
+    if (func_80086FC4(port) & 1) {
+        func_80096008(0);
+        rc = func_800964FC(port);
+        slot = ((port >> 2) & 4) | (port & 3);
+        if (rc == 0) {
+            D_800EE588.slot_state[slot] = 3;
+            result = 1;
+        } else {
+            D_800EE588.slot_state[slot] = 1;
+        }
+    }
+    return result;
+}

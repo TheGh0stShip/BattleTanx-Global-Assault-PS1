@@ -1,11 +1,26 @@
-asm(".text\n\t.globl func_80070CC0\nfunc_80070CC0:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafbf0018\n\t"
-    ".word 0xafb10014,0x8e030008,0x00000000,0x2c62000c\n\t"
-    ".word 0x1040000b,0x00a08821,0x2c62000a,0x14400008\n\t"
-    ".word 0x00000000,0x0c01c240,0x00000000,0x00402021\n\t"
-    ".word 0x10800004,0x3c02800f,0x0801c345,0xac40ac1c\n\t"
-    ".word 0x24040001,0x3c02800e,0x8e030018,0x8c42e30c\n\t"
-    ".word 0x00000000,0x00621821,0x10800004,0xae030018\n\t"
-    ".word 0x24020001,0x0801c350,0xae220000,0xae200000\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int D_800EAC1C;
+extern int D_800DE30C;
+extern int func_80070900(unsigned int *obj);
+
+void func_80070CC0(unsigned int *obj, int *done) {
+    int result;
+
+    switch (obj[2]) {
+    case 10:
+    case 11:
+        result = func_80070900(obj);
+        if (result) {
+            D_800EAC1C = 0;
+        }
+        break;
+    default:
+        result = 1;
+        break;
+    }
+    obj[6] += D_800DE30C;
+    if (result) {
+        *done = 1;
+    } else {
+        *done = 0;
+    }
+}

@@ -1,31 +1,55 @@
-asm(".text\n\t.globl func_800773CC\nfunc_800773CC:\n\t"
-    ".word 0x27BDFF80,0xAFB20070,0x241200BE,0xAFB00068\n\t"
-    ".word 0x2410001E,0xAFB30074,0x2413006E,0x3C02800C\n\t"
-    ".word 0x8C4360CC,0x24020001,0xAFBF007C,0xAFB40078\n\t"
-    ".word 0x14620004,0xAFB1006C,0x24120130,0x24100050\n\t"
-    ".word 0x241300C8,0x3C02800B,0x8C42EB30,0x00000000\n\t"
-    ".word 0x2442FFFD,0x2C420002,0x10400004,0x3C02800B\n\t"
-    ".word 0x8C45E97C,0x0801DD10,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C45E980,0x0C023681,0x27A40028,0x3C02800F\n\t"
-    ".word 0x9042BBB5,0x00000000,0x14400004,0x27A40028\n\t"
-    ".word 0x3C05800C,0x0801DD1C,0x24A53E54,0x3C05800C\n\t"
-    ".word 0x24A53E58,0x0C023655,0x24111000,0x27A40028\n\t"
-    ".word 0x24050003,0x02003021,0x24070064,0x3252FFFF\n\t"
-    ".word 0x2414FFFF,0x3C02800B,0x2442EA4C,0xAFB10010\n\t"
-    ".word 0xAFB10014,0xAFB20018,0xAFA0001C,0xAFB40020\n\t"
-    ".word 0x0C015B92,0xAFA20024,0x3C02800F,0x8C42BC38\n\t"
-    ".word 0x00000000,0x10400016,0x24050003,0x02603021\n\t"
-    ".word 0x3C10800B,0x2610E964,0x2407008C,0x3C02800B\n\t"
-    ".word 0x8E040024,0x2442EA58,0xAFB10010,0xAFB10014\n\t"
-    ".word 0xAFB20018,0xAFA0001C,0xAFB40020,0x0C015B92\n\t"
-    ".word 0xAFA20024,0x24050003,0x26660032,0x2407008C\n\t"
-    ".word 0x3C02800B,0x8E040028,0x0801DD5B,0x2442EA54\n\t"
-    ".word 0x02603021,0x3C10800B,0x2610E964,0x2407008C\n\t"
-    ".word 0x3C02800B,0x8E040024,0x2442EA54,0xAFB10010\n\t"
-    ".word 0xAFB10014,0xAFB20018,0xAFA0001C,0xAFB40020\n\t"
-    ".word 0x0C015B92,0xAFA20024,0x24050003,0x26660032\n\t"
-    ".word 0x2407008C,0x3C02800B,0x8E040028,0x2442EA58\n\t"
-    ".word 0xAFB10010,0xAFB10014,0xAFB20018,0xAFA0001C\n\t"
-    ".word 0xAFB40020,0x0C015B92,0xAFA20024,0x8FBF007C\n\t"
-    ".word 0x8FB40078,0x8FB30074,0x8FB20070,0x8FB1006C\n\t"
-    ".word 0x8FB00068,0x03E00008,0x27BD0080\n");
+typedef struct PadState {
+    unsigned char ready;
+    unsigned char port;
+} PadState;
+
+extern int D_800C60CC;
+extern int D_800EBC38;
+extern unsigned int D_800AEB30;
+extern PadState D_800EBBB4;
+extern void *D_800AE964[];
+extern char *D_800AE97C;
+extern char *D_800AE980;
+extern char D_800C3E54[];
+extern char D_800C3E58[];
+extern char D_800AEA4C[];
+extern char D_800AEA54[];
+extern char D_800AEA58[];
+extern char *func_8008DA04(char *, char *);
+extern char *func_8008D954(char *, char *);
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+
+static inline void draw_question(char *text, int y, unsigned short x, int row) {
+    func_80056E48(text, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+    if (D_800EBC38 != 0) {
+        func_80056E48(D_800AE964[9], 3, row, 140, 4096, 4096, x, 0, -1, D_800AEA58);
+        func_80056E48(D_800AE964[10], 3, row + 50, 140, 4096, 4096, x, 0, -1, D_800AEA54);
+    } else {
+        func_80056E48(D_800AE964[9], 3, row, 140, 4096, 4096, x, 0, -1, D_800AEA54);
+        func_80056E48(D_800AE964[10], 3, row + 50, 140, 4096, 4096, x, 0, -1, D_800AEA58);
+    }
+}
+
+void func_800773CC(void) {
+    unsigned short x = 190;
+    int y = 30;
+    int row = 110;
+    char text[64];
+
+    if (D_800C60CC == 1) {
+        x = 304;
+        y = 80;
+        row = 200;
+    }
+    if (D_800AEB30 - 3 < 2) {
+        func_8008DA04(text, D_800AE97C);
+    } else {
+        func_8008DA04(text, D_800AE980);
+    }
+    if (D_800EBBB4.port == 0) {
+        func_8008D954(text, D_800C3E54);
+    } else {
+        func_8008D954(text, D_800C3E58);
+    }
+    draw_question(text, y, x, row);
+}

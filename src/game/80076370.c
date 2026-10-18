@@ -1,17 +1,39 @@
-asm(".text\n\t.globl func_80076370\nfunc_80076370:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0xafb10014,0x10e00036\n\t"
-    ".word 0xafb00010,0x3c020002,0x34428004,0x14c20032\n\t"
-    ".word 0x3c03800f,0x3c04800b,0x9082e9e8,0x2463afc0\n\t"
-    ".word 0x000210c0,0x00431021,0xa0400000,0x3c02800f\n\t"
-    ".word 0x2451afb4,0x92220004,0x24030064,0xa083e9e8\n\t"
-    ".word 0x00511021,0xa0400001,0x92220004,0x00000000\n\t"
-    ".word 0x24420001,0xa2220004,0x304300ff,0x00711021\n\t"
-    ".word 0x90420001,0x00000000,0x10400017,0x2c620003\n\t"
-    ".word 0x10400015,0x3c10800f,0x2610af6c,0x02002021\n\t"
-    ".word 0x0c020c53,0x24050001,0x02002021,0x3c078007\n\t"
-    ".word 0x92220004,0x00003021,0x00511021,0x90420001\n\t"
-    ".word 0x24e762dc,0x2442ffff,0x00022880,0x00a22821\n\t"
-    ".word 0x00052b40,0x00a22821,0x0c020afb,0x00052880\n\t"
-    ".word 0x0801d916,0x00000000,0x3c03800b,0x24020001\n\t"
-    ".word 0xa2200004,0xa062ea40,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    void *data;
+} Buffer;
+
+typedef struct Playlist {
+    unsigned char pad;
+    unsigned char track[3];
+    unsigned char cursor;
+} Playlist;
+
+extern unsigned char D_800AE9E8;
+extern unsigned char D_800AEA40;
+extern Buffer D_800EAFC0[];
+extern Playlist D_800EAFB4;
+extern char D_800EAF6C[];
+extern void func_8008314C(void *, int);
+extern void func_80082BEC(void *, int, int, void (*)());
+extern void func_800762DC();
+
+void func_80076370(int unused0, int unused1, int size, int ok) {
+    Playlist *list;
+
+    if (ok != 0 && size == 0x28004) {
+        D_800EAFC0[D_800AE9E8].busy = 0;
+        list = &D_800EAFB4;
+        D_800AE9E8 = 100;
+        list->track[list->cursor] = 0;
+        list->cursor++;
+        if (list->track[list->cursor] != 0 && list->cursor < 3) {
+            func_8008314C(D_800EAF6C, 1);
+            func_80082BEC(D_800EAF6C, (list->track[list->cursor] - 1) * 0x28004, 0, func_800762DC);
+        } else {
+            list->cursor = 0;
+            D_800AEA40 = 1;
+        }
+    }
+}

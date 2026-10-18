@@ -1,15 +1,38 @@
-asm(".text\n\t.globl func_8005F588\nfunc_8005F588:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0x3c02800a\n\t"
-    ".word 0x90436080,0x3c02800e,0xafbf0018,0xafb00010\n\t"
-    ".word 0xa0434834,0x3c02800a,0x90436081,0x3c02800e\n\t"
-    ".word 0x0c021475,0xa0434830,0x30420001,0x10400021\n\t"
-    ".word 0x00000000,0x0c021475,0x00000000,0x30420002\n\t"
-    ".word 0x10400006,0x3c02800b,0x24030002,0xa043ace5\n\t"
-    ".word 0x3c04800b,0x08017d90,0x24849570,0x00002021\n\t"
-    ".word 0x24100001,0xa050ace5,0x3c02800b,0xa040ace4\n\t"
-    ".word 0x3c02800e,0xa040482c,0x3c02800f,0x9043c0f8\n\t"
-    ".word 0x3c02800e,0x0c0218b5,0xa043483c,0x10400003\n\t"
-    ".word 0x3c02800e,0x08017d8e,0xa0504824,0xa0404824\n\t"
-    ".word 0x3c04800b,0x24849838,0x02202821,0x0c016554\n\t"
-    ".word 0x24060001,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x24020001,0x03e00008,0x27bd0020\n\t");
+extern unsigned char D_800A6080;
+extern unsigned char D_800A6081;
+extern unsigned char D_800E4834;
+extern unsigned char D_800E4830;
+extern unsigned char D_800AACE5;
+extern unsigned char D_800AACE4;
+extern unsigned char D_800E482C;
+extern unsigned char D_800E483C;
+extern unsigned char D_800E4824;
+extern int D_800EC0F8[];
+extern int D_800A9570;
+extern int D_800A9838;
+extern int func_800851D4(void);
+extern int func_800862D4(int);
+extern void func_80059550(void *, void *, int);
+
+int func_8005F588(void *menu) {
+    D_800E4834 = D_800A6080;
+    D_800E4830 = D_800A6081;
+    if (func_800851D4() & 1) {
+        if (func_800851D4() & 2) {
+            D_800AACE5 = 2;
+            func_80059550(&D_800A9570, menu, 1);
+        } else {
+            D_800AACE5 = 1;
+            D_800AACE4 = 0;
+            D_800E482C = 0;
+            D_800E483C = D_800EC0F8[0];
+            if (func_800862D4(0)) {
+                D_800E4824 = 1;
+            } else {
+                D_800E4824 = 0;
+            }
+            func_80059550(&D_800A9838, menu, 1);
+        }
+    }
+    return 1;
+}

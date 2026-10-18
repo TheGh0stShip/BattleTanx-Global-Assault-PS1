@@ -1,40 +1,66 @@
-asm(".text\n\t.globl func_80080638\nfunc_80080638:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00A08021,0xAFB1001C\n\t"
-    ".word 0x00808821,0xAFBF0020,0x86040000,0x86050002\n\t"
-    ".word 0x0C020232,0x00000000,0xAE220004,0x96040004\n\t"
-    ".word 0x96020000,0x96050002,0x00822021,0x2484FFFF\n\t"
-    ".word 0x00042400,0x96020006,0x00042403,0x00A22821\n\t"
-    ".word 0x24A5FFFF,0x00052C00,0x0C020258,0x00052C03\n\t"
-    ".word 0xAE220008,0x86040008,0x8605000A,0x0C02027E\n\t"
-    ".word 0x00000000,0xAE22000C,0x92040017,0x92050016\n\t"
-    ".word 0x96060014,0x0C02022A,0x00000000,0x2604000C\n\t"
-    ".word 0x0C020285,0xAE220010,0xAE220014,0x3C02E600\n\t"
-    ".word 0xAE220018,0x92020018,0x00000000,0x10400069\n\t"
-    ".word 0x24080007,0x96020000,0x00000000,0xA7A20010\n\t"
-    ".word 0x96020002,0x00000000,0xA7A20012,0x96040004\n\t"
-    ".word 0x00000000,0xA7A40014,0x96020006,0x00000000\n\t"
-    ".word 0xA7A20016,0x00041400,0x00021C03,0x0460000B\n\t"
-    ".word 0x00001021,0x3C02800B,0x84420C64,0x00000000\n\t"
-    ".word 0x2442FFFF,0x0043102A,0x3C03800B,0x94630C64\n\t"
-    ".word 0x14400002,0x2462FFFF,0x00801021,0x87A30016\n\t"
-    ".word 0x97A40016,0x0460000C,0xA7A20014,0x3C02800B\n\t"
-    ".word 0x84420C66,0x00000000,0x2442FFFF,0x0043102A\n\t"
-    ".word 0x3C03800B,0x94630C66,0x14400004,0x2462FFFF\n\t"
-    ".word 0x080201E5,0x00801021,0x00001021,0x97A30010\n\t"
-    ".word 0xA7A20016,0x3062003F,0x14400006,0x00083080\n\t"
-    ".word 0x97A20014,0x00000000,0x3042003F,0x1040001F\n\t"
-    ".word 0x00082880,0x25080001,0x00083880,0x25080001\n\t"
-    ".word 0x00082880,0x25080001,0x96020008,0x00D13021\n\t"
-    ".word 0x00621023,0xA7A20010,0x97A20012,0x9603000A\n\t"
-    ".word 0x3C046000,0x00431023,0xA7A20012,0x9202001B\n\t"
-    ".word 0x9203001A,0x00021400,0x00031A00,0x00641825\n\t"
-    ".word 0x92040019,0x00431025,0x00441025,0xACC20000\n\t"
-    ".word 0x8FA20010,0x00F13821,0xACE20000,0x8FA20014\n\t"
-    ".word 0x00B12821,0x08020223,0xACA20000,0x25080001\n\t"
-    ".word 0x00083080,0x25080001,0x00083880,0x25080001\n\t"
-    ".word 0x00B12821,0x3C040200,0x9202001B,0x9203001A\n\t"
-    ".word 0x00021400,0x00031A00,0x00641825,0x92040019\n\t"
-    ".word 0x00431025,0x00441025,0xACA20000,0x8FA20010\n\t"
-    ".word 0x00D13021,0xACC20000,0x8FA20014,0x00F13821\n\t"
-    ".word 0xACE20000,0x2502FFFF,0xA2220003,0x8FBF0020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0028\n");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+
+typedef struct {
+    RECT clip;
+    short ofs[2];
+    RECT tw;
+    unsigned short tpage;
+    unsigned char dtd;
+    unsigned char dfe;
+    unsigned char isbg;
+    unsigned char r0, g0, b0;
+} DRAWENV;
+
+typedef struct {
+    unsigned long tag;
+    unsigned long code[15];
+} DR_ENV;
+
+extern short D_800B0C64;
+extern short D_800B0C66;
+
+extern unsigned long func_800808C8(int, int);
+extern unsigned long func_80080960(int, int);
+extern unsigned long func_800809F8(int, int);
+extern unsigned long func_800808A8(int, int, int);
+extern unsigned long func_80080A14(RECT *);
+
+void func_80080638(DR_ENV *dr_in, DRAWENV *env)
+{
+    DR_ENV *dr = dr_in;
+    RECT rect;
+    int len;
+
+    dr->code[0] = func_800808C8(env->clip.x, env->clip.y);
+    dr->code[1] = func_80080960((short)(env->clip.w + env->clip.x - 1), (short)(env->clip.y + env->clip.h - 1));
+    dr->code[2] = func_800809F8(env->ofs[0], env->ofs[1]);
+    dr->code[3] = func_800808A8(env->dfe, env->dtd, env->tpage);
+    dr->code[4] = func_80080A14(&env->tw);
+    dr->code[5] = 0xE6000000;
+    len = 7;
+    if (env->isbg) {
+        rect.x = env->clip.x;
+        rect.y = env->clip.y;
+        rect.w = env->clip.w;
+        rect.h = env->clip.h;
+        rect.w = (rect.w < 0) ? 0 : (rect.w > D_800B0C64 - 1) ? D_800B0C64 - 1 : rect.w;
+        rect.h = (rect.h < 0) ? 0 : (rect.h > D_800B0C66 - 1) ? D_800B0C66 - 1 : rect.h;
+        if ((rect.x & 0x3F) || (rect.w & 0x3F)) {
+            rect.x -= env->ofs[0];
+            rect.y -= env->ofs[1];
+            ((unsigned long *)dr)[len++] = 0x60000000 | (env->b0 << 16) | (env->g0 << 8) | env->r0;
+            ((unsigned long *)dr)[len++] = *(unsigned long *)&rect.x;
+            ((unsigned long *)dr)[len++] = *(unsigned long *)&rect.w;
+        } else {
+            ((unsigned long *)dr)[len++] = 0x02000000 | (env->b0 << 16) | (env->g0 << 8) | env->r0;
+            ((unsigned long *)dr)[len++] = *(unsigned long *)&rect.x;
+            ((unsigned long *)dr)[len++] = *(unsigned long *)&rect.w;
+        }
+    }
+    ((unsigned char *)dr)[3] = len - 1;
+}

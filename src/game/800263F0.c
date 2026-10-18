@@ -1,31 +1,92 @@
-asm(".text\n\t.globl func_800263F0\nfunc_800263F0:\n\t"
-    ".word 0x27BDFFC0,0xAFB50034,0x0080A821,0xAFB40030\n\t"
-    ".word 0x00A0A021,0xAFB60038,0x00C0B021,0xAFB10024\n\t"
-    ".word 0x00E08821,0x2404000D,0x24050040,0xAFBF003C\n\t"
-    ".word 0xAFB3002C,0xAFB20028,0x0C008DF4,0xAFB00020\n\t"
-    ".word 0x00409821,0x16600003,0x02208021,0x08009969\n\t"
-    ".word 0x00001021,0x2402000F,0xA2600017,0xA6600038\n\t"
-    ".word 0x8EC80000,0x8EC90004,0x8ECA0008,0xAE680008\n\t"
-    ".word 0xAE69000C,0xAE6A0010,0xA6710014,0xA2620016\n\t"
-    ".word 0x96A50002,0x0C0098C0,0x02802021,0x02802021\n\t"
-    ".word 0x96A50004,0x0C0098C0,0x00409021,0xAE620018\n\t"
-    ".word 0x96A50006,0x0C0098C0,0x02802021,0xAE62001C\n\t"
-    ".word 0x96A50008,0x0C0098C0,0x02802021,0xAE620020\n\t"
-    ".word 0x96A5000A,0x0C0098C0,0x02802021,0xAE620024\n\t"
-    ".word 0x96A5000C,0x0C0098C0,0x02802021,0xAE620028\n\t"
-    ".word 0x96A5000E,0x0C0098C0,0x02802021,0xAE62002C\n\t"
-    ".word 0x96A50010,0x0C0098C0,0x02802021,0x02802021\n\t"
-    ".word 0x02402821,0x02C03021,0x3210FFFF,0x02003821\n\t"
-    ".word 0x24110002,0xAE620030,0x240200F0,0xAFA20014\n\t"
-    ".word 0x24020001,0xAFB10010,0x0C009863,0xAFA20018\n\t"
-    ".word 0x02802021,0x02C02821,0x02003021,0x02403821\n\t"
-    ".word 0xAE620034,0xAFB10010,0x0C00930E,0xAFB30014\n\t"
-    ".word 0x2405FFFF,0xA6620006,0xA665003A,0x92A20013\n\t"
-    ".word 0x00000000,0x10400010,0x24020005,0x8E640034\n\t"
-    ".word 0x8E63001C,0xA2620017,0xAC83003C,0x96630006\n\t"
-    ".word 0x8E64001C,0x02231004,0x00431021,0x000210C0\n\t"
-    ".word 0x3C03800C,0x8C840008,0x246362B0,0x9484000E\n\t"
-    ".word 0x00431021,0xA4440020,0x02601021,0xA440003C\n\t"
-    ".word 0xA445003E,0x8FBF003C,0x8FB60038,0x8FB50034\n\t"
-    ".word 0x8FB40030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0040\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[0xE];
+    unsigned short frame;
+} Anim;
+
+typedef struct {
+    char pad0[8];
+    Anim *anim;
+} Model;
+
+typedef struct {
+    char pad0[0x3C];
+    Model *model;
+} Entry;
+
+typedef struct {
+    char pad0[0x20];
+    unsigned short frame;
+    char pad22[0x28 - 0x22];
+} Sprite;
+
+typedef struct {
+    short pad0;
+    unsigned short shape;
+    unsigned short models[7];
+    char pad12;
+    unsigned char animated;
+} CrateDef;
+
+typedef struct {
+    char pad0[6];
+    unsigned short sprite;
+    Vector pos;
+    unsigned short angle;
+    signed char health;
+    unsigned char state;
+    Model *models[7];
+    Entry *entry;
+    short timer;
+    short link;
+    short node;
+    short node_id;
+} Crate;
+
+extern Sprite D_800C62B0[];
+static inline Sprite *sprite_get(int id) {
+    return &D_800C62B0[id];
+}
+
+extern Crate *func_800237D0(int, int);
+extern void *func_80026300(void *, int);
+extern Entry *func_8002618C(void *, void *, Vector *, unsigned short, int, unsigned char, unsigned char);
+extern unsigned short func_80024C38(void *, Vector *, unsigned short, void *, int, Crate *);
+
+Crate *func_800263F0(CrateDef *def, void *list, Vector *pos, unsigned short angle) {
+    Crate *c = func_800237D0(13, 64);
+    void *shape;
+
+    if (c == 0) {
+        return 0;
+    }
+    c->state = 0;
+    c->timer = 0;
+    c->pos = *pos;
+    c->angle = angle;
+    c->health = 15;
+    shape = func_80026300(list, def->shape);
+    c->models[0] = func_80026300(list, def->models[0]);
+    c->models[1] = func_80026300(list, def->models[1]);
+    c->models[2] = func_80026300(list, def->models[2]);
+    c->models[3] = func_80026300(list, def->models[3]);
+    c->models[4] = func_80026300(list, def->models[4]);
+    c->models[5] = func_80026300(list, def->models[5]);
+    c->models[6] = func_80026300(list, def->models[6]);
+    c->entry = func_8002618C(list, shape, pos, angle, 2, 240, 1);
+    c->sprite = func_80024C38(list, pos, angle, shape, 2, c);
+    c->link = -1;
+    if (def->animated != 0) {
+        c->state = 5;
+        c->entry->model = c->models[1];
+        sprite_get(c->sprite)->frame = c->models[1]->anim->frame;
+    }
+    c->node = 0;
+    c->node_id = -1;
+    return c;
+}

@@ -1,45 +1,71 @@
-asm(".text\n\t.globl func_8005EB6C\nfunc_8005EB6C:\n\t"
-    ".word 0x27BDFFA8,0xAFB3004C,0x3C02800C,0xAFBF0050\n\t"
-    ".word 0xAFB20048,0xAFB10044,0xAFB00040,0x244BFC84\n\t"
-    ".word 0x89680003,0x99680000,0x00000000,0xABA8002B\n\t"
-    ".word 0xBBA80028,0x3C02800C,0x244BFC88,0x89680003\n\t"
-    ".word 0x99680000,0x00000000,0xABA80033,0xBBA80030\n\t"
-    ".word 0x3C02800C,0x244BFC8C,0x89680003,0x99680000\n\t"
-    ".word 0x00000000,0xABA8003B,0xBBA80038,0x0C008A7E\n\t"
-    ".word 0x00809821,0x304200FF,0x1440000F,0x3C02800B\n\t"
-    ".word 0x3C05800B,0x90A2ACEC,0x00000000,0x244300FF\n\t"
-    ".word 0x304200FF,0x14400007,0xA0A3ACEC,0x3C02800B\n\t"
-    ".word 0x9443ACEA,0x24040002,0xA0A4ACEC,0x24630001\n\t"
-    ".word 0xA443ACEA,0x3C02800B,0x9043EA45,0x24020001\n\t"
-    ".word 0x1462000C,0x24020002,0x3C04800C,0x2484FC90\n\t"
-    ".word 0x24050003,0x240600E6,0x240700D7,0x24021000\n\t"
-    ".word 0xAFA20010,0xAFA20014,0x27A20028,0x08017B4F\n\t"
-    ".word 0xAFA20018,0x14620038,0x3C10800B,0x3C02800A\n\t"
-    ".word 0x8044606C,0x0C00807E,0x3C11800B,0x0C008A7E\n\t"
-    ".word 0x24101000,0x0C01E739,0x304400FF,0x24050003\n\t"
-    ".word 0x240600B6,0x240700D7,0x24020078,0xA3A2002A\n\t"
-    ".word 0xA3A20028,0xA3A20029,0x240200FA,0xA3A20030\n\t"
-    ".word 0xA3A20031,0xA3A20032,0x240200FF,0x27B20028\n\t"
-    ".word 0x8E24E9D4,0x2631E9D4,0xA3A2002B,0xA3A20033\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F0C,0xAFB20018\n\t"
-    ".word 0x3C04800E,0x2484488C,0x240500E2,0x240600D6\n\t"
-    ".word 0x02003821,0x27A20030,0xAFB00010,0x0C015858\n\t"
-    ".word 0xAFA20014,0x24050003,0x240600F0,0x8E240004\n\t"
-    ".word 0x240700D7,0xAFB00010,0xAFB00014,0x0C015F0C\n\t"
-    ".word 0xAFB20018,0x24050003,0x24060103,0x8E240008\n\t"
-    ".word 0x240700D7,0xAFB00010,0xAFB00014,0xAFB20018\n\t"
-    ".word 0x0C015F0C,0x3C10800B,0x9202ACED,0x00000000\n\t"
-    ".word 0x1440001A,0x24050003,0x2406001E,0x240214CC\n\t"
-    ".word 0xAFA20010,0xAFA20014,0x240200C8,0xAFA20018\n\t"
-    ".word 0x3C02800B,0x8443ACEA,0x27A20038,0xAFA20024\n\t"
-    ".word 0x266200D1,0x00021080,0xAFA0001C,0xAFA30020\n\t"
-    ".word 0x3C03800B,0x2463E290,0x00431021,0x8C440000\n\t"
-    ".word 0x0C015B92,0x24070046,0x3042FFFF,0x10400017\n\t"
-    ".word 0x24020001,0x08017B82,0xA202ACED,0x2406001E\n\t"
-    ".word 0x240214CC,0xAFA20010,0xAFA20014,0x240200C8\n\t"
-    ".word 0xAFA20018,0x2402FFFF,0xAFA20020,0x27A20038\n\t"
-    ".word 0x3C03800B,0x2463E290,0xAFA20024,0x266200D1\n\t"
-    ".word 0x00021080,0x00431021,0xAFA0001C,0x8C440000\n\t"
-    ".word 0x0C015B92,0x24070046,0xA200ACED,0x8FBF0050\n\t"
-    ".word 0x8FB3004C,0x8FB20048,0x8FB10044,0x8FB00040\n\t"
-    ".word 0x03E00008,0x27BD0058\n");
+typedef struct Color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+} Color;
+
+extern Color D_800BFC84;
+extern Color D_800BFC88;
+extern Color D_800BFC8C;
+extern char D_800BFC90[];
+extern unsigned char D_800AACEC;
+extern short D_800AACEA;
+extern unsigned char D_800AACED;
+extern unsigned char D_800AEA45;
+extern signed char D_800A606C;
+extern int D_800AE9D4[];
+extern int D_800E488C;
+extern int D_800AE290[];
+extern int func_800229F8(void);
+extern void func_800201F8(int);
+extern void func_80079CE4(int);
+extern void func_80057C30(void *, int, int, int, int, int, Color *);
+extern void func_80056160(void *, int, int, int, int, Color *);
+extern int func_80056E48(int, int, int, int, int, int, int, int, int, Color *);
+
+void func_8005EB6C(int index) {
+    Color shade;
+    Color bright;
+    Color text;
+    unsigned char count;
+
+    shade = D_800BFC84;
+    bright = D_800BFC88;
+    text = D_800BFC8C;
+    if ((unsigned char)func_800229F8() == 0) {
+        count = D_800AACEC;
+        D_800AACEC = count + 255;
+        if (count == 0) {
+            D_800AACEC = 2;
+            D_800AACEA++;
+        }
+    }
+    if (D_800AEA45 == 1) {
+        func_80057C30(D_800BFC90, 3, 230, 215, 4096, 4096, &shade);
+    } else if (D_800AEA45 == 2) {
+        func_800201F8(D_800A606C);
+        func_80079CE4((unsigned char)func_800229F8());
+        shade.b = 120;
+        shade.r = 120;
+        shade.g = 120;
+        bright.r = 250;
+        bright.g = 250;
+        bright.b = 250;
+        shade.a = 255;
+        bright.a = 255;
+        func_80057C30((void *)D_800AE9D4[0], 3, 182, 215, 4096, 4096, &shade);
+        func_80056160(&D_800E488C, 226, 214, 4096, 4096, &bright);
+        func_80057C30((void *)D_800AE9D4[1], 3, 240, 215, 4096, 4096, &shade);
+        func_80057C30((void *)D_800AE9D4[2], 3, 259, 215, 4096, 4096, &shade);
+    }
+    if (D_800AACED == 0) {
+        if ((unsigned short)func_80056E48(D_800AE290[index + 209], 3, 30, 70, 5324, 5324, 200, 0, D_800AACEA,
+                                          &text)) {
+            D_800AACED = 1;
+        }
+    } else {
+        func_80056E48(D_800AE290[index + 209], 3, 30, 70, 5324, 5324, 200, 0, -1, &text);
+        D_800AACED = 0;
+    }
+}

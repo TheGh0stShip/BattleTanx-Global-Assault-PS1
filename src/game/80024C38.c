@@ -1,22 +1,44 @@
-asm(".text\n\t.globl func_80024C38\nfunc_80024C38:\n\t"
-    ".word 0x27BDFFC8,0xAFBF0030,0x8CA20000,0x00000000\n\t"
-    ".word 0x04400003,0x00C05021,0x08009319,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8CA30008,0x00000000,0x04600003,0x00024C03\n\t"
-    ".word 0x08009323,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8CA30004,0x00000000\n\t"
-    ".word 0x04600003,0x00023403,0x0800932D,0x00031B03\n\t"
-    ".word 0x00031023,0x00021303,0x00021823,0x00031B80\n\t"
-    ".word 0x8CE20008,0x00031C03,0x94420006,0x8CA50004\n\t"
-    ".word 0x00431021,0x00021400,0x04A00003,0x00024403\n\t"
-    ".word 0x0800933B,0x00052B03,0x00051023,0x00021303\n\t"
-    ".word 0x00022823,0x8CE20008,0x00000000,0x84440004\n\t"
-    ".word 0x9443000E,0xAFA40010,0x8CE20008,0x00000000\n\t"
-    ".word 0x8442000C,0x00000000,0xAFA20014,0x8CE20008\n\t"
-    ".word 0x00000000,0x84420008,0x00000000,0xAFA20018\n\t"
-    ".word 0x8CE20008,0x00003821,0x84440010,0x00051380\n\t"
-    ".word 0x00021403,0x00621821,0x00031C00,0x3142FFFF\n\t"
-    ".word 0xAFA20028,0x8FA20048,0x00031C03,0xAFA4001C\n\t"
-    ".word 0x8FA4004C,0x01202821,0xAFA80020,0xAFA30024\n\t"
-    ".word 0x0C0058BC,0xAFA2002C,0x8FBF0030,0x3042FFFF\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+} Shape;
+
+extern unsigned short func_800162F0(int, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+unsigned short func_80024C38(int unused, Vector *pos, unsigned short flags, Shape *shape, int mask, int list) {
+    int x = to_cell(pos->x);
+    int z = to_cell(pos->z);
+    int y0 = (short)(shape->box->y0 + to_cell(pos->y));
+    int y1 = (short)(shape->box->y1 + to_cell(pos->y));
+
+    return func_800162F0(list, x, z, 0, shape->box->x0, shape->box->x1, shape->box->z0, shape->box->z1,
+                         y0, y1, flags, mask);
+}

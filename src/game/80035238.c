@@ -1,43 +1,68 @@
-asm(".text\n\t.globl func_80035238\nfunc_80035238:\n\t"
-    ".word 0x27BDFFB0,0xAFB00040,0x00808021,0xAFBF0048\n\t"
-    ".word 0xAFB10044,0x8E030010,0x00000000,0x10600004\n\t"
-    ".word 0x00000000,0x8E020008,0x0800D4A0,0xAC43003C\n\t"
-    ".word 0x8E020008,0x00000000,0xA0400044,0x8E020008\n\t"
-    ".word 0x00000000,0xAC40003C,0x96040030,0x0C006C25\n\t"
-    ".word 0x24110003,0x8E050008,0x96060032,0x00003821\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8E04000C,0x0C00D652,0x24A50020,0x8E020018\n\t"
-    ".word 0x8E030024,0x00000000,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0xAFA20020,0x8E02001C\n\t"
-    ".word 0x8E030028,0x00000000,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0xAFA20024,0x8E020020\n\t"
-    ".word 0x8E03002C,0x00000000,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0xAFA20028,0x8E020024\n\t"
-    ".word 0x8E040018,0x0C022E0C,0x00442023,0x00021FC2\n\t"
-    ".word 0x00621821,0x00031843,0xAFA30030,0x8E020028\n\t"
-    ".word 0x8E04001C,0x0C022E0C,0x00442023,0x00021FC2\n\t"
-    ".word 0x00621821,0x00031843,0xAFA30034,0x8E02002C\n\t"
-    ".word 0x8E040020,0x0C022E0C,0x00442023,0x00021FC2\n\t"
-    ".word 0x00621821,0x00031843,0xAFA30038,0x92020035\n\t"
-    ".word 0x00000000,0x10510006,0x00402021,0x27A50020\n\t"
-    ".word 0x27A60030,0x0C01BF6C,0x00003821,0x92020035\n\t"
-    ".word 0x00000000,0x10400036,0x00401821,0x24020002\n\t"
-    ".word 0x10620015,0x28620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620007,0x00000000,0x0800D52D,0x00000000\n\t"
-    ".word 0x1071001B,0x27A40020,0x0800D52D,0x00000000\n\t"
-    ".word 0x8FA50020,0x8FA60028,0x0C014DE4,0x2404000A\n\t"
-    ".word 0x3C0200E4,0x34429D0A,0x27A40020,0x24050064\n\t"
-    ".word 0x0800D509,0x2406000A,0x8FA50020,0x8FA60028\n\t"
-    ".word 0x0C014DE4,0x2404000C,0x3C0200E4,0x34429D0A\n\t"
-    ".word 0x27A40020,0x240500C8,0x24060014,0x2407007F\n\t"
-    ".word 0x0C008D78,0xAFA20010,0x0800D52D,0x00000000\n\t"
-    ".word 0x2405007F,0x240600C8,0x24070005,0x240209C4\n\t"
-    ".word 0xAFA00010,0x0C008EE3,0xAFA20014,0x24040003\n\t"
-    ".word 0x27A50020,0x00003021,0x0C01BF6C,0x00403821\n\t"
-    ".word 0x8FA50020,0x8FA60028,0x0800D52B,0x2404000B\n\t"
-    ".word 0x0C021B21,0x00000000,0x00021402,0x30420001\n\t"
-    ".word 0x14400005,0x00000000,0x8FA50020,0x8FA60028\n\t"
-    ".word 0x0800D52B,0x24040005,0x8FA50020,0x8FA60028\n\t"
-    ".word 0x24040033,0x0C014DE4,0x00000000,0x0C008B2B\n\t"
-    ".word 0x02002021,0x8FBF0048,0x8FB10044,0x8FB00040\n\t"
-    ".word 0x03E00008,0x27BD0050\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[32]; Vector pos; int pad2[4]; int value; int pad3; unsigned char lit; } Target;
+typedef struct {
+    int pad[2];
+    Target *target;
+    int model;
+    int value;
+    int pad2;
+    Vector min;
+    Vector max;
+    unsigned short sound;
+    unsigned short angle;
+    unsigned char pad3;
+    unsigned char kind;
+} Gate;
+void func_8001B094(int);
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+int func_8008B830(int);
+void func_8006FDB0(int, Vector *, Vector *, int);
+void func_80053790(int, int, int);
+void func_800235E0(Vector *, int, int, int, int);
+int func_80023B8C(Vector *, int, int, int, int, int);
+unsigned int func_80086C84(void);
+void func_80022CAC(Gate *);
+
+void func_80035238(Gate *g) {
+    Vector center;
+    Vector size;
+
+    if (g->value != 0) {
+        g->target->value = g->value;
+    } else {
+        g->target->lit = 0;
+        g->target->value = 0;
+    }
+    func_8001B094(g->sound);
+    func_80035948(g->model, &g->target->pos, g->angle, 0, 0, 0, 0, 0);
+    center.x = (g->min.x + g->max.x) / 2;
+    center.y = (g->min.y + g->max.y) / 2;
+    center.z = (g->min.z + g->max.z) / 2;
+    size.x = func_8008B830(g->max.x - g->min.x) / 2;
+    size.y = func_8008B830(g->max.y - g->min.y) / 2;
+    size.z = func_8008B830(g->max.z - g->min.z) / 2;
+    if (g->kind != 3) {
+        func_8006FDB0(g->kind, &center, &size, 0);
+    }
+    if (g->kind != 0) {
+        switch (g->kind) {
+        case 1:
+            func_80053790(10, center.x, center.z);
+            func_800235E0(&center, 100, 10, 127, 0xE49D0A);
+            break;
+        case 2:
+            func_80053790(12, center.x, center.z);
+            func_800235E0(&center, 200, 20, 127, 0xE49D0A);
+            break;
+        case 3:
+            func_8006FDB0(3, &center, 0, func_80023B8C(&center, 127, 200, 5, 0, 2500));
+            func_80053790(11, center.x, center.z);
+            break;
+        }
+    } else if (((func_80086C84() >> 16) & 1) == 0) {
+        func_80053790(5, center.x, center.z);
+    } else {
+        func_80053790(51, center.x, center.z);
+    }
+    func_80022CAC(g);
+}

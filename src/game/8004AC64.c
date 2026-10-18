@@ -1,48 +1,149 @@
-asm(".text\n\t.globl func_8004AC64\nfunc_8004AC64:\n\t"
-    ".word 0x27BDFFD0,0xAFB50024,0x0080A821,0xAFB00010\n\t"
-    ".word 0x26B000F8,0xAFBF002C,0xAFB60028,0xAFB40020\n\t"
-    ".word 0xAFB3001C,0xAFB20018,0xAFB10014,0x96160004\n\t"
-    ".word 0x00000000,0x32D2FFFF,0x124000A1,0x00000000\n\t"
-    ".word 0x02402021,0x0C0129E5,0xA6A0014A,0x00409821\n\t"
-    ".word 0x8E620004,0x9674001A,0xAE020024,0x8E62000C\n\t"
-    ".word 0x3291FFFF,0x16200008,0xAE02002C,0x96020006\n\t"
-    ".word 0xA600000A,0xA6000014,0xA6000016,0xAE000018\n\t"
-    ".word 0x08012B55,0xA6000004,0x0C0129E5,0x02202021\n\t"
-    ".word 0x00402821,0x90A40000,0x24020003,0x1082000C\n\t"
-    ".word 0x28820004,0x10400005,0x24020002,0x10820020\n\t"
-    ".word 0x00000000,0x08012B9D,0x2664001A,0x24020004\n\t"
-    ".word 0x1082000E,0x2664001A,0x08012B9E,0x02002821\n\t"
-    ".word 0x9602000A,0x00000000,0x14520002,0x00000000\n\t"
-    ".word 0xA600000A,0xA4A00002,0x96020006,0xA6140004\n\t"
-    ".word 0x2442FFFF,0x08012BA8,0xA6020006,0x02202021\n\t"
-    ".word 0xA600000A,0xA6000014,0xA6000016,0xAE000018\n\t"
-    ".word 0xAEA000F8,0x0C0129F1,0xA6000004,0x96020006\n\t"
-    ".word 0x00000000,0x2442FFFE,0x08012BA8,0xA6020006\n\t"
-    ".word 0x96020006,0x9603000A,0x2442FFFF,0x1223002E\n\t"
-    ".word 0xA6020006,0xAEA000F8,0x90A30012,0x24020001\n\t"
-    ".word 0x10620007,0x28620002,0x14400027,0x00000000\n\t"
-    ".word 0x10640014,0x02A02021,0x08012B99,0xA4A00002\n\t"
-    ".word 0x94A2000C,0x00000000,0xA6020004,0xA4A0000C\n\t"
-    ".word 0x96020004,0x00000000,0x10400005,0x2664001A\n\t"
-    ".word 0x0C0129E5,0x00402021,0xA4400002,0x2664001A\n\t"
-    ".word 0x0C012858,0x02002821,0x96030006,0x08012BA7\n\t"
-    ".word 0x00621823,0x94A2000E,0x00000000,0xA6020004\n\t"
-    ".word 0xA4A0000E,0x96020004,0x00000000,0x10400005\n\t"
-    ".word 0x2664001A,0x0C0129E5,0x00402021,0xA4400002\n\t"
-    ".word 0x2664001A,0x0C012858,0x02002821,0x96030006\n\t"
-    ".word 0x08012BA7,0x00621823,0x02A02021,0xA4A00002\n\t"
-    ".word 0x0C012FD9,0xA6140004,0x08012BA8,0x00000000\n\t"
-    ".word 0x02002821,0xA600000A,0xA6000014,0xA6000016\n\t"
-    ".word 0x0C012858,0xAE000018,0x96030006,0xA6000004\n\t"
-    ".word 0xAE000000,0x00621823,0xA6030006,0x96040004\n\t"
-    ".word 0x0C0129E5,0x00000000,0x00402021,0x10800006\n\t"
-    ".word 0x24020003,0x90830000,0x00000000,0x14620002\n\t"
-    ".word 0x00000000,0xA0800018,0x8E020000,0x00000000\n\t"
-    ".word 0x14400011,0x00000000,0x96020006,0x00000000\n\t"
-    ".word 0x2C420006,0x1040000C,0x2402FEFF,0x8EA30180\n\t"
-    ".word 0x00000000,0x00621824,0xAEA30180,0x96020006\n\t"
-    ".word 0x00000000,0x2C420005,0x10400003,0x2402FF7F\n\t"
-    ".word 0x00621024,0xAEA20180,0x0C0129F1,0x32C4FFFF\n\t"
-    ".word 0x8FBF002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    int x;
+    char pad8[4];
+    union {
+        int z;
+        struct {
+            unsigned short left;
+            unsigned short right;
+        } b;
+    } u;
+    char pad10[2];
+    unsigned char branch;
+    char pad13[5];
+    unsigned char mode;
+    char pad19;
+    unsigned short link;
+} Node;
+typedef struct {
+    void *pending;
+    unsigned short head;
+    unsigned short count;
+    char pad8[2];
+    unsigned short next;
+    char padC[0x14 - 0xC];
+    unsigned short last;
+    unsigned short node;
+    int side;
+    char pad1C[0x24 - 0x1C];
+    int from_x;
+    int from_y;
+    int from_z;
+} Route;
+typedef struct {
+    char pad0[0xF8];
+    Route route;
+    char pad128[0x14A - 0x128];
+    unsigned short route_seen2;
+    char pad14C[0x180 - 0x14C];
+    int flags;
+} Tank;
+extern Node *func_8004A794(unsigned short);
+extern void func_8004A7C4(unsigned short);
+extern int func_8004A160(unsigned short *, Route *);
+extern void func_8004BF64(Tank *);
+
+void func_8004AC64(Tank *tank) {
+    Route *route = &tank->route;
+    unsigned short head = route->head;
+    Node *node;
+    Node *next;
+    Node *m;
+    unsigned short link;
+    int flags;
+
+    if (head == 0) {
+        return;
+    }
+    tank->route_seen2 = 0;
+    node = func_8004A794(head);
+    link = node->link;
+    route->from_x = node->x;
+    route->from_z = node->u.z;
+    if (link == 0) {
+        route->next = 0;
+        route->last = 0;
+        route->node = 0;
+        route->side = 0;
+        route->head = 0;
+        route->count--;
+    } else {
+        next = func_8004A794(link);
+        switch (next->kind) {
+        case 3:
+            if (route->next == head) {
+                route->next = 0;
+            }
+            next->prev = 0;
+            route->head = link;
+            route->count--;
+            break;
+        case 4:
+            route->next = 0;
+            route->last = 0;
+            route->node = 0;
+            route->side = 0;
+            route->pending = 0;
+            route->head = 0;
+            func_8004A7C4(link);
+            route->count -= 2;
+            break;
+        case 2:
+            route->count--;
+            if (link == route->next) {
+                goto keep;
+            }
+            route->pending = 0;
+            switch (next->branch) {
+            case 1:
+                route->head = next->u.b.left;
+                next->u.b.left = 0;
+                if (route->head != 0) {
+                    func_8004A794(route->head)->prev = 0;
+                }
+                route->count -= func_8004A160(&node->link, route);
+                break;
+            case 2:
+                route->head = next->u.b.right;
+                next->u.b.right = 0;
+                if (route->head != 0) {
+                    func_8004A794(route->head)->prev = 0;
+                }
+                route->count -= func_8004A160(&node->link, route);
+                break;
+            case 0:
+            default:
+            keep:
+                next->prev = 0;
+                route->head = link;
+                func_8004BF64(tank);
+                break;
+            }
+            break;
+        default:
+            route->next = 0;
+            route->last = 0;
+            route->node = 0;
+            route->side = 0;
+            route->count -= func_8004A160(&node->link, route);
+            route->head = 0;
+            route->pending = 0;
+            break;
+        }
+    }
+    m = func_8004A794(route->head);
+    if (m != 0 && m->kind == 3) {
+        m->mode = 0;
+    }
+    if (route->pending == 0 && route->count < 6) {
+        flags = tank->flags & ~0x100;
+        tank->flags = flags;
+        if (route->count < 5) {
+            tank->flags = flags & ~0x80;
+        }
+    }
+    func_8004A7C4(head);
+}

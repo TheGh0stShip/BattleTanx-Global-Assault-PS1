@@ -1,25 +1,86 @@
-asm(".text\n\t.globl func_8002618C\nfunc_8002618C:\n\t"
-    ".word 0x27BDFFC8,0x00A04021,0xAFB10024,0x00C08821\n\t"
-    ".word 0xAFBF0030,0xAFB3002C,0xAFB20028,0xAFB00020\n\t"
-    ".word 0x8C820004,0x8C850010,0x000218C0,0x00621821\n\t"
-    ".word 0x24420001,0x8CA50020,0x000318C0,0xAC820004\n\t"
-    ".word 0x8E220000,0x00A38021,0xAE020020,0x8E220004\n\t"
-    ".word 0x00000000,0xAE020024,0x8E220008,0xAE08003C\n\t"
-    ".word 0xAE020028,0x8FB3004C,0x8FB20050,0x11000035\n\t"
-    ".word 0x27A40010,0x8D020008,0x00000000,0x9442000C\n\t"
-    ".word 0x00000000,0xA7A20014,0x8E02003C,0x00000000\n\t"
-    ".word 0x8C420008,0x00000000,0x94420004,0x00000000\n\t"
-    ".word 0xA7A20010,0x8E02003C,0x00000000,0x8C420008\n\t"
-    ".word 0x00000000,0x94420010,0x00000000,0xA7A20016\n\t"
-    ".word 0x8E02003C,0x27A50018,0x8C420008,0x30E6FFFF\n\t"
-    ".word 0x94420008,0x02003821,0x0C009268,0xA7A20012\n\t"
-    ".word 0x87A2001C,0x8E230000,0x00021380,0x00431021\n\t"
-    ".word 0xAE020034,0x87A20018,0x8E230000,0x00021380\n\t"
-    ".word 0x00431021,0xAE02002C,0x87A2001E,0x8E230008\n\t"
-    ".word 0x00021380,0x00431021,0xAE020038,0x87A3001A\n\t"
-    ".word 0x8E240008,0xA2120045,0x8FA20048,0xA2130044\n\t"
-    ".word 0x00031B80,0x00641821,0xAE020040,0x080098B8\n\t"
-    ".word 0xAE030030,0x02002021,0x00002821,0x0C022A92\n\t"
-    ".word 0x24060048,0x02001021,0x8FBF0030,0x8FB3002C\n\t"
-    ".word 0x8FB20028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+} Shape;
+
+typedef struct {
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+} Rect;
+
+typedef struct {
+    char pad0[0x20];
+    Vector pos;
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+    Shape *shape;
+    int param;
+    unsigned char kind;
+    unsigned char sub;
+    char pad46[2];
+} Entry;
+
+typedef struct {
+    char pad0[0x20];
+    Entry *entries;
+} Pool;
+
+typedef struct {
+    int pad0;
+    int count;
+    char pad08[8];
+    Pool *pool;
+} List;
+
+extern void func_800249A0(Rect *, Rect *, unsigned short, Entry *);
+extern void func_8008AA48(void *, int, int);
+
+Entry *func_8002618C(List *list, Shape *shape, Vector *pos, unsigned short flags, int param, unsigned char kind,
+                     unsigned char sub) {
+    Entry *e = &list->pool->entries[list->count++];
+    Rect in;
+    Rect out;
+
+    e->pos.x = pos->x;
+    e->pos.y = pos->y;
+    e->pos.z = pos->z;
+    e->shape = shape;
+    if (shape != 0) {
+        in.x1 = e->shape->box->x1;
+        in.x0 = e->shape->box->x0;
+        in.z1 = e->shape->box->z1;
+        in.z0 = e->shape->box->z0;
+        func_800249A0(&in, &out, flags, e);
+        e->x1 = (out.x1 << 14) + pos->x;
+        e->x0 = (out.x0 << 14) + pos->x;
+        e->z1 = (out.z1 << 14) + pos->z;
+        e->z0 = (out.z0 << 14) + pos->z;
+        e->sub = sub;
+        e->param = param;
+        e->kind = kind;
+    } else {
+        func_8008AA48(e, 0, sizeof(Entry));
+    }
+    return e;
+}

@@ -1,9 +1,42 @@
-asm(".text\n\t.globl func_8001578C\nfunc_8001578C:\n\t"
-    ".word 0x27bdff48,0xafb000b0,0x00808021,0x26040050\n\t"
-    ".word 0xafbf00b4,0x0c0053ff,0x02002821,0x96020000\n\t"
-    ".word 0x00000000,0x00021023,0xa7a20010,0x96020002\n\t"
-    ".word 0x26040070,0x00021023,0xa7a20012,0x96020004\n\t"
-    ".word 0x27a50010,0xa7a20014,0x8e020008,0x8e03000c\n\t"
-    ".word 0x8e060010,0x00021023,0x00031823,0xafa20018\n\t"
-    ".word 0xafa3001c,0x0c005219,0xafa60020,0x8fbf00b4\n\t"
-    ".word 0x8fb000b0,0x03e00008,0x27bd00b8\n\t");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+typedef struct View {
+    short ax;
+    short ay;
+    short az;
+    short pad06;
+    Vector pos;
+    char pad14[0x50 - 0x14];
+    Matrix world;
+    Matrix inverse;
+    char pad90[0xA0 - 0x90];
+} View;
+void func_80014FFC(Matrix *, View *);
+void func_80014864(Matrix *, View *);
+
+void func_8001578C(View *view) {
+    View inv;
+
+    func_80014FFC(&view->world, view);
+    inv.ax = -view->ax;
+    inv.ay = -view->ay;
+    inv.az = view->az;
+    {
+        int x = view->pos.x;
+        int y = view->pos.y;
+        int z = view->pos.z;
+
+        inv.pos.x = -x;
+        inv.pos.y = -y;
+        inv.pos.z = z;
+    }
+    func_80014864(&view->inverse, &inv);
+}

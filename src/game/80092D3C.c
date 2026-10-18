@@ -1,13 +1,40 @@
-asm(".text\n\t.globl func_80092D3C\nfunc_80092D3C:\n\t"
-    ".word 0x27bdffd8,0xafbf0020,0x0c024676,0x00000000\n\t"
-    ".word 0x0c024661,0x00000000,0x0c0245bd,0x00000000\n\t"
-    ".word 0x3c02800f,0x8c42ef18,0x27a50018,0x8c440068\n\t"
-    ".word 0x0c0260ac,0x27a6001c,0x2c420001,0x14400019\n\t"
-    ".word 0x27a50010,0x8fa40018,0x24020001,0x3c01800c\n\t"
-    ".word 0xac2260bc,0x0c025d67,0x000422c2,0x24040002\n\t"
-    ".word 0x27a50010,0x0c025ceb,0x00003021,0x2c420001\n\t"
-    ".word 0x1440000c,0x00002821,0x24040015,0x0c025ceb\n\t"
-    ".word 0x00a03021,0x2c420001,0x14400006,0x00000000\n\t"
-    ".word 0x0c024653,0x00000000,0x0c02728f,0x240401e0\n\t"
-    ".word 0x2c420001,0x8fbf0020,0x38420001,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+extern void func_800919D8(void);
+extern void func_80091984(void);
+extern void func_800916F4(void);
+extern int func_800982B0(int, unsigned int *, int *);
+extern void func_8009759C(unsigned int, unsigned char *);
+extern int func_800973AC(int, unsigned char *, unsigned char *);
+extern void func_8009194C(void);
+extern int func_8009CA3C(int);
+
+typedef struct {
+    char pad[104];
+    int file;
+} Info80092D3C;
+extern Info80092D3C *D_800EEF18;
+extern int D_800C60BC;
+
+int func_80092D3C(void) {
+    unsigned char loc[8];
+    unsigned int pos;
+    int size;
+    int failed;
+
+    func_800919D8();
+    func_80091984();
+    func_800916F4();
+    failed = func_800982B0(D_800EEF18->file, &pos, &size) == 0;
+    if (!failed) {
+        D_800C60BC = 1;
+        func_8009759C(pos >> 11, loc);
+        failed = func_800973AC(2, loc, 0) == 0;
+        if (!failed) {
+            failed = func_800973AC(21, 0, 0) == 0;
+            if (!failed) {
+                func_8009194C();
+                failed = func_8009CA3C(480) == 0;
+            }
+        }
+    }
+    return failed ^ 1;
+}

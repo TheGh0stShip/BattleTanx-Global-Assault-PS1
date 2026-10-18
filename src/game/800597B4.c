@@ -1,25 +1,62 @@
-asm(".text\n\t.globl func_800597B4\nfunc_800597B4:\n\t"
-    ".word 0x00003821,0x3C02800E,0x2443474C,0x00071400\n\t"
-    ".word 0x00021303,0x00431021,0x94420000,0x00000000\n\t"
-    ".word 0x10400007,0x24E20001,0x00403821,0x00021400\n\t"
-    ".word 0x00021403,0x2842000A,0x1440FFF5,0x00071400\n\t"
-    ".word 0x00071400,0x00021303,0x00434021,0x2403FFFF\n\t"
-    ".word 0x24020080,0x00E04821,0xA1030003,0xA1030004\n\t"
-    ".word 0xA1030005,0xA1030006,0xA1030007,0xA1030008\n\t"
-    ".word 0xAD04000C,0x10A00024,0xA5020000,0x00003821\n\t"
-    ".word 0x3C02800E,0x2444474C,0x00071400,0x00021303\n\t"
-    ".word 0x00441821,0x94620000,0x00000000,0x10400005\n\t"
-    ".word 0x24E20001,0x8C62000C,0x00000000,0x10450007\n\t"
-    ".word 0x24E20001,0x00403821,0x00021400,0x00021403\n\t"
-    ".word 0x2842000A,0x1440FFF1,0x00071400,0x00071400\n\t"
-    ".word 0x00021C03,0x2402000A,0x14620004,0x00031900\n\t"
-    ".word 0x2402FFFF,0x08016630,0xA1020002,0xA1070002\n\t"
-    ".word 0x3C02800E,0x2442474C,0x08016631,0x00622021\n\t"
-    ".word 0x08016641,0xA0690003,0xA1030002,0x00002021\n\t"
-    ".word 0x10800017,0x00003821,0x2405FFFF,0x00071400\n\t"
-    ".word 0x00021403,0x00821821,0x80620003,0x00000000\n\t"
-    ".word 0x1045FFF3,0x24E20001,0x00403821,0x00021400\n\t"
-    ".word 0x00021403,0x28420006,0x1440FFF5,0x00071400\n\t"
-    ".word 0x94850000,0x30C3FFFF,0x30A2FFFD,0xA4820000\n\t"
-    ".word 0x24020001,0x14620002,0x30A2FFFC,0xA4820000\n\t"
-    ".word 0x03E00008,0x00000000\n");
+typedef struct {
+    unsigned short flags;
+    signed char state;
+    signed char sounds[6];
+    char pad9[3];
+    void *stream;
+} Channel;
+extern Channel D_800E474C[];
+
+void func_800597B4(void *stream, void *parent_stream, unsigned short mode) {
+    short i;
+    short slot;
+    Channel *c;
+    Channel *p;
+    unsigned short flags;
+
+    for (i = 0; i < 10; i++) {
+        if (D_800E474C[i].flags == 0) {
+            break;
+        }
+    }
+    c = &D_800E474C[i];
+    slot = i;
+    c->sounds[0] = -1;
+    c->sounds[1] = -1;
+    c->sounds[2] = -1;
+    c->sounds[3] = -1;
+    c->sounds[4] = -1;
+    c->sounds[5] = -1;
+    c->stream = stream;
+    c->flags = 0x80;
+    if (parent_stream != 0) {
+        for (i = 0; i < 10; i++) {
+            if (D_800E474C[i].flags != 0 && D_800E474C[i].stream == parent_stream) {
+                break;
+            }
+        }
+        if (i == 10) {
+            c->state = -1;
+            p = 0;
+        } else {
+            c->state = i;
+            p = &D_800E474C[i];
+        }
+    } else {
+        c->state = -1;
+        p = 0;
+    }
+    if (p != 0) {
+        for (i = 0; i < 6; i++) {
+            if (p->sounds[i] == -1) {
+                p->sounds[i] = slot;
+                break;
+            }
+        }
+        flags = p->flags;
+        p->flags = flags & ~2;
+        if (mode == 1) {
+            p->flags = flags & ~3;
+        }
+    }
+}

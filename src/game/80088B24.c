@@ -1,11 +1,60 @@
-asm(".text\n\t.globl func_80088B24\nfunc_80088B24:\n\t"
-    ".word 0x27bdffe8,0x3c02800f,0xafb00010,0x2450eae8\n\t"
-    ".word 0xafbf0014,0x9202003c,0x00000000,0x14400017\n\t"
-    ".word 0x00000000,0x8e040050,0x8e020054,0x00000000\n\t"
-    ".word 0x1482000d,0x3c02800f,0x8e030058,0x8e02005c\n\t"
-    ".word 0x00000000,0x10620008,0x3c02800f,0x0c0222c0\n\t"
-    ".word 0x24050800,0x8e030058,0xae020050,0x24630800\n\t"
-    ".word 0xae030058,0x3c02800f,0x2442eae8,0x8c430048\n\t"
-    ".word 0x8c420054,0x080222ec,0x00621021,0x8e030070\n\t"
-    ".word 0x8e020084,0x00000000,0x00621021,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    char pad34[4];
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    char pad94[4];
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+
+extern int func_80088B00(int a, int b);
+
+int func_80088B24(void) {
+    StreamState *s = &D_800EEAE8;
+
+    if (s->b3c == 0) {
+        int pos = s->w50;
+
+        if (pos == s->w54 && s->w58 != s->w5c) {
+            s->w50 = func_80088B00(pos, 0x800);
+            s->w58 += 0x800;
+        }
+        return D_800EEAE8.w48 + D_800EEAE8.w54;
+    }
+    return s->w70 + s->w84;
+}

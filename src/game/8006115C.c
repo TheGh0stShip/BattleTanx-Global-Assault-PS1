@@ -1,9 +1,17 @@
-asm(".text\n\t.globl func_8006115C\nfunc_8006115C:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x3c05800a\n\t"
-    ".word 0x3c02800a,0x3c04800a,0x80436189,0x80846188\n\t"
-    ".word 0x24a560e0,0xafbf0014,0x00031880,0x00041040\n\t"
-    ".word 0x00441021,0x000210c0,0x00621821,0x00651821\n\t"
-    ".word 0x8c630000,0x3c02800a,0x0c01a8a4,0xac4360d4\n\t"
-    ".word 0x3c02800a,0x0c0080f8,0xa0404381,0x0c016992\n\t"
-    ".word 0x02002021,0x8fbf0014,0x8fb00010,0x24020001\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern signed char D_800A6188;
+extern signed char D_800A6189;
+extern int D_800A60E0[][6];
+extern int D_800A60D4;
+extern char D_800A4381;
+extern void func_8006A290(void);
+extern void func_800203E0(void);
+extern void func_8005A648(int);
+
+int func_8006115C(int arg) {
+    D_800A60D4 = D_800A60E0[D_800A6188][D_800A6189];
+    func_8006A290();
+    D_800A4381 = 0;
+    func_800203E0();
+    func_8005A648(arg);
+    return 1;
+}

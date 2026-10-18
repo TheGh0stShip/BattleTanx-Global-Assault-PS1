@@ -1,32 +1,68 @@
-asm(".text\n\t.globl func_800219AC\nfunc_800219AC:\n\t"
-    ".word 0x27BDFFC8,0x3C02800D,0xAFB00018,0x24502FE4\n\t"
-    ".word 0xAFBF0030,0xAFB5002C,0xAFB40028,0xAFB30024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0x8E030004,0x00000000\n\t"
-    ".word 0x10600003,0x24020006,0x14620020,0x27A40010\n\t"
-    ".word 0x92020009,0x00000000,0x1040005F,0x00008821\n\t"
-    ".word 0x2409007F,0x3C02800E,0x24483E68,0x02002821\n\t"
-    ".word 0x24070001,0x24060002,0x02202021,0x12290002\n\t"
-    ".word 0x00008021,0x00888021,0x8E02000C,0x8CA30010\n\t"
-    ".word 0x94420000,0x00000000,0x0043102A,0x14400003\n\t"
-    ".word 0x00000000,0x08008693,0xAE070058,0xAE060058\n\t"
-    ".word 0x90A20009,0x26310001,0x0222102A,0x1440FFEF\n\t"
-    ".word 0x24840114,0x080086DD,0x00000000,0x00002821\n\t"
-    ".word 0x0C022A92,0x24060005,0x92020009,0x00000000\n\t"
-    ".word 0x1040001B,0x00008821,0x2415007F,0x3C02800E\n\t"
-    ".word 0x24543E68,0x02009821,0x02209021,0x12350002\n\t"
-    ".word 0x00008021,0x02548021,0x0C014B6D,0x02002021\n\t"
-    ".word 0x8E030058,0x24020002,0x10620008,0x00000000\n\t"
-    ".word 0x8E02000C,0x00000000,0x90420020,0x00000000\n\t"
-    ".word 0x03A21821,0x24020001,0xA0620010,0x92620009\n\t"
-    ".word 0x26310001,0x0222102A,0x1440FFEC,0x26520114\n\t"
-    ".word 0x3C02800D,0x24432FE4,0x90620009,0x00000000\n\t"
-    ".word 0x1040001D,0x00008821,0x2409007F,0x3C02800E\n\t"
-    ".word 0x24483E68,0x27A40010,0x24070001,0x24060002\n\t"
-    ".word 0x00602821,0x02201821,0x12290002,0x00008021\n\t"
-    ".word 0x00688021,0x8E02000C,0x00000000,0x90420020\n\t"
-    ".word 0x00000000,0x00821021,0x90420000,0x00000000\n\t"
-    ".word 0x10400003,0x00000000,0x080086D8,0xAE070058\n\t"
-    ".word 0xAE060058,0x90A20009,0x26310001,0x0222102A\n\t"
-    ".word 0x1440FFED,0x24630114,0x8FBF0030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0038\n");
+typedef struct {
+    unsigned short score;
+    char pad2[0x20 - 2];
+    unsigned char team;
+} Player;
+
+typedef struct {
+    char pad0[0xC];
+    Player *player;
+    char pad10[0x58 - 0x10];
+    int result;
+    char pad5C[0x114 - 0x5C];
+} Waypoint;
+
+typedef struct {
+    void *screen;
+    int mode;
+    char pad8;
+    unsigned char count;
+    char padA[6];
+    int target;
+} Globals;
+
+extern Globals D_800D2FE4;
+extern Waypoint D_800E3E68[];
+extern void func_8008AA48(void *, int, int);
+extern void func_80052DB4(Waypoint *);
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800219AC(void) {
+    unsigned char alive[5];
+    Waypoint *w;
+    int i;
+
+    if (D_800D2FE4.mode == 0 || D_800D2FE4.mode == 6) {
+        for (i = 0; i < D_800D2FE4.count; i++) {
+            w = waypoint_get(i);
+            if (w->player->score >= D_800D2FE4.target) {
+                w->result = 1;
+            } else {
+                w->result = 2;
+            }
+        }
+    } else {
+        func_8008AA48(alive, 0, 5);
+        for (i = 0; i < D_800D2FE4.count; i++) {
+            w = waypoint_get(i);
+            func_80052DB4(w);
+            if (w->result != 2) {
+                alive[w->player->team] = 1;
+            }
+        }
+        for (i = 0; i < D_800D2FE4.count; i++) {
+            w = waypoint_get(i);
+            if (alive[w->player->team]) {
+                w->result = 1;
+            } else {
+                w->result = 2;
+            }
+        }
+    }
+}

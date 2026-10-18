@@ -1,20 +1,59 @@
-asm(".text\n\t.globl func_8002AAD4\nfunc_8002AAD4:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFBF001C\n\t"
-    ".word 0xAFB20018,0xAFB10014,0x84A30004,0x24020004\n\t"
-    ".word 0x10620006,0x00C04021,0x2402000C,0x10620019\n\t"
-    ".word 0x24030002,0x0800AAFB,0x00000000,0x92020037\n\t"
-    ".word 0x24120002,0x10520034,0x2402000A,0x8CA30008\n\t"
-    ".word 0xACE20000,0x8D060000,0x8D020008,0x8C640008\n\t"
-    ".word 0x8C650010,0x00C42023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x30420FFF,0x92030037,0x00000000,0x10720026\n\t"
-    ".word 0x00028900,0x1060000E,0x00000000,0x0800AAED\n\t"
-    ".word 0x00000000,0x92020037,0x00000000,0x1043001E\n\t"
-    ".word 0x24020001,0xACE20000,0x92020037,0x9511000C\n\t"
-    ".word 0x10430019,0x00000000,0x14400009,0x00000000\n\t"
-    ".word 0x8E020018,0x00000000,0x10400005,0x2404000D\n\t"
-    ".word 0x26050024,0x00003021,0x0C01BF6C,0x00C03821\n\t"
-    ".word 0x8E050024,0x8E06002C,0x0C014DE4,0x24040032\n\t"
-    ".word 0x8E030008,0x24020002,0xA2020037,0x24020001\n\t"
-    ".word 0xA6110032,0xA6020034,0xAC60003C,0x96040006\n\t"
-    ".word 0x0C006C25,0x00000000,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[60]; int value; } Target;
+typedef struct { int pad[2]; int x; int pad2; int z; } Source;
+typedef struct { int pad; short type; short pad2; Source *source; } Msg;
+typedef struct { int x; int pad; int z; unsigned short angle; } Hit;
+typedef struct {
+    short pad;
+    short pad1;
+    short pad2;
+    unsigned short sound;
+    Target *target;
+    int pad3[3];
+    int effect;
+    int pad4[2];
+    Vector pos;
+    short pad5;
+    unsigned short angle;
+    short active;
+    unsigned char pad6;
+    unsigned char state;
+} Barrel;
+int func_8008AE30(int, int);
+void func_8006FDB0(int, Vector *, int, int);
+void func_80053790(int, int, int);
+void func_8001B094(int);
+
+static inline void explode(Barrel *b, int angle) {
+    if (b->state == 2) {
+        return;
+    }
+    if (b->state == 0 && b->effect != 0) {
+        func_8006FDB0(13, &b->pos, 0, 0);
+    }
+    func_80053790(50, b->pos.x, b->pos.z);
+    b->state = 2;
+    b->angle = angle;
+    b->active = 1;
+    b->target->value = 0;
+    func_8001B094(b->sound);
+}
+
+void func_8002AAD4(Barrel *b, Msg *msg, Hit *hit, int *result) {
+    switch (msg->type) {
+    case 4:
+        if (b->state != 2) {
+            Source *src = msg->source;
+
+            *result = 10;
+            explode(b, (func_8008AE30(hit->x - src->x, hit->z - src->z) & 0xFFF) << 4);
+        }
+        break;
+    case 12:
+        if (b->state != 2) {
+            *result = 1;
+            explode(b, hit->angle);
+        }
+        break;
+    }
+}

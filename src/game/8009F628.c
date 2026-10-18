@@ -1,8 +1,15 @@
-asm(".text\n\t.globl func_8009F628\nfunc_8009F628:\n\t"
-    ".word 0x3c03800c,0x8c638cec,0x27bdffe8,0x04600013\n\t"
-    ".word 0xafbf0010,0x00031080,0x00031900,0x3c04800f\n\t"
-    ".word 0x2484fc68,0x3c01800f,0x00220821,0x8c22fca8\n\t"
-    ".word 0x00000000,0x0040f809,0x00642021,0x10400007\n\t"
-    ".word 0x00000000,0x3c02800c,0x8c428cec,0x00000000\n\t"
-    ".word 0x2442ffff,0x3c01800c,0xac228cec,0x8fbf0010\n\t"
-    ".word 0x27bd0018,0x03e00008,0x00000000\n\t");
+typedef int (*Handler)(int *);
+extern int D_800B8CEC;
+extern Handler D_800EFCA8[];
+extern int D_800EFC68[][4];
+
+void func_8009F628(void)
+{
+    int n = D_800B8CEC;
+
+    if (n >= 0) {
+        if (D_800EFCA8[n](D_800EFC68[n]) != 0) {
+            D_800B8CEC--;
+        }
+    }
+}

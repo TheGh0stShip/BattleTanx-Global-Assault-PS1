@@ -1,15 +1,38 @@
-asm(".text\n\t.globl func_80052E64\nfunc_80052E64:\n\t"
-    ".word 0x8c850080,0x00000000,0x10a00017,0x00003021\n\t"
-    ".word 0x3c02800a,0x24474ef4,0x8ca20218,0x00000000\n\t"
-    ".word 0x30420002,0x1040000c,0x00000000,0x8ca2009c\n\t"
-    ".word 0x00000000,0x00021840,0x00621821,0x00031880\n\t"
-    ".word 0x00621821,0x00031900,0x00671821,0x946200c8\n\t"
-    ".word 0x00000000,0x00c23021,0x8ca50004,0x00000000\n\t"
-    ".word 0x14a0ffed,0x00000000,0x8c850078,0x00000000\n\t"
-    ".word 0x10a00016,0x3c02800a,0x24444ef4,0x8ca20218\n\t"
-    ".word 0x00000000,0x30420002,0x1040000c,0x00000000\n\t"
-    ".word 0x8ca2009c,0x00000000,0x00021840,0x00621821\n\t"
-    ".word 0x00031880,0x00621821,0x00031900,0x00641821\n\t"
-    ".word 0x946200c8,0x00000000,0x00c23021,0x8ca50004\n\t"
-    ".word 0x00000000,0x14a0ffed,0x00000000,0x03e00008\n\t"
-    ".word 0x00c01021\n\t");
+typedef struct Unit Unit;
+struct Unit {
+    char pad0[4];
+    Unit *next;
+    char pad8[0x9C - 8];
+    int type;
+    char padA0[0x218 - 0xA0];
+    int status;
+};
+typedef struct {
+    char pad0[0xC8];
+    unsigned short cost;
+    char padCA[0xD0 - 0xCA];
+} UnitType;
+typedef struct {
+    char pad0[0x78];
+    Unit *list_a;
+    char pad7C[4];
+    Unit *list_b;
+} Force;
+extern UnitType D_800A4EF4[];
+
+int func_80052E64(Force *force) {
+    int total = 0;
+    Unit *unit;
+
+    for (unit = force->list_b; unit != 0; unit = unit->next) {
+        if (unit->status & 2) {
+            total += D_800A4EF4[unit->type].cost;
+        }
+    }
+    for (unit = force->list_a; unit != 0; unit = unit->next) {
+        if (unit->status & 2) {
+            total += D_800A4EF4[unit->type].cost;
+        }
+    }
+    return total;
+}

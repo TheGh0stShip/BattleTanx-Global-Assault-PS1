@@ -1,26 +1,65 @@
-asm(".text\n\t.globl func_80024D80\nfunc_80024D80:\n\t"
-    ".word 0x27BDFFC8,0xAFBF0030,0x30E7FFFF,0x3402FFFF\n\t"
-    ".word 0x14E20003,0x00C05021,0x080093BE,0x00001021\n\t"
-    ".word 0x8C820000,0x00000000,0x8C42001C,0x00000000\n\t"
-    ".word 0x00E21021,0x00021840,0x00621821,0x00031880\n\t"
-    ".word 0x8C820014,0x8CA40000,0x00000000,0x04800003\n\t"
-    ".word 0x00433821,0x0800937A,0x00041303,0x00041023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8CA30008\n\t"
-    ".word 0x00000000,0x04600003,0x00024C03,0x08009384\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8CA30004,0x00000000,0x04600003\n\t"
-    ".word 0x00023403,0x0800938E,0x00031B03,0x00031023\n\t"
-    ".word 0x00021303,0x00021823,0x00031B80,0x8CE20008\n\t"
-    ".word 0x00031C03,0x94420006,0x8CA50004,0x00431021\n\t"
-    ".word 0x00021400,0x04A00003,0x00024403,0x0800939C\n\t"
-    ".word 0x00052B03,0x00051023,0x00021303,0x00022823\n\t"
-    ".word 0x8CE20008,0x00000000,0x84440004,0x9443000E\n\t"
-    ".word 0xAFA40010,0x8CE20008,0x00000000,0x8442000C\n\t"
-    ".word 0x00000000,0xAFA20014,0x8CE20008,0x00000000\n\t"
-    ".word 0x84420008,0x00000000,0xAFA20018,0x8CE20008\n\t"
-    ".word 0x00003821,0x84440010,0x00051380,0x00021403\n\t"
-    ".word 0x00621821,0x00031C00,0x3142FFFF,0xAFA20028\n\t"
-    ".word 0x8FA20048,0x00031C03,0xAFA4001C,0x8FA4004C\n\t"
-    ".word 0x01202821,0xAFA80020,0xAFA30024,0x0C0058BC\n\t"
-    ".word 0xAFA2002C,0x3042FFFF,0x8FBF0030,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+} Shape;
+
+typedef struct {
+    char pad0[0x1C];
+    int first;
+} Header;
+
+typedef struct {
+    Header *header;
+    char pad4[0x10];
+    Shape *shapes;
+} Model;
+
+extern unsigned short func_800162F0(int, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+unsigned short func_80024D80(Model *model, Vector *pos, unsigned short flags, unsigned short index, int mask,
+                            int list) {
+    Shape *shape;
+    int x;
+    int z;
+    int y0;
+    int y1;
+
+    if (index == 0xFFFF) {
+        return 0;
+    }
+    shape = &model->shapes[index + model->header->first];
+    x = to_cell(pos->x);
+    z = to_cell(pos->z);
+    y0 = (short)(shape->box->y0 + to_cell(pos->y));
+    y1 = (short)(shape->box->y1 + to_cell(pos->y));
+    return func_800162F0(list, x, z, 0, shape->box->x0, shape->box->x1, shape->box->z0, shape->box->z1,
+                         y0, y1, flags, mask);
+}

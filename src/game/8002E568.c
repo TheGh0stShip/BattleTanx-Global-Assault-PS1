@@ -1,21 +1,37 @@
-asm(".text\n\t.globl func_8002E568\nfunc_8002E568:\n\t"
-    ".word 0x27BDFFC0,0xAFB20028,0x00809021,0xAFB3002C\n\t"
-    ".word 0x00A09821,0xAFB40030,0x00C0A021,0x2404001A\n\t"
-    ".word 0x2405002C,0xAFB50034,0x00E0A821,0xAFBF0038\n\t"
-    ".word 0xAFB10024,0x0C008DF4,0xAFB00020,0x00408821\n\t"
-    ".word 0x12200033,0x00000000,0x96450002,0x0C0098C0\n\t"
-    ".word 0x02602021,0x02602021,0x96450004,0x0C0098C0\n\t"
-    ".word 0x00408021,0xAE22000C,0x96450006,0x0C0098C0\n\t"
-    ".word 0x02602021,0x02602021,0x02002821,0x02803021\n\t"
-    ".word 0x32B0FFFF,0xAE220010,0x92420008,0x02003821\n\t"
-    ".word 0xA2220029,0x240200F0,0xAFA20014,0x24020001\n\t"
-    ".word 0xAFA00010,0x0C009863,0xAFA20018,0xAE220008\n\t"
-    ".word 0x92220029,0x96470002,0x10400004,0x02003021\n\t"
-    ".word 0x3C020010,0x0800B98E,0x34420002,0x3C020010\n\t"
-    ".word 0xAFA20010,0x02602021,0x02802821,0x0C009360\n\t"
-    ".word 0xAFB10014,0xA6220024,0x24020032,0xAE220020\n\t"
-    ".word 0xA6350026,0xA2200028,0x8E830000,0x8E880004\n\t"
-    ".word 0x8E890008,0xAE230014,0xAE280018,0xAE29001C\n\t"
-    ".word 0x8FBF0038,0x8FB50034,0x8FB40030,0x8FB3002C\n\t"
-    ".word 0x8FB20028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { short pad; unsigned short body; unsigned short part_a; unsigned short part_b; unsigned char solid; } Def;
+typedef struct {
+    int pad[2];
+    int model;
+    int part_a;
+    int part_b;
+    Vector pos;
+    int timer;
+    short handle;
+    unsigned short id;
+    unsigned char flag;
+    unsigned char solid;
+} Inst;
+Inst *func_800237D0(int, int);
+int func_80026300(void *, int);
+int func_8002618C(void *, int, Vector *, int, int, int, int);
+int func_80024D80(void *, Vector *, int, int, int, Inst *);
+
+void func_8002E568(Def *def, void *ctx, Vector *pos, unsigned short id) {
+    Inst *inst;
+    int body;
+
+    inst = func_800237D0(26, 44);
+    if (inst != 0) {
+        body = func_80026300(ctx, def->body);
+        inst->part_a = func_80026300(ctx, def->part_a);
+        inst->part_b = func_80026300(ctx, def->part_b);
+        inst->solid = def->solid;
+        inst->model = func_8002618C(ctx, body, pos, id, 0, 240, 1);
+        inst->handle = func_80024D80(ctx, pos, id, def->body, inst->solid ? 0x100002 : 0x100000, inst);
+        inst->timer = 50;
+        inst->id = id;
+        inst->flag = 0;
+        inst->pos = *pos;
+    }
+}

@@ -1,15 +1,51 @@
-asm(".text\n\t.globl func_80061538\nfunc_80061538:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0xafb10014,0x0c008a05\n\t"
-    ".word 0xafb00010,0x10400008,0x00000000,0x0c01a9ff\n\t"
-    ".word 0x00000000,0x8c440004,0x0c008aaf,0x00000000\n\t"
-    ".word 0x0801855f,0x00402021,0x0c008ab7,0x00000000\n\t"
-    ".word 0x00402021,0x3c05186a,0x0c018f8f,0x24060001\n\t"
-    ".word 0x3c02800b,0x2450b604,0x02002021,0x00002821\n\t"
-    ".word 0x3c02800b,0x9042ba5a,0x24060001,0x0c016554\n\t"
-    ".word 0xa6020014,0x0c0168a8,0x02002021,0x3c03800f\n\t"
-    ".word 0x8c420008,0x2463af38,0x10430009,0x00608821\n\t"
-    ".word 0x0c016953,0x02002021,0x0c0168a8,0x02002021\n\t"
-    ".word 0x8c420008,0x00000000,0x1451fff9,0x00000000\n\t"
-    ".word 0x3c02800b,0x24030001,0xa443ba54,0x2442ba54\n\t"
-    ".word 0xa4430002,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x3c02800b,0xa443ba58,0x03e00008,0x27bd0020\n\t");
+typedef struct Group {
+    int pad[5];
+    short value;
+} Group;
+
+typedef struct Element {
+    int pad[2];
+    int *style;
+} Element;
+
+typedef struct Profile {
+    int pad;
+    int id;
+} Profile;
+
+extern Group D_800AB604;
+extern unsigned char D_800ABA5A;
+extern int D_800EAF38;
+extern short D_800ABA54[];
+extern short D_800ABA58;
+extern int func_80022814(void);
+extern Profile *func_8006A7FC(void);
+extern int func_80022ABC(int);
+extern int func_80022ADC(void);
+extern void func_80063E3C(int, int, unsigned short);
+extern void func_80059550(void *, void *, int);
+extern Element *func_8005A2A0(void *);
+extern void func_8005A54C(void *);
+
+void func_80061538(void) {
+    int value;
+    Group *group;
+
+    if (func_80022814()) {
+        value = func_80022ABC(func_8006A7FC()->id);
+    } else {
+        value = func_80022ADC();
+    }
+    func_80063E3C(value, 100000 << 12, 1);
+    group = &D_800AB604;
+    group->value = D_800ABA5A;
+    func_80059550(group, 0, 1);
+    if (func_8005A2A0(group)->style != &D_800EAF38) {
+        do {
+            func_8005A54C(group);
+        } while (func_8005A2A0(group)->style != &D_800EAF38);
+    }
+    D_800ABA54[0] = 1;
+    D_800ABA54[1] = 1;
+    D_800ABA58 = 1;
+}

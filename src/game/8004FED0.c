@@ -1,18 +1,63 @@
-asm(".text\n\t.globl func_8004FED0\nfunc_8004FED0:\n\t"
-    ".word 0x27bdff90,0xafb40060,0x0080a021,0xafb50064\n\t"
-    ".word 0x00a0a821,0xafbf0068,0xafb3005c,0xafb20058\n\t"
-    ".word 0xafb10054,0xafb00050,0x8e830184,0x00000000\n\t"
-    ".word 0x2c620002,0x1440002d,0x26930184,0x2c620005\n\t"
-    ".word 0x1040002a,0x27a40010,0x268501a0,0x26920008\n\t"
-    ".word 0x0c012583,0x02403021,0x0c0125d0,0x27a40010\n\t"
-    ".word 0x24421556,0x27b10020,0x02202021,0x8e650028\n\t"
-    ".word 0x0c0125a0,0x3046ffff,0x27b00030,0x8e62001c\n\t"
-    ".word 0x02002021,0xafa20030,0x8e620024,0x02202821\n\t"
-    ".word 0x0c012610,0xafa20038,0x27b10040,0x02202021\n\t"
-    ".word 0x02402821,0x0c012583,0x02003021,0x02402021\n\t"
-    ".word 0x0c012576,0x02002821,0x02202021,0x0c0125d0\n\t"
-    ".word 0xaea20000,0x02802021,0x02a02821,0xa6a20008\n\t"
-    ".word 0x240204cc,0xaea20004,0x0c0123cb,0xaea00010\n\t"
-    ".word 0x02802021,0x0c0122bf,0x02a02821,0x8fbf0068\n\t"
-    ".word 0x8fb50064,0x8fb40060,0x8fb3005c,0x8fb20058\n\t"
-    ".word 0x8fb10054,0x8fb00050,0x03e00008,0x27bd0070\n\t");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    unsigned int kind;
+    char pad4[0x1C - 4];
+    Vector anchor;
+    int radius;
+} Move;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0x184 - 0x14];
+    Move move;
+} Tank;
+typedef struct {
+    int distance;
+    int speed;
+    unsigned short heading;
+    char padA[0x10 - 0xA];
+    int timer;
+} Steer;
+extern void func_8004960C(Vector *, Vector *, Vector *);
+extern unsigned short func_80049740(Vector *);
+extern void func_80049680(Vector *, int, int);
+extern void func_80049840(Vector *, Vector *);
+extern int func_800495D8(Vector *, Vector *);
+extern void func_80048F2C(Tank *, Steer *);
+extern void func_80048AFC(Tank *, Steer *);
+
+void func_8004FED0(Tank *tank, Steer *steer) {
+    Vector delta;
+    Vector offset;
+    Vector target;
+    Vector to_target;
+    unsigned short angle;
+    Move *move = &tank->move;
+
+    switch (move->kind) {
+    case 0:
+    case 1:
+        break;
+    case 2:
+    case 3:
+    case 4:
+        func_8004960C(&delta, &tank->move.anchor, &tank->position);
+        angle = func_80049740(&delta) + 0x1556;
+        func_80049680(&offset, move->radius, angle);
+        target.x = move->anchor.x;
+        target.z = move->anchor.z;
+        func_80049840(&target, &offset);
+        func_8004960C(&to_target, &tank->position, &target);
+        steer->distance = func_800495D8(&tank->position, &target);
+        steer->heading = func_80049740(&to_target);
+        steer->speed = 1228;
+        steer->timer = 0;
+        func_80048F2C(tank, steer);
+        func_80048AFC(tank, steer);
+        break;
+    }
+}

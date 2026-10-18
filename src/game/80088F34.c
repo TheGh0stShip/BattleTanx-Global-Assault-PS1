@@ -1,9 +1,62 @@
-asm(".text\n\t.globl func_80088F34\nfunc_80088F34:\n\t"
-    ".word 0x27bdffe0,0x00801821,0x3c02800f,0xafb10014\n\t"
-    ".word 0x2451eae8,0xafbf0018,0xafb00010,0x8e220048\n\t"
-    ".word 0x00000000,0x1440000f,0x00008021,0x8e26004c\n\t"
-    ".word 0x00000000,0x10c0000c,0x02001021,0x0060f809\n\t"
-    ".word 0x02002021,0x10400006,0x00402021,0x8e30004c\n\t"
-    ".word 0x0c0222a7,0x02002821,0x080223e7,0x02001021\n\t"
-    ".word 0x2410ffff,0x02001021,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    char pad34[4];
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    char pad94[4];
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+
+extern void func_80088A9C(int buf, int size);
+
+int func_80088F34(int (*fill)(int, int, int), int arg) {
+    StreamState *s = &D_800EEAE8;
+    int result = 0;
+    int buf;
+
+    if (s->w48 == 0 && s->w4c != 0) {
+        buf = fill(result, arg, s->w4c);
+        if (buf != 0) {
+            result = s->w4c;
+            func_80088A9C(buf, result);
+        } else {
+            result = -1;
+        }
+    }
+    return result;
+}

@@ -1,8 +1,21 @@
-asm(".text\n\t.globl func_80033F64\nfunc_80033F64:\n\t"
-    ".word 0x27bdffe8,0x2402007f,0xafbf0010,0x90a30018\n\t"
-    ".word 0x8c870208,0x14620003,0x00603021,0x0800cfea\n\t"
-    ".word 0x00001021,0x00061100,0x00461021,0x00021080\n\t"
-    ".word 0x00461021,0x00021080,0x3c03800e,0x24633e68\n\t"
-    ".word 0x00431021,0x8ce3000c,0x8c42000c,0x00000000\n\t"
-    ".word 0x14620003,0x00000000,0x0c00ce25,0x00000000\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct { char pad[12]; int team; } Owner;
+typedef struct { char pad[0x208]; Owner *owner; } Tank;
+typedef struct { char pad[24]; unsigned char index; } Ref;
+typedef struct { char pad[12]; int team; char rest[0x114 - 16]; } Waypoint;
+extern Waypoint D_800E3E68[];
+void func_80033894(Tank *, Ref *);
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80033F64(Tank *tank, Ref *ref) {
+    Owner *owner = tank->owner;
+
+    if (owner->team == waypoint_at(ref->index)->team) {
+        func_80033894(tank, ref);
+    }
+}

@@ -1,28 +1,55 @@
-asm(".text\n\t.globl func_8005D494\nfunc_8005D494:\n\t"
-    ".word 0x3C02800A,0x8043606C,0x24020001,0x14620005\n\t"
-    ".word 0x3C02800B,0x3C02800B,0x8C44A20C,0x0801752F\n\t"
-    ".word 0x00000000,0x8C44A97C,0x00000000,0x90820000\n\t"
-    ".word 0x00000000,0x1040000B,0x3C02800E,0x24434A60\n\t"
-    ".word 0x8C820008,0x00000000,0x10430007,0x3C02800A\n\t"
-    ".word 0x24840020,0x90820000,0x00000000,0x1440FFF8\n\t"
-    ".word 0x00000000,0x3C02800A,0x8C436084,0x24020002\n\t"
-    ".word 0x1062000C,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x24020010,0x08017551,0xA0820001\n\t"
-    ".word 0x24020003,0x10620003,0x24020004,0x14620003\n\t"
-    ".word 0x24020010,0x08017551,0xA0830001,0xA0820001\n\t"
-    ".word 0x3C02800A,0x8C436088,0x24020002,0x1062000D\n\t"
-    ".word 0x24850020,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x24020010,0x08017565,0xA0A20001\n\t"
-    ".word 0x24020003,0x10620003,0x24020004,0x14620003\n\t"
-    ".word 0x24020010,0x08017565,0xA0A30001,0xA0A20001\n\t"
-    ".word 0x3C02800A,0x8C43608C,0x24020002,0x1062000D\n\t"
-    ".word 0x24850040,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x24020010,0x08017579,0xA0A20001\n\t"
-    ".word 0x24020003,0x10620003,0x24020004,0x14620003\n\t"
-    ".word 0x24020010,0x08017579,0xA0A30001,0xA0A20001\n\t"
-    ".word 0x3C02800A,0x8C436090,0x24020002,0x1062000D\n\t"
-    ".word 0x24840060,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x24020010,0x0801758C,0x00000000\n\t"
-    ".word 0x24020003,0x10620003,0x24020004,0x14620003\n\t"
-    ".word 0x24020010,0x03E00008,0xA0830001,0x03E00008\n\t"
-    ".word 0xA0820001\n");
+typedef struct Entry {
+    unsigned char kind;
+    unsigned char flag;
+    char pad[6];
+    int *value;
+    char pad2[0x14];
+} Entry;
+
+extern signed char D_800A606C;
+extern Entry *D_800AA20C;
+extern Entry *D_800AA97C;
+extern int D_800E4A60;
+extern unsigned int D_800A6084;
+extern unsigned int D_800A6088;
+extern unsigned int D_800A608C;
+extern unsigned int D_800A6090;
+
+static inline void set_team_flag(Entry *entry, unsigned int team) {
+    switch (team) {
+    case 1:
+        entry->flag = team;
+        break;
+    case 2:
+        entry->flag = team;
+        break;
+    case 3:
+        entry->flag = team;
+        break;
+    case 4:
+        entry->flag = team;
+        break;
+    default:
+        entry->flag = 16;
+        break;
+    }
+}
+
+void func_8005D494(void) {
+    Entry *entry;
+
+    if (D_800A606C == 1) {
+        entry = D_800AA20C;
+    } else {
+        entry = D_800AA97C;
+    }
+    for (; entry->kind != 0; entry++) {
+        if (entry->value == &D_800E4A60) {
+            break;
+        }
+    }
+    set_team_flag(&entry[0], D_800A6084);
+    set_team_flag(&entry[1], D_800A6088);
+    set_team_flag(&entry[2], D_800A608C);
+    set_team_flag(&entry[3], D_800A6090);
+}

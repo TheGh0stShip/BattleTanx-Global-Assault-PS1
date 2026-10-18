@@ -1,15 +1,52 @@
-asm(".text\n\t.globl func_8005ADC0\nfunc_8005ADC0:\n\t"
-    ".word 0x3c04800a,0x8c866070,0x24020002,0x24c3ffff\n\t"
-    ".word 0x14620003,0xac836070,0x24c2fffe,0xac826070\n\t"
-    ".word 0x8c826070,0x00000000,0x14400006,0x2443ffff\n\t"
-    ".word 0x24020008,0xac826070,0x8c826070,0x00000000\n\t"
-    ".word 0x2443ffff,0x2c620008,0x1040001e,0x24a50020\n\t"
-    ".word 0x3c02800c,0x2442fb30,0x00031880,0x00621821\n\t"
-    ".word 0x8c620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x3c02800f,0x08016ba3,0x2442ae88,0x3c02800f\n\t"
-    ".word 0x08016ba3,0x2442af40,0x3c02800f,0x08016ba3\n\t"
-    ".word 0x2442adc0,0x3c02800f,0x08016ba3,0x2442aefc\n\t"
-    ".word 0x3c02800f,0x08016ba3,0x2442af04,0x3c02800f\n\t"
-    ".word 0x08016ba3,0x2442aef4,0x3c02800f,0x08016ba3\n\t"
-    ".word 0x2442aee8,0x3c02800f,0x2442ac3c,0xaca20008\n\t"
-    ".word 0x03e00008,0x00001021\n\t");
+typedef struct {
+    char pad0[8];
+    char *label;
+    char padC[0x20 - 0xC];
+} Item;
+extern int D_800A6070;
+extern char D_800EAE88[];
+extern char D_800EAF40[];
+extern char D_800EADC0[];
+extern char D_800EAEFC[];
+extern char D_800EAF04[];
+extern char D_800EAEF4[];
+extern char D_800EAEE8[];
+extern char D_800EAC3C[];
+
+int func_8005ADC0(int unused, Item *items) {
+    if (--D_800A6070 == 2) {
+        D_800A6070--;
+    }
+    if (D_800A6070 == 0) {
+        D_800A6070 = 8;
+    }
+    items++;
+    switch (D_800A6070) {
+    case 5:
+        items->label = D_800EAE88;
+        break;
+    case 6:
+        items->label = D_800EAF40;
+        break;
+    case 4:
+        items->label = D_800EADC0;
+        break;
+    case 3:
+        items->label = D_800EAEFC;
+        break;
+    case 7:
+        items->label = D_800EAF04;
+        break;
+    case 8:
+        items->label = D_800EAEF4;
+        break;
+    case 2:
+        items->label = D_800EAEE8;
+        break;
+    case 1:
+    default:
+        items->label = D_800EAC3C;
+        break;
+    }
+    return 0;
+}

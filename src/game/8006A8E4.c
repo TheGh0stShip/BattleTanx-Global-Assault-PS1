@@ -1,29 +1,61 @@
-asm(".text\n\t.globl func_8006A8E4\nfunc_8006A8E4:\n\t"
-    ".word 0x27BDFFC0,0xAFB30024,0x00809821,0x24040002\n\t"
-    ".word 0xAFB70034,0x00A0B821,0xAFBF003C,0xAFBE0038\n\t"
-    ".word 0xAFB60030,0xAFB5002C,0xAFB40028,0xAFB20020\n\t"
-    ".word 0xAFB1001C,0x0C020E97,0xAFB00018,0x00408021\n\t"
-    ".word 0x02008821,0x8E640030,0x0C01A3CD,0x3C12800A\n\t"
-    ".word 0x8E64004C,0x0C01A3CD,0x0040B021,0x02602021\n\t"
-    ".word 0x02C02821,0x8E63004C,0x0040A821,0xAFA30010\n\t"
-    ".word 0x8E660030,0x0C024C13,0x02A03821,0x3C02800E\n\t"
-    ".word 0x2454DB9C,0x269E00CC,0x0C024D42,0x02602021\n\t"
-    ".word 0x10400038,0x02602021,0x8E4348B0,0x00000000\n\t"
-    ".word 0x000310C0,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x000210C0,0x00541021,0x844500B8,0x844600BA\n\t"
-    ".word 0x0C024C92,0x02113823,0x1040001B,0x02008821\n\t"
-    ".word 0x0C020ECB,0x24040003,0x8E4248B0,0x00000000\n\t"
-    ".word 0x000220C0,0x00822021,0x00042080,0x00822021\n\t"
-    ".word 0x000420C0,0x268200B8,0x0C01FFF6,0x00822021\n\t"
-    ".word 0x8E4248B0,0x00000000,0x000220C0,0x00822021\n\t"
-    ".word 0x00042080,0x00822021,0x000420C0,0x0C01FFC6\n\t"
-    ".word 0x009E2021,0x8E4248B0,0x00000000,0x38420001\n\t"
-    ".word 0xAE4248B0,0x02008821,0x0C020E97,0x24040002\n\t"
-    ".word 0x00408021,0x0C021226,0x02112023,0x3C02800F\n\t"
-    ".word 0x9442E02E,0x00000000,0x30424008,0x1040FFCA\n\t"
-    ".word 0x32E200FF,0x1040FFC8,0x00000000,0x0C024D1C\n\t"
-    ".word 0x02602021,0x0C01A3E7,0x02C02021,0x0C01A3E7\n\t"
-    ".word 0x02A02021,0x0C024D2F,0x02602021,0x8FBF003C\n\t"
-    ".word 0x8FBE0038,0x8FB70034,0x8FB60030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef struct {
+    char pad[0xB8];
+    short x;
+    short y;
+    char padBC[0x10];
+    char disp[0x5C];
+} DisplayBuffer;
+
+typedef struct {
+    char pad[0x30];
+    int text_size;
+    char pad34[0x18];
+    int glyph_size;
+} Message;
+
+extern int D_800A48B0;
+extern DisplayBuffer D_800DDB9C[];
+extern unsigned short D_800EE02E;
+extern int func_80083A5C(int mode);
+extern void *func_80068F34(int size);
+extern void func_80068F9C(void *p);
+extern void func_8009304C(Message *m, void *text, int text_size, void *glyphs, int glyph_size);
+extern int func_80093508(Message *m);
+extern int func_80093248(Message *m, int x, int y, int elapsed);
+extern void func_80083B2C(int mode);
+extern void func_8007FFD8(void *env);
+extern void func_8007FF18(void *env);
+extern void func_80084898(int elapsed);
+extern void func_80093470(Message *m);
+extern void func_800934BC(Message *m);
+
+void func_8006A8E4(Message *msg, unsigned char skippable) {
+    int now;
+    int prev;
+    void *text;
+    void *glyphs;
+
+    now = func_80083A5C(2);
+    prev = now;
+    text = func_80068F34(msg->text_size);
+    glyphs = func_80068F34(msg->glyph_size);
+    func_8009304C(msg, text, msg->text_size, glyphs, msg->glyph_size);
+    while (func_80093508(msg)) {
+        if (func_80093248(msg, D_800DDB9C[D_800A48B0].x, D_800DDB9C[D_800A48B0].y, now - prev)) {
+            func_80083B2C(3);
+            func_8007FFD8(&D_800DDB9C[D_800A48B0].x);
+            func_8007FF18(D_800DDB9C[D_800A48B0].disp);
+            D_800A48B0 ^= 1;
+        }
+        prev = now;
+        now = func_80083A5C(2);
+        func_80084898(now - prev);
+        if ((D_800EE02E & 0x4008) && skippable) {
+            func_80093470(msg);
+            break;
+        }
+    }
+    func_80068F9C(text);
+    func_80068F9C(glyphs);
+    func_800934BC(msg);
+}

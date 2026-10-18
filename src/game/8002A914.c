@@ -1,29 +1,58 @@
-asm(".text\n\t.globl func_8002A914\nfunc_8002A914:\n\t"
-    ".word 0x27BDFFB8,0xAFB20038,0x00809021,0xAFB10034\n\t"
-    ".word 0x00A08821,0xAFB40040,0x00C0A021,0x24040010\n\t"
-    ".word 0x24050038,0xAFB3003C,0x00E09821,0xAFBF0044\n\t"
-    ".word 0x0C008DF4,0xAFB00030,0x00408021,0x12000058\n\t"
-    ".word 0x00000000,0x96450002,0x0C0098C0,0x02202021\n\t"
-    ".word 0xAE02000C,0x96450006,0x0C0098C0,0x02202021\n\t"
-    ".word 0xAE020014,0x96450004,0x0C0098C0,0x02202021\n\t"
-    ".word 0xAE020010,0x96450008,0x0C0098C0,0x02202021\n\t"
-    ".word 0xAE020018,0x9645000A,0x0C0098C0,0x02202021\n\t"
-    ".word 0x02202021,0x02803021,0xAE02001C,0x240200F0\n\t"
-    ".word 0xAFA20014,0x24020002,0xAFA00010,0xAFA20018\n\t"
-    ".word 0x8E05000C,0x0C009863,0x3267FFFF,0xAE020008\n\t"
-    ".word 0x8E820000,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x0800AA7E,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E860008,0x00000000\n\t"
-    ".word 0x04C00003,0x00022C03,0x0800AA88,0x00061303\n\t"
-    ".word 0x00061023,0x00021303,0x00021023,0x02002021\n\t"
-    ".word 0x00023380,0x00063403,0x00003821,0x2403FFF6\n\t"
-    ".word 0x2402000A,0xAFA20014,0xAFA2001C,0x24020080\n\t"
-    ".word 0xAFA20024,0x24020800,0xAFA30010,0xAFA30018\n\t"
-    ".word 0xAFA00020,0xAFA00028,0x0C0058BC,0xAFA2002C\n\t"
-    ".word 0x8E03000C,0xA6020006,0xA6000030,0xA2000037\n\t"
-    ".word 0x8C630008,0x00000000,0x9462000E,0x94630006\n\t"
-    ".word 0xA6000034,0x00431023,0x00021400,0x00021083\n\t"
-    ".word 0xAE020020,0x8E880000,0x8E890004,0x8E8A0008\n\t"
-    ".word 0xAE080024,0xAE090028,0xAE0A002C,0xA2000036\n\t"
-    ".word 0x8FBF0044,0x8FB40040,0x8FB3003C,0x8FB20038\n\t"
-    ".word 0x8FB10034,0x8FB00030,0x03E00008,0x27BD0048\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { short pad[3]; unsigned short min; short pad2[3]; unsigned short max; } Bounds;
+typedef struct { int pad[2]; Bounds *bounds; } Model;
+typedef struct { short pad; unsigned short body; unsigned short part_a; unsigned short part_b; unsigned short part_c; unsigned short part_d; } Def;
+typedef struct {
+    short pad;
+    short pad1;
+    short pad2;
+    short handle;
+    int model;
+    Model *body;
+    int part_a;
+    int part_b;
+    int part_c;
+    int part_d;
+    int height;
+    Vector pos;
+    short timer;
+    short pad3;
+    short active;
+    unsigned char flag;
+    unsigned char state;
+} Barrel;
+Barrel *func_800237D0(int, int);
+int func_80026300(void *, int);
+int func_8002618C(void *, Model *, Vector *, int, int, int, int);
+int func_800162F0(Barrel *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_8002A914(Def *def, void *ctx, Vector *pos, unsigned short id) {
+    Barrel *b;
+    Bounds *bounds;
+
+    b = func_800237D0(16, 56);
+    if (b != 0) {
+        b->body = (Model *)func_80026300(ctx, def->body);
+        b->part_b = func_80026300(ctx, def->part_b);
+        b->part_a = func_80026300(ctx, def->part_a);
+        b->part_c = func_80026300(ctx, def->part_c);
+        b->part_d = func_80026300(ctx, def->part_d);
+        b->model = func_8002618C(ctx, b->body, pos, id, 0, 240, 2);
+        b->handle = func_800162F0(b, (to_int(pos->x) << 14) >> 16, (to_int(pos->z) << 14) >> 16, 0, -10, 10, -10, 10, 0,
+                                  128, 0, 2048);
+        b->timer = 0;
+        b->state = 0;
+        bounds = b->body->bounds;
+        b->height = (short)(bounds->max - bounds->min) << 14;
+        b->active = 0;
+        b->pos = *pos;
+        b->flag = 0;
+    }
+}

@@ -1,20 +1,43 @@
-asm(".text\n\t.globl func_80031198\nfunc_80031198:\n\t"
-    ".word 0x27BDFFC0,0xAFB30034,0x00809821,0xAFBF0038\n\t"
-    ".word 0xAFB20030,0xAFB1002C,0xAFB00028,0x8E71002C\n\t"
-    ".word 0x00000000,0x1220003A,0x26720008,0x8E220034\n\t"
-    ".word 0x00000000,0x18400032,0x00000000,0x96440018\n\t"
-    ".word 0x8E300018,0x00042102,0x001017C2,0x02028021\n\t"
-    ".word 0x0C022B58,0x00108043,0x8E230010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E420000\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20018,0x96440018\n\t"
-    ".word 0x8E300018,0x00042102,0x001017C2,0x02028021\n\t"
-    ".word 0x0C022B30,0x00108043,0x8E230010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E420004\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20020,0x8E42000C\n\t"
-    ".word 0x00000000,0xAFA2001C,0x96670020,0x27A50018\n\t"
-    ".word 0xAFA00010,0x8E240024,0x0C01A86F,0x00003021\n\t"
-    ".word 0x8E31000C,0x00000000,0x1620FFC8,0x00000000\n\t"
-    ".word 0x8FBF0038,0x8FB30034,0x8FB20030,0x8FB1002C\n\t"
-    ".word 0x8FB00028,0x03E00008,0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct Segment Segment;
+struct Segment { int pad[3]; Segment *next; int offset; int pad2; int length; int pad3[2]; int model; int pad4[3]; int hp; };
+typedef struct { int x; int z; int pad; int y; int pad2[2]; unsigned short angle; } Frame;
+typedef struct { int pad[2]; Frame frame; short pad2; int pad3; Segment *segments; } Chain;
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_8006A1BC(int, Vector *, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int half_length(Segment *s) {
+    return s->length / 2;
+}
+
+void func_80031198(Chain *c) {
+    Frame *f = &c->frame;
+    Segment *s;
+    int half;
+    int a;
+    Vector v;
+
+    for (s = c->segments; s != 0; s = s->next) {
+        if (s->hp > 0) {
+            a = f->angle >> 4;
+            half = half_length(s);
+            v.x = f->x + fixed_mul(func_8008AD60(a), s->offset + half);
+            a = f->angle >> 4;
+            half = half_length(s);
+            v.z = f->z + fixed_mul(func_8008ACC0(a), s->offset + half);
+            v.y = f->y;
+            func_8006A1BC(s->model, &v, 0, c->frame.angle, 0);
+        }
+    }
+}

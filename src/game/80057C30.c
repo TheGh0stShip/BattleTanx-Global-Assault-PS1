@@ -1,13 +1,11 @@
-asm(".text\n\t.globl func_80057C30\nfunc_80057C30:\n\t"
-    ".word 0x27bdffb8,0xafb7003c,0x8fb70058,0xafb60038\n\t"
-    ".word 0x8fb6005c,0xafb10024,0x00008821,0xafb00020\n\t"
-    ".word 0x00808021,0xafb40030,0x00a0a021,0xafb3002c\n\t"
-    ".word 0xafbf0040,0xafb50034,0xafb20028,0x92020000\n\t"
-    ".word 0x8fb50060,0x10400011,0x00c09821,0x00079400\n\t"
-    ".word 0x92040000,0x26100001,0x02713021,0x00063400\n\t"
-    ".word 0x3285ffff,0x00063403,0x00123c03,0xafb70010\n\t"
-    ".word 0xafb60014,0x0c015adc,0xafb50018,0x92030000\n\t"
-    ".word 0x00000000,0x1460fff2,0x02228821,0x00111400\n\t"
-    ".word 0x8fbf0040,0x8fb7003c,0x8fb60038,0x8fb50034\n\t"
-    ".word 0x8fb40030,0x8fb3002c,0x8fb20028,0x8fb10024\n\t"
-    ".word 0x8fb00020,0x00021403,0x03e00008,0x27bd0048\n\t");
+extern int func_80056B70(int, unsigned short, short, short, int, int, int);
+
+short func_80057C30(unsigned char *text, unsigned short font, short x, short y, int a, int b, int c) {
+    int width = 0;
+    unsigned char *p = text;
+
+    while (*p != 0) {
+        width += func_80056B70(*p++, font, x + width, y, a, b, c);
+    }
+    return width;
+}

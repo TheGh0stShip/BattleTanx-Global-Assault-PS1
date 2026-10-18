@@ -1,19 +1,95 @@
-asm(".text\n\t.globl func_8009312C\nfunc_8009312C:\n\t"
-    ".word 0x27BDFFE8,0x8FA90028,0x8FAA002C,0x3C02800F\n\t"
-    ".word 0xAFB00010,0x2450EF0C,0xAFBF0014,0x92020002\n\t"
-    ".word 0x8FA80034,0x14400038,0x00001821,0xAC800034\n\t"
-    ".word 0xAC850038,0xAC86003C,0xAC870024,0xAC890040\n\t"
-    ".word 0xAC8A0044,0x8FA20030,0xAC880048,0xAC820028\n\t"
-    ".word 0x8FA20038,0x00000000,0xAC82002C,0x8FA2003C\n\t"
-    ".word 0x00000000,0xAC820054,0x8FA20040,0xAC800058\n\t"
-    ".word 0xAC82004C,0xAE04000C,0x8C820010,0x01002021\n\t"
-    ".word 0xA6000090,0xA6000092,0xAE00008C,0xAE05002C\n\t"
-    ".word 0xAE060030,0xAE09007C,0xAE0A0080,0xAE040088\n\t"
-    ".word 0x00021100,0x00021042,0x0C026E46,0xAE020024\n\t"
-    ".word 0xAE000034,0xAE000084,0x0C024B08,0xAE000078\n\t"
-    ".word 0x00401821,0x10600010,0x00000000,0x0C024B4F\n\t"
-    ".word 0x00000000,0x00401821,0x1060000B,0x00000000\n\t"
-    ".word 0x8E050034,0x00000000,0x00051080,0x00501021\n\t"
-    ".word 0x00052940,0x8C44002C,0x26020038,0x0C024B7C\n\t"
-    ".word 0x00A22821,0x00401821,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x00601021,0x03E00008,0x27BD0018\n");
+extern void func_8009B918(void *);
+extern int func_80092C20(void);
+extern int func_80092D3C(void);
+extern int func_80092DF0(void *, void *);
+
+typedef struct {
+    char pad0[16];
+    unsigned int format;
+    char pad20[16];
+    int width;
+    int height;
+    int flags;
+    char pad48[4];
+    int w52;
+    void *buf0;
+    void *buf1;
+    void *buf2;
+    void *buf3;
+    void *buf4;
+    int w76;
+    char pad80[4];
+    int w84;
+    int w88;
+} Req8009312C;
+
+typedef struct {
+    char pad0[32];
+    char data[32];
+} Slot8009312C;
+
+typedef struct {
+    char pad0[2];
+    unsigned char busy;
+    char pad3[9];
+    Req8009312C *req;
+    char pad16[20];
+    int stride;
+    char pad40[4];
+    void *bufs[2];
+    int cur;
+    struct Slot8009312C_ {
+        char data[32];
+    } slots[2];
+    int w120;
+    void *buf2;
+    void *buf3;
+    int w132;
+    void *buf4;
+    int w140;
+    short h144;
+    short h146;
+} S8009312C;
+extern S8009312C D_800EEF0C;
+
+int func_8009312C(Req8009312C *p, void *buf0, void *buf1, int width, void *buf2, void *buf3, int height, void *buf4, int flags, int w84, int w76) {
+    S8009312C *g = &D_800EEF0C;
+    int r = 0;
+
+    if (g->busy == 0) {
+        p->w52 = 0;
+        p->buf0 = buf0;
+        p->buf1 = buf1;
+        p->width = width;
+        p->buf2 = buf2;
+        p->buf3 = buf3;
+        p->height = height;
+        p->buf4 = buf4;
+        p->flags = flags;
+        p->w84 = w84;
+        p->w76 = w76;
+        p->w88 = 0;
+        g->req = p;
+        g->stride = (p->format << 4) >> 1;
+        g->h144 = 0;
+        g->h146 = 0;
+        g->w140 = 0;
+        g->bufs[0] = buf0;
+        g->bufs[1] = buf1;
+        g->buf2 = buf2;
+        g->buf3 = buf3;
+        g->buf4 = buf4;
+        func_8009B918(buf4);
+        g->cur = 0;
+        g->w132 = 0;
+        g->w120 = 0;
+        r = func_80092C20();
+        if (r != 0) {
+            r = func_80092D3C();
+            if (r != 0) {
+                r = func_80092DF0(D_800EEF0C.bufs[D_800EEF0C.cur], &D_800EEF0C.slots[D_800EEF0C.cur]);
+            }
+        }
+    }
+    return r;
+}

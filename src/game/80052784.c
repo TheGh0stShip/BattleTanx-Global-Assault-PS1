@@ -1,33 +1,94 @@
-asm(".text\n\t.globl func_80052784\nfunc_80052784:\n\t"
-    ".word 0x3C02800B,0x9042ED4B,0x27BDFFD8,0xAFB40020\n\t"
-    ".word 0x0080A021,0xAFB3001C,0x00A09821,0xAFB20018\n\t"
-    ".word 0x00C09021,0xAFB10014,0x00008821,0xAFBF0024\n\t"
-    ".word 0x30420001,0x10400012,0xAFB00010,0x2406B7FF\n\t"
-    ".word 0x02202021,0x24030001,0x00831004,0x00C21024\n\t"
-    ".word 0x10400005,0x02511021,0xACA40000,0x24A50004\n\t"
-    ".word 0x26310001,0xA0430000,0x24840001,0x2882000F\n\t"
-    ".word 0x1440FFF6,0x00831004,0x08014A59,0x02201021\n\t"
-    ".word 0x0C008A05,0x00000000,0x10400027,0x3C02800D\n\t"
-    ".word 0x3C03800B,0x8C443024,0x9062ED4F,0x00000000\n\t"
-    ".word 0x30420001,0x8C880054,0x10400002,0x00002021\n\t"
-    ".word 0x35080200,0x24090001,0x3C02800A,0x24474EF4\n\t"
-    ".word 0x02403021,0x02602821,0x00891004,0x01021024\n\t"
-    ".word 0x1040000F,0x00000000,0xACA40000,0x8E82000C\n\t"
-    ".word 0x94E300C8,0x8C42000C,0x00000000,0x0043102A\n\t"
-    ".word 0x14400003,0x00000000,0x08014A22,0xA0C90000\n\t"
-    ".word 0xA0C00000,0x24C60001,0x24A50004,0x26310001\n\t"
-    ".word 0x24840001,0x2882000F,0x1440FFEB,0x24E700D0\n\t"
-    ".word 0x08014A59,0x02201021,0x8E840054,0x0C014CCE\n\t"
-    ".word 0x00008021,0x24090001,0x00402821,0x24AA0014\n\t"
-    ".word 0x02403021,0x00A04021,0x02603821,0x1220000E\n\t"
-    ".word 0x0211102A,0x1A20000E,0x00008021,0x8CA40000\n\t"
-    ".word 0x02601821,0x8C620000,0x00000000,0x10820006\n\t"
-    ".word 0x0211102A,0x26100001,0x0211102A,0x1440FFF9\n\t"
-    ".word 0x24630004,0x0211102A,0x14400011,0x00000000\n\t"
-    ".word 0x8CA20000,0x00000000,0xACE20000,0x8D020000\n\t"
-    ".word 0x8E830008,0x00491004,0x00621824,0x10600003\n\t"
-    ".word 0x00000000,0x08014A51,0xA0C90000,0xA0C00000\n\t"
-    ".word 0x24C60001,0x25080004,0x24E70004,0x26310001\n\t"
-    ".word 0x24A50004,0x00AA102A,0x1440FFDC,0x02201021\n\t"
-    ".word 0x8FBF0024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct {
+    char pad0[0xC];
+    int level;
+} Info;
+typedef struct {
+    char pad0[8];
+    int unlocked;
+    Info *info;
+    char pad10[0x54 - 0x10];
+    int roster;
+} Unit;
+typedef struct {
+    char pad0[0x54];
+    int available;
+} Session;
+typedef struct {
+    char pad0[0xC8];
+    unsigned short required;
+    char padCA[0xD0 - 0xCA];
+} Vehicle;
+typedef struct {
+    int ids[5];
+} Lineup;
+extern unsigned char D_800AED4B;
+extern unsigned char D_800AED4F;
+extern Session *D_800D3024;
+extern Vehicle D_800A4EF4[];
+extern int func_80022814();
+extern Lineup *func_80053338(int);
+
+static inline int is_set(int mask, int bit) {
+    return mask & (1 << bit);
+}
+
+int func_80052784(Unit *unit, int *ids, unsigned char *enabled) {
+    int count = 0;
+    int i;
+
+    if (D_800AED4B & 1) {
+        int mask = ~0x4800;
+
+        for (i = 0; i < 15; i++) {
+            if (is_set(mask, i)) {
+                ids[count] = i;
+                enabled[count] = 1;
+                count++;
+            }
+        }
+        return count;
+    }
+    if (func_80022814() != 0) {
+        int mask = D_800D3024->available;
+
+        if (D_800AED4F & 1) {
+            mask |= 0x200;
+        }
+        for (i = 0; i < 15; i++) {
+            if (is_set(mask, i)) {
+                ids[count] = i;
+                if (unit->info->level >= D_800A4EF4[i].required) {
+                    enabled[count] = 1;
+                } else {
+                    enabled[count] = 0;
+                }
+                count++;
+            }
+        }
+        return count;
+    } else {
+        int j = 0;
+        Lineup *lineup = func_80053338(unit->roster);
+        int k;
+
+        for (k = 0; k < 5; k++) {
+            if (count != 0) {
+                for (j = 0; j < count; j++) {
+                    if (lineup->ids[k] == ids[j]) {
+                        break;
+                    }
+                }
+            }
+            if (j >= count) {
+                ids[count] = lineup->ids[k];
+                if (is_set(unit->unlocked, lineup->ids[count])) {
+                    enabled[count] = 1;
+                } else {
+                    enabled[count] = 0;
+                }
+                count++;
+            }
+        }
+        return count;
+    }
+}

@@ -1,10 +1,37 @@
-asm(".text\n\t.globl func_8005FC38\nfunc_8005FC38:\n\t"
-    ".word 0x27bdffe8,0x3c02800a,0x3c04800b,0x3c06800a\n\t"
-    ".word 0x8c4248b0,0x8cc648ac,0x2484acf0,0xafbf0010\n\t"
-    ".word 0x000218c0,0x00621821,0x00031880,0x00621821\n\t"
-    ".word 0x000318c0,0x3c02800e,0x2442db9c,0x00621821\n\t"
-    ".word 0x00061040,0x00461021,0x000210c0,0x00461023\n\t"
-    ".word 0x00021080,0x00621821,0x84670000,0x84a20002\n\t"
-    ".word 0x84630002,0x84a60004,0x00e22821,0x0c01ff3a\n\t"
-    ".word 0x00663021,0x0c01fe9d,0x00002021,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct Point16 {
+    short x;
+    short y;
+} Point16;
+
+typedef struct Layout {
+    Point16 pos;
+    char pad[0x58];
+} Layout;
+
+typedef struct Coords {
+    short pad;
+    short x;
+    short y;
+} Coords;
+
+extern int D_800A48AC;
+extern int D_800A48B0;
+typedef struct Screen {
+    Layout entries[3];
+    char pad[0x14];
+} Screen;
+
+extern Screen D_800DDB9C[];
+extern int D_800AACF0;
+extern void func_8007FCE8(void *, int, int);
+extern void func_8007FA74(int);
+
+void func_8005FC38(int unused, Coords *offset) {
+    Screen *screen;
+    Layout *layout;
+
+    screen = &D_800DDB9C[D_800A48B0];
+    layout = &screen->entries[D_800A48AC];
+    func_8007FCE8(&D_800AACF0, layout->pos.x + offset->x, layout->pos.y + offset->y);
+    func_8007FA74(0);
+}

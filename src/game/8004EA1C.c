@@ -1,21 +1,72 @@
-asm(".text\n\t.globl func_8004EA1C\nfunc_8004EA1C:\n\t"
-    ".word 0x27BDFF88,0xAFB3006C,0x00809821,0xAFB00060\n\t"
-    ".word 0x27B00040,0x02002021,0xAFBF0070,0xAFB20068\n\t"
-    ".word 0xAFB10064,0x8E620218,0x24030002,0x34420100\n\t"
-    ".word 0xAE620218,0x3C02800D,0x8C422FE0,0x26710184\n\t"
-    ".word 0xAE630184,0xA6200008,0xAE220004,0x9666002C\n\t"
-    ".word 0x0C0125A0,0x3C0501F4,0x27B20050,0x8E620008\n\t"
-    ".word 0x02402021,0xAFA20050,0x8E620010,0x02002821\n\t"
-    ".word 0x0C012610,0xAFA20058,0x26640008,0x02402821\n\t"
-    ".word 0x3C06002C,0x34C67007,0x3C02800C,0xA440628C\n\t"
-    ".word 0x27A20018,0x8E630000,0x2407012C,0xAFA20014\n\t"
-    ".word 0x0C006760,0xAFA30010,0x3042FFFF,0x14400002\n\t"
-    ".word 0x27A50020,0x02402821,0x8E620008,0x8CA30000\n\t"
-    ".word 0x00000000,0x00431021,0x00021043,0xAE22000C\n\t"
-    ".word 0x8E620010,0x8CA30008,0x2624000C,0x00431021\n\t"
-    ".word 0x00021043,0x0C012576,0xAE220014,0xAE220018\n\t"
-    ".word 0x8E22000C,0x8E230014,0x8E250018,0x02602021\n\t"
-    ".word 0xAE22001C,0xAE230024,0x0C01382F,0xAE250028\n\t"
-    ".word 0x0C013601,0x02602021,0x8FBF0070,0x8FB3006C\n\t"
-    ".word 0x8FB20068,0x8FB10064,0x8FB00060,0x03E00008\n\t"
-    ".word 0x27BD0078\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int a;
+    int b;
+    Vector point;
+    char pad14[20];
+} Hit;
+typedef struct {
+    int kind;
+    int time;
+    short step;
+    short pad0A;
+    Vector mid;
+    int dist;
+    Vector goal;
+    int goal_dist;
+} Wander;
+typedef struct {
+    int id;
+    char pad04[4];
+    Vector position;
+    char pad14[0x2C - 0x14];
+    unsigned short heading;
+    char pad2E[0x184 - 0x2E];
+    Wander wander;
+    char pad1B0[0x218 - 0x1B0];
+    int status;
+} Tank;
+extern int D_800D2FE0;
+extern short D_800C628C;
+extern void func_80049680(Vector *, int, int);
+extern void func_80049840(Vector *, Vector *);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, Hit *);
+extern int func_800495D8(Vector *, Vector *);
+extern void func_8004E0BC(Tank *);
+extern void func_8004D804(Tank *);
+
+void func_8004EA1C(Tank *tank) {
+    Hit hit;
+    Vector dir;
+    Vector end;
+    Wander *w;
+    Vector *point;
+
+    tank->status |= 0x100;
+    w = &tank->wander;
+    w->kind = 2;
+    w->step = 0;
+    w->time = D_800D2FE0;
+    func_80049680(&dir, 0x1F40000, tank->heading);
+    end.x = tank->position.x;
+    end.z = tank->position.z;
+    func_80049840(&end, &dir);
+    D_800C628C = 0;
+    if (func_80019D80(&tank->position, &end, 0x2C7007, 300, tank->id, &hit) != 0) {
+        point = &hit.point;
+    } else {
+        point = &end;
+    }
+    w->mid.x = (tank->position.x + point->x) >> 1;
+    w->mid.z = (tank->position.z + point->z) >> 1;
+    w->dist = func_800495D8(&w->mid, point);
+    w->goal.x = w->mid.x;
+    w->goal.z = w->mid.z;
+    w->goal_dist = w->dist;
+    func_8004E0BC(tank);
+    func_8004D804(tank);
+}

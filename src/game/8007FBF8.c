@@ -1,10 +1,19 @@
-asm(".text\n\t.globl func_8007FBF8\nfunc_8007FBF8:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0x3c04800c\n\t"
-    ".word 0x24844c00,0xafb20018,0x00a09021,0x02602821\n\t"
-    ".word 0xafb10014,0x00c08821,0xafb00010,0xafbf0020\n\t"
-    ".word 0x0c01feb7,0x00e08021,0x02602821,0x321000ff\n\t"
-    ".word 0x00108400,0x323100ff,0x00118a00,0x02118025\n\t"
-    ".word 0x325200ff,0x3c02800b,0x8c420c58,0x24060008\n\t"
-    ".word 0x8c44000c,0x8c420008,0x00000000,0x0040f809\n\t"
-    ".word 0x02123825,0x8fbf0020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+typedef struct {
+    char pad[8];
+    int (*addque2)(void *func, void *param, int len, unsigned long arg);
+    void *clr;
+} GpuDriver;
+extern GpuDriver *D_800B0C58;
+extern char D_800C4C00[];
+extern void func_8007FADC(char *name, RECT *rect);
+
+int func_8007FBF8(RECT *rect, unsigned char r, unsigned char g, unsigned char b) {
+    func_8007FADC(D_800C4C00, rect);
+    return D_800B0C58->addque2(D_800B0C58->clr, rect, 8, (b << 16) | (g << 8) | r);
+}

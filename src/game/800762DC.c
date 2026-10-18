@@ -1,11 +1,22 @@
-asm(".text\n\t.globl func_800762DC\nfunc_800762DC:\n\t"
-    ".word 0x27bdffe0,0xafbf001c,0xafb20018,0xafb10014\n\t"
-    ".word 0x10a0001a,0xafb00010,0x0c01d55c,0x3c11800f\n\t"
-    ".word 0x2631af6c,0x02202021,0x24050001,0x3c12800b\n\t"
-    ".word 0x3c10800f,0xa242e9e8,0x304200ff,0x2610afc0\n\t"
-    ".word 0x000210c0,0x00501021,0x00a01821,0x0c020c53\n\t"
-    ".word 0xa0430000,0x02202021,0x3c060002,0x34c68004\n\t"
-    ".word 0x9242e9e8,0x3c078007,0x000210c0,0x00501021\n\t"
-    ".word 0x8c450004,0x0c020b7d,0x24e76370,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    void *data;
+} Buffer;
+
+extern unsigned char D_800AE9E8;
+extern Buffer D_800EAFC0[];
+extern char D_800EAF6C[];
+extern unsigned char func_80075570(void);
+extern void func_8008314C(void *, int);
+extern void func_80082DF4(void *, void *, int, void (*)());
+extern void func_80076370();
+
+void func_800762DC(int unused, int start) {
+    if (start != 0) {
+        D_800AE9E8 = func_80075570();
+        D_800EAFC0[D_800AE9E8].busy = 1;
+        func_8008314C(D_800EAF6C, 1);
+        func_80082DF4(D_800EAF6C, D_800EAFC0[D_800AE9E8].data, 0x28004, func_80076370);
+    }
+}

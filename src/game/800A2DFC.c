@@ -1,24 +1,113 @@
-asm(".text\n\t.globl func_800A2DFC\nfunc_800A2DFC:\n\t"
-    ".word 0x27BDFFE8,0xAFBF0014,0x10800052,0xAFB00010\n\t"
-    ".word 0x3C02800F,0x8C50FE14,0x00000000,0x1200004D\n\t"
-    ".word 0x00000000,0x8E020004,0x00000000,0x30420001\n\t"
-    ".word 0x10400048,0x00000000,0x8E020004,0x8E030008\n\t"
-    ".word 0x34421000,0xAE020004,0x2C62000B,0x10400017\n\t"
-    ".word 0x3C02800C,0x24426018,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8E020004,0x00000000,0x30420100,0x10400006\n\t"
-    ".word 0x00000000,0x8E020004,0x00000000,0x30420200\n\t"
-    ".word 0x10400006,0x00000000,0x8E020020,0x8E03001C\n\t"
-    ".word 0x00441021,0x08028BAC,0xAE020020,0xAE000020\n\t"
-    ".word 0x2403FFFF,0x8E020020,0x00000000,0x0043102B\n\t"
-    ".word 0x14400024,0x3C02800F,0x2442FD0C,0x24030001\n\t"
-    ".word 0xAE000020,0xAC43010C,0x0C023E62,0xAC400110\n\t"
-    ".word 0x8E030008,0x00402021,0x2C62000B,0x10400017\n\t"
-    ".word 0x3C02800C,0x24426048,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x30820001,0x1440000E,0x3C02800F,0x8E020004\n\t"
-    ".word 0x00000000,0x34420002,0xAE020004,0x08028BD3\n\t"
-    ".word 0x3C02800F,0x30820002,0x14400005,0x3C02800F\n\t"
-    ".word 0x8E050000,0x0C023FC7,0x2404000D,0x3C02800F\n\t"
-    ".word 0xAC40FE18,0x8FBF0014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    unsigned int timeout;
+    unsigned int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    unsigned int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+    int in_timer;
+    int timer_pad;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008F988(void);
+extern void func_8008FF1C(int, int);
+
+void func_800A2DFC(unsigned int ticks) {
+    Link *c;
+    unsigned int limit;
+    int status;
+
+    if (ticks == 0) {
+        return;
+    }
+    c = D_800EFD0C.current;
+    if (c == 0) {
+        return;
+    }
+    if (!(c->flags & 1)) {
+        return;
+    }
+    c->flags |= 0x1000;
+    switch (c->unk08) {
+    case 6:
+        if ((c->flags & 0x100) && !(c->flags & 0x200)) {
+            goto idle;
+        }
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+        c->unk20 += ticks;
+        limit = c->timeout;
+        break;
+    case 0:
+    default:
+    idle:
+        c->unk20 = 0;
+        limit = -1;
+        break;
+    }
+    if (c->unk20 < limit) {
+        return;
+    }
+    c->unk20 = 0;
+    D_800EFD0C.in_timer = 1;
+    D_800EFD0C.timer_pad = 0;
+    status = func_8008F988();
+    switch (c->unk08) {
+    case 0:
+        break;
+    case 1:
+    case 4:
+    case 8:
+    case 10:
+        if (!(status & 1)) {
+            c->flags |= 2;
+        }
+        break;
+    case 2:
+    case 3:
+    case 5:
+    case 6:
+    case 7:
+    case 9:
+        if (!(status & 2)) {
+            func_8008FF1C(13, c->unk00);
+        }
+        break;
+    }
+    D_800EFD0C.in_timer = 0;
+}

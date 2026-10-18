@@ -1,29 +1,74 @@
-asm(".text\n\t.globl func_800378E8\nfunc_800378E8:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0x8FA80028\n\t"
-    ".word 0x2CC20007,0x10400064,0xAFBF0014,0x3C02800C\n\t"
-    ".word 0x2442E604,0x00061880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x94A20004\n\t"
-    ".word 0x00000000,0x2442FFFC,0x00021400,0x00021C03\n\t"
-    ".word 0x2C620031,0x1040001D,0x3C02800C,0x2442E624\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x92020020,0x00000000\n\t"
-    ".word 0x10400003,0x24020002,0x0800DEA4,0xAD020000\n\t"
-    ".word 0x94E20010,0x8E030024,0x00000000,0x00621823\n\t"
-    ".word 0x24020001,0xAE030024,0x0800DEA4,0xAD020000\n\t"
-    ".word 0x8E020024,0x00000000,0x24428AD0,0xAE020024\n\t"
-    ".word 0x24020009,0x0800DEA4,0xAD020000,0x24020001\n\t"
-    ".word 0x0800DEA4,0xAD020000,0x9604001A,0x0C006C25\n\t"
-    ".word 0x00000000,0x0C008B2B,0x02002021,0x0800DEA4\n\t"
-    ".word 0x00000000,0x8CE20000,0x00000000,0x1440002A\n\t"
-    ".word 0x00000000,0x92020020,0x00000000,0x14400026\n\t"
-    ".word 0x00000000,0x8E020024,0x00000000,0x10400022\n\t"
-    ".word 0x24020001,0xA1020000,0x8E02000C,0x00000000\n\t"
-    ".word 0xAD020004,0x8E020014,0x0800DEA4,0xAD020008\n\t"
-    ".word 0x92020020,0x00000000,0x14400017,0x00000000\n\t"
-    ".word 0x8E020024,0x00000000,0x10400013,0x00000000\n\t"
-    ".word 0x8CE40014,0x8CE50008,0x0C009045,0x00000000\n\t"
-    ".word 0x00401821,0x1860000C,0x00000000,0x8E020024\n\t"
-    ".word 0x0800DEA3,0x00431023,0x8E030024,0x00000000\n\t"
-    ".word 0x10600005,0x00000000,0x8CE2000C,0x00000000\n\t"
-    ".word 0x00621023,0xAE020024,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct { short f0; short f2; short kind; } Hit;
+typedef struct { int f0; int f4; int f8; int damage; unsigned short f10; short f12; int f14; } HitData;
+typedef union { int code; struct { unsigned char flag; char pad[3]; int x; int z; } pos; } Reply;
+typedef struct {
+    char pad[0xC];
+    int x;
+    int f10;
+    int z;
+    char pad2[0x1A - 0x18];
+    unsigned short sound;
+    char pad3[0x20 - 0x1C];
+    unsigned char destroyed;
+    char pad4[3];
+    int health;
+} Target;
+extern void func_8001B094(int);
+extern void func_80022CAC(Target *);
+extern int func_80024114(int, int);
+
+void func_800378E8(Target *obj_arg, Hit *hit, unsigned int msg, HitData *data, Reply *reply)
+{
+    int d;
+    Target *obj = obj_arg;
+
+    switch (msg) {
+    case 0:
+        switch (hit->kind) {
+        case 7:
+        case 12:
+        case 39:
+        case 40:
+        case 52:
+            if (obj->destroyed) {
+                reply->code = 2;
+            } else {
+                obj->health -= data->f10;
+                reply->code = 1;
+            }
+            break;
+        case 4:
+            obj->health -= 30000;
+            reply->code = 9;
+            break;
+        default:
+            reply->code = 1;
+            break;
+        }
+        break;
+    case 2:
+        func_8001B094(obj->sound);
+        func_80022CAC(obj);
+        break;
+    case 5:
+        if (*(int *)data == 0 && !obj->destroyed && obj->health != 0) {
+            reply->pos.flag = 1;
+            reply->pos.x = obj->x;
+            reply->pos.z = obj->z;
+        }
+        break;
+    case 6:
+        if (!obj->destroyed && obj->health != 0) {
+            d = func_80024114(data->f14, data->f8);
+            if (d > 0) {
+                obj->health -= d;
+            }
+        }
+        break;
+    case 3:
+        if (obj->health != 0) {
+            obj->health -= data->damage;
+        }
+        break;
+    }
+}

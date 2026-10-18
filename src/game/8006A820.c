@@ -1,11 +1,13 @@
-asm(".text\n\t.globl func_8006A820\nfunc_8006A820:\n\t"
-    ".word 0x27bdffe0,0x3c02800d,0xafb00010,0x24502fe4\n\t"
-    ".word 0xafbf0018,0xafb10014,0x8e040044,0x0c008a82\n\t"
-    ".word 0x3c11800d,0x8e232fe0,0x00000000,0x0062182a\n\t"
-    ".word 0x10600014,0x00001021,0x8e040044,0x0c008a82\n\t"
-    ".word 0x00000000,0x3c048888,0x8e232fe0,0x34848889\n\t"
-    ".word 0x00431023,0x2442003b,0x00440018,0x00002810\n\t"
-    ".word 0x00a21821,0x00031943,0x000217c3,0x00621823\n\t"
-    ".word 0x00031040,0x00431021,0x000210c0,0x00431021\n\t"
-    ".word 0x00021080,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+extern int D_800D2FE0;
+extern struct {
+    char pad[0x44];
+    int deadline;
+} D_800D2FE4;
+extern int func_80022A08(int t);
+
+int func_8006A820(void) {
+    if (func_80022A08(D_800D2FE4.deadline) > D_800D2FE0) {
+        return (func_80022A08(D_800D2FE4.deadline) - D_800D2FE0 + 59) / 60 * 100;
+    }
+    return 0;
+}

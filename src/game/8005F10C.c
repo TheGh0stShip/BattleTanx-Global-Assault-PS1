@@ -1,15 +1,28 @@
-asm(".text\n\t.globl func_8005F10C\nfunc_8005F10C:\n\t"
-    ".word 0x27bdffd8,0x27a40018,0x00002821,0xafbf0020\n\t"
-    ".word 0x0c022a92,0x24060004,0x240200ff,0xa3a2001b\n\t"
-    ".word 0x3c02800e,0x8443dc58,0x24020200,0x1062001f\n\t"
-    ".word 0x3c04800b,0x9083ea43,0x00000000,0x2c62001f\n\t"
-    ".word 0x14400003,0x2c620014,0x08017c69,0xa080ea43\n\t"
-    ".word 0x10400011,0x24050082,0x24060064,0x3c0700c8\n\t"
-    ".word 0x34e7c8c8,0x3c03800a,0x3c02800c,0x2442fcd8\n\t"
-    ".word 0x3c04800d,0x8c6348b4,0x24845b8c,0xafa00010\n\t"
-    ".word 0xafa20014,0x000312c0,0x00431021,0x000210c0\n\t"
-    ".word 0x0c024753,0x00442021,0x3c03800b,0x9062ea43\n\t"
-    ".word 0x00000000,0x24420001,0xa062ea43,0x27a20018\n\t"
-    ".word 0x00002021,0x00802821,0x24060200,0x24070100\n\t"
-    ".word 0x0c0153e3,0xafa20010,0x8fbf0020,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct Font {
+    char data[0x4008];
+} Font;
+
+extern short D_800DDC58;
+extern unsigned char D_800AEA43;
+extern int D_800A48B4;
+extern Font D_800D5B8C[];
+extern char D_800BFCD8[];
+extern void func_8008AA48(void *, int, int);
+extern void func_80091D4C(Font *, int, int, int, int, char *);
+extern void func_80054F8C(int, int, int, int, unsigned char *);
+
+void func_8005F10C(void) {
+    unsigned char color[4];
+
+    func_8008AA48(color, 0, 4);
+    color[3] = 255;
+    if (D_800DDC58 != 512) {
+        if (D_800AEA43 >= 31) {
+            D_800AEA43 = 0;
+        } else if (D_800AEA43 < 20) {
+            func_80091D4C(&D_800D5B8C[D_800A48B4], 130, 100, 0xC8C8C8, 0, D_800BFCD8);
+        }
+        D_800AEA43++;
+    }
+    func_80054F8C(0, 0, 512, 256, color);
+}

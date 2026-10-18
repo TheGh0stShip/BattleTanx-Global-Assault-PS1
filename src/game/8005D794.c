@@ -1,40 +1,86 @@
-asm(".text\n\t.globl func_8005D794\nfunc_8005D794:\n\t"
-    ".word 0x3C02800A,0x24060001,0x8042606C,0x8C840004\n\t"
-    ".word 0x14460051,0x3C02800A,0x24426084,0x30A3FFFF\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x14400006,0x24020004,0xA0860040,0xA0860060\n\t"
-    ".word 0xA0860041,0x080175FD,0xA0860061,0xA0820040\n\t"
-    ".word 0xA0820060,0x24020010,0xA0820041,0xA0820061\n\t"
-    ".word 0x3C02800A,0x24426094,0x30A3FFFF,0x00031880\n\t"
-    ".word 0x00621821,0x8C630000,0x24020002,0x10620011\n\t"
-    ".word 0x24860060,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x3C02800F,0x08017617,0x3C02800F\n\t"
-    ".word 0x24020003,0x10620005,0x3C02800F,0x08017617\n\t"
-    ".word 0x3C02800F,0x08017618,0x2442AE24,0x08017618\n\t"
-    ".word 0x2442ADE0,0x3C02800F,0x2442AF64,0xACC20008\n\t"
-    ".word 0x3C02800A,0x24426084,0x30A3FFFF,0x00031880\n\t"
-    ".word 0x00621821,0x8C630000,0x00000000,0x2C620005\n\t"
-    ".word 0x10400059,0x24840020,0x3C02800C,0x2442FC28\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800F,0x2442AE2C\n\t"
-    ".word 0x03E00008,0xAC820008,0x3C02800F,0x2442AE48\n\t"
-    ".word 0x03E00008,0xAC820008,0x3C02800F,0x2442AE40\n\t"
-    ".word 0x03E00008,0xAC820008,0x3C02800F,0x2442AE44\n\t"
-    ".word 0x03E00008,0xAC820008,0x24426084,0x30A3FFFF\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x14400006,0x24020004,0xA0860040,0xA0860060\n\t"
-    ".word 0xA0860041,0x0801764D,0xA0860061,0xA0820040\n\t"
-    ".word 0xA0820060,0x24020010,0xA0820041,0xA0820061\n\t"
-    ".word 0x3C02800A,0x24426094,0x30A3FFFF,0x00031880\n\t"
-    ".word 0x00621821,0x8C630000,0x24020002,0x10620011\n\t"
-    ".word 0x24860060,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x10620008,0x3C02800F,0x08017667,0x3C02800F\n\t"
-    ".word 0x24020003,0x10620005,0x3C02800F,0x08017667\n\t"
-    ".word 0x3C02800F,0x08017668,0x2442AE24,0x08017668\n\t"
-    ".word 0x2442ADE0,0x3C02800F,0x2442AF64,0xACC20008\n\t"
-    ".word 0x3C02800A,0x24426084,0x30A3FFFF,0x00031880\n\t"
-    ".word 0x00621821,0x8C630000,0x00000000,0x2C620005\n\t"
-    ".word 0x10400009,0x24840020,0x3C02800C,0x2442FC40\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800F,0x2442ADD0\n\t"
-    ".word 0x03E00008,0xAC820008\n");
+typedef struct Holder {
+    int pad[2];
+    int *target;
+} Holder;
+
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+} Menu;
+
+extern unsigned int D_800A6084[];
+extern unsigned int D_800A6094[];
+extern int D_800EADD0;
+extern int D_800EAE1C;
+extern int D_800EAE2C;
+extern int D_800EAE40;
+extern int D_800EAE44;
+extern int D_800EAE48;
+extern int D_800EAF64;
+extern int D_800EADE0;
+extern int D_800EAE24;
+extern signed char D_800A606C;
+
+static inline void select_index_style(Holder *holder, unsigned int index) {
+    switch (index) {
+    case 1:
+        holder->target = &D_800EAE2C;
+        break;
+    case 2:
+        holder->target = &D_800EAE48;
+        break;
+    case 3:
+        holder->target = &D_800EAE40;
+        break;
+    case 4:
+        holder->target = &D_800EAE44;
+        break;
+    case 0:
+    default:
+        holder->target = &D_800EADD0;
+        break;
+    }
+}
+
+static inline void update_player_rows(unsigned char *base, unsigned short player) {
+    Holder *holder;
+
+    if (D_800A6084[player] == 0) {
+        base[0x40] = 1;
+        base[0x60] = 1;
+        base[0x41] = 1;
+        base[0x61] = 1;
+    } else {
+        base[0x40] = 4;
+        base[0x60] = 4;
+        base[0x41] = 16;
+        base[0x61] = 16;
+    }
+    holder = (Holder *)(base + 0x60);
+    switch (D_800A6094[player]) {
+    case 2:
+        holder->target = &D_800EAF64;
+        break;
+    case 1:
+        holder->target = &D_800EAE24;
+        break;
+    case 3:
+        holder->target = &D_800EADE0;
+        break;
+    default:
+        holder->target = &D_800EAF64;
+        break;
+    }
+    select_index_style((Holder *)(base + 0x20), D_800A6084[player]);
+}
+
+void func_8005D794(Menu *menu, unsigned short player) {
+    unsigned char *base;
+
+    base = menu->base;
+    if (D_800A606C == 1) {
+        update_player_rows(base, player);
+    } else {
+        update_player_rows(base, player);
+    }
+}

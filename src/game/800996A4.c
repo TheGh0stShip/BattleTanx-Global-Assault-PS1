@@ -1,11 +1,34 @@
-asm(".text\n\t.globl func_800996A4\nfunc_800996A4:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x0c028b72,0x00000000\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t"
-    ".word 0x27bdffe8,0x00002821,0x8fa60028,0x00a01821\n\t"
-    ".word 0x10c00005,0xafbf0010,0x3c02800f,0x8c45f170\n\t"
-    ".word 0x2442f170,0x8c430004,0x8c820080,0x00000000\n\t"
-    ".word 0x10400002,0x00000000,0xac450000,0x8c820084\n\t"
-    ".word 0x00000000,0x10400002,0x00000000,0xac430000\n\t"
-    ".word 0x8c82007c,0x24050002,0xac80007c,0x0c026354\n\t"
-    ".word 0xac820074,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+extern int func_800A2DC8(void *);
+extern void func_80098D50(void *, int, int);
+extern int D_800EF170[2];
+
+typedef struct Ctx {
+    char pad0[0x74];
+    void *callback;
+    int pad78;
+    void *next_callback;
+    int *out0;
+    int *out1;
+} Ctx;
+
+int func_800996A4(void *c) {
+    return func_800A2DC8(c);
+}
+
+void func_800996C4(Ctx *c, int a1, int a2, int a3, int arg) {
+    int x = 0;
+    int y = x;
+    if (arg != 0) {
+        x = D_800EF170[0];
+        y = D_800EF170[1];
+    }
+    if (c->out0 != 0) {
+        *c->out0 = x;
+    }
+    if (c->out1 != 0) {
+        *c->out1 = y;
+    }
+    c->callback = c->next_callback;
+    c->next_callback = 0;
+    func_80098D50(c, 2, arg);
+}

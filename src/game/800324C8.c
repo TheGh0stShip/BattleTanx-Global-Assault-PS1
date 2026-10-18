@@ -1,35 +1,80 @@
-asm(".text\n\t.globl func_800324C8\nfunc_800324C8:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0xAFB30024\n\t"
-    ".word 0xAFBF0028,0xAFB1001C,0xAFB00018,0x8E43000C\n\t"
-    ".word 0x24020001,0x14620039,0x00A09821,0x02602021\n\t"
-    ".word 0x0C00CF3B,0x26450020,0x8E420020,0x00000000\n\t"
-    ".word 0xAFA20010,0x8E420028,0x27A40010,0x0C007A8F\n\t"
-    ".word 0xAFA20014,0x3C030006,0x34634000,0x8E440020\n\t"
-    ".word 0x00431021,0x04800003,0xAE420024,0x0800C952\n\t"
-    ".word 0x00041B03,0x00041023,0x00021303,0x00021823\n\t"
-    ".word 0x8E420028,0x00000000,0x04400003,0x00032882\n\t"
-    ".word 0x0800C95B,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x8E420024,0x00000000,0x04400003\n\t"
-    ".word 0x00033082,0x0800C964,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00052C00,0x00052C03\n\t"
-    ".word 0x00028B80,0x00118C03,0x00063400,0x96500032\n\t"
-    ".word 0x00063403,0x0C0057D9,0x02002021,0x00101080\n\t"
-    ".word 0x00501021,0x000210C0,0x3C03800C,0x246362B0\n\t"
-    ".word 0x00431021,0x0800C985,0xA4510014,0x02602021\n\t"
-    ".word 0x0C00CF3B,0x26450020,0x8E420020,0x00000000\n\t"
-    ".word 0xAFA20010,0x8E420028,0x27A40010,0x0C007A8F\n\t"
-    ".word 0xAFA20014,0x3C030006,0x34634000,0x00431021\n\t"
-    ".word 0xAE420024,0x3402FFFF,0xA6420032,0x92620018\n\t"
-    ".word 0xAE40000C,0xAE530018,0xAE530014,0xA2420030\n\t"
-    ".word 0x8E620008,0x00000000,0xAE42001C,0xAE720008\n\t"
-    ".word 0x92630018,0x2402007F,0x14620003,0x00602021\n\t"
-    ".word 0x0800C99C,0x00001021,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431021,0x8C43000C,0x00000000\n\t"
-    ".word 0x94620004,0x00000000,0x24420001,0xA4620004\n\t"
-    ".word 0x92630018,0x2402007F,0x14620003,0x00602021\n\t"
-    ".word 0x0800C9B0,0x00002021,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00432021,0x0C014C75,0x24050004\n\t"
-    ".word 0x8FBF0028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Point2;
+typedef struct { int pad[5]; short height; short pad2; int pad3[4]; } Cell;
+typedef struct { int pad; unsigned short count; } Counter;
+typedef struct { char pad[12]; Counter *counter; char rest[0x114 - 16]; } Waypoint;
+typedef struct Marker Marker;
+typedef struct { int pad[2]; Marker *marker; int pad2[3]; unsigned char waypoint; } Base;
+struct Marker {
+    int pad[3];
+    int active;
+    int resource;
+    Base *base;
+    Base *home;
+    Marker *link;
+    Vector pos;
+    int pad2;
+    unsigned char id;
+    unsigned char pad3;
+    unsigned short cell;
+};
+extern Cell D_800C62B0[];
+extern Waypoint D_800E3E68[];
+void func_80033CEC(Base *, Vector *);
+int func_8001EA3C(Point2 *);
+void func_80015F64(int, int, int);
+void func_800531D4(Waypoint *, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline Cell *cell_at(int i) {
+    return &D_800C62B0[i];
+}
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800324C8(Marker *m, Base *b) {
+    Point2 p;
+    int h;
+    int cell;
+    short x;
+    short z;
+
+    if (m->active == 1) {
+        func_80033CEC(b, &m->pos);
+        p.x = m->pos.x;
+        p.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&p) + 0x64000;
+        x = (unsigned int)to_int(m->pos.x) >> 2;
+        z = (unsigned int)to_int(m->pos.z) >> 2;
+        h = (to_int(m->pos.y) << 14) >> 16;
+        cell = m->cell;
+        func_80015F64(cell, x, z);
+        cell_at(cell)->height = h;
+    } else {
+        func_80033CEC(b, &m->pos);
+        p.x = m->pos.x;
+        p.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&p) + 0x64000;
+        m->cell = 0xFFFF;
+    }
+    m->id = b->waypoint;
+    m->active = 0;
+    m->home = b;
+    m->base = b;
+    m->link = b->marker;
+    b->marker = m;
+    __asm__ volatile("");
+    waypoint_at(b->waypoint)->counter->count++;
+    func_800531D4(waypoint_at(b->waypoint), 4);
+}

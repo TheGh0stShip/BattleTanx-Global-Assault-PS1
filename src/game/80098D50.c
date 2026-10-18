@@ -1,13 +1,37 @@
-asm(".text\n\t.globl func_80098D50\nfunc_80098D50:\n\t"
-    ".word 0x27bdffd8,0xafb00018,0x00808021,0x00a03821\n\t"
-    ".word 0xafb1001c,0x00c08821,0x3c02800f,0xafbf0020\n\t"
-    ".word 0xac40f124,0x16200009,0xae00004c,0x0c028b2e\n\t"
-    ".word 0x00002821,0x14400011,0x00000000,0x0c028b72\n\t"
-    ".word 0x02002021,0x08026373,0x00000000,0x8e030070\n\t"
-    ".word 0x00000000,0x10600009,0x00000000,0x8e020054\n\t"
-    ".word 0x00000000,0x10400005,0x02002021,0x00002821\n\t"
-    ".word 0x0060f809,0x00e03021,0xae000054,0x8e020074\n\t"
-    ".word 0x00000000,0x10400008,0xae000074,0x92050058\n\t"
-    ".word 0x02002021,0xafb10010,0x8c860064,0x8c87006c\n\t"
-    ".word 0x0040f809,0x00000000,0x8fbf0020,0x8fb1001c\n\t"
-    ".word 0x8fb00018,0x03e00008,0x27bd0028\n\t");
+extern int func_800A2CB8(void *, int);
+extern void func_800A2DC8(void *);
+extern int D_800EF124;
+
+typedef struct S80098D50 {
+    char pad0[76];
+    int state;
+    char pad80[4];
+    int flushed;
+    unsigned char kind;
+    char pad89[11];
+    int arg100;
+    char pad104[4];
+    int arg108;
+    void (*flush)(struct S80098D50 *, int, int);
+    void (*done)(struct S80098D50 *, int, int, int, int);
+} S80098D50;
+
+void func_80098D50(S80098D50 *p, int result, int aborted) {
+    void (*done)(struct S80098D50 *, int, int, int, int);
+
+    D_800EF124 = 0;
+    p->state = 0;
+    if (aborted == 0) {
+        if (func_800A2CB8(p, 0) == 0) {
+            func_800A2DC8(p);
+        }
+    } else if (p->flush != 0 && p->flushed != 0) {
+        p->flush(p, 0, result);
+        p->flushed = 0;
+    }
+    done = p->done;
+    p->done = 0;
+    if (done != 0) {
+        done(p, p->kind, p->arg100, p->arg108, aborted);
+    }
+}

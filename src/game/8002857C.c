@@ -1,28 +1,67 @@
-asm(".text\n\t.globl func_8002857C\nfunc_8002857C:\n\t"
-    ".word 0x27BDFEA8,0x00A04021,0x3C05800D,0x3C03800A\n\t"
-    ".word 0x246344D4,0x308400FF,0x00041080,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x00431021\n\t"
-    ".word 0x24A52E14,0xAFBF0150,0x8C420018,0x8D030000\n\t"
-    ".word 0x00021080,0x00451021,0x8C470000,0x04600003\n\t"
-    ".word 0x00C06021,0x0800A179,0x00031303,0x00031023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8D030008\n\t"
-    ".word 0x00000000,0x04600003,0x00025C03,0x0800A183\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8D030004,0x00000000,0x04600003\n\t"
-    ".word 0x00023403,0x0800A18D,0x00031B03,0x00031023\n\t"
-    ".word 0x00021303,0x00021823,0x00031B80,0x8CE20008\n\t"
-    ".word 0x00031C03,0x94420006,0x8D050004,0x00431021\n\t"
-    ".word 0x00021400,0x04A00003,0x00025403,0x0800A19B\n\t"
-    ".word 0x00054B03,0x00051023,0x00021303,0x00024823\n\t"
-    ".word 0x8CE20008,0x00000000,0x84440004,0x9443000E\n\t"
-    ".word 0xAFA40010,0x8CE20008,0x00000000,0x8442000C\n\t"
-    ".word 0x00000000,0xAFA20014,0x8CE20008,0x01602821\n\t"
-    ".word 0x84420008,0x00002021,0xAFA20018,0x8CE20008\n\t"
-    ".word 0x00803821,0x84480010,0x00091380,0x00021403\n\t"
-    ".word 0x00621821,0x00031C00,0x00031C03,0x3182FFFF\n\t"
-    ".word 0xAFAA0020,0xAFA30024,0xAFA20028,0xAFA0002C\n\t"
-    ".word 0x0C006BB5,0xAFA8001C,0x3044FFFF,0x3C0500E4\n\t"
-    ".word 0x34A55D0F,0x27A60030,0x00003821,0x3C02800C\n\t"
-    ".word 0xA440628C,0x24020001,0x0C005EAB,0xAFA20010\n\t"
-    ".word 0x3042FFFF,0x8FBF0150,0x2C420001,0x03E00008\n\t"
-    ".word 0x27BD0158\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+} Shape;
+
+typedef struct {
+    char pad0[0x18];
+    int shape;
+    char pad1C[0x54 - 0x1C];
+} Kind;
+
+typedef struct {
+    void *node;
+    char pad04[0x24 - 4];
+} ProbeHit;
+
+extern Kind D_800A44D4[];
+extern Shape *D_800D2E14[];
+extern short D_800C628C;
+extern unsigned short func_8001AED4(int, int, int, int, int, int, int, int, int, int, int, int);
+unsigned short func_80017AAC(unsigned short, int, ProbeHit *, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+static inline int probe_hits(unsigned short id, ProbeHit *hits) {
+    D_800C628C = 0;
+    return func_80017AAC(id, 0xE45D0F, hits, 0, 1);
+}
+
+int func_8002857C(unsigned char kind, Vector *pos, unsigned short flags) {
+    Shape *shape = D_800D2E14[D_800A44D4[kind].shape];
+    ProbeHit hits[8];
+    int x = to_cell(pos->x);
+    int z = to_cell(pos->z);
+    int y0 = (short)(shape->box->y0 + to_cell(pos->y));
+    int y1 = (short)(shape->box->y1 + to_cell(pos->y));
+    unsigned short id;
+
+    id = func_8001AED4(0, x, z, 0, shape->box->x0, shape->box->x1, shape->box->z0, shape->box->z1, y0, y1, flags, 0);
+    return probe_hits(id, hits) == 0;
+}

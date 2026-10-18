@@ -1,16 +1,46 @@
-asm(".text\n\t.globl func_80077D98\nfunc_80077D98:\n\t"
-    ".word 0x27bdff60,0xafb00090,0x3c10800f,0xafb10094\n\t"
-    ".word 0x2611bbb4,0xafbf0098,0x92250001,0x0c0220c9\n\t"
-    ".word 0x24040002,0x00401821,0x30620001,0x14400004\n\t"
-    ".word 0x30620002,0x3c03800f,0x0801df7a,0x24020005\n\t"
-    ".word 0x14400006,0x2404000e,0x3c03800f,0x24020006\n\t"
-    ".word 0xac62bc3c,0x0801df9d,0xa200bbb4,0x92250001\n\t"
-    ".word 0x3c06800f,0x24c6bc54,0x0c0220c9,0x27a70010\n\t"
-    ".word 0x14400002,0x24020001,0x00001021,0x304200ff\n\t"
-    ".word 0x1440000c,0x3c03800f,0x3c02800f,0x9045bbb5\n\t"
-    ".word 0x0c0220c9,0x24040003,0x2c421efc,0x14400002\n\t"
-    ".word 0x00001021,0x24020001,0x304200ff,0x10400006\n\t"
-    ".word 0x3c03800f,0x24020001,0xa062bbb4,0x3c03800f\n\t"
-    ".word 0x0801df9c,0x24020003,0x3c02800f,0x3c03800f\n\t"
-    ".word 0xa040bbb4,0x24020007,0xac62bc3c,0x8fbf0098\n\t"
-    ".word 0x8fb10094,0x8fb00090,0x03e00008,0x27bd00a0\n\t");
+typedef struct PadState {
+    unsigned char ready;
+    unsigned char port;
+} PadState;
+
+extern PadState D_800EBBB4;
+extern int D_800EBC3C;
+extern char D_800EBC54[];
+extern unsigned int func_80088324(int, int, ...);
+
+static inline unsigned char card_has_file(PadState *pad, char *info) {
+    if (func_80088324(14, pad->port, D_800EBC54, info) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+static inline unsigned char card_has_space(void) {
+    if (func_80088324(3, D_800EBBB4.port) < 7932) {
+        return 0;
+    }
+    return 1;
+}
+
+void func_80077D98(void) {
+    PadState *pad = &D_800EBBB4;
+    unsigned int status;
+    char info[128];
+
+    status = func_80088324(2, pad->port);
+    if (!(status & 1)) {
+        D_800EBC3C = 5;
+        D_800EBBB4.ready = 0;
+    } else if (!(status & 2)) {
+        D_800EBC3C = 6;
+        D_800EBBB4.ready = 0;
+    } else {
+        if (card_has_file(pad, info) || card_has_space()) {
+            D_800EBBB4.ready = 1;
+            D_800EBC3C = 3;
+        } else {
+            D_800EBBB4.ready = 0;
+            D_800EBC3C = 7;
+        }
+    }
+}

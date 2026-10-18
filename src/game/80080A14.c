@@ -1,9 +1,19 @@
-asm(".text\n\t.globl func_80080A14\nfunc_80080A14:\n\t"
-    ".word 0x14800003,0x27bdfff0,0x080202a3,0x00001021\n\t"
-    ".word 0x90850000,0x00000000,0x000528c2,0xafa50000\n\t"
-    ".word 0x84860004,0x00000000,0x00063023,0x30c600ff\n\t"
-    ".word 0x000630c3,0xafa60008,0x90820002,0x00052a80\n\t"
-    ".word 0x000210c2,0xafa20004,0x000213c0,0x84830006\n\t"
-    ".word 0x3c04e200,0x00a42825,0x00451025,0x00031823\n\t"
-    ".word 0x306300ff,0x000318c3,0x00032140,0x00441025\n\t"
-    ".word 0x00461025,0xafa3000c,0x03e00008,0x27bd0010\n\t");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+
+unsigned long func_80080A14(RECT *tw) {
+    unsigned long pat[4];
+
+    if (tw != 0) {
+        pat[0] = (tw->x & 0xFF) >> 3;
+        pat[2] = (-tw->w & 0xFF) >> 3;
+        pat[1] = (tw->y & 0xFF) >> 3;
+        pat[3] = (-tw->h & 0xFF) >> 3;
+        return 0xE2000000 | (pat[1] << 15) | (pat[0] << 10) | (pat[3] << 5) | pat[2];
+    }
+    return 0;
+}

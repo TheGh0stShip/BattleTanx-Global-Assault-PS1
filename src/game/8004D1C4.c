@@ -1,54 +1,154 @@
-asm(".text\n\t.globl func_8004D1C4\nfunc_8004D1C4:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFB10014\n\t"
-    ".word 0x267100D8,0xAFBF0020,0xAFB20018,0xAFB00010\n\t"
-    ".word 0x92230019,0x00000000,0x2C620007,0x104000C0\n\t"
-    ".word 0xA2200018,0x3C02800C,0x2442F4E8,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x92230019,0x24020005,0x10620005\n\t"
-    ".word 0x24020006,0x1062000E,0x00000000,0x080134AC\n\t"
-    ".word 0x00000000,0x8E30001C,0x0C0140CE,0x02002021\n\t"
-    ".word 0x1040001A,0x00000000,0x0C0140D5,0x02002021\n\t"
-    ".word 0x14400016,0x24020001,0x080134AC,0xA2220018\n\t"
-    ".word 0x8E24001C,0x00000000,0x10800010,0x2402001E\n\t"
-    ".word 0x84830004,0x00000000,0x1462000C,0x00000000\n\t"
-    ".word 0x84820018,0x00000000,0x18400008,0x00000000\n\t"
-    ".word 0x8C820008,0x00000000,0xAE220000,0x8C830010\n\t"
-    ".word 0x24020001,0xA2220018,0xAE230008,0x92220018\n\t"
-    ".word 0x00000000,0x1440008E,0x00000000,0x0C011D96\n\t"
-    ".word 0x02602021,0x10400080,0x00000000,0x8E6200AC\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x8E6200B4\n\t"
-    ".word 0x00000000,0x10400078,0x00000000,0x92220019\n\t"
-    ".word 0x00000000,0x2443FFFF,0x2C620006,0x1040003A\n\t"
-    ".word 0x3C02800C,0x2442F508,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8E30001C,0x00000000,0x1200002F,0x00000000\n\t"
-    ".word 0x8E0200A8,0x8E6300AC,0x00000000,0x00431024\n\t"
-    ".word 0x10400029,0x00000000,0x0C011D96,0x02002021\n\t"
-    ".word 0x10400025,0x00000000,0x8E020170,0x00000000\n\t"
-    ".word 0xAE220000,0x8E030178,0x080134F9,0x24020001\n\t"
-    ".word 0x8E30001C,0x8E6300AC,0x8E0200A8,0x00000000\n\t"
-    ".word 0x00431024,0x10400018,0x00000000,0x0C011D96\n\t"
-    ".word 0x02002021,0x10400014,0x00000000,0x8E020170\n\t"
-    ".word 0x00000000,0xAE220000,0x8E030178,0x080134F9\n\t"
-    ".word 0x24020001,0x8E30001C,0x02602021,0x0C01365A\n\t"
-    ".word 0x02002821,0x10400008,0x00000000,0x8E020008\n\t"
-    ".word 0x00000000,0xAE220000,0x8E030010,0x24020001\n\t"
-    ".word 0xA2220018,0xAE230008,0x92220018,0x00000000\n\t"
-    ".word 0x1440003F,0x00000000,0x8E6200AC,0x00000000\n\t"
-    ".word 0x1040001C,0x3C12800E,0x8E443CC0,0x0C01279C\n\t"
-    ".word 0x00442024,0x00408021,0x0C011D96,0x02002021\n\t"
-    ".word 0x1440000B,0x24020003,0x8E443CC0,0x8E6200AC\n\t"
-    ".word 0x00042027,0x0C01279C,0x00442024,0x00408021\n\t"
-    ".word 0x0C011D96,0x02002021,0x1040000A,0x24020002\n\t"
-    ".word 0xA2220019,0xAE30001C,0x8E020170,0x00000000\n\t"
-    ".word 0xAE220000,0x8E030178,0x24020001,0xA2220018\n\t"
-    ".word 0xAE230008,0x92220018,0x00000000,0x1440001C\n\t"
-    ".word 0x00000000,0x8E7000B4,0x02602021,0x0C01365A\n\t"
-    ".word 0x02002821,0x1040000B,0x24020004,0xA2220019\n\t"
-    ".word 0xAE30001C,0x8E020008,0x00000000,0xAE220000\n\t"
-    ".word 0x8E030010,0x24020001,0xA2220018,0x08013533\n\t"
-    ".word 0xAE230008,0xAE6000B4,0x92220018,0x00000000\n\t"
-    ".word 0x14400007,0x24020001,0x92230019,0x00000000\n\t"
-    ".word 0x10620003,0x00000000,0x0C013601,0x02602021\n\t"
-    ".word 0x8FBF0020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Tank Tank;
+typedef struct {
+    char pad0[4];
+    short kind;
+    char pad6[2];
+    int x;
+    int y;
+    int z;
+    char pad14[4];
+    short health;
+} Object;
+typedef struct {
+    Vector position;
+    char padC[0x18 - 0xC];
+    unsigned char valid;
+    unsigned char mode;
+    char pad1A[2];
+    Tank *target;
+} Track;
+struct Tank {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+    char pad14[0xA8 - 0x14];
+    unsigned int bits;
+    unsigned int enemy_mask;
+    char padB0[4];
+    Tank *other;
+    char padB8[0xD8 - 0xB8];
+    Track track;
+    char padF8[0x170 - 0xF8];
+    Vector eye;
+};
+extern unsigned int D_800E3CC0;
+extern int func_80050338(void *);
+extern int func_80050354(void *);
+extern int func_80047658(Tank *);
+extern int func_8004D968(Tank *, Tank *);
+extern Tank *func_80049E70(unsigned int);
+extern void func_8004D804(Tank *);
+
+void func_8004D1C4(Tank *tank) {
+    Track *track = &tank->track;
+    Tank *other;
+    Object *obj;
+
+    track->valid = 0;
+    switch (track->mode) {
+    case 0:
+        return;
+    case 5:
+    case 6:
+        switch (track->mode) {
+        case 5:
+            other = track->target;
+            if (func_80050338(other) != 0 && func_80050354(other) == 0) {
+                track->valid = 1;
+            }
+            break;
+        case 6:
+            obj = (Object *)track->target;
+            if (obj != 0 && obj->kind == 30 && obj->health > 0) {
+                track->position.x = obj->x;
+                track->position.z = obj->z;
+                track->valid = 1;
+            }
+            break;
+        }
+        if (track->valid != 0) {
+            return;
+        }
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+        break;
+    default:
+        return;
+    }
+    if (func_80047658(tank) != 0 && (tank->enemy_mask != 0 || tank->other != 0)) {
+        switch (track->mode) {
+        case 2:
+            other = track->target;
+            if (other != 0 && (other->bits & tank->enemy_mask) && func_80047658(other) != 0) {
+                track->position.x = other->eye.x;
+                track->position.z = other->eye.z;
+                track->valid = 1;
+            }
+            break;
+        case 3:
+            other = track->target;
+            if ((other->bits & tank->enemy_mask) && func_80047658(other) != 0) {
+                track->position.x = other->eye.x;
+                track->position.z = other->eye.z;
+                track->valid = 1;
+            }
+            break;
+        case 4:
+            other = track->target;
+            if (func_8004D968(tank, other) != 0) {
+                track->position.x = other->x;
+                track->position.z = other->z;
+                track->valid = 1;
+            }
+            break;
+        case 1:
+        case 5:
+        case 6:
+            break;
+        }
+        if (track->valid != 0) {
+            return;
+        }
+        if (tank->enemy_mask != 0) {
+            other = func_80049E70(tank->enemy_mask & D_800E3CC0);
+            if (func_80047658(other) != 0) {
+                track->mode = 3;
+            } else {
+                other = func_80049E70(tank->enemy_mask & ~D_800E3CC0);
+                if (func_80047658(other) == 0) {
+                    goto skip;
+                }
+                track->mode = 2;
+            }
+            track->target = other;
+            track->position.x = other->eye.x;
+            track->position.z = other->eye.z;
+            track->valid = 1;
+        }
+    skip:
+        if (track->valid != 0) {
+            return;
+        }
+        other = tank->other;
+        if (func_8004D968(tank, other) != 0) {
+            track->mode = 4;
+            track->target = other;
+            track->position.x = other->x;
+            track->position.z = other->z;
+            track->valid = 1;
+        } else {
+            tank->other = 0;
+        }
+    }
+    if (track->valid == 0 && track->mode != 1) {
+        func_8004D804(tank);
+    }
+}

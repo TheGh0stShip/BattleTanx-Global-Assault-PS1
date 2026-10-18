@@ -1,25 +1,58 @@
-asm(".text\n\t.globl func_80061CC0\nfunc_80061CC0:\n\t"
-    ".word 0x27BDFFE0,0x00804821,0x3C02800C,0x8FA80030\n\t"
-    ".word 0x8C4360D0,0x24020005,0xAFBF0018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x31107FFF,0x31118000,0x1462004D\n\t"
-    ".word 0x01005021,0x3C02800B,0x9442BA5C,0x00000000\n\t"
-    ".word 0x2C42002A,0x10400047,0x2502FFE4,0x3042FFFF\n\t"
-    ".word 0x2C420002,0x14400011,0x3C02800A,0x8C436070\n\t"
-    ".word 0x24020001,0x1462000F,0x3C02800B,0x9443BA68\n\t"
-    ".word 0x00000000,0x1460000B,0x2442BA68,0x94420002\n\t"
-    ".word 0x00000000,0x14400008,0x3C04800E,0x12000035\n\t"
-    ".word 0x3C02800B,0x0801875B,0x00000000,0x24100002\n\t"
-    ".word 0x24110001,0x3C04800E,0x3C02800B,0x24844BFC\n\t"
-    ".word 0x9443BA5C,0x00091400,0x00021483,0x000318C0\n\t"
-    ".word 0x00641821,0xA4620000,0x00051400,0x00021483\n\t"
-    ".word 0xA4620002,0xA4660004,0x3143FFFF,0x2402001C\n\t"
-    ".word 0x10620005,0x2402001D,0x10620008,0x24040005\n\t"
-    ".word 0x08018770,0x00000000,0x08018773,0x24040001\n\t"
-    ".word 0x0C01861B,0x30E4FFFF,0x00402021,0x3203FFFF\n\t"
-    ".word 0x24020001,0x14620003,0x24020002,0x0801877C\n\t"
-    ".word 0x34848000,0x14620002,0x00000000,0x34844000\n\t"
-    ".word 0x12200002,0x3C02800E,0x34840100,0x3C06800B\n\t"
-    ".word 0x94C5BA5C,0x24424BFC,0x000518C0,0x00621821\n\t"
-    ".word 0x2CA2002A,0x10400003,0xA4640006,0x24A20001\n\t"
-    ".word 0xA4C2BA5C,0x8FBF0018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct Sound {
+    short x;
+    short y;
+    short z;
+    unsigned short code;
+} Sound;
+
+extern int D_800C60D0;
+extern unsigned short D_800ABA5C;
+extern int D_800A6070;
+extern unsigned short D_800ABA68[];
+extern Sound D_800E4BFC[];
+extern unsigned short func_8006186C(unsigned short);
+
+void func_80061CC0(short x, short y, short z, unsigned short slot, unsigned short flags) {
+    unsigned short kind;
+    unsigned short high;
+    unsigned short code;
+
+    kind = flags & 0x7FFF;
+    high = flags & 0x8000;
+    if (D_800C60D0 == 5 && D_800ABA5C < 42) {
+        if ((unsigned short)(flags - 28) >= 2) {
+            if (D_800A6070 == 1 && D_800ABA68[0] == 0 && D_800ABA68[1] == 0 && kind == 0) {
+                return;
+            }
+        } else {
+            kind = 2;
+            high = 1;
+        }
+        D_800E4BFC[D_800ABA5C].x = x >> 2;
+        D_800E4BFC[D_800ABA5C].y = y >> 2;
+        D_800E4BFC[D_800ABA5C].z = z;
+        switch (flags) {
+        case 28:
+            code = 1;
+            break;
+        case 29:
+            code = 5;
+            break;
+        default:
+            code = func_8006186C(slot);
+            break;
+        }
+        if (kind == 1) {
+            code |= 0x8000;
+        } else if (kind == 2) {
+            code |= 0x4000;
+        }
+        if (high) {
+            code |= 0x100;
+        }
+        D_800E4BFC[D_800ABA5C].code = code;
+        if (D_800ABA5C < 42) {
+            D_800ABA5C++;
+        }
+    }
+}

@@ -1,19 +1,74 @@
-asm(".text\n\t.globl func_80087268\nfunc_80087268:\n\t"
-    ".word 0x27bdffd0,0xafb20028,0x00809021,0x3c02800f\n\t"
-    ".word 0xafb00020,0x2450e588,0xafbf002c,0xafb10024\n\t"
-    ".word 0x92020004,0x00000000,0x10400003,0x00008821\n\t"
-    ".word 0x0c021c78,0x00000000,0x0c021bf1,0x02402021\n\t"
-    ".word 0x30420003,0x24030003,0x1443002d,0x02201021\n\t"
-    ".word 0x0c025802,0x00002021,0x02402021,0x2402000f\n\t"
-    ".word 0x3c05800c,0x24a56078,0x26060300,0x27a70018\n\t"
-    ".word 0xafa00010,0x0c02576d,0xafa20014,0x14400020\n\t"
-    ".word 0x02201021,0x00002021,0x8fa50018,0x00000000\n\t"
-    ".word 0x0225102a,0x1040000b,0x00801821,0x2407e000\n\t"
-    ".word 0x02003021,0x8cc20318,0x24630001,0x24421fff\n\t"
-    ".word 0x00471024,0x00822021,0x0065102a,0x1440fff9\n\t"
-    ".word 0x24c60028,0x3c020001,0x3442dfff,0x0044102b\n\t"
-    ".word 0x1440000b,0x02201021,0x3c020001,0x3442e000\n\t"
-    ".word 0x0c021bb2,0x00448023,0x00401821,0x0070102b\n\t"
-    ".word 0x10400003,0x02201021,0x02038823,0x02201021\n\t"
-    ".word 0x8fbf002c,0x8fb20028,0x8fb10024,0x8fb00020\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+typedef void (*CardCallback)(int, int, int, int);
+typedef struct {
+    char name[20];
+    unsigned char selected;
+    char pad15[3];
+    int size;
+    char pad1c[12];
+} DirEntry;
+typedef struct {
+    int w0;
+    volatile unsigned char active;
+    volatile unsigned char busy;
+    volatile unsigned char open;
+    volatile unsigned char readonly;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    char pad_a[2];
+    int slot_state[8];
+    char pad2c[4];
+    int port;
+    char pad34[8];
+    unsigned char buf[0x80];
+    int wBC;
+    int wC0;
+    int wC4;
+    char padC8[0xC];
+    int wD4;
+    char padD8[0xC];
+    CardCallback done;
+    CardCallback error;
+    char padEC[0x210];
+    unsigned int checksum;
+    DirEntry entries[15];
+    int count;
+    int loaded;
+} CardState;
+extern CardState D_800EE588;
+
+extern void func_800871E0(void);
+extern int func_80086FC4(int port);
+extern void func_80096008(int a);
+extern int func_80095DB4(int port, char *name, DirEntry *entries, int *count, int first, int max);
+extern unsigned int func_80086EC8(void);
+extern char D_800C6078[];
+
+unsigned int func_80087268(int port) {
+    unsigned int result = 0;
+    int count;
+    unsigned int total;
+    unsigned int avail;
+    unsigned int used;
+    int i;
+
+    if (D_800EE588.active != 0) {
+        func_800871E0();
+    }
+    if ((func_80086FC4(port) & 3) == 3) {
+        func_80096008(0);
+        if (func_80095DB4(port, D_800C6078, D_800EE588.entries, &count, 0, 15) == 0) {
+            total = 0;
+            for (i = 0; i < count; i++) {
+                total += (D_800EE588.entries[i].size + 0x1FFF) & ~0x1FFF;
+            }
+            if (total < 0x1E000) {
+                avail = 0x1E000 - total;
+                used = func_80086EC8();
+                if (used < avail) {
+                    result = avail - used;
+                }
+            }
+        }
+    }
+    return result;
+}

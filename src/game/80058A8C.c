@@ -1,18 +1,48 @@
-asm(".text\n\t.globl func_80058A8C\nfunc_80058A8C:\n\t"
-    ".word 0x8c830004,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x1040000b,0x00003021,0x90620001,0x00000000\n\t"
-    ".word 0x30420080,0x14400006,0x00603021,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440fff7,0x00003021\n\t"
-    ".word 0x10c00031,0x24c3ffe0,0x8c850004,0x00000000\n\t"
-    ".word 0x0065102b,0x1440000a,0x00000000,0x90620001\n\t"
-    ".word 0x00000000,0x30420010,0x14400006,0x00000000\n\t"
-    ".word 0x2463ffe0,0x0065102b,0x1040fff8,0x00000000\n\t"
-    ".word 0x00001821,0x14600018,0x00000000,0x90c20020\n\t"
-    ".word 0x00000000,0x10400007,0x24c30020,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440fffd,0x24630020\n\t"
-    ".word 0x2463ffe0,0x8c840004,0x080162d9,0x2463ffe0\n\t"
-    ".word 0x90620001,0x00000000,0x30420010,0x14400006\n\t"
-    ".word 0x00000000,0x2463ffe0,0x0064102b,0x1040fff8\n\t"
-    ".word 0x00000000,0x00001821,0x90c20001,0x00000000\n\t"
-    ".word 0x3042007f,0xa0c20001,0x90620001,0x00000000\n\t"
-    ".word 0x34420080,0xa0620001,0x03e00008,0x00000000\n\t");
+typedef struct Item {
+    unsigned char valid;
+    unsigned char flags;
+    char pad2[6];
+    int value;
+    char padC[0x20 - 0xC];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+} Menu;
+
+static inline Item *find_selected(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x80) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_prev_selectable(Item *first, Item *p) {
+    for (; p >= first; p--) {
+        if (p->flags & 0x10) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+void func_80058A8C(Menu *menu) {
+    Item *cur;
+    Item *prev;
+    Item *last;
+
+    cur = find_selected(menu->items);
+    if (cur == 0) {
+        return;
+    }
+    prev = find_prev_selectable(menu->items, cur - 1);
+    if (prev == 0) {
+        for (last = cur + 1; last->valid != 0; last++) {
+        }
+        prev = find_prev_selectable(menu->items, last - 1);
+    }
+    cur->flags &= 0x7F;
+    prev->flags |= 0x80;
+}

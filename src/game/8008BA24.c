@@ -1,13 +1,46 @@
-asm(".text\n\t.globl func_8008BA24\nfunc_8008BA24:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x8fb20038,0xafb10014\n\t"
-    ".word 0x00808821,0xafb3001c,0x00a09821,0xafb40020\n\t"
-    ".word 0x00c0a021,0xafb00010,0xafbf0024,0x0c025297\n\t"
-    ".word 0x00e08021,0x24030001,0xa6330000,0xa6340002\n\t"
-    ".word 0xa6300004,0xa620000c,0xa620000e,0xa6200010\n\t"
-    ".word 0xa6200012,0xa2200019,0xa220001a,0xa220001b\n\t"
-    ".word 0xa2230016,0x10400003,0xa6320006,0x08022ea7\n\t"
-    ".word 0x2a420121,0x2a420101,0xa2220017,0x02201021\n\t"
-    ".word 0x2403000a,0xa4530008,0xa454000a,0xa4430014\n\t"
-    ".word 0xa0400018,0x8fbf0024,0x8fb40020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+typedef struct {
+    RECT clip;
+    short ofs[2];
+    RECT tw;
+    unsigned short tpage;
+    unsigned char dtd;
+    unsigned char dfe;
+    unsigned char isbg;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+} DRAWENV;
+extern int func_80094A5C(void);
+
+DRAWENV *func_8008BA24(DRAWENV *env, int x, int y, int w, int h) {
+    int pal = func_80094A5C();
+
+    env->clip.x = x;
+    env->clip.y = y;
+    env->clip.w = w;
+    env->tw.x = 0;
+    env->tw.y = 0;
+    env->tw.w = 0;
+    env->tw.h = 0;
+    env->r0 = 0;
+    env->g0 = 0;
+    env->b0 = 0;
+    env->dtd = 1;
+    env->clip.h = h;
+    if (pal) {
+        env->dfe = h < 289;
+    } else {
+        env->dfe = h < 257;
+    }
+    env->ofs[0] = x;
+    env->ofs[1] = y;
+    env->tpage = 10;
+    env->isbg = 0;
+    return env;
+}

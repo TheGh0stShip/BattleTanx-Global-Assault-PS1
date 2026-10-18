@@ -1,28 +1,61 @@
-asm(".text\n\t.globl func_8005CF8C\nfunc_8005CF8C:\n\t"
-    ".word 0x27BDFFE0,0x3C02800B,0x2442A2A8,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0x10820005,0xAFB00010,0x3C02800B\n\t"
-    ".word 0x2442AA18,0x14820003,0x3C02800B,0x08017407\n\t"
-    ".word 0x00002821,0x2442A348,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442AAB8,0x14820003,0x3C02800B,0x08017407\n\t"
-    ".word 0x24050001,0x2442A3E8,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442AB58,0x14820003,0x3C02800B,0x08017407\n\t"
-    ".word 0x24050002,0x2442A488,0x10820004,0x3C02800B\n\t"
-    ".word 0x2442ABF8,0x14820042,0x00001021,0x24050003\n\t"
-    ".word 0x3C02800A,0x244260DC,0x00A23821,0x90E80000\n\t"
-    ".word 0x00000000,0x25020001,0xA0E20000,0x00021600\n\t"
-    ".word 0x00021E03,0x24020003,0x14620009,0x24020002\n\t"
-    ".word 0x3C02800B,0x9042ED4E,0x00000000,0x30420001\n\t"
-    ".word 0x14400014,0x3C02800A,0x0801742A,0x25020002\n\t"
-    ".word 0x14620010,0x3C02800A,0x3C02800B,0x9042ED4D\n\t"
-    ".word 0x00000000,0x30420001,0x1440000A,0x3C02800A\n\t"
-    ".word 0x3C02800B,0x9042ED4E,0x00000000,0x30420001\n\t"
-    ".word 0x14400002,0x25020002,0x25020003,0xA0E20000\n\t"
-    ".word 0x3C02800A,0x244260DC,0x30B0FFFF,0x02028821\n\t"
-    ".word 0x3C02800A,0x90425B78,0x82230000,0x2442000C\n\t"
-    ".word 0x0062182A,0x14600002,0x00000000,0xA2200000\n\t"
-    ".word 0x0C017381,0x02002821,0x00001021,0x3C07800A\n\t"
-    ".word 0x24E760C4,0x00103080,0x3C04800B,0x82250000\n\t"
-    ".word 0x24849AFC,0x00051840,0x00651821,0x00031880\n\t"
-    ".word 0x00641821,0x8C630000,0x00C73021,0xACC30000\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct Choice {
+    int key;
+    int name;
+    int icon;
+} Choice;
+
+extern char D_800AA2A8[];
+extern char D_800AA348[];
+extern char D_800AA3E8[];
+extern char D_800AA488[];
+extern char D_800AAA18[];
+extern char D_800AAAB8[];
+extern char D_800AAB58[];
+extern char D_800AABF8[];
+extern signed char D_800A60DC[];
+extern unsigned char D_800AED4D;
+extern unsigned char D_800AED4E;
+extern unsigned char D_800A5B78;
+extern int D_800A60C4[];
+extern Choice D_800A9AFC[];
+extern void func_8005CE04(void *, unsigned short);
+
+int func_8005CF8C(char *menu) {
+    unsigned short player;
+    signed char *choice;
+    signed char old;
+
+    if (menu == D_800AA2A8 || menu == D_800AAA18) {
+        player = 0;
+    } else if (menu == D_800AA348 || menu == D_800AAAB8) {
+        player = 1;
+    } else if (menu == D_800AA3E8 || menu == D_800AAB58) {
+        player = 2;
+    } else if (menu == D_800AA488 || menu == D_800AABF8) {
+        player = 3;
+    } else {
+        return 0;
+    }
+    choice = &D_800A60DC[player];
+    old = *choice;
+    *choice = old + 1;
+    if (*choice == 3) {
+        if (!(D_800AED4E & 1)) {
+            *choice = old + 2;
+        }
+    } else if (*choice == 2) {
+        if (!(D_800AED4D & 1)) {
+            if (D_800AED4E & 1) {
+                *choice = old + 2;
+            } else {
+                *choice = old + 3;
+            }
+        }
+    }
+    if (D_800A60DC[player] >= D_800A5B78 + 12) {
+        D_800A60DC[player] = 0;
+    }
+    func_8005CE04(menu, player);
+    D_800A60C4[player] = D_800A9AFC[D_800A60DC[player]].key;
+    return 0;
+}

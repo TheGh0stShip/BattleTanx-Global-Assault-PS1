@@ -1,12 +1,19 @@
-asm(".text\n\t.globl func_8008F410\nfunc_8008F410:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x00002021\n\t"
-    ".word 0x24050001,0xafbf0014,0x0c02677b,0x00803021\n\t"
-    ".word 0x1200000d,0x00403821,0x24040001,0x00802821\n\t"
-    ".word 0x3c03800f,0x2463edf4,0x8c620004,0x34e60800\n\t"
-    ".word 0x34420020,0xac620004,0x0c02677b,0x00000000\n\t"
-    ".word 0x08023d29,0x00000000,0x3c02800f,0x2450edf4\n\t"
-    ".word 0x8e020004,0x00000000,0x30420020,0x10400009\n\t"
-    ".word 0x24040001,0x00802821,0x2406f7ff,0x0c02677b\n\t"
-    ".word 0x00e63024,0x8e020004,0x2403ffdf,0x00431024\n\t"
-    ".word 0xae020004,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+extern int func_80099DEC(int, int, int);
+
+typedef struct {
+    int pad;
+    volatile int flags;
+} S8008F410;
+extern S8008F410 D_800EEDF4;
+
+void func_8008F410(int enable) {
+    int mode = func_80099DEC(0, 1, 0);
+
+    if (enable != 0) {
+        D_800EEDF4.flags |= 0x20;
+        func_80099DEC(1, 1, mode | 0x800);
+    } else if (D_800EEDF4.flags & 0x20) {
+        func_80099DEC(1, 1, mode & ~0x800);
+        D_800EEDF4.flags &= ~0x20;
+    }
+}

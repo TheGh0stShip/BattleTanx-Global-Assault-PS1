@@ -1,14 +1,42 @@
-asm(".text\n\t.globl func_800334F8\nfunc_800334F8:\n\t"
-    ".word 0x27bdffd0,0xafb1001c,0x00808821,0xafb30024\n\t"
-    ".word 0x00a09821,0xafb20020,0x00c09021,0x24040008\n\t"
-    ".word 0x24050034,0xafbf0028,0x0c008df4,0xafb00018\n\t"
-    ".word 0x00408021,0x1200001d,0x27a40010,0xae120008\n\t"
-    ".word 0xae00000c,0xae130010,0x92220018,0xae110014\n\t"
-    ".word 0xae110018,0xae00001c,0xa2020031,0xa2020030\n\t"
-    ".word 0xae300008,0x8e27000c,0x8e280010,0x8e290014\n\t"
-    ".word 0xae070020,0xae080024,0xae090028,0x8e020020\n\t"
-    ".word 0x00000000,0xafa20010,0x8e020028,0x0c007a8f\n\t"
-    ".word 0xafa20014,0x3c030006,0x34634000,0x00431021\n\t"
-    ".word 0xae020024,0x3402ffff,0xa6020032,0x8fbf0028\n\t"
-    ".word 0x8fb30024,0x8fb20020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Point2;
+typedef struct Marker Marker;
+typedef struct { int pad[2]; Marker *marker; Vector pos; unsigned char id; } Base;
+struct Marker {
+    int pad[2];
+    int arg2;
+    int zero0;
+    int arg1;
+    Base *base;
+    Base *home;
+    int zero1;
+    Vector pos;
+    int pad2;
+    unsigned char id_a;
+    unsigned char id_b;
+    unsigned short flags;
+};
+Marker *func_800237D0(int, int);
+int func_8001EA3C(Point2 *);
+
+void func_800334F8(Base *base, int arg1, int arg2) {
+    Marker *m;
+    Point2 p;
+
+    m = func_800237D0(8, 52);
+    if (m != 0) {
+        m->arg2 = arg2;
+        m->zero0 = 0;
+        m->arg1 = arg1;
+        m->id_a = m->id_b = base->id;
+        m->base = base;
+        m->home = base;
+        m->zero1 = 0;
+        base->marker = m;
+        m->pos = base->pos;
+        p.x = m->pos.x;
+        p.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&p) + 0x64000;
+        m->flags = 0xFFFF;
+    }
+}

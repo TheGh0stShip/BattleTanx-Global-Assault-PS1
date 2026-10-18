@@ -1,9 +1,34 @@
-asm(".text\n\t.globl func_8006F224\nfunc_8006F224:\n\t"
-    ".word 0x00803021,0x84c30004,0x24020049,0x14620017\n\t"
-    ".word 0x00000000,0x10a0000a,0x00000000,0x84c30000\n\t"
-    ".word 0x84a20000,0x00000000,0x14620010,0x00000000\n\t"
-    ".word 0x8cc20008,0x00000000,0x1445000c,0x00000000\n\t"
-    ".word 0x10c0000a,0x3c03800b,0x90c40007,0x2463df64\n\t"
-    ".word 0x000410c0,0x00441021,0x00021080,0x00431021\n\t"
-    ".word 0x8c42000c,0x00000000,0xacc20024,0x03e00008\n\t"
-    ".word 0x00000000\n\t");
+typedef struct TypeInfo {
+    int pad[3];
+    int value;
+    int pad2[5];
+} TypeInfo;
+
+typedef struct Item {
+    short id;
+    char pad2[2];
+    short kind;
+    char pad6;
+    unsigned char type;
+    struct Item *link;
+    char padC[0x18];
+    int value;
+} Item;
+
+extern TypeInfo D_800ADF64[];
+
+void func_8006F224(Item *item, Item *other) {
+    if (item->kind == 73) {
+        if (other != 0) {
+            if (item->id != other->id) {
+                return;
+            }
+            if (item->link != other) {
+                return;
+            }
+        }
+        if (item != 0) {
+            item->value = D_800ADF64[item->type].value;
+        }
+    }
+}

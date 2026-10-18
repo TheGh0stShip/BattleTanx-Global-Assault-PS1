@@ -1,17 +1,61 @@
-asm(".text\n\t.globl func_8001EF94\nfunc_8001EF94:\n\t"
-    ".word 0x27bdffd8,0xafbf0020,0xac850060,0x8ca20010\n\t"
-    ".word 0x24030002,0x0043001a,0x14600002,0x00000000\n\t"
-    ".word 0x0007000d,0x2401ffff,0x14610004,0x3c018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000d,0x00001012\n\t"
-    ".word 0x8ca80008,0x00000000,0x00480018,0x00002012\n\t"
-    ".word 0x00003810,0x00042302,0x00073d00,0x00872025\n\t"
-    ".word 0x8ca20000,0x00000000,0x00441021,0xacc20000\n\t"
-    ".word 0x8ca20010,0x8ca8000c,0x0043001a,0x14600002\n\t"
-    ".word 0x00000000,0x0007000d,0x2401ffff,0x14610004\n\t"
-    ".word 0x3c018000,0x14410002,0x00000000,0x0006000d\n\t"
-    ".word 0x00001012,0x00000000,0x00000000,0x00480018\n\t"
-    ".word 0x00001812,0x00003810,0x00031b02,0x00073d00\n\t"
-    ".word 0x00671825,0x8ca20004,0x00000000,0x00431021\n\t"
-    ".word 0xacc20004,0x8ca20008,0x8ca3000c,0x27a40010\n\t"
-    ".word 0xafa20010,0xac800004,0x0c0125e4,0xac830008\n\t"
-    ".word 0x8fbf0020,0x3042ffff,0x03e00008,0x27bd0028\n\t");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Segment {
+    int x;
+    int z;
+    int dx;
+    int dz;
+    int length;
+} Segment;
+typedef struct Body {
+    char pad00[0x60];
+    Segment *segment;
+} Body;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+unsigned short func_80049790(Vector *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_mul2(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult\t%2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int idiv(int a, int b) {
+    return a / b;
+}
+
+static inline void set_vec(Vector *v, int x, int y, int z) {
+    v->x = x;
+    v->y = y;
+    v->z = z;
+}
+
+unsigned short func_8001EF94(Body *body, Segment *seg, Pos2 *out) {
+    Vector dir;
+
+    body->segment = seg;
+    out->x = seg->x + fixed_mul(idiv(seg->length, 2), seg->dx);
+    out->z = seg->z + fixed_mul2(idiv(seg->length, 2), seg->dz);
+    set_vec(&dir, seg->dx, 0, seg->dz);
+    return func_80049790(&dir);
+}

@@ -1,21 +1,55 @@
-asm(".text\n\t.globl func_80015318\nfunc_80015318:\n\t"
-    ".word 0x27BDFFE0,0x00804021,0x00052400,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0xA4E00000,0x85020092\n\t"
-    ".word 0x00042403,0x00021080,0x00820018,0x00C08821\n\t"
-    ".word 0x24031000,0x85020098,0x00003012,0x00641823\n\t"
-    ".word 0x00021080,0x00620018,0x8FB00030,0x00001012\n\t"
-    ".word 0x00C21021,0x04400003,0x00A01821,0x080054E2\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00031C00,0xA4E20002,0x85020090,0x00031C03\n\t"
-    ".word 0x00021080,0x00620018,0x00001012,0x04400003\n\t"
-    ".word 0x00000000,0x080054F0,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0xA4E20004,0x8E2C0000\n\t"
-    ".word 0x8E2D0004,0x48CC0000,0x48CD0800,0x8E2C0008\n\t"
-    ".word 0x8E2D000C,0x8E2E0010,0x48CC1000,0x48CD1800\n\t"
-    ".word 0x48CE2000,0x0C005429,0x00E02021,0x00000000\n\t"
-    ".word 0x00000000,0x4A41E012,0x0C005424,0x02002021\n\t"
-    ".word 0x8E020000,0x8E230014,0x26240014,0x00431021\n\t"
-    ".word 0xAE020000,0x8E020004,0x8C830004,0x00000000\n\t"
-    ".word 0x00431021,0xAE020004,0x8E020008,0x8C830008\n\t"
-    ".word 0x00000000,0x00431021,0xAE020008,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct SVec3 {
+    short x;
+    short y;
+    short z;
+} SVec3;
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+typedef struct View {
+    char pad00[0x90];
+    SVec3 angle;
+    SVec3 offset;
+} View;
+void func_800150A4(SVec3 *);
+void func_80015090(Vector *);
+
+static inline void gte_SetRotMatrix(Matrix *m) {
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     :
+                     : "r"(m)
+                     : "$12", "$13", "$14");
+}
+
+static inline void gte_rtv0(void) {
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x041E012");
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void add_vec(Vector *v, int *t) {
+    v->x += t[0];
+    v->y += t[1];
+    v->z += t[2];
+}
+
+void func_80015318(View *view, short blend, Matrix *m, SVec3 *out, Vector *result) {
+    out->x = 0;
+    out->y = to_int(blend * (view->angle.y << 2) + (4096 - blend) * (view->offset.y << 2));
+    out->z = to_int(blend * (view->angle.x << 2));
+    gte_SetRotMatrix(m);
+    func_800150A4(out);
+    gte_rtv0();
+    func_80015090(result);
+    add_vec(result, m->t);
+}

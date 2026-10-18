@@ -1,24 +1,43 @@
-asm(".text\n\t.globl func_80016D78\nfunc_80016D78:\n\t"
-    ".word 0x27BDFFD8,0x30C6FFFF,0x00061880,0x00661821\n\t"
-    ".word 0x000318C0,0x3C02800C,0x244262B0,0xAFB00020\n\t"
-    ".word 0x00628021,0xAFBF0024,0x96020010,0x00000000\n\t"
-    ".word 0x00822023,0x00042400,0x96020012,0x00042083\n\t"
-    ".word 0xAFA40010,0x27A40010,0x00A22823,0x00052C00\n\t"
-    ".word 0x00052883,0xAC850004,0x96050024,0x0C0059F4\n\t"
-    ".word 0x27A60018,0x8FA20018,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x08005B80,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x86030016\n\t"
-    ".word 0x00021403,0x0043102A,0x1440002F,0x00001021\n\t"
-    ".word 0x8FA20018,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x08005B8F,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x86030018,0x00021403\n\t"
-    ".word 0x0062182A,0x14600020,0x00001021,0x8FA2001C\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08005B9E\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8603001A,0x00021403,0x0043102A\n\t"
-    ".word 0x14400011,0x00001021,0x8FA2001C,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x08005BAD,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8603001C,0x00021403,0x0062182A,0x14600002\n\t"
-    ".word 0x00001021,0x24020001,0x8FBF0024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    char pad14[2];
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    char pad1E[0x24 - 0x1E];
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+extern Cell D_800C62B0[];
+void func_800167D0(Pos2 *, unsigned short, Pos2 *);
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void set_pos2(Pos2 *p, int x, int z) {
+    p->x = x;
+    p->z = z;
+}
+
+int func_80016D78(int x, int z, unsigned short id) {
+    Cell *e = &D_800C62B0[id];
+    Pos2 in;
+    Pos2 out;
+
+    set_pos2(&in, (short)(x - e->x) << 14, (short)(z - e->z) << 14);
+    func_800167D0(&in, e->angle, &out);
+    if ((short)(to_int(out.x) >> 2) < e->min_x || (short)(to_int(out.x) >> 2) > e->max_x || (short)(to_int(out.z) >> 2) < e->min_z || (short)(to_int(out.z) >> 2) > e->max_z) {
+        return 0;
+    }
+    return 1;
+}

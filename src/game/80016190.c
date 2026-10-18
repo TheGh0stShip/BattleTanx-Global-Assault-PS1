@@ -1,23 +1,62 @@
-asm(".text\n\t.globl func_80016190\nfunc_80016190:\n\t"
-    ".word 0x27BDFFE8,0x00805821,0x3C02800C,0x94436290\n\t"
-    ".word 0x24496290,0xAFBF0010,0x95220002,0x00A32023\n\t"
-    ".word 0x00C24023,0x3162FFFF,0x00021880,0x00621821\n\t"
-    ".word 0x000318C0,0x3C02800C,0x244262B0,0x00623021\n\t"
-    ".word 0x00041400,0x00023C03,0x04E10009,0x00805021\n\t"
-    ".word 0x00005021,0x94C20016,0x94C30018,0x00441021\n\t"
-    ".word 0x00641821,0xA4C20016,0x08005891,0xA4C30018\n\t"
-    ".word 0x95220008,0x00000000,0x00021A80,0x00E3102A\n\t"
-    ".word 0x1440000D,0x00081400,0x00832023,0x94C20016\n\t"
-    ".word 0x94C30018,0x00441023,0x00641823,0xA4C20016\n\t"
-    ".word 0xA4C30018,0x95220008,0x00000000,0x00021280\n\t"
-    ".word 0x244AFFFF,0x00081400,0x00022403,0x04810009\n\t"
-    ".word 0x00000000,0x94C2001A,0x94C3001C,0x00481021\n\t"
-    ".word 0x00681821,0x00004021,0xA4C2001A,0x080058AE\n\t"
-    ".word 0xA4C3001C,0x9522000A,0x00000000,0x00021A80\n\t"
-    ".word 0x0083102A,0x1440000D,0x3164FFFF,0x01032023\n\t"
-    ".word 0x94C2001A,0x94C3001C,0x00441023,0x00641823\n\t"
-    ".word 0xA4C2001A,0xA4C3001C,0x9522000A,0x00000000\n\t"
-    ".word 0x00021280,0x2448FFFF,0x3164FFFF,0x95250000\n\t"
-    ".word 0x95260002,0x01452821,0x00052C00,0x01063021\n\t"
-    ".word 0x00063400,0x00052C03,0x0C0057D9,0x00063403\n\t"
-    ".word 0x8FBF0010,0x00000000,0x03E00008,0x27BD0018\n");
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    char pad14[2];
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    char pad1E[0x28 - 0x1E];
+} Cell;
+typedef struct Grid {
+    unsigned short x0;
+    unsigned short z0;
+    short width;
+    short depth;
+    unsigned short cols;
+    unsigned short rows;
+    unsigned short *cells;
+} Grid;
+extern Cell D_800C62B0[];
+extern Grid D_800C6290;
+void func_80015F64(unsigned short, short, short);
+
+void func_80016190(unsigned short id, int x, int z) {
+    Grid *g;
+    Cell *e;
+    short dx;
+    short dz;
+    short cx;
+
+    g = &D_800C6290;
+    dx = x - D_800C6290.x0;
+    e = &D_800C62B0[id];
+    cx = dx;
+    dz = z - g->z0;
+
+    if (dx < 0) {
+        cx = 0;
+        e->min_x += dx;
+        e->max_x += dx;
+    } else if (dx >= g->cols << 10) {
+        dx -= g->cols << 10;
+        e->min_x -= dx;
+        e->max_x -= dx;
+        cx = (g->cols << 10) - 1;
+    }
+    if (dz < 0) {
+        e->min_z += dz;
+        e->max_z += dz;
+        dz = 0;
+    } else if (dz >= g->rows << 10) {
+        short d = dz - (g->rows << 10);
+
+        e->min_z -= d;
+        e->max_z -= d;
+        dz = (g->rows << 10) - 1;
+    }
+    func_80015F64(id, cx + g->x0, dz + g->z0);
+}

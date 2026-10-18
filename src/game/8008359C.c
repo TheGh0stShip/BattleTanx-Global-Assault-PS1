@@ -1,22 +1,55 @@
-asm(".text\n\t.globl func_8008359C\nfunc_8008359C:\n\t"
-    ".word 0x27BDFFE8,0x3C02800F,0x2444DF08,0xAFBF0014\n\t"
-    ".word 0xAFB00010,0x8C820028,0x00000000,0x14400016\n\t"
-    ".word 0x00008021,0x3C028008,0x8C43605C,0x24020032\n\t"
-    ".word 0x1062000B,0x24100014,0x8C830068,0x00000000\n\t"
-    ".word 0x28620002,0x14400004,0x24100011,0x24100010\n\t"
-    ".word 0x08020D7F,0xAC800068,0x24620001,0xAC820068\n\t"
-    ".word 0x3C03800F,0x2463DF08,0x8C62002C,0x00000000\n\t"
-    ".word 0x00501021,0xAC62002C,0x3C02800F,0x2443DF08\n\t"
-    ".word 0x8C62003C,0x00000000,0x14400005,0x00000000\n\t"
-    ".word 0x8C620040,0x00000000,0x24420001,0xAC620040\n\t"
-    ".word 0x8C620028,0x00000000,0x1440000C,0x3C02800F\n\t"
-    ".word 0x8C620038,0x00000000,0x10400008,0x3C02800F\n\t"
-    ".word 0x8C620034,0x00000000,0x10400003,0x24040002\n\t"
-    ".word 0x0C020D50,0x02002821,0x3C02800F,0x2443DF08\n\t"
-    ".word 0x8C62003C,0x00000000,0x1440000C,0x3C02800F\n\t"
-    ".word 0x8C62004C,0x00000000,0x10400008,0x3C02800F\n\t"
-    ".word 0x8C620048,0x00000000,0x10400003,0x24040003\n\t"
-    ".word 0x0C020D50,0x24050001,0x3C02800F,0x2442DF08\n\t"
-    ".word 0x8C43006C,0x00000000,0x10600004,0x00000000\n\t"
-    ".word 0x8C440040,0x0060F809,0x02002821,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct VideoInfo {
+    int unk00;
+    int rate;
+} VideoInfo;
+
+typedef struct Timer {
+    char pad00[0x28];
+    int paused;
+    int ticks;
+    int pad30;
+    int ch2_ready;
+    int ch2_enabled;
+    int stopped;
+    int frames;
+    int pad44;
+    int ch3_ready;
+    int ch3_enabled;
+    char pad50[0x18];
+    int phase;
+    void (*on_tick)(int, int);
+} Timer;
+
+extern Timer D_800EDF08;
+extern VideoInfo D_80086058;
+extern void func_80083540(int, int);
+
+void func_8008359C(void) {
+    int step = 0;
+
+    if (D_800EDF08.paused == 0) {
+        step = 20;
+        if (D_80086058.rate != 50) {
+            step = 17;
+            if (D_800EDF08.phase >= 2) {
+                step = 16;
+                D_800EDF08.phase = 0;
+            } else {
+                D_800EDF08.phase++;
+            }
+        }
+        D_800EDF08.ticks += step;
+    }
+    if (D_800EDF08.stopped == 0) {
+        D_800EDF08.frames++;
+    }
+    if (D_800EDF08.paused == 0 && D_800EDF08.ch2_enabled != 0 && D_800EDF08.ch2_ready != 0) {
+        func_80083540(2, step);
+    }
+    if (D_800EDF08.stopped == 0 && D_800EDF08.ch3_enabled != 0 && D_800EDF08.ch3_ready != 0) {
+        func_80083540(3, 1);
+    }
+    if (D_800EDF08.on_tick != 0) {
+        D_800EDF08.on_tick(D_800EDF08.frames, step);
+    }
+}

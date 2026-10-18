@@ -1,16 +1,39 @@
-asm(".text\n\t.globl func_80033A38\nfunc_80033A38:\n\t"
-    ".word 0x27bdffc8,0xafb1002c,0x00808821,0xafbf0034\n\t"
-    ".word 0xafb20030,0xafb00028,0x8e250008,0x8e26000c\n\t"
-    ".word 0x8e270010,0xafa50010,0xafa60014,0xafa70018\n\t"
-    ".word 0x8e2200a4,0x00000000,0x10400027,0x3c120003\n\t"
-    ".word 0x36522000,0x8e3000a4,0x00000000,0x8e02001c\n\t"
-    ".word 0x00000000,0xae2200a4,0x8fa50010,0x8fa60014\n\t"
-    ".word 0x8fa70018,0xae050020,0xae060024,0xae070028\n\t"
-    ".word 0x8e020020,0x00000000,0xafa20020,0x8e020028\n\t"
-    ".word 0x27a40020,0x0c007a8f,0xafa20024,0x00521021\n\t"
-    ".word 0xae020024,0x3402ffff,0xa6020032,0x3c02800d\n\t"
-    ".word 0x8c432fe0,0x24020001,0xae02000c,0xae000018\n\t"
-    ".word 0xae00001c,0xae03002c,0x8fa20010,0x00000000\n\t"
-    ".word 0x2442000f,0xafa20010,0x8e2200a4,0x00000000\n\t"
-    ".word 0x1440ffdc,0x00000000,0x8fbf0034,0x8fb20030\n\t"
-    ".word 0x8fb1002c,0x8fb00028,0x03e00008,0x27bd0038\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Point2;
+typedef struct Marker Marker;
+struct Marker {
+    int pad[3];
+    int active;
+    int pad2[2];
+    int link;
+    Marker *next;
+    Vector pos;
+    int time;
+    short pad3;
+    unsigned short flags;
+};
+typedef struct { int pad[2]; Vector pos; char pad2[164 - 20]; Marker *free_list; } Spawner;
+extern int D_800D2FE0;
+int func_8001EA3C(Point2 *);
+
+void func_80033A38(Spawner *s) {
+    Vector p;
+    Point2 xz;
+    Marker *m;
+
+    p = s->pos;
+    while (s->free_list != 0) {
+        m = s->free_list;
+        s->free_list = m->next;
+        m->pos = p;
+        xz.x = m->pos.x;
+        xz.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&xz) + 0x32000;
+        m->flags = 0xFFFF;
+        m->active = 1;
+        m->link = 0;
+        m->next = 0;
+        m->time = D_800D2FE0;
+        p.x += 15;
+    }
+}

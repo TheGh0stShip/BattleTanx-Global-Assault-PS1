@@ -1,16 +1,44 @@
-asm(".text\n\t.globl func_8001AD5C\nfunc_8001AD5C:\n\t"
-    ".word 0x27bdffd8,0x3084ffff,0x00041880,0x00641821\n\t"
-    ".word 0x000318c0,0x3c02800c,0x244262b0,0x00623821\n\t"
-    ".word 0x27a90018,0x27aa001a,0xafbf0020,0x84e20018\n\t"
-    ".word 0x84e30016,0x94e40018,0x00431023,0x94e30016\n\t"
-    ".word 0x04400003,0x00e04021,0x08006b6c,0x00831023\n\t"
-    ".word 0x00641023,0xa5220000,0x8502001c,0x8503001a\n\t"
-    ".word 0x9504001c,0x00431023,0x9503001a,0x04410002\n\t"
-    ".word 0x00831023,0x00641023,0xa5420000,0x87a20018\n\t"
-    ".word 0x87a3001a,0x00000000,0x0043102a,0x1440000b\n\t"
-    ".word 0x00051400,0x24a2c000,0x00021400,0x04400004\n\t"
-    ".word 0xafa00010,0x24021000,0x08006b8c,0xafa20014\n\t"
-    ".word 0x2402f000,0x08006b8c,0xafa20014,0x04400003\n\t"
-    ".word 0xafa00014,0x08006b8b,0x2402f000,0x24021000\n\t"
-    ".word 0xafa20010,0x94e50024,0x0c0059f4,0x27a40010\n\t"
-    ".word 0x8fbf0020,0x00000000,0x03e00008,0x27bd0028\n\t");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short y_low;
+    short y_high;
+    short radius;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+extern Cell D_800C62B0[];
+void func_800167D0(Pos2 *, unsigned short, Pos2 *);
+
+
+void func_8001AD5C(unsigned short id, unsigned short heading, Pos2 *out) {
+    Cell *e = &D_800C62B0[id];
+    Pos2 dir;
+    short ext[2];
+    short *width = &ext[0];
+    short *depth = &ext[1];
+    Cell *c = e;
+
+    *width = c->max_x - c->min_x < 0 ? c->min_x - c->max_x : c->max_x - c->min_x;
+    *depth = c->max_z - c->min_z < 0 ? c->min_z - c->max_z : c->max_z - c->min_z;
+    if (ext[0] >= ext[1]) {
+        dir.x = 0;
+        dir.z = (short)(heading - 0x4000) >= 0 ? 4096 : -4096;
+    } else {
+        dir.z = 0;
+        dir.x = (short)heading >= 0 ? -4096 : 4096;
+    }
+    func_800167D0(&dir, e->angle, out);
+}

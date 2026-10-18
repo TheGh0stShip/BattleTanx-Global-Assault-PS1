@@ -1,23 +1,61 @@
-asm(".text\n\t.globl func_8002B4C8\nfunc_8002B4C8:\n\t"
-    ".word 0x27BDFFD0,0xAFB10014,0x00808821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB60028,0x00C0B021,0xAFB50024\n\t"
-    ".word 0x00E0A821,0x24040026,0xAFB00010,0x8FB00044\n\t"
-    ".word 0x2405003C,0xAFBF002C,0xAFB3001C,0x0C008DF4\n\t"
-    ".word 0xAFB20018,0x00409021,0x1240003A,0x02809821\n\t"
-    ".word 0xA2500030,0xAE550020,0x8E220000,0x00000000\n\t"
-    ".word 0xAE420008,0x8E220004,0x00000000,0xAE42000C\n\t"
-    ".word 0x3C02800D,0x8E230008,0x8C422FE0,0x3270FFFF\n\t"
-    ".word 0xAE56002C,0xAE420024,0x8FA20048,0x00108102\n\t"
-    ".word 0xAE420038,0x8FA20040,0x00158880,0xAE430010\n\t"
-    ".word 0xAE420034,0x3C02800A,0x244247CC,0x02221021\n\t"
-    ".word 0x8C420000,0x02002021,0x0C022B58,0xAE420018\n\t"
-    ".word 0x3C03800A,0x246347BC,0x02238821,0x8E2A0000\n\t"
-    ".word 0x00000000,0x01420018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x02002021\n\t"
-    ".word 0x0C022B30,0xAE480014,0x8E310000,0x00000000\n\t"
-    ".word 0x02220018,0x00004012,0x00004810,0x00084302\n\t"
-    ".word 0x00094D00,0x01094025,0x8E430020,0x24020003\n\t"
-    ".word 0xAE48001C,0x14620003,0xA6540028,0x0C01528C\n\t"
-    ".word 0x2404001E,0x8FBF002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct {
+    int pad[2];
+    Vector pos;
+    int vx;
+    int speed;
+    int vz;
+    int kind;
+    int time;
+    unsigned short angle;
+    short pad2;
+    int owner;
+    unsigned char team;
+    char pad3[3];
+    int arg52;
+    int arg56;
+} Shot;
+extern int D_800D2FE0;
+extern int D_800A47CC[];
+extern int D_800A47BC[];
+Shot *func_800237D0(int, int);
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_80054A30(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8002B4C8(Vector *pos, unsigned short angle, int owner, int kind, int arg52, unsigned char team, int arg56) {
+    Shot *s;
+    int t;
+
+    s = func_800237D0(38, 60);
+    if (s != 0) {
+        s->team = team;
+        s->kind = kind;
+        s->pos.x = pos->x;
+        s->pos.y = pos->y;
+        s->pos.z = pos->z;
+        s->owner = owner;
+        s->time = D_800D2FE0;
+        s->arg56 = arg56;
+        s->arg52 = arg52;
+        s->speed = D_800A47CC[kind];
+        t = func_8008AD60(angle >> 4);
+        s->vx = fixed_mul(D_800A47BC[kind], t);
+        t = func_8008ACC0(angle >> 4);
+        s->vz = fixed_mul(D_800A47BC[kind], t);
+        s->angle = angle;
+        if (s->kind == 3) {
+            func_80054A30(30);
+        }
+    }
+}

@@ -1,8 +1,24 @@
-asm(".text\n\t.globl func_800936D8\nfunc_800936D8:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafb00010\n\t"
-    ".word 0x3c10800f,0x2610efac,0xafbf001c,0xafb10014\n\t"
-    ".word 0x8e110038,0x00002021,0x0c024581,0xae000038\n\t"
-    ".word 0x24020001,0xa2000004,0xa2020006,0x12200005\n\t"
-    ".word 0x00000000,0x324400ff,0x38840002,0x0220f809\n\t"
-    ".word 0x2c840001,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern void func_80091604(int);
+
+typedef struct {
+    char pad0[4];
+    unsigned char b4;
+    char pad5;
+    volatile unsigned char b6;
+    char pad7[49];
+    void (*cb)(int);
+} S800936D8;
+extern S800936D8 D_800EEFAC;
+
+void func_800936D8(unsigned char mode) {
+    S800936D8 *s = &D_800EEFAC;
+    void (*cb)(int) = s->cb;
+
+    s->cb = 0;
+    func_80091604(0);
+    s->b4 = 0;
+    s->b6 = 1;
+    if (cb != 0) {
+        cb(mode == 2);
+    }
+}

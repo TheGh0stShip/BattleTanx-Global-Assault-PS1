@@ -1,19 +1,39 @@
-asm(".text\n\t.globl func_80088C30\nfunc_80088C30:\n\t"
-    ".word 0x27BDFFD0,0xAFB50024,0x0080A821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB60028,0x00C0B021,0x3C02800F\n\t"
-    ".word 0xAFB3001C,0x2453EAE8,0xAFBF002C,0xAFB20018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x8EA20000,0x8E650058\n\t"
-    ".word 0x8E640050,0x0C0222C0,0x00452823,0x00403821\n\t"
-    ".word 0x8E64005C,0x8EA30000,0x8ED10000,0x00832023\n\t"
-    ".word 0x0091102B,0x10400003,0x02208021,0x00808821\n\t"
-    ".word 0x02208021,0x8E62004C,0x00000000,0x00471823\n\t"
-    ".word 0x0071102B,0x10400003,0x00009021,0x00608021\n\t"
-    ".word 0x02309023,0x02003021,0x8E650048,0x8E840000\n\t"
-    ".word 0x0C0229EF,0x00A72821,0x8E820000,0x00000000\n\t"
-    ".word 0x00502021,0x12400008,0xAE840000,0x8E650048\n\t"
-    ".word 0x0C0229EF,0x02403021,0x8E820000,0x00000000\n\t"
-    ".word 0x00521021,0xAE820000,0x8EA20000,0x00000000\n\t"
-    ".word 0x00511021,0xAEA20000,0x8EC20000,0x00000000\n\t"
-    ".word 0x00511023,0xAEC20000,0x8FBF002C,0x8FB60028\n\t"
-    ".word 0x8FB50024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct Ring {
+    char pad00[0x48];
+    char *base;
+    unsigned int size;
+    int wrap;
+    int pad54;
+    unsigned int start;
+    unsigned int end;
+} Ring;
+
+extern Ring D_800EEAE8;
+extern unsigned int func_80088B00(int, unsigned int);
+extern void func_8008A7BC(void *, void *, unsigned int);
+
+void func_80088C30(unsigned int *pos, char **dst, unsigned int *len) {
+    unsigned int offset = func_80088B00(D_800EEAE8.wrap, *pos - D_800EEAE8.start);
+    unsigned int avail = D_800EEAE8.end - *pos;
+    unsigned int n = *len;
+    unsigned int first;
+    unsigned int second;
+
+    if (avail < n) {
+        n = avail;
+    }
+    first = n;
+    second = 0;
+    if (D_800EEAE8.size - offset < n) {
+        first = D_800EEAE8.size - offset;
+        second = n - first;
+    }
+    func_8008A7BC(*dst, D_800EEAE8.base + offset, first);
+    *dst += first;
+    if (second != 0) {
+        func_8008A7BC(*dst, D_800EEAE8.base, second);
+        *dst += second;
+    }
+    *pos += n;
+    *len -= n;
+}

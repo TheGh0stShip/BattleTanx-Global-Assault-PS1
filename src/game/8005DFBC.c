@@ -1,52 +1,109 @@
-asm(".text\n\t.globl func_8005DFBC\nfunc_8005DFBC:\n\t"
-    ".word 0x27BDFFC8,0xAFB20018,0x00809021,0x3C02800B\n\t"
-    ".word 0x24040064,0xA044ACD4,0x3C02800A,0x9043606C\n\t"
-    ".word 0x3C02800B,0xA044ACD5,0x3C02800B,0xAFBF0034\n\t"
-    ".word 0xAFBE0030,0xAFB7002C,0xAFB60028,0xAFB50024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB10014,0xAFB00010\n\t"
-    ".word 0x00031E00,0x00032603,0x00801821,0xA444ACE6\n\t"
-    ".word 0x24020001,0x1462004C,0x00008821,0x24160002\n\t"
-    ".word 0x3C02800B,0x2455A2A8,0x3C17800A,0x26FE60A4\n\t"
-    ".word 0x3C02800B,0x2454A348,0x3C02800B,0x2453A3E8\n\t"
-    ".word 0x3223FFFF,0x24020001,0x10620015,0x28620002\n\t"
-    ".word 0x10400005,0x00000000,0x10600009,0x02A02021\n\t"
-    ".word 0x08017844,0x26310001,0x10760016,0x24020003\n\t"
-    ".word 0x1062001A,0x3C10800B,0x08017844,0x26310001\n\t"
-    ".word 0x00002821,0x0C01758E,0xAEF660A4,0x02A02021\n\t"
-    ".word 0x02402821,0x00003021,0x08017842,0xA6A00014\n\t"
-    ".word 0x02802021,0x24050001,0x0C0175E5,0xAFC30004\n\t"
-    ".word 0x02802021,0x02402821,0x24060003,0x08017842\n\t"
-    ".word 0xA6800014,0x02602021,0x0C0175E5,0x24050002\n\t"
-    ".word 0xA6600014,0x08017840,0x02602021,0x2610A488\n\t"
-    ".word 0x02002021,0x0C0175E5,0x24050003,0xA6000014\n\t"
-    ".word 0x02002021,0x02402821,0x24060003,0x0C016554\n\t"
-    ".word 0x26310001,0x3222FFFF,0x2C420004,0x1440FFCD\n\t"
-    ".word 0x3223FFFF,0x3C04800B,0x2484A4E8,0x02402821\n\t"
-    ".word 0x24060003,0x8C830004,0x24020014,0xA4820016\n\t"
-    ".word 0x240200CF,0xA4820018,0x24020010,0xA0620021\n\t"
-    ".word 0x080178AA,0xA4800014,0x24160001,0x24150002\n\t"
-    ".word 0x3C02800B,0x2454AA18,0x3C17800A,0x26FE60A4\n\t"
-    ".word 0x3C02800B,0x2453AAB8,0x3223FFFF,0x10760015\n\t"
-    ".word 0x28620002,0x10400005,0x00000000,0x10600009\n\t"
-    ".word 0x02802021,0x0801788E,0x26310001,0x10750016\n\t"
-    ".word 0x24020003,0x1062001B,0x3C10800B,0x0801788E\n\t"
-    ".word 0x26310001,0x00002821,0x0C01758E,0xAEF560A4\n\t"
-    ".word 0x02802021,0x02402821,0x00003021,0x0801788C\n\t"
-    ".word 0xA6800014,0x02602021,0x24050001,0x0C01758E\n\t"
-    ".word 0xAFD50004,0x02602021,0x02402821,0x00003021\n\t"
-    ".word 0x0801788C,0xA6760014,0x3C10800B,0x2610AB58\n\t"
-    ".word 0x02002021,0x0C0175E5,0x24050002,0x08017889\n\t"
-    ".word 0xA6000014,0x2610ABF8,0x02002021,0x0C0175E5\n\t"
-    ".word 0x24050003,0xA6160014,0x02002021,0x02402821\n\t"
-    ".word 0x24060003,0x0C016554,0x26310001,0x3222FFFF\n\t"
-    ".word 0x2C420004,0x1440FFCD,0x3223FFFF,0x3C04800B\n\t"
-    ".word 0x2484AC58,0x02402821,0x24060003,0x24100010\n\t"
-    ".word 0x8C830004,0x24020061,0xA4900016,0xA4820018\n\t"
-    ".word 0xA0700021,0x0C016554,0xA4800014,0x3C04800B\n\t"
-    ".word 0x2484ACB8,0x02402821,0x24060003,0x8C830004\n\t"
-    ".word 0x240200D6,0xA4820016,0x240200D2,0xA4820018\n\t"
-    ".word 0x24020001,0xA0700021,0xA4820014,0x0C016554\n\t"
-    ".word 0x00000000,0x0C017525,0x00000000,0x8FBF0034\n\t"
-    ".word 0x8FBE0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x24020001,0x03E00008,0x27BD0038\n");
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+    int pad2[3];
+    short cursor;
+    short x;
+    short y;
+} Menu;
+
+extern Menu D_800AA2A8;
+extern Menu D_800AA348;
+extern Menu D_800AA3E8;
+extern Menu D_800AA488;
+extern Menu D_800AA4E8;
+extern Menu D_800AAA18;
+extern Menu D_800AAAB8;
+extern Menu D_800AAB58;
+extern Menu D_800AABF8;
+extern Menu D_800AAC58;
+extern Menu D_800AACB8;
+extern signed char D_800A606C;
+extern unsigned char D_800AACD4;
+extern unsigned char D_800AACD5;
+extern short D_800AACE6;
+extern int D_800A60A4[];
+extern void func_8005D638(Menu *, unsigned short);
+extern void func_8005D794(Menu *, unsigned short);
+extern void func_80059550(Menu *, void *, int);
+extern void func_8005D494(void);
+
+int func_8005DFBC(void *parent) {
+    unsigned short i;
+
+    D_800AACD4 = 100;
+    D_800AACD5 = 100;
+    D_800AACE6 = D_800A606C;
+    if (D_800A606C == 1) {
+        for (i = 0; i < 4; i++) {
+            switch (i) {
+            case 0:
+                D_800A60A4[0] = 2;
+                func_8005D638(&D_800AA2A8, 0);
+                D_800AA2A8.cursor = 0;
+                func_80059550(&D_800AA2A8, parent, 0);
+                break;
+            case 1:
+                D_800A60A4[1] = 1;
+                func_8005D794(&D_800AA348, 1);
+                D_800AA348.cursor = 0;
+                func_80059550(&D_800AA348, parent, 3);
+                break;
+            case 2:
+                func_8005D794(&D_800AA3E8, 2);
+                D_800AA3E8.cursor = 0;
+                func_80059550(&D_800AA3E8, parent, 3);
+                break;
+            case 3:
+                func_8005D794(&D_800AA488, 3);
+                D_800AA488.cursor = 0;
+                func_80059550(&D_800AA488, parent, 3);
+                break;
+            }
+        }
+        D_800AA4E8.x = 20;
+        D_800AA4E8.y = 207;
+        D_800AA4E8.base[0x21] = 16;
+        D_800AA4E8.cursor = 0;
+        func_80059550(&D_800AA4E8, parent, 3);
+    } else {
+        for (i = 0; i < 4; i++) {
+            switch (i) {
+            case 0:
+                D_800A60A4[0] = 2;
+                func_8005D638(&D_800AAA18, 0);
+                D_800AAA18.cursor = 0;
+                func_80059550(&D_800AAA18, parent, 0);
+                break;
+            case 1:
+                D_800A60A4[1] = 2;
+                func_8005D638(&D_800AAAB8, 1);
+                D_800AAAB8.cursor = 1;
+                func_80059550(&D_800AAAB8, parent, 0);
+                break;
+            case 2:
+                func_8005D794(&D_800AAB58, 2);
+                D_800AAB58.cursor = 0;
+                func_80059550(&D_800AAB58, parent, 3);
+                break;
+            case 3:
+                func_8005D794(&D_800AABF8, 3);
+                D_800AABF8.cursor = 1;
+                func_80059550(&D_800AABF8, parent, 3);
+                break;
+            }
+        }
+        D_800AAC58.x = 16;
+        D_800AAC58.y = 97;
+        D_800AAC58.base[0x21] = 16;
+        D_800AAC58.cursor = 0;
+        func_80059550(&D_800AAC58, parent, 3);
+        D_800AACB8.x = 214;
+        D_800AACB8.y = 210;
+        D_800AACB8.base[0x21] = 16;
+        D_800AACB8.cursor = 1;
+        func_80059550(&D_800AACB8, parent, 3);
+    }
+    func_8005D494();
+    return 1;
+}

@@ -1,11 +1,21 @@
-asm(".text\n\t.globl func_80035948\nfunc_80035948:\n\t"
-    ".word 0x27bdffd8,0xafb00020,0x00a08021,0x3c02800c\n\t"
-    ".word 0xafbf0024,0x244ae5cc,0x89430003,0x99430000\n\t"
-    ".word 0x89480007,0x99480004,0xaba3001b,0xbba30018\n\t"
-    ".word 0xaba8001f,0xbba8001c,0x10800015,0x27a70018\n\t"
-    ".word 0x24020064,0x30c6ffff,0x0c01ce35,0xafa20010\n\t"
-    ".word 0x8e020000,0x00000000,0x04410004,0x00022303\n\t"
-    ".word 0x00021023,0x00021303,0x00022023,0x8e020008\n\t"
-    ".word 0x00000000,0x04410004,0x00022b03,0x00021023\n\t"
-    ".word 0x00021303,0x00022823,0x0c00eeb7,0x00000000\n\t"
-    ".word 0x8fbf0024,0x8fb00020,0x03e00008,0x27bd0028\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { unsigned char b[8]; } Tint;
+extern Tint D_800BE5CC;
+void func_800738D4(int, Vector *, int, Tint *, int);
+void func_8003BADC(int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_80035948(int model, Vector *pos, unsigned short angle) {
+    Tint tint = D_800BE5CC;
+
+    if (model != 0) {
+        func_800738D4(model, pos, angle, &tint, 100);
+        func_8003BADC(to_int(pos->x), to_int(pos->z));
+    }
+}

@@ -1,23 +1,62 @@
-asm(".text\n\t.globl func_8002AC04\nfunc_8002AC04:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0x8FA80030\n\t"
-    ".word 0x24020003,0xAFBF001C,0xAFB20018,0x10C2002D\n\t"
-    ".word 0xAFB10014,0x2CC20004,0x10400005,0x00000000\n\t"
-    ".word 0x10C0000A,0x02002021,0x0800AB53,0x00000000\n\t"
-    ".word 0x24020005,0x10C2000A,0x24020006,0x10C20017\n\t"
-    ".word 0x24120002,0x0800AB53,0x00000000,0x00E03021\n\t"
-    ".word 0x0C00AAB5,0x01003821,0x0800AB53,0x00000000\n\t"
-    ".word 0x8CE20000,0x00000000,0x14400033,0x24020002\n\t"
-    ".word 0x92030037,0x00000000,0x1062002F,0x24020001\n\t"
-    ".word 0xA1020000,0x8E020024,0x00000000,0xAD020004\n\t"
-    ".word 0x8E02002C,0x0800AB53,0xAD020008,0x92020037\n\t"
-    ".word 0x00000000,0x10520024,0x00000000,0x8E030024\n\t"
-    ".word 0x8CE40000,0x8E02002C,0x8CE50004,0x0800AB3F\n\t"
-    ".word 0x00642023,0x92020037,0x24120002,0x1052001A\n\t"
-    ".word 0x00000000,0x8E030024,0x8CE40000,0x8E02002C\n\t"
-    ".word 0x8CE50008,0x00642023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x30420FFF,0x92030037,0x00000000,0x1072000E\n\t"
-    ".word 0x00028900,0x8E050024,0x8E06002C,0x0C014DE4\n\t"
-    ".word 0x24040032,0x8E030008,0x24020001,0xA2120037\n\t"
-    ".word 0xA6110032,0xA6020034,0xAC60003C,0x96040006\n\t"
-    ".word 0x0C006C25,0x00000000,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[60]; int value; } Target;
+typedef struct {
+    short pad;
+    short pad1;
+    short pad2;
+    unsigned short sound;
+    Target *target;
+    int pad3[3];
+    int effect;
+    int pad4[2];
+    Vector pos;
+    short pad5;
+    unsigned short angle;
+    short active;
+    unsigned char pad6;
+    unsigned char state;
+} Barrel;
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+typedef struct { int x; int z; } Hit2;
+typedef struct { int x; int y; int z; } Hit3;
+int func_8008AE30(int, int);
+void func_80053790(int, int, int);
+void func_8001B094(int);
+void func_8002AAD4(Barrel *, int, int *, Query *);
+
+static inline void burst(Barrel *b, int angle) {
+    if (b->state == 2) {
+        return;
+    }
+    func_80053790(50, b->pos.x, b->pos.z);
+    b->state = 2;
+    b->angle = angle;
+    b->active = 1;
+    b->target->value = 0;
+    func_8001B094(b->sound);
+}
+
+void func_8002AC04(Barrel *b, int msg, unsigned int event, int *data, Query *q) {
+    switch (event) {
+    case 0:
+        func_8002AAD4(b, msg, data, q);
+        break;
+    case 5:
+        if (*data == 0 && b->state != 2) {
+            q->valid = 1;
+            q->x = b->pos.x;
+            q->z = b->pos.z;
+        }
+        break;
+    case 6:
+        if (b->state != 2) {
+            burst(b, (func_8008AE30(b->pos.x - ((Hit2 *)data)->x, b->pos.z - ((Hit2 *)data)->z) & 0xFFF) << 4);
+        }
+        break;
+    case 3:
+        if (b->state != 2) {
+            burst(b, (func_8008AE30(b->pos.x - ((Hit3 *)data)->x, b->pos.z - ((Hit3 *)data)->z) & 0xFFF) << 4);
+        }
+        break;
+    }
+}

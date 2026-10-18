@@ -1,9 +1,20 @@
-asm(".text\n\t.globl func_80060C64\nfunc_80060C64:\n\t"
-    ".word 0x3c02800e,0x94424994,0x27bdffe8,0xafbf0014\n\t"
-    ".word 0x14400014,0xafb00010,0x3c10800b,0x9602acde\n\t"
-    ".word 0x00000000,0x2c42000a,0x1040000f,0x00001021\n\t"
-    ".word 0x8ca20008,0x00000000,0x8c420000,0x00000000\n\t"
-    ".word 0x8c420000,0x3c04800b,0x90450000,0x0c015f3c\n\t"
-    ".word 0x24848b18,0x9602acde,0x00000000,0x24420001\n\t"
-    ".word 0xa602acde,0x00001021,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct Msg {
+    int pad[2];
+    unsigned char ***data;
+} Msg;
+
+extern unsigned short D_800E4994;
+extern unsigned short D_800AACDE;
+extern int D_800A8B18;
+extern void func_80057CF0(void *, int);
+
+int func_80060C64(int unused, Msg *msg) {
+    if (D_800E4994 == 0) {
+        if (D_800AACDE >= 10) {
+            return 0;
+        }
+        func_80057CF0(&D_800A8B18, ***msg->data);
+        D_800AACDE++;
+    }
+    return 0;
+}

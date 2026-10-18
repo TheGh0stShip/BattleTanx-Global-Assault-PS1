@@ -1,23 +1,76 @@
-asm(".text\n\t.globl func_8005D638\nfunc_8005D638:\n\t"
-    ".word 0x24020090,0x3C03800A,0x8C840004,0x24636084\n\t"
-    ".word 0xA0820021,0x30A2FFFF,0x00021080,0x00431021\n\t"
-    ".word 0x8C420000,0x00000000,0x14400005,0x24020004\n\t"
-    ".word 0x24020001,0xA0820040,0x080175A1,0xA0820060\n\t"
-    ".word 0xA0820040,0xA0820060,0x24020010,0xA0820041\n\t"
-    ".word 0xA0820061,0x3C02800A,0x24426094,0x30A3FFFF\n\t"
-    ".word 0x00031880,0x00621821,0x8C630000,0x24020002\n\t"
-    ".word 0x10620011,0x24860060,0x2C620003,0x10400005\n\t"
-    ".word 0x24020001,0x10620008,0x3C02800F,0x080175BD\n\t"
-    ".word 0x3C02800F,0x24020003,0x10620005,0x3C02800F\n\t"
-    ".word 0x080175BD,0x3C02800F,0x080175BE,0x2442AF68\n\t"
-    ".word 0x080175BE,0x2442AE1C,0x3C02800F,0x2442AF64\n\t"
-    ".word 0xACC20008,0x3C02800A,0x24426084,0x30A3FFFF\n\t"
-    ".word 0x00031880,0x00621821,0x8C630000,0x00000000\n\t"
-    ".word 0x2C620005,0x10400019,0x24840020,0x3C02800C\n\t"
-    ".word 0x2442FC10,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x3C02800F\n\t"
-    ".word 0x2442AE2C,0x03E00008,0xAC820008,0x3C02800F\n\t"
-    ".word 0x2442AE48,0x03E00008,0xAC820008,0x3C02800F\n\t"
-    ".word 0x2442AE40,0x03E00008,0xAC820008,0x3C02800F\n\t"
-    ".word 0x2442AE44,0x03E00008,0xAC820008,0x3C02800F\n\t"
-    ".word 0x2442ADD0,0x03E00008,0xAC820008\n");
+typedef struct Holder {
+    int pad[2];
+    int *target;
+} Holder;
+
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+} Menu;
+
+extern unsigned int D_800A6084[];
+extern unsigned int D_800A6094[];
+extern int D_800EADD0;
+extern int D_800EAE1C;
+extern int D_800EAE2C;
+extern int D_800EAE40;
+extern int D_800EAE44;
+extern int D_800EAE48;
+extern int D_800EAF64;
+extern int D_800EAF68;
+
+static inline void select_index_style(Holder *holder, unsigned int index) {
+    switch (index) {
+    case 1:
+        holder->target = &D_800EAE2C;
+        break;
+    case 2:
+        holder->target = &D_800EAE48;
+        break;
+    case 3:
+        holder->target = &D_800EAE40;
+        break;
+    case 4:
+        holder->target = &D_800EAE44;
+        break;
+    case 0:
+    default:
+        holder->target = &D_800EADD0;
+        break;
+    }
+}
+
+void func_8005D638(Menu *menu, unsigned short player) {
+    unsigned char *base;
+    Holder *holder;
+
+    base = menu->base;
+    base[0x21] = 0x90;
+    if (D_800A6084[player] == 0) {
+        base[0x40] = 1;
+        base[0x60] = 1;
+        base[0x41] = 1;
+        base[0x61] = 1;
+    } else {
+        base[0x40] = 4;
+        base[0x60] = 4;
+        base[0x41] = 16;
+        base[0x61] = 16;
+    }
+    holder = (Holder *)(base + 0x60);
+    switch (D_800A6094[player]) {
+    case 2:
+        holder->target = &D_800EAF64;
+        break;
+    case 1:
+        holder->target = &D_800EAF68;
+        break;
+    case 3:
+        holder->target = &D_800EAE1C;
+        break;
+    default:
+        holder->target = &D_800EAF64;
+        break;
+    }
+    select_index_style((Holder *)(base + 0x20), D_800A6084[player]);
+}

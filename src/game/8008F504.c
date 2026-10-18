@@ -1,20 +1,51 @@
-asm(".text\n\t.globl func_8008F504\nfunc_8008F504:\n\t"
-    ".word 0x27BDFFE8,0x3C02800F,0x2446EDF4,0xAFBF0010\n\t"
-    ".word 0x8CC20004,0x00000000,0x3042000F,0x1440003D\n\t"
-    ".word 0x00000000,0x8CC2002C,0x00000000,0x10400010\n\t"
-    ".word 0x00000000,0x8CC2003C,0x8CC30034,0x00000000\n\t"
-    ".word 0x00621821,0xA0640000,0x8CC30038,0x24420001\n\t"
-    ".word 0xACC2003C,0x0043102B,0x1440002E,0x00000000\n\t"
-    ".word 0x0C023D2D,0x24040001,0x08023D86,0x00000000\n\t"
-    ".word 0x8CC7001C,0x00000000,0x10E00021,0x3C03800F\n\t"
-    ".word 0x8CC30028,0x8CC50020,0x00000000,0x0065102B\n\t"
-    ".word 0x1040001A,0x00000000,0x8CC20024,0x00000000\n\t"
-    ".word 0x00431821,0x00A3102B,0x10400003,0x00E31021\n\t"
-    ".word 0x00651823,0x00E31021,0xA0440000,0x8CC30028\n\t"
-    ".word 0x8CC20004,0x24640001,0x30420010,0x10400011\n\t"
-    ".word 0xACC40028,0x8CC20020,0x8CC30014,0x00441023\n\t"
-    ".word 0x0043102B,0x1040000B,0x00000000,0x0C023CDA\n\t"
-    ".word 0x00002021,0x08023D86,0x00000000,0x3C03800F\n\t"
-    ".word 0x2463EDF4,0x8C620004,0x00000000,0x34420002\n\t"
-    ".word 0xAC620004,0x8FBF0010,0x00000000,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+extern void func_8008F4B4(int);
+extern void func_8008F368(int);
+
+typedef struct {
+    char pad0[4];
+    int flags;
+    char pad8[12];
+    unsigned int low_water;
+    char pad24[4];
+    unsigned char *ring;
+    unsigned int size;
+    unsigned int head;
+    unsigned int count;
+    int direct;
+    char pad48[4];
+    unsigned char *dbuf;
+    unsigned int dlen;
+    unsigned int dpos;
+} S8008F504;
+extern S8008F504 D_800EEDF4;
+
+void func_8008F504(unsigned char c) {
+    S8008F504 *s = &D_800EEDF4;
+    unsigned int idx;
+
+    if (s->flags & 0xF) {
+        return;
+    }
+    if (s->direct != 0) {
+        s->dbuf[s->dpos++] = c;
+        if (s->dpos >= s->dlen) {
+            func_8008F4B4(1);
+        }
+        return;
+    }
+    if (s->ring != 0 && s->count < s->size) {
+        idx = s->head + s->count;
+        if (idx > s->size) {
+            idx -= s->size;
+        }
+        s->ring[idx] = c;
+        s->count++;
+        if (s->flags & 0x10) {
+            if (s->size - s->count < s->low_water) {
+                func_8008F368(0);
+            }
+        }
+        return;
+    }
+    D_800EEDF4.flags |= 2;
+}

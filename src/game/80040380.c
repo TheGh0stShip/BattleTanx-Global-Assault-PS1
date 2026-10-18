@@ -1,17 +1,38 @@
-asm(".text\n\t.globl func_80040380\nfunc_80040380:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0xafb10014,0xafb00010\n\t"
-    ".word 0x948302b8,0x3402ffff,0x10620034,0x00000000\n\t"
-    ".word 0x8c820008,0x00000000,0x04410004,0x00021b03\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x8c820010\n\t"
-    ".word 0x00000000,0x04400003,0x00032882,0x080100f8\n\t"
-    ".word 0x00021b03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8c82000c,0x00000000,0x04400003,0x00033082\n\t"
-    ".word 0x08010101,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x00028c03,0x3402ffff\n\t"
-    ".word 0x949002b8,0x9484002c,0x1202000d,0x00101080\n\t"
-    ".word 0x00501021,0x000210c0,0x3c03800c,0x246362b0\n\t"
-    ".word 0x00431021,0xa4440024,0x00052c00,0x00063400\n\t"
-    ".word 0x02002021,0x00052c03,0x0c0057d9,0x00063403\n\t"
-    ".word 0x00101080,0x00501021,0x000210c0,0x3c03800c\n\t"
-    ".word 0x246362b0,0x00431021,0xa4510014,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct { char pad[0x14]; short height; char pad2[0x24 - 0x16]; unsigned short heading; char pad3[40 - 0x26]; } Voice;
+typedef struct { char pad[8]; int x; int y; int z; char pad2[0x2C - 0x14]; unsigned short heading; char pad3[0x2B8 - 0x2E]; unsigned short voice; } Obj;
+extern Voice D_800C62B0[];
+static inline Voice *voice_get(int id)
+{
+    return &D_800C62B0[id];
+}
+extern void func_80015F64(int, short, short);
+
+static inline int to_int(int v)
+{
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void voice_update(unsigned int id, unsigned short heading, short x, short z)
+{
+    if (id != 0xFFFF) {
+        voice_get(id)->heading = heading;
+        func_80015F64(id, x, z);
+    }
+}
+
+void func_80040380(Obj *obj)
+{
+    short x;
+    short z;
+    int y;
+    unsigned int id;
+
+    if (obj->voice != 0xFFFF) {
+        x = to_int(obj->x) >> 2;
+        z = to_int(obj->z) >> 2;
+        y = (short)(to_int(obj->y) >> 2);
+        id = obj->voice;
+        voice_update(id, obj->heading, x, z);
+        voice_get(id)->height = y;
+    }
+}

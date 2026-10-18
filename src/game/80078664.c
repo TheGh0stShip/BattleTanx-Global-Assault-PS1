@@ -1,47 +1,121 @@
-asm(".text\n\t.globl func_80078664\nfunc_80078664:\n\t"
-    ".word 0x3C02800F,0x8C45BC3C,0x3C02800F,0x9444E02E\n\t"
-    ".word 0x27BDFFE8,0x2CA3000F,0x106000AC,0xAFBF0010\n\t"
-    ".word 0x3C02800C,0x24423EEC,0x00051880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x30820010,0x1040000D,0x30820040,0x0C01528C\n\t"
-    ".word 0x24040003,0x3C03800B,0x8C62EB34,0x00000000\n\t"
-    ".word 0x14400004,0x2442FFFF,0x24020002,0x0801E24C\n\t"
-    ".word 0xAC62EB34,0x0801E24C,0xAC62EB34,0x1040000C\n\t"
-    ".word 0x30824000,0x0C01528C,0x24040003,0x3C04800B\n\t"
-    ".word 0x8C83EB34,0x24020002,0x14620003,0x24620001\n\t"
-    ".word 0x0801E24C,0xAC80EB34,0x0801E24C,0xAC82EB34\n\t"
-    ".word 0x10400086,0x00000000,0x0C01528C,0x24040003\n\t"
-    ".word 0x3C02800B,0x8C43EB34,0x00000000,0x1460000B\n\t"
-    ".word 0x24020001,0x3C03800F,0xAC62BC40,0x3C03800B\n\t"
-    ".word 0x24020014,0xA062EB38,0x3C02800F,0x3C03800F\n\t"
-    ".word 0xA040BBB5,0x0801E24B,0x24020002,0x1462000B\n\t"
-    ".word 0x3C02800F,0xAC43BC40,0x3C03800B,0x24020014\n\t"
-    ".word 0xA062EB38,0x3C03800F,0x24020010,0xA062BBB5\n\t"
-    ".word 0x3C03800F,0x0801E24B,0x24020002,0x0801E24A\n\t"
-    ".word 0x3C03800F,0x308200A0,0x1440003C,0x30824000\n\t"
-    ".word 0x10400062,0x00000000,0x0C01528C,0x24040003\n\t"
-    ".word 0x3C04800F,0x8C82BC38,0x00000000,0x10400003\n\t"
-    ".word 0x3C03800F,0x0801E23C,0x24020004,0x0801E24B\n\t"
-    ".word 0x24020001,0x3C02800F,0x9042BBB4,0x00000000\n\t"
-    ".word 0x14400052,0x30824000,0x10400050,0x00000000\n\t"
-    ".word 0x0C01528C,0x24040003,0x3C03800F,0x0801E24B\n\t"
-    ".word 0x24020001,0x308200A0,0x14400020,0x30824000\n\t"
-    ".word 0x10400046,0x00000000,0x0C01528C,0x24040003\n\t"
-    ".word 0x3C04800F,0x8C82BC38,0x00000000,0x10400009\n\t"
-    ".word 0x3C03800F,0x24020004,0xAC62BC40,0x3C03800B\n\t"
-    ".word 0x24020002,0xA062EB38,0x3C03800F,0x0801E23C\n\t"
-    ".word 0x2402000B,0x3C03800F,0x0801E24B,0x24020001\n\t"
-    ".word 0x30824000,0x10400031,0x00000000,0x0C01528C\n\t"
-    ".word 0x24040003,0x3C03800F,0x0801E24B,0x24020001\n\t"
-    ".word 0x308200A0,0x10400009,0x30824000,0x0C01528C\n\t"
-    ".word 0x24040003,0x3C03800F,0x8C62BC38,0x00000000\n\t"
-    ".word 0x2C420001,0x0801E24C,0xAC62BC38,0x1040001F\n\t"
-    ".word 0x00000000,0x0C01528C,0x24040003,0x3C04800F\n\t"
-    ".word 0x8C82BC38,0x00000000,0x1040000B,0x3C03800F\n\t"
-    ".word 0x24020002,0xAC62BC40,0x3C03800B,0x24020014\n\t"
-    ".word 0xA062EB38,0x3C03800F,0x24020008,0xAC62BC3C\n\t"
-    ".word 0x0801E24C,0xAC80BC38,0x3C03800F,0x0801E24B\n\t"
-    ".word 0x24020001,0x30824000,0x10400008,0x00000000\n\t"
-    ".word 0x0C01528C,0x24040003,0x3C02800F,0x3C03800F\n\t"
-    ".word 0xAC40BC48,0x2402000E,0xAC62BC3C,0x8FBF0010\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0018\n");
+typedef struct PadState {
+    unsigned char ready;
+    unsigned char port;
+} PadState;
+
+extern unsigned int D_800EBC3C;
+extern unsigned short D_800EE02E;
+extern int D_800AEB34;
+extern int D_800EBC38;
+extern int D_800EBC40;
+extern int D_800EBC48;
+extern unsigned char D_800AEB38;
+extern PadState D_800EBBB4;
+extern void func_80054A30(int);
+
+void func_80078664(void) {
+    unsigned short pad = D_800EE02E;
+
+    switch (D_800EBC3C) {
+    case 1:
+        if (pad & 0x10) {
+            func_80054A30(3);
+            if (D_800AEB34 == 0) {
+                D_800AEB34 = 2;
+            } else {
+                D_800AEB34--;
+            }
+        } else if (pad & 0x40) {
+            func_80054A30(3);
+            if (D_800AEB34 == 2) {
+                D_800AEB34 = 0;
+            } else {
+                D_800AEB34++;
+            }
+        } else if (pad & 0x4000) {
+            func_80054A30(3);
+            if (D_800AEB34 == 0) {
+                D_800EBC40 = 1;
+                D_800AEB38 = 20;
+                D_800EBBB4.port = 0;
+                D_800EBC3C = 2;
+            } else if (D_800AEB34 == 1) {
+                D_800EBC40 = 1;
+                D_800AEB38 = 20;
+                D_800EBBB4.port = 16;
+                D_800EBC3C = 2;
+            } else {
+                D_800EBC3C = 14;
+            }
+        }
+        break;
+    case 3:
+        if (pad & 0xA0) {
+            func_80054A30(3);
+            D_800EBC38 = D_800EBC38 == 0;
+        } else if (pad & 0x4000) {
+            func_80054A30(3);
+            if (D_800EBC38 != 0) {
+                D_800EBC3C = 4;
+                D_800EBC38 = 0;
+            } else {
+                D_800EBC3C = 1;
+            }
+        }
+        break;
+    case 5:
+        if (D_800EBBB4.ready == 0 && (pad & 0x4000)) {
+            func_80054A30(3);
+            D_800EBC3C = 1;
+        }
+        break;
+    case 6:
+        if (pad & 0xA0) {
+            func_80054A30(3);
+            D_800EBC38 = D_800EBC38 == 0;
+        } else if (pad & 0x4000) {
+            func_80054A30(3);
+            if (D_800EBC38 != 0) {
+                D_800EBC40 = 4;
+                D_800AEB38 = 2;
+                D_800EBC3C = 11;
+                D_800EBC38 = 0;
+            } else {
+                D_800EBC3C = 1;
+            }
+        }
+        break;
+    case 7:
+        if (pad & 0x4000) {
+            func_80054A30(3);
+            D_800EBC3C = 1;
+        }
+        break;
+    case 12:
+        if (pad & 0xA0) {
+            func_80054A30(3);
+            D_800EBC38 = D_800EBC38 == 0;
+        } else if (pad & 0x4000) {
+            func_80054A30(3);
+            if (D_800EBC38 != 0) {
+                D_800EBC40 = 2;
+                D_800AEB38 = 20;
+                D_800EBC3C = 8;
+                D_800EBC38 = 0;
+            } else {
+                D_800EBC3C = 1;
+            }
+        }
+        break;
+    case 13:
+        if (pad & 0x4000) {
+            func_80054A30(3);
+            D_800EBC48 = 0;
+            D_800EBC3C = 14;
+        }
+        break;
+    case 0:
+    case 14:
+        break;
+    }
+}

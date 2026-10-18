@@ -1,9 +1,28 @@
-asm(".text\n\t.globl func_80031528\nfunc_80031528:\n\t"
-    ".word 0x94a20004,0x00000000,0x2442fffc,0x00021400\n\t"
-    ".word 0x00021c03,0x2c620048,0x10400014,0x3c02800c\n\t"
-    ".word 0x2442e12c,0x00031880,0x00621821,0x8c620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x8c830034\n\t"
-    ".word 0x00000000,0x18600008,0x24020001,0x8cc20010\n\t"
-    ".word 0x00000000,0x00621023,0x04410002,0xac820034\n\t"
-    ".word 0xac800034,0x24020001,0xace20000,0x03e00008\n\t"
-    ".word 0x00000000\n\t");
+typedef struct { char pad[52]; int value; } Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[4]; int amount; } MsgData;
+
+void func_80031528(Obj *obj, Msg *msg, MsgData *data, int *handled) {
+    int v;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        if (obj->value > 0) {
+            v = obj->value - data->amount;
+            obj->value = v;
+            if (v < 0) {
+                obj->value = 0;
+            }
+        }
+    case 30:
+    case 75:
+        *handled = 1;
+        break;
+    case 4:
+        break;
+    }
+}

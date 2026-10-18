@@ -1,8 +1,21 @@
-asm(".text\n\t.globl func_8008EB9C\nfunc_8008EB9C:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafb00010\n\t"
-    ".word 0x3c10800f,0xafb10014,0x2611ec34,0xafbf001c\n\t"
-    ".word 0x8e02ec34,0x00000000,0x30420010,0x10400005\n\t"
-    ".word 0x26240010,0x0c0265a1,0x00002821,0x08023af9\n\t"
-    ".word 0x00000000,0x24020001,0x14400003,0x00000000\n\t"
-    ".word 0x1640fff3,0x00000000,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern int func_80099684(void *, int);
+
+typedef struct {
+    int flags;
+    char pad[12];
+    char body[1];
+} S8008EB9C;
+extern S8008EB9C D_800EEC34;
+
+int func_8008EB9C(int wait) {
+    int done;
+
+    do {
+        if (D_800EEC34.flags & 0x10) {
+            done = func_80099684(D_800EEC34.body, 0);
+        } else {
+            done = 1;
+        }
+    } while (done == 0 && wait != 0);
+    return done;
+}

@@ -1,25 +1,72 @@
-asm(".text\n\t.globl func_8006FA18\nfunc_8006FA18:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0xAFB00010\n\t"
-    ".word 0x00A08021,0xAFBF0018,0x88C70003,0x98C70000\n\t"
-    ".word 0x88C80007,0x98C80004,0xAA07000F,0xBA07000C\n\t"
-    ".word 0xAA080013,0xBA080010,0x24082800,0xA6000016\n\t"
-    ".word 0x8E27001C,0x00000000,0x00E80018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x00021203,0xA6020018,0x0C021B21,0xA600001A\n\t"
-    ".word 0x00021402,0x0C021B21,0xA6020014,0x00021402\n\t"
-    ".word 0x000219C0,0x00621821,0x00031C03,0x2463FFC0\n\t"
-    ".word 0xA203001E,0x00031E00,0x8E22001C,0x00031B03\n\t"
-    ".word 0x0062001A,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14410004,0x3C018000,0x14610002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x00000000\n\t"
-    ".word 0xA203001E,0x8E23001C,0x00000000,0x000310C0\n\t"
-    ".word 0x00431021,0x00021040,0xAE020004,0x0C021B21\n\t"
-    ".word 0xAE020008,0x8E23001C,0x24020030,0x00430018\n\t"
-    ".word 0x00001012,0x04410002,0x00000000,0x24420FFF\n\t"
-    ".word 0x00021303,0x0C021B21,0xA6020020,0x00021782\n\t"
-    ".word 0x8E23001C,0x24420001,0x00430018,0x00001012\n\t"
-    ".word 0x04410002,0x00000000,0x24420FFF,0x00021303\n\t"
-    ".word 0x24030040,0xA6020022,0x24020008,0xA2020025\n\t"
-    ".word 0x24020002,0xA202001F,0x24020001,0xA2030024\n\t"
-    ".word 0xA2030026,0xA2020027,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Bytes8 {
+    unsigned char b[8];
+} Bytes8;
+
+typedef struct Source {
+    char pad[0x1C];
+    int size;
+} Source;
+
+typedef struct Sprite {
+    int pad0;
+    int scale_x;
+    int scale_y;
+    Bytes8 color;
+    short angle;
+    short rx;
+    short ry;
+    short rz;
+    char pad1C[2];
+    signed char spin;
+    unsigned char visible;
+    short radius;
+    short drift;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char mode;
+} Sprite;
+
+extern unsigned int func_80086C84(void);
+
+static inline int rand_span(int lo, int span) {
+    return lo + ((int)(func_80086C84() >> 16) * span >> 16);
+}
+
+static inline int scale_fixed(int a, int b) {
+    return a * b / 4096;
+}
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8006FA18(Source *src, Sprite *sprite, Bytes8 *color) {
+    int scale;
+    int spin;
+
+    sprite->color = *color;
+    sprite->rx = 0;
+    sprite->ry = fixed_mul(src->size, 10240) >> 8;
+    sprite->rz = 0;
+    sprite->angle = func_80086C84() >> 16;
+    spin = ((int)(func_80086C84() >> 16) * 129 >> 16) - 64;
+    sprite->spin = spin;
+    sprite->spin = ((signed char)spin << 12) / src->size;
+    scale = src->size * 18;
+    sprite->scale_x = scale;
+    sprite->scale_y = scale;
+    sprite->radius = scale_fixed(rand_span(48, 1), src->size);
+    sprite->drift = scale_fixed((func_80086C84() >> 30) + 1, src->size);
+    sprite->r = 64;
+    sprite->g = 8;
+    sprite->visible = 2;
+    sprite->b = 64;
+    sprite->mode = 1;
+}

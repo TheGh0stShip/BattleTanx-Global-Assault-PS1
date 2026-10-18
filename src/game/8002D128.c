@@ -1,38 +1,70 @@
-asm(".text\n\t.globl func_8002D128\nfunc_8002D128:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0x00C04021\n\t"
-    ".word 0xAFBF0028,0xAFB30024,0xAFB1001C,0xAFB00018\n\t"
-    ".word 0x94A20004,0x00000000,0x2442FFFC,0x00021400\n\t"
-    ".word 0x00021C03,0x2C620048,0x1040007E,0x00E09821\n\t"
-    ".word 0x3C02800C,0x2442D9F8,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x92420018,0x00000000,0x14400072,0x00000000\n\t"
-    ".word 0x8E420008,0x00000000,0x8C450020,0x8C460028\n\t"
-    ".word 0x9511000C,0x0C014DE4,0x24040033,0x24020001\n\t"
-    ".word 0x8E440008,0x8E430010,0x3C10800C,0xA2420018\n\t"
-    ".word 0xAC83003C,0x96420014,0x261062B0,0x00021880\n\t"
-    ".word 0x00621821,0x000318C0,0x00701821,0x8C620000\n\t"
-    ".word 0x00000000,0x34420200,0xAC620000,0x96430014\n\t"
-    ".word 0x3C04FF7F,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00501021,0x8C430000,0x3484FBFF,0x00641824\n\t"
-    ".word 0xAC430000,0x8E450008,0x96460016,0x3227FFFF\n\t"
-    ".word 0xAFA00010,0x8E44000C,0x0C00D61E,0x24A50020\n\t"
-    ".word 0x96430014,0x24040002,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00501021,0x0800B4D5,0xA4440020\n\t"
-    ".word 0x0800B4D6,0x24020005,0x92420018,0x00000000\n\t"
-    ".word 0x1440003B,0x24020008,0x24020009,0xAE620000\n\t"
-    ".word 0x92420018,0x9511000C,0x14400036,0x00000000\n\t"
-    ".word 0x8E420008,0x00000000,0x8C450020,0x8C460028\n\t"
-    ".word 0x0C014DE4,0x24040033,0x24020001,0x8E440008\n\t"
-    ".word 0x8E430010,0x3C10800C,0xA2420018,0xAC83003C\n\t"
-    ".word 0x96420014,0x261062B0,0x00021880,0x00621821\n\t"
-    ".word 0x000318C0,0x00701821,0x8C620000,0x00000000\n\t"
-    ".word 0x34420200,0xAC620000,0x96430014,0x3C04FF7F\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00501021\n\t"
-    ".word 0x8C430000,0x3484FBFF,0x00641824,0xAC430000\n\t"
-    ".word 0x8E450008,0x96460016,0x3227FFFF,0xAFA00010\n\t"
-    ".word 0x8E44000C,0x0C00D61E,0x24A50020,0x96430014\n\t"
-    ".word 0x24040002,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00501021,0x0800B4D7,0xA4440020,0x92420018\n\t"
-    ".word 0x00000000,0x14400003,0x00000000,0x24020001\n\t"
-    ".word 0xAE620000,0x8FBF0028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { unsigned int flags; int link; int pad[6]; unsigned short owner; short pad2[3]; } Cell;
+typedef struct { char pad[32]; Vector pos; int pad2[4]; int value; } Target;
+typedef struct {
+    int pad[2];
+    Target *target;
+    int model;
+    int value;
+    unsigned short cell;
+    unsigned short angle;
+    unsigned char broken;
+} Crate;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[3]; unsigned short tilt; } MsgData;
+extern Cell D_800C62B0[];
+void func_80053790(int, int, int);
+void func_80035878(int, Vector *, int, int, int);
+
+static inline Cell *cell_at(int i) {
+    return &D_800C62B0[i];
+}
+
+static inline void set_owner(int i, short owner) {
+    cell_at(i)->owner = owner;
+}
+
+static inline void crush(Crate *c, unsigned short tilt) {
+    if (c->broken == 0) {
+        func_80053790(51, c->target->pos.x, c->target->pos.z);
+        c->broken = 1;
+        c->target->value = c->value;
+        cell_at(c->cell)->flags |= 0x200;
+        cell_at(c->cell)->flags &= ~0x00800400;
+        func_80035878(c->model, &c->target->pos, c->angle, tilt, 0);
+        set_owner(c->cell, 2);
+    }
+}
+
+void func_8002D128(Crate *c, Msg *msg, MsgData *data, int *result) {
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 52:
+        if (c->broken == 0) {
+            crush(c, data->tilt);
+            *result = 1;
+        }
+        break;
+    case 40:
+        *result = 5;
+        break;
+    case 4:
+        if (c->broken != 0) {
+            *result = 8;
+        } else {
+            *result = 9;
+            crush(c, data->tilt);
+        }
+        break;
+    case 30:
+        if (c->broken == 0) {
+            *result = 1;
+        }
+        break;
+    case 75:
+        *result = 1;
+        break;
+    }
+}

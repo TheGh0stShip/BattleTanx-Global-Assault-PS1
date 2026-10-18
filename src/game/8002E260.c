@@ -1,23 +1,57 @@
-asm(".text\n\t.globl func_8002E260\nfunc_8002E260:\n\t"
-    ".word 0x27BDFFD8,0xAFB00020,0x00808021,0xAFBF0024\n\t"
-    ".word 0x92020028,0x00000000,0x1440004B,0x00A03821\n\t"
-    ".word 0x8E030008,0x24020001,0xA2020028,0xA0620045\n\t"
-    ".word 0x8E030010,0x00000000,0x10600004,0x00000000\n\t"
-    ".word 0x8E020008,0x0800B8AE,0xAC43003C,0x8E020008\n\t"
-    ".word 0x00000000,0xAC40003C,0x30C200FF,0x10400009\n\t"
-    ".word 0x30E7FFFF,0x8E050008,0x96060026,0xAFA00010\n\t"
-    ".word 0x8E04000C,0x0C00D61E,0x24A50020,0x0800B8C3\n\t"
-    ".word 0x00000000,0x8E050008,0x96060026,0x00003821\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8E04000C,0x0C00D652,0x24A50020,0x96040024\n\t"
-    ".word 0x3402FFFF,0x10820024,0x00000000,0x92020029\n\t"
-    ".word 0x00000000,0x1040001C,0x00041880,0x00641821\n\t"
-    ".word 0x000318C0,0x3C04800C,0x248462B0,0x00641821\n\t"
-    ".word 0x8C620000,0x00000000,0x34420200,0xAC620000\n\t"
-    ".word 0x96030024,0x3C05FFEF,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00441021,0x8C430000,0x34A5FFFD\n\t"
-    ".word 0x00651824,0xAC430000,0x96030024,0x24050002\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00441021\n\t"
-    ".word 0x0800B8EA,0xA4450020,0x0C006C25,0x00000000\n\t"
-    ".word 0x0C008B2B,0x02002021,0x8FBF0024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { unsigned int flags; int link; int pad[6]; short owner; short pad2[3]; } Cell;
+typedef struct { char pad[32]; Vector pos; int pad2[4]; int value; char pad3[5]; unsigned char dead; } Target;
+typedef struct {
+    int pad[2];
+    Target *target;
+    int model;
+    int value;
+    int pad2[4];
+    unsigned short cell;
+    unsigned short angle;
+    unsigned char dead;
+    unsigned char solid;
+} Obj;
+extern Cell D_800C62B0[];
+static inline Cell *cell_at(int i) {
+    return &D_800C62B0[i];
+}
+
+void func_80035878(int, Vector *, int, int, int);
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+void func_8001B094(int);
+void func_80022CAC(Obj *);
+
+static inline void set_owner(int i, short owner) {
+    cell_at(i)->owner = owner;
+}
+
+void func_8002E260(Obj *o, unsigned short tilt, unsigned char tilted) {
+    int cell;
+
+    if (o->dead == 0) {
+        o->dead = 1;
+        o->target->dead = 1;
+        if (o->value != 0) {
+            o->target->value = o->value;
+        } else {
+            o->target->value = 0;
+        }
+        if (tilted) {
+            func_80035878(o->model, &o->target->pos, o->angle, tilt, 0);
+        } else {
+            func_80035948(o->model, &o->target->pos, o->angle, 0, 0, 0, 0, 0);
+        }
+        cell = o->cell;
+        if (cell != 0xFFFF) {
+            if (o->solid) {
+                cell_at(cell)->flags |= 0x200;
+                cell_at(o->cell)->flags &= 0xFFEFFFFD;
+                set_owner(o->cell, 2);
+            } else {
+                func_8001B094(cell);
+                func_80022CAC(o);
+            }
+        }
+    }
+}

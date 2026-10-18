@@ -1,18 +1,81 @@
-asm(".text\n\t.globl func_8008A308\nfunc_8008A308:\n\t"
-    ".word 0x27bdffe8,0x3c02800f,0xafb00010,0x2450eae8\n\t"
-    ".word 0xafbf0014,0x92020040,0x00000000,0x10400035\n\t"
-    ".word 0x00000000,0x92020030,0x00000000,0x10400031\n\t"
-    ".word 0x00000000,0x92020042,0x00000000,0x10400005\n\t"
-    ".word 0x00000000,0xae000044,0xa2000042,0x080228ff\n\t"
-    ".word 0x00000000,0x8e020044,0x00000000,0x00441021\n\t"
-    ".word 0xae020044,0x8e020044,0x00000000,0x2c421388\n\t"
-    ".word 0x14400020,0x00000000,0xa2000040,0xae000044\n\t"
-    ".word 0x92020041,0x00000000,0x1040000d,0x00000000\n\t"
-    ".word 0x0c022426,0x24040001,0x10400005,0x00000000\n\t"
-    ".word 0x0c022696,0x00000000,0x080228f8,0x00000000\n\t"
-    ".word 0x0c022392,0x24040005,0x080228ff,0x00000000\n\t"
-    ".word 0x0c022426,0x00002021,0x10400008,0x00000000\n\t"
-    ".word 0x0c0224a5,0x00000000,0x8e020018,0x00000000\n\t"
-    ".word 0x24420001,0x080228ff,0xae020018,0x0c022354\n\t"
-    ".word 0x24040005,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    char pad34[4];
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    char pad94[4];
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+
+extern int func_80089098(int arg);
+extern void func_80089A58(void);
+extern void func_80088E48(int mode);
+extern void func_80089294(void);
+extern void func_80088D50(unsigned char mode);
+
+void func_8008A308(int elapsed) {
+    StreamState *s = &D_800EEAE8;
+
+    if (s->b40 == 0 || s->b30 == 0) {
+        return;
+    }
+    if (s->b42 != 0) {
+        s->w44 = 0;
+        s->b42 = 0;
+        return;
+    }
+    s->w44 += elapsed;
+    if (s->w44 < 5000) {
+        return;
+    }
+    s->b40 = 0;
+    s->w44 = 0;
+    if (s->b41 != 0) {
+        if (func_80089098(1) != 0) {
+            func_80089A58();
+            s->w18++;
+        } else {
+            func_80088E48(5);
+        }
+    } else if (func_80089098(0) != 0) {
+        func_80089294();
+        s->w18++;
+    } else {
+        func_80088D50(5);
+    }
+}

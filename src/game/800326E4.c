@@ -1,58 +1,90 @@
-asm(".text\n\t.globl func_800326E4\nfunc_800326E4:\n\t"
-    ".word 0x27BDFFB0,0xAFB20038,0x00809021,0xAFBF0048\n\t"
-    ".word 0xAFB50044,0xAFB40040,0xAFB3003C,0xAFB10034\n\t"
-    ".word 0xAFB00030,0x8E43000C,0x24020003,0x1462000B\n\t"
-    ".word 0x24020002,0x24020001,0xACA20000,0x96430032\n\t"
-    ".word 0x3402FFFF,0x106200C6,0x00000000,0x0C006C25\n\t"
-    ".word 0x00602021,0x0800CA91,0x00000000,0x10620032\n\t"
-    ".word 0x3402FFFF,0x96430032,0x00000000,0x1462002F\n\t"
-    ".word 0x3C02800D,0x8E420020,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x0800C9DF,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8E430028\n\t"
-    ".word 0x00000000,0x04600003,0x00022C03,0x0800C9E9\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E470024,0x00000000,0x04E00003\n\t"
-    ".word 0x00023403,0x0800C9F3,0x00073B03,0x00071023\n\t"
-    ".word 0x00021303,0x00023823,0x02402021,0x2403FFC4\n\t"
-    ".word 0x2402003C,0xAFA20014,0xAFA2001C,0xAFA20024\n\t"
-    ".word 0x3C020002,0x00073B80,0x00073C03,0xAFA30010\n\t"
-    ".word 0xAFA30018,0xAFA30020,0xAFA00028,0x0C0058BC\n\t"
-    ".word 0xAFA2002C,0xA6420032,0x3C02800D,0x8C432FE8\n\t"
-    ".word 0x24020003,0x14620078,0x00000000,0x8E42000C\n\t"
-    ".word 0x00000000,0x14400074,0x2402007F,0x92430030\n\t"
-    ".word 0x00000000,0x14620003,0x00602021,0x0800CA1A\n\t"
-    ".word 0x00001021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00431021,0x8C42000C,0x00000000,0x8C420008\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x0800CA25\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x92430030,0x00403021,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x0800CA34,0x00001021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00431021,0x8C44000C\n\t"
-    ".word 0x3C02800E,0x8C42E30C,0x8C830008,0x00000000\n\t"
-    ".word 0x00621021,0x04400003,0xAC820008,0x0800CA41\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x3C02800D,0x24452FE4,0x8CA40010,0x00000000\n\t"
-    ".word 0x00831023,0x2842012C,0x10400019,0x00861023\n\t"
-    ".word 0x2842012C,0x14400017,0x3C02800D,0x90A20008\n\t"
-    ".word 0x00000000,0x10400030,0x00008021,0x2415007F\n\t"
-    ".word 0x3C02800E,0x24543E68,0x00A09821,0x02008821\n\t"
-    ".word 0x12150002,0x00002021,0x02342021,0x0C014C75\n\t"
-    ".word 0x24050003,0x92620008,0x26100001,0x0202102A\n\t"
-    ".word 0x1440FFF7,0x26310114,0x0800CA7F,0x00000000\n\t"
-    ".word 0x3C02800D,0x24452FE4,0x8CA40010,0x00000000\n\t"
-    ".word 0x00831023,0x28420384,0x10400017,0x00861023\n\t"
-    ".word 0x28420384,0x14400014,0x00000000,0x90A20008\n\t"
-    ".word 0x00000000,0x10400010,0x00008021,0x2415007F\n\t"
-    ".word 0x3C02800E,0x24543E68,0x00A09821,0x02008821\n\t"
-    ".word 0x12150002,0x00002021,0x02342021,0x0C014C75\n\t"
-    ".word 0x24050002,0x92620008,0x26100001,0x0202102A\n\t"
-    ".word 0x1440FFF7,0x26310114,0x8E420008,0x00000000\n\t"
-    ".word 0x1440000F,0x24020001,0x8E43000C,0x00000000\n\t"
-    ".word 0x1462000B,0x3C02800D,0x8C422FE0,0x8E43002C\n\t"
-    ".word 0x00000000,0x00431023,0x28420079,0x14400004\n\t"
-    ".word 0x00000000,0x8E450014,0x0C00C932,0x02402021\n\t"
-    ".word 0x8FBF0048,0x8FB50044,0x8FB40040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0050\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; int progress; } Counter;
+typedef struct { char pad[12]; Counter *counter; char rest[0x114 - 16]; } Waypoint;
+typedef struct { int pad; unsigned int mode; unsigned char teams; char pad2[7]; int goal; } Rules;
+typedef struct {
+    int pad[2];
+    int carrier;
+    int active;
+    int pad2;
+    int base;
+    int pad3[2];
+    Vector pos;
+    int last_time;
+    unsigned char waypoint;
+    unsigned char pad4;
+    unsigned short cell;
+} Flag;
+extern Rules D_800D2FE4;
+extern unsigned int D_800D2FE8;
+extern int D_800D2FE0;
+extern int D_800DE30C;
+extern Waypoint D_800E3E68[];
+void func_8001B094(int);
+short func_800162F0(Flag *, int, int, int, int, int, int, int, int, int, int, int);
+void func_800531D4(Waypoint *, int);
+void func_800324C8(Flag *, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline int to_int_inplace(int v) {
+    if (v >= 0) {
+        v >>= 12;
+    } else {
+        v = -(-v >> 12);
+    }
+    return v;
+}
+
+static inline short quarter(int v) {
+    return (to_int(v) << 14) >> 16;
+}
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800326E4(Flag *f, int *done) {
+    int prev;
+    int cur;
+    Counter *c;
+    int i;
+
+    if (f->active == 3) {
+        *done = 1;
+        if (f->cell != 0xFFFF) {
+            func_8001B094(f->cell);
+        }
+        return;
+    }
+    if (f->active != 2 && f->cell == 0xFFFF) {
+        f->cell = func_800162F0(f, quarter(f->pos.x), quarter(f->pos.z), quarter(f->pos.y), -60, 60, -60, 60, -60, 60, 0,
+                                0x20000);
+    }
+    if (D_800D2FE8 == 3 && f->active == 0) {
+        prev = to_int_inplace(waypoint_at(f->waypoint)->counter->progress);
+        c = waypoint_at(f->waypoint)->counter;
+        c->progress += D_800DE30C;
+        cur = to_int(c->progress);
+        if (D_800D2FE4.goal - cur < 300 && D_800D2FE4.goal - prev >= 300) {
+            for (i = 0; i < D_800D2FE4.teams; i++) {
+                func_800531D4(waypoint_at(i), 3);
+            }
+        } else if (D_800D2FE4.goal - cur < 900 && D_800D2FE4.goal - prev >= 900) {
+            for (i = 0; i < D_800D2FE4.teams; i++) {
+                func_800531D4(waypoint_at(i), 2);
+            }
+        }
+    }
+    if (f->carrier == 0 && f->active == 1 && D_800D2FE0 - f->last_time > 120) {
+        func_800324C8(f, f->base);
+    }
+}

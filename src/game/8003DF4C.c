@@ -1,9 +1,15 @@
-asm(".text\n\t.globl func_8003DF4C\nfunc_8003DF4C:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x3c11800a,0x8e224b20\n\t"
-    ".word 0xafbf0018,0x14400014,0xafb00010,0x3c10800e\n\t"
-    ".word 0x2610e068,0x02002021,0x0c020c53,0x24050001\n\t"
-    ".word 0x02002021,0x00002821,0x0c0209e6,0x00a03021\n\t"
-    ".word 0x02002021,0x3c060007,0x3c02800e,0x8c45e0c8\n\t"
-    ".word 0x0c020a15,0x34c60830,0x8e224b20,0x00000000\n\t"
-    ".word 0x24420001,0xae224b20,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern int D_800A4B20;
+extern char D_800DE068[];
+extern int D_800DE0C8;
+void func_8008314C(void *, int);
+void func_80082798(void *, int, int);
+void func_80082854(void *, int, int);
+
+void func_8003DF4C(void) {
+    if (D_800A4B20 == 0) {
+        func_8008314C(D_800DE068, 1);
+        func_80082798(D_800DE068, 0, 0);
+        func_80082854(D_800DE068, D_800DE0C8, 0x70830);
+        D_800A4B20++;
+    }
+}

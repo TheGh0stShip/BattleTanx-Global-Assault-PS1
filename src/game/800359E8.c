@@ -1,62 +1,95 @@
-asm(".text\n\t.globl func_800359E8\nfunc_800359E8:\n\t"
-    ".word 0x27BDFFD8,0xAFB20018,0x00809021,0xAFBF0020\n\t"
-    ".word 0xAFB3001C,0xAFB10014,0xAFB00010,0x8E42002C\n\t"
-    ".word 0x00000000,0x04410008,0x00A09821,0x8E440030\n\t"
-    ".word 0x24020004,0x10800004,0xAE420014,0x0C00A6B7\n\t"
-    ".word 0x02402821,0xAE400030,0x8E430014,0x00000000\n\t"
-    ".word 0x2C620005,0x104000D7,0x3C02800C,0x2442E5D4\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x8E420010,0x8E43001C\n\t"
-    ".word 0x2442E000,0xAE420010,0x8C620020,0x00000000\n\t"
-    ".word 0x04410004,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x8E42001C,0x00000000,0x8C420028\n\t"
-    ".word 0x00000000,0x04400003,0x00032882,0x0800D6AE\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8E420010,0x00000000,0x04400003,0x00033082\n\t"
-    ".word 0x0800D6B7,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00052C00,0x00052C03,0x00063400\n\t"
-    ".word 0x00063403,0x00028B80,0x9650000C,0x00118C03\n\t"
-    ".word 0x0C0057D9,0x02002021,0x3C04FFFC,0x3484E000\n\t"
-    ".word 0x00101080,0x00501021,0x000210C0,0x3C03800C\n\t"
-    ".word 0x246362B0,0x00431021,0xA4510014,0x8E430008\n\t"
-    ".word 0x8E420010,0x00832023,0x0044102A,0x10400099\n\t"
-    ".word 0x24020001,0x0800D70E,0x00000000,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x8E430018,0x00000000,0x00431023\n\t"
-    ".word 0x28420079,0x1440008F,0x24020002,0x0800D767\n\t"
-    ".word 0xAE420014,0x8E420010,0x8E43001C,0x24422000\n\t"
-    ".word 0xAE420010,0x8C620020,0x00000000,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8E42001C,0x00000000,0x8C420028,0x00000000\n\t"
-    ".word 0x04400003,0x00032882,0x0800D6F1,0x00021B03\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x8E420010\n\t"
-    ".word 0x00000000,0x04400003,0x00033082,0x0800D6FA\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00052C00,0x00052C03,0x00063400,0x00063403\n\t"
-    ".word 0x00028B80,0x9650000C,0x00118C03,0x0C0057D9\n\t"
-    ".word 0x02002021,0x00101080,0x00501021,0x000210C0\n\t"
-    ".word 0x3C03800C,0x246362B0,0x00431021,0xA4510014\n\t"
-    ".word 0x8E420010,0x00000000,0x1840005A,0x24020003\n\t"
-    ".word 0x0C021B21,0xAE420014,0x3C038888,0x34638889\n\t"
-    ".word 0x00430019,0x3C05800D,0x00003810,0x00072142\n\t"
-    ".word 0x00041900,0x00641823,0x00031880,0x8CA42FE0\n\t"
-    ".word 0x00431023,0x00822021,0x0800D767,0xAE440018\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x8E430018,0x00000000\n\t"
-    ".word 0x00431023,0x28420079,0x14400042,0x00000000\n\t"
-    ".word 0x0800D767,0xAE400014,0x8E420010,0x8E43001C\n\t"
-    ".word 0x2442E000,0xAE420010,0x8C620020,0x00000000\n\t"
-    ".word 0x04410004,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x8E42001C,0x00000000,0x8C420028\n\t"
-    ".word 0x00000000,0x04400003,0x00032882,0x0800D73E\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8E420010,0x00000000,0x04400003,0x00033082\n\t"
-    ".word 0x0800D747,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00052C00,0x00052C03,0x00063400\n\t"
-    ".word 0x00063403,0x00028B80,0x9650000C,0x00118C03\n\t"
-    ".word 0x0C0057D9,0x02002021,0x3C04FFF6,0x3484A000\n\t"
-    ".word 0x00101080,0x00501021,0x000210C0,0x3C03800C\n\t"
-    ".word 0x246362B0,0x00431021,0xA4510014,0x8E430008\n\t"
-    ".word 0x8E420010,0x00832023,0x0044102A,0x10400009\n\t"
-    ".word 0x00000000,0x8E42001C,0x00000000,0xA0400044\n\t"
-    ".word 0x24020001,0xAE620000,0x9644000C,0x0C006C25\n\t"
-    ".word 0x00000000,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[5]; short height; short pad2; int pad3[4]; } Cell;
+typedef struct { char pad[32]; Vector pos; char pad2[68 - 44]; unsigned char active; } Base;
+typedef struct {
+    int pad[2];
+    int floor;
+    unsigned short cell;
+    short pad2;
+    int y;
+    unsigned int state;
+    int timer;
+    Base *base;
+    int pad3[3];
+    int hp;
+    int rider;
+} Lift;
+extern Cell D_800C62B0[];
+extern int D_800D2FE0;
+void func_80029ADC(int, Lift *);
+void func_80015F64(int, int, int);
+unsigned int func_80086C84(void);
+void func_8001B094(int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline Cell *cell_at(int i) {
+    return &D_800C62B0[i];
+}
+
+static inline void move_lift(Lift *l, int delta) {
+    short x;
+    short z;
+    int h;
+    int cell;
+
+    l->y += delta;
+    x = (unsigned int)to_int(l->base->pos.x) >> 2;
+    z = (unsigned int)to_int(l->base->pos.z) >> 2;
+    h = (to_int(l->y) << 14) >> 16;
+    cell = l->cell;
+    func_80015F64(cell, x, z);
+    cell_at(cell)->height = h;
+}
+
+static inline void wait_state(Lift *l, int state) {
+    l->state = state;
+    l->timer = D_800D2FE0 + func_80086C84() % 60;
+}
+
+void func_800359E8(Lift *l, int *done) {
+    if (l->hp < 0) {
+        l->state = 4;
+        if (l->rider != 0) {
+            func_80029ADC(l->rider, l);
+            l->rider = 0;
+        }
+    }
+    switch (l->state) {
+    case 0:
+        move_lift(l, -8192);
+        if (l->y < -0x32000 - l->floor) {
+            wait_state(l, 1);
+        }
+        break;
+    case 1:
+        if (D_800D2FE0 - l->timer > 120) {
+            l->state = 2;
+        }
+        break;
+    case 2:
+        move_lift(l, 8192);
+        if (l->y > 0) {
+            wait_state(l, 3);
+        }
+        break;
+    case 3:
+        if (D_800D2FE0 - l->timer > 120) {
+            l->state = 0;
+        }
+        break;
+    case 4:
+        move_lift(l, -8192);
+        if (l->y < -0x96000 - l->floor) {
+            l->base->active = 0;
+            *done = 1;
+            func_8001B094(l->cell);
+        }
+        break;
+    }
+}

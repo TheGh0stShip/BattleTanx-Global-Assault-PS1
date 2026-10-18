@@ -1,25 +1,66 @@
-asm(".text\n\t.globl func_80064510\nfunc_80064510:\n\t"
-    ".word 0x27BDFFD0,0xAFB20018,0x8FB20040,0xAFB40020\n\t"
-    ".word 0x0080A021,0xAFB50024,0x00A0A821,0xAFB00010\n\t"
-    ".word 0x00C08021,0xAFB10014,0x00E08821,0xAFB3001C\n\t"
-    ".word 0x97B3004C,0x3C02800E,0xA44052CC,0x3C02800B\n\t"
-    ".word 0xAFBF0028,0x0C016A22,0xAC40BA84,0x3C02800E\n\t"
-    ".word 0xAC405308,0x3C02800E,0xAC505330,0x3C02800E\n\t"
-    ".word 0xA451533C,0x00121400,0x1C400009,0x3C02800B\n\t"
-    ".word 0x3C03800B,0x3C02800F,0x2442AF58,0xAC62BE48\n\t"
-    ".word 0x3C03800E,0x00121023,0x0801916D,0xA46252D4\n\t"
-    ".word 0x3C03800F,0x2463AE14,0xAC43BE48,0x3C02800E\n\t"
-    ".word 0xA45252D4,0x3C05800E,0x24A552C0,0x8FA40044\n\t"
-    ".word 0x3C02800E,0xA45352F4,0x3C02800E,0xAC4052B8\n\t"
-    ".word 0x8FA20048,0x3C10800E,0xAE0252B4,0x3C02800E\n\t"
-    ".word 0xAC545338,0x3C02800E,0x0C0190B0,0xAC5552D0\n\t"
-    ".word 0x3C05800E,0x8E0452B4,0x0C0190B0,0x24A552DC\n\t"
-    ".word 0x3C04800B,0x2484C064,0x00002821,0x3C03800B\n\t"
-    ".word 0x2463BD60,0x24020001,0x24060001,0xA0620060\n\t"
-    ".word 0xA06200A0,0xA06200C0,0xA06200E0,0xA0620100\n\t"
-    ".word 0xA0620120,0xA0620140,0xA0620160,0xA0620180\n\t"
-    ".word 0xA06201A0,0xA06201C0,0xA06201E0,0xA0620200\n\t"
-    ".word 0xA0620220,0xA0620240,0x0C016554,0xA06202A0\n\t"
-    ".word 0x8FBF0028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct Dialog {
+    char data[0x400];
+} Dialog;
+
+extern short D_800E52CC;
+extern int D_800ABA84;
+extern int D_800E5308;
+extern int D_800E5330;
+extern short D_800E533C;
+extern int *D_800ABE48;
+extern int D_800EAE14;
+extern int D_800EAF58;
+extern short D_800E52D4;
+extern short D_800E52F4;
+extern int D_800E52B8;
+extern int D_800E52B4;
+extern int D_800E5338;
+extern int D_800E52D0;
+extern int D_800E52C0;
+extern int D_800E52DC;
+extern Dialog D_800ABD60;
+extern int D_800AC064;
+extern void func_8005A888(void);
+extern void func_800642C0(int, int *);
+extern void func_80059550(void *, void *, int);
+
+void func_80064510(int start, int end, int c, unsigned short d, short step, int text0, int text1,
+                   short h) {
+    D_800E52CC = 0;
+    D_800ABA84 = 0;
+    func_8005A888();
+    D_800E5308 = 0;
+    D_800E5330 = c;
+    D_800E533C = d;
+    if (step <= 0) {
+        D_800ABE48 = &D_800EAF58;
+        D_800E52D4 = -step;
+    } else {
+        D_800ABE48 = &D_800EAE14;
+        D_800E52D4 = step;
+    }
+    D_800E52F4 = h;
+    D_800E52B8 = 0;
+    D_800E52B4 = text1;
+    D_800E5338 = start;
+    D_800E52D0 = end;
+    func_800642C0(text0, &D_800E52C0);
+    func_800642C0(D_800E52B4, &D_800E52DC);
+    D_800ABD60.data[0x60] = 1;
+    D_800ABD60.data[0xA0] = 1;
+    D_800ABD60.data[0xC0] = 1;
+    D_800ABD60.data[0xE0] = 1;
+    D_800ABD60.data[0x100] = 1;
+    D_800ABD60.data[0x120] = 1;
+    D_800ABD60.data[0x140] = 1;
+    D_800ABD60.data[0x160] = 1;
+    D_800ABD60.data[0x180] = 1;
+    D_800ABD60.data[0x1A0] = 1;
+    D_800ABD60.data[0x1C0] = 1;
+    D_800ABD60.data[0x1E0] = 1;
+    D_800ABD60.data[0x200] = 1;
+    D_800ABD60.data[0x220] = 1;
+    D_800ABD60.data[0x240] = 1;
+    D_800ABD60.data[0x2A0] = 1;
+    func_80059550(&D_800AC064, 0, 1);
+}

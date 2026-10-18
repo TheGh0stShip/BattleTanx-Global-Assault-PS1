@@ -1,21 +1,63 @@
-asm(".text\n\t.globl func_800822EC\nfunc_800822EC:\n\t"
-    ".word 0x27BDFFC0,0xAFB1002C,0x00808821,0x00A02021\n\t"
-    ".word 0x27A50018,0x27A6001C,0x27A70020,0xAFBF0038\n\t"
-    ".word 0xAFB30034,0xAFB20030,0x0C0207A5,0xAFB00028\n\t"
-    ".word 0x8FA30018,0x8FA2001C,0x00009821,0xAE200010\n\t"
-    ".word 0xAE200014,0xAE200024,0xAE200034,0xAE200018\n\t"
-    ".word 0xAE200028,0xAE200038,0xAE220004,0x2402FFFF\n\t"
-    ".word 0x1062002D,0xAE230000,0x3C02800F,0x2452DC9C\n\t"
-    ".word 0x00031080,0x00521021,0x8C42000C,0x00000000\n\t"
-    ".word 0x0040F809,0x24040004,0x10400005,0x265000C4\n\t"
-    ".word 0x8FA50020,0x0C020805,0x02002021,0xAFB00020\n\t"
-    ".word 0x24070002,0x8FA20018,0x8FA5001C,0x8FA60020\n\t"
-    ".word 0x27B00024,0xAFB00010,0x00E21004,0x00521021\n\t"
-    ".word 0x8C42000C,0x00000000,0x0040F809,0x24040005\n\t"
-    ".word 0x1440000E,0xAE220008,0x8FA20018,0x8FA5001C\n\t"
-    ".word 0x8FA60020,0x24040005,0xAFB00010,0x00021080\n\t"
-    ".word 0x00521021,0x8C42000C,0x00000000,0x0040F809\n\t"
-    ".word 0x00003821,0x10400004,0xAE220008,0x8FA20024\n\t"
-    ".word 0x24130001,0xAE22000C,0x02601021,0x8FBF0038\n\t"
-    ".word 0x8FB30034,0x8FB20030,0x8FB1002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct Request {
+    int port;
+    int unit;
+    int handle;
+    int size;
+    int unk10;
+    int unk14;
+    int unk18;
+    int pad1C;
+    int pad20;
+    int busy;
+    void *queued_buf;
+    int queued_len;
+    void *queued_cb;
+    int unk34;
+    int unk38;
+} Request;
+
+typedef struct RequestTable {
+    char pad000[0xC];
+    int (*io[30])();
+    char pad084[0x40];
+    char path[0x104];
+    Request *pending[30];
+    void *callback[30];
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+
+extern void func_80081E94(char *, int *, int *, char **);
+extern void func_80082014(char *, char *);
+
+int func_800822EC(Request *r, char *path) {
+    int port;
+    int unit;
+    char *name;
+    int size;
+    int ok;
+
+    func_80081E94(path, &port, &unit, &name);
+    ok = 0;
+    r->port = port;
+    r->unk10 = 0;
+    r->unk14 = 0;
+    r->busy = 0;
+    r->unk34 = 0;
+    r->unk18 = 0;
+    r->queued_buf = 0;
+    r->unk38 = 0;
+    r->unit = unit;
+    if (port != -1) {
+        if (D_800EDC9C.io[port](4)) {
+            func_80082014(D_800EDC9C.path, name);
+            name = D_800EDC9C.path;
+        }
+        if ((r->handle = D_800EDC9C.io[port](5, unit, name, 2, &size)) != 0
+            || (r->handle = D_800EDC9C.io[port](5, unit, name, 0, &size)) != 0) {
+            ok = 1;
+            r->size = size;
+        }
+    }
+    return ok;
+}

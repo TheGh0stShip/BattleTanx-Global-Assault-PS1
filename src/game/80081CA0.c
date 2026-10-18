@@ -1,11 +1,16 @@
-asm(".text\n\t.globl func_80081CA0\nfunc_80081CA0:\n\t"
-    ".word 0x3c031000,0x3c02800b,0x8c420d38,0x34630007\n\t"
-    ".word 0xac430000,0x3c05800b,0x8ca50d34,0x3c0300ff\n\t"
-    ".word 0x8ca20000,0x3463ffff,0x00431024,0x24030002\n\t"
-    ".word 0x1043000f,0x3c03e100,0x3c02800b,0x8c420d38\n\t"
-    ".word 0x00000000,0x8c420000,0x34631000,0x30423fff\n\t"
-    ".word 0x00431025,0xaca20000,0x3c03800b,0x8c630d34\n\t"
-    ".word 0x00001021,0x8c630000,0x0802074e,0x00000000\n\t"
-    ".word 0x30820008,0x10400007,0x3c040900,0x34840001\n\t"
-    ".word 0x3c03800b,0x8c630d38,0x24020002,0x0802074e\n\t"
-    ".word 0xac640000,0x24020001,0x03e00008,0x00000000\n\t");
+extern volatile unsigned long *D_800B0D34;
+extern volatile unsigned long *D_800B0D38;
+
+int func_80081CA0(int mode) {
+    *D_800B0D38 = 0x10000007;
+    if ((*D_800B0D34 & 0xFFFFFF) != 2) {
+        *D_800B0D34 = (*D_800B0D38 & 0x3FFF) | 0xE1001000;
+        *D_800B0D34;
+        return 0;
+    }
+    if (!(mode & 8)) {
+        return 1;
+    }
+    *(unsigned long *)D_800B0D38 = 0x09000001;
+    return 2;
+}

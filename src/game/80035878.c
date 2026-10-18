@@ -1,14 +1,25 @@
-asm(".text\n\t.globl func_80035878\nfunc_80035878:\n\t"
-    ".word 0x27bdffc8,0xafb3002c,0x00809821,0xafb10024\n\t"
-    ".word 0x00a08821,0xafb00020,0x30f0ffff,0x00108102\n\t"
-    ".word 0x02002021,0xafb20028,0xafbf0030,0x0c022b58\n\t"
-    ".word 0x00c09021,0x02002021,0x00021080,0x0c022b30\n\t"
-    ".word 0xa7a20018,0x00021080,0xa7a2001c,0x24020400\n\t"
-    ".word 0x12600018,0xa7a2001a,0x02602021,0x02202821\n\t"
-    ".word 0x24020064,0x3246ffff,0x27a70018,0x0c01ce35\n\t"
-    ".word 0xafa20010,0x8e220000,0x00000000,0x04410004\n\t"
-    ".word 0x00022303,0x00021023,0x00021303,0x00022023\n\t"
-    ".word 0x8e220008,0x00000000,0x04410004,0x00022b03\n\t"
-    ".word 0x00021023,0x00021303,0x00022823,0x0c00eeb7\n\t"
-    ".word 0x00000000,0x8fbf0030,0x8fb3002c,0x8fb20028\n\t"
-    ".word 0x8fb10024,0x8fb00020,0x03e00008,0x27bd0038\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { short x, y, z; } SVector;
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_800738D4(int, Vector *, int, SVector *, int);
+void func_8003BADC(int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_80035878(int model, Vector *pos, unsigned short angle, unsigned short tilt) {
+    SVector up;
+
+    up.x = func_8008AD60(tilt >> 4) << 2;
+    up.z = func_8008ACC0(tilt >> 4) << 2;
+    up.y = 1024;
+    if (model != 0) {
+        func_800738D4(model, pos, angle, &up, 100);
+        func_8003BADC(to_int(pos->x), to_int(pos->z));
+    }
+}

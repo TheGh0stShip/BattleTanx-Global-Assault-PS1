@@ -1,28 +1,71 @@
-asm(".text\n\t.globl func_8002E3B8\nfunc_8002E3B8:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0x8FA80028\n\t"
-    ".word 0x24020003,0x10C20051,0xAFBF0014,0x2CC20004\n\t"
-    ".word 0x10400005,0x00000000,0x10C0000A,0x00000000\n\t"
-    ".word 0x0800B956,0x00000000,0x24020005,0x10C2002E\n\t"
-    ".word 0x24020006,0x10C2003B,0x00000000,0x0800B956\n\t"
-    ".word 0x00000000,0x94A20004,0x00000000,0x2442FFFC\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620048,0x1040004C\n\t"
-    ".word 0x3C02800C,0x2442DB34,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x90820028,0x00000000,0x14400041,0x24020001\n\t"
-    ".word 0xAD020000,0x8C820020,0x8CE30010,0x00000000\n\t"
-    ".word 0x00431023,0x0441003A,0xAC820020,0x00002821\n\t"
-    ".word 0x0800B954,0x00A03021,0x90820028,0x00000000\n\t"
-    ".word 0x10400003,0x24020008,0x0800B956,0xAD020000\n\t"
-    ".word 0x24020001,0x0800B956,0xAD020000,0x00002821\n\t"
-    ".word 0x0800B954,0x00A03021,0x8CE20000,0x00000000\n\t"
-    ".word 0x14400027,0x00000000,0x92020028,0x00000000\n\t"
-    ".word 0x14400023,0x24020001,0xA1020000,0x8E020014\n\t"
-    ".word 0x00000000,0xAD020004,0x8E02001C,0x0800B956\n\t"
-    ".word 0xAD020008,0x92020028,0x00000000,0x14400018\n\t"
-    ".word 0x00000000,0x8E030014,0x8CE40000,0x8E02001C\n\t"
-    ".word 0x8CE50004,0x0800B94E,0x00642023,0x92020028\n\t"
-    ".word 0x00000000,0x1440000E,0x00000000,0x8E030014\n\t"
-    ".word 0x8CE40000,0x8E02001C,0x8CE50008,0x00642023\n\t"
-    ".word 0x0C022B8C,0x00452823,0x02002021,0x30420FFF\n\t"
-    ".word 0x00022900,0x24060001,0x0C00B898,0x00000000\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct { char pad[20]; int x; int pad2; int z; int hp; int pad3; unsigned char dead; } Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[4]; int amount; } MsgData;
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+typedef struct { int x; int z; } Hit2;
+typedef struct { int x; int y; int z; } Hit3;
+int func_8008AE30(int, int);
+void func_8002E260(Obj *, int, int);
+
+static inline void handle_msg(Obj *obj, Msg *msg, MsgData *data, int *result) {
+    int v;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        if (obj->dead == 0) {
+            *result = 1;
+            v = obj->hp - data->amount;
+            obj->hp = v;
+            if (v < 0) {
+                func_8002E260(obj, 0, 0);
+            }
+        }
+        break;
+    case 4:
+        if (obj->dead != 0) {
+            *result = 8;
+        } else {
+            *result = 1;
+        }
+        break;
+    case 30:
+    case 75:
+        *result = 1;
+        break;
+    case 13:
+    case 23:
+        func_8002E260(obj, 0, 0);
+        break;
+    }
+}
+
+void func_8002E3B8(Obj *obj, Msg *msg, unsigned int event, void *data, void *out) {
+    Obj *self = obj;
+
+    switch (event) {
+    case 0:
+        handle_msg(self, msg, data, out);
+        break;
+    case 5:
+        if (*(int *)data == 0 && obj->dead == 0) {
+            ((Query *)out)->valid = 1;
+            ((Query *)out)->x = obj->x;
+            ((Query *)out)->z = obj->z;
+        }
+        break;
+    case 6:
+        if (obj->dead == 0) {
+            func_8002E260(obj, (func_8008AE30(obj->x - ((Hit2 *)data)->x, obj->z - ((Hit2 *)data)->z) & 0xFFF) << 4, 1);
+        }
+        break;
+    case 3:
+        if (obj->dead == 0) {
+            func_8002E260(obj, (func_8008AE30(obj->x - ((Hit3 *)data)->x, obj->z - ((Hit3 *)data)->z) & 0xFFF) << 4, 1);
+        }
+        break;
+    }
+}

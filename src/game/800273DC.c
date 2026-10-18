@@ -1,49 +1,80 @@
-asm(".text\n\t.globl func_800273DC\nfunc_800273DC:\n\t"
-    ".word 0x27BDFFD0,0x00803821,0xAFBF0028,0xAFB50024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x90E30017,0x24020004,0x10620005\n\t"
-    ".word 0x24020006,0x10620055,0x3C048888,0x08009DAD\n\t"
-    ".word 0x00000000,0x8CE20034,0x3C048888,0xAC40003C\n\t"
-    ".word 0x84E30038,0x34848889,0x00031B00,0x00640018\n\t"
-    ".word 0x24E60008,0x8CF10018,0x8CE50034,0x8CE2001C\n\t"
-    ".word 0x02202021,0x8E350000,0x8C540000,0x26B30018\n\t"
-    ".word 0x26920018,0x00005010,0x01431021,0x000210C3\n\t"
-    ".word 0x00031FC3,0x0C01A6AD,0x00438023,0x00404021\n\t"
-    ".word 0x1100008D,0x25060006,0x2687001C,0x8E220000\n\t"
-    ".word 0x26A5001E,0x8C490008,0x86430000,0x86620000\n\t"
-    ".word 0x00000000,0x00621823,0x96620000,0x02030018\n\t"
-    ".word 0x00005012,0x00002010,0x000A5302,0x00042500\n\t"
-    ".word 0x01445025,0x01401821,0x00431021,0xA5020000\n\t"
-    ".word 0x84E3FFFE,0x84A2FFFC,0x00000000,0x00621823\n\t"
-    ".word 0x94A2FFFC,0x02030018,0x00005012,0x00002010\n\t"
-    ".word 0x000A5302,0x00042500,0x01445025,0x01401821\n\t"
-    ".word 0x00431021,0xA4C2FFFC,0x84E30000,0x84A2FFFE\n\t"
-    ".word 0x00000000,0x00621823,0x94A2FFFE,0x02030018\n\t"
-    ".word 0x00005012,0x00002010,0x000A5302,0x00042500\n\t"
-    ".word 0x01445025,0x01401821,0x00431021,0xA4C2FFFE\n\t"
-    ".word 0x94A20000,0x2529FFFF,0x1920005B,0xA4C20000\n\t"
-    ".word 0x24A50008,0x26730008,0x24E70008,0x26520008\n\t"
-    ".word 0x24C60008,0x08009D25,0x25080008,0x8CE30034\n\t"
-    ".word 0x8CE20028,0x00000000,0xAC62003C,0x84E30038\n\t"
-    ".word 0x34848889,0x00031B00,0x00640018,0x24E60008\n\t"
-    ".word 0x8CF10020,0x8CE50034,0x8CE20024,0x02202021\n\t"
-    ".word 0x8E350000,0x8C540000,0x26B30018,0x26920018\n\t"
-    ".word 0x00005010,0x01431021,0x000210C3,0x00031FC3\n\t"
-    ".word 0x0C01A6AD,0x00438023,0x00404021,0x1100003A\n\t"
-    ".word 0x25060006,0x2687001C,0x8E220000,0x26A5001E\n\t"
-    ".word 0x8C490008,0x86430000,0x86620000,0x00000000\n\t"
-    ".word 0x00621823,0x96620000,0x02030018,0x00005012\n\t"
-    ".word 0x00002010,0x000A5302,0x00042500,0x01445025\n\t"
-    ".word 0x01401821,0x00431021,0xA5020000,0x84E3FFFE\n\t"
-    ".word 0x84A2FFFC,0x00000000,0x00621823,0x94A2FFFC\n\t"
-    ".word 0x02030018,0x00005012,0x00002010,0x000A5302\n\t"
-    ".word 0x00042500,0x01445025,0x01401821,0x00431021\n\t"
-    ".word 0xA4C2FFFC,0x84E30000,0x84A2FFFE,0x00000000\n\t"
-    ".word 0x00621823,0x94A2FFFE,0x02030018,0x00005012\n\t"
-    ".word 0x00002010,0x000A5302,0x00042500,0x01445025\n\t"
-    ".word 0x01401821,0x00431021,0xA4C2FFFE,0x94A20000\n\t"
-    ".word 0x2529FFFF,0x19200008,0xA4C20000,0x24A50008\n\t"
-    ".word 0x26730008,0x24E70008,0x26520008,0x24C60008\n\t"
-    ".word 0x08009D78,0x25080008,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short w;
+} Vert;
+
+typedef struct {
+    char pad0[8];
+    int count;
+    char pad0C[0x18 - 0xC];
+    Vert verts[1];
+} Mesh;
+
+typedef struct {
+    char pad0[0x3C];
+    void *model;
+} Entry;
+
+typedef struct {
+    char pad0[8];
+    int pos[3];
+    char pad14[3];
+    unsigned char state;
+    Mesh **models[5];
+    char pad2C[8];
+    Entry *entry;
+    short timer;
+} Crate;
+
+extern Vert *func_80069AB4(Mesh **, Entry *, int *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void mesh_lerp(Mesh **from, Mesh **to, int t, Entry *id, int *mode) {
+    Mesh *b = *to;
+    Mesh *a = *from;
+    Vert *va = a->verts;
+    Vert *vb = b->verts;
+    Vert *out = func_80069AB4(from, id, mode);
+    int n;
+
+    if (out == 0) {
+        return;
+    }
+    n = (*from)->count;
+    while (1) {
+        out->x = va->x + fixed_mul(t, vb->x - va->x);
+        out->y = va->y + fixed_mul(t, vb->y - va->y);
+        out->z = va->z + fixed_mul(t, vb->z - va->z);
+        out->w = va->w;
+        if (--n <= 0) {
+            break;
+        }
+        va++;
+        vb++;
+        out++;
+    }
+}
+
+void func_800273DC(Crate *c) {
+    switch (c->state) {
+    case 4:
+        c->entry->model = 0;
+        mesh_lerp(c->models[0], c->models[1], (c->timer << 12) / 15, c->entry, c->pos);
+        break;
+    case 6:
+        c->entry->model = c->models[4];
+        mesh_lerp(c->models[2], c->models[3], (c->timer << 12) / 15, c->entry, c->pos);
+        break;
+    }
+}

@@ -1,10 +1,33 @@
-asm(".text\n\t.globl func_80093508\nfunc_80093508:\n\t"
-    ".word 0x3c02800f,0x2445ef0c,0x90a20002,0x00000000\n\t"
-    ".word 0x10400005,0x00001821,0x8ca2000c,0x00000000\n\t"
-    ".word 0x00441026,0x2c430001,0x03e00008,0x00601021\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x3c10800f,0x2604efac\n\t"
-    ".word 0x00002821,0xafbf0014,0x0c022a92,0x24060040\n\t"
-    ".word 0x0c024601,0x00000000,0x10400005,0x24020001\n\t"
-    ".word 0xa202efac,0x3c048009,0x0c02465e,0x24843d6c\n\t"
-    ".word 0x0c024d64,0x24040004,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern void func_8008AA48(void *, int, int);
+extern int func_80091804(void);
+extern void func_80091978(void *);
+extern void func_80093590(int);
+extern void func_80093D6C(void);
+
+typedef struct {
+    char pad0[2];
+    unsigned char open;
+    char pad3[9];
+    int handle;
+} S80093508;
+extern S80093508 D_800EEF0C;
+extern unsigned char D_800EEFAC[];
+
+int func_80093508(int handle) {
+    S80093508 *s = &D_800EEF0C;
+    int r = 0;
+
+    if (s->open != 0) {
+        r = s->handle == handle;
+    }
+    return r;
+}
+
+void func_80093538(void) {
+    func_8008AA48(D_800EEFAC, 0, 64);
+    if (func_80091804() != 0) {
+        D_800EEFAC[0] = 1;
+        func_80091978(func_80093D6C);
+    }
+    func_80093590(4);
+}

@@ -1,26 +1,38 @@
-asm(".text\n\t.globl func_800371FC\nfunc_800371FC:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0xAFB40020,0x00C0A021,0xAFB3001C\n\t"
-    ".word 0x00E09821,0x24040032,0x24050030,0xAFBF0024\n\t"
-    ".word 0x0C008DF4,0xAFB10014,0x00408821,0x12200049\n\t"
-    ".word 0x00000000,0x96050002,0x0C0098C0,0x02402021\n\t"
-    ".word 0x0C021B21,0xAE220018,0x3C044014,0x34840141\n\t"
-    ".word 0x00440019,0x3C050025,0x34A58000,0xAE20001C\n\t"
-    ".word 0xA6330014,0x00002010,0x00441823,0x00031842\n\t"
-    ".word 0x00832021,0x00042242,0x00041840,0x00641821\n\t"
-    ".word 0x00031880,0x00641821,0x00032180,0x00832023\n\t"
-    ".word 0x00441023,0x24420E66,0x00021880,0x00621821\n\t"
-    ".word 0x00031B40,0x00031823,0x2402001E,0xAE230024\n\t"
-    ".word 0x8E880000,0x8E890004,0x8E8A0008,0xAE280008\n\t"
-    ".word 0xAE29000C,0xAE2A0010,0xAE25000C,0xA622002C\n\t"
-    ".word 0x0C021B21,0xAE200020,0x00021842,0x3C10B40B\n\t"
-    ".word 0x361040B5,0x00700019,0x00001810,0x00032182\n\t"
-    ".word 0x00041840,0x00641821,0x000318C0,0x00641823\n\t"
-    ".word 0x00031880,0x00641823,0x00031840,0x00431023\n\t"
-    ".word 0x244200B6,0x0C021B21,0xA6220028,0x00021842\n\t"
-    ".word 0x00700019,0x00001810,0x00032182,0x00041840\n\t"
-    ".word 0x00641821,0x000318C0,0x00641823,0x00031880\n\t"
-    ".word 0x00641823,0x00031840,0x00431023,0x244200B6\n\t"
-    ".word 0xA622002A,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { unsigned short f0; unsigned short res; } Spec;
+typedef struct {
+    int f0;
+    int f4;
+    Vector pos;
+    short id;
+    short f16;
+    int res;
+    int f1C;
+    int f20;
+    int vy;
+    short f28;
+    short f2A;
+    short f2C;
+} Debris;
+extern Debris *func_800237D0(int, int);
+extern int func_80026300(int, int);
+extern unsigned int func_80086C84(void);
+
+void func_800371FC(Spec *spec, int owner, Vector *pos, short id)
+{
+    Debris *d;
+
+    d = func_800237D0(50, 48);
+    if (d != 0) {
+        d->res = func_80026300(owner, spec->res);
+        d->vy = -((func_80086C84() % 819 + 3686) * 40960);
+        d->f1C = 0;
+        d->id = id;
+        d->pos = *pos;
+        d->pos.y = 0x258000;
+        d->f2C = 30;
+        d->f20 = 0;
+        d->f28 = func_80086C84() % 182 + 182;
+        d->f2A = func_80086C84() % 182 + 182;
+    }
+}

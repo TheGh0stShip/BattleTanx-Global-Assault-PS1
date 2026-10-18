@@ -1,17 +1,86 @@
-asm(".text\n\t.globl func_80054DF8\nfunc_80054DF8:\n\t"
-    ".word 0x27bdffa0,0xafb10054,0x00a08821,0xafbf0058\n\t"
-    ".word 0xafb00050,0x8c820218,0x00000000,0x30420002\n\t"
-    ".word 0x1040002d,0x02201821,0x3c04800e,0x306300ff\n\t"
-    ".word 0x00031080,0x00431021,0x8c844658,0x00021080\n\t"
-    ".word 0x00828021,0x240200ff,0x10620027,0x3c02800e\n\t"
-    ".word 0x8c4246bc,0x00000000,0x14400023,0x00000000\n\t"
-    ".word 0x0c014ced,0x00002021,0x304200ff,0xa6020012\n\t"
-    ".word 0x00402021,0x24020064,0x1082001b,0x3c03800e\n\t"
-    ".word 0x2463465c,0x00041080,0x00431021,0xa0510003\n\t"
-    ".word 0x86030012,0x24020093,0xafa20014,0x24020001\n\t"
-    ".word 0x00621004,0xafa20010,0x3c02800e,0x94424654\n\t"
-    ".word 0x8e030000,0xa7a20018,0xa7a2001a,0xafa3002c\n\t"
-    ".word 0x96020010,0x27a40010,0x0c0241e5,0xa7a20024\n\t"
-    ".word 0x080153b8,0x00000000,0x8c850008,0x8c860010\n\t"
-    ".word 0x0c014de4,0x306400ff,0x8fbf0058,0x8fb10054\n\t"
-    ".word 0x8fb00050,0x03e00008,0x27bd0060\n\t");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int func_800533B4(int);
+extern void func_80090794(SpuVoiceAttr *);
+extern void func_80053790(unsigned char, int, int);
+typedef struct {
+    char pad0[8];
+    int x8;
+    char padC[4];
+    int x10;
+    char pad14[0x218 - 0x14];
+    int status;
+} Emitter;
+
+static inline int play_sound(unsigned char id) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+
+    if (id == 255) {
+        return 100;
+    }
+    if (D_800E46BC != 0) {
+        return 100;
+    }
+    voice = sound->voice = (unsigned char)func_800533B4(0);
+    if (voice == 100) {
+        return 100;
+    }
+    D_800E465C[voice].sound = id;
+    attr.voice = 1 << sound->voice;
+    attr.mask = 147;
+    attr.addr = sound->addr;
+    attr.volume.left = D_800E4654;
+    attr.volume.right = D_800E4654;
+    attr.pitch = sound->pitch;
+    func_80090794(&attr);
+    return (unsigned char)sound->voice;
+}
+
+void func_80054DF8(Emitter *e, unsigned char id) {
+    if (e->status & 2) {
+        play_sound(id);
+    } else {
+        func_80053790(id, e->x8, e->x10);
+    }
+}

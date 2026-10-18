@@ -1,48 +1,115 @@
-asm(".text\n\t.globl func_8005DCD0\nfunc_8005DCD0:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0x00003021\n\t"
-    ".word 0xAFB00010,0x02208021,0x3C02800A,0x8043606C\n\t"
-    ".word 0x24020001,0x1462001C,0xAFBF0018,0x3C02800B\n\t"
-    ".word 0x2443A2A8,0x16030004,0x3C02800B,0x3C02800B\n\t"
-    ".word 0x08017777,0x2450A4E8,0x2444A348,0x16040004\n\t"
-    ".word 0x3C02800B,0x24060001,0x08017776,0x00608021\n\t"
-    ".word 0x2445A3E8,0x12050016,0x3C02800B,0x2443A488\n\t"
-    ".word 0x16030004,0x3C02800B,0x24060003,0x08017777\n\t"
-    ".word 0x00A08021,0x2442A4E8,0x16020023,0x3C02800B\n\t"
-    ".word 0x08017776,0x00608021,0x3C02800B,0x2444AA18\n\t"
-    ".word 0x16040004,0x3C02800B,0x3C02800B,0x08017776\n\t"
-    ".word 0x2450AC58,0x2443AB58,0x16030004,0x3C02800B\n\t"
-    ".word 0x24060002,0x08017776,0x00808021,0x2442AC58\n\t"
-    ".word 0x1202FFE1,0x3C02800B,0x2443AAB8,0x16030005\n\t"
-    ".word 0x3C02800B,0x24060001,0x3C02800B,0x08017776\n\t"
-    ".word 0x2450ACB8,0x2442ABF8,0x16020003,0x00408021\n\t"
-    ".word 0x0801774A,0x24060003,0x3C02800B,0x2442A4E8\n\t"
-    ".word 0x1222001C,0x3C02800B,0x2442AC58,0x12220019\n\t"
-    ".word 0x3C02800B,0x2442ACB8,0x12220016,0x24050010\n\t"
-    ".word 0x3C02800A,0x24426084,0x00061880,0x8E240004\n\t"
-    ".word 0x00621821,0xA0850021,0x8C620000,0x00000000\n\t"
-    ".word 0x14400007,0x24020004,0x24020001,0xA0820040\n\t"
-    ".word 0xA0820060,0xA0820041,0x08017798,0xA0820061\n\t"
-    ".word 0xA0820040,0xA0820060,0xA0850041,0x08017798\n\t"
-    ".word 0xA0850061,0x8E230004,0x24020010,0xA0620021\n\t"
-    ".word 0x0C0169F8,0x02202021,0x3C02800B,0x2442A2A8\n\t"
-    ".word 0x12220007,0x3C02800B,0x2442AA18,0x12220004\n\t"
-    ".word 0x3C02800B,0x2442AAB8,0x16220008,0x24020010\n\t"
-    ".word 0x02002021,0x8C830004,0x24020090,0x0C016A0D\n\t"
-    ".word 0xA0620021,0x080177EA,0x00000000,0x8E040004\n\t"
-    ".word 0x00000000,0x90830061,0x00000000,0x14620003\n\t"
-    ".word 0x24020090,0x080177B4,0xA0820061,0xA0820021\n\t"
-    ".word 0x0C016A0D,0x02002021,0x3C02800B,0x2442A2A8\n\t"
-    ".word 0x12020004,0x3C02800B,0x2442AA18,0x16020003\n\t"
-    ".word 0x3C02800B,0x080177D6,0x00001021,0x2442A348\n\t"
-    ".word 0x12020004,0x3C02800B,0x2442AAB8,0x16020003\n\t"
-    ".word 0x3C02800B,0x080177D6,0x24020001,0x2442A3E8\n\t"
-    ".word 0x12020004,0x3C02800B,0x2442AB58,0x16020003\n\t"
-    ".word 0x3C02800B,0x080177D6,0x24020002,0x2442A488\n\t"
-    ".word 0x12020004,0x3C02800B,0x2442ABF8,0x16020016\n\t"
-    ".word 0x00000000,0x24020003,0x02002021,0x3050FFFF\n\t"
-    ".word 0x0C017381,0x02002821,0x3C06800A,0x24C660C4\n\t"
-    ".word 0x00102880,0x3C04800B,0x3C02800A,0x244260DC\n\t"
-    ".word 0x02028021,0x82030000,0x24849AFC,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00441021,0x8C420000\n\t"
-    ".word 0x00A62821,0xACA20000,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Choice {
+    int key;
+    int name;
+    int icon;
+} Choice;
+
+typedef struct Menu {
+    int pad;
+    unsigned char *base;
+} Menu;
+
+extern Menu D_800AA2A8;
+extern Menu D_800AA348;
+extern Menu D_800AA3E8;
+extern Menu D_800AA488;
+extern Menu D_800AA4E8;
+extern Menu D_800AAA18;
+extern Menu D_800AAAB8;
+extern Menu D_800AAB58;
+extern Menu D_800AABF8;
+extern Menu D_800AAC58;
+extern Menu D_800AACB8;
+extern signed char D_800A606C;
+extern int D_800A6084[];
+extern signed char D_800A60DC[];
+extern int D_800A60C4[];
+extern Choice D_800A9AFC[];
+extern void func_8005A7E0(Menu *);
+extern void func_8005A834(Menu *);
+extern void func_8005CE04(Menu *, unsigned short);
+
+void func_8005DCD0(Menu *menu) {
+    Menu *next;
+    int player;
+    unsigned short slot;
+    unsigned char *base;
+
+    player = 0;
+    next = menu;
+    if (D_800A606C == 1) {
+        if (menu == &D_800AA2A8) {
+            next = &D_800AA4E8;
+        } else if (menu == &D_800AA348) {
+            player = 1;
+            next = &D_800AA2A8;
+        } else if (menu == &D_800AA3E8) {
+            player = 2;
+            next = &D_800AA348;
+        } else if (menu == &D_800AA488) {
+            player = 3;
+            next = &D_800AA3E8;
+        } else if (menu == &D_800AA4E8) {
+            next = &D_800AA488;
+        }
+    } else {
+        if (menu == &D_800AAA18) {
+            next = &D_800AAC58;
+        } else if (menu == &D_800AAB58) {
+            player = 2;
+            next = &D_800AAA18;
+        } else if (menu == &D_800AAC58) {
+            next = &D_800AAB58;
+        } else if (menu == &D_800AAAB8) {
+            player = 1;
+            next = &D_800AACB8;
+        } else if (menu == &D_800AABF8) {
+            player = 3;
+            next = &D_800AAAB8;
+        } else {
+            next = &D_800AABF8;
+        }
+    }
+    if (menu != &D_800AA4E8 && menu != &D_800AAC58 && menu != &D_800AACB8) {
+        base = menu->base;
+        base[0x21] = 16;
+        if (D_800A6084[player] == 0) {
+            base[0x40] = 1;
+            base[0x60] = 1;
+            base[0x41] = 1;
+            base[0x61] = 1;
+        } else {
+            base[0x40] = 4;
+            base[0x60] = 4;
+            base[0x41] = 16;
+            base[0x61] = 16;
+        }
+    } else {
+        menu->base[0x21] = 16;
+    }
+    func_8005A7E0(menu);
+    if (menu == &D_800AA2A8 || menu == &D_800AAA18 || menu == &D_800AAAB8) {
+        next->base[0x21] = 0x90;
+        func_8005A834(next);
+        return;
+    }
+    if (next->base[0x61] == 16) {
+        next->base[0x61] = 0x90;
+    } else {
+        next->base[0x21] = 0x90;
+    }
+    func_8005A834(next);
+    if (next == &D_800AA2A8 || next == &D_800AAA18) {
+        slot = 0;
+    } else if (next == &D_800AA348 || next == &D_800AAAB8) {
+        slot = 1;
+    } else if (next == &D_800AA3E8 || next == &D_800AAB58) {
+        slot = 2;
+    } else if (next == &D_800AA488 || next == &D_800AABF8) {
+        slot = 3;
+    } else {
+        return;
+    }
+    func_8005CE04(next, slot);
+    D_800A60C4[slot] = D_800A9AFC[D_800A60DC[slot]].key;
+}

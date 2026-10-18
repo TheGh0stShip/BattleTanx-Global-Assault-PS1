@@ -1,28 +1,94 @@
-asm(".text\n\t.globl func_8004F388\nfunc_8004F388:\n\t"
-    ".word 0x27BDFFA8,0xAFB20048,0x00809021,0xAFBF0050\n\t"
-    ".word 0xAFB3004C,0xAFB10044,0xAFB00040,0x8E420218\n\t"
-    ".word 0x8E510094,0x34420100,0x16200005,0xAE420218\n\t"
-    ".word 0x0C0138AB,0x24050004,0x08013D46,0x00000000\n\t"
-    ".word 0x8E220000,0x00000000,0xAFA20010,0x8E220004\n\t"
-    ".word 0x00000000,0xAFA20018,0x24020001,0xAE420184\n\t"
-    ".word 0x8E220008,0x27B00020,0xAFA20020,0x8E22000C\n\t"
-    ".word 0x02002021,0xAFA20028,0x8E250010,0x0C01258E\n\t"
-    ".word 0x26530184,0x8FA20010,0x26440188,0xAE620004\n\t"
-    ".word 0x8FA20018,0x02002821,0x0C012610,0xAE62000C\n\t"
-    ".word 0x8E500094,0x00000000,0x12000019,0x00000000\n\t"
-    ".word 0x8E020008,0x00000000,0xAFA20030,0x8E02000C\n\t"
-    ".word 0x0C021B21,0xAFA20038,0x30420FFF,0x8E070010\n\t"
-    ".word 0x00000000,0x00470018,0x00002812,0x00003010\n\t"
-    ".word 0x00052B02,0x00063500,0x00A62825,0x0C01258E\n\t"
-    ".word 0x27A40030,0x8E020000,0x26440194,0xAE420194\n\t"
-    ".word 0x8E020004,0x27A50030,0x0C012610,0xAE42019C\n\t"
-    ".word 0x0C01427D,0x02402021,0x3C02800D,0x24030333\n\t"
-    ".word 0x8C422FE0,0x24060800,0xAE630020,0x2442000A\n\t"
-    ".word 0xAE620024,0x8E270010,0x00000000,0x00C70018\n\t"
-    ".word 0x00004012,0x00001010,0x00084302,0x00021500\n\t"
-    ".word 0x01024025,0x24061800,0xAE680028,0x8E310010\n\t"
-    ".word 0x00000000,0x00D10018,0x00004012,0x00001010\n\t"
-    ".word 0x00084302,0x00021500,0x01024025,0x02402021\n\t"
-    ".word 0x0C01382F,0xAE68002C,0x0C013601,0x02402021\n\t"
-    ".word 0x8FBF0050,0x8FB3004C,0x8FB20048,0x8FB10044\n\t"
-    ".word 0x8FB00040,0x03E00008,0x27BD0058\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int z;
+    int dir_x;
+    int dir_z;
+    int radius;
+} Area;
+typedef struct {
+    int state;
+    Vector goal;
+    Vector alt;
+    char pad1C[0x20 - 0x1C];
+    int speed;
+    int time;
+    int near;
+    int far;
+} Patrol;
+typedef struct {
+    char pad0[0x94];
+    Area *area;
+    char pad98[0x184 - 0x98];
+    Patrol patrol;
+    char pad1B4[0x218 - 0x1B4];
+    int status;
+} Tank;
+extern int D_800D2FE0;
+extern void func_8004E2AC(Tank *, int);
+extern void func_80049638(Vector *, int);
+extern void func_80049840(Vector *, Vector *);
+extern unsigned int func_80086C84(void);
+extern void func_800509F4(Tank *);
+extern void func_8004E0BC(Tank *);
+extern void func_8004D804(Tank *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void patrol_pick_alt(Tank *tank) {
+    Area *area = tank->area;
+    Vector offset;
+
+    if (area != 0) {
+        offset.x = area->dir_x;
+        offset.z = area->dir_z;
+        func_80049638(&offset, fixed_mul(func_80086C84() & 0xFFF, area->radius));
+        tank->patrol.alt.x = area->x;
+        tank->patrol.alt.z = area->z;
+        func_80049840(&tank->patrol.alt, &offset);
+    }
+}
+
+void func_8004F388(Tank *tank) {
+    Area *area;
+    Patrol *patrol;
+    Vector center;
+    Vector dir;
+
+    tank->status |= 0x100;
+    area = tank->area;
+    if (area == 0) {
+        func_8004E2AC(tank, 4);
+        return;
+    }
+    center.x = area->x;
+    center.z = area->z;
+    tank->patrol.state = 1;
+    dir.x = area->dir_x;
+    dir.z = area->dir_z;
+    patrol = &tank->patrol;
+    func_80049638(&dir, area->radius);
+    patrol->goal.x = center.x;
+    patrol->goal.z = center.z;
+    func_80049840(&tank->patrol.goal, &dir);
+    patrol_pick_alt(tank);
+    func_800509F4(tank);
+    patrol->speed = 819;
+    patrol->time = D_800D2FE0 + 10;
+    patrol->near = fixed_mul(2048, area->radius);
+    patrol->far = fixed_mul(6144, area->radius);
+    func_8004E0BC(tank);
+    func_8004D804(tank);
+}

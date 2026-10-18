@@ -1,22 +1,61 @@
-asm(".text\n\t.globl func_8009EE28\nfunc_8009EE28:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x92030046,0x24020003,0x1062001C,0x28620004\n\t"
-    ".word 0x10400005,0x24020002,0x10620008,0x24020001\n\t"
-    ".word 0x08027BD9,0x00000000,0x24020004,0x1062001C\n\t"
-    ".word 0x24020001,0x08027BD9,0x00000000,0x8E02003C\n\t"
-    ".word 0x8E03003C,0x90420003,0x00000000,0xA20200E3\n\t"
-    ".word 0x90620004,0x8E03003C,0xA60000E6,0xA20200E4\n\t"
-    ".word 0x90620005,0x8E03003C,0xA20200E9,0x90620006\n\t"
-    ".word 0xAE0000EC,0x08027BD8,0xA20200EA,0x8E02003C\n\t"
-    ".word 0x00000000,0x90430004,0x90420005,0xA2000047\n\t"
-    ".word 0x00031A00,0x00431021,0x08027BD8,0xA60200E6\n\t"
-    ".word 0x8E0400EC,0x92020047,0x8E03003C,0x24420001\n\t"
-    ".word 0x90630004,0x24840008,0xA2020047,0x24630003\n\t"
-    ".word 0x306301FC,0x00832021,0x920300EA,0x304200FF\n\t"
-    ".word 0x0043102B,0x10400003,0xAE0400EC,0x08027BD9\n\t"
-    ".word 0x00001021,0x0C027BDD,0x02002021,0x28420081\n\t"
-    ".word 0x14400006,0x02002021,0x240200FE,0xA2020046\n\t"
-    ".word 0x24020002,0x08027BC5,0xA2020049,0x240200FF\n\t"
-    ".word 0x26050063,0x0C027BEB,0xA2020046,0x24020002\n\t"
-    ".word 0x08027BC5,0xA2020046,0x24020001,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct PadPort {
+    char pad00[0x3C];
+    unsigned char *volatile rx;
+    char pad40[6];
+    unsigned char state;
+    unsigned char block;
+    char pad48;
+    unsigned char error;
+    char pad4A[0x19];
+    unsigned char data[0x80];
+    unsigned char unkE3;
+    unsigned char unkE4;
+    char padE5;
+    unsigned short length;
+    char padE8;
+    unsigned char unkE9;
+    unsigned char blocks;
+    char padEB;
+    int offset;
+} PadPort;
+
+extern int func_8009EF74(PadPort *);
+extern void func_8009EFAC(PadPort *, unsigned char *);
+
+int func_8009EE28(PadPort *p) {
+    unsigned char *rx;
+
+    switch (p->state) {
+    case 2:
+        p->unkE3 = p->rx[3];
+        p->unkE4 = p->rx[4];
+        p->length = 0;
+        p->unkE9 = p->rx[5];
+        p->blocks = p->rx[6];
+        p->offset = 0;
+        break;
+    case 3:
+        rx = p->rx;
+        p->length = (rx[4] << 8) + rx[5];
+        p->block = 0;
+        break;
+    case 4:
+        p->offset += ((p->rx[4] + 3) & 0x1FC) + 8;
+        if (++p->block < p->blocks) {
+        done:
+            return 0;
+        }
+        if (func_8009EF74(p) > 128) {
+            p->state = 254;
+            p->error = 2;
+            goto done;
+        }
+        p->state = 255;
+        func_8009EFAC(p, p->data);
+        p->state = 2;
+        goto done;
+    default:
+        return 1;
+    }
+    return 1;
+}

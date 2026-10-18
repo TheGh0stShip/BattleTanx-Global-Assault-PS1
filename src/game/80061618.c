@@ -1,39 +1,92 @@
-asm(".text\n\t.globl func_80061618\nfunc_80061618:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x0C0218B5,0x00002021,0x10400004,0x3C02800F\n\t"
-    ".word 0x8E030004,0x08018594,0x2442AD64,0x3C02800F\n\t"
-    ".word 0x8E030004,0x2442ADD0,0xAC6200C8,0x0C0218B5\n\t"
-    ".word 0x24040001,0x10400004,0x3C02800F,0x8E030004\n\t"
-    ".word 0x0801859F,0x2442AD64,0x3C02800F,0x8E030004\n\t"
-    ".word 0x2442ADD0,0xAC620108,0x0C02188F,0x00002021\n\t"
-    ".word 0x10400017,0x00000000,0x8E030004,0x00000000\n\t"
-    ".word 0x906200A1,0x00000000,0x304200FE,0xA06200A1\n\t"
-    ".word 0x8E030004,0x00000000,0x906200C1,0x00000000\n\t"
-    ".word 0x304200FE,0xA06200C1,0x8E030004,0x00000000\n\t"
-    ".word 0x906200A1,0x00000000,0x34420010,0xA06200A1\n\t"
-    ".word 0x8E030004,0x24020003,0x080185C9,0xA06200C1\n\t"
-    ".word 0x8E050004,0x00000000,0x90A200A1,0x00000000\n\t"
-    ".word 0x30420080,0x10400003,0x24A400A0,0x0C0168BC\n\t"
-    ".word 0x24A50020,0x8E020004,0x24030001,0xA04300A1\n\t"
-    ".word 0x8E020004,0x00000000,0xA04300C1,0x0C02188F\n\t"
-    ".word 0x24040001,0x10400017,0x00000000,0x8E030004\n\t"
-    ".word 0x00000000,0x906200E1,0x00000000,0x304200FE\n\t"
-    ".word 0xA06200E1,0x8E030004,0x00000000,0x90620101\n\t"
-    ".word 0x00000000,0x304200FE,0xA0620101,0x8E030004\n\t"
-    ".word 0x00000000,0x906200E1,0x00000000,0x34420010\n\t"
-    ".word 0xA06200E1,0x8E030004,0x24020003,0x080185F2\n\t"
-    ".word 0xA0620101,0x8E050004,0x00000000,0x90A200E1\n\t"
-    ".word 0x00000000,0x30420080,0x10400003,0x24A400E0\n\t"
-    ".word 0x0C0168BC,0x24A50020,0x8E020004,0x24030001\n\t"
-    ".word 0xA04300E1,0x8E020004,0x00000000,0xA0430101\n\t"
-    ".word 0x3C04800F,0x96030014,0x2484E028,0x000310C0\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x00021080\n\t"
-    ".word 0x00441021,0x94420006,0x00000000,0x30420008\n\t"
-    ".word 0x10400017,0x3C02800C,0x8C4360D0,0x24020007\n\t"
-    ".word 0x14620013,0x3C03800C,0x24020005,0xAC6260DC\n\t"
-    ".word 0x3C02800B,0x0C015328,0xA040BA5A,0x0C01ABF0\n\t"
-    ".word 0x24040001,0x3C04800B,0x2484BA38,0x3C02800B\n\t"
-    ".word 0xA440BA54,0x2442BA54,0xA4400002,0x3C02800B\n\t"
-    ".word 0x0C016B14,0xA440BA58,0x08018617,0x24020003\n\t"
-    ".word 0x00001021,0x8FBF0014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct Page {
+    char pad0[0xA1];
+    unsigned char flag0;
+    char pad1[0xC1 - 0xA2];
+    unsigned char flag1;
+    char pad2[0xC8 - 0xC2];
+    int *style0;
+    char pad3[0xE1 - 0xCC];
+    unsigned char flag2;
+    char pad4[0x101 - 0xE2];
+    unsigned char flag3;
+    char pad5[0x108 - 0x102];
+    int *style1;
+} Page;
+
+typedef struct Menu {
+    int pad;
+    Page *page;
+    int pad2[3];
+    unsigned short index;
+} Menu;
+
+typedef struct Controller {
+    char pad[6];
+    unsigned short flags;
+    char pad2[0x84];
+} Controller;
+
+extern int D_800EAD64;
+extern int D_800EADD0;
+extern Controller D_800EE028[];
+extern int D_800C60D0;
+extern int D_800C60DC;
+extern unsigned char D_800ABA5A;
+extern short D_800ABA54[];
+extern short D_800ABA58;
+extern int D_800ABA38;
+extern int func_800862D4(int);
+extern int func_8008623C(int);
+extern void func_8005A2F0(void *, void *);
+extern void func_80054CA0(void);
+extern void func_8006AFC0(int);
+extern void func_8005AC50(void *);
+
+int func_80061618(Menu *menu) {
+    if (func_800862D4(0)) {
+        menu->page->style0 = &D_800EAD64;
+    } else {
+        menu->page->style0 = &D_800EADD0;
+    }
+    if (func_800862D4(1)) {
+        menu->page->style1 = &D_800EAD64;
+    } else {
+        menu->page->style1 = &D_800EADD0;
+    }
+    if (func_8008623C(0)) {
+        menu->page->flag0 &= 0xFE;
+        menu->page->flag1 &= 0xFE;
+        menu->page->flag0 |= 0x10;
+        menu->page->flag1 = 3;
+    } else {
+        if (menu->page->flag0 & 0x80) {
+            func_8005A2F0((char *)menu->page + 0xA0, (char *)menu->page + 0x20);
+        }
+        menu->page->flag0 = 1;
+        menu->page->flag1 = 1;
+    }
+    if (func_8008623C(1)) {
+        menu->page->flag2 &= 0xFE;
+        menu->page->flag3 &= 0xFE;
+        menu->page->flag2 |= 0x10;
+        menu->page->flag3 = 3;
+    } else {
+        if (menu->page->flag2 & 0x80) {
+            func_8005A2F0((char *)menu->page + 0xE0, (char *)menu->page + 0x20);
+        }
+        menu->page->flag2 = 1;
+        menu->page->flag3 = 1;
+    }
+    if ((D_800EE028[menu->index].flags & 8) && D_800C60D0 == 7) {
+        D_800C60DC = 5;
+        D_800ABA5A = 0;
+        func_80054CA0();
+        func_8006AFC0(1);
+        D_800ABA54[0] = 0;
+        D_800ABA54[1] = 0;
+        D_800ABA58 = 0;
+        func_8005AC50(&D_800ABA38);
+        return 3;
+    }
+    return 0;
+}

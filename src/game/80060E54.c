@@ -1,19 +1,57 @@
-asm(".text\n\t.globl func_80060E54\nfunc_80060E54:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x0c0168a8,0x00000000\n\t"
-    ".word 0x00402021,0x8c820008,0x00000000,0x8c420000\n\t"
-    ".word 0x00000000,0x8c420000,0x00000000,0x90420000\n\t"
-    ".word 0x00000000,0x2443ffbd,0x2c620018,0x1040002c\n\t"
-    ".word 0x3c02800c,0x2442fd70,0x00031880,0x00621821\n\t"
-    ".word 0x8c620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8c820008,0x00000000,0x8c420000,0x00000000\n\t"
-    ".word 0x8c420000,0x00000000,0x90430001,0x2402004c\n\t"
-    ".word 0x10620005,0x2402004f,0x10620005,0x3c02800b\n\t"
-    ".word 0x080183d3,0x24458f44,0x080183d3,0x2485fec0\n\t"
-    ".word 0x080183d3,0x00002821,0x8c820008,0x00000000\n\t"
-    ".word 0x8c420000,0x00000000,0x8c420000,0x00000000\n\t"
-    ".word 0x90430001,0x24020052,0x14620003,0x2402004e\n\t"
-    ".word 0x080183d3,0x2485fee0,0x14620007,0x2485ff40\n\t"
-    ".word 0x080183d3,0x2485ff20,0x080183d3,0x2485fea0\n\t"
-    ".word 0x3c02800b,0x24458f44,0x10a00003,0x00000000\n\t"
-    ".word 0x0c0168bc,0x00000000,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct Element {
+    int pad[2];
+    unsigned char ***name;
+} Element;
+
+extern char D_800A8F44[];
+extern Element *func_8005A2A0(void *);
+extern void func_8005A2F0(Element *, void *);
+
+void func_80060E54(void *menu) {
+    Element *element;
+    char *target;
+
+    element = func_8005A2A0(menu);
+    switch (***element->name) {
+    case 'C':
+        switch ((**element->name)[1]) {
+        case 'L':
+            target = (char *)element - 0x140;
+            break;
+        case 'O':
+            target = 0;
+            break;
+        default:
+            target = D_800A8F44;
+            break;
+        }
+        break;
+    case 'E':
+        if ((**element->name)[1] == 'R') {
+            target = (char *)element - 0x120;
+        } else if ((**element->name)[1] == 'N') {
+            target = (char *)element - 0xE0;
+        } else {
+            target = (char *)element - 0xC0;
+        }
+        break;
+    case 'P':
+    case 'Q':
+    case 'R':
+    case 'S':
+    case 'T':
+    case 'V':
+    case 'W':
+    case 'X':
+    case 'Y':
+    case 'Z':
+        target = (char *)element - 0x160;
+        break;
+    default:
+        target = D_800A8F44;
+        break;
+    }
+    if (target != 0) {
+        func_8005A2F0(element, target);
+    }
+}

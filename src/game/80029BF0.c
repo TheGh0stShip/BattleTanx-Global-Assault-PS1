@@ -1,50 +1,102 @@
-asm(".text\n\t.globl func_80029BF0\nfunc_80029BF0:\n\t"
-    ".word 0x27BDFFB0,0xAFB20038,0x00809021,0xAFB00030\n\t"
-    ".word 0x00A08021,0xAFB3003C,0x00C09821,0xAFB50044\n\t"
-    ".word 0x00E0A821,0x3C02800A,0xAFB40040,0x8FB40060\n\t"
-    ".word 0x8C436070,0x24020007,0xAFBF0048,0x14620009\n\t"
-    ".word 0xAFB10034,0x24020009,0x12020005,0x24020006\n\t"
-    ".word 0x12020003,0x2402000F,0x16020003,0x24020008\n\t"
-    ".word 0x2410000B,0x24020008,0x16020002,0x24040009\n\t"
-    ".word 0x0000A021,0x0C008DF4,0x24050030,0x00408821\n\t"
-    ".word 0x12200097,0x2402FFFF,0x3C02800A,0x8C424750\n\t"
-    ".word 0x00000000,0x1040000F,0x24020005,0x1202000E\n\t"
-    ".word 0x24020015,0x1660000C,0x00102040,0x3C02800A\n\t"
-    ".word 0x244246F4,0x00822021,0x3C05800A,0x94820000\n\t"
-    ".word 0x8CA3474C,0x24420001,0x24630001,0xA4820000\n\t"
-    ".word 0xACA3474C,0x24020015,0x1602002D,0x24020001\n\t"
-    ".word 0x0C021B21,0xA2220029,0x3C03800A,0x8C63474C\n\t"
-    ".word 0x00000000,0x0043001B,0x14600002,0x00000000\n\t"
-    ".word 0x0007000D,0x00002810,0x3C03800A,0x846246F4\n\t"
-    ".word 0x00000000,0x00A2102A,0x14400009,0x00008021\n\t"
-    ".word 0x246446F4,0x84830000,0x24840002,0x84820000\n\t"
-    ".word 0x00A32823,0x00A2102A,0x1040FFFA,0x26100001\n\t"
-    ".word 0x24020005,0x16020008,0x2E020016,0x3C02800A\n\t"
-    ".word 0x8C43474C,0x3C04800A,0xA48046FE,0x2463FFFF\n\t"
-    ".word 0xAC43474C,0x2E020016,0x14400002,0x24020015\n\t"
-    ".word 0x24100013,0x16020002,0x00000000,0x2410000B\n\t"
-    ".word 0x16000004,0x00000000,0x0800A761,0x24100013\n\t"
-    ".word 0xA2200029,0xAE300018,0xA220002B,0x8E420000\n\t"
-    ".word 0x00000000,0xAE220008,0x8E420004,0x8E230008\n\t"
-    ".word 0xAE22000C,0x8E420008,0x04600003,0xAE220010\n\t"
-    ".word 0x0800A771,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E230010,0x00000000\n\t"
-    ".word 0x04600003,0x00022C03,0x0800A77B,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E23000C,0x00000000,0x04600003,0x00023403\n\t"
-    ".word 0x0800A785,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x00021403,0x2442FFDD\n\t"
-    ".word 0x00021400,0x8E23000C,0x00000000,0x04600003\n\t"
-    ".word 0x00024403,0x0800A792,0x00033B03,0x00031023\n\t"
-    ".word 0x00021303,0x00023823,0x02202021,0x2403FFDD\n\t"
-    ".word 0x24020023,0xAFA20014,0xAFA2001C,0x00071380\n\t"
-    ".word 0x00021403,0x24420023,0x00021400,0x00021403\n\t"
-    ".word 0xAFA20024,0x24020010,0x00003821,0xAFA30010\n\t"
-    ".word 0xAFA30018,0xAFA80020,0xAFA00028,0x0C0058BC\n\t"
-    ".word 0xAFA2002C,0x1A600007,0xA6220016,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x00000000,0x00531021,0x0800A7AE\n\t"
-    ".word 0xAE220020,0xAE200020,0x00001021,0x240300FF\n\t"
-    ".word 0xAE20001C,0xAE350024,0xA2230028,0xAE34002C\n\t"
-    ".word 0x8FBF0048,0x8FB50044,0x8FB40040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0050\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    unsigned short angle;
+    unsigned short cell;
+    int kind;
+    int respawn;
+    int expire;
+    int team;
+    unsigned char b28;
+    unsigned char random;
+    unsigned char b2A;
+    unsigned char taken;
+    int mode;
+} Pickup;
+
+extern int D_800D2FE0;
+extern int D_800A6070;
+extern int D_800A4750;
+extern Pickup *func_800237D0(int, int);
+extern short D_800A46F4[];
+extern unsigned int D_800A474C;
+extern int func_80022814(void);
+extern void func_8001B094(int);
+extern unsigned int func_80086C84(void);
+extern unsigned short func_800162F0(Pickup *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+int func_80029BF0(Vector *pos, int kind, int lifetime, int team, int mode) {
+    Pickup *p;
+    int r;
+
+    if (D_800A6070 == 7 && (kind == 9 || kind == 6 || kind == 15)) {
+        kind = 11;
+    }
+    if (kind == 8) {
+        mode = 0;
+    }
+    p = func_800237D0(9, 48);
+    if (p == 0) {
+        return -1;
+    }
+    if (D_800A4750 != 0 && kind != 5 && lifetime == 0) {
+        D_800A46F4[kind]++;
+        D_800A474C++;
+    }
+    if (kind == 21) {
+        p->random = 1;
+        r = func_80086C84() % D_800A474C;
+        for (kind = 0; r >= D_800A46F4[kind]; kind++) {
+            r -= D_800A46F4[kind];
+        }
+        if (kind == 5) {
+            D_800A46F4[5] = 0;
+            D_800A474C--;
+        }
+        if ((unsigned int)kind >= 22) {
+            kind = 19;
+        }
+        if (kind == 21) {
+            kind = 11;
+        }
+        if (kind == 0) {
+            kind = 19;
+        }
+    } else {
+        p->random = 0;
+    }
+    p->kind = kind;
+    p->taken = 0;
+    p->pos.x = pos->x;
+    p->pos.y = pos->y;
+    p->pos.z = pos->z;
+    p->cell = func_800162F0(p, to_cell(p->pos.x), to_cell(p->pos.z), 0, -35, 35, -35, 35,
+                            (short)(to_cell(p->pos.y) - 35), (short)(to_cell(p->pos.y) + 35), 0, 16);
+    if (lifetime > 0) {
+        p->expire = D_800D2FE0 + lifetime;
+    } else {
+        p->expire = 0;
+    }
+    p->respawn = 0;
+    p->team = team;
+    p->b28 = 255;
+    p->mode = mode;
+    return 0;
+}

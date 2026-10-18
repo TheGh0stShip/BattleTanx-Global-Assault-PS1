@@ -1,32 +1,71 @@
-asm(".text\n\t.globl func_8004F19C\nfunc_8004F19C:\n\t"
-    ".word 0x27BDFFB8,0xAFB7003C,0x0080B821,0xAFB60038\n\t"
-    ".word 0x0000B021,0xAFBF0044,0xAFBE0040,0xAFB50034\n\t"
-    ".word 0xAFB40030,0xAFB3002C,0xAFB20028,0xAFB10024\n\t"
-    ".word 0xAFB00020,0x8EE20094,0x8EF300B0,0x8C430000\n\t"
-    ".word 0x3C150FA0,0xAFA30010,0x8C420004,0x26F40184\n\t"
-    ".word 0x12600027,0xAFA20018,0x3C02800E,0x245EE33C\n\t"
-    ".word 0x0C012793,0x02602021,0x3042FFFF,0x00022040\n\t"
-    ".word 0x00822021,0x00041900,0x00641823,0x00031880\n\t"
-    ".word 0x00621823,0x000318C0,0x007E9021,0x26510008\n\t"
-    ".word 0x02202021,0x8E4200A8,0x27A50010,0x0C012576\n\t"
-    ".word 0x02629826,0x02202021,0x26850004,0x0C012576\n\t"
-    ".word 0x00408021,0x8E83002C,0x02028021,0x0070182A\n\t"
-    ".word 0x14600009,0x02202021,0x0C012576,0x26E50008\n\t"
-    ".word 0x00401821,0x0075102A,0x10400003,0x00000000\n\t"
-    ".word 0x0240B021,0x0060A821,0x1660FFDD,0x00000000\n\t"
-    ".word 0x02C01021,0x14400031,0x0000B021,0x8EE20094\n\t"
-    ".word 0x8EF300AC,0x8C430000,0x3C150FA0,0xAFA30010\n\t"
-    ".word 0x8C420004,0x26F40184,0x12600027,0xAFA20018\n\t"
-    ".word 0x3C02800E,0x245EE33C,0x0C012793,0x02602021\n\t"
-    ".word 0x3042FFFF,0x00022040,0x00822021,0x00041900\n\t"
-    ".word 0x00641823,0x00031880,0x00621823,0x000318C0\n\t"
-    ".word 0x007E9021,0x26510008,0x02202021,0x8E4200A8\n\t"
-    ".word 0x27A50010,0x0C012576,0x02629826,0x02202021\n\t"
-    ".word 0x26850004,0x0C012576,0x00408021,0x8E83002C\n\t"
-    ".word 0x02028021,0x0070182A,0x14600009,0x02202021\n\t"
-    ".word 0x0C012576,0x26E50008,0x00401821,0x0075102A\n\t"
-    ".word 0x10400003,0x00000000,0x0240B021,0x0060A821\n\t"
-    ".word 0x1660FFDD,0x00000000,0x02C01021,0x8FBF0044\n\t"
-    ".word 0x8FBE0040,0x8FB7003C,0x8FB60038,0x8FB50034\n\t"
-    ".word 0x8FB40030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0048\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int z;
+} Area;
+typedef struct {
+    int state;
+    Vector goal;
+    Vector alt;
+    char pad1C[0x2C - 0x1C];
+    int far;
+} Patrol;
+typedef struct Tank Tank;
+struct Tank {
+    char pad0[8];
+    Vector position;
+    char pad14[0x94 - 0x14];
+    Area *area;
+    char pad98[0xA8 - 0x98];
+    unsigned int bits;
+    unsigned int enemy_mask;
+    unsigned int friend_mask;
+    char padB4[0x184 - 0xB4];
+    Patrol patrol;
+    char pad1B4[0x598 - 0x1B4];
+};
+extern Tank D_800DE33C[];
+extern unsigned short func_80049E4C(unsigned int);
+extern int func_800495D8(Vector *, Vector *);
+
+static inline Tank *find_intruder(Tank *tank, unsigned int mask) {
+    Tank *best = 0;
+    int best_dist = 0xFA00000;
+    Vector center;
+    Patrol *patrol;
+    Area *area;
+    Tank *other;
+    int dist;
+    int near;
+
+    area = tank->area;
+    center.x = area->x;
+    center.z = area->z;
+    patrol = &tank->patrol;
+    while (mask != 0) {
+        other = &D_800DE33C[func_80049E4C(mask)];
+        mask ^= other->bits;
+        dist = func_800495D8(&other->position, &center) + func_800495D8(&other->position, &patrol->goal);
+        if (dist <= patrol->far) {
+            near = func_800495D8(&other->position, &tank->position);
+            if (near < best_dist) {
+                best = other;
+                best_dist = near;
+            }
+        }
+    }
+    return best;
+}
+
+Tank *func_8004F19C(Tank *tank) {
+    Tank *found = find_intruder(tank, tank->friend_mask);
+
+    if (found == 0) {
+        found = find_intruder(tank, tank->enemy_mask);
+    }
+    return found;
+}

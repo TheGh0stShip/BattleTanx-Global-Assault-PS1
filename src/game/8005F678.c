@@ -1,10 +1,16 @@
-asm(".text\n\t.globl func_8005F678\nfunc_8005F678:\n\t"
-    ".word 0x3c02800e,0x90434834,0x27bdffe8,0xafb00010\n\t"
-    ".word 0x3c10800a,0xafbf0014,0x00031600,0x00021603\n\t"
-    ".word 0x00022100,0x00822023,0x3c02800a,0xa0436080\n\t"
-    ".word 0x3c02800e,0x90424830,0x00042080,0x0c015371\n\t"
-    ".word 0xa2026081,0x82036081,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00022100,0x00822023,0x000424c0\n\t"
-    ".word 0x0c01ac11,0x00042403,0x3c03800f,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x24020002,0xac62afbc,0x24020001\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern signed char D_800A6080;
+extern signed char D_800A6081;
+extern unsigned char D_800E4830;
+extern unsigned char D_800E4834;
+extern int D_800EAFBC;
+extern void func_80054DC4(int);
+extern void func_8006B044(short);
+
+int func_8005F678(void) {
+    D_800A6080 = D_800E4834;
+    D_800A6081 = D_800E4830;
+    func_80054DC4(D_800A6080 * 60);
+    func_8006B044(D_800A6081 * 360);
+    D_800EAFBC = 2;
+    return 1;
+}

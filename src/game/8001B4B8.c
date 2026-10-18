@@ -1,59 +1,106 @@
-asm(".text\n\t.globl func_8001B4B8\nfunc_8001B4B8:\n\t"
-    ".word 0x27BDFFC0,0xAFB1002C,0x00C08821,0x8FA60050\n\t"
-    ".word 0xAFBF0038,0xAFB30034,0xAFB20030,0xAFB00028\n\t"
-    ".word 0x8CA30000,0x8CC20000,0x00809821,0x00621823\n\t"
-    ".word 0xAFA30010,0x8CA40004,0x8CC20004,0x00E09021\n\t"
-    ".word 0x00822023,0x14600019,0xAFA40014,0x14800018\n\t"
-    ".word 0x27B00010,0x8E490000,0x00000000,0x02290018\n\t"
-    ".word 0x00004012,0x00001010,0x00084302,0x00021500\n\t"
-    ".word 0x01024025,0x8E490004,0xAE480000,0x02290018\n\t"
-    ".word 0x00004012,0x00001010,0x00084302,0x00021500\n\t"
-    ".word 0x01024025,0x02602021,0x02402821,0x0C006CCA\n\t"
-    ".word 0xAE480004,0x08006E0D,0x00000000,0x27B00010\n\t"
-    ".word 0x0C007B97,0x02002021,0x00401821,0x10600008\n\t"
-    ".word 0x00000000,0x8FA20010,0xAFA0001C,0x00621007\n\t"
-    ".word 0xAFA20018,0x8E020004,0x08006D6A,0x00621007\n\t"
-    ".word 0x8FA20010,0xAFA0001C,0xAFA20018,0x8E020004\n\t"
-    ".word 0x00000000,0xAFA20020,0x27A40018,0x0C022AB4\n\t"
-    ".word 0x00802821,0x8FA20018,0x00000000,0xAE020000\n\t"
-    ".word 0x8FA40020,0x00001821,0x14400002,0xAE040004\n\t"
-    ".word 0x2C830001,0x10600002,0x24021000,0xAE020004\n\t"
-    ".word 0x8FA60010,0x8E480000,0x00000000,0x00C80018\n\t"
-    ".word 0x00001812,0x00001010,0x00031B02,0x00021500\n\t"
-    ".word 0x00621825,0x8FA50014,0x8E490004,0x00000000\n\t"
-    ".word 0x00A90018,0x00001012,0x00002010,0x00021302\n\t"
-    ".word 0x00042500,0x00441025,0x00621821,0x18600018\n\t"
-    ".word 0x00000000,0x00710018,0x00001012,0x00004010\n\t"
-    ".word 0x00021302,0x00084500,0x00481025,0x00460018\n\t"
-    ".word 0x00004812,0x00001810,0x00094B02,0x00031D00\n\t"
-    ".word 0x01234825,0xAFA90010,0x00450018,0x00004012\n\t"
-    ".word 0x00004810,0x00084302,0x00094D00,0x01094025\n\t"
-    ".word 0x02602021,0x27A50010,0x0C006CCA,0xAFA80014\n\t"
-    ".word 0x8E490000,0x00000000,0x02290018,0x00004012\n\t"
-    ".word 0x00001010,0x00084302,0x00021500,0x01024025\n\t"
-    ".word 0x8E490004,0xAE480000,0x02290018,0x00004012\n\t"
-    ".word 0x00001010,0x00084302,0x00021500,0x01024025\n\t"
-    ".word 0x01002821,0x8E420000,0x00003021,0xAE480004\n\t"
-    ".word 0x8FA30010,0x00C03821,0x00431023,0xAE420000\n\t"
-    ".word 0x8FA20014,0x8E440000,0x00A22823,0x0C007B84\n\t"
-    ".word 0xAE450004,0x00408021,0x12000048,0x00000000\n\t"
-    ".word 0x0C007B97,0x02402021,0x00401821,0x10600008\n\t"
-    ".word 0x00000000,0x8E420000,0xAFA0001C,0x00621007\n\t"
-    ".word 0xAFA20018,0x8E420004,0x08006DD6,0x00621007\n\t"
-    ".word 0x8E420000,0xAFA0001C,0xAFA20018,0x8E420004\n\t"
-    ".word 0x00000000,0xAFA20020,0x27A40018,0x0C022AB4\n\t"
-    ".word 0x00802821,0x8FA20018,0x00000000,0xAE420000\n\t"
-    ".word 0x8FA40020,0x00001821,0x14400002,0xAE440004\n\t"
-    ".word 0x2C830001,0x10600002,0x24021000,0xAE420004\n\t"
-    ".word 0x96620018,0x8E480004,0x8FA90010,0x0202001A\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x14410004,0x3C018000,0x16010002,0x00000000\n\t"
-    ".word 0x0006000D,0x00008812,0x00000000,0x00000000\n\t"
-    ".word 0x01090018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x8E520000,0x8FA80014\n\t"
-    ".word 0x00000000,0x02480018,0x00001812,0x00002010\n\t"
-    ".word 0x00031B02,0x00042500,0x00641825,0x00431023\n\t"
-    ".word 0x04410002,0x00000000,0x00118823,0x8E62001C\n\t"
-    ".word 0x00000000,0x00511021,0xAE62001C,0x8FBF0038\n\t"
-    ".word 0x8FB30034,0x8FB20030,0x8FB1002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+typedef struct Body {
+    int vx;
+    int vz;
+    int speed;
+    int max_speed;
+    char pad10[0x18 - 0x10];
+    unsigned short mass;
+    char pad1A[0x1C - 0x1A];
+    int spin;
+} Body;
+int func_8001EE10(int, int, int, int);
+int func_8001EE5C(Pos2 *);
+void func_8008AAD0(Vector *, Vector *);
+void func_8001B328(Body *, Pos2 *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_mul2(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult\t%2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int is_zero2(int x, int z) {
+    return x == 0 && z == 0;
+}
+
+static inline void normalize2(Pos2 *p, Vector *v) {
+    int shift = func_8001EE5C(p);
+
+    if (shift != 0) {
+        v->x = p->x >> shift;
+        v->y = 0;
+        v->z = p->z >> shift;
+    } else {
+        v->x = p->x;
+        v->y = 0;
+        v->z = p->z;
+    }
+    func_8008AAD0(v, v);
+    p->x = v->x;
+    p->z = v->z;
+    if (is_zero2(p->x, p->z)) {
+        p->z = 4096;
+    }
+}
+
+void func_8001B4B8(Body *body, Pos2 *point, int amount, Pos2 *dir, Pos2 *center) {
+    Pos2 r;
+    Vector v;
+    int dot;
+    int k;
+    int mag;
+
+    r.x = point->x - center->x;
+    r.z = point->z - center->z;
+    if (r.x == 0 && r.z == 0) {
+        dir->x = fixed_mul(amount, dir->x);
+        dir->z = fixed_mul(amount, dir->z);
+        func_8001B328(body, dir);
+        return;
+    }
+    normalize2(&r, &v);
+    dot = fixed_mul(r.x, dir->x) + fixed_mul(r.z, dir->z);
+    if (dot > 0) {
+        k = fixed_mul(dot, amount);
+        r.x = fixed_mul(k, r.x);
+        r.z = fixed_mul(k, r.z);
+        func_8001B328(body, &r);
+    }
+    dir->x = fixed_mul(amount, dir->x);
+    dir->z = fixed_mul(amount, dir->z);
+    dir->x -= r.x;
+    dir->z -= r.z;
+    mag = func_8001EE10(dir->x, dir->z, 0, 0);
+    if (mag == 0) {
+        return;
+    }
+    normalize2(dir, &v);
+    amount = mag / body->mass;
+    if (fixed_mul2(dir->z, r.x) - fixed_mul(dir->x, r.z) < 0) {
+        amount = -amount;
+    }
+    body->spin += amount;
+}

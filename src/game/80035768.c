@@ -1,17 +1,64 @@
-asm(".text\n\t.globl func_80035768\nfunc_80035768:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x94a20004,0x00000000\n\t"
-    ".word 0x2442fffc,0x00021400,0x00021c03,0x2c620048\n\t"
-    ".word 0x10400033,0x3c02800c,0x2442e4ac,0x00031880\n\t"
-    ".word 0x00621821,0x8c620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x24020001,0xace20000,0x90830036\n\t"
-    ".word 0x24020003,0x1462001b,0x00000000,0x8c830038\n\t"
-    ".word 0x8cc20010,0x00000000,0x00621023,0x18400019\n\t"
-    ".word 0xac820038,0x2842007d,0x1040001d,0x00000000\n\t"
-    ".word 0x8c830014,0x00000000,0x10600019,0x00000000\n\t"
-    ".word 0x8c820008,0x0800d616,0xac43003c,0x90830036\n\t"
-    ".word 0x00000000,0x2462fffe,0x2c420002,0x1440000f\n\t"
-    ".word 0x24020001,0x24020006,0x1062000b,0x24020009\n\t"
-    ".word 0xace20000,0x90820034,0x00000000,0x14400008\n\t"
-    ".word 0x00000000,0x94c5000c,0x0c00d48e,0x00000000\n\t"
-    ".word 0x0800d616,0x00000000,0x24020001,0xace20000\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct { char pad[60]; int value; } Target;
+typedef struct {
+    int pad[2];
+    Target *target;
+    int pad2[2];
+    int value;
+    char pad3[52 - 24];
+    unsigned char locked;
+    unsigned char pad4;
+    unsigned char state;
+    unsigned char pad5;
+    int hp;
+} Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[3]; unsigned short source; short pad2; int amount; } MsgData;
+void func_80035238(Obj *, int);
+
+void func_80035768(Obj *obj, Msg *msg, MsgData *data, int *result) {
+    int v;
+    int state;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        *result = 1;
+        if (obj->state == 3) {
+            v = obj->hp - data->amount;
+            obj->hp = v;
+            if (v <= 0) {
+                goto destroy;
+            }
+            if (v < 125 && obj->value != 0) {
+                obj->target->value = obj->value;
+            }
+            break;
+        }
+        goto check;
+    case 4:
+        state = obj->state;
+        if (state == 2 || state == 3) {
+            *result = 1;
+            break;
+        }
+        if (state == 6) {
+            *result = 1;
+            break;
+        }
+        *result = 9;
+    check:
+        if (obj->locked != 0) {
+            break;
+        }
+    destroy:
+        func_80035238(obj, data->source);
+        break;
+    case 30:
+    case 75:
+        *result = 1;
+        break;
+    }
+}

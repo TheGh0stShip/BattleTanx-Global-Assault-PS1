@@ -1,8 +1,22 @@
-asm(".text\n\t.globl func_80097048\nfunc_80097048:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x24020002\n\t"
-    ".word 0x16020005,0xafbf0014,0x0c0282b4,0x00000000\n\t"
-    ".word 0x08025c29,0x24020001,0x0c0282c7,0x00000000\n\t"
-    ".word 0x1440000a,0x00001021,0x24020001,0x16020007\n\t"
-    ".word 0x00000000,0x0c028278,0x00000000,0x00401821\n\t"
-    ".word 0x14600002,0x00001021,0x24020001,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern void func_800A0AD0(void);
+extern int func_800A0B1C(void);
+extern int func_800A09E0(void);
+
+int func_80097048(int mode) {
+    int busy;
+
+    if (mode == 2) {
+        func_800A0AD0();
+        return 1;
+    }
+    if (func_800A0B1C() != 0) {
+        return 0;
+    }
+    if (mode == 1) {
+        busy = func_800A09E0();
+        if (busy != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}

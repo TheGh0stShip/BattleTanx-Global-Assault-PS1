@@ -1,15 +1,49 @@
-asm(".text\n\t.globl func_800995A8\nfunc_800995A8:\n\t"
-    ".word 0x27bdffc8,0xafb20028,0x00809021,0xafb00020\n\t"
-    ".word 0x00a08021,0xafb3002c,0x00c09821,0xafb10024\n\t"
-    ".word 0x00008821,0xafbf0030,0x0c028b2e,0x02202821\n\t"
-    ".word 0x14400003,0x00000000,0x0c028b72,0x02402021\n\t"
-    ".word 0xae500050,0xae530078,0x8e030000,0x24020001\n\t"
-    ".word 0x1462000f,0x02402021,0x8e020010,0x00000000\n\t"
-    ".word 0xafa20010,0x3c02800a,0x8e030014,0x244294b8\n\t"
-    ".word 0xafa20018,0xafa30014,0x8e060008,0x8e07000c\n\t"
-    ".word 0x0c0264d0,0x26050004,0x08026599,0x00408821\n\t"
-    ".word 0x1460000b,0x02201021,0x3c02800a,0x244294b8\n\t"
-    ".word 0xafa20010,0x8e050004,0x8e060008,0x8e070010\n\t"
-    ".word 0x0c026503,0x02402021,0x00408821,0x02201021\n\t"
-    ".word 0x8fbf0030,0x8fb3002c,0x8fb20028,0x8fb10024\n\t"
-    ".word 0x8fb00020,0x03e00008,0x27bd0038\n\t");
+extern int func_800A2CB8(void *, int);
+extern void func_800A2DC8(void *);
+
+typedef struct Entry {
+    int type;
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+} Entry;
+
+typedef struct Ctx {
+    char pad0[0x4C];
+    int mode;
+    Entry *list;
+    int unk54;
+    unsigned char unk58;
+    char pad59[3];
+    int *src;
+    int srcval;
+    int a2;
+    int a3;
+    int a4;
+    int pad70;
+    void *callback;
+    void *next_callback;
+} Ctx;
+
+extern int func_80099340(Ctx *, int *, int, int, int, int, void *);
+void func_800994B8(Ctx *c, int a1, int a2, int a3, int arg);
+
+extern int func_8009940C(Ctx *, int, int, int, void *);
+extern void func_800994B8(Ctx *, int, int, int, int);
+
+int func_800995A8(Ctx *c, Entry *list, void *saved) {
+    int ret = 0;
+    if (func_800A2CB8(c, ret) == 0) {
+        func_800A2DC8(c);
+    }
+    c->list = list;
+    c->next_callback = saved;
+    if (list->type == 1) {
+        ret = func_80099340(c, &list->a, list->b, list->c, list->d, list->e, func_800994B8);
+    } else if (list->type == 0) {
+        ret = func_8009940C(c, list->a, list->b, list->d, func_800994B8);
+    }
+    return ret;
+}

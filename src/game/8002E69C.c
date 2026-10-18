@@ -1,13 +1,40 @@
-asm(".text\n\t.globl func_8002E69C\nfunc_8002E69C:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x94a20004,0x00000000\n\t"
-    ".word 0x2442fffc,0x00021400,0x00021c03,0x2c620048\n\t"
-    ".word 0x10400021,0x3c02800c,0x2442dc54,0x00031880\n\t"
-    ".word 0x00621821,0x8c620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x90820028,0x00000000,0x14400016\n\t"
-    ".word 0x24020001,0xace20000,0x8c820020,0x8cc30010\n\t"
-    ".word 0x00000000,0x00431023,0x0441000f,0xac820020\n\t"
-    ".word 0x0800b9cf,0x00002821,0x90820028,0x00000000\n\t"
-    ".word 0x10400003,0x24020008,0x0800b9d1,0xace20000\n\t"
-    ".word 0x24020001,0x0800b9d1,0xace20000,0x00002821\n\t"
-    ".word 0x0c00b898,0x00a03021,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct { char pad[32]; int hp; int pad2; unsigned char dead; } Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[4]; int amount; } MsgData;
+void func_8002E260(Obj *, int, int);
+
+void func_8002E69C(Obj *obj, Msg *msg, MsgData *data, int *result) {
+    int v;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        if (obj->dead == 0) {
+            *result = 1;
+            v = obj->hp - data->amount;
+            obj->hp = v;
+            if (v < 0) {
+                func_8002E260(obj, 0, 0);
+            }
+        }
+        break;
+    case 4:
+        if (obj->dead != 0) {
+            *result = 8;
+        } else {
+            *result = 1;
+        }
+        break;
+    case 30:
+    case 75:
+        *result = 1;
+        break;
+    case 13:
+    case 23:
+        func_8002E260(obj, 0, 0);
+        break;
+    }
+}

@@ -1,15 +1,46 @@
-asm(".text\n\t.globl func_80029B18\nfunc_80029B18:\n\t"
-    ".word 0x27bdffd8,0xafb00020,0x00808021,0xafbf0024\n\t"
-    ".word 0x94a20004,0x00000000,0x2442fffc,0x00021400\n\t"
-    ".word 0x00021c03,0x2c620031,0x10400027,0x00c04021\n\t"
-    ".word 0x3c02800c,0x2442d84c,0x00031880,0x00621821\n\t"
-    ".word 0x8c620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x24020001,0xace20000,0x8d020018,0x00000000\n\t"
-    ".word 0x10400002,0x00003021,0x8d060014,0x8d050010\n\t"
-    ".word 0x0c00a4c2,0x02002021,0x8e020038,0x00000000\n\t"
-    ".word 0x1c400011,0x3c02800d,0x26050008,0x8c442f50\n\t"
-    ".word 0x96060014,0x00003821,0xafa00010,0xafa00014\n\t"
-    ".word 0xafa00018,0x0c00d652,0xafa0001c,0x92020006\n\t"
-    ".word 0x00000000,0x34420002,0x0800a6f8,0xa2020006\n\t"
-    ".word 0x24020001,0xace20000,0x8fbf0024,0x8fb00020\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7;
+    int pos[3];
+    unsigned short angle;
+    char pad16[0x38 - 0x16];
+    int health;
+} Object;
+
+typedef struct {
+    short pad0[2];
+    short type;
+} Message;
+
+typedef struct {
+    char pad0[0x10];
+    int damage;
+    int source;
+    int has_source;
+} Hit;
+
+extern int D_800D2F50;
+extern void func_80029308(Object *, int, int);
+extern void func_80035948(int, int *, int, int, int, int, int, int);
+
+void func_80029B18(Object *self, Message *msg, Hit *hit, int *reply) {
+    switch (msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        *reply = 1;
+        func_80029308(self, hit->damage, hit->has_source ? hit->source : 0);
+        if (self->health <= 0) {
+            func_80035948(D_800D2F50, self->pos, self->angle, 0, 0, 0, 0, 0);
+            self->flags |= 2;
+        }
+        break;
+    case 4:
+    case 30:
+        *reply = 1;
+        break;
+    }
+}

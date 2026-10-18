@@ -1,20 +1,43 @@
-asm(".text\n\t.globl func_80076060\nfunc_80076060:\n\t"
-    ".word 0x27BDFFE0,0x3C03800B,0x9062EA46,0x00803021\n\t"
-    ".word 0xAFB00010,0x30B000FF,0xAFBF0018,0x1050003C\n\t"
-    ".word 0xAFB10014,0xA065EA46,0x3C02800F,0x2451AF6C\n\t"
-    ".word 0x02202021,0x0C020909,0x00C02821,0x0C0217D7\n\t"
-    ".word 0x2404FFFF,0x3C030002,0x34638004,0x0062182B\n\t"
-    ".word 0x10600009,0x00000000,0x3C040002,0x0C01A3CD\n\t"
-    ".word 0x34848004,0x3C04800F,0x2483AFC0,0xAC620004\n\t"
-    ".word 0xAC400000,0xA080AFC0,0x02202021,0x0C020C53\n\t"
-    ".word 0x24050001,0x02202021,0x2602FFFF,0x00022880\n\t"
-    ".word 0x00A22821,0x00052B40,0x00A22821,0x00052880\n\t"
-    ".word 0x0C0209E6,0x00003021,0x02202021,0x0C020C53\n\t"
-    ".word 0x24050001,0x02202021,0x3C060002,0x3C10800F\n\t"
-    ".word 0x2610AFC0,0x8E050004,0x0C020A15,0x34C68004\n\t"
-    ".word 0x3C04800B,0x8E050004,0x2484E9E0,0x0C01FF22\n\t"
-    ".word 0x24A50004,0x0C01FE9D,0x00002021,0x8E020004\n\t"
-    ".word 0x02202021,0x8C430000,0x3C02800F,0x0C0209A8\n\t"
-    ".word 0xAC43AFE0,0x8E040004,0x0C01A3E7,0x00000000\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    int *data;
+} Buffer;
+
+extern unsigned char D_800AEA46;
+extern Buffer D_800EAFC0[];
+extern int D_800EAFE0;
+extern char D_800EAF6C[];
+extern char D_800AE9E0[];
+extern void func_80082424(void *, int);
+extern unsigned int func_80085F5C(int);
+extern int *func_80068F34(int);
+extern void func_8008314C(void *, int);
+extern void func_80082798(void *, int, int);
+extern void func_80082854(void *, void *, int);
+extern void func_8007FC88(void *, void *);
+extern void func_8007FA74(int);
+extern void func_800826A0(void *);
+extern void func_80068F9C(void *);
+
+void func_80076060(int mode, unsigned char track) {
+    if (D_800AEA46 == track) {
+        return;
+    }
+    D_800AEA46 = track;
+    func_80082424(D_800EAF6C, mode);
+    if (func_80085F5C(-1) > 0x28004) {
+        D_800EAFC0[0].data = func_80068F34(0x28004);
+        D_800EAFC0[0].data[0] = 0;
+        D_800EAFC0[0].busy = 0;
+    }
+    func_8008314C(D_800EAF6C, 1);
+    func_80082798(D_800EAF6C, (track - 1) * 0x28004, 0);
+    func_8008314C(D_800EAF6C, 1);
+    func_80082854(D_800EAF6C, D_800EAFC0[0].data, 0x28004);
+    func_8007FC88(D_800AE9E0, D_800EAFC0[0].data + 1);
+    func_8007FA74(0);
+    D_800EAFE0 = D_800EAFC0[0].data[0];
+    func_800826A0(D_800EAF6C);
+    func_80068F9C(D_800EAFC0[0].data);
+}

@@ -1,11 +1,32 @@
-asm(".text\n\t.globl func_8008EE60\nfunc_8008EE60:\n\t"
-    ".word 0x27bdffd0,0xafb20020,0x8fb20040,0xafb1001c\n\t"
-    ".word 0x00808821,0xafb30024,0x00a09821,0xafb40028\n\t"
-    ".word 0x00c0a021,0xafb00018,0xafbf002c,0x0c023b10\n\t"
-    ".word 0x00e08021,0x3c04800f,0x2484ec44,0x2485fff0\n\t"
-    ".word 0x3c028009,0x2442e860,0x02603021,0xacb101ac\n\t"
-    ".word 0xafb00010,0x8c83002c,0x02803821,0xafa20014\n\t"
-    ".word 0x24630008,0xaca301a8,0xacb20004,0x0c0266b0\n\t"
-    ".word 0x02202821,0x8fbf002c,0x8fb40028,0x8fb30024\n\t"
-    ".word 0x8fb20020,0x8fb1001c,0x8fb00018,0x03e00008\n\t"
-    ".word 0x27bd0030\n\t");
+extern void func_8008EC40(void);
+extern void func_80099AC0(void *, int, int, int, int, void *);
+extern void func_8008E860(void);
+
+typedef struct {
+    char pad[44];
+    int base;
+} Body8008EE60;
+
+typedef struct {
+    int flags;
+    int arg;
+    char pad8[8];
+    Body8008EE60 body;
+    char pad64[360];
+    int cursor;
+    int start;
+} S8008EE60;
+extern S8008EE60 D_800EEC34;
+
+void func_8008EE60(int a0, int a1, int a2, int a3, int a4) {
+    S8008EE60 *s;
+    Body8008EE60 *body;
+
+    func_8008EC40();
+    body = &D_800EEC34.body;
+    s = &D_800EEC34;
+    s->start = a0;
+    s->cursor = body->base + 8;
+    s->arg = a4;
+    func_80099AC0(body, a0, a1, a2, a3, func_8008E860);
+}

@@ -1,20 +1,49 @@
-asm(".text\n\t.globl func_80084094\nfunc_80084094:\n\t"
-    ".word 0x00803021,0x8CC2001C,0x8CC3001C,0x00A22821\n\t"
-    ".word 0x8CC20010,0x8CC40008,0x00431021,0xACC20010\n\t"
-    ".word 0x0044102B,0x14400015,0x00000000,0x8CC20000\n\t"
-    ".word 0x00000000,0x1040000A,0x3C02800F,0x2444DF78\n\t"
-    ".word 0x8C830054,0x24020001,0x14620003,0x24020003\n\t"
-    ".word 0x08021044,0xAC820054,0x08021044,0xAC800054\n\t"
-    ".word 0x8CC20018,0x24030001,0xACC30004,0x00021080\n\t"
-    ".word 0x24420020,0x00C22821,0xACC20010,0x8CC20004\n\t"
-    ".word 0x00000000,0x1040001A,0x3C02800F,0x2444DF78\n\t"
-    ".word 0x8C830054,0x24020001,0x1462000F,0x00000000\n\t"
-    ".word 0x8CC20010,0x8CC3001C,0x8CC40008,0x00431021\n\t"
-    ".word 0xACC2000C,0x0044102B,0x1440000E,0x3C02800F\n\t"
-    ".word 0x8CC20018,0x00000000,0x00021080,0x24420020\n\t"
-    ".word 0x08021061,0xACC2000C,0x8CC30010,0x8CC2000C\n\t"
-    ".word 0x00000000,0x14620003,0x3C02800F,0xAC800054\n\t"
-    ".word 0x3C02800F,0x2444DF78,0x8C830054,0x24020004\n\t"
-    ".word 0x14620006,0x3402FFFF,0x94A30000,0x00000000\n\t"
-    ".word 0x14620002,0x00000000,0xAC800054,0x03E00008\n\t"
-    ".word 0x00A01021\n");
+typedef struct Stream {
+    int single;
+    int wrapped;
+    unsigned int size;
+    unsigned int mark;
+    unsigned int pos;
+    int pad14;
+    int header_words;
+    int step;
+} Stream;
+
+typedef struct StreamState {
+    char pad00[0x54];
+    int mode;
+} StreamState;
+
+extern StreamState D_800EDF78;
+
+unsigned short *func_80084094(Stream *s, unsigned short *p) {
+    s->pos += s->step;
+    p = (unsigned short *)((char *)p + s->step);
+    if (s->pos >= s->size) {
+        if (s->single != 0) {
+            if (D_800EDF78.mode == 1) {
+                D_800EDF78.mode = 3;
+            } else {
+                D_800EDF78.mode = 0;
+            }
+        } else {
+            s->wrapped = 1;
+            s->pos = s->header_words * 4 + 32;
+            p = (unsigned short *)((char *)s + s->pos);
+        }
+    }
+    if (s->wrapped != 0) {
+        if (D_800EDF78.mode == 1) {
+            s->mark = s->pos + s->step;
+            if (s->mark >= s->size) {
+                s->mark = s->header_words * 4 + 32;
+            }
+        } else if (s->pos == s->mark) {
+            D_800EDF78.mode = 0;
+        }
+    }
+    if (D_800EDF78.mode == 4 && *p == 0xFFFF) {
+        D_800EDF78.mode = 0;
+    }
+    return p;
+}

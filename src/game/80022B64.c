@@ -1,8 +1,32 @@
-asm(".text\n\t.globl func_80022B64\nfunc_80022B64:\n\t"
-    ".word 0x3c09800d,0x8525325c,0x2402ffff,0x10a20016\n\t"
-    ".word 0x00805021,0x3c02800d,0x94483254,0x3c07800a\n\t"
-    ".word 0xa4453254,0x3c02800d,0x8c433258,0x00051180\n\t"
-    ".word 0x3c05800a,0x8ce44390,0x00431021,0x94460002\n\t"
-    ".word 0x8ca34388,0xa4440000,0x24840001,0xa4480002\n\t"
-    ".word 0xa44a0004,0xace44390,0x2463ffff,0xaca34388\n\t"
-    ".word 0x03e00008,0xa526325c,0x03e00008,0x00001021\n\t");
+typedef struct Node {
+    unsigned short id;
+    short next;
+    short kind;
+    char pad06[0x40 - 6];
+} Node;
+extern short D_800D3254;
+extern Node *D_800D3258;
+extern short D_800D325C;
+extern int D_800A4388;
+extern int D_800A4390;
+
+Node *func_80022B64(int kind) {
+    int index = D_800D325C;
+    short used;
+    Node *node;
+    short next;
+
+    if (index == -1) {
+        return 0;
+    }
+    used = D_800D3254;
+    D_800D3254 = index;
+    node = (Node *)((index * sizeof(Node)) + (int)D_800D3258);
+    next = node->next;
+    node->next = used;
+    node->kind = kind;
+    node->id = D_800A4390++;
+    D_800A4388--;
+    D_800D325C = next;
+    return node;
+}

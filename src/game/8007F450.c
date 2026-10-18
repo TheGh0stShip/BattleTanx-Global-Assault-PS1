@@ -1,15 +1,39 @@
-asm(".text\n\t.globl func_8007F450\nfunc_8007F450:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0xafb10014\n\t"
-    ".word 0x00a08821,0xafb00010,0x00c08021,0x3c028008\n\t"
-    ".word 0x8c426058,0x00001821,0xafbf0024,0xafb40020\n\t"
-    ".word 0x10400021,0xafb20018,0x3c02800f,0x2444c200\n\t"
-    ".word 0x8c820128,0x00000000,0x14530002,0x00000000\n\t"
-    ".word 0xac800128,0x12000018,0x24030001,0x3414ffff\n\t"
-    ".word 0x00809021,0x10600014,0x0290102b,0x10400002\n\t"
-    ".word 0x02003021,0x3406ffff,0xae400130,0x02602021\n\t"
-    ".word 0x0c01fac7,0x02202821,0x00401821,0x10600008\n\t"
-    ".word 0x00000000,0x8e420130,0x00000000,0x0002182b\n\t"
-    ".word 0x10600003,0x00000000,0x02228821,0x02028023\n\t"
-    ".word 0x1600ffec,0x00000000,0x8fbf0024,0x8fb40020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x00601021,0x03e00008,0x27bd0028\n\t");
+typedef struct FileCtl {
+    int handle;
+    char pad4[292];
+    int busy;
+    int pad12C;
+    unsigned int count;
+} FileCtl;
+
+extern FileCtl D_800EC200;
+extern int D_80086058;
+extern int func_8007EB1C(int, char *, unsigned int);
+
+int func_8007F450(int handle, char *buf, unsigned int len) {
+    int ok = 0;
+    unsigned int chunk;
+
+    if (D_80086058 != 0) {
+        if (D_800EC200.busy == handle) {
+            D_800EC200.busy = 0;
+        }
+        ok = 1;
+        while (len != 0 && ok) {
+            chunk = len;
+            if (chunk > 0xFFFF) {
+                chunk = 0xFFFF;
+            }
+            D_800EC200.count = 0;
+            ok = func_8007EB1C(handle, buf, chunk);
+            if (ok) {
+                ok = D_800EC200.count != 0;
+                if (ok) {
+                    buf += D_800EC200.count;
+                    len -= D_800EC200.count;
+                }
+            }
+        }
+    }
+    return ok;
+}

@@ -1,17 +1,40 @@
-asm(".text\n\t.globl func_8005ACC4\nfunc_8005ACC4:\n\t"
-    ".word 0x3c03800a,0x8c626070,0x27bdffe0,0xafbf0018\n\t"
-    ".word 0xafb10014,0x2c42000a,0x14400003,0xafb00010\n\t"
-    ".word 0x24020001,0xac626070,0x3c03800b,0x9062ace0\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x08016b44\n\t"
-    ".word 0xa060ace0,0x0c00f18e,0x00000000,0x3c02800b\n\t"
-    ".word 0x9042ba5b,0x00000000,0x1040001c,0x3c02800a\n\t"
-    ".word 0x245168a0,0x02202021,0x00002821,0x0c0165ed\n\t"
-    ".word 0x24060001,0x3c02800a,0x8043606c,0x24020001\n\t"
-    ".word 0x14620003,0x3c10800b,0x08016b57,0x2610a208\n\t"
-    ".word 0x3c10800b,0x2610a978,0x02002021,0x02202821\n\t"
-    ".word 0x0c0165ed,0x24060001,0x3c04800a,0x24846b48\n\t"
-    ".word 0x02002821,0x0c016554,0x24060001,0x3c03800f\n\t"
-    ".word 0x24020006,0x08016b69,0xac62afbc,0x3c04800a\n\t"
-    ".word 0x248468a0,0x00002821,0x0c016554,0x24060001\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x3c02800b\n\t"
-    ".word 0xa440acdc,0x03e00008,0x27bd0020\n\t");
+extern unsigned int D_800A6070;
+extern unsigned char D_800AACE0;
+extern unsigned char D_800ABA5B;
+extern signed char D_800A606C;
+extern short D_800AACDC;
+extern int D_800EAFBC;
+extern char D_800A68A0[];
+extern char D_800AA208[];
+extern char D_800AA978[];
+extern char D_800A6B48[];
+extern void func_8003C638(void);
+extern void func_800597B4(void *, void *, int);
+extern void func_80059550(void *, void *, int);
+
+void func_8005ACC4(void) {
+    if (D_800A6070 >= 10) {
+        D_800A6070 = 1;
+    }
+    if (D_800AACE0 != 0) {
+        D_800AACE0 = 0;
+    } else {
+        func_8003C638();
+    }
+    if (D_800ABA5B != 0) {
+        char *root = D_800A68A0;
+
+        func_800597B4(root, 0, 1);
+        if (D_800A606C == 1) {
+            func_800597B4(D_800AA208, root, 1);
+            func_80059550(D_800A6B48, D_800AA208, 1);
+        } else {
+            func_800597B4(D_800AA978, root, 1);
+            func_80059550(D_800A6B48, D_800AA978, 1);
+        }
+        D_800EAFBC = 6;
+    } else {
+        func_80059550(D_800A68A0, 0, 1);
+    }
+    D_800AACDC = 0;
+}

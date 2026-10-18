@@ -1,14 +1,49 @@
-asm(".text\n\t.globl func_8006F890\nfunc_8006F890:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafbf0018,0x88c70003,0x98c70000\n\t"
-    ".word 0x88c80007,0x98c80004,0xaa27000f,0xba27000c\n\t"
-    ".word 0xaa280013,0xba280010,0xa6200016,0xa6200018\n\t"
-    ".word 0x0c021b21,0xa620001a,0x00021402,0xa6220014\n\t"
-    ".word 0x3c020001,0xae220004,0xae220008,0x8e03001c\n\t"
-    ".word 0x00000000,0x00031080,0x00431021,0x00021080\n\t"
-    ".word 0x00431023,0x00021100,0x04410002,0x00000000\n\t"
-    ".word 0x24420fff,0x00021303,0xa6220020,0x2402fff8\n\t"
-    ".word 0xa6220022,0x240200ff,0xa2220024,0xa2220025\n\t"
-    ".word 0xa2220026,0x24020001,0xa222001f,0xa2200027\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef struct Bytes8 {
+    unsigned char b[8];
+} Bytes8;
+
+typedef struct Source {
+    char pad[0x1C];
+    int size;
+} Source;
+
+typedef struct Sprite {
+    int pad0;
+    int scale_x;
+    int scale_y;
+    Bytes8 color;
+    short angle;
+    short rx;
+    short ry;
+    short rz;
+    char pad1C[3];
+    unsigned char visible;
+    short radius;
+    short drift;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char mode;
+} Sprite;
+
+extern unsigned int func_80086C84(void);
+
+void func_8006F890(Source *src, Sprite *sprite, Bytes8 *color) {
+    int scale;
+
+    sprite->color = *color;
+    sprite->rx = 0;
+    sprite->ry = 0;
+    sprite->rz = 0;
+    sprite->angle = func_80086C84() >> 16;
+    scale = 0x10000;
+    sprite->scale_x = scale;
+    sprite->scale_y = scale;
+    sprite->radius = src->size * 304 / 4096;
+    sprite->drift = -8;
+    sprite->r = 255;
+    sprite->g = 255;
+    sprite->b = 255;
+    sprite->visible = 1;
+    sprite->mode = 0;
+}

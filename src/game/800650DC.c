@@ -1,9 +1,22 @@
-asm(".text\n\t.globl func_800650DC\nfunc_800650DC:\n\t"
-    ".word 0x27bdffd8,0x3c03800b,0x2463bd60,0x3c02800f\n\t"
-    ".word 0x8fa80038,0x8fa9003c,0x8faa0040,0x2442ae0c\n\t"
-    ".word 0xafbf0020,0xac620028,0x3c02800f,0x2442ae20\n\t"
-    ".word 0xac6202a8,0x3c02800e,0xa040534c,0x24020001\n\t"
-    ".word 0x30e7ffff,0xa0620280,0xafa0001c,0x00084400\n\t"
-    ".word 0x00084403,0xafa80010,0xafa90014,0x0c019144\n\t"
-    ".word 0xafaa0018,0x8fbf0020,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct Dialog {
+    char pad0[0x28];
+    int *style;
+    char pad1[0x280 - 0x2C];
+    unsigned char active;
+    char pad2[0x2A8 - 0x281];
+    int *button_style;
+} Dialog;
+
+extern Dialog D_800ABD60;
+extern int D_800EAE0C;
+extern int D_800EAE20;
+extern unsigned char D_800E534C;
+extern void func_80064510(int, int, int, unsigned short, short, int, int, int);
+
+void func_800650DC(int a, int b, int c, unsigned short d, short e, int f, int g) {
+    D_800ABD60.style = &D_800EAE0C;
+    D_800ABD60.button_style = &D_800EAE20;
+    D_800E534C = 0;
+    D_800ABD60.active = 1;
+    func_80064510(a, b, c, d, e, f, g, 0);
+}

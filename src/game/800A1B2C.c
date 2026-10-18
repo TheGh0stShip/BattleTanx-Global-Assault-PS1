@@ -1,13 +1,52 @@
-asm(".text\n\t.globl func_800A1B2C\nfunc_800A1B2C:\n\t"
-    ".word 0x27bdffd0,0xafb20020,0x00809021,0xafb30024\n\t"
-    ".word 0x00c09821,0x30a300ff,0x24020001,0xafbf0028\n\t"
-    ".word 0xafb1001c,0x10620005,0xafb00018,0x8e420018\n\t"
-    ".word 0x00000000,0x24420001,0xae420018,0x3c10800f\n\t"
-    ".word 0x2610fd0c,0x26110103,0xa2000103,0x92420031\n\t"
-    ".word 0x02202021,0xa2050105,0x0c028648,0xa2020104\n\t"
-    ".word 0x2404000b,0x2403fffd,0xa2020106,0x8e420004\n\t"
-    ".word 0x00003021,0xae530008,0xae400020,0x00431024\n\t"
-    ".word 0xae420004,0x24020004,0xafa20010,0x3c02800a\n\t"
-    ".word 0x244219bc,0xafa20014,0x8e450000,0x0c023fc7\n\t"
-    ".word 0x02203821,0x8fbf0028,0x8fb30024,0x8fb20020\n\t"
-    ".word 0x8fb1001c,0x8fb00018,0x03e00008,0x27bd0030\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    int limit;
+    int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int pad2C;
+    unsigned char cmd;
+    unsigned char seq;
+    char pad32[2];
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    char pad000[0x103];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern unsigned char func_800A1920(unsigned char *);
+extern int func_8008FF1C(int, int, int, unsigned char *, int, void *);
+extern int func_800A19BC(int, int, int, int);
+
+int func_800A1B2C(Link *c, unsigned char cmd, int a2) {
+    if (cmd != 1) {
+        c->errors++;
+    }
+    D_800EFD0C.packet[0] = 0;
+    D_800EFD0C.packet[1] = c->seq;
+    D_800EFD0C.packet[2] = cmd;
+    D_800EFD0C.packet[3] = func_800A1920(D_800EFD0C.packet);
+    c->unk08 = a2;
+    c->unk20 = 0;
+    c->flags &= ~2;
+    return func_8008FF1C(11, c->unk00, 0, D_800EFD0C.packet, 4, func_800A19BC);
+}

@@ -1,11 +1,31 @@
-asm(".text\n\t.globl func_8001B094\nfunc_8001B094:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0x3244ffff\n\t"
-    ".word 0x3402ffff,0xafbf001c,0xafb10014,0x10820019\n\t"
-    ".word 0xafb00010,0x00041080,0x00441021,0x000210c0\n\t"
-    ".word 0x3c03800c,0x246362b0,0x00438021,0x8e020000\n\t"
-    ".word 0x2403ffff,0x1043000f,0x3c11800c,0x96226288\n\t"
-    ".word 0x00000000,0x1044000b,0x00000000,0x0c005789\n\t"
-    ".word 0xae030000,0x3c04800a,0x96236288,0x94824370\n\t"
-    ".word 0xa6326288,0xae000004,0x2442ffff,0xa6030008\n\t"
-    ".word 0xa4824370,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    char pad10[0x28 - 0x10];
+} Cell;
+extern Cell D_800C62B0[];
+extern unsigned short D_800C6288;
+extern unsigned short D_800A4370;
+void func_80015E24(unsigned short);
+
+void func_8001B094(unsigned short id) {
+    Cell *e;
+
+    if (id == 0xFFFF) {
+        return;
+    }
+    e = &D_800C62B0[id];
+    if (e->flags == -1) {
+        return;
+    }
+    if (D_800C6288 == id) {
+        return;
+    }
+    e->flags = -1;
+    func_80015E24(id);
+    e->next[0] = D_800C6288;
+    D_800C6288 = id;
+    e->owner = 0;
+    D_800A4370--;
+}

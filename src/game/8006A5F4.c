@@ -1,34 +1,64 @@
-asm(".text\n\t.globl func_8006A5F4\nfunc_8006A5F4:\n\t"
-    ".word 0x3C02800E,0x8C433E74,0x27BDFFF8,0xAFA00004\n\t"
-    ".word 0xAFA00000,0x8C68000C,0x00000000,0x29021B59\n\t"
-    ".word 0x14400002,0x00806021,0x24081B58,0x8C690018\n\t"
-    ".word 0x3C02003E,0x34424180,0x0049102A,0x10400003\n\t"
-    ".word 0x00003821,0x3C09003E,0x35294180,0x3C02800B\n\t"
-    ".word 0x244BDD4C,0x3C0A30C3,0x3C02800E,0x8C4353FC\n\t"
-    ".word 0x3C02800A,0x8C426074,0x354A0C31,0xAFA90004\n\t"
-    ".word 0x3063003F,0x00031880,0x30420003,0x00621025\n\t"
-    ".word 0x00403021,0x00061340,0xAFA30000,0x31031FFF\n\t"
-    ".word 0x00431025,0xAFA20000,0x00CA0018,0x00A72021\n\t"
-    ".word 0x24E70001,0x000617C3,0x00006810,0x000D1883\n\t"
-    ".word 0x00621823,0x00031080,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00C21023,0x004B1021,0x90420000\n\t"
-    ".word 0x00000000,0xA0820000,0x28E20002,0x1440FFEE\n\t"
-    ".word 0x00603021,0xA0A00002,0x01003021,0x00003821\n\t"
-    ".word 0x3C02800B,0x244ADD4C,0x3C0830C3,0x35080C31\n\t"
-    ".word 0x00C80018,0x00E52021,0x24E70001,0x000617C3\n\t"
-    ".word 0x00006810,0x000D1883,0x00621823,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00C21023\n\t"
-    ".word 0x004A1021,0x90420000,0x00000000,0xA0820002\n\t"
-    ".word 0x28E20003,0x1440FFEE,0x00603021,0xA0A00005\n\t"
-    ".word 0x01203021,0x00003821,0x3C02800B,0x2449DD4C\n\t"
-    ".word 0x3C0830C3,0x35080C31,0x00C80018,0x00E52021\n\t"
-    ".word 0x24E70001,0x000617C3,0x00006810,0x000D1883\n\t"
-    ".word 0x00621823,0x00031080,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00C21023,0x00491021,0x90420000\n\t"
-    ".word 0x00000000,0xA0820005,0x28E20005,0x1440FFEE\n\t"
-    ".word 0x00603021,0x90A60001,0x90A40005,0x90A30008\n\t"
-    ".word 0x90A20007,0xA0A60005,0x90A60003,0x00000000\n\t"
-    ".word 0xA0A60008,0x90A60004,0xA0A0000A,0xA0A40001\n\t"
-    ".word 0xA0A30003,0xA0A20004,0x01801021,0xA0A60007\n\t"
-    ".word 0x8FAE0000,0x8FAF0004,0xAD8E0000,0xAD8F0004\n\t"
-    ".word 0x03E00008,0x27BD0008\n");
+typedef struct {
+    int w0;
+    int w1;
+} Code;
+
+typedef struct {
+    char pad[0xC];
+    int score;
+    char pad10[8];
+    int bonus;
+} Hud;
+
+extern Hud *D_800E3E74;
+extern int D_800E53FC;
+extern int D_800A6074;
+extern char D_800ADD4C[];
+
+static inline void encode_digits(char *dst, int start, int value, int count) {
+    int i;
+
+    for (i = 0; i < count; i++) {
+        dst[start + i] = D_800ADD4C[value % 21];
+        value /= 21;
+    }
+    dst[start + count] = 0;
+}
+
+Code func_8006A5F4(char *out) {
+    Code code;
+    int score;
+    int bonus;
+    int value;
+    int level;
+    char swap;
+
+    code.w1 = 0;
+    code.w0 = 0;
+    score = D_800E3E74->score;
+    if (score > 7000) {
+        score = 7000;
+    }
+    bonus = D_800E3E74->bonus;
+    if (bonus > 4080000) {
+        bonus = 4080000;
+    }
+    code.w1 = bonus;
+    level = (D_800E53FC & 0x3F) << 2;
+    code.w0 = level;
+    value = level | (D_800A6074 & 3);
+    code.w0 = (value << 13) | (score & 0x1FFF);
+    encode_digits(out, 0, value, 2);
+    encode_digits(out, 2, score, 3);
+    encode_digits(out, 5, bonus, 5);
+    swap = out[1];
+    out[1] = out[5];
+    out[5] = swap;
+    swap = out[3];
+    out[3] = out[8];
+    out[8] = swap;
+    swap = out[4];
+    out[4] = out[7];
+    out[7] = swap;
+    return code;
+}

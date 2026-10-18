@@ -1,10 +1,37 @@
-asm(".text\n\t.globl func_800A195C\nfunc_800A195C:\n\t"
-    ".word 0x90820031,0x00000000,0x24440001,0x308300ff\n\t"
-    ".word 0x2402001b,0x1062fffd,0x24840001,0x2484ffff\n\t"
-    ".word 0x240200ab,0x1062fff9,0x24840001,0x2484ffff\n\t"
-    ".word 0x03e00008,0x308200ff,0x27bdffe8,0x00a02021\n\t"
-    ".word 0x00c02821,0xafbf0010,0x0c028a45,0x00e03021\n\t"
-    ".word 0x8fbf0010,0x00000000,0x03e00008,0x27bd0018\n\t"
-    ".word 0x27bdffe8,0x00a02021,0x00c02821,0xafbf0010\n\t"
-    ".word 0x0c028a45,0x00e03021,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    char pad08[0x1C];
+    int last_time;
+    char pad28[8];
+    unsigned char cmd;
+    unsigned char seq;
+    char pad32[2];
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    int data48;
+} Link;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern int func_800A2914(int, int, int);
+
+unsigned char func_800A195C(Link *c) {
+    unsigned char seq = c->seq + 1;
+    while (seq == 0x1B || seq == 0xAB) {
+        seq++;
+    }
+    return seq;
+}
+
+int func_800A1994(int unused, int a, int b, int d) {
+    return func_800A2914(a, b, d);
+}
+
+int func_800A19BC(int unused, int a, int b, int d) {
+    return func_800A2914(a, b, d);
+}

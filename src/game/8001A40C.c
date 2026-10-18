@@ -1,36 +1,64 @@
-asm(".text\n\t.globl func_8001A40C\nfunc_8001A40C:\n\t"
-    ".word 0x27BDFFC0,0xAFB70034,0x0080B821,0xAFB20020\n\t"
-    ".word 0x00009021,0xAFB1001C,0x00A08821,0x3223FFFF\n\t"
-    ".word 0x97A40054,0x97A80058,0x3402FFFF,0xAFBF003C\n\t"
-    ".word 0xAFBE0038,0xAFB60030,0xAFB5002C,0xAFB40028\n\t"
-    ".word 0xAFB30024,0xAFB00018,0xAFA7004C,0x1062006A\n\t"
-    ".word 0xA7A80010,0x3C02800C,0x245662B0,0x3094FFFF\n\t"
-    ".word 0x30D5FFFF,0x0015F040,0x3222FFFF,0x00021880\n\t"
-    ".word 0x00621821,0x000318C0,0x00769821,0x8E630000\n\t"
-    ".word 0x3C020400,0x00621024,0x14400057,0x027E1021\n\t"
-    ".word 0x8FA8004C,0x00000000,0x00681024,0x10400052\n\t"
-    ".word 0x027E1021,0x8EE20000,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x08006935,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8EE50004\n\t"
-    ".word 0x00000000,0x04A00003,0x00022403,0x0800693F\n\t"
-    ".word 0x00051303,0x00051023,0x00021303,0x00021023\n\t"
-    ".word 0x00022B80,0x3230FFFF,0x00052C03,0x0C005B5E\n\t"
-    ".word 0x02003021,0x3042FFFF,0x10400022,0x3242FFFF\n\t"
-    ".word 0x8FA40050,0x02821021,0x10400012,0x00001821\n\t"
-    ".word 0x02003021,0x00402821,0x94820004,0x00000000\n\t"
-    ".word 0x10C20006,0x00000000,0x24630001,0x3062FFFF\n\t"
-    ".word 0x0045102A,0x1440FFF8,0x24840024,0x3063FFFF\n\t"
-    ".word 0x3242FFFF,0x02821021,0x0062182A,0x1460000E\n\t"
-    ".word 0x24020003,0x8E620004,0xA4910004,0xAC820000\n\t"
-    ".word 0x97A20010,0x00000000,0x1440001F,0x26520001\n\t"
-    ".word 0x3242FFFF,0x02821021,0x28420008,0x1040001B\n\t"
-    ".word 0x3242FFFF,0x24020003,0x12A20012,0x3223FFFF\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00561021\n\t"
-    ".word 0x3C050400,0x3C06800A,0x3C08800C,0x250860F8\n\t"
-    ".word 0x8C430000,0x94C4436C,0x00651825,0xAC430000\n\t"
-    ".word 0x00041040,0x00481021,0x24840001,0xA4510000\n\t"
-    ".word 0xA4C4436C,0x027E1021,0x94510008,0x3402FFFF\n\t"
-    ".word 0x1622FF9E,0x3222FFFF,0x3242FFFF,0x8FBF003C\n\t"
-    ".word 0x8FBE0038,0x8FB70034,0x8FB60030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    char pad10[0x28 - 0x10];
+} Cell;
+typedef struct Hit {
+    void *owner;
+    unsigned short id;
+    char pad06[0x24 - 6];
+} Hit;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+extern Cell D_800C62B0[];
+extern unsigned short D_800A436C;
+extern unsigned short D_800C60F8[];
+int func_80016D78(int, int, unsigned short);
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+unsigned short func_8001A40C(Pos2 *pos, unsigned short start, unsigned short slot, int mask, Hit *hits,
+                             unsigned short count, unsigned short first_only) {
+    unsigned short found = 0;
+    unsigned short cur = start;
+    Cell *e;
+    unsigned short i;
+    Hit *h;
+
+    while (cur != 0xFFFF) {
+        e = &D_800C62B0[cur];
+        if (!(e->flags & 0x04000000) && (e->flags & mask)) {
+            if ((unsigned short)func_80016D78((short)(to_int(pos->x) >> 2), (short)(to_int(pos->z) >> 2), cur)) {
+                h = hits;
+                for (i = 0; i < count + found; i++, h++) {
+                    if (cur == h->id) {
+                        break;
+                    }
+                }
+                if (i >= count + found) {
+                    h->owner = e->owner;
+                    h->id = cur;
+                    found++;
+                    if (first_only) {
+                        return found;
+                    }
+                    if (count + found >= 8) {
+                        break;
+                    }
+                }
+            }
+            if (slot != 3) {
+                D_800C62B0[cur].flags |= 0x04000000;
+                D_800C60F8[D_800A436C] = cur;
+                D_800A436C++;
+            }
+        }
+        cur = e->next[slot];
+    }
+    return found;
+}

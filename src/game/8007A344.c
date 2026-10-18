@@ -1,10 +1,45 @@
-asm(".text\n\t.globl func_8007A344\nfunc_8007A344:\n\t"
-    ".word 0x3c03800d,0x24632e14,0x00051080,0x00431021\n\t"
-    ".word 0x8c490000,0x2402006b,0x14a20003,0x00003021\n\t"
-    ".word 0x03e00008,0xac800000,0x8d230004,0x00000000\n\t"
-    ".word 0x8c670004,0x00000000,0x00c7102a,0x1040000a\n\t"
-    ".word 0x2488000c,0x00602821,0x01001821,0x8ca20008\n\t"
-    ".word 0x24a50004,0x24c60001,0xac620008,0x00c7102a\n\t"
-    ".word 0x1440fffa,0x24630004,0xad070004,0xad000000\n\t"
-    ".word 0x8d220000,0xac880004,0xac820000,0x8d220008\n\t"
-    ".word 0x03e00008,0xac820008\n\t");
+typedef struct List {
+    int kind;
+    int count;
+    int items[1];
+} List;
+
+typedef struct Def {
+    int type;
+    List *list;
+    int extra;
+} Def;
+
+typedef struct Inst {
+    int type;
+    List *list;
+    int extra;
+    List own;
+} Inst;
+
+extern Def *D_800D2E14[];
+
+void func_8007A344(Inst *inst, int id) {
+    Def *def = D_800D2E14[id];
+    List *src;
+    List *dst;
+    int count;
+    int i;
+
+    i = 0;
+    if (id == 107) {
+        inst->type = 0;
+        return;
+    }
+    src = def->list;
+    count = src->count;
+    dst = &inst->own;
+    for (; i < count; i++) {
+        dst->items[i] = src->items[i];
+    }
+    dst->count = count;
+    dst->kind = 0;
+    inst->type = def->type;
+    inst->list = dst;
+    inst->extra = def->extra;
+}

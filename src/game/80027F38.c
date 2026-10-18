@@ -1,27 +1,51 @@
-asm(".text\n\t.globl func_80027F38\nfunc_80027F38:\n\t"
-    ".word 0x27BDFFB8,0xAFB10034,0x00808821,0xAFB3003C\n\t"
-    ".word 0x00A09821,0xAFB20038,0x00C09021,0x24040024\n\t"
-    ".word 0x24050030,0xAFBF0040,0x0C008DF4,0xAFB00030\n\t"
-    ".word 0x00408021,0x12000050,0x3C02800D,0x8C422FE0\n\t"
-    ".word 0xAE00001C,0xAE130018,0x8E280000,0x8E290004\n\t"
-    ".word 0x8E2A0008,0xAE080008,0xAE09000C,0xAE0A0010\n\t"
-    ".word 0xAE120028,0x0C021B21,0xAE020024,0x3C038000\n\t"
-    ".word 0x34638001,0x00430019,0x00004010,0x000823C2\n\t"
-    ".word 0x00041C00,0x00641823,0x00431023,0xA6020014\n\t"
-    ".word 0x8E220000,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x08009FFB,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E230008,0x00000000\n\t"
-    ".word 0x04600003,0x00022C03,0x0800A005,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E240004,0x00000000,0x04800003,0x00023403\n\t"
-    ".word 0x0800A00F,0x00043B03,0x00041023,0x00021303\n\t"
-    ".word 0x00023823,0x3C02800A,0x244244C8,0x00131840\n\t"
-    ".word 0x00621821,0x94620000,0x02002021,0x00021023\n\t"
-    ".word 0x00021400,0x00021403,0xAFA20010,0x84620000\n\t"
-    ".word 0x00073B80,0xAFA20014,0x94620000,0x00073C03\n\t"
-    ".word 0x00021023,0x00021400,0x00021403,0xAFA20018\n\t"
-    ".word 0x84630000,0x2402000A,0xAFA20024,0x24020100\n\t"
-    ".word 0xAFA00020,0xAFA00028,0xAFA2002C,0x0C0058BC\n\t"
-    ".word 0xAFA3001C,0xA602002C,0x8FBF0040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0048\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    unsigned short angle;
+    char pad16[2];
+    int kind;
+    int state;
+    char pad20[4];
+    int start;
+    int param;
+    unsigned short cell;
+} Effect;
+
+extern short D_800A44C8[];
+extern int D_800D2FE0;
+extern Effect *func_800237D0(int, int);
+extern unsigned int func_80086C84(void);
+extern unsigned short func_800162F0(Effect *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+void func_80027F38(Vector *pos, int kind, int param) {
+    Effect *e = func_800237D0(36, 48);
+
+    if (e != 0) {
+        e->state = 0;
+        e->kind = kind;
+        e->pos = *pos;
+        e->param = param;
+        e->start = D_800D2FE0;
+        e->angle = func_80086C84() % 0xFFFF;
+        e->cell = func_800162F0(e, to_cell(pos->x), to_cell(pos->z), to_cell(pos->y),
+                                (short)-D_800A44C8[kind], D_800A44C8[kind],
+                                (short)-D_800A44C8[kind], D_800A44C8[kind], 0, 10, 0, 256);
+    }
+}

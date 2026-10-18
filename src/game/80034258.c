@@ -1,29 +1,53 @@
-asm(".text\n\t.globl func_80034258\nfunc_80034258:\n\t"
-    ".word 0x3C02800D,0x8C432FE8,0x27BDFF98,0xAFB60058\n\t"
-    ".word 0x97B60078,0x97A8007C,0xAFB7005C,0x97B70084\n\t"
-    ".word 0xAFBE0060,0x97BE0088,0xAFB40050,0x97B4008C\n\t"
-    ".word 0xAFB10044,0x00808821,0xAFB20048,0x00A09021\n\t"
-    ".word 0xAFB3004C,0x00C09821,0xAFB50054,0x00E0A821\n\t"
-    ".word 0xAFBF0064,0xAFB00040,0xA7A80030,0x97A80080\n\t"
-    ".word 0x2C62000E,0x10400009,0xA7A80038,0x3C02800C\n\t"
-    ".word 0x2442E354,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x24040014\n\t"
-    ".word 0x0C008DF4,0x24050020,0x00408021,0x1200003A\n\t"
-    ".word 0x00000000,0x06210004,0x00111303,0x00111023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x06600003\n\t"
-    ".word 0x00022C03,0x0800D0CC,0x00131303,0x00131023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x06400003\n\t"
-    ".word 0x00023403,0x0800D0D4,0x00123B03,0x00121023\n\t"
-    ".word 0x00021303,0x00023823,0x02002021,0x00151400\n\t"
-    ".word 0x00021403,0xAFA20010,0x00161400,0x00021403\n\t"
-    ".word 0xAFA20014,0x00171400,0x00021403,0xAFA20018\n\t"
-    ".word 0x001E1400,0x00021403,0x00073B80,0x97A80030\n\t"
-    ".word 0x00073C03,0xAFA2001C,0x00081400,0x97A80038\n\t"
-    ".word 0x00021403,0xAFA20020,0x00081400,0x00021403\n\t"
-    ".word 0xAFA20024,0x3282FFFF,0xAFA20028,0x3C020001\n\t"
-    ".word 0x0C0058BC,0xAFA2002C,0xA6020008,0x8FA20090\n\t"
-    ".word 0xA6140018,0xAE11000C,0xAE120010,0xAE130014\n\t"
-    ".word 0xAE00001C,0xA2020006,0x8FBF0064,0x8FBE0060\n\t"
-    ".word 0x8FB7005C,0x8FB60058,0x8FB50054,0x8FB40050\n\t"
-    ".word 0x8FB3004C,0x8FB20048,0x8FB10044,0x8FB00040\n\t"
-    ".word 0x03E00008,0x27BD0068\n");
+typedef struct {
+    short pad[3];
+    unsigned char flag;
+    char pad1;
+    short handle;
+    short pad2;
+    int x;
+    int y;
+    int z;
+    unsigned short id;
+    short pad3;
+    int link;
+} Blocker;
+extern unsigned int D_800D2FE8;
+Blocker *func_800237D0(int, int);
+short func_800162F0(Blocker *, int, int, int, int, int, int, int, int, int, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_80034258(int x, int y, int z, short a, short b, short c, short d, short e, short f, unsigned short id,
+                   int flag) {
+    Blocker *o;
+
+    switch (D_800D2FE8) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 8:
+    case 11:
+    case 12:
+    case 13:
+        break;
+    default:
+        o = func_800237D0(20, 32);
+        if (o != 0) {
+            o->handle = func_800162F0(o, (to_int(x) << 14) >> 16, (to_int(z) << 14) >> 16, (to_int(y) << 14) >> 16, a,
+                                      b, e, f, c, d, id, 0x10000);
+            o->flag = flag;
+            o->id = id;
+            o->x = x;
+            o->y = y;
+            o->z = z;
+            o->link = 0;
+        }
+        break;
+    }
+}

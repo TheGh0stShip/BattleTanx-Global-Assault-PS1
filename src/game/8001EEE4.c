@@ -1,12 +1,60 @@
-asm(".text\n\t.globl func_8001EEE4\nfunc_8001EEE4:\n\t"
-    ".word 0x00001821,0x24021000,0xac800000,0xac800004\n\t"
-    ".word 0xac800008,0xac80001c,0xa480001a,0xa4800034\n\t"
-    ".word 0xa4800036,0xac800060,0xac820030,0x3062ffff\n\t"
-    ".word 0x24630001,0x00021080,0x00821021,0xac40003c\n\t"
-    ".word 0xac40004c,0x3062ffff,0x2c420004,0x1440fff8\n\t"
-    ".word 0x3062ffff,0x94a20000,0x00000000,0xa4820018\n\t"
-    ".word 0x8ca20004,0x00000000,0xac82000c,0x8ca20008\n\t"
-    ".word 0x00000000,0xac820010,0x8ca2000c,0x00000000\n\t"
-    ".word 0xac820014,0x8ca20010,0x00000000,0xac820020\n\t"
-    ".word 0x8ca20014,0x00000000,0xac820024,0x8ca20018\n\t"
-    ".word 0xa080005c,0xac80002c,0x03e00008,0xac820028\n\t");
+typedef struct BodyConfig {
+    unsigned short kind;
+    int mass;
+    int drag;
+    int friction;
+    int max_speed;
+    int accel;
+    int turn;
+} BodyConfig;
+typedef struct Body {
+    int vx;
+    int vy;
+    int vz;
+    int mass;
+    int drag;
+    int friction;
+    unsigned short kind;
+    short heading;
+    int speed;
+    int max_speed;
+    int accel;
+    int turn;
+    int unk2C;
+    int scale;
+    short unk34;
+    short unk36;
+    char pad38[4];
+    int forces[4];
+    int torques[4];
+    unsigned char grounded;
+    char pad5D[3];
+    int unk60;
+} Body;
+
+void func_8001EEE4(Body *body, BodyConfig *config) {
+    unsigned short i;
+
+    body->vx = 0;
+    body->vy = 0;
+    body->vz = 0;
+    body->speed = 0;
+    body->heading = 0;
+    body->unk34 = 0;
+    body->unk36 = 0;
+    body->unk60 = 0;
+    body->scale = 4096;
+    for (i = 0; i < 4; i++) {
+        body->forces[i] = 0;
+        body->torques[i] = 0;
+    }
+    body->kind = config->kind;
+    body->mass = config->mass;
+    body->drag = config->drag;
+    body->friction = config->friction;
+    body->max_speed = config->max_speed;
+    body->accel = config->accel;
+    body->turn = config->turn;
+    body->grounded = 0;
+    body->unk2C = 0;
+}

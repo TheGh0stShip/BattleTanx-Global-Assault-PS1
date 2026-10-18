@@ -1,10 +1,18 @@
-asm(".text\n\t.globl func_80086CAC\nfunc_80086CAC:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb3001c,0x00c09821,0x2404ffff\n\t"
-    ".word 0xafbf0020,0x0c02221c,0xafb10014,0x24420001\n\t"
-    ".word 0x00508821,0x24040001,0x02402821,0x0c025807\n\t"
-    ".word 0x02603021,0x00408021,0x16000006,0x24020001\n\t"
-    ".word 0x0c02221c,0x2404ffff,0x0051102b,0x1440fff5\n\t"
-    ".word 0x24020001,0x12020003,0x2402ffff,0xae400000\n\t"
-    ".word 0xae620000,0x8fbf0020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+extern unsigned int func_80088870(int a);
+extern int func_8009601C(int a, int *b, int *c);
+
+void func_80086CAC(int timeout, int *result, int *status) {
+    unsigned int end = func_80088870(-1) + 1;
+    int done;
+
+    do {
+        done = func_8009601C(1, result, status);
+        if (done != 0) {
+            break;
+        }
+    } while (func_80088870(-1) < end + timeout);
+    if (done != 1) {
+        *result = 0;
+        *status = -1;
+    }
+}

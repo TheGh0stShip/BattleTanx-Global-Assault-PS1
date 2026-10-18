@@ -1,21 +1,37 @@
-asm(".text\n\t.globl func_80075570\nfunc_80075570:\n\t"
-    ".word 0x3C02800B,0x9043E9E9,0x00000000,0x10600011\n\t"
-    ".word 0x00002821,0x3C02800F,0x2446AFC0,0x00602021\n\t"
-    ".word 0x30A300FF,0x000310C0,0x00461021,0x8C420004\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0x10400030\n\t"
-    ".word 0x24A50001,0x30A200FF,0x0044102B,0x1440FFF4\n\t"
-    ".word 0x3C02800B,0x9042E9E9,0x00000000,0x10400033\n\t"
-    ".word 0x00002821,0x3C02800F,0x2448AFC0,0x3C02800B\n\t"
-    ".word 0x2449E9EC,0x3C02800F,0x8C47AFE0,0x00002021\n\t"
-    ".word 0x30A200FF,0x000210C0,0x00481021,0x00071840\n\t"
-    ".word 0x00671821,0x8C420004,0x00031880,0x8C460000\n\t"
-    ".word 0x308200FF,0x00021080,0x00431021,0x00491021\n\t"
-    ".word 0x8C420000,0x00000000,0x10460013,0x24840001\n\t"
-    ".word 0x308200FF,0x2C420003,0x1440FFF6,0x308200FF\n\t"
-    ".word 0x00001021,0x304200FF,0x1440000D,0x30A300FF\n\t"
-    ".word 0x000310C0,0x00481021,0x8C420004,0x00000000\n\t"
-    ".word 0x8C420000,0x00000000,0x10470006,0x24A50001\n\t"
-    ".word 0x03E00008,0x00601021,0x0801D591,0x24020001\n\t"
-    ".word 0x24A50001,0x3C02800B,0x9043E9E9,0x30A200FF\n\t"
-    ".word 0x0043102B,0x1440FFD6,0x00002021,0x03E00008\n\t"
-    ".word 0x00001021\n");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    int *data;
+} Buffer;
+
+extern unsigned char D_800AE9E9;
+extern int D_800EAFE0;
+extern Buffer D_800EAFC0[];
+extern int D_800AE9EC[][3];
+
+static inline unsigned char track_in_set(int id) {
+    unsigned char j;
+
+    for (j = 0; j < 3; j++) {
+        if (D_800AE9EC[D_800EAFE0][j] == id) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+unsigned char func_80075570(void) {
+    unsigned char i;
+
+    for (i = 0; i < D_800AE9E9; i++) {
+        if (*D_800EAFC0[i].data == 0) {
+            return i;
+        }
+    }
+    for (i = 0; i < D_800AE9E9; i++) {
+        if (!track_in_set(*D_800EAFC0[i].data) && *D_800EAFC0[i].data != D_800EAFE0) {
+            return i;
+        }
+    }
+    return 0;
+}

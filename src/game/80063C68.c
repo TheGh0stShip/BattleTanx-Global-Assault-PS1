@@ -1,20 +1,95 @@
-asm(".text\n\t.globl func_80063C68\nfunc_80063C68:\n\t"
-    ".word 0x30A5FFFF,0x10A00008,0x24020001,0x14A20007\n\t"
-    ".word 0x3C02800B,0x3C02800B,0x2445AF0C,0x3C02800B\n\t"
-    ".word 0x08018F28,0x2447AF30,0x3C02800B,0x2445AF04\n\t"
-    ".word 0x3C02800B,0x2447AF2C,0x24020032,0x24C3FFFE\n\t"
-    ".word 0xA4A20004,0x2C62000F,0x10400033,0xACA40000\n\t"
-    ".word 0x3C02800C,0x2442FE74,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x3C02800E,0x08018F61,0x2442497C,0x3C02800E\n\t"
-    ".word 0x08018F61,0x244249A8,0x3C02800E,0x08018F61\n\t"
-    ".word 0x24424884,0x3C02800E,0x08018F61,0x24424934\n\t"
-    ".word 0x3C02800E,0x08018F61,0x2442489C,0x3C02800E\n\t"
-    ".word 0x08018F61,0x24424894,0x3C02800E,0x08018F61\n\t"
-    ".word 0x24424A68,0x3C02800E,0x08018F61,0x2442498C\n\t"
-    ".word 0x3C02800E,0x08018F61,0x24424974,0x3C02800E\n\t"
-    ".word 0x08018F61,0x244249B0,0x3C02800E,0x08018F61\n\t"
-    ".word 0x24424864,0x3C02800E,0x08018F61,0x24424998\n\t"
-    ".word 0x3C02800E,0x08018F61,0x24424984,0x3C02800E\n\t"
-    ".word 0x08018F61,0x2442495C,0x00001021,0x03E00008\n\t"
-    ".word 0xACE20000\n");
+typedef struct Entry {
+    int value;
+    short timer;
+} Entry;
+
+extern Entry D_800AAF04;
+extern Entry D_800AAF0C;
+extern int *D_800AAF2C;
+extern int *D_800AAF30;
+extern int D_800E4864;
+extern int D_800E4884;
+extern int D_800E4894;
+extern int D_800E489C;
+extern int D_800E4934;
+extern int D_800E495C;
+extern int D_800E4974;
+extern int D_800E497C;
+extern int D_800E4984;
+extern int D_800E498C;
+extern int D_800E4998;
+extern int D_800E49A8;
+extern int D_800E49B0;
+extern int D_800E4A68;
+
+void func_80063C68(int value, unsigned short player, int kind) {
+    Entry *entry;
+    int **slot;
+    int *text;
+
+    switch (player) {
+    case 0:
+        entry = &D_800AAF04;
+        slot = &D_800AAF2C;
+        break;
+    case 1:
+        entry = &D_800AAF0C;
+        slot = &D_800AAF30;
+        break;
+    default:
+        entry = &D_800AAF04;
+        slot = &D_800AAF2C;
+        break;
+    }
+    entry->timer = 50;
+    entry->value = value;
+    switch (kind) {
+    case 2:
+        text = &D_800E497C;
+        break;
+    case 3:
+        text = &D_800E49A8;
+        break;
+    case 4:
+        text = &D_800E4884;
+        break;
+    case 5:
+    case 15:
+        text = &D_800E4934;
+        break;
+    case 6:
+        text = &D_800E489C;
+        break;
+    case 7:
+        text = &D_800E4894;
+        break;
+    case 8:
+        text = &D_800E4A68;
+        break;
+    case 9:
+        text = &D_800E498C;
+        break;
+    case 10:
+        text = &D_800E4974;
+        break;
+    case 11:
+        text = &D_800E49B0;
+        break;
+    case 14:
+        text = &D_800E4864;
+        break;
+    case 12:
+        text = &D_800E4998;
+        break;
+    case 13:
+        text = &D_800E4984;
+        break;
+    case 16:
+        text = &D_800E495C;
+        break;
+    default:
+        text = 0;
+        break;
+    }
+    *slot = text;
+}

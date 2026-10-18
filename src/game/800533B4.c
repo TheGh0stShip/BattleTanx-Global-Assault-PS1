@@ -1,32 +1,61 @@
-asm(".text\n\t.globl func_800533B4\nfunc_800533B4:\n\t"
-    ".word 0x27BDFFD8,0xAFB40020,0x0080A021,0xAFB10014\n\t"
-    ".word 0x00008821,0xAFB3001C,0x24130001,0x3C02800E\n\t"
-    ".word 0xAFB00010,0x2450465C,0xAFBF0024,0xAFB20018\n\t"
-    ".word 0x02339004,0x0C024071,0x02402021,0x00401821\n\t"
-    ".word 0x14730006,0x24020003,0x96020000,0x00000000\n\t"
-    ".word 0x24420001,0x08014D12,0xA6020000,0x14620008\n\t"
-    ".word 0x24020002,0x02001821,0x94620000,0x00000000\n\t"
-    ".word 0x1440002B,0x00002021,0x08014D12,0xA4730000\n\t"
-    ".word 0x1062002D,0x322200FF,0xA6000000,0x08014D5E\n\t"
-    ".word 0xA2140002,0x26310001,0x2A220018,0x1440FFE4\n\t"
-    ".word 0x26100004,0x00002821,0x00008821,0x3C02800E\n\t"
-    ".word 0x2444465C,0x00803021,0x30A2FFFF,0x00021080\n\t"
-    ".word 0x00461021,0x90430002,0x90820002,0x00000000\n\t"
-    ".word 0x0043102B,0x10400002,0x00000000,0x02202821\n\t"
-    ".word 0x26310001,0x2A220018,0x1440FFF3,0x24840004\n\t"
-    ".word 0x3C02800E,0x2447465C,0x30A3FFFF,0x00031080\n\t"
-    ".word 0x00473021,0x90C40002,0x328200FF,0x0044102B\n\t"
-    ".word 0x10400010,0x24020064,0x08014D5E,0x00000000\n\t"
-    ".word 0x02402821,0xA6000000,0x0C0241F1,0xA2140002\n\t"
-    ".word 0x08014D5E,0x322200FF,0x3C04800E,0x2484465C\n\t"
-    ".word 0x00111880,0x00641821,0xA4600000,0x08014D5E\n\t"
-    ".word 0xA0740002,0x00608821,0x2A220018,0x10400014\n\t"
-    ".word 0x00A08021,0x00802821,0x00C02021,0x90820002\n\t"
-    ".word 0x00000000,0x1445000A,0x3202FFFF,0x00021080\n\t"
-    ".word 0x00471021,0x94830000,0x94420000,0x00000000\n\t"
-    ".word 0x0043102B,0x10400002,0x00000000,0x02208021\n\t"
-    ".word 0x26310001,0x2A220018,0x1440FFF0,0x24840004\n\t"
-    ".word 0x00002021,0x24050001,0x0C0241F1,0x02052804\n\t"
-    ".word 0x320200FF,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct {
+    unsigned short age;
+    unsigned char priority;
+    unsigned char sound;
+} Voice;
+extern Voice D_800E465C[];
+extern int func_800901C4(int);
+extern void func_800907C4(int, int);
+
+unsigned char func_800533B4(unsigned char priority) {
+    int i;
+    int mask;
+    int status;
+    unsigned short best;
+    unsigned char lowest;
+
+    for (i = 0; i < 24; i++) {
+        mask = 1 << i;
+        status = func_800901C4(mask);
+        if (status == 1) {
+            D_800E465C[i].age++;
+        } else if (status == 3) {
+            if (D_800E465C[i].age != 0) {
+                D_800E465C[i].age = 0;
+                D_800E465C[i].priority = priority;
+                func_800907C4(0, mask);
+                return i;
+            }
+            D_800E465C[i].age = 1;
+        } else if (status == 2) {
+            D_800E465C[i].age = 0;
+            D_800E465C[i].priority = priority;
+            return i;
+        } else {
+            D_800E465C[i].age = 0;
+            D_800E465C[i].priority = priority;
+            return i;
+        }
+    }
+    best = 0;
+    for (i = 0; i < 24; i++) {
+        if (D_800E465C[best].priority > D_800E465C[i].priority) {
+            best = i;
+        }
+    }
+    lowest = D_800E465C[best].priority;
+    if (priority < lowest) {
+        return 100;
+    }
+    {
+        unsigned short oldest = best;
+
+        for (i = best; i < 24; i++) {
+            if (D_800E465C[i].priority == lowest && D_800E465C[i].age > D_800E465C[oldest].age) {
+                oldest = i;
+            }
+        }
+        func_800907C4(0, 1 << oldest);
+        return oldest;
+    }
+}

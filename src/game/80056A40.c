@@ -1,20 +1,52 @@
-asm(".text\n\t.globl func_80056A40\nfunc_80056A40:\n\t"
-    ".word 0x2482FFBF,0x304200FF,0x2C42001A,0x10400005\n\t"
-    ".word 0x00801821,0x306200FF,0x2442FFBF,0x03E00008\n\t"
-    ".word 0x3042FFFF,0x2482FF9F,0x304200FF,0x2C42001A\n\t"
-    ".word 0x10400004,0x306200FF,0x2442FFB9,0x03E00008\n\t"
-    ".word 0x3042FFFF,0x2482FFD0,0x304200FF,0x2C42000A\n\t"
-    ".word 0x10400003,0x306200FF,0x03E00008,0x24420004\n\t"
-    ".word 0x306200FF,0x2443FFDF,0x2C62005E,0x1040002E\n\t"
-    ".word 0x3C02800C,0x2442F8C0,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x03E00008,0x2402003E,0x03E00008,0x2402003F\n\t"
-    ".word 0x03E00008,0x24020040,0x03E00008,0x24020041\n\t"
-    ".word 0x03E00008,0x24020042,0x03E00008,0x24020043\n\t"
-    ".word 0x03E00008,0x24020044,0x03E00008,0x24020045\n\t"
-    ".word 0x03E00008,0x24020046,0x03E00008,0x24020047\n\t"
-    ".word 0x03E00008,0x24020048,0x03E00008,0x24020049\n\t"
-    ".word 0x03E00008,0x2402004A,0x03E00008,0x2402004B\n\t"
-    ".word 0x03E00008,0x2402004C,0x03E00008,0x2402004D\n\t"
-    ".word 0x03E00008,0x2402004E,0x03E00008,0x2402004F\n\t"
-    ".word 0x03E00008,0x24020050,0x03E00008,0x3402FFFF\n");
+unsigned short func_80056A40(unsigned char c) {
+    if ((unsigned char)(c - 'A') < 26) {
+        return c - 'A';
+    }
+    if ((unsigned char)(c - 'a') < 26) {
+        return c - 'a' + 26;
+    }
+    if ((unsigned char)(c - '0') < 10) {
+        return c - '0' + 52;
+    }
+    switch (c) {
+    case '.':
+        return 62;
+    case ',':
+        return 63;
+    case '!':
+        return 64;
+    case '?':
+        return 65;
+    case '+':
+        return 66;
+    case '-':
+        return 67;
+    case '*':
+        return 68;
+    case '/':
+        return 69;
+    case '=':
+        return 70;
+    case '"':
+        return 71;
+    case '\'':
+        return 72;
+    case '@':
+        return 73;
+    case '%':
+        return 74;
+    case '(':
+        return 75;
+    case ')':
+        return 76;
+    case '^':
+        return 77;
+    case '~':
+        return 78;
+    case '#':
+        return 79;
+    case ':':
+        return 80;
+    }
+    return 0xFFFF;
+}

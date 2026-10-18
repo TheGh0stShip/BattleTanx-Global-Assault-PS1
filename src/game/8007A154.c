@@ -1,10 +1,21 @@
-asm(".text\n\t.globl func_8007A154\nfunc_8007A154:\n\t"
-    ".word 0x00003821,0x240b0001,0x3c02800f,0x244ac0f8\n\t"
-    ".word 0x3c02800f,0x2449c0ac,0x3c02800b,0x2448eb3c\n\t"
-    ".word 0x30e200ff,0x00021880,0x006a2021,0xac8b0000\n\t"
-    ".word 0x00003021,0x24050026,0x00621821,0x00031880\n\t"
-    ".word 0x00621823,0x00032040,0x00a81021,0x24a50002\n\t"
-    ".word 0x00891821,0x94420000,0x24c60001,0xa4620000\n\t"
-    ".word 0x28c20013,0x1440fff8,0x24840002,0x24e70001\n\t"
-    ".word 0x30e200ff,0x2c420002,0x1440ffea,0x30e200ff\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+extern short D_800EC0AC[][19];
+extern short D_800AEB3C[][19];
+extern int D_800EC0F8[];
+
+static inline void load_preset_row(unsigned char slot, int preset) {
+    int i;
+
+    for (i = 0; i < 19; i++) {
+        D_800EC0AC[slot][i] = D_800AEB3C[preset][i];
+    }
+}
+
+void func_8007A154(void) {
+    unsigned char slot;
+    int one;
+
+    for (slot = 0, one = 1; slot < 2; slot++) {
+        D_800EC0F8[slot] = one;
+        load_preset_row(slot, 1);
+    }
+}

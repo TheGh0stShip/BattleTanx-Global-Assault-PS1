@@ -1,9 +1,13 @@
-asm(".text\n\t.globl func_80032324\nfunc_80032324:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0x9482001a,0x00000000\n\t"
-    ".word 0x00021400,0x00021c03,0x000217c2,0x00621821\n\t"
-    ".word 0x84820018,0x00031843,0x0062182a,0x10600007\n\t"
-    ".word 0x00804021,0x94870014,0x24850008,0xafa00010\n\t"
-    ".word 0x8c84001c,0x0800c8e0,0x00000000,0x95070014\n\t"
-    ".word 0x25050008,0xafa00010,0x8d040024,0x0c01a86f\n\t"
-    ".word 0x00003021,0x8fbf0018,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; Vector pos; unsigned short angle; short pad2; short health; short max_health; int model_ok; int pad3; int model_damaged; } Prop;
+void func_8006A1BC(int, Vector *, int, int, int);
+
+void func_80032324(Prop *p) {
+    Prop *q = p;
+
+    if (p->max_health / 2 < p->health) {
+        func_8006A1BC(p->model_ok, &p->pos, 0, p->angle, 0);
+    } else {
+        func_8006A1BC(q->model_damaged, &q->pos, 0, q->angle, 0);
+    }
+}

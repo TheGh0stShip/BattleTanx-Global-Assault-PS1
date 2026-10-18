@@ -1,31 +1,23 @@
-__asm__(
-    ".set noreorder\n"
-    ".text\n"
-    ".align 2\n"
-    ".globl func_8006F1D0\n"
-    ".ent func_8006F1D0\n"
-    "func_8006F1D0:\n"
-    "lui $4,0x800F\n"
-    "lui $3,0x800F\n"
-    "addiu $2,$3,-0x541C\n"
-    "sw $0,-0x541C($3)\n"
-    "addiu $3,$2,-0x57D4\n"
-    ".word 0x10430008\n"
-    "sw $2,-0x53F0($4)\n"
-    "addu $5,$3,$0\n"
-    "1:\n"
-    "lw $2,-0x53F0($4)\n"
-    "nop\n"
-    "addiu $3,$2,-0x2C\n"
-    "sw $3,-0x53F0($4)\n"
-    ".word 0x1465FFFB\n"
-    "sw $2,-0x2C($2)\n"
-    "2:\n"
-    "lui $2,0x800F\n"
-    "sw $0,-0x53EC($2)\n"
-    "lui $2,0x800F\n"
-    ".word 0x03E00008\n"
-    "sw $0,-0x53E8($2)\n"
-    ".end func_8006F1D0\n"
-    ".set reorder\n"
-);
+typedef struct Node {
+    struct Node *next;
+    int data[10];
+} Node;
+
+extern Node D_800EABE4;
+extern Node *D_800EAC10;
+extern int D_800EAC14;
+extern int D_800EAC18;
+
+void func_8006F1D0(void) {
+    Node *node;
+
+    D_800EAC10 = &D_800EABE4;
+    D_800EABE4.next = 0;
+    while (D_800EAC10 != &D_800EABE4 - 511) {
+        node = D_800EAC10;
+        D_800EAC10 = node - 1;
+        node[-1].next = node;
+    }
+    D_800EAC14 = 0;
+    D_800EAC18 = 0;
+}

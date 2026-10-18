@@ -1,35 +1,97 @@
-asm(".text\n\t.globl func_800A26F4\nfunc_800A26F4:\n\t"
-    ".word 0x27BDFFD0,0xAFB1001C,0x00808821,0xAFB30024\n\t"
-    ".word 0x00A09821,0xAFB00018,0x24100001,0xAFBF002C\n\t"
-    ".word 0xAFB40028,0x1260000C,0xAFB20020,0x8E220010\n\t"
-    ".word 0x8E23000C,0x00501021,0xAE220010,0x0043102B\n\t"
-    ".word 0x14400005,0x00000000,0x0C028679,0x00002021\n\t"
-    ".word 0x08028A3D,0x02001021,0x8E220004,0x00000000\n\t"
-    ".word 0x30420400,0x10400005,0x00000000,0x0C028679\n\t"
-    ".word 0x24040001,0x08028A3D,0x02001021,0x8E220004\n\t"
-    ".word 0x00000000,0x30420004,0x1040000D,0x3C02800F\n\t"
-    ".word 0x8E220004,0xAE200020,0x34420008,0xAE220004\n\t"
-    ".word 0x12600057,0x02001021,0x8E220004,0x00000000\n\t"
-    ".word 0x34420010,0xAE220004,0x08028A3D,0x02001021\n\t"
-    ".word 0x2452FD0C,0x3C02800A,0x245419BC,0x8E220004\n\t"
-    ".word 0x00000000,0x30420008,0x1040000B,0x00000000\n\t"
-    ".word 0x8E220004,0x00000000,0x30420010,0x10400002\n\t"
-    ".word 0x00000000,0x24130001,0x8E220004,0x2403FFE7\n\t"
-    ".word 0x00431024,0xAE220004,0x92230030,0x24020004\n\t"
-    ".word 0x14620002,0x00000000,0xA2200031,0x8E220044\n\t"
-    ".word 0x8E230034,0x00000000,0x00438023,0x2E020100\n\t"
-    ".word 0x14400002,0x3C02800F,0x241000FF,0xA2300032\n\t"
-    ".word 0xA050FD0C,0x92220031,0x00000000,0xA2420001\n\t"
-    ".word 0x92220030,0x12000007,0xA2420002,0x26440003\n\t"
-    ".word 0x8E22003C,0x8E250034,0x02003021,0x0C022A21\n\t"
-    ".word 0x00452821,0x0C028648,0x02402021,0x02121821\n\t"
-    ".word 0x16600002,0xA0620003,0xAE200010,0x2404000B\n\t"
-    ".word 0x00003021,0x8E220004,0x2403FBFD,0xAE200020\n\t"
-    ".word 0xAE200020,0x00431024,0xAE220004,0x8E230004\n\t"
-    ".word 0x24020001,0xAE220008,0x26020004,0x34630004\n\t"
-    ".word 0xAE230004,0xAFA20010,0xAFB40014,0x8E250000\n\t"
-    ".word 0x0C023FC7,0x02403821,0x8E230004,0x2404FFFB\n\t"
-    ".word 0x00641824,0xAE230004,0x8E230004,0x00000000\n\t"
-    ".word 0x30630008,0x1460FFB5,0x00408021,0x02001021\n\t"
-    ".word 0x8FBF002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AF8(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+extern void func_8008A884(void *, void *, int);
+extern unsigned char func_800A1920(void *);
+extern int func_800A19BC(int, int, int, int);
+
+int func_800A26F4(Link *c, int retry) {
+    int result = 1;
+    unsigned int n;
+
+    if (retry != 0 && ++c->tries >= c->limit) {
+        func_800A19E4(0);
+    } else if (c->flags & 0x400) {
+        func_800A19E4(1);
+    } else if (c->flags & 4) {
+        c->unk20 = 0;
+        c->flags |= 8;
+        if (retry != 0) {
+            c->flags |= 0x10;
+        }
+    } else {
+        do {
+            if (c->flags & 8) {
+                if (c->flags & 0x10) {
+                    retry = 1;
+                }
+                c->flags &= ~0x18;
+            }
+            if (c->cmd == 4) {
+                c->seq = 0;
+            }
+            n = c->data44 - c->count;
+            if (n >= 256) {
+                n = 255;
+            }
+            c->length = n;
+            D_800EFD0C.rx_length = n;
+            D_800EFD0C.rx_data[0] = c->seq;
+            D_800EFD0C.rx_data[1] = c->cmd;
+            if (n != 0) {
+                func_8008A884(&D_800EFD0C.rx_data[2], (char *)c->data3C + c->count, n);
+            }
+            D_800EFD0C.rx_data[n + 2] = func_800A1920(&D_800EFD0C);
+            if (retry == 0) {
+                c->tries = 0;
+            }
+            c->unk20 = 0;
+            c->flags &= ~0x402;
+            c->unk20 = 0;
+            c->unk08 = 1;
+            c->flags |= 4;
+            result = func_8008FF1C(11, c->unk00, 0, &D_800EFD0C, n + 4, func_800A19BC);
+            c->flags &= ~4;
+        } while (c->flags & 8);
+    }
+    return result;
+}

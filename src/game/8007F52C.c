@@ -1,14 +1,35 @@
-asm(".text\n\t.globl func_8007F52C\nfunc_8007F52C:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb10014,0x00c08821,0x3c028008\n\t"
-    ".word 0x8c426058,0x00002021,0xafbf0024,0xafb40020\n\t"
-    ".word 0x1040001d,0xafb00010,0x3c02800f,0x2443c200\n\t"
-    ".word 0x8c620128,0x00000000,0x14530002,0x00000000\n\t"
-    ".word 0xac600128,0x12200014,0x24040001,0x3414ffff\n\t"
-    ".word 0x10800011,0x0291102b,0x10400002,0x02208021\n\t"
-    ".word 0x3410ffff,0x2664ffff,0x02402821,0x0c0250ba\n\t"
-    ".word 0x02003021,0x00401821,0x00701026,0x2c440001\n\t"
-    ".word 0x10800003,0x00000000,0x02439021,0x02238823\n\t"
-    ".word 0x1620ffef,0x00000000,0x8fbf0024,0x8fb40020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x00801021,0x03e00008,0x27bd0028\n\t");
+typedef struct FileCtl {
+    int handle;
+    char pad4[292];
+    int busy;
+} FileCtl;
+
+extern FileCtl D_800EC200;
+extern int D_80086058;
+extern int func_800942E8(int, char *, unsigned int);
+
+int func_8007F52C(int handle, char *buf, unsigned int len) {
+    int ok = 0;
+    unsigned int chunk;
+    int n;
+
+    if (D_80086058 != 0) {
+        if (D_800EC200.busy == handle) {
+            D_800EC200.busy = 0;
+        }
+        ok = 1;
+        while (len != 0 && ok) {
+            chunk = len;
+            if (chunk > 0xFFFF) {
+                chunk = 0xFFFF;
+            }
+            n = func_800942E8(handle - 1, buf, chunk);
+            ok = n == chunk;
+            if (ok) {
+                buf += n;
+                len -= n;
+            }
+        }
+    }
+    return ok;
+}

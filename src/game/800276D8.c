@@ -1,25 +1,78 @@
-asm(".text\n\t.globl func_800276D8\nfunc_800276D8:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0x00A02021\n\t"
-    ".word 0xAFB20018,0xAFBF001C,0xAFB10014,0x84830004\n\t"
-    ".word 0x24020027,0x1062001F,0x00E09021,0x28620028\n\t"
-    ".word 0x1040000E,0x24110007,0x1071001A,0x28620008\n\t"
-    ".word 0x10400005,0x24020004,0x10620038,0x2402FFFF\n\t"
-    ".word 0x08009E10,0x00000000,0x2402000C,0x10620011\n\t"
-    ".word 0x00000000,0x08009E10,0x00000000,0x24020034\n\t"
-    ".word 0x1062000C,0x28620035,0x10400005,0x24020028\n\t"
-    ".word 0x10620038,0x24020005,0x08009E10,0x00000000\n\t"
-    ".word 0x2402004B,0x10620033,0x24020001,0x08009E10\n\t"
-    ".word 0x00000000,0x82030016,0x8CC20010,0x00000000\n\t"
-    ".word 0x00621823,0x1C600003,0x00000000,0x08009DE8\n\t"
-    ".word 0xA2000016,0xA2030016,0x8603003A,0x2402FFFF\n\t"
-    ".word 0x10620023,0x3C02800D,0x8C423258,0x00031980\n\t"
-    ".word 0x00431021,0x90430018,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x08009DFD,0x00002021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00432021,0x0C014C75\n\t"
-    ".word 0x24050009,0x08009E0F,0x24020001,0x8605003A\n\t"
-    ".word 0x00000000,0x10A20006,0x3C02800D,0x00052980\n\t"
-    ".word 0x8C423258,0x8C840008,0x0C00CFD9,0x00452821\n\t"
-    ".word 0x92020017,0x00000000,0x10510003,0x00000000\n\t"
-    ".word 0x24020001,0xAE420000,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    char pad0[0x114];
+} Waypoint;
+
+typedef struct Node {
+    char pad0[0x18];
+    unsigned char owner;
+    char pad19[0x40 - 0x19];
+} Node;
+
+typedef struct {
+    char pad0[0x16];
+    signed char health;
+    unsigned char state;
+    char pad18[0x3A - 0x18];
+    short link;
+} Crate;
+
+typedef struct {
+    short pad0[2];
+    short type;
+    short pad6;
+    void *sender;
+} Message;
+
+typedef struct {
+    char pad0[0x10];
+    int damage;
+} Hit;
+
+extern Waypoint D_800E3E68[];
+extern Node *D_800D3258;
+extern void func_800531D4(Waypoint *, int);
+extern void func_80033F64(void *, Node *);
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800276D8(Crate *self, Message *msg, Hit *hit, int *reply) {
+    int health;
+    int link;
+
+    switch (msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 52:
+        health = self->health - hit->damage;
+        if (health <= 0) {
+            self->health = 0;
+        } else {
+            self->health = health;
+        }
+        link = self->link;
+        if (link != -1) {
+            func_800531D4(waypoint_get(((Node *)((char *)D_800D3258 + (link << 6)))->owner), 9);
+        }
+        *reply = 1;
+        break;
+    case 40:
+        *reply = 5;
+        break;
+    case 4:
+        if (self->link != -1) {
+            func_80033F64(msg->sender, &D_800D3258[self->link]);
+        }
+        if (self->state == 7) {
+            break;
+        }
+    case 75:
+        *reply = 1;
+        break;
+    }
+}

@@ -1,8 +1,10 @@
-asm(".text\n\t.globl func_8007A0E8\nfunc_8007A0E8:\n\t"
-    ".word 0x00003021,0x3c02800f,0x2448c0ac,0x3c02800b\n\t"
-    ".word 0x2447eb3c,0x00051080,0x00451021,0x00021080\n\t"
-    ".word 0x00451023,0x00022840,0x308400ff,0x00041080\n\t"
-    ".word 0x00441021,0x00021080,0x00441023,0x00022040\n\t"
-    ".word 0x00a71021,0x24a50002,0x00881821,0x94420000\n\t"
-    ".word 0x24c60001,0xa4620000,0x28c20013,0x1440fff8\n\t"
-    ".word 0x24840002,0x03e00008,0");
+extern short D_800EC0AC[][19];
+extern short D_800AEB3C[][19];
+
+void func_8007A0E8(unsigned char slot, int preset) {
+    int i;
+
+    for (i = 0; i < 19; i++) {
+        D_800EC0AC[slot][i] = D_800AEB3C[preset][i];
+    }
+}

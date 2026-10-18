@@ -1,34 +1,74 @@
-asm(".text\n\t.globl func_80032C18\nfunc_80032C18:\n\t"
-    ".word 0x27BDFE78,0xAFB30174,0x00009821,0xAFB60180\n\t"
-    ".word 0x3C16800D,0xAFB5017C,0x2415FFCE,0xAFB40178\n\t"
-    ".word 0x24140032,0xAFBF0184,0xAFB20170,0xAFB1016C\n\t"
-    ".word 0xAFB00168,0x8EC22FE4,0x00000000,0x94510018\n\t"
-    ".word 0x94520014,0x0C021B21,0x00000000,0x00112400\n\t"
-    ".word 0x00042403,0x00121C00,0x00031C03,0x00832023\n\t"
-    ".word 0x0044001B,0x14800002,0x00000000,0x0007000D\n\t"
-    ".word 0x00008010,0x8EC22FE4,0x00000000,0x9451001A\n\t"
-    ".word 0x02508021,0x94520016,0x0C021B21,0x00108400\n\t"
-    ".word 0x00112400,0x00042403,0x00121C00,0x00031C03\n\t"
-    ".word 0x00832023,0x0044001B,0x14800002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001810,0x00108403,0x02002821\n\t"
-    ".word 0xAFB50010,0xAFB40014,0xAFB50018,0xAFB4001C\n\t"
-    ".word 0xAFA00020,0xAFB40024,0xAFA00028,0xAFA0002C\n\t"
-    ".word 0x00002021,0x00803821,0x02431821,0x00031C00\n\t"
-    ".word 0x00038C03,0x0C006BB5,0x02203021,0x3044FFFF\n\t"
-    ".word 0x3C050104,0x34A5500F,0x27A60030,0x00003821\n\t"
-    ".word 0x3C02800C,0x24120001,0xA440628C,0x0C005EAB\n\t"
-    ".word 0xAFB20010,0x3042FFFF,0x14400002,0x00000000\n\t"
-    ".word 0x02409821,0x1260FFBF,0x24040008,0x00101380\n\t"
-    ".word 0xAFA20150,0x00111380,0xAFA20158,0x3C02800D\n\t"
-    ".word 0x8C515AA0,0x24050034,0x0C008DF4,0xAFA00154\n\t"
-    ".word 0x00408021,0x1200001D,0x27A40160,0x8FA80150\n\t"
-    ".word 0x8FA90154,0x8FAA0158,0xAE080020,0xAE090024\n\t"
-    ".word 0xAE0A0028,0x8E020020,0x00000000,0xAFA20160\n\t"
-    ".word 0x8E020028,0x0C007A8F,0xAFA20164,0x3C030003\n\t"
-    ".word 0x34632000,0x00431021,0xAE020024,0x3402FFFF\n\t"
-    ".word 0xA6020032,0x2402007F,0xA2020031,0xA2020030\n\t"
-    ".word 0x24020002,0xAE12000C,0xAE020008,0xAE000018\n\t"
-    ".word 0xAE000014,0xAE110010,0xAE00001C,0x8FBF0184\n\t"
-    ".word 0x8FB60180,0x8FB5017C,0x8FB40178,0x8FB30174\n\t"
-    ".word 0x8FB20170,0x8FB1016C,0x8FB00168,0x03E00008\n\t"
-    ".word 0x27BD0188\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Point2;
+typedef struct { void *obj; int pad[8]; } Hit;
+typedef struct { char pad[20]; unsigned short min_x; unsigned short min_z; unsigned short max_x; unsigned short max_z; } Level;
+typedef struct {
+    int pad[2];
+    int kind;
+    int active;
+    int resource;
+    void *base;
+    void *home;
+    int link;
+    Vector pos;
+    int pad2;
+    unsigned char id_a;
+    unsigned char id_b;
+    unsigned short flags;
+} Marker;
+extern Level *D_800D2FE4;
+extern short D_800C628C;
+extern int D_800D5AA0;
+unsigned int func_80086C84(void);
+int func_8001AED4(int, int, int, int, int, int, int, int, int, int, int, int);
+int func_80017AAC(int, int, Hit *, int, int);
+Marker *func_800237D0(int, int);
+int func_8001EA3C(Point2 *);
+
+void func_80032C18(void) {
+    Hit hits[8];
+    Vector pos;
+    Point2 p;
+    short x;
+    short z;
+    int found;
+    int h;
+    unsigned short hi;
+    unsigned short lo;
+    int res;
+    Marker *m;
+
+    found = 0;
+    do {
+        hi = D_800D2FE4->max_x;
+        lo = D_800D2FE4->min_x;
+        x = lo + func_80086C84() % ((short)hi - (short)lo);
+        hi = D_800D2FE4->max_z;
+        lo = D_800D2FE4->min_z;
+        z = lo + func_80086C84() % ((short)hi - (short)lo);
+        h = func_8001AED4(0, x, z, 0, -50, 50, -50, 50, 0, 50, 0, 0);
+        D_800C628C = 0;
+        if ((func_80017AAC(h & 0xFFFF, 0x104500F, hits, 0, 1) & 0xFFFF) == 0) {
+            found = 1;
+        }
+    } while (!found);
+    pos.x = x << 14;
+    pos.z = z << 14;
+    res = D_800D5AA0;
+    pos.y = 0;
+    m = func_800237D0(8, 52);
+    if (m != 0) {
+        m->pos = pos;
+        p.x = m->pos.x;
+        p.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&p) + 0x32000;
+        m->flags = 0xFFFF;
+        m->id_a = m->id_b = 127;
+        m->active = 1;
+        m->kind = 2;
+        m->home = 0;
+        m->base = 0;
+        m->resource = res;
+        m->link = 0;
+    }
+}

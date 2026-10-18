@@ -1,51 +1,124 @@
-asm(".text\n\t.globl func_8003FB68\nfunc_8003FB68:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x00A08821,0xAFBF001C,0xAFB20018,0x8E040218\n\t"
-    ".word 0x00000000,0x108000B6,0x00C09021,0x3C02800B\n\t"
-    ".word 0x9042ED48,0x00000000,0x30420001,0x10400003\n\t"
-    ".word 0x30820002,0x144000AE,0x00000000,0x8E03017C\n\t"
-    ".word 0x2402001A,0x106200AA,0x3C02800B,0x9042ED51\n\t"
-    ".word 0x00000000,0x30420001,0x10400004,0x30820002\n\t"
-    ".word 0x10400002,0x00000000,0x00118843,0x16200002\n\t"
-    ".word 0x3C02800B,0x24110001,0x9042ED55,0x00000000\n\t"
-    ".word 0x30420001,0x10400007,0x00000000,0x8E020218\n\t"
-    ".word 0x00000000,0x30420002,0x10400002,0x00000000\n\t"
-    ".word 0x00118840,0x12400009,0x00000000,0x8E020208\n\t"
-    ".word 0x8E43000C,0x8C42000C,0x00000000,0x14620003\n\t"
-    ".word 0x02402021,0x0C014C75,0x24050007,0x8E040210\n\t"
-    ".word 0x8E03020C,0x8E02020C,0x00912823,0x00031843\n\t"
-    ".word 0x0083202A,0x00021043,0xAE050210,0x00A2282A\n\t"
-    ".word 0x10850033,0x00000000,0x10A00015,0x3C04800A\n\t"
-    ".word 0x8E03009C,0x24844EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C420040,0x00000000,0xAE020300,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C42003C,0x0800FF46,0xAE020304\n\t"
-    ".word 0x8E03009C,0x24844EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C420038,0x00000000,0xAE020300,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420034,0x00000000,0xAE020304\n\t"
-    ".word 0x8E050300,0x0C01E8D1,0x26040308,0x8E050304\n\t"
-    ".word 0x0C01E8D1,0x260403E8,0x0C01E877,0x02002021\n\t"
-    ".word 0x8E030584,0x24020001,0x10620005,0x24020003\n\t"
-    ".word 0x1062000B,0x3C020001,0x0800FF63,0x00000000\n\t"
-    ".word 0x3C040001,0x34844000,0x3C02800D,0x8C432FE0\n\t"
-    ".word 0x24020003,0xAE020584,0x0800FF62,0xAE040580\n\t"
-    ".word 0x3C03800D,0x8C632FE0,0x34424000,0xAE020580\n\t"
-    ".word 0xAE030588,0x8E020210,0x00000000,0x1C400018\n\t"
-    ".word 0x02002021,0x2405002A,0x24020001,0x0C01537E\n\t"
-    ".word 0xAE020210,0x8E020218,0x00000000,0x30420002\n\t"
-    ".word 0x10400005,0x3C05800A,0x8E040098,0x24A54D08\n\t"
-    ".word 0x0C0218D3,0x00003021,0x12400002,0x2405007F\n\t"
-    ".word 0x92450007,0x02002021,0x2A2601F5,0x38C60001\n\t"
-    ".word 0x0C00FE0B,0x00063040,0x0800FF9A,0x00000000\n\t"
-    ".word 0x8E020218,0x00000000,0x30420002,0x10400018\n\t"
-    ".word 0x2A220029,0x14400005,0x2A220015,0x8E040098\n\t"
-    ".word 0x3C05800A,0x0800FF98,0x24A54CF8,0x14400005\n\t"
-    ".word 0x2A220006,0x8E040098,0x3C05800A,0x0800FF98\n\t"
-    ".word 0x24A54CEC,0x14400004,0x3C05800A,0x8E040098\n\t"
-    ".word 0x0800FF98,0x24A54CE0,0x1A200005,0x3C05800A\n\t"
-    ".word 0x8E040098,0x24A54CD8,0x0C0218D3,0x00003021\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct { char pad[0x34]; int ammo_a; int ammo_b; int low_a; int low_b; char pad2[0xD0 - 0x44]; } Vehicle;
+typedef struct { char pad[7]; unsigned char rank; char pad2[4]; int team; } Attacker;
+typedef struct { char pad[0xC]; int team; } Owner;
+typedef struct {
+    char pad0[0x98];
+    int player;
+    int type;
+    char pad1[0x17C - 0xA0];
+    int state;
+    char pad2[0x208 - 0x180];
+    Owner *owner;
+    int max_health;
+    int health;
+    int f214;
+    unsigned int status;
+    char pad3[0x300 - 0x21C];
+    int ammo_a;
+    int ammo_b;
+    char counter_a[0x3E8 - 0x308];
+    char counter_b[0x580 - 0x3E8];
+    int shake;
+    int shake_state;
+    int shake_time;
+} Tank;
+extern Vehicle D_800A4EF4[];
+extern unsigned char D_800AED48;
+extern unsigned char D_800AED51;
+extern unsigned char D_800AED55;
+extern int D_800D2FE0;
+extern char D_800A4D08[];
+extern char D_800A4CF8[];
+extern char D_800A4CEC[];
+extern char D_800A4CE0[];
+extern char D_800A4CD8[];
+extern void func_800531D4(Attacker *, int);
+extern void func_8007A344(void *, int);
+extern void func_8007A1DC(Tank *);
+extern void func_80054DF8(Tank *, int);
+extern void func_8008634C(int, char *, int);
+extern void func_8003F82C(Tank *, int, int);
+
+static inline Vehicle *vehicle_info(int type)
+{
+    return &D_800A4EF4[type];
+}
+
+static inline void set_health(Tank *t, int health)
+{
+    int was_low;
+    int is_low;
+
+    was_low = t->health < t->max_health >> 1;
+    t->health = health;
+    is_low = health < t->max_health >> 1;
+    if (was_low != is_low) {
+        if (is_low) {
+            t->ammo_a = vehicle_info(t->type)->low_b;
+            t->ammo_b = vehicle_info(t->type)->low_a;
+        } else {
+            t->ammo_a = vehicle_info(t->type)->ammo_b;
+            t->ammo_b = vehicle_info(t->type)->ammo_a;
+        }
+        func_8007A344(t->counter_a, t->ammo_a);
+        func_8007A344(t->counter_b, t->ammo_b);
+        func_8007A1DC(t);
+    }
+}
+
+void func_8003FB68(Tank *t, int damage, Attacker *attacker)
+{
+    if (t->status == 0) {
+        return;
+    }
+    if ((D_800AED48 & 1) && (t->status & 2)) {
+        return;
+    }
+    if (t->state == 26) {
+        return;
+    }
+    if ((D_800AED51 & 1) && (t->status & 2)) {
+        damage >>= 1;
+    }
+    if (damage == 0) {
+        damage = 1;
+    }
+    if ((D_800AED55 & 1) && (t->status & 2)) {
+        damage <<= 1;
+    }
+    if (attacker != 0 && attacker->team == t->owner->team) {
+        func_800531D4(attacker, 7);
+    }
+    set_health(t, t->health - damage);
+    switch (t->shake_state) {
+    case 1:
+        t->shake_state = 3;
+        t->shake = 0x14000;
+        t->shake_time = D_800D2FE0;
+        break;
+    case 3:
+        t->shake = 0x14000;
+        t->shake_time = D_800D2FE0;
+        break;
+    }
+    if (t->health <= 0) {
+        t->health = 1;
+        func_80054DF8(t, 42);
+        if (t->status & 2) {
+            func_8008634C(t->player, D_800A4D08, 0);
+        }
+        func_8003F82C(t, attacker != 0 ? attacker->rank : 127, (damage > 500) * 2);
+        return;
+    }
+    if (t->status & 2) {
+        if (damage > 40) {
+            func_8008634C(t->player, D_800A4CF8, 0);
+        } else if (damage > 20) {
+            func_8008634C(t->player, D_800A4CEC, 0);
+        } else if (damage > 5) {
+            func_8008634C(t->player, D_800A4CE0, 0);
+        } else if (damage > 0) {
+            func_8008634C(t->player, D_800A4CD8, 0);
+        }
+    }
+}

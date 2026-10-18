@@ -1,43 +1,88 @@
-asm(".text\n\t.globl func_8001BEA8\nfunc_8001BEA8:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00808021,0xAFBF0020\n\t"
-    ".word 0xAFB1001C,0x8E020060,0x00000000,0x10400021\n\t"
-    ".word 0x00A08821,0x9603003A,0x34028000,0x3064FFFF\n\t"
-    ".word 0x0044102B,0x10400004,0xA6000038,0x2462003C\n\t"
-    ".word 0x08006FC2,0xA602003A,0x2C82003D,0x14400003\n\t"
-    ".word 0x2462FFC4,0x08006FC2,0xA602003A,0xA600003A\n\t"
-    ".word 0x3C03002D,0x8E02002C,0x34638000,0x00511023\n\t"
-    ".word 0x00430018,0x00001812,0x04600003,0x00031023\n\t"
-    ".word 0x08006FCE,0x00031B03,0x00021303,0x00021823\n\t"
-    ".word 0x9602003A,0xAE11002C,0x00431021,0x0800704A\n\t"
-    ".word 0xA602003A,0x9603003A,0x00000000,0x10600034\n\t"
-    ".word 0x34028000,0x0043102B,0x10400019,0x3C02800E\n\t"
-    ".word 0x8C49E30C,0x3C0A002D,0x354A8000,0x012A0018\n\t"
-    ".word 0x00001812,0x00004010,0x00031B02,0x00084500\n\t"
-    ".word 0x00681825,0x04600003,0x00031023,0x08006FE9\n\t"
-    ".word 0x00031B03,0x00021303,0x00021823,0x9602003A\n\t"
-    ".word 0x00000000,0x00431021,0xA602003A,0x00021400\n\t"
-    ".word 0x0440001C,0x30C4FFFF,0x0800700B,0xA600003A\n\t"
-    ".word 0x8C49E30C,0x3C0A002D,0x354A8000,0x012A0018\n\t"
-    ".word 0x00001812,0x00004010,0x00031B02,0x00084500\n\t"
-    ".word 0x00681825,0x04610004,0x00031303,0x00031023\n\t"
-    ".word 0x00021303,0x00021023,0x9603003A,0x00000000\n\t"
-    ".word 0x00621823,0xA603003A,0x3063FFFF,0x34028000\n\t"
-    ".word 0x0043102B,0x10400003,0x30C4FFFF,0xA600003A\n\t"
-    ".word 0x30C4FFFF,0x30E5FFFF,0x0C011ECA,0x27A60010\n\t"
-    ".word 0x00021400,0x04410005,0x00000000,0x9602003A\n\t"
-    ".word 0x97A30010,0x08007019,0x00431023,0x9602003A\n\t"
-    ".word 0x97A30010,0x00000000,0x00431021,0xA602003A\n\t"
-    ".word 0x9603003A,0x34028000,0x0043102B,0x10400006\n\t"
-    ".word 0x3402FB04,0x0043102B,0x14400007,0x3402FB05\n\t"
-    ".word 0x08007028,0xA602003A,0x2C62071D,0x14400002\n\t"
-    ".word 0x2402071C,0xA602003A,0x96030038,0x34028000\n\t"
-    ".word 0x3064FFFF,0x0044102B,0x10400003,0x2462003C\n\t"
-    ".word 0x08007036,0xA6020038,0x2C82003D,0x14400003\n\t"
-    ".word 0x2462FFC4,0x08007036,0xA6020038,0xA6000038\n\t"
-    ".word 0x8E02002C,0x3C09002D,0x35298000,0x00511023\n\t"
-    ".word 0x00490018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x04600003,0x00031023\n\t"
-    ".word 0x08007046,0x00031B03,0x00021303,0x00021823\n\t"
-    ".word 0x96020038,0xAE11002C,0x00431021,0xA6020038\n\t"
-    ".word 0x8FBF0020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Body {
+    char pad00[0x2C];
+    int height;
+    char pad30[0x38 - 0x30];
+    unsigned short pitch;
+    unsigned short roll;
+    char pad3C[0x60 - 0x3C];
+    void *segment;
+} Body;
+extern int D_800DE30C;
+short func_80047B28(unsigned short, unsigned short, unsigned short *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int imul(int a, int b) {
+    return a * b;
+}
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        v >>= 12;
+    } else {
+        v = -(-v >> 12);
+    }
+    return v;
+}
+
+static inline int to_int2(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void decay_angle(unsigned short *a) {
+    if (*a > 0x8000) {
+        *a += 60;
+    } else if (*a > 60) {
+        *a -= 60;
+    } else {
+        *a = 0;
+    }
+}
+
+void func_8001BEA8(Body *body, int height, unsigned short dir, unsigned short slope) {
+    unsigned short delta;
+
+    if (body->segment != 0) {
+        body->pitch = 0;
+        decay_angle(&body->roll);
+        body->roll += to_int(imul(body->height - height, 0x2D8000));
+        body->height = height;
+        return;
+    }
+    if (body->roll != 0) {
+        if (body->roll > 0x8000) {
+            body->roll += to_int(fixed_mul(D_800DE30C, 0x2D8000));
+            if ((short)body->roll >= 0) {
+                body->roll = 0;
+            }
+        } else {
+            body->roll -= to_int2(fixed_mul(D_800DE30C, 0x2D8000));
+            if (body->roll > 0x8000) {
+                body->roll = 0;
+            }
+        }
+    }
+    if (func_80047B28(dir, slope, &delta) < 0) {
+        body->roll -= delta;
+    } else {
+        body->roll += delta;
+    }
+    if (body->roll > 0x8000) {
+        if (body->roll <= 0xFB04) {
+            body->roll = 0xFB05;
+        }
+    } else if (body->roll > 1820) {
+        body->roll = 1820;
+    }
+    decay_angle(&body->pitch);
+    body->pitch += to_int(fixed_mul(body->height - height, 0x2D8000));
+    body->height = height;
+}

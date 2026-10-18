@@ -1,13 +1,58 @@
-asm(".text\n\t.globl func_80088270\nfunc_80088270:\n\t"
-    ".word 0x27bdffc8,0xafb3002c,0x00a09821,0x3c02800f\n\t"
-    ".word 0xafb00020,0x2450e588,0xafbf0030,0xafb20028\n\t"
-    ".word 0xafb10024,0x92020008,0x00000000,0x10400019\n\t"
-    ".word 0x00009021,0x2404000a,0x02403021,0x24020004\n\t"
-    ".word 0xa2000009,0xafa20010,0x3c028008,0x24427424\n\t"
-    ".word 0xafa20014,0x8e1102fc,0x0c0220c9,0x27a70018\n\t"
-    ".word 0x1040000c,0x2404000c,0x02602821,0x0c0220c9\n\t"
-    ".word 0x24060001,0x92020009,0x00000000,0x10400005\n\t"
-    ".word 0x00111827,0x8fa20018,0x00000000,0x00431026\n\t"
-    ".word 0x2c520001,0x02401021,0x8fbf0030,0x8fb3002c\n\t"
-    ".word 0x8fb20028,0x8fb10024,0x8fb00020,0x03e00008\n\t"
-    ".word 0x27bd0038\n\t");
+typedef void (*CardCallback)(int, int, int, int);
+typedef struct {
+    char name[20];
+    unsigned char selected;
+    char pad15[3];
+    int size;
+    char pad1c[12];
+} DirEntry;
+typedef struct {
+    int w0;
+    volatile unsigned char active;
+    volatile unsigned char busy;
+    volatile unsigned char open;
+    volatile unsigned char readonly;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    char pad_a[2];
+    int slot_state[8];
+    char pad2c[4];
+    int port;
+    char pad34[8];
+    unsigned char buf[0x80];
+    int wBC;
+    int wC0;
+    int wC4;
+    char padC8[0xC];
+    int wD4;
+    char padD8[0xC];
+    CardCallback done;
+    CardCallback error;
+    char padEC[0x210];
+    unsigned int checksum;
+    DirEntry entries[15];
+    int count;
+    int loaded;
+} CardState;
+extern CardState D_800EE588;
+
+extern int func_80088324();
+extern void func_80087424(void);
+
+int func_80088270(int unused, int arg) {
+    int result = 0;
+    unsigned int expected;
+    unsigned int value;
+
+    if (D_800EE588.b8 != 0) {
+        D_800EE588.b9 = 0;
+        expected = D_800EE588.checksum;
+        if (func_80088324(10, arg, result, &value, 4, func_80087424) != 0) {
+            func_80088324(12, arg, 1);
+            if (D_800EE588.b9 != 0) {
+                result = value == ~expected;
+            }
+        }
+    }
+    return result;
+}

@@ -1,10 +1,28 @@
-asm(".text\n\t.globl func_80098FBC\nfunc_80098FBC:\n\t"
-    ".word 0x27bdffd8,0xafb00020,0x00808021,0x10e00016\n\t"
-    ".word 0xafbf0024,0x30a200ff,0x24050001,0x10450002\n\t"
-    ".word 0x00000000,0x00003821,0x10e0000f,0x02002021\n\t"
-    ".word 0x24020006,0xae02004c,0x3c02800a,0x8e03006c\n\t"
-    ".word 0x244291e8,0xafa50014,0xafa20018,0xafa30010\n\t"
-    ".word 0x8e060064,0x8e070068,0x0c028aa6,0x26050058\n\t"
-    ".word 0x14400005,0x00000000,0x02002021,0x24050001\n\t"
-    ".word 0x0c026354,0x00003021,0x8fbf0024,0x8fb00020\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+extern int func_800A2A98(void *, void *, int, int, int, int, void *);
+extern void func_80098D50(void *, int, int);
+extern void func_800991E8(void);
+
+typedef struct {
+    char pad0[76];
+    int state;
+    char pad80[8];
+    char buf[12];
+    int a;
+    int b;
+    int c;
+} S80098FBC;
+
+void func_80098FBC(S80098FBC *p, unsigned char kind, int a2, int go) {
+    if (go != 0) {
+        if (kind != 1) {
+            go = 0;
+        }
+        if (go != 0) {
+            p->state = 6;
+            if (func_800A2A98(p, p->buf, p->a, p->b, p->c, 1, func_800991E8) != 0) {
+                return;
+            }
+        }
+    }
+    func_80098D50(p, 1, 0);
+}

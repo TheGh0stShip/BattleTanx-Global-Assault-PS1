@@ -1,14 +1,49 @@
-asm(".text\n\t.globl func_80052CE4\nfunc_80052CE4:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafb10014\n\t"
-    ".word 0x00008821,0xafbf001c,0xafb00010,0x8e420078\n\t"
-    ".word 0x00000000,0x10400005,0x02208021,0x00408021\n\t"
-    ".word 0x8e110000,0x08014b4d,0x00000000,0x8e4200ac\n\t"
-    ".word 0x00000000,0x10400002,0x00000000,0x00408821\n\t"
-    ".word 0x16200003,0x24020004,0x08014b67,0x2402ffff\n\t"
-    ".word 0x8e440060,0x00000000,0x84830004,0x00000000\n\t"
-    ".word 0x14620008,0x2403fffd,0x8c840008,0x00000000\n\t"
-    ".word 0x8c820218,0x00000000,0x00431024,0x0c014f85\n\t"
-    ".word 0xac820218,0x12000005,0x02402021,0x8e020218\n\t"
-    ".word 0x00000000,0x34420002,0xae020218,0x0c014a89\n\t"
-    ".word 0x02202821,0x00001021,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Obj {
+    int id;
+    char pad4[0x218 - 4];
+    int status;
+} Obj;
+typedef struct {
+    char pad0[4];
+    short kind;
+    short pad6;
+    Obj *obj;
+} Link;
+typedef struct {
+    char pad0[0x60];
+    Link *link;
+    char pad64[0x78 - 0x64];
+    Obj *holder;
+    char pad7C[0xAC - 0x7C];
+    int fallback;
+} Unit;
+extern void func_80053E14(Obj *);
+extern void func_80052A24(Unit *, int);
+
+int func_80052CE4(Unit *unit) {
+    int id = 0;
+    Obj *holder = 0;
+    Obj *p;
+    Link *link;
+
+    if ((p = unit->holder) != 0) {
+        holder = p;
+        id = holder->id;
+    } else if (unit->fallback != 0) {
+        id = unit->fallback;
+    }
+    if (id == 0) {
+        return -1;
+    }
+    link = unit->link;
+    if (link->kind == 4) {
+        Obj *o = link->obj;
+        o->status &= ~2;
+        func_80053E14(o);
+    }
+    if (holder != 0) {
+        holder->status |= 2;
+    }
+    func_80052A24(unit, id);
+    return 0;
+}

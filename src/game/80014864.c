@@ -1,23 +1,36 @@
-asm(".text\n\t.globl func_80014864\nfunc_80014864:\n\t"
-    ".word 0x27BDFFC0,0xAFB10034,0x00808821,0xAFB00030\n\t"
-    ".word 0xAFBF0038,0x0C005602,0x00A08021,0x27A40020\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060010,0x8E020008\n\t"
-    ".word 0x00000000,0x00021823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x08005234,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x08005236\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20020,0x8E02000C,0x00000000\n\t"
-    ".word 0x00021823,0x04600005,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x08005247,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x08005249,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0xAFA20024,0x8E020010,0x00000000,0x00021823\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800525A,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800525C,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0x02202021\n\t"
-    ".word 0x27A50010,0xAFA20028,0x8FA70020,0x8FA80024\n\t"
-    ".word 0x8FA90028,0x8FAA002C,0xAFA70010,0xAFA80014\n\t"
-    ".word 0xAFA90018,0xAFAA001C,0x0C022997,0x24860014\n\t"
-    ".word 0x8FBF0038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+typedef struct Vec4 {
+    int vx;
+    int vy;
+    int vz;
+    int pad;
+} Vec4;
+typedef struct Camera {
+    char pad00[8];
+    int x;
+    int y;
+    int z;
+} Camera;
+void func_80015808(Matrix *, Camera *);
+void func_8008AA48(void *, int, int);
+void func_8008A65C(Matrix *, Vec4 *, int *);
+
+void func_80014864(Matrix *m, Camera *cam) {
+    Vec4 tmp;
+    Vec4 v;
+
+    func_80015808(m, cam);
+    func_8008AA48(&v, 0, sizeof(v));
+    v.vx = (-cam->x) >= 0 ? ((-cam->x) + 2048 >= 0 ? ((-cam->x) + 2048) >> 12 : -(-((-cam->x) + 2048) >> 12))
+                              : ((-cam->x) - 2048 >= 0 ? ((-cam->x) - 2048) >> 12 : -((2048 - (-cam->x)) >> 12));
+    v.vy = (-cam->y) >= 0 ? ((-cam->y) + 2048 >= 0 ? ((-cam->y) + 2048) >> 12 : -(-((-cam->y) + 2048) >> 12))
+                              : ((-cam->y) - 2048 >= 0 ? ((-cam->y) - 2048) >> 12 : -((2048 - (-cam->y)) >> 12));
+    v.vz = (-cam->z) >= 0 ? ((-cam->z) + 2048 >= 0 ? ((-cam->z) + 2048) >> 12 : -(-((-cam->z) + 2048) >> 12))
+                              : ((-cam->z) - 2048 >= 0 ? ((-cam->z) - 2048) >> 12 : -((2048 - (-cam->z)) >> 12));
+    tmp = v;
+    func_8008A65C(m, &tmp, m->t);
+}

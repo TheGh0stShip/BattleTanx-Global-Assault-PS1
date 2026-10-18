@@ -1,33 +1,63 @@
-asm(".text\n\t.globl func_80034058\nfunc_80034058:\n\t"
-    ".word 0x3C02800D,0x8C422FE8,0x27BDFFE8,0x2443FFFC\n\t"
-    ".word 0x2C62000B,0x10400074,0xAFBF0010,0x3C02800C\n\t"
-    ".word 0x2442E324,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x84A30004\n\t"
-    ".word 0x24020004,0x14620068,0x3C02800D,0x8CA50008\n\t"
-    ".word 0x90432FEC,0x8CA20098,0x00000000,0x0043102A\n\t"
-    ".word 0x10400061,0x00000000,0x90820006,0x00000000\n\t"
-    ".word 0x1440005D,0x00000000,0x8CA200A4,0x00000000\n\t"
-    ".word 0x10400014,0x00000000,0x8CA200A4,0x00000000\n\t"
-    ".word 0x8C42001C,0x00000000,0xACA200A4,0x8C82001C\n\t"
-    ".word 0x00000000,0x24420001,0xAC82001C,0x8CA30208\n\t"
-    ".word 0x00000000,0x946200D4,0x00000000,0x2442FFFF\n\t"
-    ".word 0xA46200D4,0x8CA200A4,0x00000000,0x1440FFEE\n\t"
-    ".word 0x00000000,0x8C85001C,0x3C02800D,0x00A01821\n\t"
-    ".word 0x8C442FF4,0x3C02800B,0x0064182A,0x1460003E\n\t"
-    ".word 0xAC45AF40,0x0C008A10,0x00000000,0x0800D090\n\t"
-    ".word 0x00000000,0x84A30004,0x24020004,0x14620036\n\t"
-    ".word 0x3C02800D,0x24462FE4,0x8CA50008,0x90C30008\n\t"
-    ".word 0x8CA20098,0x00000000,0x0043102A,0x10400012\n\t"
-    ".word 0x00000000,0x90820006,0x00000000,0x1440002A\n\t"
-    ".word 0x00000000,0x8CA20208,0x00000000,0x8C42000C\n\t"
-    ".word 0x8CC30010,0x94420004,0x00000000,0x0043102A\n\t"
-    ".word 0x14400021,0x00000000,0x0C008A10,0x00000000\n\t"
-    ".word 0x0800D090,0x00000000,0x90820006,0x00000000\n\t"
-    ".word 0x10400019,0x00000000,0x0C008A2C,0x00000000\n\t"
-    ".word 0x0800D090,0x00000000,0x84A30004,0x2402001E\n\t"
-    ".word 0x14620011,0x2402007F,0x90A30016,0x00000000\n\t"
-    ".word 0x14620003,0x00602021,0x0800D08E,0x00001821\n\t"
-    ".word 0x00041100,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00431821\n\t"
-    ".word 0x24020001,0xAC620058,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct { int pad; unsigned short count; } Counter;
+typedef struct { char pad[12]; Counter *counter; char pad2[212 - 16]; unsigned short alive; } Owner;
+typedef struct Item Item;
+struct Item { int pad[7]; Item *next; };
+typedef struct { char pad[152]; int team; int pad2[2]; Item *items; char pad3[520 - 168]; Owner *owner; } Tank;
+typedef struct { int pad; short type; short pad2; Tank *tank; char pad3[10]; unsigned char waypoint; } Msg;
+typedef struct { char pad[88]; int captured; char rest[0x114 - 92]; } Waypoint;
+typedef struct { int pad; unsigned int mode; unsigned char teams; char pad2[7]; int goal; } Rules;
+typedef struct { short pad[3]; unsigned char done; char pad2[21]; int score; } Goal;
+extern Rules D_800D2FE4;
+extern int D_800AAF40;
+extern Waypoint D_800E3E68[];
+void func_80022840(void);
+void func_800228B0(void);
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80034058(Goal *g, Msg *msg) {
+    Tank *t;
+
+    switch (D_800D2FE4.mode) {
+    case 14:
+        if (msg->type == 4) {
+            t = msg->tank;
+            if (t->team < D_800D2FE4.teams && g->done == 0) {
+                while (t->items != 0) {
+                    t->items = t->items->next;
+                    g->score++;
+                    t->owner->alive--;
+                }
+                D_800AAF40 = g->score;
+                if (g->score >= D_800D2FE4.goal) {
+                    func_80022840();
+                }
+            }
+        }
+        break;
+    case 7:
+    case 9:
+        if (msg->type == 4) {
+            t = msg->tank;
+            if (t->team < D_800D2FE4.teams) {
+                if (g->done == 0 && t->owner->counter->count >= D_800D2FE4.goal) {
+                    func_80022840();
+                }
+            } else if (g->done != 0) {
+                func_800228B0();
+            }
+        }
+        break;
+    case 4:
+    case 10:
+        if (msg->type == 30) {
+            waypoint_at(msg->waypoint)->captured = 1;
+        }
+        break;
+    }
+}

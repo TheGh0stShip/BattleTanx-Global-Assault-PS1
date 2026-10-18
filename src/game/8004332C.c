@@ -1,20 +1,64 @@
-asm(".text\n\t.globl func_8004332C\nfunc_8004332C:\n\t"
-    ".word 0x27BDFFE0,0x3C02800D,0x8C432FE4,0x00000000\n\t"
-    ".word 0x94620014,0x24630014,0x24420064,0x00021400\n\t"
-    ".word 0x00021083,0xAFA20010,0x94620002,0x00000000\n\t"
-    ".word 0x24420064,0x00021400,0x00021083,0xAFA20014\n\t"
-    ".word 0x94620004,0x00000000,0x2442FF9C,0x00021400\n\t"
-    ".word 0x00021083,0xAFA20018,0x94620006,0x00000000\n\t"
-    ".word 0x2442FF9C,0x00021400,0x00021083,0xAFA2001C\n\t"
-    ".word 0x8FA70010,0x8FA80014,0x8FA90018,0x8FAA001C\n\t"
-    ".word 0xAFA70000,0xAFA80004,0xAFA90008,0xAFAA000C\n\t"
-    ".word 0x8C820008,0x3C03FF38,0x00431021,0xACA20000\n\t"
-    ".word 0x8C820010,0x3C040190,0x00431021,0xACA20004\n\t"
-    ".word 0xACC40000,0xACC40004,0x8FA20000,0x8CA30000\n\t"
-    ".word 0x00000000,0x00431023,0x1C400007,0x00621021\n\t"
-    ".word 0x8FA20008,0x00000000,0x00441023,0x00431023\n\t"
-    ".word 0x04410002,0x00621021,0xACA20000,0x8FA20004\n\t"
-    ".word 0x8CA40004,0x00000000,0x00441023,0x1C400007\n\t"
-    ".word 0x00821021,0x8FA2000C,0x3C03FE70,0x00431021\n\t"
-    ".word 0x00441023,0x04410002,0x00821021,0xACA20004\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct {
+    int x0;
+    int y0;
+    int x1;
+    int y1;
+} Rect;
+typedef struct {
+    char pad0[0x14];
+    unsigned short bounds[4];
+} Map;
+typedef struct {
+    int x;
+    int y;
+} Point;
+typedef struct {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+} Object;
+extern Map *D_800D2FE4;
+
+static inline Rect map_bounds(void) {
+    Rect r;
+    unsigned short *b = D_800D2FE4->bounds;
+
+    r.x0 = (short)(b[0] + 100) << 14;
+    r.y0 = (short)(b[1] + 100) << 14;
+    r.x1 = (short)(b[2] - 100) << 14;
+    r.y1 = (short)(b[3] - 100) << 14;
+    return r;
+}
+
+void func_8004332C(Object *obj, Point *origin, Point *size) {
+    Rect r;
+    int d;
+
+    do { } while (0);
+    r = map_bounds();
+
+    origin->x = obj->x - 0xC80000;
+    origin->y = obj->z - 0xC80000;
+    size->x = 0x1900000;
+    size->y = 0x1900000;
+    d = r.x0 - origin->x;
+    if (d > 0) {
+        origin->x += d;
+    } else {
+        d = r.x1 - 0x1900000;
+        d -= origin->x;
+        if (d < 0) {
+            origin->x += d;
+        }
+    }
+    d = r.y0 - origin->y;
+    if (d > 0) {
+        origin->y += d;
+    } else {
+        d = r.y1 - (origin->y + 0x1900000);
+        if (d < 0) {
+            origin->y += d;
+        }
+    }
+}

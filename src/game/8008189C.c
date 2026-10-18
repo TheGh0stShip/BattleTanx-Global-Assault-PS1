@@ -1,22 +1,41 @@
-asm(".text\n\t.globl func_8008189C\nfunc_8008189C:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x0C02513D,0x00002021,0x3C01800B,0xAC200D5C\n\t"
-    ".word 0x3C03800B,0x8C630D5C,0x3C01800B,0xAC220D68\n\t"
-    ".word 0x24020001,0x3C01800B,0xAC230D58,0x32030007\n\t"
-    ".word 0x10620023,0x28620002,0x10400005,0x24020003\n\t"
-    ".word 0x10600007,0x00000000,0x0802066E,0x00000000\n\t"
-    ".word 0x1062001B,0x24020005,0x1462002C,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C630D44,0x24020401,0xAC620000\n\t"
-    ".word 0x3C03800B,0x8C630D54,0x3C04800F,0x2484C394\n\t"
-    ".word 0x8C620000,0x00002821,0x34420800,0xAC620000\n\t"
-    ".word 0x3C02800B,0x8C420D38,0x24060100,0x0C020799\n\t"
-    ".word 0xAC400000,0x3C04800F,0x2484C49C,0x00002821\n\t"
-    ".word 0x0C020799,0x24061800,0x0802066E,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C630D44,0x24020401,0xAC620000\n\t"
-    ".word 0x3C03800B,0x8C630D54,0x00000000,0x8C620000\n\t"
-    ".word 0x00000000,0x34420800,0xAC620000,0x3C03800B\n\t"
-    ".word 0x8C630D38,0x3C020200,0xAC620000,0x3C03800B\n\t"
-    ".word 0x8C630D38,0x3C020100,0xAC620000,0x3C04800B\n\t"
-    ".word 0x8C840D68,0x0C02513D,0x00000000,0x32020007\n\t"
-    ".word 0x14400003,0x00001021,0x0C020728,0x02002021\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n");
+extern int *D_800B0D38;
+extern volatile int *D_800B0D44;
+extern volatile int *D_800B0D54;
+extern int D_800B0D58;
+extern volatile int D_800B0D5C;
+extern int D_800B0D68;
+extern int D_800EC394;
+extern int D_800EC49C;
+
+extern int func_800944F4(int);
+extern void func_80081E64(void *, int, int);
+extern int func_80081CA0(int);
+
+int func_8008189C(int mode)
+{
+    D_800B0D68 = func_800944F4(0);
+    D_800B0D5C = 0;
+    D_800B0D58 = D_800B0D5C;
+    switch (mode & 7) {
+    case 0:
+    case 5:
+        *D_800B0D44 = 0x401;
+        *D_800B0D54 |= 0x800;
+        *D_800B0D38 = 0;
+        func_80081E64(&D_800EC394, 0, 0x100);
+        func_80081E64(&D_800EC49C, 0, 0x1800);
+        break;
+    case 1:
+    case 3:
+        *D_800B0D44 = 0x401;
+        *D_800B0D54 |= 0x800;
+        *D_800B0D38 = 0x02000000;
+        *D_800B0D38 = 0x01000000;
+        break;
+    }
+    func_800944F4(D_800B0D68);
+    if ((mode & 7) == 0) {
+        return func_80081CA0(mode);
+    }
+    return 0;
+}

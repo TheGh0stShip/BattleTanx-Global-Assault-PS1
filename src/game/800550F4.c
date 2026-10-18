@@ -1,28 +1,74 @@
-asm(".text\n\t.globl func_800550F4\nfunc_800550F4:\n\t"
-    ".word 0x27BDFFA8,0xAFB00040,0x00808021,0xAFB20048\n\t"
-    ".word 0x00A09021,0xAFB10044,0x00C08821,0x24020003\n\t"
-    ".word 0xA7A20014,0x2402FFFA,0x2403FFFD,0xA7A20018\n\t"
-    ".word 0x24020006,0xAFB3004C,0x27B30010,0x24040014\n\t"
-    ".word 0xAFBF0050,0xA7A00010,0xA7A00012,0xA7A0001A\n\t"
-    ".word 0xA7A3001C,0xA7A20020,0xA7A00022,0x0C01A3BA\n\t"
-    ".word 0xA7A30024,0x00403821,0x10E0004A,0x24020004\n\t"
-    ".word 0xA0E20003,0x24020020,0xA0E20007,0x92220000\n\t"
-    ".word 0x00000000,0xA0E20004,0x92220001,0x00000000\n\t"
-    ".word 0xA0E20005,0x92220002,0x00000000,0xA0E20006\n\t"
-    ".word 0x92220003,0x00000000,0x2C4200FF,0x10400005\n\t"
-    ".word 0x00000000,0x90E20007,0x00000000,0x34420002\n\t"
-    ".word 0xA0E20007,0x97A50010,0x97A20018,0x97A30020\n\t"
-    ".word 0x00B02821,0x00501021,0x00701821,0xA7A50028\n\t"
-    ".word 0xA7A20030,0xA7A30038,0x96640004,0x97A2001C\n\t"
-    ".word 0x97A30024,0x00521021,0x00721821,0x00922021\n\t"
-    ".word 0xA7A20034,0xA7A3003C,0xA7A4002C,0xA4E50008\n\t"
-    ".word 0x97A2002C,0x00000000,0xA4E2000A,0x97A20030\n\t"
-    ".word 0x3C06FF00,0xA4E2000C,0x97A20034,0x3C0500FF\n\t"
-    ".word 0xA4E2000E,0x97A20038,0x34A5FFFF,0xA4E20010\n\t"
-    ".word 0x3C02800A,0x8C4248B4,0x97A3003C,0x000222C0\n\t"
-    ".word 0x00822021,0x000420C0,0x3C02800D,0x24425B8C\n\t"
-    ".word 0x00822021,0xA4E30012,0x8CE30000,0x8C820000\n\t"
-    ".word 0x00661824,0x00451024,0x00621825,0xACE30000\n\t"
-    ".word 0x8C820000,0x00E52824,0x00461024,0x00451025\n\t"
-    ".word 0xAC820000,0x8FBF0050,0x8FB3004C,0x8FB20048\n\t"
-    ".word 0x8FB10044,0x8FB00040,0x03E00008,0x27BD0058\n");
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVECTOR;
+typedef struct {
+    unsigned long tag;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+    unsigned char code;
+    short x0;
+    short y0;
+    short x1;
+    short y1;
+    short x2;
+    short y2;
+} POLY_F3;
+typedef struct {
+    unsigned addr : 24;
+    unsigned len : 8;
+} P_TAG;
+typedef struct {
+    unsigned long ot[0x4008 / 4];
+} OrderingTable;
+extern OrderingTable D_800D5B8C[];
+extern int D_800A48B4;
+extern void *func_80068EE8(int);
+
+void func_800550F4(short x, short y, unsigned char *color) {
+    SVECTOR shape[3];
+    SVECTOR pt[3];
+    POLY_F3 *poly;
+    unsigned long *ot;
+    SVECTOR *base = shape;
+
+    shape[0].vx = 0;
+    shape[0].vy = 0;
+    shape[0].vz = 3;
+    shape[1].vx = -6;
+    shape[1].vy = 0;
+    shape[1].vz = -3;
+    shape[2].vx = 6;
+    shape[2].vy = 0;
+    shape[2].vz = -3;
+    poly = func_80068EE8(sizeof(POLY_F3));
+    if (poly == 0) {
+        return;
+    }
+    ((unsigned char *)poly)[3] = 4;
+    poly->code = 0x20;
+    poly->r0 = color[0];
+    poly->g0 = color[1];
+    poly->b0 = color[2];
+    if (color[3] < 255) {
+        poly->code |= 2;
+    }
+    pt[0].vx = shape[0].vx + x;
+    pt[1].vx = shape[1].vx + x;
+    pt[2].vx = shape[2].vx + x;
+    pt[0].vz = base->vz + y;
+    pt[1].vz = shape[1].vz + y;
+    pt[2].vz = shape[2].vz + y;
+    poly->x0 = pt[0].vx;
+    poly->y0 = pt[0].vz;
+    poly->x1 = pt[1].vx;
+    poly->y1 = pt[1].vz;
+    poly->x2 = pt[2].vx;
+    poly->y2 = pt[2].vz;
+    ot = D_800D5B8C[D_800A48B4].ot;
+    ((P_TAG *)poly)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)poly;
+}

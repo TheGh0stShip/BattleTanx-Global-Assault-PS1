@@ -1,32 +1,108 @@
-asm(".text\n\t.globl func_8004B880\nfunc_8004B880:\n\t"
-    ".word 0x27BDFFD0,0xAFB40028,0x0080A021,0xAFB1001C\n\t"
-    ".word 0x269100F8,0xAFBF002C,0xAFB30024,0xAFB20020\n\t"
-    ".word 0xAFB00018,0x9625000A,0x00000000,0x30B0FFFF\n\t"
-    ".word 0x12000066,0x00001021,0x3C02800A,0x8C425B24\n\t"
-    ".word 0x34038000,0x00431021,0x8C426008,0x00000000\n\t"
-    ".word 0x10400025,0x02002021,0x0C0129E5,0x00A09821\n\t"
-    ".word 0x00409021,0x92430000,0x24020002,0x10620005\n\t"
-    ".word 0x24020003,0x10620007,0x24020001,0x08012E93\n\t"
-    ".word 0x00000000,0x02802021,0x8E260018,0x08012E54\n\t"
-    ".word 0x02002821,0x92430018,0x00000000,0x2C620013\n\t"
-    ".word 0x10400049,0x3C02800C,0x2442F49C,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x02802021,0x92460018,0x3265FFFF\n\t"
-    ".word 0x0C012CCA,0x00000000,0x00408021,0x3202FFFF\n\t"
-    ".word 0x14400039,0xA630000A,0x08012E93,0x00001021\n\t"
-    ".word 0x27A40010,0x0C0129A5,0x24050002,0x8FA50010\n\t"
-    ".word 0x00408021,0xA650001A,0xA4B30002,0x96220006\n\t"
-    ".word 0x02802021,0x24420001,0x0C012FF2,0xA6220006\n\t"
-    ".word 0x02802021,0x0C013016,0x3205FFFF,0x08012E90\n\t"
-    ".word 0x02802021,0x27A40010,0x0C0129A5,0x24050004\n\t"
-    ".word 0x8FA50010,0xA642001A,0xA4B30002,0x96220006\n\t"
-    ".word 0x02802021,0x24420001,0x0C012E9B,0xA6220006\n\t"
-    ".word 0x02202021,0x8C830000,0x00000000,0x1060000C\n\t"
-    ".word 0x00402821,0x8C830000,0x00000000,0x8C620004\n\t"
-    ".word 0x00000000,0x00A2102A,0x14400005,0x00000000\n\t"
-    ".word 0x8C620008,0x00000000,0x1440FFF6,0x24640008\n\t"
-    ".word 0x8FA20010,0x8C830000,0x00000000,0xAC430008\n\t"
-    ".word 0xAC820000,0x8FA20010,0x02802021,0xAC450004\n\t"
-    ".word 0x0C012DC7,0x00000000,0x24020001,0x8FBF002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct Pending Pending;
+struct Pending {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    int key;
+    Pending *next;
+};
+typedef struct {
+    unsigned char kind;
+    char pad1[0x18 - 1];
+    unsigned char branch;
+    char pad19;
+    unsigned short link;
+} PathNode;
+typedef struct {
+    Pending *pending;
+    char pad4[2];
+    unsigned short count;
+    char pad8[2];
+    unsigned short next;
+    char padC[0x18 - 0xC];
+    int side;
+} Route;
+typedef struct {
+    char pad0[0xF8];
+    Route route;
+} Tank;
+typedef struct {
+    char pad0[0xE008];
+    void *free_moves;
+} MoveSystem;
+extern MoveSystem *D_800A5B24;
+extern PathNode *func_8004A794(unsigned short);
+extern unsigned short func_8004B328(Tank *, unsigned short, int);
+extern unsigned short func_8004A694(Pending **, int);
+extern void func_8004BFC8(Tank *, Pending *);
+extern void func_8004C058(Tank *, unsigned short);
+extern int func_8004BA6C(Tank *, Pending *);
+extern void func_8004B71C(Tank *);
+
+int func_8004B880(Tank *tank) {
+    Route *route = &tank->route;
+    unsigned short cur;
+    unsigned short id = route->next;
+    PathNode *node;
+    Pending *pending;
+    Pending **link;
+    unsigned short new_id;
+    int key;
+
+    if (id == 0) {
+        return 0;
+    }
+    if (D_800A5B24->free_moves == 0) {
+        return 0;
+    }
+    cur = id;
+    node = func_8004A794(cur);
+    switch (node->kind) {
+    case 2:
+        new_id = func_8004B328(tank, cur, route->side);
+        route->next = new_id;
+        if (new_id == 0) {
+            return 0;
+        }
+        break;
+    case 3:
+        switch (node->branch) {
+        case 1:
+        case 2:
+        case 17:
+        case 18:
+            new_id = func_8004B328(tank, cur, node->branch);
+            route->next = new_id;
+            if (new_id == 0) {
+                return 0;
+            }
+            break;
+        case 0:
+            new_id = func_8004A694(&pending, 2);
+            node->link = new_id;
+            pending->prev = cur;
+            route->count++;
+            func_8004BFC8(tank, pending);
+            func_8004C058(tank, new_id);
+            func_8004B71C(tank);
+            break;
+        case 3:
+            node->link = func_8004A694(&pending, 4);
+            pending->prev = cur;
+            route->count++;
+            key = func_8004BA6C(tank, pending);
+            for (link = &route->pending; *link != 0; link = &(*link)->next) {
+                if (key < (*link)->key) {
+                    break;
+                }
+            }
+            pending->next = *link;
+            *link = pending;
+            pending->key = key;
+            func_8004B71C(tank);
+            break;
+        }
+        break;
+    }
+    return 1;
+}

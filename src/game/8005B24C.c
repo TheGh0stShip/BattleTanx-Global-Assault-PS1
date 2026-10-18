@@ -1,19 +1,50 @@
-asm(".text\n\t.globl func_8005B24C\nfunc_8005B24C:\n\t"
-    ".word 0x27bdffe8,0x00802821,0x3c02800e,0x94434994\n\t"
-    ".word 0x24020002,0x10620039,0xafbf0010,0x28620003\n\t"
-    ".word 0x10400005,0x24020001,0x10620008,0x3c02800a\n\t"
-    ".word 0x08016cb5,0x00000000,0x24020003,0x1062000f\n\t"
-    ".word 0x3c02800a,0x08016cb5,0x00000000,0x3c04800b\n\t"
-    ".word 0x24848618,0x24060001,0x3c02800a,0x90436080\n\t"
-    ".word 0x3c02800e,0xa0434834,0x3c02800a,0x90436081\n\t"
-    ".word 0x3c02800e,0x08016cd0,0xa0434830,0x3c04800b\n\t"
-    ".word 0x08016ccf,0x24849a14,0x8c426070,0x24030001\n\t"
-    ".word 0x1443000f,0x3c02800a,0x3c02800a,0x944260d8\n\t"
-    ".word 0x00000000,0x10400003,0x3c04800a,0x08016ccf\n\t"
-    ".word 0x248475f0,0x0c01a8a4,0x00000000,0x3c02800a\n\t"
-    ".word 0x0c0080f8,0xa0404381,0x08016cd2,0x00000000\n\t"
-    ".word 0x8042606c,0x00000000,0x14430003,0x3c04800b\n\t"
-    ".word 0x08016ccf,0x2484a208,0x3c04800b,0x2484a978\n\t"
-    ".word 0x24060001,0x0c016554,0x00000000,0x8fbf0010\n\t"
-    ".word 0x3c02800b,0xa440acdc,0x24020001,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+extern unsigned short D_800E4994;
+extern unsigned char D_800E4834;
+extern unsigned char D_800E4830;
+extern unsigned char D_800A6080;
+extern unsigned char D_800A6081;
+extern int D_800A6070;
+extern unsigned short D_800A60D8;
+extern signed char D_800A606C;
+extern unsigned char D_800A4381;
+extern short D_800AACDC;
+extern char D_800A8618[];
+extern char D_800A9A14[];
+extern char D_800A75F0[];
+extern char D_800AA208[];
+extern char D_800AA978[];
+extern void func_80059550(void *, void *, int);
+extern void func_8006A290(void);
+extern void func_800203E0(void);
+
+int func_8005B24C(void *back) {
+    switch (D_800E4994) {
+    case 1:
+        D_800E4834 = D_800A6080;
+        D_800E4830 = D_800A6081;
+        func_80059550(D_800A8618, back, 1);
+        break;
+    case 3:
+        func_80059550(D_800A9A14, back, 1);
+        break;
+    case 2:
+        break;
+    default:
+        if (D_800A6070 == 1) {
+            if (D_800A60D8 != 0) {
+                func_80059550(D_800A75F0, back, 1);
+            } else {
+                func_8006A290();
+                D_800A4381 = 0;
+                func_800203E0();
+            }
+        } else if (D_800A606C == 1) {
+            func_80059550(D_800AA208, back, 1);
+        } else {
+            func_80059550(D_800AA978, back, 1);
+        }
+        break;
+    }
+    D_800AACDC = 0;
+    return 1;
+}

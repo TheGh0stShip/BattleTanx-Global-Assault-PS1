@@ -1,28 +1,80 @@
-asm(".text\n\t.globl func_80087B60\nfunc_80087B60:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x24130001,0x3C02800F\n\t"
-    ".word 0x2447E588,0xAFBF0024,0xAFB40020,0xAFB20018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x90E20005,0x00000000\n\t"
-    ".word 0x14400053,0x0000A021,0x24020006,0x14820050\n\t"
-    ".word 0x00000000,0x14A0003D,0x24A2FFFF,0x8CE200C8\n\t"
-    ".word 0x8CE400CC,0x8CE300D0,0x00441021,0x00641821\n\t"
-    ".word 0xACE200C8,0x3082007F,0x1040000A,0xACE300D0\n\t"
-    ".word 0x8CE200C0,0x24030080,0x00441021,0x14430009\n\t"
-    ".word 0xACE200C0,0x8CE200BC,0xACE000C0,0x08021F00\n\t"
-    ".word 0x00431021,0x8CE200BC,0x00000000,0x00441021\n\t"
-    ".word 0xACE200BC,0x3C02800F,0x2447E588,0x8CE300D4\n\t"
-    ".word 0x8CE200D0,0x00000000,0x00628023,0x16000003\n\t"
-    ".word 0x2E020080,0x08021F38,0x24140001,0x14400007\n\t"
-    ".word 0x24F1003C,0x2402FF80,0x02021024,0x8CF100C8\n\t"
-    ".word 0x00409021,0x08021F1E,0xACF200CC,0x24120080\n\t"
-    ".word 0x8CE500C8,0x8CE400C0,0x02003021,0xACF000CC\n\t"
-    ".word 0x0C0229EF,0x00912021,0x02112021,0x00002821\n\t"
-    ".word 0x0C022A92,0x02503023,0x02202021,0x3C02800F\n\t"
-    ".word 0x2442E588,0x8C4500BC,0x02403021,0xAC4400D8\n\t"
-    ".word 0xAC4600DC,0x08021F33,0xAC4000E0,0x2C420002\n\t"
-    ".word 0x1040000F,0x00000000,0x8CE300E0,0x00000000\n\t"
-    ".word 0x2C620005,0x1040000A,0x24620001,0x8CE400D8\n\t"
-    ".word 0x8CE500BC,0x8CE600DC,0xACE200E0,0x0C0255A1\n\t"
-    ".word 0x00000000,0x10400002,0x00000000,0x00009821\n\t"
-    ".word 0x12600003,0x00000000,0x0C021C4D,0x02802021\n\t"
-    ".word 0x8FBF0024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct CardWrite {
+    char pad0[5];
+    unsigned char busy;
+    char pad6[54];
+    char sector_buf[128];
+    int sector;
+    unsigned int offset;
+    int pad0C4;
+    char *src;
+    unsigned int chunk;
+    unsigned int done;
+    unsigned int total;
+    char *buf;
+    unsigned int len;
+    unsigned int retries;
+} CardWrite;
+
+extern CardWrite D_800EE588;
+extern void *func_8008A7BC(void *, void *, unsigned int);
+extern void *func_8008AA48(void *, int, unsigned int);
+extern int func_80095684(char *, int, unsigned int);
+extern void func_80087134(int);
+
+void func_80087B60(int event, int status) {
+    int finish = 1;
+    CardWrite *card = &D_800EE588;
+    int ok = 0;
+    unsigned int remaining;
+    char *buf;
+    unsigned int len;
+
+    if (card->busy == 0 && event == 6) {
+        if (status == 0) {
+            card->src += card->chunk;
+            card->done += card->chunk;
+            if (card->chunk & 0x7F) {
+                card->offset += card->chunk;
+                if (card->offset == 128) {
+                    card->offset = 0;
+                    card->sector += 128;
+                }
+            } else {
+                card->sector += card->chunk;
+            }
+            card = &D_800EE588;
+            remaining = card->total - card->done;
+            if (remaining == 0) {
+                ok = 1;
+            } else {
+                if (remaining >= 128) {
+                    card->chunk = remaining & ~127;
+                    buf = card->src;
+                    len = card->chunk;
+                } else {
+                    buf = card->sector_buf;
+                    len = 128;
+                    card->chunk = remaining;
+                    func_8008A7BC(buf + card->offset, card->src, remaining);
+                    func_8008AA48(buf + remaining, 0, len - remaining);
+                }
+                D_800EE588.buf = buf;
+                D_800EE588.len = len;
+                D_800EE588.retries = 0;
+                if (func_80095684(buf, D_800EE588.sector, len)) {
+                    finish = 0;
+                }
+            }
+        } else if (status - 1 < 2U) {
+            if (card->retries < 5) {
+                card->retries++;
+                if (func_80095684(card->buf, card->sector, card->len)) {
+                    finish = 0;
+                }
+            }
+        }
+    }
+    if (finish) {
+        func_80087134(ok);
+    }
+}

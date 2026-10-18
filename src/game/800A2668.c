@@ -1,10 +1,55 @@
-asm(".text\n\t.globl func_800A2668\nfunc_800A2668:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0x00002021\n\t"
-    ".word 0x10e00016,0xafbf001c,0x3c03800f,0x9062fd0c\n\t"
-    ".word 0x00000000,0x24420004,0x14c20010,0x2463fd0c\n\t"
-    ".word 0x2404000a,0x24020002,0xae020008,0x24020001\n\t"
-    ".word 0xae000020,0xae000014,0xafa20010,0x3c02800a\n\t"
-    ".word 0x24421994,0x00003021,0xafa20014,0x8e050000\n\t"
-    ".word 0x0c023fc7,0x24670103,0x0002202b,0x14800003\n\t"
-    ".word 0x02002021,0x0c0286be,0x24050004,0x8fbf001c\n\t"
-    ".word 0x8fb00018,0x03e00008,0x27bd0020\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AF8(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+void func_800A2668(Link *c, int a1, int length, int ok) {
+    int sent = 0;
+
+    if (ok != 0 && length == D_800EFD0C.rx_length + 4) {
+        c->unk08 = 2;
+        c->unk20 = 0;
+        c->tries2 = 0;
+        sent = func_8008FF1C(10, c->unk00, 0, D_800EFD0C.packet, 1, func_800A1994) != 0;
+    }
+    if (sent == 0) {
+        func_800A1AF8(c, 4);
+    }
+}

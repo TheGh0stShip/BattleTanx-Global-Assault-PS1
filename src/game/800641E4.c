@@ -1,15 +1,50 @@
-asm(".text\n\t.globl func_800641E4\nfunc_800641E4:\n\t"
-    ".word 0x2483fffe,0x2c62000f,0x10400032,0x3c02800c\n\t"
-    ".word 0x2442feb4,0x00031880,0x00621821,0x8c620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x3c02800e\n\t"
-    ".word 0x03e00008,0x2442497c,0x3c02800e,0x03e00008\n\t"
-    ".word 0x244249a8,0x3c02800e,0x03e00008,0x24424884\n\t"
-    ".word 0x3c02800e,0x03e00008,0x24424934,0x3c02800e\n\t"
-    ".word 0x03e00008,0x2442489c,0x3c02800e,0x03e00008\n\t"
-    ".word 0x24424894,0x3c02800e,0x03e00008,0x24424a68\n\t"
-    ".word 0x3c02800e,0x03e00008,0x2442498c,0x3c02800e\n\t"
-    ".word 0x03e00008,0x24424974,0x3c02800e,0x03e00008\n\t"
-    ".word 0x244249b0,0x3c02800e,0x03e00008,0x24424864\n\t"
-    ".word 0x3c02800e,0x03e00008,0x24424998,0x3c02800e\n\t"
-    ".word 0x03e00008,0x24424984,0x3c02800e,0x03e00008\n\t"
-    ".word 0x2442495c,0x03e00008,0x00001021\n\t");
+extern int D_800E4864;
+extern int D_800E4884;
+extern int D_800E4894;
+extern int D_800E489C;
+extern int D_800E4934;
+extern int D_800E495C;
+extern int D_800E4974;
+extern int D_800E497C;
+extern int D_800E4984;
+extern int D_800E498C;
+extern int D_800E4998;
+extern int D_800E49A8;
+extern int D_800E49B0;
+extern int D_800E4A68;
+
+int *func_800641E4(int kind) {
+    switch (kind) {
+    case 2:
+        return &D_800E497C;
+    case 3:
+        return &D_800E49A8;
+    case 4:
+        return &D_800E4884;
+    case 5:
+    case 15:
+        return &D_800E4934;
+    case 6:
+        return &D_800E489C;
+    case 7:
+        return &D_800E4894;
+    case 8:
+        return &D_800E4A68;
+    case 9:
+        return &D_800E498C;
+    case 10:
+        return &D_800E4974;
+    case 11:
+        return &D_800E49B0;
+    case 14:
+        return &D_800E4864;
+    case 12:
+        return &D_800E4998;
+    case 13:
+        return &D_800E4984;
+    case 16:
+        return &D_800E495C;
+    default:
+        return 0;
+    }
+}

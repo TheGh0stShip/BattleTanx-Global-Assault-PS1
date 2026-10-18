@@ -1,15 +1,58 @@
-asm(".text\n\t.globl func_800999E8\nfunc_800999E8:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb3001c,0x00c09821,0xafb10014\n\t"
-    ".word 0x00e08821,0xafbf0020,0x0c028b2e,0x00002821\n\t"
-    ".word 0x14400004,0x02002021,0x0c028b72,0x02002021\n\t"
-    ".word 0x02002021,0x3c02800f,0x2446f170,0x24c5ffb8\n\t"
-    ".word 0xac52f170,0x24c2ffb4,0x2403000c,0xacd10004\n\t"
-    ".word 0xac430008,0x24030008,0xac46000c,0x24060001\n\t"
-    ".word 0xac430010,0xac430014,0x2403000e,0xac430020\n\t"
-    ".word 0x24030002,0xac400004,0xac46001c,0xac530024\n\t"
-    ".word 0xac510028,0xac51002c,0xac460030,0xac430034\n\t"
-    ".word 0x8fa2003c,0x3c06800a,0xac82007c,0x8fa20038\n\t"
-    ".word 0x24c699a4,0x0c02656a,0xac820080,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+extern int func_800A2CB8(void *, int);
+extern void func_800A2DC8(void *);
+extern int func_80090184(char *);
+
+typedef struct Entry {
+    int type;
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+} Entry;
+
+typedef struct Ctx {
+    char pad0[0x74];
+    void *callback;
+    int pad78;
+    void *next_callback;
+    int *out0;
+    int *out1;
+} Ctx;
+
+typedef struct StreamState {
+    Ctx *current;
+    Entry list[3];
+    int result[2];
+} StreamState;
+
+extern StreamState D_800EF124;
+extern int func_800995A8(Ctx *, Entry *, void *);
+extern void func_800999A4(Ctx *, int, int, int, int);
+extern int func_8009940C(Ctx *, int, int, int, void *);
+
+int func_800999E8(Ctx *c, int key, int dst, int size, int *out, void *callback) {
+    int *r;
+
+    if (func_800A2CB8(c, 0) == 0) {
+        func_800A2DC8(c);
+    }
+    r = D_800EF124.result;
+    r[0] = key;
+    r[1] = size;
+    D_800EF124.list[0].type = 0;
+    D_800EF124.list[0].a = 12;
+    D_800EF124.list[0].b = (int)r;
+    D_800EF124.list[0].c = 8;
+    D_800EF124.list[0].d = 8;
+    D_800EF124.list[1].type = 1;
+    D_800EF124.list[1].a = 14;
+    D_800EF124.list[1].b = dst;
+    D_800EF124.list[1].c = size;
+    D_800EF124.list[1].d = size;
+    D_800EF124.list[1].e = 1;
+    D_800EF124.list[2].type = 2;
+    c->next_callback = callback;
+    c->out0 = out;
+    return func_800995A8(c, D_800EF124.list, func_800999A4);
+}

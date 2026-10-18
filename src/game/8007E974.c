@@ -1,12 +1,27 @@
-asm(".text\n\t.globl func_8007E974\nfunc_8007E974:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafb00010,0xafbf001c,0x92230001\n\t"
-    ".word 0x2402003a,0x10620019,0x00008021,0x3c02800f\n\t"
-    ".word 0x2442c200,0x8c500084,0x00000000,0x12000013\n\t"
-    ".word 0x00000000,0x0c023681,0x24450004,0x02122021\n\t"
-    ".word 0x9083ffff,0x2405005c,0x10650005,0x2402002f\n\t"
-    ".word 0x10620003,0x00000000,0xa0850000,0x26100001\n\t"
-    ".word 0x92230000,0x2402005c,0x10620003,0x2402002f\n\t"
-    ".word 0x14620003,0x02502021,0x26310001,0x02502021\n\t"
-    ".word 0x0c023681,0x02202821,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct FileSys {
+    int handle;
+    char root[128];
+    int root_len;
+} FileSys;
+
+extern FileSys D_800EC200;
+extern char *func_8008DA04(char *, char *);
+
+void func_8007E974(char *dst, char *src) {
+    int len = 0;
+
+    if (src[1] != ':') {
+        len = D_800EC200.root_len;
+        if (len != 0) {
+            func_8008DA04(dst, D_800EC200.root);
+            if (dst[len - 1] != '\\' && dst[len - 1] != '/') {
+                dst[len] = '\\';
+                len++;
+            }
+            if (*src == '\\' || *src == '/') {
+                src++;
+            }
+        }
+    }
+    func_8008DA04(dst + len, src);
+}

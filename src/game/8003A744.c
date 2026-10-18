@@ -1,19 +1,37 @@
-asm(".text\n\t.globl func_8003A744\nfunc_8003A744:\n\t"
-    ".word 0x27BDFFE0,0xAFBF0018,0xAFB10014,0x0C022E81\n\t"
-    ".word 0xAFB00010,0x3C02800C,0x904260EC,0x00000000\n\t"
-    ".word 0x10400004,0x3C11800A,0x0C02221C,0x24040002\n\t"
-    ".word 0x3C11800A,0x8E2248AC,0x00000000,0x14400014\n\t"
-    ".word 0x3C02800A,0x3C10800A,0x8E0248B0,0x24040003\n\t"
-    ".word 0x38420001,0x0C020ECB,0xAE0248B0,0x8E0248B0\n\t"
-    ".word 0x00000000,0x000220C0,0x00822021,0x00042080\n\t"
-    ".word 0x00822021,0x000420C0,0x3C02800E,0x2442DB9C\n\t"
-    ".word 0x00822021,0x0C01FFF6,0x248400B8,0x3C02800A\n\t"
-    ".word 0x8C4248B0,0x8E2548AC,0x000218C0,0x00621821\n\t"
-    ".word 0x00031880,0x00621821,0x000318C0,0x3C02800E\n\t"
-    ".word 0x2442DB9C,0x00621821,0x00052040,0x00852021\n\t"
-    ".word 0x000420C0,0x00852023,0x00042080,0x0C01FFC6\n\t"
-    ".word 0x00642021,0x3C02800A,0x8C4248A8,0x00000000\n\t"
-    ".word 0x2442FFFE,0x2C420003,0x10400007,0x24030002\n\t"
-    ".word 0x8E2248AC,0x00000000,0x24420001,0x14430002\n\t"
-    ".word 0xAE2248AC,0xAE2048AC,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct { char data[0x5C]; } DrawEnv;
+typedef struct { char data[0x14]; } DispEnv;
+typedef struct { DrawEnv draw[2]; DispEnv disp; int ot; char pad[0x128 - 0xD0]; } Screen;
+extern Screen D_800DDB9C[];
+extern int D_800A48A8;
+extern int D_800A48AC;
+extern int D_800A48B0;
+extern unsigned char D_800C60EC;
+extern void func_8008BA04(void);
+extern void func_80088870(int);
+extern void func_80083B2C(int);
+extern void func_8007FFD8(DispEnv *);
+extern void func_8007FF18(DrawEnv *);
+
+static inline Screen *current_screen(void)
+{
+    return &D_800DDB9C[D_800A48B0];
+}
+
+void func_8003A744(void)
+{
+    func_8008BA04();
+    if (D_800C60EC != 0) {
+        func_80088870(2);
+    }
+    if (D_800A48AC == 0) {
+        D_800A48B0 ^= 1;
+        func_80083B2C(3);
+        func_8007FFD8(&current_screen()->disp);
+    }
+    func_8007FF18(&current_screen()->draw[D_800A48AC]);
+    if ((unsigned int)(D_800A48A8 - 2) < 3) {
+        if (++D_800A48AC == 2) {
+            D_800A48AC = 0;
+        }
+    }
+}

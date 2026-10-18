@@ -1,10 +1,16 @@
-asm(".text\n\t.globl func_8009A7F8\nfunc_8009A7F8:\n\t"
-    ".word 0x3c02800b,0x8c42770c,0x27bdffe0,0xafb10014\n\t"
-    ".word 0x00808821,0xafb00010,0x00a08021,0x14400010\n\t"
-    ".word 0xafbf0018,0x3c02800b,0x94427708,0x3c05800b\n\t"
-    ".word 0x8ca57718,0x24040002,0x0c02695e,0x00a22804\n\t"
-    ".word 0x0c02695e,0x24040001,0x24040003,0x02202821\n\t"
-    ".word 0x0c02695e,0x02003021,0x08026a1a,0x02001021\n\t"
-    ".word 0x02202021,0x0c0268bf,0x02002821,0x02001021\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int D_800B770C;
+extern unsigned short D_800B7708;
+extern int D_800B7718;
+extern int func_8009A578();
+extern void func_8009A2FC(unsigned char *, unsigned int);
+
+unsigned int func_8009A7F8(unsigned char *addr, unsigned int size) {
+    if (D_800B770C == 0) {
+        func_8009A578(2, D_800B7708 << D_800B7718);
+        func_8009A578(1);
+        func_8009A578(3, addr, size);
+    } else {
+        func_8009A2FC(addr, size);
+    }
+    return size;
+}

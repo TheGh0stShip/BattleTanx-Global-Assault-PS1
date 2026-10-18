@@ -1,11 +1,40 @@
-asm(".text\n\t.globl func_8008D1B8\nfunc_8008D1B8:\n\t"
-    ".word 0x94a3000c,0x94a2000e,0x00000000,0x00620018\n\t"
-    ".word 0x00004012,0x00084a83,0x29220020,0x14400003\n\t"
-    ".word 0x00091080,0x2409001f,0x00091080,0x00821021\n\t"
-    ".word 0x8c460008,0x00000000,0x10c0000e,0x00003821\n\t"
-    ".word 0x94c3000c,0x94c2000e,0x00000000,0x00620018\n\t"
-    ".word 0x00005012,0x0148102a,0x10400006,0x00000000\n\t"
-    ".word 0x00c03821,0x8ce60000,0x00000000,0x14c0fff4\n\t"
-    ".word 0x00000000,0xaca70004,0x10c00002,0xaca60000\n\t"
-    ".word 0xacc50004,0x10e00003,0x00091080,0x03e00008\n\t"
-    ".word 0xace50000,0x00821021,0x03e00008,0xac450008\n\t");
+typedef struct Node8008D1B8 {
+    struct Node8008D1B8 *next;
+    struct Node8008D1B8 *prev;
+    int data;
+    unsigned short w;
+    unsigned short h;
+} Node8008D1B8;
+
+typedef struct {
+    Node8008D1B8 *free;
+    int count;
+    Node8008D1B8 *buckets[32];
+} Pool8008D1B8;
+
+void func_8008D1B8(Pool8008D1B8 *pool, Node8008D1B8 *node) {
+    int key = node->w * node->h;
+    int index = key >> 10;
+    Node8008D1B8 *prev;
+    Node8008D1B8 *cur;
+
+    if (index >= 32) {
+        index = 31;
+    }
+    cur = pool->buckets[index];
+    prev = 0;
+    while (cur != 0 && cur->w * cur->h < key) {
+        prev = cur;
+        cur = cur->next;
+    }
+    node->prev = prev;
+    node->next = cur;
+    if (cur != 0) {
+        cur->prev = node;
+    }
+    if (prev != 0) {
+        prev->next = node;
+    } else {
+        pool->buckets[index] = node;
+    }
+}

@@ -1,11 +1,24 @@
-asm(".text\n\t.globl func_8003A860\nfunc_8003A860:\n\t"
-    ".word 0x27bdffe0,0xafbf0018,0x0c01fe03,0x00002021\n\t"
-    ".word 0x0c01fe60,0x00002021,0x27a40010,0x00002821\n\t"
-    ".word 0x3c02800c,0x00a03021,0x244be7cc,0x89680003\n\t"
-    ".word 0x99680000,0x89690007,0x99690004,0xaba80013\n\t"
-    ".word 0xbba80010,0xaba90017,0xbba90014,0x0c01fefe\n\t"
-    ".word 0x00a03821,0x0c022e25,0x00000000,0x24044e20\n\t"
-    ".word 0x0c00fa6a,0x24050400,0x24040001,0x3c02800a\n\t"
-    ".word 0x3c03800a,0xac4048a8,0x00801021,0x0c01fe77\n\t"
-    ".word 0xac6248b4,0x8fbf0018,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef struct { unsigned char b[8]; } Rect8;
+extern Rect8 D_800BE7CC;
+extern int D_800A48A8;
+extern int D_800A48B4;
+void func_8007F80C(int);
+void func_8007F980(int);
+void func_8007FBF8(Rect8 *, int, int, int);
+void func_8008B894(void);
+void func_8003E9A8(int, int);
+void func_8007F9DC(int);
+
+void func_8003A860(void) {
+    Rect8 r;
+
+    func_8007F80C(0);
+    func_8007F980(0);
+    r = D_800BE7CC;
+    func_8007FBF8(&r, 0, 0, 0);
+    func_8008B894();
+    func_8003E9A8(20000, 1024);
+    D_800A48A8 = 0;
+    D_800A48B4 = 1;
+    func_8007F9DC(1);
+}

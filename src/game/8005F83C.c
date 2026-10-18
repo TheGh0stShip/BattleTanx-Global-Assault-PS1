@@ -1,9 +1,15 @@
-asm(".text\n\t.globl func_8005F83C\nfunc_8005F83C:\n\t"
-    ".word 0x3c06800a,0x90c26189,0x27bdffe8,0xafbf0010\n\t"
-    ".word 0x24430001,0x3c02800a,0x80456188,0x24020002\n\t"
-    ".word 0x10a20004,0xa0c36189,0x24020006,0x14a20005\n\t"
-    ".word 0x00000000,0x00031600,0x00021603,0x08017e23\n\t"
-    ".word 0x28420006,0x00031600,0x00021603,0x28420007\n\t"
-    ".word 0x14400002,0x00000000,0xa0c06189,0x0c016953\n\t"
-    ".word 0x00000000,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+extern signed char D_800A6188;
+extern signed char D_800A6189;
+extern void func_8005A54C(int);
+
+void func_8005F83C(int arg) {
+    D_800A6189++;
+    if (D_800A6188 == 2 || D_800A6188 == 6) {
+        if (D_800A6189 >= 6) {
+            D_800A6189 = 0;
+        }
+    } else if (D_800A6189 >= 7) {
+        D_800A6189 = 0;
+    }
+    func_8005A54C(arg);
+}

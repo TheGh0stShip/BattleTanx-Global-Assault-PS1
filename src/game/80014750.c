@@ -1,10 +1,19 @@
-asm(".text\n\t.globl func_80014750\nfunc_80014750:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0xafbf0014,0x0c01fa3c\n\t"
-    ".word 0x00a08021,0x0c021a6c,0x02002021,0x3c02800b\n\t"
-    ".word 0x9042ea45,0x00000000,0x1440000d,0x3c02800b\n\t"
-    ".word 0x9042ea41,0x00000000,0x14400009,0x3c02800b\n\t"
-    ".word 0x9042ace1,0x00000000,0x14400005,0x3c02800b\n\t"
-    ".word 0x9043ad00,0x24020001,0x14620004,0x3c028008\n\t"
-    ".word 0x0c01d798,0x00000000,0x3c028008,0x8c426058\n\t"
-    ".word 0x00000000,0x10400002,0x00000000,0x0001000d\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern unsigned char D_800AEA45;
+extern unsigned char D_800AEA41;
+extern unsigned char D_800AACE1;
+extern unsigned char D_800AAD00;
+extern int D_80086058;
+void func_8007E8F0(void);
+void func_800869B0(int);
+void func_80075E60(void);
+
+void func_80014750(int unused, int arg) {
+    func_8007E8F0();
+    func_800869B0(arg);
+    if (D_800AEA45 != 0 || D_800AEA41 != 0 || D_800AACE1 != 0 || D_800AAD00 == 1) {
+        func_80075E60();
+    }
+    if (D_80086058 != 0) {
+        __asm__ volatile("break 0x400");
+    }
+}

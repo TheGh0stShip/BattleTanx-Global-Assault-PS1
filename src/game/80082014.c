@@ -1,13 +1,24 @@
-asm(".text\n\t.globl func_80082014\nfunc_80082014:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x00809021,0xafb3001c\n\t"
-    ".word 0x00a09821,0xafb00010,0xafb10014,0x2411005c\n\t"
-    ".word 0xafbf0024,0xafb40020,0x92620000,0x92630001\n\t"
-    ".word 0x10510015,0x00008021,0x2414002f,0x10540012\n\t"
-    ".word 0x2402003a,0x10620010,0x3c02800f,0x2442dc9c\n\t"
-    ".word 0x8c5000bc,0x00000000,0x1200000b,0x00000000\n\t"
-    ".word 0x0c023681,0x2445003c,0x02121821,0x9062ffff\n\t"
-    ".word 0x00000000,0x10510005,0x02502021,0x10540003\n\t"
-    ".word 0x26100001,0xa0710000,0x02502021,0x0c023681\n\t"
-    ".word 0x02602821,0x8fbf0024,0x8fb40020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct {
+    char pad[0x3C];
+    char cwd[0x80];
+    int cwd_len;
+} PathState;
+extern PathState D_800EDC9C;
+extern char *func_8008DA04(char *dst, char *src);
+
+char *func_80082014(char *dst, char *path) {
+    int n = 0;
+    char c0 = path[0];
+    char c1 = path[1];
+
+    if (c0 != '\\' && c0 != '/' && c1 != ':') {
+        n = D_800EDC9C.cwd_len;
+        if (n != 0) {
+            func_8008DA04(dst, D_800EDC9C.cwd);
+            if (dst[n - 1] != '\\' && dst[n - 1] != '/') {
+                dst[n++] = '\\';
+            }
+        }
+    }
+    return func_8008DA04(dst + n, path);
+}

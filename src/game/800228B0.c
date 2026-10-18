@@ -1,8 +1,31 @@
-asm(".text\n\t.globl func_800228B0\nfunc_800228B0:\n\t"
-    ".word 0x3c02800d,0x24432fe4,0x90620009,0x00000000\n\t"
-    ".word 0x10400015,0x00002021,0x2409007f,0x3c02800e\n\t"
-    ".word 0x24483e68,0x24070002,0x00603021,0x00802821\n\t"
-    ".word 0x10890002,0x00001821,0x00a81821,0x90620006\n\t"
-    ".word 0x00000000,0x30420002,0x10400002,0x00000000\n\t"
-    ".word 0xac670058,0x90c20009,0x24840001,0x0082102a\n\t"
-    ".word 0x1440fff3,0x24a50114,0x03e00008,0x00000000\n\t");
+typedef struct Waypoint {
+    char pad000[6];
+    unsigned char flags;
+    char pad007[0x58 - 7];
+    int state;
+    char pad05C[0x114 - 0x5C];
+} Waypoint;
+typedef struct Game {
+    char pad0[9];
+    unsigned char count;
+} Game;
+extern Waypoint D_800E3E68[];
+extern Game D_800D2FE4;
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800228B0(void) {
+    int i;
+
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        Waypoint *w = waypoint(i);
+        if (w->flags & 2) {
+            w->state = 2;
+        }
+    }
+}

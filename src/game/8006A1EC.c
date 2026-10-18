@@ -1,9 +1,22 @@
-asm(".text\n\t.globl func_8006A1EC\nfunc_8006A1EC:\n\t"
-    ".word 0x00803821,0x3c03800d,0x8ca80000,0x8c622e04\n\t"
-    ".word 0x01072021,0x00021300,0x0082202a,0x14800014\n\t"
-    ".word 0x24662e04,0x8ca50008,0x8cc20004,0x00a71821\n\t"
-    ".word 0x00021300,0x0062182a,0x1460000d,0x01071823\n\t"
-    ".word 0x8cc20008,0x00000000,0x00021300,0x0043102a\n\t"
-    ".word 0x14400007,0x00a71823,0x8cc2000c,0x00000000\n\t"
-    ".word 0x00021300,0x0043102a,0x10400003,0x00000000\n\t"
-    ".word 0x03e00008,0x00001021,0x03e00008,0x24020001\n\t");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Bounds {
+    int min_x;
+    int min_z;
+    int max_x;
+    int max_z;
+} Bounds;
+
+extern Bounds D_800D2E04;
+
+int func_8006A1EC(int margin, Vector *pos) {
+    if (pos->x + margin < D_800D2E04.min_x << 12 || pos->z + margin < D_800D2E04.min_z << 12 ||
+        D_800D2E04.max_x << 12 < pos->x - margin || D_800D2E04.max_z << 12 < pos->z - margin) {
+        return 0;
+    }
+    return 1;
+}

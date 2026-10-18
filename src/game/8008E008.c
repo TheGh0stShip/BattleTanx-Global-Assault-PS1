@@ -1,11 +1,24 @@
-asm(".text\n\t.globl func_8008E008\nfunc_8008E008:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x00a09021,0xafb3001c\n\t"
-    ".word 0x00c09821,0xafb10014,0x00e08821,0x3c02800f\n\t"
-    ".word 0xafb00010,0x2450ebe0,0x8c43ebe0,0x2404ffef\n\t"
-    ".word 0xafbf0020,0x8e060048,0x00641824,0xac43ebe0\n\t"
-    ".word 0x10c00004,0x02202821,0x8e040004,0x00c0f809\n\t"
-    ".word 0xae000048,0x8e02004c,0x00000000,0x10400006\n\t"
-    ".word 0x02402821,0x02603021,0x8e040004,0x02203821\n\t"
-    ".word 0x0040f809,0xae00004c,0x8fbf0020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef struct {
+    volatile int flags;
+    int handle;
+    char pad8[64];
+    void (*on_done)(int, int);
+    void (*on_data)(int, int, int, int);
+} S8008E008;
+extern S8008E008 D_800EEBE0;
+
+void func_8008E008(int a0, int a1, int a2, int a3) {
+    S8008E008 *s = &D_800EEBE0;
+    void (*done)(int, int);
+    void (*data)(int, int, int, int);
+
+    s->flags &= ~0x10;
+    if ((done = s->on_done) != 0) {
+        s->on_done = 0;
+        done(s->handle, a3);
+    }
+    if ((data = s->on_data) != 0) {
+        s->on_data = 0;
+        data(s->handle, a1, a2, a3);
+    }
+}

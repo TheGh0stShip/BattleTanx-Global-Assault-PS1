@@ -1,14 +1,37 @@
-asm(".text\n\t.globl func_8007ECA0\nfunc_8007ECA0:\n\t"
-    ".word 0x27bdffd0,0xafb10014,0x00808821,0xafb3001c\n\t"
-    ".word 0x00a09821,0xafb50024,0x00c0a821,0xafb40020\n\t"
-    ".word 0x3c14800f,0xafb00010,0x2690c200,0xafbf0028\n\t"
-    ".word 0xafb20018,0x8e020128,0x00000000,0x14510002\n\t"
-    ".word 0x00e09021,0xae000128,0x8e030108,0x24020002\n\t"
-    ".word 0x1062000b,0x2624ffff,0x02602821,0x0c0250ad\n\t"
-    ".word 0x02a03021,0x1240000f,0x00000000,0x8e84c200\n\t"
-    ".word 0x0240f809,0x24050001,0x0801fb51,0x00000000\n\t"
-    ".word 0x0c01fb0b,0x00000000,0x2624ffff,0x02602821\n\t"
-    ".word 0x0c0250ad,0x02a03021,0xae00011c,0xae120110\n\t"
-    ".word 0xae11010c,0x8fbf0028,0x8fb50024,0x8fb40020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x24020001,0x03e00008,0x27bd0030\n\t");
+typedef struct FileCtl {
+    int handle;
+    char pad4[260];
+    int mode;
+    int active;
+    void (*callback)(int, int);
+    void (*callback4)(int, int, int, int);
+    int pad118;
+    int arg;
+    char pad120[8];
+    int busy;
+} FileCtl;
+
+extern FileCtl D_800EC200;
+extern int func_800942B4(int, int, int);
+extern void func_8007EC2C(void);
+
+int func_8007ECA0(int handle, int offset, int whence, void (*done)(int, int)) {
+    FileCtl *ctl = &D_800EC200;
+
+    if (ctl->busy == handle) {
+        ctl->busy = 0;
+    }
+    if (ctl->mode != 2) {
+        func_800942B4(handle - 1, offset, whence);
+        if (done != 0) {
+            done(D_800EC200.handle, 1);
+        }
+    } else {
+        func_8007EC2C();
+        func_800942B4(handle - 1, offset, whence);
+        ctl->arg = 0;
+        ctl->callback = done;
+        ctl->active = handle;
+    }
+    return 1;
+}

@@ -1,20 +1,46 @@
-asm(".text\n\t.globl func_8009383C\nfunc_8009383C:\n\t"
-    ".word 0x27BDFFC8,0xAFB00020,0x00A08021,0xAFB20028\n\t"
-    ".word 0x00C09021,0xAFB3002C,0x00E09821,0xAFB10024\n\t"
-    ".word 0x00008821,0x27A50018,0xAFBF0030,0x0C0260AC\n\t"
-    ".word 0x27A6001C,0x10400034,0x02201021,0x8FA5001C\n\t"
-    ".word 0x12000011,0x02203821,0x00101040,0x00503821\n\t"
-    ".word 0x3C02CCCC,0x3442CCCD,0x00E20019,0x3C02800F\n\t"
-    ".word 0x2442EFAC,0x8C43001C,0x90420001,0x00031823\n\t"
-    ".word 0x00004010,0x00083942,0x14400002,0x00E33824\n\t"
-    ".word 0x00073840,0x00073AC0,0x12400011,0x00121040\n\t"
-    ".word 0x00522821,0x3C02CCCC,0x3442CCCD,0x00A20019\n\t"
-    ".word 0x3C02800F,0x2442EFAC,0x8C43001C,0x90420001\n\t"
-    ".word 0x00031823,0x00004010,0x00082942,0x14400002\n\t"
-    ".word 0x00A32824,0x00052840,0x00B32821,0x00052AC0\n\t"
-    ".word 0x00A72823,0x3C02800F,0x2442EFAC,0x8FA40018\n\t"
-    ".word 0x24030001,0xA0430002,0x8FA2004C,0x00872021\n\t"
-    ".word 0x8FA70048,0x02603021,0x0C024E58,0xAFA20010\n\t"
-    ".word 0x00408821,0x02201021,0x8FBF0030,0x8FB3002C\n\t"
-    ".word 0x8FB20028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+extern int func_800982B0(char *, unsigned int *, int *);
+extern int func_80093960(unsigned int, int, int, int, int);
+
+typedef struct {
+    unsigned char b0;
+    unsigned char stereo;
+    volatile unsigned char busy;
+    char pad3[25];
+    int block;
+} S8009383C;
+extern S8009383C D_800EEFAC;
+
+int func_8009383C(char *name, unsigned int start, unsigned int end, int extra, int a4, int a5) {
+    unsigned int pos;
+    int size;
+    int offset;
+    int len;
+    int r = 0;
+
+    if (func_800982B0(name, &pos, &size) != 0) {
+        len = size;
+        offset = r;
+        if (start != 0) {
+            offset = start * 3;
+            offset = (unsigned int)offset / 40;
+            offset &= -D_800EEFAC.block;
+            if (D_800EEFAC.stereo == 0) {
+                offset <<= 1;
+            }
+            offset <<= 11;
+        }
+        if (end != 0) {
+            len = end * 3;
+            len = (unsigned int)len / 40;
+            len &= -D_800EEFAC.block;
+            if (D_800EEFAC.stereo == 0) {
+                len <<= 1;
+            }
+            len += extra;
+            len <<= 11;
+        }
+        D_800EEFAC.busy = 1;
+        r = func_80093960(pos + offset, len - offset, extra, a4, a5);
+    }
+    return r;
+}

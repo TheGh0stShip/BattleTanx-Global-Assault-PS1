@@ -1,16 +1,54 @@
-asm(".text\n\t.globl func_800A09E0\nfunc_800A09E0:\n\t"
-    ".word 0x3c03800c,0x8c639000,0x00000000,0x946201b8\n\t"
-    ".word 0x00000000,0x14400009,0x27bdfff8,0x946201ba\n\t"
-    ".word 0x00000000,0x14400006,0x24023fff,0xa4620180\n\t"
-    ".word 0xa4620182,0x3c03800c,0x8c639000,0x24023fff\n\t"
-    ".word 0xa46201b0,0xa46201b2,0x3402c001,0xa46201aa\n\t"
-    ".word 0x3c03800c,0x8c638fec,0x24020080,0xa3a20002\n\t"
-    ".word 0xa3a20000,0x24020002,0xa3a00003,0xa3a00001\n\t"
-    ".word 0xa0620000,0x3c03800c,0x8c638ff4,0x93a20000\n\t"
-    ".word 0x00000000,0xa0620000,0x3c03800c,0x8c638ff8\n\t"
-    ".word 0x93a20001,0x00000000,0xa0620000,0x3c03800c\n\t"
-    ".word 0x8c638fec,0x24020003,0xa0620000,0x3c03800c\n\t"
-    ".word 0x8c638ff0,0x93a20002,0x00000000,0xa0620000\n\t"
-    ".word 0x3c03800c,0x8c638ff4,0x93a20003,0x00000000\n\t"
-    ".word 0xa0620000,0x3c03800c,0x8c638ff8,0x24020020\n\t"
-    ".word 0xa0620000,0x00001021,0x03e00008,0x27bd0008\n\t");
+typedef struct SpuRegs {
+    char pad0[0x180];
+    unsigned short main_vol_l;
+    unsigned short main_vol_r;
+    char pad184[0x26];
+    unsigned short control;
+    char pad1ac[4];
+    unsigned short cd_vol_l;
+    unsigned short cd_vol_r;
+    char pad1b4[4];
+    unsigned short cur_main_vol_l;
+    unsigned short cur_main_vol_r;
+} SpuRegs;
+
+typedef struct CdAtv {
+    unsigned char val0;
+    unsigned char val1;
+    unsigned char val2;
+    unsigned char val3;
+} CdAtv;
+
+extern SpuRegs *D_800B9000;
+extern volatile unsigned char *D_800B8FEC;
+extern volatile unsigned char *D_800B8FF0;
+extern volatile unsigned char *D_800B8FF4;
+extern volatile unsigned char *D_800B8FF8;
+
+static inline int cd_mix(CdAtv *vol) {
+    *D_800B8FEC = 2;
+    *D_800B8FF4 = vol->val0;
+    *D_800B8FF8 = vol->val1;
+    *D_800B8FEC = 3;
+    *D_800B8FF0 = vol->val2;
+    *D_800B8FF4 = vol->val3;
+    *D_800B8FF8 = 0x20;
+    return 0;
+}
+
+int func_800A09E0(void) {
+    CdAtv atv;
+
+    if (D_800B9000->cur_main_vol_l == 0 && D_800B9000->cur_main_vol_r == 0) {
+        D_800B9000->main_vol_l = 0x3FFF;
+        D_800B9000->main_vol_r = 0x3FFF;
+    }
+    D_800B9000->cd_vol_l = 0x3FFF;
+    D_800B9000->cd_vol_r = 0x3FFF;
+    D_800B9000->control = 0xC001;
+    atv.val2 = 0x80;
+    atv.val0 = 0x80;
+    atv.val3 = 0;
+    atv.val1 = 0;
+    return cd_mix(&atv);
+}

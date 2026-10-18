@@ -1,28 +1,79 @@
-asm(".text\n\t.globl func_80082BEC\nfunc_80082BEC:\n\t"
-    ".word 0x27BDFFC0,0xAFB1001C,0x00808821,0xAFB20020\n\t"
-    ".word 0x00A09021,0xAFB30024,0x00C09821,0xAFBF003C\n\t"
-    ".word 0xAFBE0038,0xAFB70034,0xAFB60030,0xAFB5002C\n\t"
-    ".word 0xAFB40028,0xAFB00018,0x8E220034,0x00000000\n\t"
-    ".word 0x10400008,0x00E0A821,0x24030001,0x00601021\n\t"
-    ".word 0xAE220038,0xAE32003C,0xAE330040,0x08020B57\n\t"
-    ".word 0xAE350044,0xAE200038,0x24160001,0x3C02800F\n\t"
-    ".word 0x245EDC9C,0x3C028008,0x24572B9C,0x12760009\n\t"
-    ".word 0x0000A021,0x12600005,0x24020002,0x12620008\n\t"
-    ".word 0x00000000,0x08020B2B,0x00000000,0x08020B2B\n\t"
-    ".word 0xAE320010,0x8E220010,0x08020B2A,0x00521021\n\t"
-    ".word 0x8E22000C,0x00000000,0x00521021,0xAE220010\n\t"
-    ".word 0x8E220010,0x8E23000C,0x00000000,0x0062102B\n\t"
-    ".word 0x10400002,0x00000000,0xAE230010,0x8E240000\n\t"
-    ".word 0x00000000,0x00041080,0x005E8021,0x8E0201C8\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x0C0208A3\n\t"
-    ".word 0x00000000,0x24040009,0xAE1101C8,0xAE1501F0\n\t"
-    ".word 0xAE360034,0xAFB30010,0xAFB70014,0x8E02000C\n\t"
-    ".word 0x8E250008,0x8E260010,0x0040F809,0x02403821\n\t"
-    ".word 0x00401821,0x14600002,0x00000000,0xAE0001F0\n\t"
-    ".word 0x8E220038,0x00000000,0x10400007,0xAE200034\n\t"
-    ".word 0x8E32003C,0x8E330040,0x8E350044,0x24140001\n\t"
-    ".word 0xAE200044,0xAE200038,0x1680FFC4,0x00000000\n\t"
-    ".word 0x8FBF003C,0x8FBE0038,0x8FB70034,0x8FB60030\n\t"
-    ".word 0x8FB5002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x00601021,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct Request {
+    int port;
+    int unit;
+    int handle;
+    unsigned int size;
+    unsigned int pos;
+    char pad14[0x20];
+    int seek_busy;
+    int queued;
+    int queued_offset;
+    unsigned int queued_whence;
+    void *queued_cb;
+} Request;
+
+typedef struct RequestTable {
+    char pad000[0xC];
+    int (*io[10])(int, int, unsigned int, int, unsigned int, void *);
+    char pad034[0x194];
+    Request *pending[10];
+    void *seek_callback[10];
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+extern void func_8008228C(int);
+extern void func_80082B9C(void);
+
+int func_80082BEC(Request *r, int offset, unsigned int whence, void *cb) {
+    int result;
+    int again;
+    int port;
+
+    if (r->seek_busy != 0) {
+        r->queued = 1;
+        result = 1;
+        r->queued_offset = offset;
+        r->queued_whence = whence;
+        r->queued_cb = cb;
+    } else {
+        r->queued = 0;
+        do {
+            again = 0;
+            switch (whence) {
+            case 0:
+                r->pos = offset;
+                break;
+            case 1:
+                r->pos += offset;
+                break;
+            case 2:
+                r->pos = r->size + offset;
+                break;
+            }
+            if (r->pos > r->size) {
+                r->pos = r->size;
+            }
+            port = r->port;
+            if (D_800EDC9C.pending[port] != 0) {
+                func_8008228C(port);
+            }
+            D_800EDC9C.pending[port] = r;
+            D_800EDC9C.seek_callback[port] = cb;
+            r->seek_busy = 1;
+            result = D_800EDC9C.io[port](9, r->handle, r->pos, offset, whence, func_80082B9C);
+            if (result == 0) {
+                D_800EDC9C.seek_callback[port] = 0;
+            }
+            r->seek_busy = 0;
+            if (r->queued != 0) {
+                offset = r->queued_offset;
+                whence = r->queued_whence;
+                cb = r->queued_cb;
+                again = 1;
+                r->queued_cb = 0;
+                r->queued = 0;
+            }
+        } while (again);
+    }
+    return result;
+}

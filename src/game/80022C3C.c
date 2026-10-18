@@ -1,8 +1,25 @@
-asm(".text\n\t.globl func_80022C3C\nfunc_80022C3C:\n\t"
-    ".word 0x3c04800d,0x84833254,0x2402ffff,0x10620016\n\t"
-    ".word 0x00804021,0x3c02800d,0x8c493258,0x3c02800d\n\t"
-    ".word 0x24473260,0x240affff,0x85033254,0x95053254\n\t"
-    ".word 0x00031980,0x00691821,0x84620004,0x84660002\n\t"
-    ".word 0x00021040,0x00471021,0x94440000,0x84620004\n\t"
-    ".word 0xa5063254,0x00021040,0x00471021,0xa4640002\n\t"
-    ".word 0x14cafff1,0xa4450000,0x03e00008,0x00000000\n\t");
+typedef struct Node {
+    unsigned short id;
+    short next;
+    short kind;
+    char pad06[0x40 - 6];
+} Node;
+extern short D_800D3254;
+extern Node *D_800D3258;
+extern short D_800D3260[];
+
+void func_80022C3C(void) {
+    Node *node;
+    int next;
+
+    if (D_800D3254 == -1) {
+        return;
+    }
+    do {
+        node = (Node *)((D_800D3254 * sizeof(Node)) + (int)D_800D3258);
+        next = node->next;
+        node->next = D_800D3260[node->kind];
+        D_800D3260[node->kind] = D_800D3254;
+        D_800D3254 = next;
+    } while (next != -1);
+}

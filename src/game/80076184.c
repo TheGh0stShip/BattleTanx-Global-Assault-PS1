@@ -1,22 +1,56 @@
-asm(".text\n\t.globl func_80076184\nfunc_80076184:\n\t"
-    ".word 0x27BDFFD8,0xAFB20018,0x3C12800B,0xAFB00010\n\t"
-    ".word 0x3C10800A,0x3C02800E,0xAFB10014,0x2451DB9C\n\t"
-    ".word 0xAFB3001C,0x3C13800A,0xAFBF0020,0x9242EA43\n\t"
-    ".word 0x00000000,0x24420001,0x0C00E984,0xA242EA43\n\t"
-    ".word 0x0C01FE9D,0x00002021,0x0C02221C,0x24040002\n\t"
-    ".word 0x8E0248B0,0x00000000,0x38420001,0x000220C0\n\t"
-    ".word 0x00822021,0x00042080,0x00822021,0x000420C0\n\t"
-    ".word 0x00912021,0x248400B8,0x0C01FFF6,0xAE0248B0\n\t"
-    ".word 0x8E0348B0,0x00000000,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x000210C0,0x8E6348AC\n\t"
-    ".word 0x00511021,0x00032040,0x00832021,0x000420C0\n\t"
-    ".word 0x00832023,0x00042080,0x0C01FFC6,0x00442021\n\t"
-    ".word 0x8E0248B0,0x8E6448AC,0x000218C0,0x00621821\n\t"
-    ".word 0x00031880,0x00621821,0x000318C0,0x00711821\n\t"
-    ".word 0x00041040,0x00441021,0x000210C0,0x00441023\n\t"
-    ".word 0x00021080,0x00621821,0x3C04800B,0x84650000\n\t"
-    ".word 0x84660002,0x0C01FF3A,0x2484E9E0,0x0C00EA3D\n\t"
-    ".word 0x00000000,0x9242EA43,0x00000000,0x2C420096\n\t"
-    ".word 0x1440FFC2,0x3C02800B,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0xA040EA43\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct DrawEnv {
+    short x;
+    short y;
+    char pad[88];
+} DrawEnv;
+
+typedef struct DispEnv {
+    char data[20];
+} DispEnv;
+
+typedef struct FrameBuffer {
+    DrawEnv draw[2];
+    DispEnv disp;
+    char pad[92];
+} FrameBuffer;
+
+extern int D_800A48B0;
+extern int D_800A48AC;
+extern unsigned char D_800AEA43;
+extern FrameBuffer D_800DDB9C[];
+extern char D_800AE9E0[];
+extern void func_8003A610(void);
+extern void func_8007FA74(int);
+extern void func_80088870(int);
+extern void func_8007FFD8(DispEnv *);
+extern void func_8007FF18(DrawEnv *);
+extern void func_8007FCE8(void *, int, int);
+extern void func_8003A8F4(void);
+
+static inline DispEnv *current_disp(void) {
+    FrameBuffer *fb = &D_800DDB9C[D_800A48B0];
+    return &fb->disp;
+}
+
+static inline DrawEnv *current_draw(void) {
+    FrameBuffer *fb = &D_800DDB9C[D_800A48B0];
+    return &fb->draw[D_800A48AC];
+}
+
+void func_80076184(void) {
+    DrawEnv *draw;
+
+    do {
+        D_800AEA43++;
+        func_8003A610();
+        func_8007FA74(0);
+        func_80088870(2);
+        D_800A48B0 ^= 1;
+        func_8007FFD8(current_disp());
+        func_8007FF18(current_draw());
+        draw = current_draw();
+        func_8007FCE8(D_800AE9E0, draw->x, draw->y);
+        func_8003A8F4();
+    } while (D_800AEA43 < 150);
+    D_800AEA43 = 0;
+}

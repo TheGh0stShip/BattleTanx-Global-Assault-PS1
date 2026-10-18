@@ -1,18 +1,23 @@
-asm(".text\n\t.globl func_8009759C\nfunc_8009759C:\n\t"
-    ".word 0x3c031b4e,0x346381b5,0x24840096,0x00830018\n\t"
-    ".word 0x00a01021,0x3c058888,0x34a58889,0x00001810\n\t"
-    ".word 0x000338c3,0x00041fc3,0x00e33823,0x00e50018\n\t"
-    ".word 0x3c096666,0x35296667,0x00072880,0x00a72821\n\t"
-    ".word 0x00051900,0x00003010,0x00651823,0x00832023\n\t"
-    ".word 0x00890018,0x00071fc3,0x00c74021,0x00084143\n\t"
-    ".word 0x01034023,0x00081900,0x00681823,0x00002810\n\t"
-    ".word 0x00031880,0x00e33823,0x00e90018,0x00041fc3\n\t"
-    ".word 0x00052883,0x00a32823,0x00053100,0x00051880\n\t"
-    ".word 0x00651821,0x00031840,0x00832023,0x00005810\n\t"
-    ".word 0x00c43021,0x00071fc3,0x01090018,0xa0460002\n\t"
-    ".word 0x000b2083,0x00832023,0x00042900,0x00041880\n\t"
-    ".word 0x00641821,0x00031840,0x00e33823,0x00a72821\n\t"
-    ".word 0x00081fc3,0xa0450001,0x00004810,0x00092083\n\t"
-    ".word 0x00832023,0x00042900,0x00041880,0x00641821\n\t"
-    ".word 0x00031840,0x01034023,0x00a82821,0x03e00008\n\t"
-    ".word 0xa0450000\n\t");
+typedef struct {
+    unsigned char minute;
+    unsigned char second;
+    unsigned char sector;
+    unsigned char track;
+} CdLoc8009759C;
+
+static inline int int_to_bcd(int v) {
+    return v / 10 * 16 + v % 10;
+}
+
+CdLoc8009759C *func_8009759C(int pos, CdLoc8009759C *loc) {
+    int seconds;
+    int minutes;
+
+    pos += 150;
+    seconds = pos / 75;
+    minutes = seconds / 60;
+    loc->sector = int_to_bcd(pos % 75);
+    loc->second = int_to_bcd(seconds % 60);
+    loc->minute = int_to_bcd(minutes);
+    return loc;
+}

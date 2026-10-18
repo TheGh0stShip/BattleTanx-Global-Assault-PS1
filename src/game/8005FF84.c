@@ -1,11 +1,47 @@
-asm(".text\n\t.globl func_8005FF84\nfunc_8005FF84:\n\t"
-    ".word 0x3c02800f,0x94830014,0x2442c0f8,0x00031880\n\t"
-    ".word 0x00621821,0x8c630000,0x00000000,0x2c620008\n\t"
-    ".word 0x1040001d,0x3c02800c,0x2442fce8,0x00031880\n\t"
-    ".word 0x00621821,0x8c620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3c02800f,0x08018006,0x2442ae68\n\t"
-    ".word 0x3c02800f,0x08018006,0x2442ac6c,0x3c02800f\n\t"
-    ".word 0x08018006,0x2442ac60,0x3c02800f,0x08018006\n\t"
-    ".word 0x2442ac48,0x3c02800f,0x08018006,0x2442ac4c\n\t"
-    ".word 0x3c02800f,0x08018006,0x2442adcc,0x3c02800f\n\t"
-    ".word 0x2442ad00,0xaca20028,0x03e00008,0x00001021\n\t");
+typedef struct Item {
+    char pad[0x14];
+    unsigned short index;
+} Item;
+
+typedef struct Element {
+    char pad[0x28];
+    int *style;
+} Element;
+
+extern unsigned int D_800EC0F8[];
+extern int D_800EAE68;
+extern int D_800EAC6C;
+extern int D_800EAC60;
+extern int D_800EAC48;
+extern int D_800EAC4C;
+extern int D_800EADCC;
+extern int D_800EAD00;
+
+int func_8005FF84(Item *item, Element *element) {
+    switch (D_800EC0F8[item->index]) {
+    case 0:
+        element->style = &D_800EAE68;
+        break;
+    case 1:
+        element->style = &D_800EAC6C;
+        break;
+    case 2:
+        element->style = &D_800EAC60;
+        break;
+    case 3:
+        element->style = &D_800EAC48;
+        break;
+    case 4:
+        element->style = &D_800EAC4C;
+        break;
+    case 5:
+        element->style = &D_800EADCC;
+        break;
+    case 6:
+        element->style = &D_800EAD00;
+        break;
+    case 7:
+        break;
+    }
+    return 0;
+}

@@ -1,9 +1,19 @@
-asm(".text\n\t.globl func_80054D4C\nfunc_80054D4C:\n\t"
-    ".word 0x27bdffe8,0x00002021,0x3c02800e,0x8c454658\n\t"
-    ".word 0x2406ffff,0xafbf0010,0x308200ff,0x00021880\n\t"
-    ".word 0x00621821,0x00031880,0x00651821,0x24840001\n\t"
-    ".word 0x308200ff,0x2c420039,0x1440fff7,0xa4660012\n\t"
-    ".word 0x3c0500ff,0x34a5ffff,0x0c0241f1,0x00002021\n\t"
-    ".word 0x3c03800e,0x8c6246bc,0x00000000,0x10400002\n\t"
-    ".word 0x00000000,0xac6046bc,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0x12];
+    short link;
+} Entry;
+extern Entry *D_800E4658;
+extern int D_800E46BC;
+extern void func_800907C4(int, int);
+
+void func_80054D4C(void) {
+    unsigned char i;
+
+    for (i = 0; i < 57; i++) {
+        D_800E4658[i].link = -1;
+    }
+    func_800907C4(0, 0xFFFFFF);
+    if (D_800E46BC != 0) {
+        D_800E46BC = 0;
+    }
+}

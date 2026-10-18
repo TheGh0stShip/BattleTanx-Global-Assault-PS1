@@ -1,14 +1,70 @@
-asm(".text\n\t.globl func_800A21F8\nfunc_800A21F8:\n\t"
-    ".word 0x27bdffd8,0xafb00018,0x00808021,0xafbf0020\n\t"
-    ".word 0x0c023e69,0xafb1001c,0x00401821,0x24020004\n\t"
-    ".word 0x14620006,0x24020003,0x02002021,0x0c0289bd\n\t"
-    ".word 0x24050001,0x080288a9,0x00000000,0x1462000e\n\t"
-    ".word 0x24110001,0x8e020010,0x8e03000c,0x00511021\n\t"
-    ".word 0xae020010,0x0043102b,0x14400005,0x00000000\n\t"
-    ".word 0x0c028679,0x00002021,0x0802889c,0x00008821\n\t"
-    ".word 0x0c0286ac,0x02002021,0x12200010,0x24020001\n\t"
-    ".word 0x2404000a,0xae000020,0xafa20010,0x3c02800a\n\t"
-    ".word 0x24421994,0x3c07800f,0x00003021,0xafa20014\n\t"
-    ".word 0x8e050000,0x0c023fc7,0x24e7fe0f,0x14400003\n\t"
-    ".word 0x00000000,0x0c028679,0x00002021,0x8fbf0020\n\t"
-    ".word 0x8fb1001c,0x8fb00018,0x03e00008,0x27bd0028\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int pad2C;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AB0(Link *);
+extern int func_800A26F4(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+void func_800A21F8(Link *c) {
+    int status = func_8008F9A4();
+    int result;
+    int resend;
+
+    if (status == 4) {
+        result = func_800A26F4(c, 1);
+    } else {
+        resend = 1;
+        if (status == 3) {
+            if (++c->tries >= c->limit) {
+                func_800A19E4(0);
+                resend = 0;
+            } else {
+                func_800A1AB0(c);
+            }
+        }
+        if (resend == 0) {
+            return;
+        }
+        c->unk20 = 0;
+        result = func_8008FF1C(10, c->unk00, 0, D_800EFD0C.packet, 1, func_800A1994);
+    }
+    if (result == 0) {
+        func_800A19E4(0);
+    }
+}

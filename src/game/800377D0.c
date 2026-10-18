@@ -1,12 +1,15 @@
-asm(".text\n\t.globl func_800377D0\nfunc_800377D0:\n\t"
-    ".word 0x27bdffd0,0xafb00020,0x00808021,0xafbf0028\n\t"
-    ".word 0xafb10024,0x8e020024,0x00000000,0x1c40001d\n\t"
-    ".word 0x00a08821,0x3c04800a,0x24844ef4,0x2605000c\n\t"
-    ".word 0x8e030008,0x96060018,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8c430048,0x3c02800d,0x24422e14,0xafa00010\n\t"
-    ".word 0xafa00014,0xafa00018,0xafa0001c,0x00031880\n\t"
-    ".word 0x00621821,0x8c640000,0x0c00d652,0x00003821\n\t"
-    ".word 0x9604001a,0x0c006c25,0x00000000,0x24020001\n\t"
-    ".word 0xae220000,0x8fbf0028,0x8fb10024,0x8fb00020\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[72]; int wreck_model; char rest[0xD0 - 76]; } VehicleInfo;
+typedef struct { int pad[2]; int vehicle; Vector pos; unsigned short angle; unsigned short sound; char pad2[8]; int hp; } Wreck;
+extern VehicleInfo D_800A4EF4[];
+extern int D_800D2E14[];
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+void func_8001B094(int);
+
+void func_800377D0(Wreck *w, int *done) {
+    if (w->hp <= 0) {
+        func_80035948(D_800D2E14[D_800A4EF4[w->vehicle].wreck_model], &w->pos, w->angle, 0, 0, 0, 0, 0);
+        func_8001B094(w->sound);
+        *done = 1;
+    }
+}

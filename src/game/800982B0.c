@@ -1,15 +1,39 @@
-asm(".text\n\t.globl func_800982B0\nfunc_800982B0:\n\t"
-    ".word 0x27bdff48,0xafb300ac,0x00a09821,0xafb400b0\n\t"
-    ".word 0x00c0a021,0xafb200a8,0x00009021,0x27a50010\n\t"
-    ".word 0xafbf00b4,0xafb100a4,0x0c025ff9,0xafb000a0\n\t"
-    ".word 0x0c02600a,0x27a40010,0x3c03800f,0x8c70f0ec\n\t"
-    ".word 0x00000000,0x1200001d,0x00408821,0x92220000\n\t"
-    ".word 0x00000000,0x1040000b,0x00000000,0x02202021\n\t"
-    ".word 0x0c026026,0x27a50098,0x00408821,0x8fa50098\n\t"
-    ".word 0x0c026097,0x02002021,0x00408021,0x1600fff3\n\t"
-    ".word 0x00000000,0x1200000e,0x02401021,0x8e020004\n\t"
-    ".word 0x00000000,0x04400009,0x3c027fff,0x8e030000\n\t"
-    ".word 0x3442ffff,0x00031ac0,0xae630000,0x8e030004\n\t"
-    ".word 0x24120001,0x00621824,0xae830000,0x02401021\n\t"
-    ".word 0x8fbf00b4,0x8fb400b0,0x8fb300ac,0x8fb200a8\n\t"
-    ".word 0x8fb100a4,0x8fb000a0,0x03e00008,0x27bd00b8\n\t");
+extern void func_80097FE4(char *, char *);
+extern char *func_80098028(char *);
+extern char *func_80098098(char *, int *);
+
+typedef struct {
+    unsigned int sector;
+    int size;
+} Entry800982B0;
+
+extern Entry800982B0 *func_8009825C(Entry800982B0 *, int);
+extern Entry800982B0 *D_800EF0EC;
+
+int func_800982B0(char *path, unsigned int *pos, int *size) {
+    char buf[136];
+    int len;
+    char *p;
+    Entry800982B0 *e;
+    int found = 0;
+
+    func_80097FE4(path, buf);
+    p = func_80098028(buf);
+    e = D_800EF0EC;
+    if (e != 0) {
+    loop:
+        if (*p != 0) {
+            p = func_80098098(p, &len);
+            e = func_8009825C(e, len);
+            if (e != 0) {
+                goto loop;
+            }
+        }
+        if (e != 0 && e->size >= 0) {
+            *pos = e->sector << 11;
+            *size = e->size & 0x7FFFFFFF;
+            found = 1;
+        }
+    }
+    return found;
+}

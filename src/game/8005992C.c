@@ -1,23 +1,57 @@
-asm(".text\n\t.globl func_8005992C\nfunc_8005992C:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFB10014\n\t"
-    ".word 0x00008821,0x3C02800E,0xAFB40020,0x2454474C\n\t"
-    ".word 0x3262FFFF,0xAFB20018,0x00029100,0xAFBF0024\n\t"
-    ".word 0xAFB00010,0x3222FFFF,0x00521021,0x00548021\n\t"
-    ".word 0x82040003,0x00000000,0x18800005,0x00000000\n\t"
-    ".word 0x0C016ABB,0x3084FFFF,0x2402FFFF,0xA2020003\n\t"
-    ".word 0x26310001,0x3222FFFF,0x2C420006,0x1440FFF2\n\t"
-    ".word 0x3222FFFF,0x3C02800E,0x2445474C,0x3264FFFF\n\t"
-    ".word 0x00041100,0x00451021,0x80430002,0x00000000\n\t"
-    ".word 0x04600028,0xA4400000,0x00031100,0x00451821\n\t"
-    ".word 0x94620000,0x00000000,0x10400022,0x00603021\n\t"
-    ".word 0x00003821,0x00E01821,0x3062FFFF,0x00C22821\n\t"
-    ".word 0x80A20003,0x00000000,0x10440013,0x00000000\n\t"
-    ".word 0x18400002,0x00000000,0x24070001,0x24630001\n\t"
-    ".word 0x3062FFFF,0x2C420006,0x1440FFF4,0x3062FFFF\n\t"
-    ".word 0x30E2FFFF,0x1440000F,0x00000000,0x94C30000\n\t"
-    ".word 0x00000000,0x30620001,0x10400006,0x34620040\n\t"
-    ".word 0x08016698,0xA4C20000,0x2402FFFF,0x08016687\n\t"
-    ".word 0xA0A20003,0x8CC4000C,0x34620041,0x0C016401\n\t"
-    ".word 0xA4C20000,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct {
+    unsigned short flags;
+    signed char state;
+    signed char sounds[6];
+    char pad9[3];
+    void *stream;
+} Channel;
+extern Channel D_800E474C[];
+extern void func_8005AAEC(unsigned short);
+extern void func_80059004(void *);
+
+static inline void release_channel(unsigned short index) {
+    unsigned short k;
+
+    for (k = 0; k < 6; k++) {
+        if (D_800E474C[index].sounds[k] > 0) {
+            func_8005AAEC(D_800E474C[index].sounds[k]);
+            D_800E474C[index].sounds[k] = -1;
+        }
+    }
+    D_800E474C[index].flags = 0;
+}
+
+void func_8005992C(unsigned short index) {
+    int parent;
+    Channel *p;
+    unsigned short j;
+    unsigned short found;
+
+    release_channel(index);
+    parent = D_800E474C[index].state;
+    if (parent < 0) {
+        return;
+    }
+    if (D_800E474C[parent].flags == 0) {
+        return;
+    }
+    p = &D_800E474C[parent];
+    found = 0;
+    for (j = 0; j < 6; j++) {
+        if (p->sounds[j] == index) {
+            p->sounds[j] = -1;
+            break;
+        }
+        if (p->sounds[j] > 0) {
+            found = 1;
+        }
+    }
+    if (found == 0) {
+        if (p->flags & 1) {
+            p->flags |= 0x40;
+        } else {
+            p->flags |= 0x41;
+            func_80059004(p->stream);
+        }
+    }
+}

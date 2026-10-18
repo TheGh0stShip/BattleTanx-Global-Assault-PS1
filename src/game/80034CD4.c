@@ -1,18 +1,54 @@
-asm(".text\n\t.globl func_80034CD4\nfunc_80034CD4:\n\t"
-    ".word 0x27bdffc8,0xafb40020,0x8fb40048,0xafb60028\n\t"
-    ".word 0x8fb60050,0xafb50024,0x0080a821,0xafb10014\n\t"
-    ".word 0x00a08821,0xafb20018,0x00c09021,0xafb3001c\n\t"
-    ".word 0x00e09821,0xafb7002c,0x8fb70054,0x2404000e\n\t"
-    ".word 0xafb00010,0x8fb00064,0x24050034,0xafbf0034\n\t"
-    ".word 0x0c008df4,0xafbe0030,0x00402021,0x0200f021\n\t"
-    ".word 0x1080001f,0x00001021,0x8ea20000,0x00000000\n\t"
-    ".word 0xac820008,0x8ea30008,0x2402fc18,0xa4910010\n\t"
-    ".word 0xa0920012,0xa4930014,0xa0800016,0xa4940018\n\t"
-    ".word 0xac82001c,0x8fa2004c,0xa0960024,0xa0970025\n\t"
-    ".word 0xac800028,0x00021040,0xac820020,0x8fa2005c\n\t"
-    ".word 0x00000000,0xac82002c,0x8fa20060,0xa0900026\n\t"
-    ".word 0xac83000c,0xac820030,0x33c200ff,0x14400002\n\t"
-    ".word 0x240200ff,0xa0820026,0xa0800027,0x00801021\n\t"
-    ".word 0x8fbf0034,0x8fbe0030,0x8fb7002c,0x8fb60028\n\t"
-    ".word 0x8fb50024,0x8fb40020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0038\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct {
+    int pad[2];
+    int x;
+    int z;
+    short a;
+    unsigned char b;
+    char pad1;
+    short c;
+    unsigned char d;
+    char pad2;
+    short e;
+    short pad3;
+    int height;
+    int f;
+    unsigned char g;
+    unsigned char h;
+    unsigned char alpha;
+    unsigned char flag;
+    int zero;
+    int i;
+    int j;
+} Particle;
+Particle *func_800237D0(int, int);
+
+Particle *func_80034CD4(Vector *pos, short a, unsigned char b, short c, short e, int f, unsigned char g,
+                        unsigned char h, int unused, int i, int j, unsigned char alpha) {
+    Particle *p;
+
+    p = func_800237D0(14, 52);
+    if (p == 0) {
+        return 0;
+    }
+    p->x = pos->x;
+    p->z = pos->z;
+    p->a = a;
+    p->b = b;
+    p->c = c;
+    p->d = 0;
+    p->e = e;
+    p->height = -1000;
+    p->f = f * 2;
+    p->g = g;
+    p->h = h;
+    p->zero = 0;
+    p->i = i;
+    p->j = j;
+    p->alpha = alpha;
+    if (alpha == 0) {
+        p->alpha = 255;
+    }
+    p->flag = 0;
+    return p;
+}

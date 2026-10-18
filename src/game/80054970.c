@@ -1,13 +1,63 @@
-asm(".text\n\t.globl func_80054970\nfunc_80054970:\n\t"
-    ".word 0x27bdff78,0x24040050,0x3c05800e,0x24a543cc\n\t"
-    ".word 0xafbf0080,0xafb1007c,0x0c024095,0xafb00078\n\t"
-    ".word 0x27a40010,0x24110003,0x24103fff,0xafb10010\n\t"
-    ".word 0xa7b00014,0x0c024105,0xa7b00016,0x3c0500ff\n\t"
-    ".word 0x34a5ffff,0x27a40038,0x3c02800e,0x3c03800e\n\t"
-    ".word 0xac4046bc,0x24021555,0xa4624654,0x3402ff93\n\t"
-    ".word 0xac820004,0x24021000,0xafa50038,0xa4820014\n\t"
-    ".word 0x24020001,0xac820024,0xac820028,0x2402000f\n\t"
-    ".word 0xa4900008,0xa490000a,0xac91002c,0xa7a00068\n\t"
-    ".word 0xa7a0006a,0xa7a0006c,0xa7a0006e,0x0c024384\n\t"
-    ".word 0xa4820038,0x0c01ac0a,0x00000000,0x8fbf0080\n\t"
-    ".word 0x8fb1007c,0x8fb00078,0x03e00008,0x27bd0088\n\t");
+typedef struct {
+    short left;
+    short right;
+} Volume;
+typedef struct {
+    unsigned int mask;
+    Volume mvol;
+    char pad8[32];
+} CommonAttr;
+typedef struct {
+    unsigned int voice;
+    unsigned int mask;
+    Volume volume;
+    char pad0C[8];
+    unsigned short pitch;
+    char pad16[14];
+    int a_mode;
+    int s_mode;
+    int r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    char pad3A[6];
+} VoiceAttr;
+extern char D_800E43CC[];
+extern int D_800E46BC;
+extern short D_800E4654;
+extern void func_80090254(int, char *);
+extern void func_80090414(CommonAttr *);
+extern void func_80090E10(VoiceAttr *);
+extern void func_8006B028(void);
+
+void func_80054970(void) {
+    CommonAttr common;
+    VoiceAttr voice;
+    VoiceAttr *attr;
+
+    func_80090254(80, D_800E43CC);
+    common.mask = 3;
+    common.mvol.left = 0x3FFF;
+    common.mvol.right = 0x3FFF;
+    func_80090414(&common);
+    D_800E46BC = 0;
+    D_800E4654 = 5461;
+    attr = &voice;
+    attr->mask = 0xFF93;
+    voice.voice = 0xFFFFFF;
+    attr->volume.left = 0x3FFF;
+    attr->volume.right = 0x3FFF;
+    attr->pitch = 4096;
+    attr->a_mode = 1;
+    attr->s_mode = 1;
+    attr->r_mode = 3;
+    voice.ar = 0;
+    voice.dr = 0;
+    voice.sr = 0;
+    voice.rr = 0;
+    attr->sl = 15;
+    func_80090E10(attr);
+    func_8006B028();
+}

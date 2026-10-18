@@ -1,58 +1,162 @@
-asm(".text\n\t.globl func_80042BAC\nfunc_80042BAC:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0x00121080,0x02022021,0x3C03800A\n\t"
-    ".word 0xAFBF001C,0xAFB10014,0x8E020098,0x24634D30\n\t"
-    ".word 0x00021080,0x00431021,0x8C420000,0x8C910250\n\t"
-    ".word 0x144000CB,0x00111040,0x02021021,0x9442022C\n\t"
-    ".word 0x00000000,0x104000C6,0x3C02800D,0x8C432FE0\n\t"
-    ".word 0x8C820258,0x00000000,0x00622823,0x24020001\n\t"
-    ".word 0x12220005,0x2402000C,0x1222001D,0x2402001E\n\t"
-    ".word 0x08010B29,0x00A2102A,0x3C04800A,0x8E03009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8C43005C\n\t"
-    ".word 0x8E020218,0x00000000,0x30420002,0x1040000A\n\t"
-    ".word 0x00031B03,0x3C02800B,0x9042ED53,0x00000000\n\t"
-    ".word 0x30420001,0x10400004,0x28620006,0x14400005\n\t"
-    ".word 0x00601021,0x24030005,0x08010B28,0x00601021\n\t"
-    ".word 0x24020005,0x00A2102A,0x1440009D,0x02002021\n\t"
-    ".word 0x0C010519,0x02202821,0x04400099,0x2623FFFA\n\t"
-    ".word 0x2C62000B,0x10400008,0x3C02800C,0x2442F1C8\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x8E030584,0x24020001\n\t"
-    ".word 0x10620005,0x24020003,0x1062000B,0x00121080\n\t"
-    ".word 0x08010B51,0x3C03800D,0x3C040001,0x34844000\n\t"
-    ".word 0x3C02800D,0x8C432FE0,0x24020003,0xAE020584\n\t"
-    ".word 0x08010B4E,0xAE040580,0x3C020001,0x3C03800D\n\t"
-    ".word 0x8C632FE0,0x34424000,0xAE020580,0xAE030588\n\t"
-    ".word 0x00121080,0x3C03800D,0x8C632FE0,0x02021021\n\t"
-    ".word 0x12400006,0xAC430258,0x24020001,0x12420032\n\t"
-    ".word 0x3C02800B,0x08010BC7,0x00000000,0x3C02800B\n\t"
-    ".word 0x9042ED4A,0x00000000,0x30420001,0x14400006\n\t"
-    ".word 0x00111840,0x02031821,0x9462022C,0x00000000\n\t"
-    ".word 0x2442FFFF,0xA462022C,0x8E03009C,0x00000000\n\t"
-    ".word 0x2C620011,0x1040000E,0x3C02800C,0x2442F1F8\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x08010B78,0x2402FFDD\n\t"
-    ".word 0x08010B78,0x2402FFF2,0x08010B78,0x2402FFBA\n\t"
-    ".word 0x00001021,0x00021400,0x00022C03,0x10A0004C\n\t"
-    ".word 0x26040034,0x9602004C,0x00000000,0x00A20018\n\t"
-    ".word 0x9606002C,0x96020030,0x00000000,0x00C23021\n\t"
-    ".word 0x30C6FFFF,0x00004812,0x0C007C25,0x00092B00\n\t"
-    ".word 0x08010BC7,0x00000000,0x9042ED4A,0x00000000\n\t"
-    ".word 0x30420001,0x14400008,0x00111040,0x00111840\n\t"
-    ".word 0x02031821,0x9462022C,0x00000000,0x2442FFFF\n\t"
-    ".word 0xA462022C,0x00111040,0x02021021,0x9442022C\n\t"
-    ".word 0x00000000,0x1440002E,0x00000000,0x8E050254\n\t"
-    ".word 0x00000000,0x10A0002A,0x00A03021,0x2408000E\n\t"
-    ".word 0x3C078888,0x34E78889,0x00C82021,0x00870018\n\t"
-    ".word 0x000417C3,0x00004810,0x01241821,0x000318C3\n\t"
-    ".word 0x00621823,0x00031100,0x00431023,0x00822023\n\t"
-    ".word 0x24860002,0x10C50006,0x00061040,0x02021021\n\t"
-    ".word 0x9442022C,0x00000000,0x1040FFF0,0x00C82021\n\t"
-    ".word 0x00062040,0x02041021,0x9442022C,0x00000000\n\t"
-    ".word 0x14400006,0x2484022C,0x00002021,0x96050098\n\t"
-    ".word 0x00803021,0x08010BC1,0xAE000254,0x96050098\n\t"
-    ".word 0x02042021,0xAE060254,0x0C018F1A,0x00000000\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x00000000,0xAE020260\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct Tank {
+    char pad0[0x2C];
+    unsigned short heading;
+    unsigned short pad2E;
+    unsigned short turret;
+    char pad32[0x34 - 0x32];
+    char body[0x4C - 0x34];
+    unsigned short speed;
+    char pad4E[0x98 - 0x4E];
+    int player;
+    int type;
+    char padA0[0x218 - 0xA0];
+    int status;
+    char pad21C[0x22C - 0x21C];
+    unsigned short ammo[17];
+    char pad24E[0x250 - 0x24E];
+    int weapon[2];
+    int last_fire[2];
+    int switch_time;
+    char pad264[0x580 - 0x264];
+    int recoil;
+    int control;
+    int control_time;
+} Tank;
+
+typedef struct VehicleInfo {
+    char pad0[0x5C];
+    int rate;
+    char pad60[0xD0 - 0x60];
+} VehicleInfo;
+
+extern int D_800A4D30[];
+extern VehicleInfo D_800A4EF4[];
+extern unsigned char D_800AED53;
+extern unsigned char D_800AED4A;
+extern int D_800D2FE0;
+extern int func_80041464(Tank *, int);
+extern void func_8001F094(void *, int, int);
+extern void func_80063C68(void *, int, int);
+
+void func_80042BAC(Tank *tank, int slot) {
+    int weapon;
+    int elapsed;
+    int limit;
+    int rate;
+    int next;
+    int start;
+    short kick;
+    int step;
+
+    weapon = tank->weapon[slot];
+    if (D_800A4D30[tank->player] != 0) {
+        return;
+    }
+    if (tank->ammo[weapon] == 0) {
+        return;
+    }
+    elapsed = D_800D2FE0 - tank->last_fire[slot];
+    switch (weapon) {
+    case 1:
+        rate = D_800A4EF4[tank->type].rate >> 12;
+        if ((tank->status & 2) && (D_800AED53 & 1)) {
+            if (rate > 5) {
+                rate = 5;
+            }
+        }
+        limit = rate;
+        break;
+    case 12:
+        limit = 5;
+        break;
+    default:
+        limit = 30;
+        break;
+    }
+    if (elapsed < limit) {
+        return;
+    }
+    if (func_80041464(tank, weapon) < 0) {
+        return;
+    }
+    switch (weapon) {
+    case 6:
+    case 8:
+    case 10:
+    case 11:
+    case 13:
+    case 15:
+    case 16:
+        break;
+    default:
+        switch (tank->control) {
+        case 1:
+            tank->control = 3;
+            tank->recoil = 0x14000;
+            tank->control_time = D_800D2FE0;
+            break;
+        case 3:
+            tank->recoil = 0x14000;
+            tank->control_time = D_800D2FE0;
+            break;
+        }
+        break;
+    }
+    tank->last_fire[slot] = D_800D2FE0;
+    switch (slot) {
+    case 0:
+        if (!(D_800AED4A & 1)) {
+            tank->ammo[weapon]--;
+        }
+        switch (tank->type) {
+        case 1:
+            kick = -35;
+            break;
+        case 5:
+            kick = -14;
+            break;
+        case 0:
+        case 2:
+        case 3:
+        case 4:
+        case 6:
+        case 7:
+        case 10:
+            kick = -70;
+            break;
+        case 16:
+        default:
+            kick = 0;
+            break;
+        }
+        if (kick != 0) {
+            func_8001F094(tank->body, (kick * tank->speed) << 12,
+                          (unsigned short)(tank->heading + tank->turret));
+        }
+        break;
+    case 1:
+        if (!(D_800AED4A & 1)) {
+            tank->ammo[weapon]--;
+        }
+        if (tank->ammo[weapon] == 0) {
+            start = tank->weapon[1];
+            if (start != 0) {
+                next = start;
+                step = 14;
+                do {
+                    next = (next + step) % 15 + 2;
+                } while (next != start && tank->ammo[next] == 0);
+                if (tank->ammo[next] == 0) {
+                    next = 0;
+                    tank->weapon[1] = 0;
+                    func_80063C68(0, *(unsigned short *)&tank->player, next);
+                } else {
+                    tank->weapon[1] = next;
+                    func_80063C68(&tank->ammo[next], *(unsigned short *)&tank->player, next);
+                }
+                tank->switch_time = D_800D2FE0;
+            }
+        }
+        break;
+    }
+}

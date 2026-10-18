@@ -36,8 +36,21 @@ def oracle_slice(executable, address, size):
     return executable[offset:offset + size]
 
 
+COMPILERS = ("gcc-2.8.1-psx", "gcc-2.7.2-psx")
+
+
+def compiler_path(unit, config):
+    """cc1 for a unit: its own "compiler" entry, else the manifest default."""
+    name = unit.get("compiler", config.get("compiler", COMPILERS[0]))
+    if name not in COMPILERS:
+        raise ValueError("unsupported compiler for %s: %s" % (unit.get("name"), name))
+    return ROOT / (".toolchain/%s/cc1" % name)
+
+
 def validate_units(config):
     units = config["units"]
+    for unit in units:
+        compiler_path(unit, config)
     for key in ("name", "address", "source"):
         seen = set()
         for unit in units:
@@ -62,7 +75,7 @@ def run_checked(args, **kwargs):
 
 
 def compile_unit(unit, config, prefix, work):
-    cc1 = ROOT / ".toolchain/gcc-2.8.1-psx/cc1"
+    cc1 = compiler_path(unit, config)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
     if not cc1.is_file() or not maspsx.is_file():
         raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")

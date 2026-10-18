@@ -1,16 +1,54 @@
-asm(".text\n\t.globl func_8003BF88\nfunc_8003BF88:\n\t"
-    ".word 0x27bdff58,0x00801021,0xafb200a0,0x00a09021\n\t"
-    ".word 0x27a40010,0x00402821,0xafbf00a4,0xafb1009c\n\t"
-    ".word 0x0c023681,0xafb00098,0x27a40010,0x3c05800c\n\t"
-    ".word 0x0c023655,0x24a5ea84,0x27a40050,0x0c020909\n\t"
-    ".word 0x27a50010,0x8fb1005c,0x0c01a369,0x02202021\n\t"
-    ".word 0x27a40050,0x00408021,0x02002821,0x0c020a15\n\t"
-    ".word 0x02203021,0x0c0209a8,0x27a40050,0x00002021\n\t"
-    ".word 0x8e050004,0x26100008,0x00051040,0x00451021\n\t"
-    ".word 0x00021080,0x02023021,0x10a00012,0xae450000\n\t"
-    ".word 0x2407ffff,0x02001821,0x8c620000,0x00000000\n\t"
-    ".word 0x10470005,0x00c21021,0xac620008,0x24420024\n\t"
-    ".word 0x0800f012,0xac620000,0xac600008,0xac600000\n\t"
-    ".word 0xac600004,0x24840001,0x0085102b,0x1440fff2\n\t"
-    ".word 0x2463000c,0x02001021,0x8fbf00a4,0x8fb200a0\n\t"
-    ".word 0x8fb1009c,0x8fb00098,0x03e00008,0x27bd00a8\n\t");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { int offset; int f4; char *data; } Entry;
+typedef struct { int f0; unsigned int count; Entry entries[1]; } Pack;
+extern char D_800BEA84[];
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_80082424(File *, char *);
+extern Pack *func_80068DA4(int);
+extern void func_80082854(File *, Pack *, int);
+extern void func_800826A0(File *);
+
+static inline Pack *load_file(char *path)
+{
+    File file;
+    int size;
+    Pack *pack;
+
+    func_80082424(&file, path);
+    size = file.size;
+    pack = func_80068DA4(size);
+    func_80082854(&file, pack, size);
+    func_800826A0(&file);
+    return pack;
+}
+
+Entry *func_8003BF88(char *name, unsigned int *count_out)
+{
+    char path[64];
+    Pack *pack;
+    Entry *entries;
+    char *base;
+    unsigned int count;
+    unsigned int i;
+
+    func_8008DA04(path, name);
+    func_8008D954(path, D_800BEA84);
+    pack = load_file(path);
+    count = pack->count;
+    entries = pack->entries;
+    base = (char *)(entries + count);
+    *count_out = count;
+    for (i = 0; i < count; i++) {
+        if (entries[i].offset != -1) {
+            entries[i].data = base + entries[i].offset;
+            entries[i].offset = (int)(entries[i].data + 36);
+            entries[i].f4 = 0;
+        } else {
+            entries[i].data = 0;
+            entries[i].offset = 0;
+            entries[i].f4 = 0;
+        }
+    }
+    return entries;
+}

@@ -1,9 +1,25 @@
-asm(".text\n\t.globl func_80037140\nfunc_80037140:\n\t"
-    ".word 0x8c83001c,0x24020001,0x10620007,0x3c02800d\n\t"
-    ".word 0x10600003,0x24020002,0x1062000c,0x00000000\n\t"
-    ".word 0x03e00008,0x00000000,0x8c422fe0,0x8c830020\n\t"
-    ".word 0x00000000,0x00431023,0x28420079,0x1440fff8\n\t"
-    ".word 0x24020002,0x03e00008,0xac82001c,0x8c820024\n\t"
-    ".word 0x8c83000c,0x2442f667,0x00621821,0xac820024\n\t"
-    ".word 0x0461ffef,0xac83000c,0x24020003,0xac80000c\n\t"
-    ".word 0xac82001c,0x03e00008,0x00000000\n\t");
+typedef struct { int pad[3]; int height; int pad2[3]; unsigned int state; int start_time; int speed; } Faller;
+extern int D_800D2FE0;
+
+void func_80037140(Faller *f) {
+    int h;
+
+    switch (f->state) {
+    case 1:
+        if (D_800D2FE0 - f->start_time > 120) {
+            f->state = 2;
+        }
+        break;
+    case 0:
+        break;
+    case 2:
+        f->speed -= 2457;
+        h = f->height + f->speed;
+        f->height = h;
+        if (h < 0) {
+            f->height = 0;
+            f->state = 3;
+        }
+        break;
+    }
+}

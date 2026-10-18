@@ -1,15 +1,69 @@
-asm(".text\n\t.globl func_80054A30\nfunc_80054A30:\n\t"
-    ".word 0x27bdffa0,0xafb10054,0x00808821,0x3c04800e\n\t"
-    ".word 0x322300ff,0x00031080,0x00431021,0x8c844658\n\t"
-    ".word 0x00021080,0xafbf0058,0xafb00050,0x00828021\n\t"
-    ".word 0x240200ff,0x10620024,0x3c02800e,0x8c4246bc\n\t"
-    ".word 0x00000000,0x14400021,0x24020064,0x0c014ced\n\t"
-    ".word 0x00002021,0x304200ff,0xa6020012,0x00402021\n\t"
-    ".word 0x24020064,0x10820019,0x3c03800e,0x2463465c\n\t"
-    ".word 0x00041080,0x00431021,0xa0510003,0x86030012\n\t"
-    ".word 0x24020093,0xafa20014,0x24020001,0x00621004\n\t"
-    ".word 0xafa20010,0x3c02800e,0x94424654,0x8e030000\n\t"
-    ".word 0xa7a20018,0xa7a2001a,0xafa3002c,0x96020010\n\t"
-    ".word 0x27a40010,0x0c0241e5,0xa7a20024,0x92020012\n\t"
-    ".word 0x080152bf,0x00000000,0x24020064,0x8fbf0058\n\t"
-    ".word 0x8fb10054,0x8fb00050,0x03e00008,0x27bd0060\n\t");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int func_800533B4(int);
+extern void func_80090794(SpuVoiceAttr *);
+
+int func_80054A30(unsigned char id) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+
+    if (id == 255) {
+        return 100;
+    }
+    if (D_800E46BC != 0) {
+        return 100;
+    }
+    voice = sound->voice = (unsigned char)func_800533B4(0);
+    if (voice == 100) {
+        return 100;
+    }
+    D_800E465C[voice].sound = id;
+    attr.voice = 1 << sound->voice;
+    attr.mask = 147;
+    attr.addr = sound->addr;
+    attr.volume.left = D_800E4654;
+    attr.volume.right = D_800E4654;
+    attr.pitch = sound->pitch;
+    func_80090794(&attr);
+    return (unsigned char)sound->voice;
+}

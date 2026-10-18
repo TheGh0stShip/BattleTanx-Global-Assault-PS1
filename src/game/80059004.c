@@ -1,30 +1,77 @@
-asm(".text\n\t.globl func_80059004\nfunc_80059004:\n\t"
-    ".word 0x27BDFFD0,0xAFB40020,0x0080A021,0xAFBF0028\n\t"
-    ".word 0xAFB50024,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x8E930004,0x00000000,0x92620000\n\t"
-    ".word 0x00000000,0x1040005A,0x3C02800C,0x2455FAC8\n\t"
-    ".word 0x26720008,0x8E420004,0x00000000,0x1040004F\n\t"
-    ".word 0xAE420008,0x00408021,0x96030000,0x00000000\n\t"
-    ".word 0x2C62000A,0x10400046,0x00031080,0x00551021\n\t"
-    ".word 0x8C420000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8E110008,0x0C021B21,0x00000000,0x8E240004\n\t"
-    ".word 0x00000000,0x04800003,0x00401821,0x0801642D\n\t"
-    ".word 0x00042303,0x00041023,0x00021303,0x00022023\n\t"
-    ".word 0x8E220000,0x00000000,0x04400003,0x00803021\n\t"
-    ".word 0x08016437,0x00022303,0x00021023,0x00021303\n\t"
-    ".word 0x00022023,0x8E220000,0x00000000,0x04400003\n\t"
-    ".word 0x00802821,0x0801643F,0x00022303,0x00021023\n\t"
-    ".word 0x00021303,0x00022023,0x00C51023,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001810\n\t"
-    ".word 0x00000000,0x00641821,0x00031B00,0x08016461\n\t"
-    ".word 0xAE030004,0x8E020008,0x00000000,0x8C420000\n\t"
-    ".word 0x08016461,0xAE020004,0x8E020008,0x00000000\n\t"
-    ".word 0x8C420004,0x08016461,0xAE020004,0x8E020008\n\t"
-    ".word 0x00000000,0x94420000,0x00000000,0xAE020004\n\t"
-    ".word 0x8E430000,0x00000000,0x94620000,0x00000000\n\t"
-    ".word 0xA4620002,0x8E420000,0x00000000,0xA4400004\n\t"
-    ".word 0x02802021,0x0C016386,0x02602821,0x26730020\n\t"
-    ".word 0x92620000,0x00000000,0x1440FFAA,0x26520020\n\t"
-    ".word 0x8FBF0028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct {
+    int min;
+    int max;
+} Range;
+typedef struct {
+    unsigned short type;
+    short pad2;
+    int value;
+    void *data;
+} Widget;
+typedef struct {
+    unsigned short base;
+    unsigned short current;
+    short delta;
+} Cursor;
+typedef struct {
+    unsigned char valid;
+    char pad1[7];
+    Cursor *cursor;
+    Widget *default_widget;
+    Widget *widget;
+    char pad14[0x20 - 0x14];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+} Menu;
+extern unsigned int func_80086C84(void);
+extern void func_80058E18(void *, Item *);
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+static inline void reset_value(void *menu, Item *item) {
+    Widget *w;
+    Range *r;
+
+    if (item->widget == 0) {
+        return;
+    }
+    w = item->widget;
+    switch (w->type) {
+    case 1:
+        r = w->data;
+        w->value = ((func_80086C84() % (to_int(r->max) - to_int(r->min))) + to_int(r->min)) << 12;
+        break;
+    case 0:
+    case 2:
+    case 3:
+    case 4:
+        w->value = ((int *)w->data)[0];
+        break;
+    case 5:
+        w->value = ((int *)w->data)[1];
+        break;
+    case 6:
+        w->value = *(unsigned short *)w->data;
+        item->cursor->current = item->cursor->base;
+        item->cursor->delta = 0;
+        break;
+    case 7:
+    case 8:
+    case 9:
+        break;
+    }
+    func_80058E18(menu, item);
+}
+
+void func_80059004(Menu *menu) {
+    Item *item;
+
+    for (item = menu->items; item->valid != 0; item++) {
+        item->widget = item->default_widget;
+        reset_value(menu, item);
+    }
+}

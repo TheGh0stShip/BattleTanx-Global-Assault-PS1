@@ -1,13 +1,42 @@
-asm(".text\n\t.globl func_80098EFC\nfunc_80098EFC:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x10e00024\n\t"
-    ".word 0xafbf0014,0x30a300ff,0x24020004,0x14620008\n\t"
-    ".word 0x24070001,0x8e03005c,0x24020005,0x10600015\n\t"
-    ".word 0xae02004c,0x8e020060,0x080263e0,0xac620000\n\t"
-    ".word 0x8e02005c,0x00000000,0x1040000b,0x00000000\n\t"
-    ".word 0x8c420000,0x00000000,0x10400004,0x00000000\n\t"
-    ".word 0x10430002,0x00000000,0x00003821,0x8e03005c\n\t"
-    ".word 0x30a200ff,0xac620000,0x24020007,0xae06006c\n\t"
-    ".word 0xae02004c,0x02002021,0x00e02821,0x3c06800a\n\t"
-    ".word 0x0c028ade,0x24c691e8,0x14400005,0x00000000\n\t"
-    ".word 0x02002021,0x24050001,0x0c026354,0x00003021\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern int func_800A2B78(void *, int, void *);
+extern void func_80098D50(void *, int, int);
+extern void func_800991E8(void);
+
+typedef struct {
+    char pad0[76];
+    int state;
+    char pad80[12];
+    int *slot;
+    int value;
+    char pad100[8];
+    int arg108;
+} S80098EFC;
+
+void func_80098EFC(S80098EFC *p, unsigned char kind, int arg, int go) {
+    int fresh;
+    int cur;
+
+    if (go != 0) {
+        fresh = 1;
+        if (kind == 4) {
+            p->state = 5;
+            if (p->slot != 0) {
+                *p->slot = p->value;
+            }
+        } else {
+            if (p->slot != 0) {
+                cur = *p->slot;
+                if (cur != 0 && cur != kind) {
+                    fresh = 0;
+                }
+                *p->slot = kind;
+            }
+            p->arg108 = arg;
+            p->state = 7;
+        }
+        if (func_800A2B78(p, fresh, func_800991E8) != 0) {
+            return;
+        }
+    }
+    func_80098D50(p, 1, 0);
+}

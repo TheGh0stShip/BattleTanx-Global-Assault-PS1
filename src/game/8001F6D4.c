@@ -1,34 +1,63 @@
-asm(".text\n\t.globl func_8001F6D4\nfunc_8001F6D4:\n\t"
-    ".word 0x3C02800D,0x8C860010,0x8C850000,0x24472E04\n\t"
-    ".word 0x00A6102A,0x10400008,0x00000000,0x8C830008\n\t"
-    ".word 0x00000000,0x0066102A,0x10400009,0x00000000\n\t"
-    ".word 0x08007DC9,0x00C01821,0x8C830008,0x00000000\n\t"
-    ".word 0x0065102A,0x10400002,0x00000000,0x00A01821\n\t"
-    ".word 0xACE30008,0x8C860010,0x8C850000,0x00000000\n\t"
-    ".word 0x00C5102A,0x10400008,0x00000000,0x8C830008\n\t"
-    ".word 0x00000000,0x00C3102A,0x10400009,0x00000000\n\t"
-    ".word 0x08007DDD,0x00C01821,0x8C830008,0x00000000\n\t"
-    ".word 0x00A3102A,0x10400002,0x00000000,0x00A01821\n\t"
-    ".word 0xACE30000,0x8C860014,0x8C850004,0x00000000\n\t"
-    ".word 0x00A6102A,0x10400008,0x00000000,0x8C83000C\n\t"
-    ".word 0x00000000,0x0066102A,0x10400009,0x00000000\n\t"
-    ".word 0x08007DF1,0x00C01821,0x8C83000C,0x00000000\n\t"
-    ".word 0x0065102A,0x10400002,0x00000000,0x00A01821\n\t"
-    ".word 0xACE3000C,0x8C850014,0x8C830004,0x00000000\n\t"
-    ".word 0x00A3102A,0x10400008,0x00000000,0x8C84000C\n\t"
-    ".word 0x00000000,0x00A4102A,0x10400009,0x3C02800D\n\t"
-    ".word 0x08007E05,0x00A02021,0x8C84000C,0x00000000\n\t"
-    ".word 0x0064102A,0x10400002,0x3C02800D,0x00602021\n\t"
-    ".word 0x8C432FE4,0x00005021,0xACE40004,0x8C62001C\n\t"
-    ".word 0x8C6B0020,0x2445FFFF,0x3C02800D,0x04A00027\n\t"
-    ".word 0x24492E04,0x000510C0,0x00451021,0x000240C0\n\t"
-    ".word 0x3C02800D,0x8C472E00,0x010B2021,0x2484002C\n\t"
-    ".word 0x8C820008,0x8D230000,0x00021303,0x0043102A\n\t"
-    ".word 0x14400012,0x00003021,0x8C820000,0x8D230008\n\t"
-    ".word 0x00021303,0x0062182A,0x1460000C,0x00000000\n\t"
-    ".word 0x8C82000C,0x8D230004,0x00021303,0x0043102A\n\t"
-    ".word 0x14400006,0x00000000,0x8C820004,0x8D23000C\n\t"
-    ".word 0x00021303,0x0062182A,0x38660001,0x10C00004\n\t"
-    ".word 0x00000000,0xACE50000,0x24E70004,0x254A0001\n\t"
-    ".word 0x24A5FFFF,0x04A1FFE0,0x2508FFB8,0x03E00008\n\t"
-    ".word 0x01401021\n");
+typedef struct {
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+} Rect;
+
+typedef struct {
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+    int x2;
+    int z2;
+} Tri;
+
+typedef struct {
+    char pad0[0x2C];
+    Rect box;
+    char pad3C[0x48 - 0x3C];
+} Item;
+
+typedef struct {
+    char pad0[0x1C];
+    int count;
+    Item *items;
+} Level;
+
+extern Rect D_800D2E04;
+extern int *D_800D2E00;
+extern Level *D_800D2FE4;
+
+static inline int overlaps(Rect *b, Rect *r) {
+    int hit = 0;
+
+    if ((b->x1 >> 12) >= r->x0 && r->x1 >= (b->x0 >> 12) && (b->z1 >> 12) >= r->z0) {
+        hit = r->z1 >= (b->z0 >> 12);
+    }
+    return hit;
+}
+
+int func_8001F6D4(Tri *t) {
+    Rect *bounds = &D_800D2E04;
+    Rect *r;
+    Item *items;
+    int found;
+    int i;
+
+    bounds->x1 = (t->x2 > t->x0 ? (t->x2 > t->x1 ? t->x2 : t->x1) : (t->x0 > t->x1 ? t->x0 : t->x1));
+    bounds->x0 = (t->x2 < t->x0 ? (t->x2 < t->x1 ? t->x2 : t->x1) : (t->x0 < t->x1 ? t->x0 : t->x1));
+    bounds->z1 = (t->z2 > t->z0 ? (t->z2 > t->z1 ? t->z2 : t->z1) : (t->z0 > t->z1 ? t->z0 : t->z1));
+    bounds->z0 = (t->z2 < t->z0 ? (t->z2 < t->z1 ? t->z2 : t->z1) : (t->z0 < t->z1 ? t->z0 : t->z1));
+    found = 0;
+    r = &D_800D2E04;
+    items = D_800D2FE4->items;
+    for (i = D_800D2FE4->count - 1; i >= 0; i--) {
+        if (overlaps(&items[i].box, r)) {
+            D_800D2E00[found] = i;
+            found++;
+        }
+    }
+    return found;
+}

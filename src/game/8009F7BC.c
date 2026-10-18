@@ -1,8 +1,21 @@
-asm(".text\n\t.globl func_8009F7BC\nfunc_8009F7BC:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0xafbf0014\n\t"
-    ".word 0x0c025bff,0x00002021,0x0c025066,0x00000000\n\t"
-    ".word 0x0c029031,0x00000000,0x14400002,0x00000000\n\t"
-    ".word 0x00008021,0x0c029035,0x02002021,0x0c0290a0\n\t"
-    ".word 0x00000000,0x0c02905f,0x00000000,0x0c029084\n\t"
-    ".word 0x00000000,0x0c02505a,0x00000000,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+extern void func_80096FFC(int);
+extern void func_80094198(void);
+extern int func_800A40C4(void);
+extern void func_800A40D4(int);
+extern void func_800A4280(void);
+extern void func_800A417C(void);
+extern void func_800A4210(void);
+extern void func_80094168(void);
+
+void func_8009F7BC(int a) {
+    func_80096FFC(0);
+    func_80094198();
+    if (func_800A40C4() == 0) {
+        a = 0;
+    }
+    func_800A40D4(a);
+    func_800A4280();
+    func_800A417C();
+    func_800A4210();
+    func_80094168();
+}

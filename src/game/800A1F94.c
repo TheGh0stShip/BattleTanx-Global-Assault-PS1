@@ -1,17 +1,73 @@
-asm(".text\n\t.globl func_800A1F94\nfunc_800A1F94:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0x00001821\n\t"
-    ".word 0x10e00016,0xafbf001c,0x24020001,0x14c20013\n\t"
-    ".word 0x2404000a,0x00603021,0x3c07800f,0x90e3fd0c\n\t"
-    ".word 0x24020007,0xae020008,0x3c02800a,0x24421994\n\t"
-    ".word 0x24e7fd0c,0xae000020,0xa2030032,0x306300ff\n\t"
-    ".word 0x24630003,0xafa20014,0xafa30010,0x8e050000\n\t"
-    ".word 0x0c023fc7,0x24e70001,0x0002182b,0x14600020\n\t"
-    ".word 0x00000000,0x0c023e69,0x00000000,0x24030004\n\t"
-    ".word 0x14430014,0x02002021,0x8e020004,0x00000000\n\t"
-    ".word 0x30420800,0x14400006,0x00000000,0x0c0286ac\n\t"
-    ".word 0x02002021,0x8e020004,0x08028814,0x34420800\n\t"
-    ".word 0x8e020004,0x2403f7ff,0x00431024,0xae020004\n\t"
-    ".word 0x02002021,0x0c028825,0x00002821,0x0802881d\n\t"
-    ".word 0x00000000,0x24050002,0x0c0286cb,0x24060009\n\t"
-    ".word 0x14400003,0x00000000,0x0c028679,0x00002021\n\t"
-    ".word 0x8fbf001c,0x8fb00018,0x03e00008,0x27bd0020\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    int limit;
+    int tries;
+    int pad14;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int pad2C;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    int count;
+    int data38;
+    int data3C;
+    int data40;
+    int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, unsigned char *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AB0(Link *);
+extern int func_800A2094(Link *, int);
+extern int func_800A1B2C(Link *, int, int);
+extern int func_800A1994(int, int, int, int);
+
+void func_800A1F94(Link *c, int a1, int kind, int ok) {
+    int sent = 0;
+    int len;
+    int result;
+
+    if (ok != 0 && kind == 1) {
+        len = D_800EFD0C.rx_length;
+        c->unk08 = 7;
+        c->unk20 = 0;
+        c->length = len;
+        sent = func_8008FF1C(10, c->unk00, sent, D_800EFD0C.rx_data, c->length + 3, func_800A1994) != 0;
+    }
+    if (sent == 0) {
+        if (func_8008F9A4() == 4) {
+            if (!(c->flags & 0x800)) {
+                func_800A1AB0(c);
+                c->flags |= 0x800;
+            } else {
+                c->flags &= ~0x800;
+            }
+            result = func_800A2094(c, 0);
+        } else {
+            result = func_800A1B2C(c, 2, 9);
+        }
+        if (result == 0) {
+            func_800A19E4(0);
+        }
+    }
+}

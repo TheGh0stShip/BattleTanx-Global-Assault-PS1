@@ -1,20 +1,38 @@
-asm(".text\n\t.globl func_8005EFE8\nfunc_8005EFE8:\n\t"
-    ".word 0x27BDFF90,0x27A40028,0x00002821,0x3C02800C\n\t"
-    ".word 0xAFBF006C,0xAFB00068,0x244BFC8C,0x89680003\n\t"
-    ".word 0x99680000,0x00000000,0xABA80023,0xBBA80020\n\t"
-    ".word 0x0C022A92,0x24060004,0x240200FF,0x3C04800B\n\t"
-    ".word 0x9083EA43,0xA3A2002B,0x2C62001F,0x14400003\n\t"
-    ".word 0x27B00020,0x08017C1E,0xA080EA43,0x2C620014\n\t"
-    ".word 0x1040000A,0x24060019,0x3C04800C,0x2484FCC4\n\t"
-    ".word 0x24050003,0x2407003C,0x24021199,0xAFA20010\n\t"
-    ".word 0xAFA20014,0x0C015F0C,0xAFB00018,0x3C04800B\n\t"
-    ".word 0x3C03800E,0x9082EA43,0x8C634860,0x24420001\n\t"
-    ".word 0xA082EA43,0x8C620000,0x27B00030,0x8C450000\n\t"
-    ".word 0x0C023681,0x02002021,0x02002021,0x3C05800C\n\t"
-    ".word 0x0C023655,0x24A5FCD4,0x3C03800B,0x3C02800B\n\t"
-    ".word 0x9042ACE2,0x2463E290,0x00021080,0x00431021\n\t"
-    ".word 0x8C450000,0x0C023655,0x02002021,0x02002021\n\t"
-    ".word 0x24050003,0x24060019,0x24070050,0x24021199\n\t"
-    ".word 0xAFA20010,0xAFA20014,0x27A20020,0x0C015F0C\n\t"
-    ".word 0xAFA20018,0x8FBF006C,0x8FB00068,0x03E00008\n\t"
-    ".word 0x27BD0070\n");
+typedef struct Color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+} Color;
+
+extern Color D_800BFC8C;
+extern char D_800BFCC4[];
+extern char D_800BFCD4[];
+extern unsigned char D_800AEA43;
+extern char ***D_800E4860;
+extern unsigned char D_800AACE2;
+extern char *D_800AE290[];
+extern void func_8008AA48(void *, int, int);
+extern void func_80057C30(char *, int, int, int, int, int, Color *);
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+
+void func_8005EFE8(void) {
+    Color text;
+    Color black;
+    char line[56];
+
+    text = D_800BFC8C;
+    func_8008AA48(&black, 0, 4);
+    black.a = 255;
+    if (D_800AEA43 >= 31) {
+        D_800AEA43 = 0;
+    } else if (D_800AEA43 < 20) {
+        func_80057C30(D_800BFCC4, 3, 25, 60, 4505, 4505, &text);
+    }
+    D_800AEA43++;
+    func_8008DA04(line, **D_800E4860);
+    func_8008D954(line, D_800BFCD4);
+    func_8008D954(line, D_800AE290[D_800AACE2]);
+    func_80057C30(line, 3, 25, 80, 4505, 4505, &text);
+}

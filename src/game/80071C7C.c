@@ -1,38 +1,60 @@
-asm(".text\n\t.globl func_80071C7C\nfunc_80071C7C:\n\t"
-    ".word 0x27BDFFE0,0x00803021,0xAFB10014,0x00A08821\n\t"
-    ".word 0xAFBF0018,0xAFB00010,0x8CC20010,0x00000000\n\t"
-    ".word 0x1840007E,0x00C08021,0x3C03800E,0x84C20032\n\t"
-    ".word 0x8C69E30C,0x00000000,0x01220018,0x00003812\n\t"
-    ".word 0x00004010,0x00073B02,0x00084500,0x00E83825\n\t"
-    ".word 0x00E01821,0x94C20006,0x90C4003A,0x00431021\n\t"
-    ".word 0x10800013,0xA4C20006,0x00021400,0x00021403\n\t"
-    ".word 0x3C0801B5,0x35088000,0x01020018,0x00002012\n\t"
-    ".word 0x00003810,0x00042302,0x00073D00,0x00872025\n\t"
-    ".word 0x04800003,0x00041023,0x0801C749,0x00042303\n\t"
-    ".word 0x00021303,0x00022023,0x0C008FA8,0x00000000\n\t"
-    ".word 0x3C06800E,0x86030030,0x8CC2E30C,0x00000000\n\t"
-    ".word 0x00620018,0x00001012,0x8E030010,0x00000000\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x96020030\n\t"
-    ".word 0x00000000,0x00431023,0xA6020030,0x00021400\n\t"
-    ".word 0x04410002,0x00000000,0xA6000030,0x92030034\n\t"
-    ".word 0x8E020010,0x00000000,0x00620018,0x00001012\n\t"
-    ".word 0x8E05000C,0x00000000,0x0045001A,0x14A00002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14A10004\n\t"
-    ".word 0x3C018000,0x14410002,0x00000000,0x0006000D\n\t"
-    ".word 0x00002812,0x92030035,0x8E020010,0x00000000\n\t"
-    ".word 0x00620018,0x00001012,0x8E03000C,0x00000000\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x92040036\n\t"
-    ".word 0x8E020010,0x00000000,0x00820018,0x00005012\n\t"
-    ".word 0x8E02000C,0x00000000,0x0142001A,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14410004\n\t"
-    ".word 0x3C018000,0x15410002,0x00000000,0x0006000D\n\t"
-    ".word 0x00001012,0xA2050037,0xA2030038,0xA2020039\n\t"
-    ".word 0x8E020010,0x8CC3E30C,0x00000000,0x00431023\n\t"
-    ".word 0xAE020010,0x0801C7AE,0xAE200000,0x90C2003A\n\t"
-    ".word 0x00000000,0x10400004,0x24020001,0x0C0090A1\n\t"
-    ".word 0x00000000,0x24020001,0xAE220000,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int pad0;
+    short pad4;
+    unsigned short angle;
+    int pad8;
+    int total;
+    int remaining;
+    char pad14[0x30 - 0x14];
+    unsigned short intensity;
+    short speed;
+    unsigned char base_r, base_g, base_b;
+    unsigned char r, g, b;
+    unsigned char sound;
+} Glow;
+
+extern int D_800DE30C;
+extern void func_80023EA0(int value);
+extern void func_80024284(void);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80071C7C(Glow *g, int *done) {
+    int v;
+    Glow *self = g;
+
+    if (g->remaining > 0) {
+        g->angle += fixed_mul(D_800DE30C, g->speed);
+        if (g->sound) {
+            v = fixed_mul(0x1B58000, (short)g->angle);
+            if (v >= 0) {
+                v >>= 12;
+            } else {
+                v = -(-v >> 12);
+            }
+            func_80023EA0(v);
+        }
+        self->intensity -= (short)self->intensity * D_800DE30C / self->remaining;
+        if ((short)self->intensity < 0) {
+            self->intensity = 0;
+        }
+        self->r = self->base_r * self->remaining / self->total;
+        self->g = self->base_g * self->remaining / self->total;
+        self->b = self->base_b * self->remaining / self->total;
+        self->remaining -= D_800DE30C;
+        *done = 0;
+    } else {
+        if (g->sound) {
+            func_80024284();
+        }
+        *done = 1;
+    }
+}

@@ -1,12 +1,20 @@
-asm(".text\n\t.globl func_8005AAEC\nfunc_8005AAEC:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0xafb10014\n\t"
-    ".word 0x00008821,0x3c02800e,0xafb40020,0x2454474c\n\t"
-    ".word 0x3262ffff,0xafb20018,0x00029100,0xafbf0024\n\t"
-    ".word 0xafb00010,0x3222ffff,0x00521021,0x00548021\n\t"
-    ".word 0x82040003,0x00000000,0x18800005,0x00000000\n\t"
-    ".word 0x0c016abb,0x3084ffff,0x2402ffff,0xa2020003\n\t"
-    ".word 0x26310001,0x3222ffff,0x2c420006,0x1440fff2\n\t"
-    ".word 0x3222ffff,0x3c03800e,0x2463474c,0x3262ffff\n\t"
-    ".word 0x00021100,0x00431021,0xa4400000,0x8fbf0024\n\t"
-    ".word 0x8fb40020,0x8fb3001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef struct {
+    unsigned short flags;
+    char pad2;
+    signed char children[6];
+    char pad9[3];
+    void *owner;
+} Slot;
+extern Slot D_800E474C[];
+
+void func_8005AAEC(unsigned short index) {
+    unsigned short i;
+
+    for (i = 0; i < 6; i++) {
+        if (D_800E474C[index].children[i] > 0) {
+            func_8005AAEC(D_800E474C[index].children[i]);
+            D_800E474C[index].children[i] = -1;
+        }
+    }
+    D_800E474C[index].flags = 0;
+}

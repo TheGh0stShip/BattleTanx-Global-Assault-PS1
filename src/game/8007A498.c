@@ -1,72 +1,157 @@
-asm(".text\n\t.globl func_8007A498\nfunc_8007A498:\n\t"
-    ".word 0x27BDFFE8,0xAFBF0010,0x00003821,0x00803021\n\t"
-    ".word 0x3C02800B,0x2442ECF8,0x30E3FFFF,0x00031880\n\t"
-    ".word 0x00621821,0x90820000,0x8C630000,0x1040000E\n\t"
-    ".word 0x24080001,0x90650000,0x00000000,0x10A0000B\n\t"
-    ".word 0x3102FFFF,0x90C20000,0x00000000,0x1445001B\n\t"
-    ".word 0x00000000,0x24C60001,0x90C20000,0x00000000\n\t"
-    ".word 0x1440FFF4,0x24630001,0x3102FFFF,0x104000E5\n\t"
-    ".word 0x00000000,0x90C20000,0x00000000,0x144000E1\n\t"
-    ".word 0x00000000,0x90620000,0x00000000,0x144000DD\n\t"
-    ".word 0x30E3FFFF,0x2C620013,0x104000EC,0x3C02800C\n\t"
-    ".word 0x24424018,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x0801E940\n\t"
-    ".word 0x00004021,0x3C02800A,0x944360D8,0x00000000\n\t"
-    ".word 0x38630001,0x34630004,0xA44360D8,0x904460D8\n\t"
-    ".word 0x0C0182D5,0x00000000,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x2442E830,0x3C02800B,0x9043ED48,0x00000000\n\t"
-    ".word 0x38630001,0x34630004,0xA043ED48,0x0C0182D5\n\t"
-    ".word 0x306400FF,0x3C02800B,0x0801EA3C,0x2442E850\n\t"
-    ".word 0x3C02800B,0x9043ED49,0x00000000,0x38630001\n\t"
-    ".word 0x34630004,0xA043ED49,0x0C0182D5,0x306400FF\n\t"
-    ".word 0x3C02800B,0x0801EA3C,0x2442E860,0x3C02800B\n\t"
-    ".word 0x9043ED4A,0x00000000,0x38630001,0x34630004\n\t"
-    ".word 0xA043ED4A,0x0C0182D5,0x306400FF,0x3C02800B\n\t"
-    ".word 0x0801EA3C,0x2442E86C,0x3C02800B,0x9043ED4B\n\t"
-    ".word 0x00000000,0x38630001,0x34630004,0xA043ED4B\n\t"
-    ".word 0x0C0182D5,0x306400FF,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x2442E878,0x3C02800B,0x9043ED4C,0x00000000\n\t"
-    ".word 0x38630001,0x34630004,0xA043ED4C,0x0C0182D5\n\t"
-    ".word 0x306400FF,0x3C02800B,0x0801EA3C,0x2442E884\n\t"
-    ".word 0x3C02800B,0x9043ED4D,0x00000000,0x38630001\n\t"
-    ".word 0xA043ED4D,0x0C0182D5,0x306400FF,0x3C02800B\n\t"
-    ".word 0x0801EA3C,0x2442E898,0x3C02800B,0x9043ED4E\n\t"
-    ".word 0x00000000,0x38630001,0xA043ED4E,0x0C0182D5\n\t"
-    ".word 0x306400FF,0x3C02800B,0x0801EA3C,0x2442E8A8\n\t"
-    ".word 0x3C02800B,0x9043ED4F,0x00000000,0x38630001\n\t"
-    ".word 0x34630004,0xA043ED4F,0x0C0182D5,0x306400FF\n\t"
-    ".word 0x3C02800B,0x0801EA3C,0x2442E8B8,0x3C02800B\n\t"
-    ".word 0x9043ED50,0x00000000,0x38630001,0x34630004\n\t"
-    ".word 0xA043ED50,0x0C0182D5,0x306400FF,0x3C02800B\n\t"
-    ".word 0x0801EA3C,0x2442E8C4,0x3C02800B,0x9043ED51\n\t"
-    ".word 0x00000000,0x38630001,0x34630004,0xA043ED51\n\t"
-    ".word 0x0C0182D5,0x306400FF,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x2442E8D0,0x3C02800B,0x9043ED52,0x00000000\n\t"
-    ".word 0x38630001,0x34630004,0xA043ED52,0x0C0182D5\n\t"
-    ".word 0x306400FF,0x3C02800B,0x0801EA3C,0x2442E8DC\n\t"
-    ".word 0x3C02800B,0x9043ED53,0x00000000,0x38630001\n\t"
-    ".word 0x34630004,0xA043ED53,0x0C0182D5,0x306400FF\n\t"
-    ".word 0x3C02800B,0x0801EA3C,0x2442E8E8,0x3C02800B\n\t"
-    ".word 0x9043ED54,0x00000000,0x38630001,0x34630004\n\t"
-    ".word 0xA043ED54,0x0C0182D5,0x306400FF,0x3C02800B\n\t"
-    ".word 0x0801EA3C,0x2442E8F4,0x3C02800B,0x9043ED55\n\t"
-    ".word 0x00000000,0x38630001,0x34630004,0xA043ED55\n\t"
-    ".word 0x0C0182D5,0x306400FF,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x2442E900,0x3C02800B,0x9043ED56,0x00000000\n\t"
-    ".word 0x38630001,0x34630004,0xA043ED56,0x0C0182D5\n\t"
-    ".word 0x306400FF,0x3C02800B,0x0801EA3C,0x2442E910\n\t"
-    ".word 0x3C02800B,0x9043ED57,0x00000000,0x38630001\n\t"
-    ".word 0x34630004,0xA043ED57,0x0C0182D5,0x306400FF\n\t"
-    ".word 0x3C02800B,0x0801EA3C,0x2442E91C,0x3C02800B\n\t"
-    ".word 0x9043ED58,0x00000000,0x38630001,0x34630004\n\t"
-    ".word 0xA043ED58,0x0C0182D5,0x306400FF,0x3C02800B\n\t"
-    ".word 0x0801EA3C,0x2442E92C,0x3C02800B,0x9043ED59\n\t"
-    ".word 0x00000000,0x38630001,0x34630004,0xA043ED59\n\t"
-    ".word 0x0C0182D5,0x306400FF,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x2442E940,0x24E70001,0x30E2FFFF,0x2C420013\n\t"
-    ".word 0x1440FEFF,0x00803021,0x00003821,0x90830000\n\t"
-    ".word 0x00000000,0x10600009,0x24E70001,0x30E2FFFF\n\t"
-    ".word 0x2C42000A,0x1440FFFA,0x00000000,0x0C01A8E2\n\t"
-    ".word 0x00000000,0x14400003,0x3C02800B,0x0801EA3C\n\t"
-    ".word 0x00001021,0x2442E840,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+extern char D_800AE830[];
+extern char D_800AE850[];
+extern char D_800AE860[];
+extern char D_800AE86C[];
+extern char D_800AE878[];
+extern char D_800AE884[];
+extern char D_800AE898[];
+extern char D_800AE8A8[];
+extern char D_800AE8B8[];
+extern char D_800AE8C4[];
+extern char D_800AE8D0[];
+extern char D_800AE8DC[];
+extern char D_800AE8E8[];
+extern char D_800AE8F4[];
+extern char D_800AE900[];
+extern char D_800AE910[];
+extern char D_800AE91C[];
+extern char D_800AE92C[];
+extern char D_800AE940[];
+extern char D_800AE840[];
+extern short D_800A60D8;
+extern unsigned char D_800AED48;
+extern unsigned char D_800AED49;
+extern unsigned char D_800AED4A;
+extern unsigned char D_800AED4B;
+extern unsigned char D_800AED4C;
+extern unsigned char D_800AED4D;
+extern unsigned char D_800AED4E;
+extern unsigned char D_800AED4F;
+extern unsigned char D_800AED50;
+extern unsigned char D_800AED51;
+extern unsigned char D_800AED52;
+extern unsigned char D_800AED53;
+extern unsigned char D_800AED54;
+extern unsigned char D_800AED55;
+extern unsigned char D_800AED56;
+extern unsigned char D_800AED57;
+extern unsigned char D_800AED58;
+extern unsigned char D_800AED59;
+extern char *D_800AECF8[];
+extern void func_80060B54(int);
+extern int func_8006A388(char *);
+
+char *func_8007A498(char *code) {
+    unsigned short i;
+    unsigned short match;
+    char *p;
+    char *q;
+
+    for (i = 0; i < 19; i++) {
+        p = code;
+        q = D_800AECF8[i];
+        match = 1;
+        while (*p != 0) {
+            if (*q == 0) {
+                break;
+            }
+            if (*p != *q) {
+                match = 0;
+                break;
+            }
+            p++;
+            q++;
+        }
+        if (!match || *p != 0 || *q != 0) {
+            continue;
+        }
+        switch (i) {
+        case 0:
+            D_800A60D8 = (D_800A60D8 ^ 1) | 4;
+            func_80060B54((unsigned char)D_800A60D8);
+            return D_800AE830;
+        case 1:
+            D_800AED48 = (D_800AED48 ^ 1) | 4;
+            func_80060B54(D_800AED48);
+            return D_800AE850;
+        case 2:
+            D_800AED49 = (D_800AED49 ^ 1) | 4;
+            func_80060B54(D_800AED49);
+            return D_800AE860;
+        case 3:
+            D_800AED4A = (D_800AED4A ^ 1) | 4;
+            func_80060B54(D_800AED4A);
+            return D_800AE86C;
+        case 4:
+            D_800AED4B = (D_800AED4B ^ 1) | 4;
+            func_80060B54(D_800AED4B);
+            return D_800AE878;
+        case 5:
+            D_800AED4C = (D_800AED4C ^ 1) | 4;
+            func_80060B54(D_800AED4C);
+            return D_800AE884;
+        case 6:
+            D_800AED4D = D_800AED4D ^ 1;
+            func_80060B54(D_800AED4D);
+            return D_800AE898;
+        case 7:
+            D_800AED4E = D_800AED4E ^ 1;
+            func_80060B54(D_800AED4E);
+            return D_800AE8A8;
+        case 8:
+            D_800AED4F = (D_800AED4F ^ 1) | 4;
+            func_80060B54(D_800AED4F);
+            return D_800AE8B8;
+        case 9:
+            D_800AED50 = (D_800AED50 ^ 1) | 4;
+            func_80060B54(D_800AED50);
+            return D_800AE8C4;
+        case 10:
+            D_800AED51 = (D_800AED51 ^ 1) | 4;
+            func_80060B54(D_800AED51);
+            return D_800AE8D0;
+        case 11:
+            D_800AED52 = (D_800AED52 ^ 1) | 4;
+            func_80060B54(D_800AED52);
+            return D_800AE8DC;
+        case 12:
+            D_800AED53 = (D_800AED53 ^ 1) | 4;
+            func_80060B54(D_800AED53);
+            return D_800AE8E8;
+        case 13:
+            D_800AED54 = (D_800AED54 ^ 1) | 4;
+            func_80060B54(D_800AED54);
+            return D_800AE8F4;
+        case 14:
+            D_800AED55 = (D_800AED55 ^ 1) | 4;
+            func_80060B54(D_800AED55);
+            return D_800AE900;
+        case 15:
+            D_800AED56 = (D_800AED56 ^ 1) | 4;
+            func_80060B54(D_800AED56);
+            return D_800AE910;
+        case 16:
+            D_800AED57 = (D_800AED57 ^ 1) | 4;
+            func_80060B54(D_800AED57);
+            return D_800AE91C;
+        case 17:
+            D_800AED58 = (D_800AED58 ^ 1) | 4;
+            func_80060B54(D_800AED58);
+            return D_800AE92C;
+        case 18:
+            D_800AED59 = (D_800AED59 ^ 1) | 4;
+            func_80060B54(D_800AED59);
+            return D_800AE940;
+        }
+        return 0;
+    }
+    for (i = 0; i < 10; i++) {
+        if (*code == 0) {
+            return 0;
+        }
+    }
+    if (func_8006A388(code)) {
+        return D_800AE840;
+    }
+    return 0;
+}

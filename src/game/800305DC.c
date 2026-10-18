@@ -1,27 +1,80 @@
-asm(".text\n\t.globl func_800305DC\nfunc_800305DC:\n\t"
-    ".word 0x27BDFFC0,0xAFB10034,0x00808821,0x3403FFFF\n\t"
-    ".word 0xAFBF003C,0xAFB20038,0xAFB00030,0x96220020\n\t"
-    ".word 0x8E320008,0x10430013,0x00000000,0x8E22003C\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x0800C18B\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x96230020,0x00022082,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x3C03800C,0x246362B0,0x00431021\n\t"
-    ".word 0xA4440020,0x8E22003C,0x8E300018,0xAE22001C\n\t"
-    ".word 0x001017C2,0x02028021,0x96440020,0x00108043\n\t"
-    ".word 0x0C022B58,0x00042102,0x8E230010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E420008\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20020,0x96440020\n\t"
-    ".word 0x8E300018,0x00042102,0x001017C2,0x02028021\n\t"
-    ".word 0x0C022B30,0x00108043,0x8E230010,0x00000000\n\t"
-    ".word 0x00701821,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x8E42000C\n\t"
-    ".word 0x01001821,0x00431021,0xAFA20028,0x8E420014\n\t"
-    ".word 0x00000000,0xAFA20024,0x8E220028,0x00000000\n\t"
-    ".word 0x10400009,0x27A50020,0x96460020,0xAFA00010\n\t"
-    ".word 0xAFA00014,0xAFA00018,0xAFA0001C,0x8E240028\n\t"
-    ".word 0x0C00D652,0x00003821,0x24040004,0x27A50020\n\t"
-    ".word 0x00003021,0x0C01BF6C,0x00C03821,0x3C040003\n\t"
-    ".word 0x34840D40,0x8E23002C,0x24020005,0xA6220022\n\t"
-    ".word 0xAE240034,0xAE230024,0x8FBF003C,0x8FB20038\n\t"
-    ".word 0x8FB10034,0x8FB00030,0x03E00008,0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[8]; short value; short pad2; int pad3; } Cell;
+typedef struct { int pad[2]; int x; int z; int pad2; int y; int pad3[2]; unsigned short angle; } Body;
+typedef struct {
+    int pad[2];
+    Body *body;
+    int pad2;
+    int offset;
+    int pad3;
+    int length;
+    int last_speed;
+    unsigned short cell;
+    short state;
+    int timer;
+    int model;
+    int reset;
+    int pad4;
+    int hp;
+    int pad5[1];
+    int speed;
+} Seg;
+extern Cell D_800C62B0[];
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_80035948(int, Vector *, int, int, int, int, int, int);
+void func_8006FDB0(int, Vector *, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline Cell *cell_at(int i) {
+    return &D_800C62B0[i];
+}
+
+
+static inline int half_length(Seg *s) {
+    return s->length / 2;
+}
+
+void func_800305DC(Seg *s) {
+    Body *body = s->body;
+    Vector v;
+    int half;
+    int a;
+    int value;
+
+    if (s->cell != 0xFFFF) {
+        value = (unsigned int)to_int(s->speed) >> 2;
+        cell_at(s->cell)->value = value;
+    }
+    s->last_speed = s->speed;
+    a = body->angle >> 4;
+    half = half_length(s);
+    v.x = body->x + fixed_mul(func_8008AD60(a), s->offset + half);
+    a = body->angle >> 4;
+    half = half_length(s);
+    v.z = body->z + fixed_mul(func_8008ACC0(a), s->offset + half);
+    v.y = body->y;
+    if (s->model != 0) {
+        func_80035948(s->model, &v, body->angle, 0, 0, 0, 0, 0);
+    }
+    func_8006FDB0(4, &v, 0, 0);
+    s->state = 5;
+    s->hp = 200000;
+    s->timer = s->reset;
+}

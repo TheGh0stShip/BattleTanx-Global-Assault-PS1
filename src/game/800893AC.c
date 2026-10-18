@@ -1,24 +1,66 @@
-asm(".text\n\t.globl func_800893AC\nfunc_800893AC:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0x3C02800F,0x2444EAE8,0xAFBF001C\n\t"
-    ".word 0xAFB10014,0x90820030,0x00000000,0x10400042\n\t"
-    ".word 0x24110001,0x8C820058,0x00000000,0x0202102B\n\t"
-    ".word 0x14400004,0x00001821,0x8C82005C,0x00000000\n\t"
-    ".word 0x0202182B,0x10600002,0x00000000,0x8C90005C\n\t"
-    ".word 0x90820038,0x00000000,0x10400010,0x00000000\n\t"
-    ".word 0x90820039,0x00000000,0x1040000C,0x00000000\n\t"
-    ".word 0x14600005,0x2402F800,0x8C830090,0x02021024\n\t"
-    ".word 0x14620006,0x00000000,0x1240002D,0x24050001\n\t"
-    ".word 0x8C84002C,0x0802253D,0x00000000,0x0C024661\n\t"
-    ".word 0x00000000,0x3C02800F,0x2443EAE8,0x90620033\n\t"
-    ".word 0x00000000,0x1040000D,0x00000000,0x90620032\n\t"
-    ".word 0x00000000,0x10400009,0x00000000,0x90620039\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x9062003C\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x0C0223EC\n\t"
-    ".word 0x00000000,0x0C0245BD,0x00000000,0x0C024653\n\t"
-    ".word 0x00000000,0x3C02800F,0x2442EAE8,0xA0400032\n\t"
-    ".word 0xA0400031,0xAC520068,0x0C0224A5,0xAC500094\n\t"
-    ".word 0x0802253F,0x00408821,0x12400005,0x00002821\n\t"
-    ".word 0x8C84002C,0x00A08821,0x0240F809,0x00000000\n\t"
-    ".word 0x02201021,0x8FBF001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Stream {
+    char pad00[0x2C];
+    int user;
+    unsigned char open;
+    unsigned char state31;
+    unsigned char reading;
+    unsigned char ready;
+    char pad34[4];
+    unsigned char cached;
+    unsigned char seeking;
+    char pad3A[2];
+    unsigned char pending;
+    char pad3D[0x1B];
+    unsigned int start;
+    unsigned int end;
+    char pad60[8];
+    void (*callback)(int, int);
+    char pad6C[0x24];
+    unsigned int sector;
+    unsigned int target;
+} Stream;
+
+extern Stream D_800EEAE8;
+extern void func_80091984(void);
+extern void func_80088FB0(void);
+extern void func_800916F4(void);
+extern void func_8009194C(void);
+extern int func_80089294(void);
+
+int func_800893AC(unsigned int pos, void (*cb)(int, int)) {
+    int result = 1;
+    int buffered;
+
+    if (D_800EEAE8.open != 0) {
+        buffered = 0;
+        if (pos >= D_800EEAE8.start) {
+            buffered = pos < D_800EEAE8.end;
+        }
+        if (buffered) {
+            pos = D_800EEAE8.end;
+        }
+        if (D_800EEAE8.cached != 0 && D_800EEAE8.seeking != 0
+            && (buffered || D_800EEAE8.sector == (pos & ~0x7FF))) {
+            if (cb != 0) {
+                cb(D_800EEAE8.user, 1);
+            }
+        } else {
+            func_80091984();
+            if (D_800EEAE8.ready == 0 || D_800EEAE8.reading == 0 || D_800EEAE8.seeking != 0
+                || D_800EEAE8.pending != 0) {
+                func_80088FB0();
+            }
+            func_800916F4();
+            func_8009194C();
+            D_800EEAE8.reading = 0;
+            D_800EEAE8.state31 = 0;
+            D_800EEAE8.callback = cb;
+            D_800EEAE8.target = pos;
+            result = func_80089294();
+        }
+    } else if (cb != 0) {
+        cb(D_800EEAE8.user, 0);
+        result = 0;
+    }
+    return result;
+}

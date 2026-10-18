@@ -1,31 +1,86 @@
-asm(".text\n\t.globl func_8004707C\nfunc_8004707C:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFB20018,0xAFBF0024,0xAFB40020\n\t"
-    ".word 0xAFB10014,0x8E1100A0,0x8E140208,0x12200063\n\t"
-    ".word 0x00009021,0x8E020218,0x00000000,0x30420040\n\t"
-    ".word 0x10400017,0x2402000B,0x8E03009C,0x00000000\n\t"
-    ".word 0x14620006,0x00000000,0x8E020180,0x00000000\n\t"
-    ".word 0x34420010,0x08011C8E,0xAE020180,0x8E020094\n\t"
-    ".word 0x00000000,0x10400002,0x24070006,0x8E07017C\n\t"
-    ".word 0x2402001B,0xAE02017C,0x02002021,0x2405003C\n\t"
-    ".word 0x0C014176,0x00003021,0x08011C8E,0x00000000\n\t"
-    ".word 0x02602021,0x0C014C75,0x24050001,0x8E0402A4\n\t"
-    ".word 0x00000000,0x1080000A,0x2402000E,0x84830004\n\t"
-    ".word 0x00000000,0x14620006,0x00000000,0x90820027\n\t"
-    ".word 0x00000000,0x2442FFFF,0xA0820027,0xAE0002A4\n\t"
-    ".word 0x02002021,0x24050002,0x0C011EEE,0x00003021\n\t"
-    ".word 0x8E0200A0,0x00000000,0x00021080,0x24420078\n\t"
-    ".word 0x02822021,0x8C820000,0x00000000,0x10400009\n\t"
-    ".word 0x00000000,0x8C830000,0x00000000,0x10700005\n\t"
-    ".word 0x00000000,0x8C620004,0x00000000,0x1440FFF9\n\t"
-    ".word 0x24640004,0x8E020004,0x00000000,0xAC820000\n\t"
-    ".word 0x8E030208,0x00000000,0x00711821,0x90620084\n\t"
-    ".word 0x00000000,0x2442FFFF,0xA0620084,0x2E220003\n\t"
-    ".word 0x10400005,0x00121080,0x12200004,0x02621021\n\t"
-    ".word 0x24120001,0x00121080,0x02621021,0x02002021\n\t"
-    ".word 0x8C430078,0x24050003,0xAC830004,0xAC440078\n\t"
-    ".word 0xAC930208,0x02601821,0xAC9200A0,0x92620007\n\t"
-    ".word 0x00721821,0xAC820098,0x90620084,0x00003021\n\t"
-    ".word 0x24420001,0x0C011EEE,0xA0620084,0x8FBF0024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct Unit Unit;
+typedef struct Force Force;
+typedef struct {
+    char pad0[4];
+    short kind;
+    char pad6[0x27 - 6];
+    unsigned char users;
+} Pickup;
+struct Force {
+    char pad0[7];
+    unsigned char id;
+    char pad8[0x78 - 8];
+    Unit *heads[3];
+    unsigned char counts[3];
+};
+struct Unit {
+    char pad0[4];
+    Unit *next;
+    char pad8[0x94 - 8];
+    void *reference;
+    int force_id;
+    int type;
+    unsigned int list;
+    char padA4[0x17C - 0xA4];
+    int state;
+    int flags;
+    char pad184[0x208 - 0x184];
+    Force *force;
+    char pad20C[0x218 - 0x20C];
+    int status;
+    char pad21C[0x2A4 - 0x21C];
+    Pickup *pickup;
+};
+extern void func_800505D8(Unit *, int, int, int);
+extern void func_800531D4(Force *, int);
+extern void func_80047BB8(Unit *, int, int);
+
+void func_8004707C(Unit *unit, Force *force) {
+    unsigned int list = unit->list;
+    Force *old = unit->force;
+    unsigned int slot = 0;
+    Unit **link;
+    int state;
+
+    if (list == 0) {
+        return;
+    }
+    if (unit->status & 0x40) {
+        if (unit->type == 11) {
+            unit->flags |= 0x10;
+        } else {
+            state = 6;
+            if (unit->reference != 0) {
+                state = unit->state;
+            }
+            unit->state = 27;
+            func_800505D8(unit, 60, 0, state);
+        }
+        return;
+    }
+    func_800531D4(force, 1);
+    if (unit->pickup != 0 && unit->pickup->kind == 14) {
+        unit->pickup->users--;
+        unit->pickup = 0;
+    }
+    func_80047BB8(unit, 2, 0);
+    for (link = &old->heads[unit->list]; *link != 0; link = &(*link)->next) {
+        if (*link == unit) {
+            break;
+        }
+    }
+    *link = unit->next;
+    unit->force->counts[list]--;
+    if (list < 3) {
+        if (list != 0) {
+            slot = 1;
+        }
+    }
+    unit->next = force->heads[slot];
+    force->heads[slot] = unit;
+    unit->force = force;
+    unit->list = slot;
+    unit->force_id = force->id;
+    unit->force->counts[slot]++;
+    func_80047BB8(unit, 3, 0);
+}

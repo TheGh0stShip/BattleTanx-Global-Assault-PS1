@@ -1,10 +1,45 @@
-asm(".text\n\t.globl func_8006FB94\nfunc_8006FB94:\n\t"
-    ".word 0x88c70003,0x98c70000,0x88c80007,0x98c80004\n\t"
-    ".word 0xa8a7000f,0xb8a7000c,0xa8a80013,0xb8a80010\n\t"
-    ".word 0xa4a00016,0xa4a00018,0xa4a0001a,0x8c83001c\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021040\n\t"
-    ".word 0xaca20004,0xaca20008,0x8c82001c,0x00000000\n\t"
-    ".word 0x04410002,0x00000000,0x2442003f,0x00021183\n\t"
-    ".word 0xa4a20020,0x24020040,0xa0a20024,0xa0a20025\n\t"
-    ".word 0xa0a20026,0x24020001,0xa0a2001f,0x24020005\n\t"
-    ".word 0x03e00008,0xa0a20027\n\t");
+typedef struct Bytes8 {
+    unsigned char b[8];
+} Bytes8;
+
+typedef struct Source {
+    char pad[0x1C];
+    int size;
+} Source;
+
+typedef struct Sprite {
+    int pad0;
+    int scale_x;
+    int scale_y;
+    Bytes8 color;
+    char pad14[2];
+    short rx;
+    short ry;
+    short rz;
+    char pad1C[3];
+    unsigned char visible;
+    short radius;
+    char pad22[2];
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char mode;
+} Sprite;
+
+void func_8006FB94(Source *src, Sprite *sprite, Bytes8 *color) {
+    int scale;
+
+    sprite->color = *color;
+    sprite->rx = 0;
+    sprite->ry = 0;
+    sprite->rz = 0;
+    scale = src->size * 6;
+    sprite->scale_x = scale;
+    sprite->scale_y = scale;
+    sprite->radius = src->size / 64;
+    sprite->r = 64;
+    sprite->g = 64;
+    sprite->b = 64;
+    sprite->visible = 1;
+    sprite->mode = 5;
+}

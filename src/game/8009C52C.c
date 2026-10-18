@@ -1,9 +1,16 @@
-asm(".text\n\t.globl func_8009C52C\nfunc_8009C52C:\n\t"
-    ".word 0x27bdffe8,0x30a20001,0x10400006,0xafbf0010\n\t"
-    ".word 0x3c03f7ff,0x8c820000,0x3463ffff,0x08027157\n\t"
-    ".word 0x00431024,0x8c820000,0x3c030800,0x00431025\n\t"
-    ".word 0xac820000,0x30a20002,0x10400004,0x3c030200\n\t"
-    ".word 0x8c820000,0x08027162,0x00431025,0x3c03fdff\n\t"
-    ".word 0x8c820000,0x3463ffff,0x00431024,0xac820000\n\t"
-    ".word 0x94850000,0x0c0271b7,0x00000000,0x8fbf0010\n\t"
-    ".word 0x27bd0018,0x03e00008,0x00000000\n\t");
+void func_8009C6DC(unsigned int *, unsigned short);
+
+void func_8009C52C(unsigned int *mode, int flags)
+{
+    if (flags & 1) {
+        *mode &= ~0x08000000;
+    } else {
+        *mode |= 0x08000000;
+    }
+    if (flags & 2) {
+        *mode |= 0x02000000;
+    } else {
+        *mode &= ~0x02000000;
+    }
+    func_8009C6DC(mode, *(unsigned short *)mode);
+}

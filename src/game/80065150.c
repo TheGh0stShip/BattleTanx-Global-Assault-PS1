@@ -1,20 +1,32 @@
-asm(".text\n\t.globl func_80065150\nfunc_80065150:\n\t"
-    ".word 0x27BDFFA0,0xAFB1003C,0x97B10070,0xAFB20040\n\t"
-    ".word 0x97B20074,0xAFB60050,0x0080B021,0xAFB70054\n\t"
-    ".word 0x00A0B821,0xAFBE0058,0xAFB30044,0x97B30078\n\t"
-    ".word 0x3C02800B,0xAFB00038,0x2450C080,0xAFB40048\n\t"
-    ".word 0x97B4007C,0x3C02800F,0xAFB5004C,0x97B50088\n\t"
-    ".word 0x2442ADA4,0xAFBF005C,0xAFA7006C,0xAE020028\n\t"
-    ".word 0x3C02800F,0x2442AE20,0xAE020388,0x3C02800E\n\t"
-    ".word 0x8C4353FC,0x24020037,0x10620007,0x00C0F021\n\t"
-    ".word 0x27A40030,0x3C05800E,0x0C01A97D,0x24A5534C\n\t"
-    ".word 0x0801947D,0x24020006,0x3C02800E,0xA040534C\n\t"
-    ".word 0x24020001,0xA2020360,0x02C02021,0x3222FFFF\n\t"
-    ".word 0xAFA20010,0x3242FFFF,0xAFA20014,0x00131400\n\t"
-    ".word 0x00021403,0xAFA20018,0x00141400,0x00021403\n\t"
-    ".word 0xAFA2001C,0x8FA20080,0x8FA7006C,0x02E02821\n\t"
-    ".word 0xAFA20020,0x8FA20084,0x03C03021,0xAFA20024\n\t"
-    ".word 0x00151400,0x00021403,0x0C0191A1,0xAFA20028\n\t"
-    ".word 0x8FBF005C,0x8FBE0058,0x8FB70054,0x8FB60050\n\t"
-    ".word 0x8FB5004C,0x8FB40048,0x8FB30044,0x8FB20040\n\t"
-    ".word 0x8FB1003C,0x8FB00038,0x03E00008,0x27BD0060\n");
+typedef struct Dialog {
+    char pad0[0x28];
+    int *style;
+    char pad1[0x360 - 0x2C];
+    unsigned char active;
+    char pad2[0x388 - 0x361];
+    int *button_style;
+} Dialog;
+
+extern Dialog D_800AC080;
+extern int D_800EADA4;
+extern int D_800EAE20;
+extern int D_800E53FC;
+extern unsigned char D_800E534C;
+extern void func_8006A5F4(int *, unsigned char *);
+extern void func_80064684(int, int, int, int, unsigned short, unsigned short, short, short, int, int, short);
+
+void func_80065150(int a, int b, int c, int d, unsigned short e, unsigned short f, short g, short h, int i,
+                   int j, short k) {
+    int scratch[2];
+
+    D_800AC080.style = &D_800EADA4;
+    D_800AC080.button_style = &D_800EAE20;
+    if (D_800E53FC != 55) {
+        func_8006A5F4(scratch, &D_800E534C);
+        D_800AC080.active = 6;
+    } else {
+        D_800E534C = 0;
+        D_800AC080.active = 1;
+    }
+    func_80064684(a, b, c, d, e, f, g, h, i, j, k);
+}

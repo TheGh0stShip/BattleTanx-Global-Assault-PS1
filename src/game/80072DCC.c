@@ -1,22 +1,37 @@
-asm(".text\n\t.globl func_80072DCC\nfunc_80072DCC:\n\t"
-    ".word 0x3C02800E,0x8C43E30C,0x27BDFFE0,0xAFB00010\n\t"
-    ".word 0x00808021,0xAFB10014,0x00A08821,0xAFBF0018\n\t"
-    ".word 0x8E06001C,0x00000000,0x00660018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x8E020010,0x8E070020,0x00441021,0xAE020010\n\t"
-    ".word 0x00670018,0x00002012,0x00001010,0x00042302\n\t"
-    ".word 0x00021500,0x00822025,0x00630018,0x00001012\n\t"
-    ".word 0x00002810,0x00021302,0x00052D00,0x00451025\n\t"
-    ".word 0x2407F800,0x00470018,0x00002812,0x00003010\n\t"
-    ".word 0x00052B02,0x00063500,0x00A62825,0x00852021\n\t"
-    ".word 0x8E020014,0x8E060024,0x00441021,0xAE020014\n\t"
-    ".word 0x00660018,0x00002012,0x00001010,0x00042302\n\t"
-    ".word 0x00021500,0x00822025,0x8E020018,0x2406F000\n\t"
-    ".word 0x00441021,0xAE020018,0x00660018,0x00003812\n\t"
-    ".word 0x00001010,0x00073B02,0x00021500,0x00E23825\n\t"
-    ".word 0x00E01821,0x8E020020,0x8E040014,0x00431021\n\t"
-    ".word 0x0481000A,0xAE020020,0x8E040008,0x0C01BC89\n\t"
-    ".word 0x02002821,0x8E04000C,0x0C01BC89,0x02002821\n\t"
-    ".word 0x24020001,0x0801CBBF,0xAE220000,0xAE200000\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct {
+    int pad0;
+    int pad4;
+    int a;
+    int b;
+    int x, y, z;
+    int vx, vy, vz;
+} Shell;
+
+extern int D_800DE30C;
+extern void func_8006F224(int handle, Shell *s);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80072DCC(Shell *s, int *done) {
+    int dt = D_800DE30C;
+
+    s->x += fixed_mul(dt, s->vx);
+    s->y += fixed_mul(dt, s->vy) + fixed_mul(fixed_mul(dt, dt), -2048);
+    s->z += fixed_mul(dt, s->vz);
+    s->vy += fixed_mul(dt, -4096);
+    if (s->y < 0) {
+        func_8006F224(s->a, s);
+        func_8006F224(s->b, s);
+        *done = 1;
+    } else {
+        *done = 0;
+    }
+}

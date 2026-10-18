@@ -1,10 +1,15 @@
-asm(".text\n\t.globl func_800A0884\nfunc_800A0884:\n\t"
-    ".word 0x3c03800c,0x8c638fec,0x24020002,0xa0620000\n\t"
-    ".word 0x3c03800c,0x8c638ff4,0x90820000,0x00000000\n\t"
-    ".word 0xa0620000,0x3c03800c,0x8c638ff8,0x90820001\n\t"
-    ".word 0x00000000,0xa0620000,0x3c03800c,0x8c638fec\n\t"
-    ".word 0x24020003,0xa0620000,0x3c03800c,0x8c638ff0\n\t"
-    ".word 0x90820002,0x00000000,0xa0620000,0x3c03800c\n\t"
-    ".word 0x8c638ff4,0x90820003,0x00000000,0xa0620000\n\t"
-    ".word 0x3c03800c,0x8c638ff8,0x24020020,0xa0620000\n\t"
-    ".word 0x03e00008,0x00001021\n\t");
+extern volatile unsigned char *D_800B8FEC;
+extern volatile unsigned char *D_800B8FF0;
+extern volatile unsigned char *D_800B8FF4;
+extern volatile unsigned char *D_800B8FF8;
+
+int func_800A0884(unsigned char *vol) {
+    *D_800B8FEC = 2;
+    *D_800B8FF4 = vol[0];
+    *D_800B8FF8 = vol[1];
+    *D_800B8FEC = 3;
+    *D_800B8FF0 = vol[2];
+    *D_800B8FF4 = vol[3];
+    *D_800B8FF8 = 0x20;
+    return 0;
+}

@@ -1,64 +1,141 @@
-asm(".text\n\t.globl func_80056160\nfunc_80056160:\n\t"
-    ".word 0x27BDFFD0,0xAFB50024,0x8FB50040,0xAFB00010\n\t"
-    ".word 0x00808021,0xAFB40020,0x00E0A021,0xAFB20018\n\t"
-    ".word 0x00A09021,0xAFB3001C,0x00C09821,0xAFB10014\n\t"
-    ".word 0x8FB10044,0xAFBF0028,0x0C01A3BA,0x24040028\n\t"
-    ".word 0x00403821,0x10E000E1,0x24020009,0x92080006\n\t"
-    ".word 0x92090007,0xA0E20003,0x2402002C,0xA0E20007\n\t"
-    ".word 0x96020002,0x00000000,0xA4E2000E,0x96020000\n\t"
-    ".word 0x00000000,0xA4E20016,0x92220000,0x00000000\n\t"
-    ".word 0xA0E20004,0x92220001,0x00000000,0xA0E20005\n\t"
-    ".word 0x92220002,0x00000000,0xA0E20006,0x92220003\n\t"
-    ".word 0x00000000,0x2C4200FF,0x10400005,0x00000000\n\t"
-    ".word 0x90E20007,0x00000000,0x34420002,0xA0E20007\n\t"
-    ".word 0x92040004,0x3102FFFF,0x00821021,0x28420100\n\t"
-    ".word 0x10400007,0x3123FFFF,0x92020005,0x00000000\n\t"
-    ".word 0x00431021,0x28420100,0x1440001D,0x01201821\n\t"
-    ".word 0xA0E4000C,0x92020005,0x00000000,0xA0E2000D\n\t"
-    ".word 0x92020004,0x01002021,0x244200FF,0x00441021\n\t"
-    ".word 0xA0E20014,0x92020005,0x00000000,0xA0E20015\n\t"
-    ".word 0x92020004,0x00000000,0xA0E2001C,0x92020005\n\t"
-    ".word 0x01201821,0x244200FF,0x00431021,0xA0E2001D\n\t"
-    ".word 0x92020004,0x00000000,0x244200FF,0x00441021\n\t"
-    ".word 0xA0E20024,0x92020005,0x080158C7,0x244200FF\n\t"
-    ".word 0xA0E4000C,0x92020005,0x00000000,0xA0E2000D\n\t"
-    ".word 0x92020004,0x01002021,0x00441021,0xA0E20014\n\t"
-    ".word 0x92020005,0x00000000,0xA0E20015,0x92020004\n\t"
-    ".word 0x00000000,0xA0E2001C,0x92020005,0x00000000\n\t"
-    ".word 0x00431021,0xA0E2001D,0x92020004,0x00000000\n\t"
-    ".word 0x00441021,0xA0E20024,0x92020005,0x00000000\n\t"
-    ".word 0x00431021,0xA0E20025,0x3C02800E,0x8443DC58\n\t"
-    ".word 0x24020200,0x1462001B,0x3102FFFF,0x00021300\n\t"
-    ".word 0x240B1999,0x01620018,0x00005012,0x00001810\n\t"
-    ".word 0x000A5302,0x00031D00,0x01435025,0x01401021\n\t"
-    ".word 0x02820018,0x00001812,0x00005010,0x00031B02\n\t"
-    ".word 0x000A5500,0x006A1825,0x04600005,0x24620800\n\t"
-    ".word 0x04410018,0x00000000,0x080158FD,0x00021023\n\t"
-    ".word 0x2462F800,0x04410019,0x00021303,0x080158FC\n\t"
-    ".word 0x24020800,0x00021300,0x02820018,0x00001812\n\t"
-    ".word 0x00005810,0x00031B02,0x000B5D00,0x006B1825\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x080158FD,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x080158FF,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0x00404021\n\t"
-    ".word 0x3122FFFF,0x00021300,0x02A20018,0x00001812\n\t"
-    ".word 0x00005010,0x00031B02,0x000A5500,0x006A1825\n\t"
-    ".word 0x04600005,0x24620800,0x0441000A,0x00023303\n\t"
-    ".word 0x08015913,0x00021023,0x2462F800,0x04410005\n\t"
-    ".word 0x00023303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00023023,0x0681000A,0x00C04821,0x90E4000C\n\t"
-    ".word 0x90E5001C,0x90E20014,0x90E30024,0x00084023\n\t"
-    ".word 0xA0E2000C,0xA0E3001C,0xA0E40014,0xA0E50024\n\t"
-    ".word 0x06A1000B,0x3C0500FF,0x90E4000D,0x90E50015\n\t"
-    ".word 0x90E2001D,0x90E30025,0x00064823,0xA0E2000D\n\t"
-    ".word 0xA0E30015,0xA0E4001D,0xA0E50025,0x3C0500FF\n\t"
-    ".word 0x34A5FFFF,0x02482021,0x3C02800A,0x8C4348B4\n\t"
-    ".word 0x02691021,0xA4E2001A,0xA4E20022,0x3C02800D\n\t"
-    ".word 0x24425B8C,0x3C06FF00,0xA4F20008,0xA4F3000A\n\t"
-    ".word 0xA4E40010,0xA4F30012,0xA4F20018,0xA4E40020\n\t"
-    ".word 0x000322C0,0x00832021,0x000420C0,0x00822021\n\t"
-    ".word 0x8CE30000,0x8C820000,0x00661824,0x00451024\n\t"
-    ".word 0x00621825,0xACE30000,0x8C820000,0x00E52824\n\t"
-    ".word 0x00461024,0x00451025,0xAC820000,0x8FBF0028\n\t"
-    ".word 0x8FB50024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct {
+    unsigned long tag;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+    unsigned char code;
+    short x0;
+    short y0;
+    unsigned char u0;
+    unsigned char v0;
+    unsigned short clut;
+    short x1;
+    short y1;
+    unsigned char u1;
+    unsigned char v1;
+    unsigned short tpage;
+    short x2;
+    short y2;
+    unsigned char u2;
+    unsigned char v2;
+    unsigned short pad1;
+    short x3;
+    short y3;
+    unsigned char u3;
+    unsigned char v3;
+    unsigned short pad2;
+} POLY_FT4;
+typedef struct {
+    unsigned short tpage;
+    unsigned short clut;
+    unsigned char u;
+    unsigned char v;
+    unsigned char w;
+    unsigned char h;
+} Image;
+typedef struct {
+    unsigned addr : 24;
+    unsigned len : 8;
+} P_TAG;
+typedef struct {
+    unsigned long ot[0x4008 / 4];
+} OrderingTable;
+extern OrderingTable D_800D5B8C[];
+extern int D_800A48B4;
+extern short D_800DDC58;
+extern void *func_80068EE8(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+void func_80056160(Image *img, short x, short y, int scale_x, int scale_y, unsigned char *color) {
+    POLY_FT4 *poly;
+    unsigned short w;
+    unsigned short h;
+    unsigned char t;
+    unsigned char t2;
+    unsigned long *ot;
+
+    poly = func_80068EE8(sizeof(POLY_FT4));
+    if (poly == 0) {
+        return;
+    }
+    w = img->w;
+    h = img->h;
+    ((unsigned char *)poly)[3] = 9;
+    poly->code = 0x2C;
+    poly->clut = img->clut;
+    poly->tpage = img->tpage;
+    poly->r0 = color[0];
+    poly->g0 = color[1];
+    poly->b0 = color[2];
+    if (color[3] < 255) {
+        poly->code |= 2;
+    }
+    if (img->u + w > 255 || img->v + h > 255) {
+        poly->u0 = img->u;
+        poly->v0 = img->v;
+        poly->u1 = img->u + (w - 1);
+        poly->v1 = img->v;
+        poly->u2 = img->u;
+        poly->v2 = img->v + (h - 1);
+        poly->u3 = img->u + (w - 1);
+        poly->v3 = img->v + (h - 1);
+    } else {
+        poly->u0 = img->u;
+        poly->v0 = img->v;
+        poly->u1 = img->u + w;
+        poly->v1 = img->v;
+        poly->u2 = img->u;
+        poly->v2 = img->v + h;
+        poly->u3 = img->u + w;
+        poly->v3 = img->v + h;
+    }
+    if (D_800DDC58 == 512) {
+        w = round_fixed(fixed_mul(scale_x, fixed_mul(6553, w << 12)));
+    } else {
+        w = round_fixed(fixed_mul(scale_x, w << 12));
+    }
+    h = round_fixed(fixed_mul(scale_y, h << 12));
+    if (scale_x < 0) {
+        t = poly->u0;
+        t2 = poly->u2;
+        poly->u0 = poly->u1;
+        poly->u2 = poly->u3;
+        poly->u1 = t;
+        poly->u3 = t2;
+        w = -w;
+    }
+    if (scale_y < 0) {
+        t = poly->v0;
+        t2 = poly->v1;
+        poly->v0 = poly->v2;
+        poly->v1 = poly->v3;
+        poly->v2 = t;
+        poly->v3 = t2;
+        h = -h;
+    }
+    poly->x0 = x;
+    poly->y0 = y;
+    poly->x1 = x + w;
+    poly->y1 = y;
+    poly->x2 = x;
+    poly->y2 = y + h;
+    poly->x3 = x + w;
+    poly->y3 = y + h;
+    ot = D_800D5B8C[D_800A48B4].ot;
+    ((P_TAG *)poly)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)poly;
+}

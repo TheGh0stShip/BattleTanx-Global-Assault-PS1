@@ -1,35 +1,69 @@
-asm(".text\n\t.globl func_80038DB0\nfunc_80038DB0:\n\t"
-    ".word 0x27BDFF98,0xAFB40050,0x8FB40078,0xAFB10044\n\t"
-    ".word 0x00808821,0xAFB50054,0x00A0A821,0xAFB7005C\n\t"
-    ".word 0x00C0B821,0xAFB60058,0x00E0B021,0xAFB20048\n\t"
-    ".word 0x8FB2007C,0x24040027,0xAFB00040,0x8FB00084\n\t"
-    ".word 0x2405003C,0xAFBF0060,0x0C008DF4,0xAFB3004C\n\t"
-    ".word 0x00409821,0x12600065,0x00002021,0xA270002B\n\t"
-    ".word 0xA672002C,0x8E220000,0x00000000,0xAE620008\n\t"
-    ".word 0x8E220004,0x00000000,0xAE62000C,0x8E220008\n\t"
-    ".word 0x00000000,0xAE620010,0x8EA20000,0x00000000\n\t"
-    ".word 0xAE620014,0x8EA20004,0x24050001,0xAE620018\n\t"
-    ".word 0x8EE20000,0x26660008,0xAE62001C,0x8EE30004\n\t"
-    ".word 0x240200C9,0xA274002A,0xA6760024,0xA6620026\n\t"
-    ".word 0xA6620028,0x8FA20088,0x00C03821,0xAE620034\n\t"
-    ".word 0x8FA20080,0x24141000,0xA660002E,0xAE630020\n\t"
-    ".word 0xAE620030,0x24020B00,0xAFA20014,0x24022000\n\t"
-    ".word 0xAFA00010,0xAFA20018,0x0C01B0CD,0xAFB4001C\n\t"
-    ".word 0x24020001,0x12420007,0x00000000,0x12400037\n\t"
-    ".word 0x24020002,0x12420017,0x3C127FFF,0x0800E3E7\n\t"
-    ".word 0x00000000,0x0C021B21,0x24108000,0x8E630008\n\t"
-    ".word 0x00021402,0x00701821,0x00621821,0x0C021B21\n\t"
-    ".word 0xAE630008,0x8E63000C,0x00021402,0x00701821\n\t"
-    ".word 0x00621821,0x0C021B21,0xAE63000C,0x8E630010\n\t"
-    ".word 0x00021402,0x00701821,0x00621821,0x0800E3E7\n\t"
-    ".word 0xAE630010,0x3652FFFF,0x02602021,0x00002821\n\t"
-    ".word 0x27A60020,0x27B10030,0x02203821,0x3C02FFFF\n\t"
-    ".word 0xAFA20020,0xAFA20024,0xAFA20028,0x3C020001\n\t"
-    ".word 0x24101400,0xAFA20030,0xAFA20034,0xAFA20038\n\t"
-    ".word 0x24021800,0xAFA00010,0xAFB00014,0xAFA20018\n\t"
-    ".word 0x0C01B0CD,0xAFB2001C,0x02602021,0x24050001\n\t"
-    ".word 0x27A60020,0x02203821,0xAFA00010,0xAFB00014\n\t"
-    ".word 0xAFB40018,0x0C01B0CD,0xAFB2001C,0x8FBF0060\n\t"
-    ".word 0x8FB7005C,0x8FB60058,0x8FB50054,0x8FB40050\n\t"
-    ".word 0x8FB3004C,0x8FB20048,0x8FB10044,0x8FB00040\n\t"
-    ".word 0x03E00008,0x27BD0068\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { int a; int b; } Pair;
+typedef struct {
+    int f0;
+    int f4;
+    Vector pos;
+    Pair p1;
+    Pair p2;
+    short f24;
+    short f26;
+    short f28;
+    unsigned char f2A;
+    unsigned char f2B;
+    short kind;
+    short f2E;
+    int f30;
+    int f34;
+} Spark;
+extern Spark *func_800237D0(int, int);
+extern void func_8006C334(void *, int, Vector *, Vector *, int, int, int, int);
+extern unsigned int func_80086C84(void);
+
+void func_80038DB0(Vector *pos, Pair *p1, Pair *p2, short f24, unsigned char f2A, unsigned int kind, int f30, unsigned char f2B, int f34)
+{
+    Spark *s;
+    Vector lo;
+    Vector hi;
+
+    s = func_800237D0(39, 60);
+    if (s == 0) {
+        return;
+    }
+    s->f2B = f2B;
+    s->kind = kind;
+    s->pos.x = pos->x;
+    s->pos.y = pos->y;
+    s->pos.z = pos->z;
+    s->p1.a = p1->a;
+    s->p1.b = p1->b;
+    s->p2.a = p2->a;
+    s->p2.b = p2->b;
+    s->f2A = f2A;
+    s->f24 = f24;
+    s->f26 = 201;
+    s->f28 = 201;
+    s->f34 = f34;
+    s->f30 = f30;
+    s->f2E = 0;
+    func_8006C334(0, 1, &s->pos, &s->pos, 0, 2816, 8192, 4096);
+    switch (kind) {
+    case 0:
+        break;
+    case 1:
+        s->pos.x += (func_80086C84() >> 16) - 32768;
+        s->pos.y += (func_80086C84() >> 16) - 32768;
+        s->pos.z += (func_80086C84() >> 16) - 32768;
+        break;
+    case 2:
+        lo.x = -65536;
+        lo.y = -65536;
+        lo.z = -65536;
+        hi.x = 65536;
+        hi.y = 65536;
+        hi.z = 65536;
+        func_8006C334(s, 0, &lo, &hi, 0, 5120, 6144, 0x7FFFFFFF);
+        func_8006C334(s, 1, &lo, &hi, 0, 5120, 4096, 0x7FFFFFFF);
+        break;
+    }
+}

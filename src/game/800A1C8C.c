@@ -1,12 +1,64 @@
-asm(".text\n\t.globl func_800A1C8C\nfunc_800A1C8C:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0xafbf001c,0x0c023e69\n\t"
-    ".word 0x00808021,0x00401821,0x24020004,0x14620008\n\t"
-    ".word 0x24020003,0x0c0286ac,0x02002021,0x02002021\n\t"
-    ".word 0x0c028825,0x24050001,0x08028747,0x00000000\n\t"
-    ".word 0x14620008,0x2404000a,0x8e020010,0x8e03000c\n\t"
-    ".word 0x24420001,0xae020010,0x0043102b,0x1040000e\n\t"
-    ".word 0x00000000,0x24020001,0xae000020,0xafa20010\n\t"
-    ".word 0x3c02800a,0x24421994,0x3c07800f,0x00003021\n\t"
-    ".word 0xafa20014,0x8e050000,0x0c023fc7,0x24e7fe0f\n\t"
-    ".word 0x14400003,0x00000000,0x0c028679,0x00002021\n\t"
-    ".word 0x8fbf001c,0x8fb00018,0x03e00008,0x27bd0020\n\t");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AF8(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+extern void func_800A1AB0(Link *);
+extern int func_800A2094(Link *, int);
+
+void func_800A1C8C(Link *c) {
+    int status = func_8008F9A4();
+    int result;
+
+    if (status == 4) {
+        func_800A1AB0(c);
+        result = func_800A2094(c, 1);
+    } else {
+        if (status == 3 && ++c->tries >= c->limit) {
+            func_800A19E4(0);
+            return;
+        }
+        c->unk20 = 0;
+        result = func_8008FF1C(10, c->unk00, 0, D_800EFD0C.packet, 1, func_800A1994);
+    }
+    if (result == 0) {
+        func_800A19E4(0);
+    }
+}

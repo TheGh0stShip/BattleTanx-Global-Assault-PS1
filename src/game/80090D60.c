@@ -1,12 +1,25 @@
-asm(".text\n\t.globl func_80090D60\nfunc_80090D60:\n\t"
-    ".word 0x3c02800b,0x8c427760,0x27bdffe0,0xafb10014\n\t"
-    ".word 0x00808821,0xafb00010,0x24100001,0x10500006\n\t"
-    ".word 0xafbf0018,0x3c02800b,0x8c427724,0x00000000\n\t"
-    ".word 0x14500003,0x00000000,0x0802437c,0x24020001\n\t"
-    ".word 0x3c04800b,0x8c847758,0x0c026bb5,0x00000000\n\t"
-    ".word 0x1630000b,0x00000000,0x1440000b,0x24020001\n\t"
-    ".word 0x3c04800b,0x8c847758,0x0c026bb5,0x00000000\n\t"
-    ".word 0x1040fffb,0x24020001,0x0802437a,0x00000000\n\t"
-    ".word 0x14500003,0x00000000,0x3c01800b,0xac227724\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int func_8009AED4(int);
+extern int D_800B7760;
+extern int D_800B7724;
+extern int D_800B7758;
+
+int func_80090D60(int mode) {
+    int r;
+
+    if (D_800B7760 == 1 || D_800B7724 == 1) {
+        return 1;
+    }
+    r = func_8009AED4(D_800B7758);
+    if (mode == 1) {
+        if (r == 0) {
+            do {
+                r = func_8009AED4(D_800B7758);
+            } while (r == 0);
+        }
+        r = 1;
+    } else if (r != 1) {
+        return r;
+    }
+    D_800B7724 = r;
+    return r;
+}

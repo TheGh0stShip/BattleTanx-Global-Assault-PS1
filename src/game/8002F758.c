@@ -1,9 +1,11 @@
-asm(".text\n\t.globl func_8002F758\nfunc_8002F758:\n\t"
-    ".word 0x27bdffe0,0x00803821,0xafbf0018,0x90e30035\n\t"
-    ".word 0x24020004,0x14620014,0x3c048888,0x8ce3002c\n\t"
-    ".word 0x8ce20024,0x00000000,0xac62003c,0x90e60034\n\t"
-    ".word 0x34848889,0x00063300,0x00c40018,0x24e20008\n\t"
-    ".word 0xafa20010,0x8ce50020,0x8ce4001c,0x8ce7002c\n\t"
-    ".word 0x00004010,0x01061021,0x000210c3,0x000637c3\n\t"
-    ".word 0x0c009f78,0x00463023,0x8fbf0018,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[60]; int value; } Target;
+typedef struct { int pad[2]; Vector pos; int pad2[2]; int a; int b; int value; int pad3; Target *target; int pad4; unsigned char count; unsigned char state; } Linker;
+void func_80027DE0(int, int, int, Target *, Vector *);
+
+void func_8002F758(Linker *l) {
+    if (l->state == 4) {
+        l->target->value = l->value;
+        func_80027DE0(l->a, l->b, (l->count << 12) / 15, l->target, &l->pos);
+    }
+}

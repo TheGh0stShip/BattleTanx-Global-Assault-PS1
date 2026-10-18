@@ -1,23 +1,59 @@
-asm(".text\n\t.globl func_8005CA14\nfunc_8005CA14:\n\t"
-    ".word 0x27BDFFD8,0x3C02800E,0x3C04800B,0xAFB10014\n\t"
-    ".word 0x90424800,0x3C03800A,0xAFBF0024,0xAFB40020\n\t"
-    ".word 0xAFB3001C,0xAFB20018,0xAFB00010,0x00021600\n\t"
-    ".word 0x00021603,0xA46260D8,0x3C02800E,0x90434804\n\t"
-    ".word 0x3C02800B,0xA043ED48,0x3C02800E,0x90434808\n\t"
-    ".word 0x3C02800B,0xA043ED49,0x3C02800E,0x9043480C\n\t"
-    ".word 0x3C02800B,0xA043ED4A,0x3C02800E,0x90434810\n\t"
-    ".word 0x3C02800B,0xA043ED4B,0x3C02800E,0x90434814\n\t"
-    ".word 0x3C02800B,0xA043ED4C,0x3C02800E,0x90434818\n\t"
-    ".word 0x3C02800B,0xA043ED4F,0x3C02800E,0x9043481C\n\t"
-    ".word 0x3C02800B,0xA043ED50,0x3C02800E,0x90434820\n\t"
-    ".word 0x3C02800B,0xA043ED51,0x3C02800E,0x90434850\n\t"
-    ".word 0x3C02800B,0xA043ED52,0x90838FB8,0x24020001\n\t"
-    ".word 0x10620019,0x24918FB8,0x3C02800F,0x2454AD30\n\t"
-    ".word 0x3C02800F,0x2453AD64,0x3C02800F,0x2452ADD0\n\t"
-    ".word 0x26300028,0x8E04FFE0,0x00000000,0x1094000E\n\t"
-    ".word 0x00000000,0x0C01EB01,0x00000000,0x30420001\n\t"
-    ".word 0x10400003,0x00000000,0x080172CE,0xAE130000\n\t"
-    ".word 0xAE120000,0x26310040,0x92230000,0x24020001\n\t"
-    ".word 0x1462FFF0,0x26100040,0x8FBF0024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Entry {
+    unsigned char kind;
+    char pad1[7];
+    int *value;
+    char pad2[0x1C];
+    int *style;
+    char pad3[0x14];
+} Entry;
+
+extern signed char D_800E4800;
+extern unsigned char D_800E4804;
+extern unsigned char D_800E4808;
+extern unsigned char D_800E480C;
+extern unsigned char D_800E4810;
+extern unsigned char D_800E4814;
+extern unsigned char D_800E4818;
+extern unsigned char D_800E481C;
+extern unsigned char D_800E4820;
+extern unsigned char D_800E4850;
+extern short D_800A60D8;
+extern unsigned char D_800AED48;
+extern unsigned char D_800AED49;
+extern unsigned char D_800AED4A;
+extern unsigned char D_800AED4B;
+extern unsigned char D_800AED4C;
+extern unsigned char D_800AED4F;
+extern unsigned char D_800AED50;
+extern unsigned char D_800AED51;
+extern unsigned char D_800AED52;
+extern Entry D_800A8FB8[];
+extern int D_800EAD30;
+extern int D_800EAD64;
+extern int D_800EADD0;
+extern int func_8007AC04(int *);
+
+void func_8005CA14(void) {
+    Entry *entry;
+
+    D_800A60D8 = D_800E4800;
+    D_800AED48 = D_800E4804;
+    D_800AED49 = D_800E4808;
+    D_800AED4A = D_800E480C;
+    D_800AED4B = D_800E4810;
+    D_800AED4C = D_800E4814;
+    D_800AED4F = D_800E4818;
+    D_800AED50 = D_800E481C;
+    D_800AED51 = D_800E4820;
+    D_800AED52 = D_800E4850;
+    for (entry = D_800A8FB8; entry->kind != 1; entry++) {
+        if (entry->value == &D_800EAD30) {
+            break;
+        }
+        if (func_8007AC04(entry->value) & 1) {
+            entry->style = &D_800EAD64;
+        } else {
+            entry->style = &D_800EADD0;
+        }
+    }
+}

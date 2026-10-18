@@ -1,43 +1,105 @@
-asm(".text\n\t.globl func_800354D0\nfunc_800354D0:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFB10014,0x00C08821,0xAFB20018\n\t"
-    ".word 0x00E09021,0x8FA50038,0x24020003,0x1222006D\n\t"
-    ".word 0xAFBF0020,0x2E220004,0x10400005,0x00000000\n\t"
-    ".word 0x1220000A,0x00000000,0x0800D5D3,0x00000000\n\t"
-    ".word 0x24020005,0x12220048,0x24020006,0x12220055\n\t"
-    ".word 0x00000000,0x0800D5D3,0x00000000,0x96620004\n\t"
-    ".word 0x00000000,0x2442FFFC,0x00021400,0x00021C03\n\t"
-    ".word 0x2C620048,0x1040007D,0x3C02800C,0x2442E38C\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x24020001,0xACA20000\n\t"
-    ".word 0x90830036,0x24020003,0x14620014,0x00000000\n\t"
-    ".word 0x8C830038,0x8E420010,0x00000000,0x00621023\n\t"
-    ".word 0x1C400004,0xAC820038,0x9645000C,0x0800D5D1\n\t"
-    ".word 0x00000000,0x2842007D,0x10400064,0x00000000\n\t"
-    ".word 0x8C830014,0x00000000,0x10600060,0x00000000\n\t"
-    ".word 0x8C820008,0x0800D5D3,0xAC43003C,0x90820034\n\t"
-    ".word 0x00000000,0x14400059,0x00000000,0x9645000C\n\t"
-    ".word 0x0800D5D1,0x00000000,0x90830036,0x00000000\n\t"
-    ".word 0x2462FFFE,0x2C420002,0x1440000D,0x24020001\n\t"
-    ".word 0x24020006,0x10620009,0x24020009,0xACA20000\n\t"
-    ".word 0x90820034,0x00000000,0x14400048,0x00000000\n\t"
-    ".word 0x9645000C,0x0800D5D1,0x00000000,0x24020001\n\t"
-    ".word 0x0800D5D3,0xACA20000,0x8E420000,0x00000000\n\t"
-    ".word 0x1440003E,0x24020001,0xA0A20000,0x8E020008\n\t"
-    ".word 0x00000000,0x8C420020,0x00000000,0xACA20004\n\t"
-    ".word 0x8E020008,0x00000000,0x8C420028,0x0800D5D3\n\t"
-    ".word 0xACA20008,0x8E020008,0x8E440000,0x8E450004\n\t"
-    ".word 0x8C430020,0x8C420028,0x00642023,0x0C022B8C\n\t"
-    ".word 0x00452823,0x02002021,0x30420FFF,0x0800D5D1\n\t"
-    ".word 0x00022900,0x8E020008,0x8E440000,0x8E450008\n\t"
-    ".word 0x8C430020,0x8C420028,0x00642023,0x0C022B8C\n\t"
-    ".word 0x00452823,0x30420FFF,0x1260001C,0x00022900\n\t"
-    ".word 0x92020036,0x00000000,0x14510011,0x00000000\n\t"
-    ".word 0x8E030038,0x8E42000C,0x00000000,0x00621023\n\t"
-    ".word 0x1840000F,0xAE020038,0x2842004B,0x1040000F\n\t"
-    ".word 0x00000000,0x8E030014,0x00000000,0x1060000B\n\t"
-    ".word 0x00000000,0x8E020008,0x0800D5D3,0xAC43003C\n\t"
-    ".word 0x92020034,0x00000000,0x14400004,0x00000000\n\t"
-    ".word 0x02002021,0x0C00D48E,0x00000000,0x8FBF0020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct { char pad[32]; int x; int y; int z; int pad2[4]; int value; } Target;
+typedef struct {
+    int pad[2];
+    Target *target;
+    int pad2[2];
+    int value;
+    char pad3[52 - 24];
+    unsigned char locked;
+    unsigned char pad4;
+    unsigned char state;
+    unsigned char pad5;
+    int hp;
+} Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[3]; unsigned short source; short pad2; int amount; } MsgData;
+void func_80035238(Obj *, int);
+int func_8008AE30(int, int);
+
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+typedef struct { int x; int z; } Hit2;
+typedef struct { int x; int y; int z; int drain; } Hit3;
+
+static inline void handle_msg(Obj *obj, Msg *msg, MsgData *data, int *result) {
+    int v;
+    int state;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        *result = 1;
+        if (obj->state == 3) {
+            v = obj->hp - data->amount;
+            obj->hp = v;
+            if (v <= 0) {
+                func_80035238(obj, data->source);
+            } else if (v < 125 && obj->value != 0) {
+                obj->target->value = obj->value;
+            }
+        } else if (obj->locked == 0) {
+            func_80035238(obj, data->source);
+        }
+        break;
+    case 4:
+        state = obj->state;
+        if (state == 2 || state == 3) {
+            *result = 1;
+        } else if (state == 6) {
+            *result = 1;
+        } else {
+            *result = 9;
+            if (obj->locked == 0) {
+                func_80035238(obj, data->source);
+            }
+        }
+        break;
+    case 30:
+    case 75:
+        *result = 1;
+        break;
+    }
+}
+
+void func_800354D0(Obj *obj, Msg *msg, unsigned int event, void *data, void *out) {
+    Obj *self = obj;
+    int angle;
+    int v;
+
+    switch (event) {
+    case 0:
+        handle_msg(self, msg, data, out);
+        break;
+    case 5:
+        if (*(int *)data == 0) {
+            ((Query *)out)->valid = 1;
+            ((Query *)out)->x = obj->target->x;
+            ((Query *)out)->z = obj->target->z;
+        }
+        break;
+    case 6:
+        func_80035238(obj, (func_8008AE30(obj->target->x - ((Hit2 *)data)->x, obj->target->z - ((Hit2 *)data)->z) &
+                            0xFFF)
+                               << 4);
+        break;
+    case 3:
+        angle = (func_8008AE30(obj->target->x - ((Hit3 *)data)->x, obj->target->z - ((Hit3 *)data)->z) & 0xFFF) << 4;
+        if (msg == 0) {
+            break;
+        }
+        if (obj->state == 3) {
+            v = obj->hp - ((Hit3 *)data)->drain;
+            obj->hp = v;
+            if (v <= 0) {
+                func_80035238(obj, angle);
+            } else if (v < 75 && obj->value != 0) {
+                obj->target->value = obj->value;
+            }
+        } else if (obj->locked == 0) {
+            func_80035238(obj, angle);
+        }
+        break;
+    }
+}

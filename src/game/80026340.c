@@ -1,12 +1,49 @@
-asm(".text\n\t.globl func_80026340\nfunc_80026340:\n\t"
-    ".word 0x8c840000,0x00000000,0x8c8b0004,0x00000000\n\t"
-    ".word 0x95680002,0x95620000,0x00000000,0x01021021\n\t"
-    ".word 0x0102102a,0x10400020,0x00004821,0x00081040\n\t"
-    ".word 0x00481021,0x00025080,0x8c820008,0x00000000\n\t"
-    ".word 0x004a1821,0x8c620008,0x00000000,0x1445000f\n\t"
-    ".word 0x00000000,0x84620000,0x00000000,0xacc20000\n\t"
-    ".word 0x84620004,0x00000000,0xacc20004,0x94620006\n\t"
-    ".word 0x25290001,0xa0c0000a,0xa4c20008,0x15270003\n\t"
-    ".word 0x24c6000c,0x03e00008,0x01201021,0x95620002\n\t"
-    ".word 0x95630000,0x25080001,0x00431021,0x0102102a\n\t"
-    ".word 0x1440ffe5,0x254a000c,0x03e00008,0x01201021\n\t");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    unsigned short angle;
+    int key;
+} Marker;
+
+typedef struct {
+    unsigned short count;
+    unsigned short start;
+} Range;
+
+typedef struct {
+    int pad0;
+    Range *range;
+    Marker *markers;
+} MarkerSet;
+
+typedef struct {
+    int x;
+    int z;
+    short angle;
+    unsigned char used;
+    char pad;
+} Spot;
+
+int func_80026340(MarkerSet **setp, int key, Spot *out, int max) {
+    MarkerSet *set = *setp;
+    Range *range = set->range;
+    int found = 0;
+    int i;
+
+    for (i = range->start; i < range->start + range->count; i++) {
+        Marker *m = &set->markers[i];
+
+        if (m->key == key) {
+            out[found].x = m->x;
+            out[found].z = m->z;
+            out[found].angle = m->angle;
+            out[found].used = 0;
+            found++;
+            if (found == max) {
+                return found;
+            }
+        }
+    }
+    return found;
+}

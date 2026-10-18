@@ -1,29 +1,84 @@
-asm(".text\n\t.globl func_8005D2D4\nfunc_8005D2D4:\n\t"
-    ".word 0x27BDFFE8,0x00003021,0x3C02800A,0x24070001\n\t"
-    ".word 0x240A0002,0x804B606C,0x3C02800B,0x24499AFC\n\t"
-    ".word 0x3C02800A,0x244860DC,0x3C02800A,0x244C60C4\n\t"
-    ".word 0xAFBF0014,0xAFB00010,0x15670017,0x00061600\n\t"
-    ".word 0x00021E03,0x1067000E,0x28620002,0x10400005\n\t"
-    ".word 0x00000000,0x10600007,0x3C02800B,0x080174F0\n\t"
-    ".word 0x2450A488,0x106A0009,0x3C02800B,0x080174F0\n\t"
-    ".word 0x2450A488,0x3C02800B,0x080174F0,0x2450A2A8\n\t"
-    ".word 0x3C02800B,0x080174F0,0x2450A348,0x3C02800B\n\t"
-    ".word 0x080174F0,0x2450A3E8,0x00021E03,0x1067000E\n\t"
-    ".word 0x28620002,0x10400005,0x00000000,0x10600007\n\t"
-    ".word 0x3C02800B,0x080174F0,0x2450ABF8,0x106A0009\n\t"
-    ".word 0x3C02800B,0x080174F0,0x2450ABF8,0x3C02800B\n\t"
-    ".word 0x080174F0,0x2450AA18,0x3C02800B,0x080174F0\n\t"
-    ".word 0x2450AAB8,0x3C02800B,0x2450AB58,0x00062E00\n\t"
-    ".word 0x00051603,0x3042FFFF,0x00481021,0x24C40001\n\t"
-    ".word 0x00803021,0x00052E03,0x00042600,0x80430000\n\t"
-    ".word 0x00042603,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00491021,0x8E030004,0x8C420008,0x28840004\n\t"
-    ".word 0xAC620048,0x00A81021,0x80430000,0x00052880\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00491021\n\t"
-    ".word 0x8C420000,0x00AC2821,0x1480FFB7,0xACA20000\n\t"
-    ".word 0x3C02800A,0x8043606C,0x24020001,0x14620006\n\t"
-    ".word 0x3C03800B,0x24020064,0xA062ACD4,0x02002021\n\t"
-    ".word 0x0801751E,0x00002821,0x24020064,0xA062ACD4\n\t"
-    ".word 0x02002021,0x0C017381,0x00002821,0x02002021\n\t"
-    ".word 0x24050001,0x0C017381,0x00000000,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x24020001,0x03E00008,0x27BD0018\n");
+typedef struct Choice {
+    int key;
+    int name;
+    int icon;
+} Choice;
+
+typedef struct Page {
+    char pad[0x48];
+    int icon;
+} Page;
+
+typedef struct Menu {
+    int pad;
+    Page *page;
+} Menu;
+
+extern Menu D_800AA2A8;
+extern Menu D_800AA348;
+extern Menu D_800AA3E8;
+extern Menu D_800AA488;
+extern Menu D_800AAA18;
+extern Menu D_800AAAB8;
+extern Menu D_800AAB58;
+extern Menu D_800AABF8;
+extern signed char D_800A606C;
+extern signed char D_800A60DC[];
+extern int D_800A60C4[];
+extern Choice D_800A9AFC[];
+extern unsigned char D_800AACD4;
+extern void func_8005CE04(Menu *, unsigned short);
+
+static inline void set_choice_icon(Menu *menu, unsigned short player) {
+    menu->page->icon = D_800A9AFC[D_800A60DC[player]].icon;
+}
+
+int func_8005D2D4(void) {
+    signed char i;
+    Menu *menu;
+
+    for (i = 0; i < 4; i++) {
+        if (D_800A606C == 1) {
+            switch (i) {
+            case 0:
+                menu = &D_800AA2A8;
+                break;
+            case 1:
+                menu = &D_800AA348;
+                break;
+            case 2:
+                menu = &D_800AA3E8;
+                break;
+            default:
+                menu = &D_800AA488;
+                break;
+            }
+        } else {
+            switch (i) {
+            case 0:
+                menu = &D_800AAA18;
+                break;
+            case 1:
+                menu = &D_800AAAB8;
+                break;
+            case 2:
+                menu = &D_800AAB58;
+                break;
+            default:
+                menu = &D_800AABF8;
+                break;
+            }
+        }
+        set_choice_icon(menu, i);
+        D_800A60C4[i] = D_800A9AFC[D_800A60DC[i]].key;
+    }
+    if (D_800A606C == 1) {
+        D_800AACD4 = 100;
+        func_8005CE04(menu, 0);
+    } else {
+        D_800AACD4 = 100;
+        func_8005CE04(menu, 0);
+        func_8005CE04(menu, 1);
+    }
+    return 1;
+}

@@ -1,30 +1,85 @@
-asm(".text\n\t.globl func_800266BC\nfunc_800266BC:\n\t"
-    ".word 0x27BDFF98,0xAFB10054,0x00808821,0xAFB20058\n\t"
-    ".word 0x00A09021,0xAFB3005C,0x00C09821,0xAFB40060\n\t"
-    ".word 0x00E0A021,0xAFB00050,0x27B00010,0x02002821\n\t"
-    ".word 0x3C04800C,0xAFBF0064,0x96230006,0x248462B0\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x0C005BFD\n\t"
-    ".word 0x00442021,0x3C027FFF,0x3442FFFF,0x00002021\n\t"
-    ".word 0xAFA20038,0xAFA20030,0x3C028000,0xAFA20048\n\t"
-    ".word 0xAFA20040,0x8E030000,0x8FA20030,0x00000000\n\t"
-    ".word 0x0062102A,0x10400003,0x00000000,0xAFA30030\n\t"
-    ".word 0x8E030000,0x8FA20040,0x00000000,0x0043102A\n\t"
-    ".word 0x10400002,0x00000000,0xAFA30040,0x8E030004\n\t"
-    ".word 0x8FA20038,0x00000000,0x0062102A,0x10400003\n\t"
-    ".word 0x00000000,0xAFA30038,0x8E030004,0x8FA20048\n\t"
-    ".word 0x00000000,0x0043102A,0x10400002,0x00000000\n\t"
-    ".word 0xAFA30048,0x24840001,0x28820004,0x1440FFE1\n\t"
-    ".word 0x26100008,0x8FA40040,0x8FA30030,0x24090147\n\t"
-    ".word 0x00831023,0x01220018,0x00004012,0x00002810\n\t"
-    ".word 0x00084302,0x00052D00,0x01054025,0x01001021\n\t"
-    ".word 0x8FA60048,0x00621821,0xAFA30030,0x8FA30038\n\t"
-    ".word 0x00822023,0xAFA40040,0x00C31023,0x01220018\n\t"
-    ".word 0x00004012,0x00002010,0x00084302,0x00042500\n\t"
-    ".word 0x01044025,0x01001021,0x27A40030,0x27A50040\n\t"
-    ".word 0x00621821,0x00C23023,0xAFA60048,0x02603021\n\t"
-    ".word 0x02803821,0xAFA30038,0xAFB20044,0x0C01C357\n\t"
-    ".word 0xAFB20034,0x00401821,0x10600009,0x3C02800D\n\t"
-    ".word 0x8C423258,0x00000000,0x00621023,0x00021183\n\t"
-    ".word 0xA622003C,0x94620000,0x00000000,0xA622003E\n\t"
-    ".word 0x8FBF0064,0x8FB40060,0x8FB3005C,0x8FB20058\n\t"
-    ".word 0x8FB10054,0x8FB00050,0x03E00008,0x27BD0068\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    int x;
+    int z;
+} Corner;
+
+typedef struct {
+    char pad0[0x28];
+} Sprite;
+
+typedef struct Node {
+    unsigned short id;
+    char pad2[0x40 - 2];
+} Node;
+
+typedef struct {
+    char pad0[6];
+    unsigned short sprite;
+    char pad08[0x3C - 8];
+    short node;
+    unsigned short node_id;
+} Object;
+
+extern Sprite D_800C62B0[];
+extern Node *D_800D3258;
+extern void func_80016FF4(Sprite *, Corner *);
+extern Node *func_80070D5C(Vector *, Vector *, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_800266BC(Object *obj, int height, int arg2, int arg3) {
+    Corner corners[4];
+    Vector min;
+    Vector max;
+    Node *node;
+    Corner *c = corners;
+    int i;
+    int d;
+
+    func_80016FF4(&D_800C62B0[obj->sprite], c);
+    min.z = 0x7FFFFFFF;
+    min.x = 0x7FFFFFFF;
+    max.z = 0x80000000;
+    max.x = 0x80000000;
+    for (i = 0; i < 4; i++) {
+        if (c[i].x < min.x) {
+            min.x = c[i].x;
+        }
+        if (c[i].x > max.x) {
+            max.x = c[i].x;
+        }
+        if (c[i].z < min.z) {
+            min.z = c[i].z;
+        }
+        if (c[i].z > max.z) {
+            max.z = c[i].z;
+        }
+    }
+    d = fixed_mul(327, max.x - min.x);
+    min.x += d;
+    max.x -= d;
+    d = fixed_mul(327, max.z - min.z);
+    min.z += d;
+    max.z -= d;
+    max.y = height;
+    min.y = height;
+    node = func_80070D5C(&min, &max, arg2, arg3);
+    if (node != 0) {
+        obj->node = node - D_800D3258;
+        obj->node_id = node->id;
+    }
+}

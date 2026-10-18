@@ -1,11 +1,24 @@
-asm(".text\n\t.globl func_8007646C\nfunc_8007646C:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x3c10800f,0x2610af6c\n\t"
-    ".word 0x02002021,0xafbf001c,0xafb20018,0x0c020c65\n\t"
-    ".word 0xafb10014,0x0c0209a8,0x02002021,0x3c03800b\n\t"
-    ".word 0x9062e9e9,0x00000000,0x1040000f,0x00008021\n\t"
-    ".word 0x3c02800f,0x2452afc0,0x00608821,0x320200ff\n\t"
-    ".word 0x000210c0,0x00521021,0x8c440004,0x0c01a3e7\n\t"
-    ".word 0x26100001,0x9223e9e9,0x320200ff,0x0043102b\n\t"
-    ".word 0x1440fff7,0x320200ff,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x3c02800b,0xa040e9ea\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    void *data;
+} Buffer;
+
+extern unsigned char D_800AE9E9;
+extern unsigned char D_800AE9EA;
+extern Buffer D_800EAFC0[];
+extern char D_800EAF6C[];
+extern void func_80083194(void *);
+extern void func_800826A0(void *);
+extern void func_80068F9C(void *);
+
+void func_8007646C(void) {
+    unsigned char i;
+
+    func_80083194(D_800EAF6C);
+    func_800826A0(D_800EAF6C);
+    for (i = 0; i < D_800AE9E9; i++) {
+        func_80068F9C(D_800EAFC0[i].data);
+    }
+    D_800AE9EA = 0;
+}

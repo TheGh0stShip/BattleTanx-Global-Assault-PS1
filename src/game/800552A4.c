@@ -1,96 +1,139 @@
-asm(".text\n\t.globl func_800552A4\nfunc_800552A4:\n\t"
-    ".word 0x27BDFF58,0xAFB00088,0x00808021,0xAFB40098\n\t"
-    ".word 0x00A0A021,0xAFB1008C,0x00C08821,0x24040014\n\t"
-    ".word 0x2408FFFD,0x2403000A,0x2402FFF9,0x2407FFFE\n\t"
-    ".word 0x24050003,0x24060002,0xA7A30030,0xA7A30038\n\t"
-    ".word 0x2403FFF6,0xA7A2001C,0xA7A20024,0x24020007\n\t"
-    ".word 0xAFBF00A0,0xAFB5009C,0xAFB30094,0xAFB20090\n\t"
-    ".word 0xA7A00010,0xA7A00028,0xA7A00012,0xA7A0002A\n\t"
-    ".word 0xA7A00014,0xA7A0002C,0xA7A80018,0xA7A0001A\n\t"
-    ".word 0xA7A00032,0xA7A70034,0xA7A50020,0xA7A00022\n\t"
-    ".word 0xA7A0003A,0xA7A6003C,0xA7A00040,0xA7A00058\n\t"
-    ".word 0xA7A00042,0xA7A0005A,0xA7A00044,0xA7A0005C\n\t"
-    ".word 0xA7A50048,0xA7A30060,0xA7A0004A,0xA7A00062\n\t"
-    ".word 0xA7A2004C,0xA7A60064,0xA7A80050,0xA7A30068\n\t"
-    ".word 0xA7A00052,0xA7A0006A,0xA7A20054,0x0C01A3BA\n\t"
-    ".word 0xA7A7006C,0x02009021,0x02809821,0x00403821\n\t"
-    ".word 0x10E0004B,0x27B50010,0x24020004,0xA0E20003\n\t"
-    ".word 0x24020020,0xA0E20007,0x92220000,0x00000000\n\t"
-    ".word 0xA0E20004,0x92220001,0x00000000,0xA0E20005\n\t"
-    ".word 0x92220002,0x00000000,0xA0E20006,0x92220003\n\t"
-    ".word 0x00000000,0x2C4200FF,0x10400005,0x00000000\n\t"
-    ".word 0x90E20007,0x00000000,0x34420002,0xA0E20007\n\t"
-    ".word 0x97A50010,0x97A20018,0x97A30020,0x00B02821\n\t"
-    ".word 0x00501021,0x00701821,0xA7A50070,0xA7A20078\n\t"
-    ".word 0xA7A30080,0x96A40004,0x97A2001C,0x97A30024\n\t"
-    ".word 0x00541021,0x00741821,0x00942021,0xA7A2007C\n\t"
-    ".word 0xA7A30084,0xA7A40074,0xA4E50008,0x97A20074\n\t"
-    ".word 0x00000000,0xA4E2000A,0x97A20078,0x3C06FF00\n\t"
-    ".word 0xA4E2000C,0x97A2007C,0x3C0500FF,0xA4E2000E\n\t"
-    ".word 0x97A20080,0x34A5FFFF,0xA4E20010,0x3C02800A\n\t"
-    ".word 0x8C4248B4,0x97A30084,0x000222C0,0x00822021\n\t"
-    ".word 0x000420C0,0x3C02800D,0x24425B8C,0x00822021\n\t"
-    ".word 0xA4E30012,0x8CE30000,0x8C820000,0x00661824\n\t"
-    ".word 0x00451024,0x00621825,0xACE30000,0x8C820000\n\t"
-    ".word 0x00E52824,0x00461024,0x00451025,0xAC820000\n\t"
-    ".word 0x0C01A3BA,0x24040014,0x00403821,0x10E0004A\n\t"
-    ".word 0x24020004,0xA0E20003,0x24020020,0xA0E20007\n\t"
-    ".word 0x92220000,0x00000000,0xA0E20004,0x92220001\n\t"
-    ".word 0x00000000,0xA0E20005,0x92220002,0x00000000\n\t"
-    ".word 0xA0E20006,0x92220003,0x00000000,0x2C4200FF\n\t"
-    ".word 0x10400005,0x00000000,0x90E20007,0x00000000\n\t"
-    ".word 0x34420002,0xA0E20007,0x97A40028,0x97A20030\n\t"
-    ".word 0x97A3002C,0x00521021,0xA7A20078,0x97A20038\n\t"
-    ".word 0x00731821,0xA7A30074,0x97A3003C,0x00922021\n\t"
-    ".word 0xA7A40070,0x00521021,0xA7A20080,0x97A20034\n\t"
-    ".word 0x00731821,0xA7A30084,0x00531021,0xA7A2007C\n\t"
-    ".word 0xA4E40008,0x97A20074,0x00000000,0xA4E2000A\n\t"
-    ".word 0x97A20078,0x3C0500FF,0xA4E2000C,0x97A2007C\n\t"
-    ".word 0x34A5FFFF,0xA4E2000E,0x97A20080,0x3C06FF00\n\t"
-    ".word 0xA4E20010,0x3C02800A,0x8C4248B4,0x97A30084\n\t"
-    ".word 0x000222C0,0x00822021,0x000420C0,0x3C02800D\n\t"
-    ".word 0x24425B8C,0x00822021,0xA4E30012,0x8CE30000\n\t"
-    ".word 0x8C820000,0x00661824,0x00451024,0x00621825\n\t"
-    ".word 0xACE30000,0x8C820000,0x00E52824,0x00461024\n\t"
-    ".word 0x00451025,0xAC820000,0x0C01A3BA,0x24040014\n\t"
-    ".word 0x00403821,0x10E0004A,0x24020004,0xA0E20003\n\t"
-    ".word 0x24020020,0xA0E20007,0x92220000,0x00000000\n\t"
-    ".word 0xA0E20004,0x92220001,0x00000000,0xA0E20005\n\t"
-    ".word 0x92220002,0x00000000,0xA0E20006,0x92220003\n\t"
-    ".word 0x00000000,0x2C4200FF,0x10400005,0x00000000\n\t"
-    ".word 0x90E20007,0x00000000,0x34420002,0xA0E20007\n\t"
-    ".word 0x97A40040,0x97A20048,0x97A30044,0x00521021\n\t"
-    ".word 0xA7A20078,0x97A20050,0x00731821,0xA7A30074\n\t"
-    ".word 0x97A30054,0x00922021,0xA7A40070,0x00521021\n\t"
-    ".word 0xA7A20080,0x97A2004C,0x00731821,0xA7A30084\n\t"
-    ".word 0x00531021,0xA7A2007C,0xA4E40008,0x97A20074\n\t"
-    ".word 0x00000000,0xA4E2000A,0x97A20078,0x3C0500FF\n\t"
-    ".word 0xA4E2000C,0x97A2007C,0x34A5FFFF,0xA4E2000E\n\t"
-    ".word 0x97A20080,0x3C06FF00,0xA4E20010,0x3C02800A\n\t"
-    ".word 0x8C4248B4,0x97A30084,0x000222C0,0x00822021\n\t"
-    ".word 0x000420C0,0x3C02800D,0x24425B8C,0x00822021\n\t"
-    ".word 0xA4E30012,0x8CE30000,0x8C820000,0x00661824\n\t"
-    ".word 0x00451024,0x00621825,0xACE30000,0x8C820000\n\t"
-    ".word 0x00E52824,0x00461024,0x00451025,0xAC820000\n\t"
-    ".word 0x0C01A3BA,0x24040014,0x00403821,0x10E0004A\n\t"
-    ".word 0x24020004,0xA0E20003,0x24020020,0xA0E20007\n\t"
-    ".word 0x92220000,0x00000000,0xA0E20004,0x92220001\n\t"
-    ".word 0x00000000,0xA0E20005,0x92220002,0x00000000\n\t"
-    ".word 0xA0E20006,0x92220003,0x00000000,0x2C4200FF\n\t"
-    ".word 0x10400005,0x00000000,0x90E20007,0x00000000\n\t"
-    ".word 0x34420002,0xA0E20007,0x97A40058,0x97A20060\n\t"
-    ".word 0x97A3005C,0x00521021,0xA7A20078,0x97A20068\n\t"
-    ".word 0x00731821,0xA7A30074,0x97A3006C,0x00922021\n\t"
-    ".word 0xA7A40070,0x00521021,0xA7A20080,0x97A20064\n\t"
-    ".word 0x00731821,0xA7A30084,0x00531021,0xA7A2007C\n\t"
-    ".word 0xA4E40008,0x97A20074,0x00000000,0xA4E2000A\n\t"
-    ".word 0x97A20078,0x3C0500FF,0xA4E2000C,0x97A2007C\n\t"
-    ".word 0x34A5FFFF,0xA4E2000E,0x97A20080,0x3C06FF00\n\t"
-    ".word 0xA4E20010,0x3C02800A,0x8C4248B4,0x97A30084\n\t"
-    ".word 0x000222C0,0x00822021,0x000420C0,0x3C02800D\n\t"
-    ".word 0x24425B8C,0x00822021,0xA4E30012,0x8CE30000\n\t"
-    ".word 0x8C820000,0x00661824,0x00451024,0x00621825\n\t"
-    ".word 0xACE30000,0x8C820000,0x00E52824,0x00461024\n\t"
-    ".word 0x00451025,0xAC820000,0x8FBF00A0,0x8FB5009C\n\t"
-    ".word 0x8FB40098,0x8FB30094,0x8FB20090,0x8FB1008C\n\t"
-    ".word 0x8FB00088,0x03E00008,0x27BD00A8\n");
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVECTOR;
+typedef struct {
+    unsigned long tag;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+    unsigned char code;
+    short x0;
+    short y0;
+    short x1;
+    short y1;
+    short x2;
+    short y2;
+} POLY_F3;
+typedef struct {
+    unsigned addr : 24;
+    unsigned len : 8;
+} P_TAG;
+typedef struct {
+    unsigned long ot[0x4008 / 4];
+} OrderingTable;
+extern OrderingTable D_800D5B8C[];
+extern int D_800A48B4;
+extern void *func_80068EE8(int);
+
+static inline void draw_tri(short x, short y, unsigned char *color, SVECTOR *shape, SVECTOR *pt) {
+    POLY_F3 *poly;
+    unsigned long *ot;
+
+    poly = func_80068EE8(sizeof(POLY_F3));
+    if (poly == 0) {
+        return;
+    }
+    ((unsigned char *)poly)[3] = 4;
+    poly->code = 0x20;
+    poly->r0 = color[0];
+    poly->g0 = color[1];
+    poly->b0 = color[2];
+    if (color[3] < 255) {
+        poly->code |= 2;
+    }
+    pt[0].vx = shape[0].vx + x;
+    pt[1].vx = shape[1].vx + x;
+    pt[2].vx = shape[2].vx + x;
+    pt[0].vz = shape[0].vz + y;
+    pt[1].vz = shape[1].vz + y;
+    pt[2].vz = shape[2].vz + y;
+    poly->x0 = pt[0].vx;
+    poly->y0 = pt[0].vz;
+    poly->x1 = pt[1].vx;
+    poly->y1 = pt[1].vz;
+    poly->x2 = pt[2].vx;
+    poly->y2 = pt[2].vz;
+    ot = D_800D5B8C[D_800A48B4].ot;
+    ((P_TAG *)poly)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)poly;
+}
+
+void func_800552A4(short x, short y, unsigned char *color) {
+    SVECTOR a[3];
+    SVECTOR b[3];
+    SVECTOR c[3];
+    SVECTOR d[3];
+    SVECTOR pt[3];
+    POLY_F3 *poly;
+    unsigned long *ot;
+    SVECTOR *base = a;
+
+    a[0].vx = 0;
+    b[0].vx = 0;
+    a[0].vy = 0;
+    b[0].vy = 0;
+    a[0].vz = 0;
+    b[0].vz = 0;
+    a[1].vx = -3;
+    b[1].vx = 10;
+    a[1].vy = 0;
+    b[1].vy = 0;
+    a[1].vz = -7;
+    b[1].vz = -2;
+    a[2].vx = 3;
+    b[2].vx = 10;
+    a[2].vy = 0;
+    b[2].vy = 0;
+    a[2].vz = -7;
+    b[2].vz = 2;
+    c[0].vx = 0;
+    d[0].vx = 0;
+    c[0].vy = 0;
+    d[0].vy = 0;
+    c[0].vz = 0;
+    d[0].vz = 0;
+    c[1].vx = 3;
+    d[1].vx = -10;
+    c[1].vy = 0;
+    d[1].vy = 0;
+    c[1].vz = 7;
+    d[1].vz = 2;
+    c[2].vx = -3;
+    d[2].vx = -10;
+    c[2].vy = 0;
+    d[2].vy = 0;
+    c[2].vz = 7;
+    d[2].vz = -2;
+    poly = func_80068EE8(sizeof(POLY_F3));
+    if (poly != 0) {
+        ((unsigned char *)poly)[3] = 4;
+        poly->code = 0x20;
+        poly->r0 = color[0];
+        poly->g0 = color[1];
+        poly->b0 = color[2];
+        if (color[3] < 255) {
+            poly->code |= 2;
+        }
+        pt[0].vx = a[0].vx + x;
+        pt[1].vx = a[1].vx + x;
+        pt[2].vx = a[2].vx + x;
+        pt[0].vz = base->vz + y;
+        pt[1].vz = a[1].vz + y;
+        pt[2].vz = a[2].vz + y;
+        poly->x0 = pt[0].vx;
+        poly->y0 = pt[0].vz;
+        poly->x1 = pt[1].vx;
+        poly->y1 = pt[1].vz;
+        poly->x2 = pt[2].vx;
+        poly->y2 = pt[2].vz;
+        ot = D_800D5B8C[D_800A48B4].ot;
+        ((P_TAG *)poly)->addr = ((P_TAG *)ot)->addr;
+        ((P_TAG *)ot)->addr = (unsigned long)poly;
+    }
+    draw_tri(x, y, color, b, pt);
+    draw_tri(x, y, color, c, pt);
+    draw_tri(x, y, color, d, pt);
+}

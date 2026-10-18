@@ -1,20 +1,62 @@
-asm(".text\n\t.globl func_80082FE0\nfunc_80082FE0:\n\t"
-    ".word 0x27BDFFC0,0xAFB1001C,0x00808821,0xAFB30024\n\t"
-    ".word 0x00A09821,0xAFB40028,0x00C0A021,0xAFBF0038\n\t"
-    ".word 0xAFB70034,0xAFB60030,0xAFB5002C,0xAFB20020\n\t"
-    ".word 0xAFB00018,0x8E220024,0x00000000,0x10400006\n\t"
-    ".word 0x00E0A821,0x24020001,0xAE330028,0xAE34002C\n\t"
-    ".word 0x08020C38,0xAE350030,0xAE200028,0x3C02800F\n\t"
-    ".word 0x2457DC9C,0x3C028008,0x24562F7C,0x8E240000\n\t"
-    ".word 0x00000000,0x00041080,0x00578021,0x8E0201C8\n\t"
-    ".word 0x00000000,0x10400003,0x00009021,0x0C0208A3\n\t"
-    ".word 0x00000000,0x2404000B,0x24020001,0xAE150240\n\t"
-    ".word 0xAE1101C8,0xAE220024,0xAFB40010,0xAFB60014\n\t"
-    ".word 0x8E02000C,0x8E250008,0x8E260010,0x0040F809\n\t"
-    ".word 0x02603821,0x14400002,0x00000000,0xAE0001C8\n\t"
-    ".word 0x8E230028,0x00000000,0x10600007,0xAE200024\n\t"
-    ".word 0x00609821,0x8E34002C,0x8E350030,0x24120001\n\t"
-    ".word 0xAE200030,0xAE200028,0x1640FFDC,0x00000000\n\t"
-    ".word 0x8FBF0038,0x8FB70034,0x8FB60030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef struct Request {
+    int port;
+    int unk04;
+    int addr;
+    int unk0C;
+    int sector;
+    char pad14[0x10];
+    int busy;
+    void *queued_buf;
+    int queued_len;
+    void *queued_cb;
+} Request;
+
+typedef struct RequestTable {
+    char pad000[0xC];
+    int (*io[30])(int, int, int, void *, int, void *);
+    char pad084[0x144];
+    Request *pending[30];
+    void *callback[30];
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+extern void func_8008228C(int);
+extern void func_80082F7C(int, int, int, int);
+
+int func_80082FE0(Request *r, void *buf, int len, void *cb) {
+    int again;
+    int result;
+    int port;
+
+    if (r->busy != 0) {
+        r->queued_buf = buf;
+        r->queued_len = len;
+        r->queued_cb = cb;
+        return 1;
+    }
+    r->queued_buf = 0;
+    do {
+        port = r->port;
+        again = 0;
+        if (D_800EDC9C.pending[port] != 0) {
+            func_8008228C(port);
+        }
+        D_800EDC9C.callback[port] = cb;
+        D_800EDC9C.pending[port] = r;
+        r->busy = 1;
+        result = D_800EDC9C.io[port](11, r->addr, r->sector, buf, len, func_80082F7C);
+        if (result == 0) {
+            D_800EDC9C.pending[port] = 0;
+        }
+        r->busy = 0;
+        if (r->queued_buf != 0) {
+            buf = r->queued_buf;
+            len = r->queued_len;
+            cb = r->queued_cb;
+            again = 1;
+            r->queued_cb = 0;
+            r->queued_buf = 0;
+        }
+    } while (again);
+    return result;
+}

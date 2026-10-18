@@ -1,44 +1,119 @@
-asm(".text\n\t.globl func_80046DD8\nfunc_80046DD8:\n\t"
-    ".word 0x27BDFFB8,0xAFB10034,0x00808821,0xAFB3003C\n\t"
-    ".word 0x00A09821,0xAFB00030,0x00C08021,0xAFBF0040\n\t"
-    ".word 0xAFB20038,0x96620004,0x00000000,0x2442FFFC\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620040,0x1040007A\n\t"
-    ".word 0x00E09021,0x3C02800C,0x2442F290,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x24020001,0xAE420000,0x8E730008\n\t"
-    ".word 0x12000085,0x00000000,0x12200083,0x00000000\n\t"
-    ".word 0x8E050020,0x00000000,0x10A0007F,0x26240034\n\t"
-    ".word 0x8E220008,0x8E230010,0x24060800,0xAFA20020\n\t"
-    ".word 0xAFA30024,0x8E020000,0x8E030008,0x27A70020\n\t"
-    ".word 0xAFA20028,0x27A20028,0xAFA3002C,0x0C007C89\n\t"
-    ".word 0xAFA20010,0x02602021,0x02402821,0x24020008\n\t"
-    ".word 0x0C010F4C,0xACA20000,0x08011C18,0x00000000\n\t"
-    ".word 0x0C008A05,0x00000000,0x1040000E,0x02202021\n\t"
-    ".word 0x8E020018,0x00000000,0x10400002,0x00003021\n\t"
-    ".word 0x8E060014,0xAFB00010,0x9603000C,0x26420004\n\t"
-    ".word 0xAFA20018,0xAFA30014,0x8E050010,0x08011BC6\n\t"
-    ".word 0x02202021,0xAFB00010,0x9603000C,0x26420004\n\t"
-    ".word 0xAFA20018,0xAFA30014,0x8E050010,0x8E060014\n\t"
-    ".word 0x0C010030,0x00003821,0x8E220214,0x00000000\n\t"
-    ".word 0x1840004B,0x24020028,0x86640004,0x00000000\n\t"
-    ".word 0x10820003,0x24020034,0x14820046,0x24020001\n\t"
-    ".word 0x08011C17,0x24020005,0x0C008A05,0x00000000\n\t"
-    ".word 0x1040000E,0x02202021,0x8E020018,0x00000000\n\t"
-    ".word 0x10400002,0x00003021,0x8E060014,0xAFB00010\n\t"
-    ".word 0x9603000C,0x26420004,0xAFA20018,0xAFA30014\n\t"
-    ".word 0x8E050010,0x08011BEC,0x02202021,0xAFB00010\n\t"
-    ".word 0x9603000C,0x26420004,0xAFA20018,0xAFA30014\n\t"
-    ".word 0x8E050010,0x8E060014,0x0C010030,0x00003821\n\t"
-    ".word 0x08011C17,0x24020001,0x8E23009C,0x24020008\n\t"
-    ".word 0x10620025,0x00000000,0x0C008A05,0x00000000\n\t"
-    ".word 0x1040001B,0x02202021,0x8E020018,0x00000000\n\t"
-    ".word 0x10400002,0x00003021,0x8E060014,0x8E050010\n\t"
-    ".word 0x08011C14,0x02202021,0x8E020010,0x00000000\n\t"
-    ".word 0x18400014,0x24020001,0x12200012,0x00000000\n\t"
-    ".word 0x0C008A05,0x00000000,0x10400009,0x02202021\n\t"
-    ".word 0x8E020018,0x00000000,0x10400002,0x00003021\n\t"
-    ".word 0x8E060014,0x8E050010,0x08011C14,0x02202021\n\t"
-    ".word 0x8E050010,0x8E060014,0x0C00FEDA,0x00003821\n\t"
-    ".word 0x24020001,0xAE420000,0x8FBF0040,0x8FB3003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0048\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int z;
+} Point;
+typedef struct {
+    int x;
+    int y;
+    int z;
+    unsigned short part;
+    char padE[2];
+    int source;
+    int damage;
+    int scaled;
+    char pad1C[4];
+    int effect;
+} Hit;
+typedef struct {
+    char pad0[4];
+    union {
+        unsigned short kind;
+        short signed_kind;
+    } u;
+    char pad6[2];
+    void *owner;
+} Object;
+typedef struct {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+    char pad14[0x34 - 0x14];
+    char model[0x9C - 0x34];
+    int type;
+    char padA0[0x214 - 0xA0];
+    int armor;
+} Tank;
+extern int func_80022814();
+extern void func_8001F224(void *, int, int, Point *, Point *);
+extern void func_80043D30(void *, int *);
+extern void func_800400C0(Tank *, int, int, int, Hit *, int, int *);
+extern void func_8003FB68(Tank *, int, int, int);
+
+static inline void set_point(Point *p, int x, int z) {
+    p->x = x;
+    p->z = z;
+}
+
+static inline void apply_hit(Tank *tank, Hit *hit, int *out) {
+    if (func_80022814() != 0) {
+        func_800400C0(tank, hit->source, hit->scaled != 0 ? hit->damage : 0, 0, hit, hit->part, out + 1);
+    } else {
+        func_800400C0(tank, hit->source, hit->damage, 0, hit, hit->part, out + 1);
+    }
+}
+
+static inline void apply_damage(Tank *tank, Hit *hit) {
+    if (func_80022814() != 0) {
+        func_8003FB68(tank, hit->source, hit->scaled != 0 ? hit->damage : 0, 0);
+    } else {
+        func_8003FB68(tank, hit->source, hit->damage, 0);
+    }
+}
+
+void func_80046DD8(Tank *tank, Object *obj, Hit *hit, int *out) {
+    Point from;
+    Point to;
+    void *owner;
+    int effect;
+    int x;
+    int z;
+
+    switch ((short)(obj->u.kind - 4)) {
+    case 0:
+        *out = 1;
+        owner = obj->owner;
+        if (hit != 0 && tank != 0 && (effect = hit->effect) != 0) {
+            x = tank->x;
+            z = tank->z;
+            from.x = x;
+            from.z = z;
+            set_point(&to, hit->x, hit->z);
+            func_8001F224(tank->model, effect, 2048, &from, &to);
+            *out = 8;
+            func_80043D30(owner, out);
+        }
+        return;
+    case 8:
+    case 35:
+    case 36:
+    case 48:
+        apply_hit(tank, hit, out);
+        if (tank->armor > 0 && (obj->u.signed_kind == 40 || obj->u.signed_kind == 52)) {
+            *out = 5;
+        } else {
+            *out = 1;
+        }
+        return;
+    case 3:
+        apply_hit(tank, hit, out);
+        *out = 1;
+        return;
+    case 63:
+        if (tank->type == 8) {
+            return;
+        }
+        apply_damage(tank, hit);
+        *out = 1;
+        return;
+    }
+    if (hit->source > 0 && tank != 0) {
+        apply_damage(tank, hit);
+    }
+    *out = 1;
+}

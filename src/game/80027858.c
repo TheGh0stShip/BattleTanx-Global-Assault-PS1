@@ -1,74 +1,192 @@
-asm(".text\n\t.globl func_80027858\nfunc_80027858:\n\t"
-    ".word 0x27BDFFD0,0xAFB00020,0x00808021,0xAFB10024\n\t"
-    ".word 0x00C08821,0xAFBF0028,0x8E030008,0x8E240000\n\t"
-    ".word 0x8E020010,0x8E250004,0x00642023,0x0C022B8C\n\t"
-    ".word 0x00452823,0x30420FFF,0x8E040008,0x8E230000\n\t"
-    ".word 0x00023900,0x00831023,0x04400003,0x00401821\n\t"
-    ".word 0x08009E2F,0x00022303,0x00031023,0x00021303\n\t"
-    ".word 0x00022023,0x8E030010,0x8E220004,0x00000000\n\t"
-    ".word 0x00621023,0x04400003,0x00401821,0x08009E3A\n\t"
-    ".word 0x00021303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00840018,0x00001812,0x00000000,0x00000000\n\t"
-    ".word 0x00420018,0x3C02800D,0x8C455A80,0x00004012\n\t"
-    ".word 0x00682021,0x00A4102A,0x144000F0,0x24020005\n\t"
-    ".word 0x92030017,0x00000000,0x1062000C,0x28620006\n\t"
-    ".word 0x14400006,0x28620004,0x24020006,0x106200BC\n\t"
-    ".word 0x240200FA,0x08009F35,0x00000000,0x104000E3\n\t"
-    ".word 0x00000000,0x046000E1,0x00000000,0x8E230014\n\t"
-    ".word 0x240200FA,0x10620009,0x3C02800D,0x82020016\n\t"
-    ".word 0x00000000,0x0043102A,0x92030016,0x10400057\n\t"
-    ".word 0x00000000,0x08009F35,0xA2000016,0x8C455A80\n\t"
-    ".word 0x24090333,0x01250018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x0082102A\n\t"
-    ".word 0x144000B6,0x240A0666,0x01450018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x0082102A,0x10400008,0x24090999,0x96060014\n\t"
-    ".word 0xAFA00010,0x8E040030,0x0C00D61E,0x26050008\n\t"
-    ".word 0x08009F21,0x00000000,0x01250018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x0082102A,0x10400021,0x240A0CCC,0x96060014\n\t"
-    ".word 0xAFA00010,0x8E040030,0x0C00D61E,0x26050008\n\t"
-    ".word 0x8603003A,0x2402FFFF,0x10620013,0x3C02800D\n\t"
-    ".word 0x8C423258,0x00031980,0x00431021,0x90430018\n\t"
-    ".word 0x2402007F,0x14620003,0x00031100,0x08009E9E\n\t"
-    ".word 0x00002021,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00432021\n\t"
-    ".word 0x0C014C75,0x24050009,0x24020005,0xA2020017\n\t"
-    ".word 0x2402FFFF,0x08009F35,0xA2020016,0x01450018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x0082102A,0x1040000D,0x00A41823\n\t"
-    ".word 0x82020016,0x92030016,0x284200FA,0x10400003\n\t"
-    ".word 0x00000000,0x08009F35,0xA2000016,0x92220014\n\t"
-    ".word 0x00000000,0x00621023,0x08009F35,0xA2020016\n\t"
-    ".word 0x00031080,0x14A00002,0x00432021,0x24050002\n\t"
-    ".word 0x3C028000,0x00821824,0x00A21024,0x00624026\n\t"
-    ".word 0x04810002,0x00801821,0x00031823,0x04A10002\n\t"
-    ".word 0x00A03021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20018,0xE85F0000,0x8FA40018\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2001C,0xE85F0000,0x8FA5001C,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x08009EE4,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08009EFA\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08009EFC,0x00601021,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11000002,0x240A000F\n\t"
-    ".word 0x00021023,0x01420018,0x00001812,0x00004810\n\t"
-    ".word 0x00031B02,0x00094D00,0x00691825,0x92020016\n\t"
-    ".word 0x00000000,0x00431023,0x08009F35,0xA2020016\n\t"
-    ".word 0x8E230014,0x00000000,0x14620028,0x00000000\n\t"
-    ".word 0x24090333,0x01250018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x0082102A\n\t"
-    ".word 0x1440000A,0x240A0666,0x01450018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x0082102A,0x10400005,0x24090999,0x0C009A23\n\t"
-    ".word 0x02002021,0x08009F35,0x00000000,0x01250018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x0082102A,0x14400008,0x00000000\n\t"
-    ".word 0x240A0CCC,0x01450018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8FBF0028\n\t"
-    ".word 0x8FB10024,0x8FB00020,0x03E00008,0x27BD0030\n");
+typedef struct {
+    char pad0[0x18];
+    unsigned char owner;
+    char pad19[0x40 - 0x19];
+} Node;
+
+typedef struct {
+    char pad0[0x114];
+} Waypoint;
+
+typedef struct {
+    int x;
+    int z;
+    int radius_sq;
+    int a;
+    int b;
+    int damage;
+} Blast;
+
+typedef struct {
+    char pad0[8];
+    int pos[3];
+    unsigned short angle;
+    signed char health;
+    unsigned char state;
+    char pad18[0x30 - 0x18];
+    int effect;
+    char pad34[0x3A - 0x34];
+    short link;
+} Crate;
+
+extern int D_800D5A80;
+extern Node *D_800D3258;
+extern Waypoint D_800E3E68[];
+extern int func_8008AE30(int, int);
+extern void func_80035878(int, int *, int, int, int);
+extern void func_8002688C(Crate *);
+extern void func_800531D4(Waypoint *, int);
+int abs(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        quotient = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = quotient / (d >> scale);
+            } else {
+                quotient = quotient / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = quotient / (d >> -excess);
+        }
+    } else {
+        quotient = n << 12;
+        quotient = quotient / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80027858(Crate *c, int unused, Blast *b) {
+    int angle;
+    int dx;
+    int dz;
+    int dist;
+    int range;
+
+    angle = (func_8008AE30(c->pos[0] - b->x, c->pos[2] - b->z) & 0xFFF) << 4;
+    dx = fixed_to_int(c->pos[0] - b->x);
+    dz = fixed_to_int(c->pos[2] - b->z);
+    dist = dx * dx + dz * dz;
+    if (dist > D_800D5A80) {
+        return;
+    }
+    switch (c->state) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 5:
+        if (b->damage != 250) {
+            if (c->health < b->damage) {
+                c->health = 0;
+            } else {
+                c->health -= b->damage;
+            }
+        } else {
+            range = D_800D5A80;
+            if (dist < fixed_mul(819, range)) {
+                func_8002688C(c);
+            } else if (dist < fixed_mul(1638, range)) {
+                func_80035878(c->effect, c->pos, c->angle, angle, 0);
+                func_8002688C(c);
+            } else if (dist < fixed_mul(2457, range)) {
+                func_80035878(c->effect, c->pos, c->angle, angle, 0);
+                if (c->link != -1) {
+                    func_800531D4(waypoint_get(((Node *)((char *)D_800D3258 + (c->link << 6)))->owner), 9);
+                }
+                c->state = 5;
+                c->health = -1;
+            } else if (dist < fixed_mul(3276, range)) {
+                if (c->health < b->damage) {
+                    c->health = 0;
+                } else {
+                    c->health -= b->damage;
+                }
+            } else {
+                int n = (range - dist) * 5;
+
+                if (range == 0) {
+                    range = 2;
+                }
+                c->health -= fixed_mul(15, fixed_div(n, range));
+            }
+        }
+        break;
+    case 6:
+        if (b->damage == 250) {
+            range = D_800D5A80;
+            if (dist < fixed_mul(819, range)) {
+                func_8002688C(c);
+            } else if (dist < fixed_mul(1638, range)) {
+                func_8002688C(c);
+            } else if (dist < fixed_mul(2457, range)) {
+            } else if (dist < fixed_mul(3276, range)) {
+            }
+        }
+        break;
+    }
+}

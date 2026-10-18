@@ -1,11 +1,29 @@
-asm(".text\n\t.globl func_80063A68\nfunc_80063A68:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00008021,0x3c02800e\n\t"
-    ".word 0xafb10014,0x24514acc,0xafbf0018,0x3204ffff\n\t"
-    ".word 0x00041080,0x00441021,0x00021080,0x00441023\n\t"
-    ".word 0x000210c0,0x00511021,0xa4400000,0x0c018f6e\n\t"
-    ".word 0xa0400014,0x26100001,0x3202ffff,0x2c420002\n\t"
-    ".word 0x1440fff3,0x3204ffff,0x3c02800b,0xa440ba68\n\t"
-    ".word 0x2442ba68,0xa4400002,0x3c02800b,0xa440ba54\n\t"
-    ".word 0x2442ba54,0xa4400002,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x3c02800b,0xa440ba58,0x3c02800e\n\t"
-    ".word 0xa4404d6c,0x03e00008,0x27bd0020\n\t");
+typedef struct Status {
+    short value;
+    char pad[0x12];
+    unsigned char flag;
+    char pad2[0x83];
+} Status;
+
+extern Status D_800E4ACC[];
+extern short D_800ABA68[];
+extern short D_800ABA54[];
+extern short D_800ABA58;
+extern unsigned short D_800E4D6C;
+extern void func_80063DB8(unsigned short);
+
+void func_80063A68(void) {
+    unsigned short i;
+
+    for (i = 0; i < 2; i++) {
+        D_800E4ACC[i].value = 0;
+        D_800E4ACC[i].flag = 0;
+        func_80063DB8(i);
+    }
+    D_800ABA68[0] = 0;
+    D_800ABA68[1] = 0;
+    D_800ABA54[0] = 0;
+    D_800ABA54[1] = 0;
+    D_800ABA58 = 0;
+    D_800E4D6C = 0;
+}

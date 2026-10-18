@@ -1,10 +1,36 @@
-asm(".text\n\t.globl func_80064104\nfunc_80064104:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x00a02021\n\t"
-    ".word 0x3c02800b,0x2442b604,0x16020006,0xafbf0014\n\t"
-    ".word 0x3c02800b,0x3c03800f,0x8c42b7b4,0x08019052\n\t"
-    ".word 0x2463ae4c,0x3c02800b,0x3c03800f,0x8c42b7b4\n\t"
-    ".word 0x2463ac94,0xac430028,0x8e050004,0x0c0168bc\n\t"
-    ".word 0x24a50020,0x3c04800b,0x2484b7b0,0x3c02800b\n\t"
-    ".word 0x02002821,0x9042ba5a,0x24060001,0x0c016554\n\t"
-    ".word 0xa4820014,0x8fbf0014,0x8fb00010,0x00001021\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct Menu {
+    int pad;
+    char *base;
+} Menu;
+
+typedef struct Element {
+    int pad[10];
+    int *style;
+} Element;
+
+typedef struct Group {
+    int pad;
+    Element *element;
+    int pad2[3];
+    short value;
+} Group;
+
+extern Menu D_800AB604;
+extern Group D_800AB7B0;
+extern unsigned char D_800ABA5A;
+extern int D_800EAC94;
+extern int D_800EAE4C;
+extern void func_8005A2F0(int, void *);
+extern void func_80059550(void *, void *, int);
+
+int func_80064104(Menu *menu, int arg) {
+    if (menu == &D_800AB604) {
+        D_800AB7B0.element->style = &D_800EAE4C;
+    } else {
+        D_800AB7B0.element->style = &D_800EAC94;
+    }
+    func_8005A2F0(arg, menu->base + 0x20);
+    D_800AB7B0.value = D_800ABA5A;
+    func_80059550(&D_800AB7B0, menu, 1);
+    return 0;
+}

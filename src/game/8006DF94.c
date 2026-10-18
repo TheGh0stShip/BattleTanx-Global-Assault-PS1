@@ -1,29 +1,73 @@
-asm(".text\n\t.globl func_8006DF94\nfunc_8006DF94:\n\t"
-    ".word 0x00803821,0x84E20016,0x00000000,0x00460018\n\t"
-    ".word 0x8CA20000,0x94E3000C,0x00021303,0x00621823\n\t"
-    ".word 0xA4E3000C,0x8CA20004,0x94E3000E,0x00021303\n\t"
-    ".word 0x00621823,0xA4E3000E,0x8CA20008,0x94E30010\n\t"
-    ".word 0x00021303,0x00621823,0x00002012,0x04810003\n\t"
-    ".word 0xA4E30010,0x3402FFFF,0x00822021,0x84E20018\n\t"
-    ".word 0x00000000,0x00460018,0x94E2000C,0x00041C03\n\t"
-    ".word 0x00431021,0x00002812,0x04A10003,0xA4E2000C\n\t"
-    ".word 0x3402FFFF,0x00A22821,0x84E2001A,0x00000000\n\t"
-    ".word 0x00460018,0x94E2000E,0x00051C03,0x00431021\n\t"
-    ".word 0x00002012,0x04810003,0xA4E2000E,0x3402FFFF\n\t"
-    ".word 0x00822021,0x00041403,0x94E30010,0x84E4000E\n\t"
-    ".word 0x00621821,0x2884FF01,0x10800002,0xA4E30010\n\t"
-    ".word 0xACE00008,0x80E2001E,0x00000000,0x00460018\n\t"
-    ".word 0x00001012,0x04410003,0x00021B03,0x24420FFF\n\t"
-    ".word 0x00021B03,0x94E20014,0x8CE50008,0x00431021\n\t"
-    ".word 0x90E30027,0x00A63023,0xA4E20014,0x240200FF\n\t"
-    ".word 0x10620027,0xACE60008,0x90E40029,0x00051303\n\t"
-    ".word 0x00061B03,0x00431823,0x0064102A,0x10400003\n\t"
-    ".word 0x00831023,0x03E00008,0xA0E20029,0x90E20028\n\t"
-    ".word 0x90E30027,0x24420001,0xA0E20028,0x3C02800B\n\t"
-    ".word 0x2445DF48,0x00031880,0x00651821,0x90E20028\n\t"
-    ".word 0x8C630000,0x00021080,0x00432021,0x84830000\n\t"
-    ".word 0x24020001,0x14620004,0x00000000,0x90820003\n\t"
-    ".word 0x00000000,0xA0E20028,0x90E20027,0x90E30028\n\t"
-    ".word 0x00021080,0x00451021,0x8C420000,0x00031880\n\t"
-    ".word 0x00621821,0x90620003,0x00000000,0xA0E20029\n\t"
-    ".word 0x03E00008,0x00000000\n");
+typedef struct {
+    short x, y, z, pad;
+} SVec;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    short cmd;
+    unsigned char arg;
+    unsigned char value;
+} AnimStep;
+
+typedef struct {
+    int pad0;
+    int a;
+    int life;
+    SVec pos;
+    unsigned short angle;
+    short v16;
+    short v18;
+    short v1A;
+    short v1C;
+    signed char spin;
+    char active;
+    short rot;
+    short rot_speed;
+    unsigned char r, g, b;
+    unsigned char anim;
+    unsigned char frame;
+    unsigned char timer;
+} Particle;
+
+extern AnimStep *D_800ADF48[];
+
+static inline void particle_age(Particle *p, int dt) {
+    int life;
+    int elapsed;
+    int timer;
+    AnimStep *step;
+
+    life = p->life;
+    p->life = life - dt;
+    if (p->anim != 255) {
+        timer = p->timer;
+        elapsed = (life >> 12) - (p->life >> 12);
+        if (elapsed < timer) {
+            p->timer -= elapsed;
+            return;
+        }
+        p->frame++;
+        step = (AnimStep *)((p->frame << 2) + (int)D_800ADF48[p->anim]);
+        if (step->cmd == 1) {
+            p->frame = step->value;
+        }
+        p->timer = D_800ADF48[p->anim][p->frame].value;
+    }
+}
+
+void func_8006DF94(Particle *p, Vector *drift, int dt) {
+    p->pos.x -= drift->x >> 12;
+    p->pos.y -= drift->y >> 12;
+    p->pos.z -= drift->z >> 12;
+    p->pos.x += p->v16 * dt / 65536;
+    p->pos.y += p->v18 * dt / 65536;
+    p->pos.z += p->v1A * dt / 65536;
+    if (p->pos.y < -255) {
+        p->life = 0;
+    }
+    p->angle += p->spin * dt / 4096;
+    particle_age(p, dt);
+}

@@ -1,19 +1,33 @@
-asm(".text\n\t.globl func_80033920\nfunc_80033920:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0xafbf001c\n\t"
-    ".word 0x8e03000c,0x24020002,0x1062001d,0x02002021\n\t"
-    ".word 0x8e020010,0x00000000,0x8c420000,0x00000000\n\t"
-    ".word 0x8c420008,0x00000000,0x2c420006,0x14400006\n\t"
-    ".word 0x26050020,0x00003021,0xafa00010,0x8e040010\n\t"
-    ".word 0x0800ce69,0x34078000,0x3c02800d,0x8c422fe0\n\t"
-    ".word 0x00003021,0xafa00010,0x8e040010,0x00023840\n\t"
-    ".word 0x00e23821,0x000738c0,0x00e23821,0x000738c0\n\t"
-    ".word 0x30e7fff8,0x0c01a86f,0x00000000,0x02002021\n\t"
-    ".word 0x8c83000c,0x24020001,0x1462001b,0x00000000\n\t"
-    ".word 0x8c820020,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x0800ce79,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021400,0x8c840028,0x00000000\n\t"
-    ".word 0x04800003,0x00021c03,0x0800ce83,0x00041303\n\t"
-    ".word 0x00041023,0x00021303,0x00021023,0xafa00010\n\t"
-    ".word 0x00602021,0x00022c00,0x00052c03,0x00003021\n\t"
-    ".word 0x0c018730,0x2407000a,0x8fbf001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; unsigned int level; } Info;
+typedef struct { Info *info; } Model;
+typedef struct { int pad[3]; int state; Model *model; int pad2[3]; Vector pos; } Beacon;
+extern int D_800D2FE0;
+void func_8006A1BC(Model *, Vector *, int, unsigned short, int);
+void func_80061CC0(int, int, int, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline void mark_cell(void *p) {
+    Beacon *b = p;
+
+    if (b->state == 1) {
+        func_80061CC0((short)to_int(b->pos.x), (short)to_int(b->pos.z), 0, 10, 0);
+    }
+}
+
+void func_80033920(Beacon *b) {
+    if (b->state != 2) {
+        if (b->model->info->level >= 6) {
+            func_8006A1BC(b->model, &b->pos, 0, 0x8000, 0);
+        } else {
+            func_8006A1BC(b->model, &b->pos, 0, (D_800D2FE0 * 200) & 0xFFF8, 0);
+        }
+    }
+    mark_cell(b);
+}

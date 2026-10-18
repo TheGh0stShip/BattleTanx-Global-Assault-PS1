@@ -1,33 +1,70 @@
-asm(".text\n\t.globl func_8008F628\nfunc_8008F628:\n\t"
-    ".word 0x27BDFFE0,0x00002021,0x00802821,0x00803021\n\t"
-    ".word 0xAFBF001C,0xAFB20018,0xAFB10014,0x0C02677B\n\t"
-    ".word 0xAFB00010,0x3C03800F,0x2465EDF4,0x00408021\n\t"
-    ".word 0x90A30040,0x90A40041,0x32020002,0x00641826\n\t"
-    ".word 0x10400047,0x0003902B,0x00A08821,0x00002021\n\t"
-    ".word 0x24050004,0x8E22000C,0x00803021,0x34420002\n\t"
-    ".word 0x0C02677B,0xAE22000C,0x00402021,0x32020030\n\t"
-    ".word 0x1440002A,0x24050001,0x12400018,0x308300FF\n\t"
-    ".word 0x92220040,0x00000000,0x14620005,0x00000000\n\t"
-    ".word 0x8E220004,0x00002021,0x08023DD7,0x34420008\n\t"
-    ".word 0x92220041,0x00000000,0x1462000C,0x00000000\n\t"
-    ".word 0x8E220004,0x00000000,0x30420040,0x14400007\n\t"
-    ".word 0x00000000,0x8E220004,0x00000000,0x34420040\n\t"
-    ".word 0xAE220004,0x08023DDB,0x00002021,0x8E220004\n\t"
-    ".word 0x00000000,0x30420040,0x10400008,0x00000000\n\t"
-    ".word 0x92220041,0x00000000,0x00822021,0x8E220004\n\t"
-    ".word 0x2403FFBF,0x00431024,0xAE220004,0x0C023D41\n\t"
-    ".word 0x308400FF,0x08023DDB,0x00002021,0x24040002\n\t"
-    ".word 0x0C02677B,0x00003021,0x8E220004,0x00002021\n\t"
-    ".word 0x34420001,0xAE220004,0x0C023D2D,0x00000000\n\t"
-    ".word 0x00002021,0x00802821,0x0C02677B,0x00803021\n\t"
-    ".word 0x00408021,0x32020002,0x1440FFBD,0x00002021\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020,0x27BDFFE8,0xAFB00010\n\t"
-    ".word 0x3C10800F,0x2610EDF4,0xAFBF0014,0x8E02000C\n\t"
-    ".word 0x00000000,0x34420004,0x0C023D8A,0xAE02000C\n\t"
-    ".word 0x00002021,0x24050001,0x00803021,0x8E02000C\n\t"
-    ".word 0x2403FFFB,0x00431024,0x0C02677B,0xAE02000C\n\t"
-    ".word 0x24040001,0x00802821,0x0C02677B,0x34460010\n\t"
-    ".word 0x8E020004,0x00000000,0x30420020,0x10400003\n\t"
-    ".word 0x00000000,0x0C023D04,0x24040001,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0018\n");
+extern int func_80099DEC(int, int, int);
+extern void func_8008F504(unsigned char);
+extern void func_8008F4B4(int);
+extern void func_8008F628(void);
+extern void func_8008F410(int);
+
+typedef struct {
+    char pad0[4];
+    volatile int flags;
+    char pad8[4];
+    int ctl;
+    char pad16[48];
+    unsigned char esc;
+    unsigned char quote;
+} S8008F628;
+extern S8008F628 D_800EEDF4;
+
+void func_8008F628(void) {
+    S8008F628 *s;
+    S8008F628 *q;
+    int status = func_80099DEC(0, 0, 0);
+    int escaping;
+    int c;
+
+    s = &D_800EEDF4;
+    escaping = s->esc != s->quote;
+    if (status & 2) {
+        q = s;
+        do {
+            q->ctl |= 2;
+            c = func_80099DEC(0, 4, 0);
+            if (!(status & 0x30)) {
+                if (escaping) {
+                    if ((c & 0xFF) == q->esc) {
+                        q->flags |= 8;
+                        func_8008F4B4(0);
+                        goto next;
+                    }
+                    if ((c & 0xFF) == q->quote && !(q->flags & 0x40)) {
+                        q->flags |= 0x40;
+                        goto next;
+                    }
+                }
+                if (q->flags & 0x40) {
+                    c += q->quote;
+                    q->flags &= ~0x40;
+                }
+                func_8008F504(c);
+            } else {
+                func_80099DEC(2, 1, 0);
+                q->flags |= 1;
+                func_8008F4B4(0);
+            }
+        next:
+            status = func_80099DEC(0, 0, 0);
+        } while (status & 2);
+    }
+}
+
+void func_8008F7A0(void) {
+    S8008F628 *s = &D_800EEDF4;
+
+    s->ctl |= 4;
+    func_8008F628();
+    s->ctl &= ~4;
+    func_80099DEC(1, 1, func_80099DEC(0, 1, 0) | 0x10);
+    if (s->flags & 0x20) {
+        func_8008F410(1);
+    }
+}

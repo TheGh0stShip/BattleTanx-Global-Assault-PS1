@@ -1,17 +1,22 @@
-asm(".text\n\t.globl func_8002D6A0\nfunc_8002D6A0:\n\t"
-    ".word 0x27bdffc0,0xafb40030,0x0080a021,0xafb3002c\n\t"
-    ".word 0x00a09821,0xafb60038,0x00c0b021,0xafb50034\n\t"
-    ".word 0x00e0a821,0x2404000f,0x2405001c,0xafbf003c\n\t"
-    ".word 0xafb20028,0xafb10024,0x0c008df4,0xafb00020\n\t"
-    ".word 0x00409021,0x12400024,0x02a08021,0x96850002\n\t"
-    ".word 0x0c0098c0,0x02602021,0x02602021,0x00408821\n\t"
-    ".word 0x02202821,0x02c03021,0x3210ffff,0x02003821\n\t"
-    ".word 0x240200f0,0xafa20014,0x24020001,0xafa00010\n\t"
-    ".word 0x0c009863,0xafa20018,0x02602021,0x02c02821\n\t"
-    ".word 0x02003021,0x02203821,0xae420008,0x24020400\n\t"
-    ".word 0xafa20010,0x0c00930e,0xafb20014,0xa6420014\n\t"
-    ".word 0x96850004,0x0c0098c0,0x02602021,0xae42000c\n\t"
-    ".word 0x96850006,0x0c0098c0,0x02602021,0xae420010\n\t"
-    ".word 0xa6550016,0xa2400018,0x8fbf003c,0x8fb60038\n\t"
-    ".word 0x8fb50034,0x8fb40030,0x8fb3002c,0x8fb20028\n\t"
-    ".word 0x8fb10024,0x8fb00020,0x03e00008,0x27bd0040\n\t");
+typedef struct { short pad; unsigned short body; unsigned short part_a; unsigned short part_b; } Def;
+typedef struct { int pad[2]; int model; int part_a; int part_b; short handle; unsigned short id; unsigned char flag; } Inst;
+Inst *func_800237D0(int, int);
+int func_80026300(void *, int);
+int func_8002618C(void *, int, int, int, int, int, int);
+int func_80024C38(void *, int, int, int, int, Inst *);
+
+void func_8002D6A0(Def *def, void *ctx, int pos, unsigned short id) {
+    Inst *inst;
+    int body;
+
+    inst = func_800237D0(15, 28);
+    if (inst != 0) {
+        body = func_80026300(ctx, def->body);
+        inst->model = func_8002618C(ctx, body, pos, id, 0, 240, 1);
+        inst->handle = func_80024C38(ctx, pos, id, body, 1024, inst);
+        inst->part_a = func_80026300(ctx, def->part_a);
+        inst->part_b = func_80026300(ctx, def->part_b);
+        inst->id = id;
+        inst->flag = 0;
+    }
+}

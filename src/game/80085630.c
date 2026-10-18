@@ -1,35 +1,77 @@
-asm(".text\n\t.globl func_80085630\nfunc_80085630:\n\t"
-    ".word 0x27BDFFC0,0xAFB60030,0x00A0B021,0xAFBE0038\n\t"
-    ".word 0x00C0F021,0xAFB20020,0x00009021,0x93A80050\n\t"
-    ".word 0x2402FFFF,0xAFBF003C,0xAFB70034,0xAFB5002C\n\t"
-    ".word 0xAFB40028,0xAFB30024,0xAFB1001C,0xAFB00018\n\t"
-    ".word 0xAFA7004C,0x14820004,0xA3A80010,0x0C021574\n\t"
-    ".word 0x00000000,0x00402021,0x12C00063,0x02401021\n\t"
-    ".word 0x8C850000,0x00000000,0x10A0005E,0x26C20003\n\t"
-    ".word 0x2403FFFC,0x0043B024,0x02C02021,0x0C0214AF\n\t"
-    ".word 0x00A09821,0x0040A021,0x2E820020,0x1040004C\n\t"
-    ".word 0x00141080,0x02621021,0x8C500008,0x00000000\n\t"
-    ".word 0x12000041,0x00000000,0x1640003F,0x2402FFFE\n\t"
-    ".word 0x8E110004,0x00000000,0x02228824,0x0236102B\n\t"
-    ".word 0x14400036,0x02362023,0x2C820010,0x1440002B\n\t"
-    ".word 0x0200B821,0x2492FFF4,0x0C0214AF,0x02402021\n\t"
-    ".word 0x17C00014,0x0040A821,0x02602021,0x02002821\n\t"
-    ".word 0x36460001,0x0C0214E5,0x02C03821,0x12B40008\n\t"
-    ".word 0x0040B821,0x02602021,0x02002821,0x02203021\n\t"
-    ".word 0x0C0214CB,0x02803821,0x080215E5,0x02602021\n\t"
-    ".word 0x8E620004,0x02321823,0x00431023,0x080215F1\n\t"
-    ".word 0xAE620004,0x02602021,0x02002821,0x02203021\n\t"
-    ".word 0x0C0214CB,0x02803821,0x02602021,0x02002821\n\t"
-    ".word 0x02C03021,0x0C0214E5,0x36470001,0x00408021\n\t"
-    ".word 0x02602021,0x02002821,0x02403021,0x0C0214C0\n\t"
-    ".word 0x02A03821,0x080215B3,0x26F2000C,0x02602021\n\t"
-    ".word 0x02002821,0x02203021,0x0C0214CB,0x02803821\n\t"
-    ".word 0xAE110004,0x080215B3,0x26F2000C,0x8E10000C\n\t"
-    ".word 0x080215B3,0x00000000,0x26940001,0x2E820020\n\t"
-    ".word 0x10400003,0x00000000,0x1240FFB6,0x00141080\n\t"
-    ".word 0x12400009,0x02401021,0x8FA8004C,0x00000000\n\t"
-    ".word 0x11000005,0x02402021,0x93A50010,0x0C022A92\n\t"
-    ".word 0x02C03021,0x02401021,0x8FBF003C,0x8FBE0038\n\t"
-    ".word 0x8FB70034,0x8FB60030,0x8FB5002C,0x8FB40028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct Block {
+    struct Block *owner;
+    unsigned int size;
+    struct Block *prev;
+    struct Block *next;
+} Block;
+
+typedef struct Heap {
+    int pad0;
+    unsigned int free;
+    Block *bins[32];
+} Heap;
+
+extern Heap **func_800855D0(void);
+extern unsigned int func_800852BC(unsigned int);
+extern void func_8008532C(Heap *, Block *, unsigned int, unsigned int);
+extern Block *func_80085394(Heap *, Block *, unsigned int, unsigned int);
+extern void func_80085300(Heap *, Block *, unsigned int, unsigned int);
+extern void *func_8008AA48(void *, int, unsigned int);
+
+void *func_80085630(Heap **handle, unsigned int size, int from_top, int clear, unsigned char fill) {
+    unsigned int result = 0;
+    Heap *heap;
+    unsigned int bin;
+    unsigned int rest_bin;
+    unsigned int block_size;
+    Block *blk;
+    Block *found;
+
+    if (handle == (Heap **)-1) {
+        handle = func_800855D0();
+    }
+    if (size != 0) {
+        if (*handle != 0) {
+            size = (size + 3) & ~3;
+            heap = *handle;
+            bin = func_800852BC(size);
+            for (; bin < 32 && result == 0; bin++) {
+                blk = heap->bins[bin];
+                while (blk != 0 && result == 0) {
+                    block_size = blk->size;
+                    block_size &= ~1;
+                    if (block_size >= size) {
+                        found = blk;
+                        if (block_size - size >= 16) {
+                            result = block_size - size - 12;
+                            rest_bin = func_800852BC(result);
+                            if (from_top == 0) {
+                                found = func_80085394(heap, blk, result | 1, size);
+                                if (rest_bin != bin) {
+                                    func_8008532C(heap, blk, block_size, bin);
+                                    func_80085300(heap, blk, result, rest_bin);
+                                } else {
+                                    heap->free -= block_size - result;
+                                }
+                            } else {
+                                func_8008532C(heap, blk, block_size, bin);
+                                blk = func_80085394(heap, blk, size, result | 1);
+                                func_80085300(heap, blk, result, rest_bin);
+                            }
+                        } else {
+                            func_8008532C(heap, blk, block_size, bin);
+                            blk->size = block_size;
+                        }
+                        result = (unsigned int)found + 12;
+                    } else {
+                        blk = blk->next;
+                    }
+                }
+            }
+            if (result != 0 && clear != 0) {
+                func_8008AA48((void *)result, fill, size);
+            }
+        }
+    }
+    return (void *)result;
+}

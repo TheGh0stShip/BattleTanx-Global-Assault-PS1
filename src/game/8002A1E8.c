@@ -1,11 +1,58 @@
-asm(".text\n\t.globl func_8002A1E8\nfunc_8002A1E8:\n\t"
-    ".word 0x8fa70010,0x14c00023,0x00000000,0x9082002b\n\t"
-    ".word 0x00000000,0x1440001e,0x24020002,0x84a30004\n\t"
-    ".word 0x24020004,0x1462001a,0x24020002,0x8ca50008\n\t"
-    ".word 0x00000000,0x8ca300a0,0x24020001,0x10620014\n\t"
-    ".word 0x24020002,0x10600003,0x00000000,0x14620010\n\t"
-    ".word 0x00000000,0x8ca20208,0x00000000,0x8c43000c\n\t"
-    ".word 0x8c820024,0x00000000,0x10620009,0x24020002\n\t"
-    ".word 0x24020006,0xace20000,0x8c820018,0x00000000\n\t"
-    ".word 0xace20008,0x24020001,0x03e00008,0xa082002b\n\t"
-    ".word 0xace20000,0x03e00008,0x00000000\n\t");
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+
+typedef struct {
+    char pad0[0xA0];
+    unsigned int kind;
+    char padA4[0x208 - 0xA4];
+    Owner *owner;
+} Tank;
+
+typedef struct {
+    short pad0[2];
+    short type;
+    short pad6;
+    Tank *tank;
+} Message;
+
+typedef struct {
+    char pad0[0x18];
+    int value;
+    char pad1C[8];
+    int team;
+    char pad28[3];
+    unsigned char taken;
+} Pickup;
+
+typedef struct {
+    int result;
+    int pad4;
+    int value;
+} Reply;
+
+void func_8002A1E8(Pickup *self, Message *msg, int skip, int unused, Reply *reply) {
+    Tank *tank;
+
+    if (skip != 0) {
+        return;
+    }
+    if (self->taken == 0 && msg->type == 4) {
+        tank = msg->tank;
+        switch (tank->kind) {
+        case 1:
+            reply->result = 2;
+            return;
+        case 0:
+        case 2:
+            if (tank->owner->team != self->team) {
+                reply->result = 6;
+                reply->value = self->value;
+                self->taken = 1;
+                return;
+            }
+        }
+    }
+    reply->result = 2;
+}

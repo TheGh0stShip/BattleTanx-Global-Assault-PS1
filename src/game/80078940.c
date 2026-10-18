@@ -1,60 +1,167 @@
-asm(".text\n\t.globl func_80078940\nfunc_80078940:\n\t"
-    ".word 0x3C02800B,0x9042EB38,0x27BDFF40,0xAFB300B4\n\t"
-    ".word 0x00009821,0xAFBF00B8,0xAFB200B0,0xAFB100AC\n\t"
-    ".word 0x144000DB,0xAFB000A8,0x0C01E199,0x00000000\n\t"
-    ".word 0x3C02800F,0x8C43BC3C,0x00000000,0x2C62000F\n\t"
-    ".word 0x104000D3,0x3C02800C,0x24423F2C,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C03800F,0x2462BBB4,0xA0400001\n\t"
-    ".word 0x3C02800F,0xAC40BC38,0x3C02800F,0xA060BBB4\n\t"
-    ".word 0x3C03800F,0xAC40BC44,0x24020001,0xA062BC4C\n\t"
-    ".word 0x3C03800F,0x0801E333,0x24020001,0x3C02800F\n\t"
-    ".word 0x0C01DC2E,0xAC40BC40,0x0801E335,0x326200FF\n\t"
-    ".word 0x0C01DF66,0x00000000,0x0801E335,0x326200FF\n\t"
-    ".word 0x2404000E,0x3C02800F,0x9045BBB5,0x3C06800F\n\t"
-    ".word 0x24C6BC54,0x0C0220C9,0x27A70028,0x14400002\n\t"
-    ".word 0x24020001,0x00001021,0x304200FF,0x10400006\n\t"
-    ".word 0x3C03800F,0x24020001,0xAC62BC44,0x3C03800F\n\t"
-    ".word 0x0801E333,0x2402000C,0x3C03800F,0x24020002\n\t"
-    ".word 0xAC62BC40,0x3C03800B,0x24020005,0xA062EB38\n\t"
-    ".word 0x3C02800F,0x3C03800F,0x0801E332,0xAC40BC44\n\t"
-    ".word 0x24040002,0x3C02800F,0x9045BBB5,0x3C02800F\n\t"
-    ".word 0x0C0220C9,0xAC40BC40,0x30420003,0x14400003\n\t"
-    ".word 0x3C03800F,0x24020002,0xAC62BC3C,0x0C01DCF3\n\t"
-    ".word 0x00000000,0x0801E335,0x326200FF,0x3C02800F\n\t"
-    ".word 0x0C01DD98,0xAC40BC40,0x0801E335,0x326200FF\n\t"
-    ".word 0x24040002,0x3C02800F,0x9045BBB5,0x3C02800F\n\t"
-    ".word 0x0C0220C9,0xAC40BC40,0x00401821,0x30620001\n\t"
-    ".word 0x10400009,0x30620002,0x10400003,0x3C03800F\n\t"
-    ".word 0x0801E333,0x24020002,0x0C01DE0C,0x00000000\n\t"
-    ".word 0x0801E335,0x326200FF,0x3C03800F,0x0801E333\n\t"
-    ".word 0x24020002,0x24040002,0x3C02800F,0x2452BBB4\n\t"
-    ".word 0x92450001,0x3C02800F,0x0C0220C9,0xAC40BC40\n\t"
-    ".word 0x30420003,0x14400004,0x241100BE,0x3C03800F\n\t"
-    ".word 0x24020002,0xAC62BC3C,0x3C02800C,0x8C4360CC\n\t"
-    ".word 0x24020001,0x14620003,0x2410001E,0x24110130\n\t"
-    ".word 0x24100050,0x3C02800B,0x8C45E9A0,0x0C023681\n\t"
-    ".word 0x27A40028,0x92420001,0x00000000,0x14400004\n\t"
-    ".word 0x27A40028,0x3C05800C,0x0801E2E6,0x24A53E5C\n\t"
-    ".word 0x3C05800C,0x24A53E60,0x0C023655,0x00000000\n\t"
-    ".word 0x27A40028,0x24050003,0x02003021,0x24070064\n\t"
-    ".word 0x24021000,0xAFA20010,0xAFA20014,0x2402FFFF\n\t"
-    ".word 0xAFA20020,0x3C02800B,0x2442EA4C,0xAFB10018\n\t"
-    ".word 0xAFA0001C,0x0C015B92,0xAFA20024,0x0801E335\n\t"
-    ".word 0x326200FF,0x3C02800F,0x9045BBB5,0x0C0220C9\n\t"
-    ".word 0x24040002,0x30420003,0x14400003,0x3C03800F\n\t"
-    ".word 0x24020002,0xAC62BC3C,0x0C01DC98,0x00000000\n\t"
-    ".word 0x0801E335,0x326200FF,0x0C01E119,0x00000000\n\t"
-    ".word 0x00409821,0x326200FF,0x10400029,0x3C02800F\n\t"
-    ".word 0x3C03800F,0xAC40BC48,0x0801E333,0x2402000D\n\t"
-    ".word 0x3C02800F,0x0C01DD6A,0xAC40BC40,0x0801E335\n\t"
-    ".word 0x326200FF,0x24040003,0x3C02800F,0x3C03800F\n\t"
-    ".word 0x9045BBB5,0x24020002,0x0C0220C9,0xAC62BC40\n\t"
-    ".word 0x2C421EFC,0x14400002,0x00001021,0x24020001\n\t"
-    ".word 0x304200FF,0x10400006,0x3C03800F,0x24020001\n\t"
-    ".word 0xA062BBB4,0x3C03800F,0x0801E333,0x24020008\n\t"
-    ".word 0x3C02800F,0x3C03800F,0xA040BBB4,0x0801E333\n\t"
-    ".word 0x24020007,0x3C02800F,0x9044BBB5,0x0C021DAA\n\t"
-    ".word 0x00000000,0x3C03800F,0x2402000A,0xAC62BC3C\n\t"
-    ".word 0x326200FF,0x8FBF00B8,0x8FB300B4,0x8FB200B0\n\t"
-    ".word 0x8FB100AC,0x8FB000A8,0x03E00008,0x27BD00C0\n");
+typedef struct PadState {
+    unsigned char ready;
+    unsigned char port;
+} PadState;
+
+extern unsigned int D_800EBC3C;
+extern int D_800C60CC;
+extern int D_800EBC38;
+extern int D_800EBC40;
+extern int D_800EBC44;
+extern int D_800EBC48;
+extern unsigned char D_800EBC4C;
+extern unsigned char D_800AEB38;
+extern PadState D_800EBBB4;
+extern char D_800EBC54[];
+extern char *D_800AE9A0;
+extern char D_800C3E5C[];
+extern char D_800C3E60[];
+extern char D_800AEA4C[];
+extern unsigned int func_80088324(int, int, ...);
+extern char *func_8008DA04(char *, char *);
+extern char *func_8008D954(char *, char *);
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+extern void func_80078664(void);
+extern void func_800770B8(void);
+extern void func_80077D98(void);
+extern void func_800773CC(void);
+extern void func_80077660(void);
+extern void func_80077830(void);
+extern void func_80077260(void);
+extern void func_800775A8(void);
+extern unsigned char func_80078464(void);
+extern void func_800876A8(int);
+
+static inline unsigned char card_has_file(char *info) {
+    if (func_80088324(14, D_800EBBB4.port, D_800EBC54, info) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+static inline unsigned char card_has_space(void) {
+    if (func_80088324(3, D_800EBBB4.port) < 7932) {
+        return 0;
+    }
+    return 1;
+}
+
+unsigned char func_80078940(void) {
+    unsigned char ok = 0;
+    unsigned int status;
+    PadState *pad;
+    int x;
+    int y;
+    char text[128];
+
+    if (D_800AEB38 == 0) {
+        func_80078664();
+        switch (D_800EBC3C) {
+        case 0:
+            D_800EBBB4.port = 0;
+            D_800EBC38 = 0;
+            D_800EBBB4.ready = 0;
+            D_800EBC44 = 0;
+            D_800EBC4C = 1;
+            D_800EBC3C = 1;
+            break;
+        case 1:
+            D_800EBC40 = 0;
+            func_800770B8();
+            break;
+        case 2:
+            func_80077D98();
+            break;
+        case 4:
+            if (card_has_file(text)) {
+                D_800EBC44 = 1;
+                D_800EBC3C = 12;
+            } else {
+                D_800EBC40 = 2;
+                D_800AEB38 = 5;
+                D_800EBC44 = 0;
+                D_800EBC3C = 10;
+            }
+            break;
+        case 3:
+            D_800EBC40 = 0;
+            if (!(func_80088324(2, D_800EBBB4.port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            func_800773CC();
+            break;
+        case 5:
+            D_800EBC40 = 0;
+            func_80077660();
+            break;
+        case 6:
+            D_800EBC40 = 0;
+            status = func_80088324(2, D_800EBBB4.port);
+            if (status & 1) {
+                if (status & 2) {
+                    D_800EBC3C = 2;
+                } else {
+                    func_80077830();
+                }
+            } else {
+                D_800EBC3C = 2;
+            }
+            break;
+        case 7:
+            pad = &D_800EBBB4;
+            D_800EBC40 = 0;
+            if (!(func_80088324(2, pad->port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            x = 190;
+            y = 30;
+            if (D_800C60CC == 1) {
+                x = 304;
+                y = 80;
+            }
+            func_8008DA04(text, D_800AE9A0);
+            if (pad->port == 0) {
+                func_8008D954(text, D_800C3E5C);
+            } else {
+                func_8008D954(text, D_800C3E60);
+            }
+            func_80056E48(text, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+            break;
+        case 12:
+            if (!(func_80088324(2, D_800EBBB4.port) & 3)) {
+                D_800EBC3C = 2;
+            }
+            func_80077260();
+            break;
+        case 8:
+            ok = func_80078464();
+            if (ok) {
+                D_800EBC48 = 0;
+                D_800EBC3C = 13;
+            }
+            break;
+        case 13:
+            D_800EBC40 = 0;
+            func_800775A8();
+            break;
+        case 10:
+            D_800EBC40 = 2;
+            if (card_has_space()) {
+                D_800EBBB4.ready = 1;
+                D_800EBC3C = 8;
+            } else {
+                D_800EBBB4.ready = 0;
+                D_800EBC3C = 7;
+            }
+            break;
+        case 11:
+            func_800876A8(D_800EBBB4.port);
+            D_800EBC3C = 10;
+            break;
+        case 9:
+        case 14:
+            break;
+        }
+    }
+    return ok;
+}

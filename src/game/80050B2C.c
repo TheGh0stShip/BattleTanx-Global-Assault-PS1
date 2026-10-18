@@ -1,30 +1,91 @@
-asm(".text\n\t.globl func_80050B2C\nfunc_80050B2C:\n\t"
-    ".word 0x27BDFFC0,0xAFB20020,0x00809021,0xAFB70034\n\t"
-    ".word 0x0000B821,0xAFB40028,0x02E0A021,0xAFB5002C\n\t"
-    ".word 0x02E0A821,0xAFB60030,0x02E0B021,0xAFB30024\n\t"
-    ".word 0x02E09821,0x02E02021,0x24050008,0xAFBF0038\n\t"
-    ".word 0xAFB1001C,0x0801430E,0xAFB00018,0x8E23000C\n\t"
-    ".word 0x00000000,0x10620013,0x00000000,0x10600005\n\t"
-    ".word 0x24020002,0x10620011,0x02202021,0x0801430E\n\t"
-    ".word 0x24050008,0x8E300014,0x0C00CF75,0x02002021\n\t"
-    ".word 0x00402021,0x3083FFFF,0x3262FFFF,0x0043102B\n\t"
-    ".word 0x1040001C,0x00000000,0x0200B021,0x0801430C\n\t"
-    ".word 0x00809821,0x0801430C,0x0220B821,0x8E240018\n\t"
-    ".word 0x00000000,0x84830004,0x24020004,0x14620011\n\t"
-    ".word 0x00000000,0x8C900008,0x0C011D96,0x02002021\n\t"
-    ".word 0x1040000D,0x02202021,0x8E040208,0x8E42000C\n\t"
-    ".word 0x8C83000C,0x00000000,0x10620003,0x00000000\n\t"
-    ".word 0x0801430C,0x0200A821,0x14920003,0x02202021\n\t"
-    ".word 0x0200A021,0x02202021,0x24050008,0x0C008E1C\n\t"
-    ".word 0x00000000,0x00408821,0x1620FFCC,0x24020001\n\t"
-    ".word 0x12800006,0x02402021,0xAFB40010,0x24050006\n\t"
-    ".word 0x27A60010,0x08014331,0x24070001,0x12A00005\n\t"
-    ".word 0x24050003,0xAFB50010,0x27A60010,0x08014331\n\t"
-    ".word 0x24070001,0x12E00006,0x02402021,0xAFB70010\n\t"
-    ".word 0x24050005,0x27A60010,0x08014331,0x24070001\n\t"
-    ".word 0x12C00005,0x24050004,0xAFB60010,0x27A60010\n\t"
-    ".word 0x08014331,0x24070001,0x02402021,0x24050002\n\t"
-    ".word 0x00003021,0x00C03821,0x0C0144D0,0x00000000\n\t"
-    ".word 0x8FBF0038,0x8FB70034,0x8FB60030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef struct Obj Obj;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+struct Obj {
+    char pad0[0x208];
+    Owner *owner;
+};
+typedef struct {
+    char pad0[4];
+    short kind;
+    short pad6;
+    Obj *obj;
+} Link;
+typedef struct {
+    char pad0[0xC];
+    int kind;
+    char pad10[4];
+    Obj *object;
+    Link *link;
+} Node;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Marker;
+extern Node *func_80023870(Node *, int);
+extern unsigned short func_80033DD4(Obj *);
+extern int func_80047658(Obj *);
+extern int func_80051340(Marker *, int, void *, int);
+
+int func_80050B2C(Marker *m) {
+    Node *node;
+    Node *zone = 0;
+    Obj *own = 0;
+    Obj *enemy = 0;
+    Obj *best_obj = 0;
+    unsigned short best = 0;
+    void *target;
+    int result;
+
+    for (node = func_80023870(0, 8); node != 0; node = func_80023870(node, 8)) {
+        switch ((unsigned int)node->kind) {
+        case 0: {
+            Obj *obj = node->object;
+            unsigned short value = func_80033DD4(obj);
+
+            if (value > best) {
+                best_obj = obj;
+                best = value;
+            }
+            break;
+        }
+        case 1:
+            zone = node;
+            break;
+        case 2: {
+            Link *link = node->link;
+
+            if (link->kind == 4) {
+                Obj *obj = link->obj;
+
+                if (func_80047658(obj) != 0) {
+                    if (obj->owner->team != m->team) {
+                        enemy = obj;
+                    } else if (obj->owner == (Owner *)m) {
+                        own = obj;
+                    }
+                }
+            }
+            break;
+        }
+        }
+    }
+    if (own != 0) {
+        target = own;
+        result = func_80051340(m, 6, &target, 1);
+    } else if (enemy != 0) {
+        target = enemy;
+        result = func_80051340(m, 3, &target, 1);
+    } else if (zone != 0) {
+        target = zone;
+        result = func_80051340(m, 5, &target, 1);
+    } else if (best_obj != 0) {
+        target = best_obj;
+        result = func_80051340(m, 4, &target, 1);
+    } else {
+        result = func_80051340(m, 2, 0, 0);
+    }
+    return result;
+}

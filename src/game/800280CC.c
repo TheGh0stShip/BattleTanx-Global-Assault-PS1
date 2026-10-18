@@ -1,34 +1,94 @@
-asm(".text\n\t.globl func_800280CC\nfunc_800280CC:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x8FB10030,0x24020003,0x10C2005C,0xAFBF0018\n\t"
-    ".word 0x2CC20004,0x10400005,0x00000000,0x10C0000A\n\t"
-    ".word 0x24020004,0x0800A0AF,0x00000000,0x24040005\n\t"
-    ".word 0x10C4003D,0x24020006,0x10C2004A,0x24020001\n\t"
-    ".word 0x0800A0AF,0x00000000,0x84A40004,0x00000000\n\t"
-    ".word 0x14820063,0x00000000,0x8E03001C,0x8CA50008\n\t"
-    ".word 0x10600006,0x24020002,0x8CA2009C,0x00000000\n\t"
-    ".word 0x14440004,0x24020001,0x24020002,0x0800A0AF\n\t"
-    ".word 0xAE220000,0x14620016,0x00000000,0x8E020018\n\t"
-    ".word 0x00000000,0x14400052,0x00000000,0x9604002C\n\t"
-    ".word 0x0C006C25,0x00000000,0x2404000B,0x3C02800D\n\t"
-    ".word 0x8E050008,0x8E060010,0x8C432FE0,0x24020002\n\t"
-    ".word 0xAE02001C,0x0C014DE4,0xAE030024,0x24040004\n\t"
-    ".word 0x26050008,0x00003021,0x0C01BF6C,0x00C03821\n\t"
-    ".word 0x8E020018,0x00000000,0x1440003D,0x2402000C\n\t"
-    ".word 0xAE220000,0x240204CC,0xAE220008,0x8E020028\n\t"
-    ".word 0x00000000,0xAE22000C,0x8E080008,0x8E09000C\n\t"
-    ".word 0x8E0A0010,0xAE280010,0xAE290014,0xAE2A0018\n\t"
-    ".word 0x0800A0AF,0x00000000,0x8CE20000,0x00000000\n\t"
-    ".word 0x1440002B,0x24020001,0x8E03001C,0x00000000\n\t"
-    ".word 0x14620027,0x00000000,0xA2230000,0x8E020008\n\t"
-    ".word 0x00000000,0xAE220004,0x8E020010,0x0800A0AF\n\t"
-    ".word 0xAE220008,0x8E03001C,0x00000000,0x1462001C\n\t"
-    ".word 0x00000000,0x0800A0AF,0xAE04001C,0x8E03001C\n\t"
-    ".word 0x24020001,0x14620016,0x00000000,0x8E020018\n\t"
-    ".word 0x00000000,0x14400012,0x00000000,0x9604002C\n\t"
-    ".word 0x0C006C25,0x00000000,0x2404000B,0x3C02800D\n\t"
-    ".word 0x8E050008,0x8E060010,0x8C432FE0,0x24020002\n\t"
-    ".word 0xAE02001C,0x0C014DE4,0xAE030024,0x24040004\n\t"
-    ".word 0x26050008,0x00003021,0x0C01BF6C,0x00C03821\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[4];
+    int kind;
+    unsigned int state;
+    char pad20[4];
+    int start;
+    int param;
+    unsigned short sound;
+} Effect;
+
+typedef struct {
+    char pad0[0x9C];
+    int zone;
+} Tank;
+
+typedef struct {
+    short pad0[2];
+    short type;
+    short pad6;
+    Tank *tank;
+} Message;
+
+typedef struct {
+    union {
+        int result;
+        unsigned char valid;
+    } u;
+    int x;
+    int z;
+    int param;
+    Vector pos;
+} Reply;
+
+extern int D_800D2FE0;
+extern void func_8001B094(int);
+extern void func_80053790(int, int, int);
+extern void func_8006FDB0(int, Vector *, int, int);
+
+static inline void detonate(Effect *e) {
+    func_8001B094(e->sound);
+    e->state = 2;
+    e->start = D_800D2FE0;
+    func_80053790(11, e->pos.x, e->pos.z);
+    func_8006FDB0(4, &e->pos, 0, 0);
+}
+
+void func_800280CC(Effect *e, Message *msg, unsigned int cmd, int *busy, Reply *reply) {
+    switch (cmd) {
+    case 0:
+        if (msg->type == 4) {
+            Tank *tank = msg->tank;
+
+            if (e->state == 0 || tank->zone == 4) {
+                reply->u.result = 2;
+                break;
+            }
+            if (e->state == 1 && e->kind == 0) {
+                detonate(e);
+            }
+            if (e->kind == 0) {
+                reply->u.result = 12;
+                reply->z = 1228;
+                reply->param = e->param;
+                reply->pos = e->pos;
+            }
+        }
+        break;
+    case 5:
+        if (*busy == 0 && e->state == 1) {
+            reply->u.valid = 1;
+            reply->x = e->pos.x;
+            reply->z = e->pos.z;
+        }
+        break;
+    case 6:
+        if (e->state == 1) {
+            e->state = 5;
+        }
+        break;
+    case 3:
+        if (e->state == 1 && e->kind == 0) {
+            detonate(e);
+        }
+        break;
+    }
+}

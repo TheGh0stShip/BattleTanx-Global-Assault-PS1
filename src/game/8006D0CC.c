@@ -1,46 +1,144 @@
-asm(".text\n\t.globl func_8006D0CC\nfunc_8006D0CC:\n\t"
-    ".word 0x84820018,0x27BDFFF8,0x00460018,0x8CA20000\n\t"
-    ".word 0x9483000C,0x00021303,0x00621823,0xA483000C\n\t"
-    ".word 0x8CA20004,0x9483000E,0x00021303,0x00621823\n\t"
-    ".word 0xA483000E,0x8CA20008,0x94830010,0x00021303\n\t"
-    ".word 0x00621823,0x00003812,0x04E10003,0xA4830010\n\t"
-    ".word 0x3402FFFF,0x00E23821,0x8082001E,0x00000000\n\t"
-    ".word 0x00460018,0x9482000E,0x00071C03,0x00431021\n\t"
-    ".word 0x00002812,0x04A10002,0xA482000E,0x24A50FFF\n\t"
-    ".word 0x00051B03,0x8C870004,0x94820014,0x8C850008\n\t"
-    ".word 0x00431021,0x14E00002,0xA4820014,0x24070002\n\t"
-    ".word 0x3C028000,0x00A21824,0x00E21024,0x00625026\n\t"
-    ".word 0x04A10002,0x00A01021,0x00021023,0x04E10002\n\t"
-    ".word 0x00E04021,0x00084023,0x4882F000,0x00000000\n\t"
-    ".word 0x00000000,0xEBBF0000,0x8FA50000,0x00000000\n\t"
-    ".word 0x24A9FFF4,0x05210023,0x00021B00,0x00A21804\n\t"
-    ".word 0x4888F000,0x00000000,0x00000000,0x27A20004\n\t"
-    ".word 0xE85F0000,0x8FA70004,0x00000000,0x00E52823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00471023,0x04400003\n\t"
-    ".word 0x00000000,0x0801B480,0x00481007,0x00021023\n\t"
-    ".word 0x00481004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0801B495,0x00A31804\n\t"
-    ".word 0x00091023,0x00481007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0801B497\n\t"
-    ".word 0x00602821,0x0068001B,0x15000002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00000000,0x00602821\n\t"
-    ".word 0x11400002,0x240B0020,0x00052823,0x00AB0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0xA0820024,0x00AB0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA0820025,0x00AB0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA0820026\n\t"
-    ".word 0x84820022,0x00000000,0x00C20018,0x00001812\n\t"
-    ".word 0x00005810,0x00031B02,0x000B5D00,0x006B1825\n\t"
-    ".word 0x94820020,0x8C870008,0x00431021,0x90830027\n\t"
-    ".word 0x00E63023,0xA4820020,0x240200FF,0x10620025\n\t"
-    ".word 0xAC860008,0x90850029,0x00071303,0x00061B03\n\t"
-    ".word 0x00431823,0x0065102A,0x1440001C,0x00A31023\n\t"
-    ".word 0x90820028,0x90830027,0x24420001,0xA0820028\n\t"
-    ".word 0x3C02800B,0x2446DF48,0x00031880,0x00661821\n\t"
-    ".word 0x90820028,0x8C630000,0x00021080,0x00432821\n\t"
-    ".word 0x84A30000,0x24020001,0x14620004,0x00000000\n\t"
-    ".word 0x90A20003,0x00000000,0xA0820028,0x90820027\n\t"
-    ".word 0x90830028,0x00021080,0x00461021,0x8C420000\n\t"
-    ".word 0x00031880,0x00621821,0x90620003,0x00000000\n\t"
-    ".word 0xA0820029,0x03E00008,0x27BD0008\n");
+typedef struct { int x; int y; int z; } Vector;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    __asm__("" : : "r"(negative));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+typedef struct {
+    short kind;
+    unsigned char unk2;
+    unsigned char length;
+} Segment;
+
+typedef struct {
+    int unk0;
+    int duration;
+    int remaining;
+    short pos[3];
+    short unk12;
+    short angle;
+    short unk16;
+    short rate;
+    short unk1A;
+    short unk1C;
+    signed char spin;
+    char unk1F;
+    short phase;
+    short speed;
+    unsigned char color[3];
+    unsigned char script;
+    unsigned char step;
+    unsigned char countdown;
+} Particle;
+
+extern Segment *D_800ADF48[];
+
+void func_8006D0CC(Particle *p, Vector *move, int dt) {
+    int duration;
+    int remaining;
+    int fade;
+    int before;
+    int elapsed;
+    int count;
+
+    p->pos[0] -= move->x >> 12;
+    p->pos[1] -= move->y >> 12;
+    p->pos[2] -= move->z >> 12;
+    p->pos[1] += (p->rate * dt) / 65536;
+    p->angle += (p->spin * dt) / 4096;
+    duration = p->duration;
+    remaining = p->remaining;
+    if (duration == 0) {
+        duration = 2;
+    }
+    fade = fixed_div(remaining, duration);
+    p->color[0] = fixed_mul(fade, 32);
+    p->color[1] = fixed_mul(fade, 32);
+    p->color[2] = fixed_mul(fade, 32);
+    p->phase += fixed_mul(dt, p->speed);
+    before = p->remaining;
+    p->remaining = before - dt;
+    if (p->script != 255) {
+        count = p->countdown;
+        elapsed = (before >> 12) - (p->remaining >> 12);
+        if (elapsed < count) {
+            p->countdown = count - elapsed;
+        } else {
+            p->step++;
+            if (D_800ADF48[p->script][p->step].kind == 1) {
+                p->step = D_800ADF48[p->script][p->step].length;
+            }
+            p->countdown = D_800ADF48[p->script][p->step].length;
+        }
+    }
+}

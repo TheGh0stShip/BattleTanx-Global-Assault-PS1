@@ -14,11 +14,11 @@ from pathlib import Path
 
 try:
     from .verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int, validate_units,
     )
 except ImportError:
     from verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int, validate_units,
     )
 
 
@@ -50,7 +50,7 @@ def build_header(metadata):
 
 def compile_object(item, config, prefix, work_root):
     index, unit = item
-    cc1 = ROOT / ".toolchain/gcc-2.8.1-psx/cc1"
+    cc1 = compiler_path(unit, config)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
     assembler = command("as", prefix)
     linker = command("ld", prefix)
@@ -136,9 +136,9 @@ def build(config_path, metadata_path, executable_path, output_path, report_path,
     if cursor != LOAD_ADDRESS + payload_size:
         raise SystemExit("manifest does not cover the complete executable payload")
 
-    cc1 = ROOT / ".toolchain/gcc-2.8.1-psx/cc1"
+    compilers = {compiler_path(unit, config) for unit in units}
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
-    if not cc1.is_file() or not maspsx.is_file():
+    if not all(cc1.is_file() for cc1 in compilers) or not maspsx.is_file():
         raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
     linker = command("ld", prefix)
     objcopy = command("objcopy", prefix)

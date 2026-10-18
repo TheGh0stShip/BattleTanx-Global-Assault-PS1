@@ -1,10 +1,56 @@
-asm(".text\n\t.globl func_80022A08\nfunc_80022A08:\n\t"
-    ".word 0x2c820028,0x1040001e,0x3c02800c,0x2442d5ec\n\t"
-    ".word 0x00041880,0x00621821,0x8c620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x03e00008,0x24021518\n\t"
-    ".word 0x03e00008,0x24023138,0x03e00008,0x24022a30\n\t"
-    ".word 0x03e00008,0x24023840,0x03e00008,0x24023f48\n\t"
-    ".word 0x03e00008,0x24024d58,0x03e00008,0x24022328\n\t"
-    ".word 0x03e00008,0x24025b68,0x03e00008,0x24021c20\n\t"
-    ".word 0x03e00008,0x24024650,0x03e00008,0x24025460\n\t"
-    ".word 0x03e00008,0x24023840\n\t");
+int func_80022A08(unsigned int level) {
+    switch (level) {
+    case 0:
+    case 1:
+    case 12:
+        return 5400;
+    case 2:
+    case 4:
+    case 8:
+    case 9:
+    case 19:
+    case 31:
+    case 35:
+        return 12600;
+    case 3:
+    case 6:
+    case 24:
+    case 29:
+        return 10800;
+    case 5:
+    case 33:
+    case 36:
+        return 14400;
+    case 7:
+    case 14:
+    case 15:
+    case 32:
+    case 37:
+        return 16200;
+    case 10:
+    case 18:
+    case 21:
+    case 23:
+    case 27:
+    case 30:
+        return 19800;
+    case 11:
+    case 17:
+    case 25:
+    case 26:
+    case 34:
+    case 39:
+        return 9000;
+    case 13:
+    case 38:
+        return 23400;
+    case 16:
+        return 7200;
+    case 20:
+    case 28:
+        return 18000;
+    case 22:
+        return 21600;
+    }
+    return 14400;
+}

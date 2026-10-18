@@ -1,17 +1,40 @@
-asm(".text\n\t.globl func_80077660\nfunc_80077660:\n\t"
-    ".word 0x27bdff88,0xafb1006c,0x241100be,0xafb20070\n\t"
-    ".word 0x2412001e,0x3c02800c,0x8c4360cc,0x24020001\n\t"
-    ".word 0xafbf0074,0x14620003,0xafb00068,0x24110130\n\t"
-    ".word 0x24120050,0x3c02800f,0x2450bbb4,0x92050001\n\t"
-    ".word 0x0c0220c9,0x24040002,0x30420001,0x14400021\n\t"
-    ".word 0x3c03800f,0x3c02800b,0x8c45e96c,0x0c023681\n\t"
-    ".word 0x27a40028,0x92020001,0x00000000,0x14400004\n\t"
-    ".word 0x27a40028,0x3c05800c,0x0801ddba,0x24a53e5c\n\t"
-    ".word 0x3c05800c,0x24a53e60,0x0c023655,0x00000000\n\t"
-    ".word 0x27a40028,0x24050003,0x24021000,0xafa20010\n\t"
-    ".word 0xafa20014,0x2402ffff,0xafa20020,0x3c02800b\n\t"
-    ".word 0x2442ea4c,0x02403021,0x24070064,0xafb10018\n\t"
-    ".word 0xafa0001c,0x0c015b92,0xafa20024,0x0801ddcf\n\t"
-    ".word 0x00000000,0x24020002,0xac62bc3c,0x8fbf0074\n\t"
-    ".word 0x8fb20070,0x8fb1006c,0x8fb00068,0x03e00008\n\t"
-    ".word 0x27bd0078\n\t");
+typedef struct PadState {
+    unsigned char pad0;
+    unsigned char port;
+} PadState;
+
+extern int D_800C60CC;
+extern PadState D_800EBBB4;
+extern int D_800EBC3C;
+extern char *D_800AE96C;
+extern char D_800C3E5C[];
+extern char D_800C3E60[];
+extern char D_800AEA4C[];
+extern int func_80088324(int, int);
+extern char *func_8008DA04(char *, char *);
+extern char *func_8008D954(char *, char *);
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+
+void func_80077660(void) {
+    int x = 190;
+    int y = 30;
+    PadState *pad;
+    char text[64];
+
+    if (D_800C60CC == 1) {
+        x = 304;
+        y = 80;
+    }
+    pad = &D_800EBBB4;
+    if (!(func_80088324(2, pad->port) & 1)) {
+        func_8008DA04(text, D_800AE96C);
+        if (pad->port == 0) {
+            func_8008D954(text, D_800C3E5C);
+        } else {
+            func_8008D954(text, D_800C3E60);
+        }
+        func_80056E48(text, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+    } else {
+        D_800EBC3C = 2;
+    }
+}

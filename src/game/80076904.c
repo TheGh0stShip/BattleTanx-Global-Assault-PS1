@@ -1,26 +1,75 @@
-asm(".text\n\t.globl func_80076904\nfunc_80076904:\n\t"
-    ".word 0x3C02800B,0x8C42EA48,0x27BDFFE8,0xAFBF0014\n\t"
-    ".word 0x1040005A,0xAFB00010,0x3C02800F,0x8C50AFE8\n\t"
-    ".word 0x00000000,0x8E030008,0x00000000,0x2C620010\n\t"
-    ".word 0x10400052,0x3C02800C,0x24423D84,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x8E05001C,0x00000000,0x00850018\n\t"
-    ".word 0x8E020004,0x00002812,0x0040F809,0x00002021\n\t"
-    ".word 0x0801DAA0,0xAE020000,0x8E02001C,0x00000000\n\t"
-    ".word 0x00820018,0x8E030000,0x00000000,0x8C650000\n\t"
-    ".word 0x00000000,0x90A20000,0x00003812,0x00471021\n\t"
-    ".word 0x00403021,0x00021600,0x00022603,0x00041080\n\t"
-    ".word 0x00431021,0x8C420004,0x04800003,0x00000000\n\t"
-    ".word 0x14400004,0x00000000,0x2402FFFF,0x1482002B\n\t"
-    ".word 0x00000000,0x0801DAA0,0xA0A60000,0x8E02001C\n\t"
-    ".word 0x00000000,0x00820018,0x8E030000,0x00000000\n\t"
-    ".word 0x8C620000,0x00003812,0x00471021,0x0801DAA0\n\t"
-    ".word 0xAC620000,0x8E02001C,0x00000000,0x00820018\n\t"
-    ".word 0x8E030000,0x00000000,0x94620000,0x00003812\n\t"
-    ".word 0x00471021,0x0801DAA0,0xA4620000,0x8E02001C\n\t"
-    ".word 0x00000000,0x00820018,0x8E030000,0x00000000\n\t"
-    ".word 0x90620000,0x00003812,0x00471021,0x0801DAA0\n\t"
-    ".word 0xA0620000,0x0801DA99,0x24020001,0x2402FFFF\n\t"
-    ".word 0x14820006,0x3C03800F,0x8E020000,0x00000000\n\t"
-    ".word 0xAC62AFE4,0x3C03800F,0xAC62AFE8,0x8FBF0014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct Entry {
+    void *value;
+    void *(*getter)(int, int);
+    unsigned int kind;
+    char name[16];
+    int step;
+    struct Entry *next;
+} Entry;
+
+typedef struct Choice {
+    unsigned char *selected;
+    void *options[1];
+} Choice;
+
+extern int D_800AEA48;
+extern Entry *D_800EAFE4;
+extern Entry *D_800EAFE8;
+
+void func_80076904(int dir) {
+    Entry *entry;
+    Choice *choice;
+    unsigned char *sel;
+    unsigned char value;
+    int index;
+    void *option;
+
+    if (D_800AEA48 == 0) {
+        return;
+    }
+    entry = D_800EAFE8;
+    switch (entry->kind) {
+    case 10:
+    case 11:
+    case 12:
+        entry->value = entry->getter(0, dir * entry->step);
+        break;
+    case 13:
+        choice = entry->value;
+        sel = choice->selected;
+        value = *sel + dir * entry->step;
+        index = (signed char)value;
+        option = ((void **)choice)[index + 1];
+        if ((index >= 0 && option != 0) || index == -1) {
+            *sel = value;
+        }
+        break;
+    case 0:
+    case 3:
+    case 4:
+        *(int *)entry->value += dir * entry->step;
+        break;
+    case 5:
+    case 6:
+        *(unsigned short *)entry->value += dir * entry->step;
+        break;
+    case 7:
+    case 8:
+        *(unsigned char *)entry->value += dir * entry->step;
+        break;
+    case 14:
+        if (dir == 1) {
+            D_800EAFE8 = D_800EAFE4 = entry->value;
+        }
+        break;
+    case 15:
+        if (dir == -1) {
+            D_800EAFE8 = D_800EAFE4 = entry->value;
+        }
+        break;
+    case 1:
+    case 2:
+    case 9:
+        break;
+    }
+}

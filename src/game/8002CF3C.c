@@ -1,23 +1,45 @@
-asm(".text\n\t.globl func_8002CF3C\nfunc_8002CF3C:\n\t"
-    ".word 0x27BDFFC0,0xAFB40030,0x0080A021,0xAFB3002C\n\t"
-    ".word 0x00A09821,0xAFB50034,0x00C0A821,0xAFB60038\n\t"
-    ".word 0x00E0B021,0x2404001C,0x24050030,0xAFBF003C\n\t"
-    ".word 0xAFB20028,0xAFB10024,0x0C008DF4,0xAFB00020\n\t"
-    ".word 0x00409021,0x1240003B,0x02C08021,0x96850002\n\t"
-    ".word 0x0C0098C0,0x02602021,0xAE42000C,0x96850004\n\t"
-    ".word 0x0C0098C0,0x02602021,0xAE420014,0x96850006\n\t"
-    ".word 0x0C0098C0,0x02602021,0x02602021,0x02A03021\n\t"
-    ".word 0xAE420010,0x24020002,0xAFA20010,0x240200F0\n\t"
-    ".word 0x24110001,0x3210FFFF,0xAFA20014,0xAFB10018\n\t"
-    ".word 0x8E45000C,0x0C009863,0x02003821,0x02602021\n\t"
-    ".word 0x02A02821,0x02003021,0xAE420008,0x96870002\n\t"
-    ".word 0x34028000,0xAFA20010,0x0C009360,0xAFB20014\n\t"
-    ".word 0xA6420028,0x3042FFFF,0x00021880,0x00621821\n\t"
-    ".word 0x000318C0,0x3C02800C,0x244262B0,0x00621821\n\t"
-    ".word 0x94620020,0x94640014,0x00000000,0x00441021\n\t"
-    ".word 0x00021400,0x00021403,0x24420014,0xA4620020\n\t"
-    ".word 0xA656002A,0x8EA80000,0x8EA90004,0x8EAA0008\n\t"
-    ".word 0xAE48001C,0xAE490020,0xAE4A0024,0xAE400018\n\t"
-    ".word 0xA251002E,0x8FBF003C,0x8FB60038,0x8FB50034\n\t"
-    ".word 0x8FB40030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { unsigned int flags; int link; int pad[3]; short bonus; short pad1; int pad2[2]; short owner; short pad3[3]; } Cell;
+typedef struct { short pad; unsigned short body; unsigned short part_a; unsigned short part_b; } Def;
+typedef struct {
+    int pad[2];
+    int model;
+    int body;
+    int part_b;
+    int part_a;
+    int zero;
+    Vector pos;
+    unsigned short handle;
+    unsigned short id;
+    short pad2;
+    unsigned char active;
+} Inst;
+extern Cell D_800C62B0[];
+Inst *func_800237D0(int, int);
+int func_80026300(void *, int);
+int func_8002618C(void *, int, Vector *, int, int, int, int);
+int func_80024D80(void *, Vector *, int, int, int, Inst *);
+
+static inline short cell_total(Cell *cell) {
+    return cell->owner + cell->bonus;
+}
+
+void func_8002CF3C(Def *def, void *ctx, Vector *pos, unsigned short id) {
+    Inst *inst;
+    Cell *cell;
+
+    inst = func_800237D0(28, 48);
+    if (inst != 0) {
+        inst->body = func_80026300(ctx, def->body);
+        inst->part_a = func_80026300(ctx, def->part_a);
+        inst->part_b = func_80026300(ctx, def->part_b);
+        inst->model = func_8002618C(ctx, inst->body, pos, id, 2, 240, 1);
+        inst->handle = func_80024D80(ctx, pos, id, def->body, 0x8000, inst);
+        cell = &D_800C62B0[inst->handle];
+        cell->owner = cell_total(cell) + 20;
+        inst->id = id;
+        inst->pos = *pos;
+        inst->zero = 0;
+        inst->active = 1;
+    }
+}

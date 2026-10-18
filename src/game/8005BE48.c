@@ -1,26 +1,82 @@
-asm(".text\n\t.globl func_8005BE48\nfunc_8005BE48:\n\t"
-    ".word 0x27BDFFD8,0x3C02800E,0x94424994,0x00801821\n\t"
-    ".word 0xAFB00010,0x00A08021,0xAFBF0020,0xAFB3001C\n\t"
-    ".word 0xAFB20018,0x1440004F,0xAFB10014,0x3C04800B\n\t"
-    ".word 0x24848B18,0x0C01E926,0x00602821,0x00409021\n\t"
-    ".word 0x1640000C,0x3C02800B,0x3C02800F,0x8C43ADAC\n\t"
-    ".word 0x00001021,0x8C640000,0x24030001,0xA2030061\n\t"
-    ".word 0x08016FEC,0xAE040068,0x2442AD64,0x08016FD6\n\t"
-    ".word 0xAE220028,0x24438B24,0x3C02800B,0x2442E840\n\t"
-    ".word 0x16420004,0xAC7203A8,0x24020002,0x0C0080F8\n\t"
-    ".word 0xA06203A1,0x3C02800B,0x2442E898,0x12420031\n\t"
-    ".word 0x3C02800B,0x2442E8A8,0x1242002E,0x3C02800B\n\t"
-    ".word 0x24518FB8,0x90438FB8,0x24020001,0x10620018\n\t"
-    ".word 0x3C02800F,0x2453ADD0,0x24030001,0x26300028\n\t"
-    ".word 0x8E02FFE0,0x00000000,0x14520008,0x00000000\n\t"
-    ".word 0x0C01EB01,0x02402021,0x30420001,0x1440FFDE\n\t"
-    ".word 0x3C02800F,0x08016FD6,0xAE130000,0x26310040\n\t"
-    ".word 0x92220000,0x00000000,0x1443FFF1,0x26100040\n\t"
-    ".word 0x92230000,0x24020001,0x14620013,0x00001021\n\t"
-    ".word 0x02402021,0x24020018,0xA2220000,0x24020010\n\t"
-    ".word 0xA2220001,0x24020004,0xAE240008,0x0C01EB01\n\t"
-    ".word 0xA2220020,0x30420001,0x10400003,0x3C02800F\n\t"
-    ".word 0x08016FEA,0x2442AD64,0x3C02800F,0x2442ADD0\n\t"
-    ".word 0xAE220028,0x00001021,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Entry {
+    unsigned char kind;
+    unsigned char flag;
+    char pad1[6];
+    int *value;
+    char pad2[0x14];
+    unsigned char state;
+    char pad3[7];
+    int *style;
+    char pad4[0x14];
+} Entry;
+
+typedef struct Page {
+    char pad[0x61];
+    unsigned char flag;
+    char pad2[6];
+    int text;
+} Page;
+
+typedef struct List {
+    char pad[0x3A1];
+    unsigned char state;
+    char pad2[6];
+    int *current;
+} List;
+
+extern unsigned short D_800E4994;
+extern int D_800A8B18;
+extern List D_800A8B24;
+extern int *D_800EADAC;
+extern int D_800AE840;
+extern int D_800AE898;
+extern int D_800AE8A8;
+extern Entry D_800A8FB8[];
+extern int D_800EAD64;
+extern int D_800EADD0;
+extern int *func_8007A498(void *, int);
+extern void func_800203E0(void);
+extern int func_8007AC04(int *);
+
+int func_8005BE48(int key, Page *page) {
+    int *item;
+    Entry *entry;
+
+    if (D_800E4994 == 0) {
+        item = func_8007A498(&D_800A8B18, key);
+        if (item == 0) {
+            page->text = *D_800EADAC;
+            page->flag = 1;
+            return 0;
+        }
+        D_800A8B24.current = item;
+        if (item == &D_800AE840) {
+            D_800A8B24.state = 2;
+            func_800203E0();
+        }
+        if (item != &D_800AE898 && item != &D_800AE8A8) {
+            for (entry = D_800A8FB8; entry->kind != 1; entry++) {
+                if (entry->value == item) {
+                    if (func_8007AC04(item) & 1) {
+                        entry->style = &D_800EAD64;
+                    } else {
+                        entry->style = &D_800EADD0;
+                    }
+                    break;
+                }
+            }
+            if (entry->kind == 1) {
+                entry->kind = 24;
+                entry->flag = 16;
+                entry->value = item;
+                entry->state = 4;
+                if (func_8007AC04(item) & 1) {
+                    entry->style = &D_800EAD64;
+                } else {
+                    entry->style = &D_800EADD0;
+                }
+            }
+        }
+    }
+    return 0;
+}

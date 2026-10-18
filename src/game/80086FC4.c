@@ -1,24 +1,61 @@
-asm(".text\n\t.globl func_80086FC4\nfunc_80086FC4:\n\t"
-    ".word 0x27BDFFD8,0xAFB1001C,0x00808821,0xAFB00018\n\t"
-    ".word 0x00008021,0x02002021,0x00111082,0x30420004\n\t"
-    ".word 0x32230003,0xAFB20020,0x00439025,0xAFBF0024\n\t"
-    ".word 0x0C025802,0xAFA00010,0x0C025386,0x02202021\n\t"
-    ".word 0x10400004,0x24040018,0x27A50010,0x0C021B2B\n\t"
-    ".word 0x27A60014,0x8FA30010,0x24020001,0x14620039\n\t"
-    ".word 0x3C03800F,0x8FA30014,0x00000000,0x10600005\n\t"
-    ".word 0x24020003,0x1062000B,0x3C03800F,0x08021C43\n\t"
-    ".word 0x2463E588,0x3C02800F,0x2442E588,0x00121880\n\t"
-    ".word 0x00621821,0x8C70000C,0x3C02FFFF,0x16020029\n\t"
-    ".word 0x3C03800F,0xAFA00010,0x0C02541B,0x02202021\n\t"
-    ".word 0x10400004,0x240400A4,0x27A50010,0x0C021B2B\n\t"
-    ".word 0x27A60014,0x8FA30010,0x24020002,0x1462001D\n\t"
-    ".word 0x3C03800F,0x8FA30014,0x24020003,0x14620009\n\t"
-    ".word 0x00000000,0xAFA00010,0x0C02541B,0x02202021\n\t"
-    ".word 0x10400004,0x240400A4,0x27A50010,0x0C021B2B\n\t"
-    ".word 0x27A60014,0x8FA30010,0x24020002,0x1462000D\n\t"
-    ".word 0x3C03800F,0x8FA30014,0x00000000,0x14600003\n\t"
-    ".word 0x2C620005,0x08021C41,0x24100007,0x10400004\n\t"
-    ".word 0x2C620003,0x14400003,0x3C03800F,0x24100005\n\t"
-    ".word 0x3C03800F,0x2463E588,0x00121080,0x00431021\n\t"
-    ".word 0xAC50000C,0x02001021,0x8FBF0024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0028\n");
+typedef struct CardState {
+    char pad00[0xC];
+    int status[8];
+} CardState;
+
+extern CardState D_800EE588;
+extern void func_80096008(int);
+extern int func_80094E18(int);
+extern int func_8009506C(int);
+extern void func_80086CAC(int, int *, int *);
+
+int func_80086FC4(unsigned int chan) {
+    int result = 0;
+    int event;
+    int code;
+    int slot = ((chan >> 2) & 4) | (chan & 3);
+
+    event = 0;
+    func_80096008(result);
+    if (func_80094E18(chan)) {
+        func_80086CAC(0x18, &event, &code);
+    }
+    if (event == 1) {
+        switch (code) {
+        case 0:
+            result = D_800EE588.status[slot];
+            if (result != (int)0xFFFF0000) {
+                goto done;
+            }
+            break;
+        case 3:
+            break;
+        default:
+            goto done;
+        }
+        event = 0;
+        if (func_8009506C(chan)) {
+            func_80086CAC(0xA4, &event, &code);
+        }
+        if (event == 2) {
+            if (code == 3) {
+                event = 0;
+                if (func_8009506C(chan)) {
+                    func_80086CAC(0xA4, &event, &code);
+                }
+            }
+            if (event == 2) {
+                if (code == 0) {
+                    result = 7;
+                } else if ((unsigned int)code < 5) {
+                    if ((unsigned int)code >= 3) {
+                        result = 5;
+                    }
+                }
+            }
+        }
+    }
+done:
+    D_800EE588.status[slot] = result;
+    return result;
+}

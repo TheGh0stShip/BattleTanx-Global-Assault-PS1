@@ -1,10 +1,21 @@
-asm(".text\n\t.globl func_8002A284\nfunc_8002A284:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0xafbf001c\n\t"
-    ".word 0x8e02001c,0x00000000,0x14400017,0x00000000\n\t"
-    ".word 0x8e030018,0x00000000,0x10600013,0x3c02800a\n\t"
-    ".word 0x24424754,0x00031880,0x00621821,0x96070014\n\t"
-    ".word 0x26050008,0xafa00010,0x8c640000,0x0c01a856\n\t"
-    ".word 0x00003021,0x3c02800c,0x8c4360d0,0x24020007\n\t"
-    ".word 0x10620005,0x00000000,0x96020014,0x00000000\n\t"
-    ".word 0x24420600,0xa6020014,0x8fbf001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    char pad0[8];
+    int pos[3];
+    unsigned short angle;
+    char pad16[2];
+    int kind;
+    int done;
+} Effect;
+
+extern int D_800A4754[];
+extern int D_800C60D0;
+extern void func_8006A158(int, int *, int, int, int);
+
+void func_8002A284(Effect *e) {
+    if (e->done == 0 && e->kind != 0) {
+        func_8006A158(D_800A4754[e->kind], e->pos, 0, e->angle, 0);
+        if (D_800C60D0 != 7) {
+            e->angle += 0x600;
+        }
+    }
+}

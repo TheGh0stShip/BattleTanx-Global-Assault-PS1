@@ -1,8 +1,31 @@
-asm(".text\n\t.globl func_8001F224\nfunc_8001F224:\n\t"
-    ".word 0x27bdffd8,0x8fa30038,0xafbf0020,0x8ca90008\n\t"
-    ".word 0x00000000,0x00c90018,0x00001012,0x00004010\n\t"
-    ".word 0x00021302,0x00084500,0x00481025,0x94a60018\n\t"
-    ".word 0x00000000,0x00460018,0x8ca20000,0x00000000\n\t"
-    ".word 0xafa20018,0x8ca20004,0x00e02821,0x27a70018\n\t"
-    ".word 0xafa2001c,0x00003012,0x0c006d2e,0xafa30010\n\t"
-    ".word 0x8fbf0020,0x00000000,0x03e00008,0x27bd0028\n\t");
+typedef struct Body {
+    int vx;
+    int vy;
+    int vz;
+    char pad0C[0x18 - 0xC];
+    unsigned short kind;
+} Body;
+typedef struct Pos2 {
+    int x;
+    int y;
+} Pos2;
+void func_8001B4B8(void *, void *, int, Pos2 *, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8001F224(void *obj, Body *body, int scale, void *target, int flags) {
+    Pos2 p;
+    int amount = fixed_mul(scale, body->vz) * body->kind;
+
+    p.x = body->vx;
+    p.y = body->vy;
+    func_8001B4B8(obj, target, amount, &p, flags);
+}

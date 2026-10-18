@@ -1,15 +1,61 @@
-asm(".text\n\t.globl func_80050204\nfunc_80050204:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb00010\n\t"
-    ".word 0xafbf0018,0x8e2200a4,0x00000000,0x10400003\n\t"
-    ".word 0x00008021,0x080140b2,0x24050014,0x922300c9\n\t"
-    ".word 0x24020001,0x14620002,0x00000000,0x8e3000cc\n\t"
-    ".word 0x00000000,0x1600000f,0x00000000,0x8e220208\n\t"
-    ".word 0x00000000,0x24440010,0x8c830004,0x24020003\n\t"
-    ".word 0x14620006,0x24070001,0x8c90003c,0x02202021\n\t"
-    ".word 0x8e2601f4,0x0c01383f,0x02002821,0x12000010\n\t"
-    ".word 0x02202021,0x8e0200a4,0x00000000,0x1440000f\n\t"
-    ".word 0x00002021,0x0c008e1c,0x24050008,0x10400008\n\t"
-    ".word 0x02202021,0x8c43000c,0x24020001,0x14620005\n\t"
-    ".word 0x24050006,0x02202021,0x080140b2,0x24050012\n\t"
-    ".word 0x24050006,0x0c0138ab,0x00000000,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Tank Tank;
+struct Tank {
+    char pad0[0xA4];
+    void *active;
+    char padA8[0xC9 - 0xA8];
+    unsigned char mode;
+    char padCA[2];
+    Tank *mode_target;
+    char padD0[0x1F4 - 0xD0];
+    int weapon;
+    char pad1F8[0x208 - 0x1F8];
+    char *owner;
+};
+typedef struct {
+    char pad[0xC];
+    int type;
+} WorldObject;
+
+extern void func_8004E0FC(Tank *, Tank *, int, int);
+extern WorldObject *func_80023870(int, int);
+extern void func_8004E2AC(Tank *, int);
+
+void func_80050204(Tank *tank) {
+    Tank *target = 0;
+    WorldObject *obj;
+    char *mode;
+
+    do { } while (0);
+
+    if (tank->active != 0) {
+        func_8004E2AC(tank, 20);
+        return;
+    }
+    if (tank->mode == 1) {
+        target = tank->mode_target;
+    }
+    if (target == 0) {
+        mode = tank->owner + 0x10;
+        if (*(int *)(mode + 4) == 3) {
+            target = *(Tank **)(mode + 0x3C);
+            func_8004E0FC(tank, target, tank->weapon, 1);
+        }
+        if (target == 0) {
+            func_8004E2AC(tank, 6);
+            return;
+        }
+    }
+    if (target->active != 0) {
+        return;
+    }
+    obj = func_80023870(0, 8);
+    if (obj == 0) {
+        func_8004E2AC(tank, 6);
+        return;
+    }
+    if (obj->type == 1) {
+        func_8004E2AC(tank, 18);
+    } else {
+        func_8004E2AC(tank, 6);
+    }
+}

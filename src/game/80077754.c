@@ -1,15 +1,34 @@
-asm(".text\n\t.globl func_80077754\nfunc_80077754:\n\t"
-    ".word 0x27bdffc8,0xafb1002c,0x241100be,0xafb00028\n\t"
-    ".word 0x2410001e,0x3c02800c,0x8c4360cc,0x24020001\n\t"
-    ".word 0xafbf0034,0x14620003,0xafb20030,0x24110130\n\t"
-    ".word 0x24100050,0x3c02800f,0x2452bbb4,0x92450001\n\t"
-    ".word 0x0c0220c9,0x24040002,0x30420002,0x1440001b\n\t"
-    ".word 0x3c03800f,0x92420001,0x00000000,0x14400006\n\t"
-    ".word 0x24050003,0x02003021,0x3c02800b,0x8c44e974\n\t"
-    ".word 0x0801ddf7,0x24070064,0x02003021,0x24070064\n\t"
-    ".word 0x3c02800b,0x8c44e978,0x24021000,0xafa20010\n\t"
-    ".word 0xafa20014,0x2402ffff,0xafa20020,0x3c02800b\n\t"
-    ".word 0x2442ea4c,0xafb10018,0xafa0001c,0x0c015b92\n\t"
-    ".word 0xafa20024,0x0801de06,0x00000000,0x24020002\n\t"
-    ".word 0xac62bc3c,0x8fbf0034,0x8fb20030,0x8fb1002c\n\t"
-    ".word 0x8fb00028,0x03e00008,0x27bd0038\n\t");
+typedef struct PadState {
+    unsigned char pad0;
+    unsigned char port;
+} PadState;
+
+extern int D_800C60CC;
+extern PadState D_800EBBB4;
+extern int D_800EBC3C;
+extern void *D_800AE974;
+extern void *D_800AE978;
+extern char D_800AEA4C[];
+extern int func_80088324(int, int);
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+
+void func_80077754(void) {
+    int x = 190;
+    int y = 30;
+    PadState *pad;
+
+    if (D_800C60CC == 1) {
+        x = 304;
+        y = 80;
+    }
+    pad = &D_800EBBB4;
+    if (!(func_80088324(2, pad->port) & 2)) {
+        if (pad->port == 0) {
+            func_80056E48(D_800AE974, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+        } else {
+            func_80056E48(D_800AE978, 3, y, 100, 4096, 4096, x, 0, -1, D_800AEA4C);
+        }
+    } else {
+        D_800EBC3C = 2;
+    }
+}

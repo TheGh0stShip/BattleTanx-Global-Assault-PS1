@@ -1,14 +1,53 @@
-asm(".text\n\t.globl func_80093590\nfunc_80093590:\n\t"
-    ".word 0x2c820008,0x1040000f,0x3c02800c,0x24425168\n\t"
-    ".word 0x00041880,0x00621821,0x8c620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3c02800f,0x2442efac\n\t"
-    ".word 0x24030004,0xac43001c,0x24030001,0xac440020\n\t"
-    ".word 0xa0430001,0x03e00008,0x00000000,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d71,0x24030008,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d71,0x24030008,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d71,0x24030010,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d92,0x24030008,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d92,0x24030010,0x3c02800f\n\t"
-    ".word 0x2442efac,0x08024d92,0x24030010,0x3c02800f\n\t"
-    ".word 0x2442efac,0x24030020,0xac43001c,0xac440020\n\t"
-    ".word 0xa0400001,0x03e00008,0x00000000\n\t");
+typedef struct {
+    unsigned char b0;
+    volatile unsigned char stereo;
+    char pad2[26];
+    int size;
+    int mode;
+} S80093590;
+extern S80093590 D_800EEFAC;
+
+void func_80093590(unsigned int mode) {
+    switch (mode) {
+    case 0:
+        D_800EEFAC.size = 4;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 1;
+        break;
+    case 1:
+        D_800EEFAC.size = 8;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 1;
+        break;
+    case 2:
+        D_800EEFAC.size = 8;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 1;
+        break;
+    case 3:
+        D_800EEFAC.size = 16;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 1;
+        break;
+    case 4:
+        D_800EEFAC.size = 8;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 0;
+        break;
+    case 5:
+        D_800EEFAC.size = 16;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 0;
+        break;
+    case 6:
+        D_800EEFAC.size = 16;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 0;
+        break;
+    case 7:
+        D_800EEFAC.size = 32;
+        D_800EEFAC.mode = mode;
+        D_800EEFAC.stereo = 0;
+        break;
+    }
+}

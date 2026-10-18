@@ -1,21 +1,40 @@
-asm(".text\n\t.globl func_80059A80\nfunc_80059A80:\n\t"
-    ".word 0x27BDFFC8,0x00001821,0x3C02800E,0xAFB60028\n\t"
-    ".word 0x2456474C,0xAFB7002C,0x2417FFFF,0xAFBF0030\n\t"
-    ".word 0xAFB50024,0xAFB40020,0xAFB3001C,0xAFB20018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x3062FFFF,0x00022900\n\t"
-    ".word 0x00B61021,0x8C42000C,0x00000000,0x1444002A\n\t"
-    ".word 0x00009021,0x00A0A821,0x3242FFFF,0x00551021\n\t"
-    ".word 0x00561021,0x80420003,0x00000000,0x1840001B\n\t"
-    ".word 0x00409821,0x00008821,0x3262FFFF,0x0002A100\n\t"
-    ".word 0x3222FFFF,0x00541021,0x00568021,0x82040003\n\t"
-    ".word 0x00000000,0x18800004,0x00000000,0x0C016ABB\n\t"
-    ".word 0x3084FFFF,0xA2170003,0x26310001,0x3222FFFF\n\t"
-    ".word 0x2C420006,0x1440FFF3,0x3222FFFF,0x3262FFFF\n\t"
-    ".word 0x00021100,0x00561021,0xA4400000,0x3242FFFF\n\t"
-    ".word 0x00551021,0x00561021,0xA0570003,0x26520001\n\t"
-    ".word 0x3242FFFF,0x2C420006,0x1440FFDC,0x3242FFFF\n\t"
-    ".word 0x080166E3,0x00000000,0x24630001,0x3062FFFF\n\t"
-    ".word 0x2C42000A,0x1440FFCD,0x3062FFFF,0x8FBF0030\n\t"
-    ".word 0x8FB7002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0038\n");
+typedef struct {
+    unsigned short flags;
+    signed char state;
+    signed char sounds[6];
+    char pad9[3];
+    void *stream;
+} Channel;
+extern Channel D_800E474C[];
+extern void func_8005AAEC(unsigned short);
+
+static inline void release_channel(unsigned short index) {
+    unsigned short k;
+
+    for (k = 0; k < 6; k++) {
+        if (D_800E474C[index].sounds[k] > 0) {
+            func_8005AAEC(D_800E474C[index].sounds[k]);
+            D_800E474C[index].sounds[k] = -1;
+        }
+    }
+    D_800E474C[index].flags = 0;
+}
+
+void func_80059A80(void *stream) {
+    unsigned short i;
+    unsigned short j;
+    int child;
+
+    for (i = 0; i < 10; i++) {
+        if (D_800E474C[i].stream == stream) {
+            for (j = 0; j < 6; j++) {
+                child = D_800E474C[i].sounds[j];
+                if (child > 0) {
+                    release_channel(child);
+                    D_800E474C[i].sounds[j] = -1;
+                }
+            }
+            return;
+        }
+    }
+}

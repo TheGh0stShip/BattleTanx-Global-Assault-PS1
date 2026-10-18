@@ -1,11 +1,18 @@
-asm(".text\n\t.set noreorder\n\t.set noat\n\t.globl func_8008ACC0\nfunc_8008ACC0:\n\t"
-    ".word 0x04810002\n\tnop\n\tsubu $4,$0,$4\n\tandi $4,$4,0xFFF\n\t"
-    "slti $2,$4,0x801\n\t.word 0x10400010\n\tslti $2,$4,0x401\n\t"
-    ".word 0x10400008\n\taddiu $2,$0,0x400\n\tsubu $2,$2,$4\n\tsll $2,$2,1\n\t"
-    "lui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x6EB8($1)\n\t.word 0x08022B56\n\tnop\n\t"
-    "sll $2,$4,1\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x66B8($1)\n\t"
-    ".word 0x08022B56\n\tsubu $2,$0,$2\n\tslti $2,$4,0xC01\n\t.word 0x14400007\n\t"
-    "addiu $2,$0,0xC00\n\tsll $2,$4,1\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\t"
-    "lh $2,0x56B8($1)\n\t.word 0x08022B56\n\tnop\n\tsubu $2,$2,$4\n\t"
-    "sll $2,$2,1\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x6EB8($1)\n\t"
-    "nop\n\tsubu $2,$0,$2\n\tjr $31\n\tnop");
+extern short D_800B6EB8[];
+
+int func_8008ACC0(int a) {
+    if (a < 0) {
+        a = -a;
+    }
+    a &= 0xFFF;
+    if (a <= 2048) {
+        if (a <= 1024) {
+            return D_800B6EB8[1024 - a];
+        }
+        return -D_800B6EB8[a - 1024];
+    }
+    if (a <= 3072) {
+        return -D_800B6EB8[3072 - a];
+    }
+    return D_800B6EB8[a - 3072];
+}

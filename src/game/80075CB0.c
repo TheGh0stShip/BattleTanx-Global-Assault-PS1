@@ -1,28 +1,47 @@
-asm(".text\n\t.globl func_80075CB0\nfunc_80075CB0:\n\t"
-    ".word 0x27BDFFB8,0xAFB20038,0x27B20028,0x02402021\n\t"
-    ".word 0x00002821,0x3C02800C,0xAFBF0040,0xAFB3003C\n\t"
-    ".word 0xAFB10034,0xAFB00030,0x244B3CC4,0x89680003\n\t"
-    ".word 0x99680000,0x00000000,0xABA80023,0xBBA80020\n\t"
-    ".word 0x0C022A92,0x24060004,0x240200FF,0xA3A2002B\n\t"
-    ".word 0x3C02800B,0x9042ACE0,0x00000000,0x10400028\n\t"
-    ".word 0x27B30020,0x3C02800A,0x8044606C,0x0C00807E\n\t"
-    ".word 0x3C11800C,0x0C008A7E,0x26313CC8,0x0C01E739\n\t"
-    ".word 0x304400FF,0x02202021,0x24050002,0x240600A0\n\t"
-    ".word 0x240700BE,0x24101000,0xAFB00010,0xAFB00014\n\t"
-    ".word 0x0C015F58,0xAFB30018,0x02202021,0x24050002\n\t"
-    ".word 0x240600A0,0x240700BC,0xAFB00010,0xAFB00014\n\t"
-    ".word 0x0C015F58,0xAFB20018,0x3C02800F,0x9442E02E\n\t"
-    ".word 0x00000000,0x30424008,0x1040002E,0x00000000\n\t"
-    ".word 0x0C01528C,0x24040004,0x3C02800B,0x24030001\n\t"
-    ".word 0xA043EA42,0x3C02800B,0x0801D791,0xA040EA43\n\t"
-    ".word 0x3C02800B,0x9043EA41,0x24020002,0x14620021\n\t"
-    ".word 0x3C04800B,0x9083EA43,0x00000000,0x2C62001F\n\t"
-    ".word 0x14400003,0x2C620014,0x0801D78C,0xA080EA43\n\t"
-    ".word 0x10400013,0x3C11800C,0x26313CDC,0x02202021\n\t"
-    ".word 0x24050002,0x2406005C,0x240700BE,0x24101000\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F0C,0xAFB30018\n\t"
-    ".word 0x02202021,0x24050002,0x2406005F,0x240700BC\n\t"
-    ".word 0xAFB00010,0xAFB00014,0x0C015F0C,0xAFB20018\n\t"
-    ".word 0x3C03800B,0x9062EA43,0x00000000,0x24420001\n\t"
-    ".word 0xA062EA43,0x8FBF0040,0x8FB3003C,0x8FB20038\n\t"
-    ".word 0x8FB10034,0x8FB00030,0x03E00008,0x27BD0048\n");
+typedef struct Color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char code;
+} Color;
+
+extern unsigned char D_800AACE0;
+extern signed char D_800A606C;
+extern unsigned short D_800EE02E;
+extern unsigned char D_800AEA41;
+extern unsigned char D_800AEA42;
+extern unsigned char D_800AEA43;
+extern void *func_8008AA48(void *, int, int);
+extern void func_800201F8(int);
+extern int func_800229F8(void);
+extern void func_80079CE4(int);
+extern void func_80057D60(char *, int, int, int, int, int, void *);
+extern void func_80057C30(char *, int, int, int, int, int, void *);
+extern void func_80054A30(int);
+
+void func_80075CB0(void) {
+    Color shadow = {50, 150, 14, 255};
+    Color black;
+
+    func_8008AA48(&black, 0, 4);
+    black.code = 255;
+    if (D_800AACE0 != 0) {
+        func_800201F8(D_800A606C);
+        func_80079CE4(func_800229F8() & 0xFF);
+        func_80057D60("Press START button", 2, 160, 190, 4096, 4096, &shadow);
+        func_80057D60("Press START button", 2, 160, 188, 4096, 4096, &black);
+        if (D_800EE02E & 0x4008) {
+            func_80054A30(4);
+            D_800AEA42 = 1;
+            D_800AEA43 = 0;
+        }
+    } else if (D_800AEA41 == 2) {
+        if (D_800AEA43 >= 31) {
+            D_800AEA43 = 0;
+        } else if (D_800AEA43 < 20) {
+            func_80057C30("LOADING . . .", 2, 92, 190, 4096, 4096, &shadow);
+            func_80057C30("LOADING . . .", 2, 95, 188, 4096, 4096, &black);
+        }
+        D_800AEA43++;
+    }
+}

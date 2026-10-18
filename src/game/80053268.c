@@ -1,14 +1,40 @@
-asm(".text\n\t.globl func_80053268\nfunc_80053268:\n\t"
-    ".word 0x3c02800d,0x94423254,0x00000000,0x00022400\n\t"
-    ".word 0x00041c03,0x2402ffff,0x1062002b,0x3c09800d\n\t"
-    ".word 0x2408000e,0x3c02800d,0x24472fe4,0x2406007f\n\t"
-    ".word 0x3c02800e,0x24453e68,0x8d223258,0x00041a83\n\t"
-    ".word 0x00432021,0x84820004,0x00000000,0x14480017\n\t"
-    ".word 0x00000000,0x90820012,0x90e30008,0x00000000\n\t"
-    ".word 0x0043102b,0x14400011,0x00000000,0x90820012\n\t"
-    ".word 0x00000000,0x14460003,0x00401821,0x08014cc1\n\t"
-    ".word 0x00001821,0x00031100,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021080,0x00451821,0x906200bc\n\t"
-    ".word 0x00000000,0x24420001,0xa06200bc,0x94820002\n\t"
-    ".word 0x00000000,0x00022400,0x00041c03,0x2402ffff\n\t"
-    ".word 0x1462ffdd,0x00000000,0x03e00008,0x00000000\n\t");
+typedef struct Node {
+    unsigned short id;
+    short next;
+    short kind;
+    char pad06[0x12 - 6];
+    unsigned char owner;
+    char pad13[0x40 - 0x13];
+} Node;
+typedef struct Waypoint {
+    char pad000[0xBC];
+    unsigned char count;
+    char pad0BD[0x114 - 0xBD];
+} Waypoint;
+extern Waypoint D_800E3E68[];
+extern Node *D_800D3258;
+extern short D_800D3254;
+typedef struct {
+    char pad0[8];
+    unsigned char count;
+} Game;
+extern Game D_800D2FE4;
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80053268(void) {
+    short index;
+    Node *node;
+
+    for (index = D_800D3254; index != -1; index = node->next) {
+        node = (&D_800D3258[index]);
+        if (node->kind == 14 && node->owner >= D_800D2FE4.count) {
+            waypoint(node->owner)->count++;
+        }
+    }
+}

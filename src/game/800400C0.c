@@ -1,45 +1,84 @@
-asm(".text\n\t.globl func_800400C0\nfunc_800400C0:\n\t"
-    ".word 0x27BDFFB8,0xAFB5003C,0x8FB50058,0xAFB40038\n\t"
-    ".word 0x0080A021,0xAFB30034,0x00A09821,0xAFB20030\n\t"
-    ".word 0xAFBF0044,0xAFB60040,0xAFB1002C,0xAFB00028\n\t"
-    ".word 0x8E820214,0x97B6005C,0x1840000F,0x00C09021\n\t"
-    ".word 0x02A02821,0x8E840000,0x8FA70060,0x0C01D095\n\t"
-    ".word 0x02603021,0x02802021,0x0C01537E,0x24050027\n\t"
-    ".word 0x8E820214,0x00000000,0x00531023,0x1C40008A\n\t"
-    ".word 0xAE820214,0x02629821,0x3C04800A,0x8E83009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8C420010\n\t"
-    ".word 0x00000000,0x30420020,0x10400032,0x02802021\n\t"
-    ".word 0x8EB00000,0x9684002C,0x8E820008,0x00042102\n\t"
-    ".word 0x0C022B58,0x02028023,0x00500018,0x00008812\n\t"
-    ".word 0x00004010,0x00118B02,0x00084500,0x02288825\n\t"
-    ".word 0x8EB00008,0x9684002C,0x8E820010,0x00042102\n\t"
-    ".word 0x0C022B30,0x02028023,0x00500018,0x00004012\n\t"
-    ".word 0x00001810,0x00084302,0x00031D00,0x01034025\n\t"
-    ".word 0x01001021,0x02228821,0x1A200016,0x02802021\n\t"
-    ".word 0x8E820218,0x00000000,0x30420002,0x10400007\n\t"
-    ".word 0x00000000,0x06610003,0x02602821,0x26650003\n\t"
-    ".word 0x02802021,0x08010088,0x00052883,0x06610002\n\t"
-    ".word 0x02602821,0x26650007,0x02802021,0x000528C3\n\t"
-    ".word 0x02403021,0x0C00FEDA,0x00003821,0x080100D6\n\t"
-    ".word 0x00000000,0x02602821,0x02403021,0x0C00FEDA\n\t"
-    ".word 0x00003821,0x3C038888,0x34638889,0x001312C0\n\t"
-    ".word 0x00430018,0x00004010,0x01028021,0x00108103\n\t"
-    ".word 0x000217C3,0x0C021B21,0x02028023,0x00021402\n\t"
-    ".word 0x00022040,0x00822021,0x00042080,0x00822021\n\t"
-    ".word 0x00041980,0x00641823,0x00031880,0x00621821\n\t"
-    ".word 0x00031C02,0x24630666,0x00700018,0x00004012\n\t"
-    ".word 0x00001010,0x00084302,0x00021500,0x01024025\n\t"
-    ".word 0x01008021,0x32D2FFFF,0x00128902,0x0C022B30\n\t"
-    ".word 0x02202021,0x00500018,0x00001812,0x00004010\n\t"
-    ".word 0x00031B02,0x00084500,0x00681825,0x8E820220\n\t"
-    ".word 0x02202021,0x00431021,0x0C022B58,0xAE820220\n\t"
-    ".word 0x00500018,0x00002812,0x00004010,0x00052B02\n\t"
-    ".word 0x00084500,0x00A82825,0x26840034,0x00133080\n\t"
-    ".word 0x00D33021,0x8E820228,0x8E830008,0x00451023\n\t"
-    ".word 0xAE820228,0xAFA30018,0x8E820010,0x00063400\n\t"
-    ".word 0xAFA2001C,0x8EA20000,0x02403821,0xAFA20020\n\t"
-    ".word 0x8EA20008,0x27A50018,0xAFA20024,0x27A20020\n\t"
-    ".word 0x0C007C5C,0xAFA20010,0x8FBF0044,0x8FB60040\n\t"
-    ".word 0x8FB5003C,0x8FB40038,0x8FB30034,0x8FB20030\n\t"
-    ".word 0x8FB1002C,0x8FB00028,0x03E00008,0x27BD0048\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { int x; int z; } Point;
+typedef struct { char pad[0x10]; unsigned int flags; char pad2[0xD0 - 0x14]; } Vehicle;
+typedef struct {
+    int id;
+    char pad0[4];
+    Vector pos;
+    char pad1[0x2C - 0x14];
+    unsigned short heading;
+    char pad2[0x34 - 0x2E];
+    char effect[0x9C - 0x34];
+    int type;
+    char pad3[0x214 - 0xA0];
+    int health;
+    unsigned int status;
+    char pad4[4];
+    int vx;
+    char pad5[4];
+    int vz;
+} Tank;
+extern Vehicle D_800A4EF4[];
+extern unsigned int func_80086C84(void);
+extern int func_8008ACC0(int);
+extern int func_8008AD60(int);
+extern void func_80074254(int, Vector *, int, int);
+extern void func_80054DF8(Tank *, int);
+extern void func_8003FB68(Tank *, int, int, int);
+extern void func_8001F170(void *, Point *, int, int, Point *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_800400C0(Tank *t, int damage, int attacker, int unused, Vector *src, unsigned short heading, int kind)
+{
+    int facing;
+    int dx;
+    int dz;
+    int push;
+    int angle;
+    Point from;
+    Point to;
+
+    if (t->health > 0) {
+        func_80074254(t->id, src, damage, kind);
+        func_80054DF8(t, 39);
+        t->health -= damage;
+        if (t->health > 0) {
+            return;
+        }
+        damage += t->health;
+    }
+    if (D_800A4EF4[t->type].flags & 0x20) {
+        dx = src->x - t->pos.x;
+        facing = fixed_mul(func_8008AD60(t->heading >> 4), dx);
+        dz = src->z - t->pos.z;
+        facing += fixed_mul(func_8008ACC0(t->heading >> 4), dz);
+        if (facing > 0) {
+            if (t->status & 2) {
+                func_8003FB68(t, damage / 4, attacker, 0);
+            } else {
+                func_8003FB68(t, damage / 8, attacker, 0);
+            }
+            return;
+        }
+    }
+    func_8003FB68(t, damage, attacker, 0);
+    push = (damage << 11) / 30;
+    push = fixed_mul(((func_80086C84() >> 16) * 3277 >> 16) + 1638, push);
+    angle = heading >> 4;
+    t->vx += fixed_mul(func_8008ACC0(angle), push);
+    t->vz -= fixed_mul(func_8008AD60(angle), push);
+    from.x = t->pos.x;
+    from.z = t->pos.z;
+    to.x = src->x;
+    to.z = src->z;
+    func_8001F170(t->effect, &from, damage * 5 << 16, heading, &to);
+}

@@ -1,11 +1,21 @@
-asm(".text\n\t.globl func_80014FFC\nfunc_80014FFC:\n\t"
-    ".word 0x27bdffd0,0xafb10024,0x00808821,0xafb00020\n\t"
-    ".word 0x00a08021,0x27a40018,0x00002821,0xafbf0028\n\t"
-    ".word 0x0c022a92,0x24060008,0x96020000,0x02202021\n\t"
-    ".word 0x00021023,0xa7a20018,0x96020002,0x00000000\n\t"
-    ".word 0x00021023,0xa7a2001a,0x96020004,0x34038000\n\t"
-    ".word 0x00431021,0xa7a2001c,0x8ba7001b,0x9ba70018\n\t"
-    ".word 0x8ba8001f,0x9ba8001c,0xaba70013,0xbba70010\n\t"
-    ".word 0xaba80017,0xbba80014,0x0c005602,0x27a50010\n\t"
-    ".word 0x8fbf0028,0x8fb10024,0x8fb00020,0x03e00008\n\t"
-    ".word 0x27bd0030\n\t");
+typedef struct SVector {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+typedef struct Matrix Matrix;
+void func_8008AA48(void *, int, int);
+void func_80015808(Matrix *, SVector *);
+
+void func_80014FFC(Matrix *m, SVector *rot) {
+    SVector tmp;
+    SVector r;
+
+    func_8008AA48(&r, 0, sizeof(r));
+    r.x = -rot->x;
+    r.y = -rot->y;
+    r.z = (unsigned short)rot->z + 0x8000;
+    tmp = r;
+    func_80015808(m, &tmp);
+}

@@ -1,16 +1,35 @@
-asm(".text\n\t.globl func_80033CEC\nfunc_80033CEC:\n\t"
-    ".word 0x27bdfff0,0x00005821,0x3c02800a,0x244a4804\n\t"
-    ".word 0x8c83000c,0x8d420000,0x00000000,0x00624021\n\t"
-    ".word 0xafa80000,0x8c870010,0x00000000,0xafa70004\n\t"
-    ".word 0x8c830014,0x8d420004,0x00000000,0x00621821\n\t"
-    ".word 0xafa30008,0x8c860008,0x00000000,0x10c00014\n\t"
-    ".word 0x00004821,0x8cc20020,0x00000000,0x1502000c\n\t"
-    ".word 0x00000000,0x8cc20024,0x00000000,0x14e20008\n\t"
-    ".word 0x00000000,0x8cc20028,0x00000000,0x14620004\n\t"
-    ".word 0x00000000,0x24090001,0x0800cf60,0x00003021\n\t"
-    ".word 0x8cc6001c,0x00000000,0x14c0ffee,0x00000000\n\t"
-    ".word 0x312200ff,0x1440000a,0x00000000,0x8fa20000\n\t"
-    ".word 0x00000000,0xaca20000,0x8fa20004,0x00000000\n\t"
-    ".word 0xaca20004,0x8fa20008,0x0800cf73,0xaca20008\n\t"
-    ".word 0x256b0001,0x29620005,0x1440ffcd,0x254a0008\n\t"
-    ".word 0x03e00008,0x27bd0010\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Offset;
+typedef struct Item Item;
+struct Item { int pad[7]; Item *next; Vector pos; };
+typedef struct { int pad[2]; Item *items; Vector pos; } Pile;
+extern Offset D_800A4804[];
+
+void func_80033CEC(Pile *pile, Vector *out) {
+    int i;
+    Vector cand;
+    Item *it;
+    unsigned char found;
+
+    for (i = 0; i < 5; i++) {
+        cand.x = pile->pos.x + D_800A4804[i].x;
+        cand.y = pile->pos.y;
+        cand.z = pile->pos.z + D_800A4804[i].z;
+        found = 0;
+        it = pile->items;
+        while (it != 0) {
+            if (cand.x == it->pos.x && cand.y == it->pos.y && cand.z == it->pos.z) {
+                found = 1;
+                it = 0;
+            } else {
+                it = it->next;
+            }
+        }
+        if (!found) {
+            out->x = cand.x;
+            out->y = cand.y;
+            out->z = cand.z;
+            return;
+        }
+    }
+}

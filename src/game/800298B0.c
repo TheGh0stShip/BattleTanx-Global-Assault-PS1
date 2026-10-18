@@ -1,29 +1,99 @@
-asm(".text\n\t.globl func_800298B0\nfunc_800298B0:\n\t"
-    ".word 0x27BDFFD8,0x00E04021,0xAFB00020,0x00808021\n\t"
-    ".word 0xAFBF0024,0x92020006,0x8FA70038,0x30420002\n\t"
-    ".word 0x14400061,0x24020003,0x10C20036,0x2CC20004\n\t"
-    ".word 0x10400005,0x00000000,0x10C0000A,0x00000000\n\t"
-    ".word 0x0800A696,0x00000000,0x24020005,0x10C20021\n\t"
-    ".word 0x24020006,0x10C20027,0x02002021,0x0800A696\n\t"
-    ".word 0x00000000,0x94A20004,0x00000000,0x2442FFFC\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620031,0x1040004A\n\t"
-    ".word 0x3C02800C,0x2442D784,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x24020001,0xACE20000,0x8D020018,0x00000000\n\t"
-    ".word 0x10400002,0x00003021,0x8D060014,0x8D050010\n\t"
-    ".word 0x0800A683,0x00000000,0x24020001,0x0800A696\n\t"
-    ".word 0xACE20000,0x24020001,0xA0E20000,0x8E020008\n\t"
-    ".word 0x00000000,0xACE20004,0x8E020010,0x0800A696\n\t"
-    ".word 0xACE20008,0x0C00A54B,0x01003021,0x0800A696\n\t"
-    ".word 0x00000000,0x9202001C,0x00000000,0x10400026\n\t"
-    ".word 0x3C02800D,0x90422FEC,0x8D030014,0x00000000\n\t"
-    ".word 0x0062102A,0x1040000B,0x2402007F,0x10620009\n\t"
-    ".word 0x00031100,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x0800A682\n\t"
-    ".word 0x00433021,0x00003021,0x8D05000C,0x0C00A4C2\n\t"
-    ".word 0x02002021,0x8E020038,0x00000000,0x1C40000E\n\t"
-    ".word 0x26050008,0x3C02800D,0x8C442F50,0x96060014\n\t"
-    ".word 0x00003821,0xAFA00010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0x0C00D652,0xAFA0001C,0x92020006,0x00000000\n\t"
-    ".word 0x34420002,0xA2020006,0x8FBF0024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct {
+    char pad0[0x114];
+} Waypoint;
+
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7;
+    int x;
+    int y;
+    int z;
+    unsigned short angle;
+    char pad16[0x1C - 0x16];
+    unsigned char armed;
+    char pad1D[0x38 - 0x1D];
+    int health;
+} Object;
+
+typedef struct {
+    short pad0[2];
+    short type;
+} Message;
+
+typedef struct {
+    char pad0[0xC];
+    int splash;
+    int damage;
+    int source;
+    int has_source;
+} Hit;
+
+typedef struct {
+    union {
+        int result;
+        unsigned char valid;
+    } u;
+    int x;
+    int z;
+} Reply;
+
+extern Waypoint D_800E3E68[];
+extern unsigned char D_800D2FEC;
+extern int D_800D2F50;
+extern void func_80029308(Object *, int, int);
+extern void func_8002952C(Object *, Message *, Hit *, Reply *);
+extern void func_80035948(int, int *, int, int, int, int, int, int);
+
+void func_800298B0(Object *self_arg, Message *msg, unsigned int cmd, Hit *hit, Reply *reply) {
+    Waypoint *w;
+    Object *self = self_arg;
+
+    if (self->flags & 2) {
+        return;
+    }
+    switch (cmd) {
+    case 0:
+        switch (msg->type) {
+        case 7:
+        case 12:
+        case 39:
+        case 40:
+        case 52:
+            reply->u.result = 1;
+            func_80029308(self, hit->damage, hit->has_source ? hit->source : 0);
+            if (self->health <= 0) {
+                func_80035948(D_800D2F50, &self->x, self->angle, 0, 0, 0, 0, 0);
+                self->flags |= 2;
+            }
+            break;
+        case 4:
+        case 30:
+            reply->u.result = 1;
+            break;
+        }
+        break;
+    case 5:
+        reply->u.valid = 1;
+        reply->x = self->x;
+        reply->z = self->z;
+        break;
+    case 6:
+        func_8002952C(self, msg, hit, reply);
+        break;
+    case 3:
+        if (self->armed != 0) {
+            if (hit->source < D_800D2FEC && hit->source != 127) {
+                w = &D_800E3E68[hit->source];
+            } else {
+                w = 0;
+            }
+            func_80029308(self, hit->splash, (int)w);
+            if (self->health <= 0) {
+                func_80035948(D_800D2F50, &self->x, self->angle, 0, 0, 0, 0, 0);
+                self->flags |= 2;
+            }
+        }
+        break;
+    }
+}

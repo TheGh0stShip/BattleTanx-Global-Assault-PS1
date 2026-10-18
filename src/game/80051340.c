@@ -1,27 +1,81 @@
-asm(".text\n\t.globl func_80051340\nfunc_80051340:\n\t"
-    ".word 0x00804021,0x8D020014,0xAD050014,0x00451026\n\t"
-    ".word 0x0002482B,0x2CA20008,0x1040005F,0xA5000048\n\t"
-    ".word 0x3C02800C,0x2442F824,0x00051880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x10E00004,0x00000000,0x8CC20000,0x00000000\n\t"
-    ".word 0xAD02004C,0x95030048,0x08014529,0x24040013\n\t"
-    ".word 0x10E00004,0x00000000,0x8CC20000,0x00000000\n\t"
-    ".word 0xAD02004C,0x95020048,0x24040014,0x00021840\n\t"
-    ".word 0x00621821,0x00031880,0x24630018,0x01031821\n\t"
-    ".word 0x24020001,0xA4620008,0x3C028005,0x24420E90\n\t"
-    ".word 0xAC640000,0x08014524,0xAC620004,0x10E00004\n\t"
-    ".word 0x00000000,0x8CC20000,0x00000000,0xAD02004C\n\t"
-    ".word 0x95030048,0x08014529,0x24040012,0x10E00032\n\t"
-    ".word 0x00000000,0x8CC20000,0x08014536,0xAD02004C\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x00000000,0x24420096\n\t"
-    ".word 0xAD02004C,0x3C02800A,0x8C425B24,0x34038000\n\t"
-    ".word 0x00431021,0x94426076,0xA1000052,0xA5020050\n\t"
-    ".word 0x3C02800D,0x8C432FE8,0x2402000A,0x1062001E\n\t"
-    ".word 0x24040009,0x95030048,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x24420018,0x01021021\n\t"
-    ".word 0x24030001,0xAC440000,0xA4430008,0xAC400004\n\t"
-    ".word 0x95020048,0x24040006,0x24420001,0xA5020048\n\t"
-    ".word 0x3043FFFF,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x24420018,0x01021021,0x24030010,0xAC440000\n\t"
-    ".word 0xA4430008,0xAC400004,0x95020048,0x00000000\n\t"
-    ".word 0x24420001,0xA5020048,0x03E00008,0x01201021\n");
+typedef struct {
+    char pad0[0xE076];
+    unsigned short blink_color;
+} System;
+typedef struct {
+    int op;
+    void *fn;
+    unsigned short arg;
+    short padA;
+} Command;
+typedef struct {
+    char pad0[0x14];
+    unsigned int state;
+    Command cmds[4];
+    unsigned short count;
+    short pad4A;
+    int timer;
+    unsigned short color;
+    unsigned char blink;
+} Marker;
+extern System *D_800A5B24;
+extern int D_800D2FE8;
+extern int D_800D2FE0;
+extern void func_80050E90(void);
+
+static inline void push(Marker *m, int op, void *fn, unsigned short arg) {
+    Command *c = &m->cmds[m->count];
+
+    c->op = op;
+    c->arg = arg;
+    c->fn = fn;
+    m->count++;
+}
+
+int func_80051340(Marker *m, unsigned int state, int *timer, int use_timer) {
+    int changed = m->state != state;
+
+    m->state = state;
+    m->count = 0;
+    switch (state) {
+    case 0:
+    case 1:
+    case 2:
+        break;
+    case 3:
+        if (use_timer != 0) {
+            m->timer = *timer;
+        }
+        push(m, 19, 0, 16);
+        break;
+    case 4:
+        if (use_timer != 0) {
+            m->timer = *timer;
+        }
+        push(m, 20, func_80050E90, 1);
+        push(m, 6, 0, 16);
+        break;
+    case 5:
+        if (use_timer != 0) {
+            m->timer = *timer;
+        }
+        push(m, 18, 0, 16);
+        break;
+    case 6:
+        if (use_timer != 0) {
+            m->timer = *timer;
+        }
+        break;
+    case 7:
+        m->timer = D_800D2FE0 + 150;
+        m->color = D_800A5B24->blink_color;
+        m->blink = 0;
+        if (D_800D2FE8 == 10) {
+            break;
+        }
+        push(m, 9, 0, 1);
+        push(m, 6, 0, 16);
+        break;
+    }
+    return changed;
+}

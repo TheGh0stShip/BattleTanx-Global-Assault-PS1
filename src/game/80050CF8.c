@@ -1,27 +1,80 @@
-asm(".text\n\t.globl func_80050CF8\nfunc_80050CF8:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x8E030014,0x00000000,0x2C620008,0x1040005A\n\t"
-    ".word 0x3C02800C,0x2442F7CC,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x3C02800A,0x8C425B24,0x34038000,0x00431021\n\t"
-    ".word 0x90426074,0x00000000,0x1040004B,0x3C02800D\n\t"
-    ".word 0x8C422FE8,0x00000000,0x2443FFFF,0x2C62000E\n\t"
-    ".word 0x10400016,0x3C02800C,0x2442F7EC,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x02002021,0x08014373,0x24050002\n\t"
-    ".word 0x3C02800A,0x8C425B24,0x34038000,0x00431021\n\t"
-    ".word 0x8C436078,0x8E02000C,0x00000000,0x10620003\n\t"
-    ".word 0x02002021,0x08014373,0x24050007,0x02002021\n\t"
-    ".word 0x24050001,0x00003021,0x0C0144D0,0x00C03821\n\t"
-    ".word 0x080143A0,0x00000000,0x0C0142CB,0x02002021\n\t"
-    ".word 0x080143A0,0x00000000,0x0C0142CB,0x02002021\n\t"
-    ".word 0x1040001F,0x00000000,0x080143A0,0x00000000\n\t"
-    ".word 0x3C04800D,0x8E03004C,0x8C822FE0,0x00000000\n\t"
-    ".word 0x0043102A,0x14400012,0x3C02800D,0x92020052\n\t"
-    ".word 0x00000000,0x2C420001,0xA2020052,0x8C822FE0\n\t"
-    ".word 0x92030052,0x24420096,0x10600008,0xAE02004C\n\t"
-    ".word 0x3C02800A,0x8C425B24,0x34038000,0x00431021\n\t"
-    ".word 0x94426076,0x00000000,0xA6020050,0x3C02800D\n\t"
-    ".word 0x8C432FE8,0x2402000A,0x10620003,0x00000000\n\t"
-    ".word 0x0C014441,0x02002021,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct {
+    char pad0[0xE074];
+    unsigned char enabled;
+    char padE075;
+    unsigned short blink_color;
+    int team;
+} System;
+typedef struct {
+    char pad0[0xC];
+    int team;
+    char pad10[4];
+    unsigned int state;
+    char pad18[0x4C - 0x18];
+    int timer;
+    unsigned short color;
+    unsigned char blink;
+} Marker;
+extern System *D_800A5B24;
+extern int D_800D2FE8;
+extern int D_800D2FE0;
+extern void func_80051340(Marker *, int, int, int);
+extern int func_80050B2C(Marker *);
+extern void func_80051104(Marker *);
+
+void func_80050CF8(Marker *m) {
+    switch (m->state) {
+    case 0:
+        if (D_800A5B24->enabled == 0) {
+            break;
+        }
+        switch (D_800D2FE8) {
+        case 1:
+        case 2:
+        case 3:
+        case 11:
+            func_80051340(m, 2, 0, 0);
+            break;
+        case 4:
+        case 10:
+            if (D_800A5B24->team != m->team) {
+                func_80051340(m, 7, 0, 0);
+                break;
+            }
+        case 12:
+        case 13:
+        case 14:
+        default:
+            func_80051340(m, 1, 0, 0);
+            break;
+        case 9:
+            break;
+        }
+        break;
+    case 1:
+        break;
+    case 2:
+    case 6:
+        func_80050B2C(m);
+        break;
+    case 3:
+    case 4:
+    case 5:
+        if (func_80050B2C(m) == 0) {
+            func_80051104(m);
+        }
+        break;
+    case 7:
+        if (m->timer <= D_800D2FE0) {
+            m->blink = m->blink == 0;
+            m->timer = D_800D2FE0 + 150;
+            if (m->blink != 0) {
+                m->color = D_800A5B24->blink_color;
+            }
+        }
+        if (D_800D2FE8 != 10) {
+            func_80051104(m);
+        }
+        break;
+    }
+}

@@ -1,16 +1,61 @@
-asm(".text\n\t.globl func_8009AA74\nfunc_8009AA74:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0xafbf0014,0x0c0250fc\n\t"
-    ".word 0x00808021,0x0c02681f,0x02002021,0x16000008\n\t"
-    ".word 0x3404c000,0x24030017,0x3c02800b,0x244277ba\n\t"
-    ".word 0xa4440000,0x2463ffff,0x0461fffd,0x2442fffe\n\t"
-    ".word 0x0c026ad7,0x00000000,0x240400d1,0x3c02800b\n\t"
-    ".word 0x24427774,0x3c05800c,0x8ca5d114,0x3c01800b\n\t"
-    ".word 0xac207764,0x3c01800b,0xac207768,0xac400000\n\t"
-    ".word 0xa4400004,0xa4400006,0xac400008,0xac40000c\n\t"
-    ".word 0x3c01800b,0xac25776c,0x0c026a1f,0x00003021\n\t"
-    ".word 0x3c01800b,0xac207bd0,0x3c01800b,0xac207bd4\n\t"
-    ".word 0x3c01800b,0xac207bd8,0x3c01800b,0xac207760\n\t"
-    ".word 0x3c01800b,0xac20770c,0x3c01800b,0xac20775c\n\t"
-    ".word 0x3c01800b,0xac207788,0x3c01800b,0xac207784\n\t"
-    ".word 0x3c01800b,0xac207bbc,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct SpuState {
+    int a;
+    short b;
+    short c;
+    int d;
+    int e;
+} SpuState;
+
+extern void func_800943F0();
+extern void func_8009A07C(int);
+extern void func_8009AB5C(void);
+extern void func_8009A87C(int, int, int);
+extern unsigned short D_800B778C[24];
+extern int D_800B7764;
+extern int D_800B7768;
+extern int D_800B776C;
+extern SpuState D_800B7774;
+extern int D_800BD114;
+extern int D_800B7BD0;
+extern int D_800B7BD4;
+extern int D_800B7BD8;
+extern int D_800B7760;
+extern int D_800B770C;
+extern int D_800B775C;
+extern int D_800B7788;
+extern int D_800B7784;
+extern int D_800B7BBC;
+
+void func_8009AA74(int mode) {
+    unsigned short *notes;
+    int i;
+
+    func_800943F0();
+    func_8009A07C(mode);
+    if (mode == 0) {
+        notes = D_800B778C;
+        for (i = 0; i < 24; i++) {
+            notes[i] = 0xC000;
+        }
+    }
+    func_8009AB5C();
+    D_800B7764 = 0;
+    D_800B7768 = 0;
+    D_800B7774.a = 0;
+    D_800B7774.b = 0;
+    D_800B7774.c = 0;
+    D_800B7774.d = 0;
+    D_800B7774.e = 0;
+    D_800B776C = D_800BD114;
+    func_8009A87C(0xD1, D_800BD114, 0);
+    D_800B7BD0 = 0;
+    D_800B7BD4 = 0;
+    D_800B7BD8 = 0;
+    D_800B7760 = 0;
+    D_800B770C = 0;
+    D_800B775C = 0;
+    D_800B7788 = 0;
+    D_800B7784 = 0;
+    D_800B7BBC = 0;
+    __asm__ volatile("");
+}

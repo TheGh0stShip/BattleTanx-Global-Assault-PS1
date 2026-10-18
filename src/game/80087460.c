@@ -1,18 +1,68 @@
-asm(".text\n\t.globl func_80087460\nfunc_80087460:\n\t"
-    ".word 0x27bdffd0,0xafb20028,0x00809021,0x3c02800f\n\t"
-    ".word 0xafb10024,0x2451e588,0xafbf002c,0xafb00020\n\t"
-    ".word 0x92220004,0x00000000,0x10400003,0x00008021\n\t"
-    ".word 0x0c021c78,0x00000000,0x92220006,0x00000000\n\t"
-    ".word 0x1040002c,0x02001021,0x8e220030,0x00000000\n\t"
-    ".word 0x16420028,0x02001021,0x92220008,0x00000000\n\t"
-    ".word 0x1040001c,0x24100001,0x92220007,0x00000000\n\t"
-    ".word 0x14400018,0x2404000b,0x02402821,0x00003021\n\t"
-    ".word 0x8e2202fc,0x27a70018,0xa2200009,0x00021027\n\t"
-    ".word 0xafa20018,0x24020004,0xafa20010,0x3c028008\n\t"
-    ".word 0x24427424,0x0c0220c9,0xafa20014,0x00408021\n\t"
-    ".word 0x12000008,0x2404000c,0x02402821,0x0c0220c9\n\t"
-    ".word 0x24060001,0x92220009,0x00000000,0x38420001\n\t"
-    ".word 0x2c500001,0x0c025514,0x00000000,0x3c02800f\n\t"
-    ".word 0x2442e588,0xa0400006,0xac4000c0,0xac4000bc\n\t"
-    ".word 0x02001021,0x8fbf002c,0x8fb20028,0x8fb10024\n\t"
-    ".word 0x8fb00020,0x03e00008,0x27bd0030\n\t");
+typedef void (*CardCallback)(int, int, int, int);
+typedef struct {
+    char name[20];
+    unsigned char selected;
+    char pad15[3];
+    int size;
+    char pad1c[12];
+} DirEntry;
+typedef struct {
+    int w0;
+    volatile unsigned char active;
+    volatile unsigned char busy;
+    volatile unsigned char open;
+    volatile unsigned char readonly;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    char pad_a[2];
+    int slot_state[8];
+    char pad2c[4];
+    int port;
+    char pad34[8];
+    unsigned char buf[0x80];
+    int wBC;
+    int wC0;
+    int wC4;
+    char padC8[0xC];
+    int wD4;
+    char padD8[0xC];
+    CardCallback done;
+    CardCallback error;
+    char padEC[0x210];
+    unsigned int checksum;
+    DirEntry entries[15];
+    int count;
+    int loaded;
+} CardState;
+extern CardState D_800EE588;
+
+extern void func_800871E0(void);
+extern int func_80088324();
+extern void func_80087424(void);
+extern void func_80095450(void);
+
+int func_80087460(int port) {
+    int result = 0;
+    unsigned int value;
+
+    if (D_800EE588.active != 0) {
+        func_800871E0();
+    }
+    if (D_800EE588.open != 0 && port == D_800EE588.port) {
+        result = 1;
+        if (D_800EE588.b8 != 0 && D_800EE588.readonly == 0) {
+            D_800EE588.b9 = 0;
+            value = ~D_800EE588.checksum;
+            result = func_80088324(11, port, 0, &value, 4, func_80087424);
+            if (result != 0) {
+                func_80088324(12, port, 1);
+                result = D_800EE588.b9 == 1;
+            }
+        }
+        func_80095450();
+        D_800EE588.open = 0;
+        D_800EE588.wC0 = 0;
+        D_800EE588.wBC = 0;
+    }
+    return result;
+}

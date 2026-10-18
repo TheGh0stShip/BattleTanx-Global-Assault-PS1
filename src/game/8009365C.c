@@ -1,9 +1,33 @@
-asm(".text\n\t.globl func_8009365C\nfunc_8009365C:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00809021,0xafb00010\n\t"
-    ".word 0x3c10800f,0x2610efac,0xafbf001c,0xafb10014\n\t"
-    ".word 0x8e110034,0x00002021,0xae000030,0x0c024581\n\t"
-    ".word 0xae000034,0xa2000003,0xa2000007,0xa2000009\n\t"
-    ".word 0xa200000a,0x0c02459b,0x00000000,0x12200005\n\t"
-    ".word 0x00000000,0x324400ff,0x38840002,0x0220f809\n\t"
-    ".word 0x2c840001,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern void func_80091604(int);
+extern void func_8009166C(void);
+
+typedef struct {
+    char pad0[3];
+    unsigned char b3;
+    char pad4[3];
+    unsigned char b7;
+    char pad8;
+    unsigned char b9;
+    volatile unsigned char b10;
+    char pad11[37];
+    int w48;
+    void (*cb)(int);
+} S8009365C;
+extern S8009365C D_800EEFAC;
+
+void func_8009365C(unsigned char mode) {
+    S8009365C *s = &D_800EEFAC;
+    void (*cb)(int) = s->cb;
+
+    s->w48 = 0;
+    s->cb = 0;
+    func_80091604(0);
+    s->b3 = 0;
+    s->b7 = 0;
+    s->b9 = 0;
+    s->b10 = 0;
+    func_8009166C();
+    if (cb != 0) {
+        cb(mode == 2);
+    }
+}

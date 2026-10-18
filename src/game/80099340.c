@@ -1,14 +1,40 @@
-asm(".text\n\t.globl func_80099340\nfunc_80099340:\n\t"
-    ".word 0x27bdffc8,0xafb00020,0x00808021,0xafb10024\n\t"
-    ".word 0x00a08821,0xafb20028,0x00c09021,0xafb3002c\n\t"
-    ".word 0x00e09821,0xafbf0030,0x0c028b2e,0x00002821\n\t"
-    ".word 0x14400004,0x3c02800f,0x0c028b72,0x02002021\n\t"
-    ".word 0x3c02800f,0xac50f124,0xae000054,0x12200004\n\t"
-    ".word 0xae11005c,0x8e220000,0x080264e9,0xae020060\n\t"
-    ".word 0xae000060,0x02002021,0xac920064,0xac930068\n\t"
-    ".word 0x8fa20048,0x00002821,0xac82006c,0x8fa20050\n\t"
-    ".word 0x00a03021,0xac820074,0x24020004,0xac82004c\n\t"
-    ".word 0x8fa2004c,0x00a03821,0xafa00010,0xafa20014\n\t"
-    ".word 0x3c02800a,0x244291e8,0x0c028aa6,0xafa20018\n\t"
-    ".word 0x8fbf0030,0x8fb3002c,0x8fb20028,0x8fb10024\n\t"
-    ".word 0x8fb00020,0x03e00008,0x27bd0038\n\t");
+extern int func_800A2CB8(void *, int);
+extern void func_800A2DC8(void *);
+extern int func_800A2A98(void *, int, int, int, int, int, void *);
+extern void func_800991E8(void);
+extern void *D_800EF124;
+
+typedef struct Ctx {
+    char pad0[0x4C];
+    int mode;
+    int pad50;
+    int unk54;
+    int pad58;
+    int *src;
+    int srcval;
+    int a2;
+    int a3;
+    int a4;
+    int pad70;
+    int a6;
+} Ctx;
+
+int func_80099340(Ctx *c, int *src, int a2, int a3, int a4, int a5, int a6) {
+    if (func_800A2CB8(c, 0) == 0) {
+        func_800A2DC8(c);
+    }
+    D_800EF124 = c;
+    c->unk54 = 0;
+    c->src = src;
+    if (src != 0) {
+        c->srcval = *src;
+    } else {
+        c->srcval = 0;
+    }
+    c->a2 = a2;
+    c->a3 = a3;
+    c->a4 = a4;
+    c->a6 = a6;
+    c->mode = 4;
+    return func_800A2A98(c, 0, 0, 0, 0, a5, func_800991E8);
+}

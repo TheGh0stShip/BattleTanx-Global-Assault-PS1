@@ -1,11 +1,28 @@
-asm(".text\n\t.globl func_80099044\nfunc_80099044:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0x10e00018,0xafbf0018,0x322300ff\n\t"
-    ".word 0x24020004,0x1462000a,0x24020005,0x8e020070\n\t"
-    ".word 0x00000000,0x10400005,0x24050001,0x0040f809\n\t"
-    ".word 0x00a03021,0x24020001,0xae020054,0x24020005\n\t"
-    ".word 0xae02004c,0x02002021,0x322500ff,0x38a50004\n\t"
-    ".word 0x2ca50001,0x3c06800a,0x0c028ade,0x24c691e8\n\t"
-    ".word 0x14400005,0x00000000,0x02002021,0x24050001\n\t"
-    ".word 0x0c026354,0x00003021,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern int func_800A2B78(void *, int, void *);
+extern void func_80098D50(void *, int, int);
+extern void func_800991E8(void);
+
+typedef struct S80099044 {
+    char pad0[76];
+    int state;
+    char pad80[4];
+    int flushed;
+    char pad88[24];
+    void (*flush)(struct S80099044 *, int, int);
+} S80099044;
+
+void func_80099044(S80099044 *p, unsigned char kind, int a2, int go) {
+    if (go != 0) {
+        if (kind == 4) {
+            if (p->flush != 0) {
+                p->flush(p, 1, 1);
+                p->flushed = 1;
+            }
+        }
+        p->state = 5;
+        if (func_800A2B78(p, kind == 4, func_800991E8) != 0) {
+            return;
+        }
+    }
+    func_80098D50(p, 1, 0);
+}

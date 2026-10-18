@@ -1,22 +1,79 @@
-asm(".text\n\t.globl func_80051568\nfunc_80051568:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x00809021,0xAFBF001C\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x92420064,0x00000000\n\t"
-    ".word 0x10400045,0x2402FFFF,0x8E420080,0x00000000\n\t"
-    ".word 0x14400003,0x00000000,0x080145A8,0x2402FFFF\n\t"
-    ".word 0x8C420000,0x8E440060,0x00000000,0x14440026\n\t"
-    ".word 0x24020004,0x00008821,0x8E420078,0x00000000\n\t"
-    ".word 0x10400005,0x02208021,0x00408021,0x8E110000\n\t"
-    ".word 0x0801457D,0x00000000,0x8E4200AC,0x00000000\n\t"
-    ".word 0x10400002,0x00000000,0x00408821,0x1220FFEA\n\t"
-    ".word 0x24020004,0x8E440060,0x00000000,0x84830004\n\t"
-    ".word 0x00000000,0x14620008,0x2403FFFD,0x8C840008\n\t"
-    ".word 0x00000000,0x8C820218,0x00000000,0x00431024\n\t"
-    ".word 0x0C014F85,0xAC820218,0x12000005,0x02402021\n\t"
-    ".word 0x8E020218,0x00000000,0x34420002,0xAE020218\n\t"
-    ".word 0x080145A5,0x02202821,0x84830004,0x00000000\n\t"
-    ".word 0x14620008,0x2403FFFD,0x8C840008,0x00000000\n\t"
-    ".word 0x8C820218,0x00000000,0x00431024,0x0C014F85\n\t"
-    ".word 0xAC820218,0x8E430080,0x02402021,0x8C620218\n\t"
-    ".word 0x8C650000,0x34420002,0xAC620218,0x0C014A89\n\t"
-    ".word 0x00000000,0x00001021,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Link Link;
+typedef struct Obj {
+    Link *link;
+    char pad4[0x218 - 4];
+    int status;
+} Obj;
+struct Link {
+    char pad0[4];
+    short kind;
+    short pad6;
+    Obj *obj;
+};
+typedef struct {
+    char pad0[0x60];
+    Link *link;
+    unsigned char active;
+    char pad65[0x78 - 0x65];
+    Obj *holder;
+    char pad7C[0x80 - 0x7C];
+    Obj *selected;
+    char pad84[0xAC - 0x84];
+    Link *fallback;
+} Unit;
+extern void func_80053E14(Obj *);
+extern void func_80052A24(Unit *, Link *);
+
+static inline int release_holder(Unit *unit) {
+    Link *id = 0;
+    Obj *holder = 0;
+    Obj *p;
+    Link *link;
+
+    if ((p = unit->holder) != 0) {
+        holder = p;
+        id = holder->link;
+    } else if (unit->fallback != 0) {
+        id = unit->fallback;
+    }
+    if (id == 0) {
+        return -1;
+    }
+    link = unit->link;
+    if (link->kind == 4) {
+        Obj *o = link->obj;
+        o->status &= ~2;
+        func_80053E14(o);
+    }
+    if (holder != 0) {
+        holder->status |= 2;
+    }
+    func_80052A24(unit, id);
+    return 0;
+}
+
+int func_80051568(Unit *unit) {
+    Link *link;
+
+    if (unit->active == 0) {
+        return -1;
+    }
+    if (unit->selected == 0) {
+        return -1;
+    }
+    if (unit->selected->link == unit->link) {
+        return release_holder(unit);
+    }
+    link = unit->link;
+    if (link->kind == 4) {
+        Obj *o = link->obj;
+        o->status &= ~2;
+        func_80053E14(o);
+    }
+    {
+        Obj *sel = unit->selected;
+        sel->status |= 2;
+        func_80052A24(unit, sel->link);
+    }
+    return 0;
+}

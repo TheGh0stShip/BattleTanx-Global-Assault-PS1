@@ -1,8 +1,37 @@
-asm(".text\n\t.globl func_80063BF8\nfunc_80063BF8:\n\t"
-    ".word 0x30a5ffff,0x10a00008,0x24020001,0x14a20007\n\t"
-    ".word 0x3c02800b,0x3c02800b,0x2443aefc,0x3c02800b\n\t"
-    ".word 0x08018f0c,0x2445af28,0x3c02800b,0x2443aef4\n\t"
-    ".word 0x3c02800b,0x2445af24,0x24020032,0xa4620004\n\t"
-    ".word 0x2cc20002,0x14400004,0xac640000,0x24020004\n\t"
-    ".word 0x14c20005,0x00000000,0x3c02800e,0x24424a9c\n\t"
-    ".word 0x03e00008,0xaca20000,0x03e00008,0xaca00000\n\t");
+typedef struct Entry {
+    int value;
+    short timer;
+} Entry;
+
+extern Entry D_800AAEF4;
+extern Entry D_800AAEFC;
+extern int *D_800AAF24;
+extern int *D_800AAF28;
+extern int D_800E4A9C;
+
+void func_80063BF8(int value, unsigned short player, unsigned int kind) {
+    Entry *entry;
+    int **slot;
+
+    switch (player) {
+    case 0:
+        entry = &D_800AAEF4;
+        slot = &D_800AAF24;
+        break;
+    case 1:
+        entry = &D_800AAEFC;
+        slot = &D_800AAF28;
+        break;
+    default:
+        entry = &D_800AAEF4;
+        slot = &D_800AAF24;
+        break;
+    }
+    entry->timer = 50;
+    entry->value = value;
+    if (kind < 2 || kind == 4) {
+        *slot = &D_800E4A9C;
+    } else {
+        *slot = 0;
+    }
+}

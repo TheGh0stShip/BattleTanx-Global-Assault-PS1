@@ -1,13 +1,49 @@
-asm(".text\n\t.globl func_8005A648\nfunc_8005A648:\n\t"
-    ".word 0x8c830004,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x1040000b,0x00002821,0x90620001,0x00000000\n\t"
-    ".word 0x30420080,0x14400006,0x00602821,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440fff7,0x00002821\n\t"
-    ".word 0x10a0001b,0x24a3ffe0,0x8c860004,0x00000000\n\t"
-    ".word 0x0066102b,0x1440000a,0x00000000,0x90620001\n\t"
-    ".word 0x00000000,0x30420010,0x14400006,0x00000000\n\t"
-    ".word 0x2463ffe0,0x0066102b,0x1040fff8,0x00000000\n\t"
-    ".word 0x00001821,0x1060000a,0x00000000,0x90a20001\n\t"
-    ".word 0x00000000,0x3042007f,0xa0a20001,0x90620001\n\t"
-    ".word 0x00000000,0x34420080,0x08016992,0xa0620001\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef struct {
+    unsigned char used;
+    unsigned char flags;
+    char pad2[30];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+} ItemList;
+
+static inline Item *find_selected(ItemList *list) {
+    Item *item;
+
+    for (item = list->items; item->used != 0; item++) {
+        if (item->flags & 0x80) {
+            return item;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_previous_selectable(Item *first, Item *from) {
+    Item *item;
+
+    for (item = from - 1; item >= first; item--) {
+        if (item->flags & 0x10) {
+            return item;
+        }
+    }
+    return 0;
+}
+
+void func_8005A648(ItemList *list) {
+    Item *cur;
+    Item *prev;
+
+    for (;;) {
+        cur = find_selected(list);
+        if (cur == 0) {
+            return;
+        }
+        prev = find_previous_selectable(list->items, cur);
+        if (prev == 0) {
+            return;
+        }
+        cur->flags &= 0x7F;
+        prev->flags |= 0x80;
+    }
+}

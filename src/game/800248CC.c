@@ -1,8 +1,17 @@
-asm(".text\n\t.globl func_800248CC\nfunc_800248CC:\n\t"
-    ".word 0x3c02800d,0x8c422fe4,0x00042400,0x2446000c\n\t"
-    ".word 0x8442000c,0x00042403,0x0082102a,0x14400012\n\t"
-    ".word 0x00001021,0x84c20004,0x00000000,0x0044102a\n\t"
-    ".word 0x1440000d,0x00001021,0x00051c00,0x84c20002\n\t"
-    ".word 0x00032403,0x0082102a,0x14400007,0x00001021\n\t"
-    ".word 0x84c30006,0x00000000,0x0064182a,0x10600002\n\t"
-    ".word 0x24020001,0x00001021,0x03e00008,0x00000000\n\t");
+typedef struct {
+    short x0;
+    short y0;
+    short x1;
+    short y1;
+} Rect;
+
+extern char *D_800D2FE4;
+
+int func_800248CC(short x, short y) {
+    Rect *r = (Rect *)(D_800D2FE4 + 0xC);
+
+    if (x >= r->x0 && x <= r->x1 && y >= r->y0 && y <= r->y1) {
+        return 1;
+    }
+    return 0;
+}

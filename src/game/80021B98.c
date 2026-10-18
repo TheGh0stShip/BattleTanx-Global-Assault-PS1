@@ -1,18 +1,59 @@
-asm(".text\n\t.globl func_80021B98\nfunc_80021B98:\n\t"
-    ".word 0x27bdffe8,0x3c02800d,0x90442fec,0x00001821\n\t"
-    ".word 0x10800011,0xafbf0010,0x2408007f,0x3c02800e\n\t"
-    ".word 0x24473e68,0x24060001,0x00802821,0x00602021\n\t"
-    ".word 0x10680002,0x00001021,0x00871021,0x8c420058\n\t"
-    ".word 0x00000000,0x1046000f,0x24630001,0x0065102a\n\t"
-    ".word 0x1440fff7,0x24840114,0x00001021,0x1040000b\n\t"
-    ".word 0x3c03800b,0x3c02800d,0x8c423028,0x2463e790\n\t"
-    ".word 0x00021080,0x00431021,0x8c450000,0x08008723\n\t"
-    ".word 0x00002021,0x080086fd,0x24020001,0x3c02800e\n\t"
-    ".word 0x8c423e74,0x00000000,0x8c42000c,0x00000000\n\t"
-    ".word 0x28420005,0x14400011,0x00002021,0x3c02800d\n\t"
-    ".word 0x8c432fe8,0x2402000a,0x10620005,0x2402000b\n\t"
-    ".word 0x10620007,0x3c02800b,0x08008722,0x3c02800b\n\t"
-    ".word 0x3c02800b,0x8c45e788,0x08008723,0x00002021\n\t"
-    ".word 0x8c45e78c,0x08008723,0x00002021,0x3c02800b\n\t"
-    ".word 0x8c45e784,0x0c018c06,0x240603e8,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0x58];
+    int state;
+    char pad5C[0x114 - 0x5C];
+} Waypoint;
+
+typedef struct {
+    char pad0[0xC];
+    int level;
+} Player;
+
+extern Waypoint D_800E3E68[];
+extern Player *D_800E3E74;
+extern unsigned char D_800D2FEC;
+extern int D_800D2FE8;
+extern int D_800D3028;
+extern int D_800AE784;
+extern int D_800AE788;
+extern int D_800AE78C;
+extern int D_800AE790[];
+extern void func_80063018(int, int, int);
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int any_waypoint_active(void) {
+    int i;
+
+    for (i = 0; i < D_800D2FEC; i++) {
+        if (waypoint_get(i)->state == 1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void func_80021B98(void) {
+    int music;
+
+    if (any_waypoint_active()) {
+        func_80063018(0, D_800AE790[D_800D3028], 1000);
+        return;
+    }
+    if (D_800E3E74->level >= 5) {
+        switch (D_800D2FE8) {
+        case 10:
+            func_80063018(0, D_800AE788, 1000);
+            return;
+        case 11:
+            func_80063018(0, D_800AE78C, 1000);
+            return;
+        }
+    }
+    func_80063018(0, D_800AE784, 1000);
+}

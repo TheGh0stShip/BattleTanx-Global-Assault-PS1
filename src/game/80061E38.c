@@ -1,21 +1,68 @@
-asm(".text\n\t.globl func_80061E38\nfunc_80061E38:\n\t"
-    ".word 0x27BDFFE8,0x3C02800C,0x24466290,0x3C02800A\n\t"
-    ".word 0x8043606C,0x24020001,0x1462001F,0xAFBF0010\n\t"
-    ".word 0x3C03800B,0x2463AEB8,0x8C640004,0x2402001E\n\t"
-    ".word 0xA4820002,0x8CC40018,0x240200D0,0x90840007\n\t"
-    ".word 0x8C630004,0x00441023,0xA4620004,0x3C02800B\n\t"
-    ".word 0x8C43B11C,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x1040002B,0x3C02800B,0x2444AF14,0x8C620008\n\t"
-    ".word 0x00000000,0x10440010,0x00000000,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440FFF8,0x3C02800B\n\t"
-    ".word 0x080187D4,0x3C04800B,0x24020002,0x1462000D\n\t"
-    ".word 0x3C04800B,0x2484AEB8,0x8C830004,0x2402001E\n\t"
-    ".word 0x080187CB,0xA4620002,0x8CC20018,0x00000000\n\t"
-    ".word 0x90420006,0x00000000,0x24420019,0x080187D2\n\t"
-    ".word 0xA4620002,0x2484AEB8,0x8CC20018,0x8C850004\n\t"
-    ".word 0x90430006,0x240200A0,0x00031842,0x00431023\n\t"
-    ".word 0xA4A20002,0x8CC20018,0x8C840004,0x90430007\n\t"
-    ".word 0x24020078,0x00031842,0x00431023,0xA4820004\n\t"
-    ".word 0x3C02800B,0x3C04800B,0x2484AEB8,0x00002821\n\t"
-    ".word 0x24060001,0x0C016554,0xA440BA5C,0x8FBF0010\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0018\n");
+typedef struct Image {
+    char pad[6];
+    unsigned char width;
+    unsigned char height;
+} Image;
+
+typedef struct Screen {
+    char pad[0x18];
+    Image *image;
+} Screen;
+
+typedef struct Pos {
+    short pad;
+    short x;
+    short y;
+} Pos;
+
+typedef struct Group {
+    int pad;
+    Pos *pos;
+} Group;
+
+typedef struct Entry {
+    unsigned char kind;
+    char pad1;
+    short x;
+    int pad2;
+    int *value;
+    char pad3[0x14];
+} Entry;
+
+extern Screen D_800C6290;
+extern signed char D_800A606C;
+extern Group D_800AAEB8;
+typedef struct Menu {
+    int pad;
+    Entry *entries;
+} Menu;
+
+extern Menu D_800AB118;
+extern int D_800AAF14;
+extern short D_800ABA5C;
+extern void func_80059550(void *, void *, int);
+
+void func_80061E38(void) {
+    Screen *screen;
+    Entry *entry;
+
+    screen = &D_800C6290;
+    if (D_800A606C == 1) {
+        D_800AAEB8.pos->x = 30;
+        D_800AAEB8.pos->y = 208 - screen->image->height;
+        for (entry = D_800AB118.entries; entry->kind != 0; entry++) {
+            if (entry->value == &D_800AAF14) {
+                entry->x = screen->image->width + 25;
+                break;
+            }
+        }
+    } else if (D_800A606C == 2) {
+        D_800AAEB8.pos->x = 30;
+        D_800AAEB8.pos->y = 120 - screen->image->height / 2;
+    } else {
+        D_800AAEB8.pos->x = 160 - screen->image->width / 2;
+        D_800AAEB8.pos->y = 120 - screen->image->height / 2;
+    }
+    D_800ABA5C = 0;
+    func_80059550(&D_800AAEB8, 0, 1);
+}

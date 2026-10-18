@@ -1,19 +1,42 @@
-asm(".text\n\t.globl func_80082984\nfunc_80082984:\n\t"
-    ".word 0x27BDFFD0,0xAFB20018,0x00809021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFB40020,0x00C0A021,0x3C078008\n\t"
-    ".word 0x24E72970,0xAFBF0028,0xAFB50024,0xAFB10014\n\t"
-    ".word 0x0C020BF8,0xAFB00010,0x10400029,0x00008821\n\t"
-    ".word 0x02208021,0x3C02800F,0x2455DC9C,0x8EA20268\n\t"
-    ".word 0x00000000,0x1040000A,0x02402021,0x02602821\n\t"
-    ".word 0x02803021,0x0040F809,0x02003821,0x14400004\n\t"
-    ".word 0x00000000,0x0C020C65,0x02402021,0x24110001\n\t"
-    ".word 0x0C020C43,0x02402021,0x00408021,0x02402021\n\t"
-    ".word 0x0C020C53,0x00002821,0x14400003,0x00000000\n\t"
-    ".word 0x1220FFEA,0x00000000,0x16200012,0x3C02800F\n\t"
-    ".word 0x3C02800F,0x2442DC9C,0x8C430268,0x00000000\n\t"
-    ".word 0x1060000B,0x02402021,0x02602821,0x8C470034\n\t"
-    ".word 0x0060F809,0x02803021,0x08020A9E,0x3C02800F\n\t"
-    ".word 0x3C02800F,0x2442DC9C,0xAC400034,0xAC400038\n\t"
-    ".word 0x3C02800F,0x8C42DCD0,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct Request Request;
+
+typedef struct RequestTable {
+    char pad000[0x34];
+    int transferred;
+    int status;
+    char pad03C[0x22C];
+    int (*progress)(Request *, void *, int, int);
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+extern int func_80082FE0(Request *, void *, int, void *);
+extern void func_80082970(void);
+extern void func_80083194(Request *);
+extern int func_8008310C(Request *);
+extern int func_8008314C(Request *, int);
+
+int func_80082984(Request *r, void *buf, int len) {
+    int aborted;
+    int done;
+
+    if (func_80082FE0(r, buf, len, func_80082970) != 0) {
+        aborted = 0;
+        done = aborted;
+        do {
+            if (D_800EDC9C.progress != 0) {
+                if (D_800EDC9C.progress(r, buf, len, done) == 0) {
+                    func_80083194(r);
+                    aborted = 1;
+                }
+            }
+            done = func_8008310C(r);
+        } while (func_8008314C(r, 0) == 0 && aborted == 0);
+        if (aborted == 0 && D_800EDC9C.progress != 0) {
+            D_800EDC9C.progress(r, buf, len, D_800EDC9C.transferred);
+        }
+    } else {
+        D_800EDC9C.transferred = 0;
+        D_800EDC9C.status = 0;
+    }
+    return D_800EDC9C.transferred;
+}

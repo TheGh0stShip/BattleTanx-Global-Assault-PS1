@@ -1,23 +1,50 @@
-asm(".text\n\t.globl func_8006B050\nfunc_8006B050:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00A08821,0xAFB00010\n\t"
-    ".word 0xAFBF0018,0x90830006,0x24020001,0x10620008\n\t"
-    ".word 0x00808021,0x28620002,0x14400047,0x24020002\n\t"
-    ".word 0x1062002C,0x00000000,0x0801AC66,0x00000000\n\t"
-    ".word 0x8C82001C,0x00000000,0x24420001,0xAC82001C\n\t"
-    ".word 0x2842002E,0x1440003C,0x2402007F,0x90840014\n\t"
-    ".word 0x00000000,0x14820003,0x00041100,0x0801AC38\n\t"
-    ".word 0x00002021,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00432021\n\t"
-    ".word 0x0C01B0B5,0x00000000,0x92030014,0x00402821\n\t"
-    ".word 0x2402007F,0x14620003,0x00602021,0x0801AC49\n\t"
-    ".word 0x00002021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00432021,0x0C014A89,0x00000000,0x0801AC65\n\t"
-    ".word 0x24020001,0x8C82001C,0x00000000,0x24420001\n\t"
-    ".word 0xAC82001C,0x2842002E,0x14400013,0x2402007F\n\t"
-    ".word 0x90840014,0x00000000,0x14820003,0x00041100\n\t"
-    ".word 0x0801AC61,0x00002021,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00432021,0x0C014B39,0x00000000,0x04400002\n\t"
-    ".word 0x24020001,0xAE220000,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    char pad[0x114];
+} Waypoint;
+
+typedef struct {
+    char pad0[6];
+    unsigned char state;
+    char pad7[0x14 - 7];
+    unsigned char target;
+    char pad15[0x1C - 0x15];
+    int timer;
+} Event;
+
+extern Waypoint D_800E3E68[];
+extern int func_8006C2D4(Waypoint *w);
+extern void func_80052A24(Waypoint *w, int arg);
+extern int func_80052CE4(Waypoint *w);
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_8006B050(Event *ev, int *done) {
+    int arg;
+    Event *e = ev;
+
+    switch (ev->state) {
+    case 1:
+        ev->timer++;
+        if (ev->timer >= 46) {
+            arg = func_8006C2D4(waypoint(ev->target));
+            func_80052A24(waypoint(e->target), arg);
+            *done = 1;
+        }
+        break;
+    case 0:
+        break;
+    case 2:
+        ev->timer++;
+        if (ev->timer >= 46) {
+            if (func_80052CE4(waypoint(ev->target)) >= 0) {
+                *done = 1;
+            }
+        }
+        break;
+    }
+}

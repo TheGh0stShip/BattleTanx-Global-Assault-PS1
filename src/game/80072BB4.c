@@ -1,11 +1,24 @@
-asm(".text\n\t.globl func_80072BB4\nfunc_80072BB4:\n\t"
-    ".word 0x27bdffe8,0x00802821,0x3c03800b,0xafbf0010\n\t"
-    ".word 0x8ca40008,0x2463e184,0x000410c0,0x00441023\n\t"
-    ".word 0x00021080,0x00431021,0x84430016,0x24020001\n\t"
-    ".word 0x10620010,0x28620002,0x10400005,0x00000000\n\t"
-    ".word 0x10600008,0x00000000,0x0801cb10,0x00000000\n\t"
-    ".word 0x24020002,0x1062000b,0x00000000,0x0801cb10\n\t"
-    ".word 0x00000000,0x0c01c893,0x00a02021,0x0801cb10\n\t"
-    ".word 0x00000000,0x0c01ca3a,0x00a02021,0x0801cb10\n\t"
-    ".word 0x00000000,0x0c01c7b3,0x00a02021,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad[0x16];
+    short kind;
+    char pad2[0x4];
+} Entry;
+
+extern Entry D_800AE184[];
+extern void func_8007224C(int *obj);
+extern void func_800728E8(int *obj);
+extern void func_80071ECC(int *obj);
+
+void func_80072BB4(int *obj) {
+    switch (D_800AE184[obj[2]].kind) {
+    case 0:
+        func_8007224C(obj);
+        break;
+    case 1:
+        func_800728E8(obj);
+        break;
+    case 2:
+        func_80071ECC(obj);
+        break;
+    }
+}

@@ -1,125 +1,239 @@
-asm(".text\n\t.globl func_80036890\nfunc_80036890:\n\t"
-    ".word 0x27BDFF08,0xAFB700EC,0x0080B821,0xAFB500E4\n\t"
-    ".word 0x0000A821,0x93AA0110,0x24040034,0xAFA500FC\n\t"
-    ".word 0x24050030,0xAFB000D0,0x00E08021,0xAFBF00F4\n\t"
-    ".word 0xAFBE00F0,0xAFB600E8,0xAFB400E0,0xAFB300DC\n\t"
-    ".word 0xAFB200D8,0xAFB100D4,0xA7A600C8,0x0C008DF4\n\t"
-    ".word 0xA3AA00CA,0x0040F021,0x13C00005,0x02008821\n\t"
-    ".word 0x8FAB0114,0x00000000,0x1D600003,0x00000000\n\t"
-    ".word 0x0800DC06,0x2402FFFF,0x8FAC00FC,0x00000000\n\t"
-    ".word 0x8D820000,0x00000000,0x00021023,0xAFC20014\n\t"
-    ".word 0x8D820004,0x00000000,0x00021023,0xAFC20018\n\t"
-    ".word 0x8D830008,0x24020008,0xA3D00024,0xAFC20028\n\t"
-    ".word 0x8FAD0108,0x00031823,0xAFCD002C,0xAFC3001C\n\t"
-    ".word 0x8D830004,0x00000000,0x00031140,0x00431023\n\t"
-    ".word 0x00021080,0x00431021,0x8EE30004,0x000214C0\n\t"
-    ".word 0x00621021,0x04410067,0xAFA20024,0x8EE50004\n\t"
-    ".word 0x00000000,0x00A22023,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A200C0,0xE85F0000,0x8FA400C0\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A200C4,0xE85F0000,0x8FA500C4,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0800DA8A,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800DAA0\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800DAA2,0x00601021,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11000002,0x3C0B03E8\n\t"
-    ".word 0x00021023,0x01620018,0x00001812,0x00005010\n\t"
-    ".word 0x00031B02,0x000A5500,0x006A1825,0x8FAC00FC\n\t"
-    ".word 0x00000000,0x8D8C0000,0x00000000,0x01830018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8EE20000,0x8FAD00FC,0x00441021\n\t"
-    ".word 0xAFA20020,0x8DAD0008,0x00000000,0x01A30018\n\t"
-    ".word 0x00005012,0x00001010,0x000A5302,0x00021500\n\t"
-    ".word 0x01425025,0x8EE20008,0x01401821,0x0800DADC\n\t"
-    ".word 0xAFA00024,0x8FAA00FC,0x3C0B03E8,0x8D4A0000\n\t"
-    ".word 0x00000000,0x016A0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8EE20000\n\t"
-    ".word 0x8FAC00FC,0x00431021,0xAFA20020,0x8D8C0008\n\t"
-    ".word 0x00000000,0x016C0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8EE20008\n\t"
-    ".word 0x00000000,0x00431021,0xAFA20028,0x323600FF\n\t"
-    ".word 0x02E02021,0x27A50020,0x3C060064,0x34C6940B\n\t"
-    ".word 0x00003821,0x3C02800C,0x8FAD010C,0x24030001\n\t"
-    ".word 0xA443628C,0x27A20030,0xAFA20014,0x0C006760\n\t"
-    ".word 0xAFAD0010,0x3054FFFF,0x128000CD,0x00000000\n\t"
-    ".word 0x8FA20030,0x00000000,0x104000C9,0x00000000\n\t"
-    ".word 0x8FAA010C,0x00000000,0x104A00C5,0x3C02800C\n\t"
-    ".word 0x244AE5E8,0x8D4B0000,0x8D4C0004,0x8D4D0008\n\t"
-    ".word 0xAFAB0080,0xAFAC0084,0xAFAD0088,0x8D4B000C\n\t"
-    ".word 0x8D4C0010,0x8D4D0014,0xAFAB008C,0xAFAC0090\n\t"
-    ".word 0xAFAD0094,0x8D4B0018,0x00000000,0xAFAB0098\n\t"
-    ".word 0x8FA20038,0x8FA3003C,0x8FA40040,0x97AB00C8\n\t"
-    ".word 0xAFA20058,0x2402007F,0xA7AB0064,0xAFA3005C\n\t"
-    ".word 0x12C2000B,0xAFA40060,0x00161100,0x00561021\n\t"
-    ".word 0x00021080,0x00561021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431021,0x0800DB1D,0xAFA2006C\n\t"
-    ".word 0xAFA0006C,0x8FAC0108,0x8FA30030,0x93A200CA\n\t"
-    ".word 0x3C0D800D,0xAFAC0068,0xAFA20070,0x84630004\n\t"
-    ".word 0x25AD32F4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x004D3821,0x8CE20004,0x00000000,0x1040000B\n\t"
-    ".word 0x2402FFFF,0x10620009,0x03C02821,0x00003021\n\t"
-    ".word 0x27A20080,0xAFA20010,0x8FA40030,0x8CE20004\n\t"
-    ".word 0x00000000,0x0040F809,0x27A70058,0x8FA30080\n\t"
-    ".word 0x24020002,0x1062000C,0x2C620003,0x10400005\n\t"
-    ".word 0x24020001,0x1062007E,0x00000000,0x0800DBBD\n\t"
-    ".word 0x00000000,0x24020005,0x1062004C,0x00000000\n\t"
-    ".word 0x0800DBBD,0x00000000,0x8FAA00FC,0x8FA20038\n\t"
-    ".word 0x8D430000,0x00000000,0x00431021,0xAEE20000\n\t"
-    ".word 0x8FA2003C,0x8D430004,0x0000A021,0x00431021\n\t"
-    ".word 0xAEE20004,0x8FB00040,0x8D420008,0x8EF20004\n\t"
-    ".word 0x02028021,0xAEF00008,0x8FA20024,0x8EF30000\n\t"
-    ".word 0x02429023,0x8FA20028,0x02402021,0x02028023\n\t"
-    ".word 0x8FA20020,0x02002821,0x0C022B8C,0x02629823\n\t"
-    ".word 0x30510FFF,0x0C022B58,0x02202021,0x00520018\n\t"
-    ".word 0x00005812,0x00006010,0x000B5B02,0x000C6500\n\t"
-    ".word 0x016C5825,0x01609021,0x0C022B30,0x02202021\n\t"
-    ".word 0x00500018,0x00001812,0x00006810,0x00031B02\n\t"
-    ".word 0x000D6D00,0x006D1825,0x02602021,0x02439021\n\t"
-    ".word 0x0C022B8C,0x02402821,0x30510FFF,0x0C022B58\n\t"
-    ".word 0x02202021,0x00530018,0x00008012,0x00005010\n\t"
-    ".word 0x00108302,0x000A5500,0x020A8025,0x0C022B30\n\t"
-    ".word 0x02202021,0x00520018,0x00005812,0x00001810\n\t"
-    ".word 0x000B5B02,0x00031D00,0x01635825,0x01601021\n\t"
-    ".word 0x02028021,0x34029FFF,0x0050102A,0x14400031\n\t"
-    ".word 0x00000000,0x0800DBBD,0x24150001,0x97A40084\n\t"
-    ".word 0x0C022B58,0x00042102,0x97A40084,0x8FAC00FC\n\t"
-    ".word 0x0000A021,0xAFA200B0,0x8D820004,0x00042102\n\t"
-    ".word 0x0C022B30,0xAFA200B4,0x27A400A0,0x8FA30038\n\t"
-    ".word 0x97A60084,0x8FA800B0,0x8FA900B4,0x8FAD0108\n\t"
-    ".word 0x8FAA0114,0x27A500B0,0xAFA200B8,0x00681821\n\t"
-    ".word 0xAFA300A0,0x8FA3003C,0x8FA80040,0x00691821\n\t"
-    ".word 0x01024021,0xAFA300A4,0xAFA800A8,0xAFAD0010\n\t"
-    ".word 0x8FA30030,0x93A200CA,0x2407007F,0xAFA20018\n\t"
-    ".word 0x2542FFFF,0xAFA2001C,0x0C00DA24,0xAFA30014\n\t"
-    ".word 0x8FA20038,0x8FA3003C,0x8FA40040,0x24150001\n\t"
-    ".word 0xAFA20020,0xAFA30024,0x0800DBBD,0xAFA40028\n\t"
-    ".word 0x24150001,0x12A0FF23,0x02E02021,0x12800007\n\t"
-    ".word 0x00000000,0x8FA20038,0x8FA3003C,0x8FA40040\n\t"
-    ".word 0xAFA20020,0xAFA30024,0xAFA40028,0x8FB00024\n\t"
-    ".word 0x8EE20004,0x8FB20028,0x8FB40020,0x02028023\n\t"
-    ".word 0x8EE20008,0x02002021,0x02429023,0x8EE20000\n\t"
-    ".word 0x02402821,0x0C022B8C,0x0282A023,0x30530FFF\n\t"
-    ".word 0x0C022B58,0x02602021,0x00500018,0x00008812\n\t"
-    ".word 0x00005810,0x00118B02,0x000B5D00,0x022B8825\n\t"
-    ".word 0x0C022B30,0x02602021,0x00520018,0x00006012\n\t"
-    ".word 0x00001810,0x000C6302,0x00031D00,0x01836025\n\t"
-    ".word 0x01801021,0x02802021,0x02228821,0x0C022B8C\n\t"
-    ".word 0x02202821,0x30520FFF,0x0C022B58,0x02402021\n\t"
-    ".word 0x00540018,0x00008012,0x00006810,0x00108302\n\t"
-    ".word 0x000D6D00,0x020D8025,0x0C022B30,0x02402021\n\t"
-    ".word 0x00510018,0x00005012,0x00001810,0x000A5302\n\t"
-    ".word 0x00031D00,0x01435025,0x01401021,0x02028021\n\t"
-    ".word 0xAFD00020,0x8FA20020,0x00000000,0xAFC20008\n\t"
-    ".word 0x8FA20024,0x00000000,0xAFC2000C,0x8FA30028\n\t"
-    ".word 0x00001021,0xAFC30010,0x8FBF00F4,0x8FBE00F0\n\t"
-    ".word 0x8FB700EC,0x8FB600E8,0x8FB500E4,0x8FB400E0\n\t"
-    ".word 0x8FB300DC,0x8FB200D8,0x8FB100D4,0x8FB000D0\n\t"
-    ".word 0x03E00008,0x27BD00F8\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { short id; short next; short kind; } Node;
+typedef struct {
+    char pad00[8];
+    Vector pos;
+    Vector vel;
+    int dist;
+    unsigned char owner;
+    char pad25[3];
+    int life;
+    int source;
+} Shot;
+typedef struct { Node *node; int pad; Vector pos; char pad14[0x28 - 0x14]; } Hit;
+typedef struct {
+    Vector pos;
+    unsigned short heading;
+    short pad;
+    int source;
+    void *waypoint;
+    int team;
+    char pad1C[0x28 - 0x1C];
+} Impact;
+typedef struct { unsigned int kind; unsigned short heading; char pad[0x1C - 6]; } Reply;
+typedef struct {
+    void (*update)();
+    void (*query)(Node *, Shot *, int, Impact *, Reply *);
+    void (*draw)();
+} NodeClass;
+typedef struct { char pad[0x114]; } Waypoint;
+
+extern Shot *func_800237D0(int, int);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, Hit *);
+extern int func_8008AE30(int, int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+extern short D_800C628C;
+extern Reply D_800BE5E8;
+extern Waypoint D_800E3E68[];
+extern NodeClass D_800D32F4[];
+
+int func_80036890(Vector *pos, Vector *vel, unsigned short heading, unsigned char wp, int source, int ignore,
+                  unsigned char team, int depth);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int length3(int dx, int dy, int dz) {
+    int a1;
+    int a2;
+    int r;
+
+    a1 = func_8008AE30(dy, dz) & 0xFFF;
+    r = fixed_mul(func_8008AD60(a1), dy) + fixed_mul(func_8008ACC0(a1), dz);
+    a2 = func_8008AE30(dx, r) & 0xFFF;
+    return fixed_mul(func_8008AD60(a2), dx) + fixed_mul(func_8008ACC0(a2), r);
+}
+
+int func_80036890(Vector *pos, Vector *vel, unsigned short heading, unsigned char wp, int source, int ignore,
+                  unsigned char team, int depth)
+{
+    Vector target;
+    Hit hit;
+    Impact impact;
+    Reply reply;
+    Vector next;
+    Vector dir;
+    Shot *shot;
+    int done;
+    int hitting;
+    int den;
+    int scale;
+    int angle;
+    unsigned char index;
+    short kind;
+
+    done = 0;
+    index = wp;
+    shot = func_800237D0(52, 48);
+    if (shot == 0 || depth <= 0) {
+        return -1;
+    }
+    shot->vel.x = -vel->x;
+    shot->vel.y = -vel->y;
+    shot->vel.z = -vel->z;
+    shot->owner = wp;
+    shot->life = 8;
+    shot->source = source;
+    target.y = pos->y + vel->y * 125 * 0x80000;
+    if (target.y < 0) {
+        den = pos->y - target.y;
+        if (den == 0) {
+            den = 2;
+        }
+        scale = fixed_mul(0x3E80000, fixed_div(pos->y, den));
+        target.x = pos->x + fixed_mul(vel->x, scale);
+        target.z = pos->z + fixed_mul(vel->z, scale);
+        target.y = 0;
+    } else {
+        target.x = pos->x + fixed_mul(0x3E80000, vel->x);
+        target.z = pos->z + fixed_mul(0x3E80000, vel->z);
+    }
+    do {
+        D_800C628C = 1;
+        hitting = func_80019D80(pos, &target, 0x64940B, 0, ignore, &hit);
+        if (hitting != 0 && hit.node != 0 && (int)hit.node != ignore) {
+            reply = D_800BE5E8;
+            impact.pos.x = hit.pos.x;
+            impact.pos.y = hit.pos.y;
+            impact.pos.z = hit.pos.z;
+            impact.heading = heading;
+            if (index != 127) {
+                impact.waypoint = &D_800E3E68[index];
+            } else {
+                impact.waypoint = 0;
+            }
+            impact.source = source;
+            impact.team = team;
+            kind = hit.node->kind;
+            if (D_800D32F4[kind].query != 0 && kind != -1) {
+                D_800D32F4[kind].query(hit.node, shot, 0, &impact, &reply);
+            }
+            switch (reply.kind) {
+            case 1:
+                done = 1;
+                break;
+            case 2:
+                pos->x = hit.pos.x + vel->x;
+                pos->y = hit.pos.y + vel->y;
+                hitting = 0;
+                pos->z = hit.pos.z + vel->z;
+                if (length3(pos->x - target.x, pos->y - target.y, pos->z - target.z) < 0xA000) {
+                    do {
+                        done = 1;
+                    } while (0);
+                }
+                break;
+            case 5:
+                angle = reply.heading >> 4;
+                hitting = 0;
+                dir.x = func_8008AD60(angle);
+                dir.y = vel->y;
+                dir.z = func_8008ACC0(reply.heading >> 4);
+                next.x = hit.pos.x + dir.x;
+                next.y = hit.pos.y + dir.y;
+                next.z = hit.pos.z + dir.z;
+                func_80036890(&next, &dir, reply.heading, 127, source, (int)hit.node, team, depth - 1);
+                target.x = hit.pos.x;
+                target.y = hit.pos.y;
+                done = 1;
+                target.z = hit.pos.z;
+                break;
+            }
+        } else {
+            do {
+                done = 1;
+            } while (0);
+        }
+    } while (!done);
+    if (hitting != 0) {
+        target.x = hit.pos.x;
+        target.y = hit.pos.y;
+        target.z = hit.pos.z;
+    }
+    shot->dist = length3(target.x - pos->x, target.y - pos->y, target.z - pos->z);
+    shot->pos.x = target.x;
+    shot->pos.y = target.y;
+    shot->pos.z = target.z;
+    return 0;
+}

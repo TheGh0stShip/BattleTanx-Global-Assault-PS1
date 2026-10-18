@@ -1,9 +1,20 @@
-asm(".text\n\t.globl func_8002B450\nfunc_8002B450:\n\t"
-    ".word 0x27bdffd8,0xafbf0020,0x8c830020,0x24020001\n\t"
-    ".word 0x10620007,0x24061199,0x10600006,0x24020003\n\t"
-    ".word 0x14620005,0x3c03800a,0x0800ad22,0x24065199\n\t"
-    ".word 0x24062199,0x3c03800a,0x246347ac,0x8c820020\n\t"
-    ".word 0x94870028,0x24850008,0xafa00010,0xafa60014\n\t"
-    ".word 0xafa00018,0x00021080,0x00431021,0x8c440000\n\t"
-    ".word 0x0c01a75a,0x00003021,0x8fbf0020,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; Vector pos; int pad2[3]; int kind; int pad3; unsigned short angle; } Pickup;
+extern int D_800A47AC[];
+void func_80069D68(int, Vector *, int, int, int, int, int);
+
+void func_8002B450(Pickup *p) {
+    int color;
+
+    color = 4505;
+    if (p->kind != 1) {
+        if (p->kind == 0) {
+            color = 4505;
+        } else if (p->kind == 3) {
+            color = 20889;
+        }
+    } else {
+        color = 8601;
+    }
+    func_80069D68(D_800A47AC[p->kind], &p->pos, 0, p->angle, 0, color, 0);
+}

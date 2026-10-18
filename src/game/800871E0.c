@@ -1,10 +1,62 @@
-asm(".text\n\t.globl func_800871E0\nfunc_800871E0:\n\t"
-    ".word 0x27bdffe0,0x3c02800f,0xafb00018,0x2450e588\n\t"
-    ".word 0xafbf001c,0x92020004,0x00000000,0x10400016\n\t"
-    ".word 0x24020001,0xa2020005,0x0c025066,0x00000000\n\t"
-    ".word 0x3c04f400,0x34840001,0x0c025b9b,0x34058000\n\t"
-    ".word 0x0c02505a,0x00000000,0x240400a4,0x27a50010\n\t"
-    ".word 0x0c021b2b,0x27a60014,0x92020004,0x00000000\n\t"
-    ".word 0x10400003,0x00000000,0x0c021c4d,0x00002021\n\t"
-    ".word 0xa2000004,0xa2000005,0x8fbf001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef void (*CardCallback)(int, int, int, int);
+typedef struct {
+    char name[20];
+    unsigned char selected;
+    char pad15[3];
+    int size;
+    char pad1c[12];
+} DirEntry;
+typedef struct {
+    int w0;
+    volatile unsigned char active;
+    volatile unsigned char busy;
+    volatile unsigned char open;
+    volatile unsigned char readonly;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    char pad_a[2];
+    int slot_state[8];
+    char pad2c[4];
+    int port;
+    char pad34[8];
+    unsigned char buf[0x80];
+    int wBC;
+    int wC0;
+    int wC4;
+    char padC8[0xC];
+    int wD4;
+    char padD8[0xC];
+    CardCallback done;
+    CardCallback error;
+    char padEC[0x210];
+    unsigned int checksum;
+    DirEntry entries[15];
+    int count;
+    int loaded;
+} CardState;
+extern CardState D_800EE588;
+
+extern void func_80094198(void);
+extern void func_80096E6C(unsigned int a, int b);
+extern void func_80094168(void);
+extern void func_80086CAC(int a, int *b, int *c);
+extern void func_80087134(int a);
+
+void func_800871E0(void) {
+    CardState *s = &D_800EE588;
+    int a;
+    int b;
+
+    if (s->active != 0) {
+        s->busy = 1;
+        func_80094198();
+        func_80096E6C(0xF4000001, 0x8000);
+        func_80094168();
+        func_80086CAC(0xA4, &a, &b);
+        if (s->active != 0) {
+            func_80087134(0);
+        }
+        s->active = 0;
+        s->busy = 0;
+    }
+}

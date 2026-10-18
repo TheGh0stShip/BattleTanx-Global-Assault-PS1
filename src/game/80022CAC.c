@@ -1,13 +1,35 @@
-asm(".text\n\t.globl func_80022CAC\nfunc_80022CAC:\n\t"
-    ".word 0x3c02800d,0x84830004,0x24423260,0x00031840\n\t"
-    ".word 0x00622821,0x84a30000,0x2402ffff,0x10620024\n\t"
-    ".word 0x3c08800d,0x8d063258,0x00403821,0x84a20000\n\t"
-    ".word 0x00000000,0x00021180,0x00c21821,0x10640005\n\t"
-    ".word 0x00000000,0x84620002,0x00000000,0x1447fff7\n\t"
-    ".word 0x24650002,0x84a30000,0x2402ffff,0x10620014\n\t"
-    ".word 0x00031180,0x00461021,0xa4400000,0x84a30000\n\t"
-    ".word 0x94a40000,0x00031980,0x00661021,0x94420002\n\t"
-    ".word 0x00000000,0xa4a20000,0x3c02800d,0x9446325c\n\t"
-    ".word 0x3c05800a,0xa444325c,0x8d043258,0x8ca24388\n\t"
-    ".word 0x00641821,0x24420001,0xa4660002,0xaca24388\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef struct Node {
+    unsigned short id;
+    short next;
+    short kind;
+    char pad06[0x40 - 6];
+} Node;
+extern Node *D_800D3258;
+extern short D_800D325C;
+extern short D_800D3260[];
+extern int D_800A4388;
+
+void func_80022CAC(Node *node) {
+    short *link = &D_800D3260[node->kind];
+    Node *cur;
+    short index;
+    short free;
+
+    while (*link != -1) {
+        cur = &D_800D3258[*link];
+        if (cur == node) {
+            break;
+        }
+        link = &cur->next;
+    }
+    if (*link == -1) {
+        return;
+    }
+    D_800D3258[*link].id = 0;
+    index = *link;
+    *link = D_800D3258[*link].next;
+    free = D_800D325C;
+    D_800D325C = index;
+    D_800D3258[index].next = free;
+    D_800A4388++;
+}

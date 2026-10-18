@@ -1,43 +1,133 @@
-asm(".text\n\t.globl func_80034A40\nfunc_80034A40:\n\t"
-    ".word 0x27BDFF98,0xAFB00050,0x00808021,0xAFBF0060\n\t"
-    ".word 0xAFB3005C,0xAFB20058,0xAFB10054,0x92030012\n\t"
-    ".word 0x2402007F,0x14620003,0x00602021,0x0800D2A5\n\t"
-    ".word 0x00009021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00439021,0x96020014,0x00000000,0x1440000C\n\t"
-    ".word 0x00000000,0x92020027,0x00000000,0x14400009\n\t"
-    ".word 0x00000000,0x24020001,0xACA20000,0x924200BC\n\t"
-    ".word 0x00000000,0x2442FFFF,0x0800D32E,0xA24200BC\n\t"
-    ".word 0x92020027,0x92030026,0x00000000,0x0043102B\n\t"
-    ".word 0x10400075,0x00000000,0x96020014,0x00000000\n\t"
-    ".word 0x10400071,0x00000000,0x0C021B21,0x00000000\n\t"
-    ".word 0x3042000F,0x10400007,0x24020002,0x92030024\n\t"
-    ".word 0x00000000,0x10620003,0x24020003,0x14620066\n\t"
-    ".word 0x00000000,0x3C02800D,0x8E03001C,0x8E040020\n\t"
-    ".word 0x8C422FE0,0x00641821,0x0043102A,0x1440005E\n\t"
-    ".word 0x00000000,0x0C014B95,0x02402021,0x1040005A\n\t"
-    ".word 0x24020004,0x92030024,0x00000000,0x14620005\n\t"
-    ".word 0x00002021,0x92420006,0x00000000,0x30420004\n\t"
-    ".word 0x2C440001,0x14800050,0x2403000F,0x92020016\n\t"
-    ".word 0x00000000,0x24420001,0xA2020016,0x304200FF\n\t"
-    ".word 0x14430002,0x00000000,0xA2000016,0x96020018\n\t"
-    ".word 0x92110016,0x00000000,0x02221007,0x30420001\n\t"
-    ".word 0x1040FFF2,0x24130001,0x96070010,0xAFB30010\n\t"
-    ".word 0xAFA00014,0x8E020030,0x00000000,0xAFA20018\n\t"
-    ".word 0x8E050008,0x8E06000C,0x0C010C17,0x02202021\n\t"
-    ".word 0x10400035,0x00000000,0xAFB30034,0xAFB10030\n\t"
-    ".word 0x92020025,0x00000000,0xAFA20038,0x8E4200B0\n\t"
-    ".word 0x00000000,0xAFA2003C,0x96020010,0x00000000\n\t"
-    ".word 0xA7A2002C,0x8E020008,0xAFA00024,0xAFA20020\n\t"
-    ".word 0x8E02000C,0x00000000,0xAFA20028,0x92020024\n\t"
-    ".word 0x00000000,0x38420003,0x0053102B,0x00021180\n\t"
-    ".word 0xAFA20040,0x92420007,0x00000000,0xA3A2002E\n\t"
-    ".word 0x8E440054,0x0C014CCE,0x00000000,0x8C420018\n\t"
-    ".word 0x00000000,0xAFA20044,0x8E440054,0x0C014CCE\n\t"
-    ".word 0x00000000,0x8C42001C,0x27A40020,0xAFB0004C\n\t"
-    ".word 0x0C00FBBE,0xAFA20048,0x1040000B,0x3C02800D\n\t"
-    ".word 0x8C432FE0,0x92020027,0xAE03001C,0x96030014\n\t"
-    ".word 0x00531021,0xA2020027,0x3402FFFF,0x10620002\n\t"
-    ".word 0x2462FFFF,0xA6020014,0x8FBF0060,0x8FB3005C\n\t"
-    ".word 0x8FB20058,0x8FB10054,0x8FB00050,0x03E00008\n\t"
-    ".word 0x27BD0068\n");
+typedef struct { char pad[24]; int a; int b; } Profile;
+typedef struct {
+    char pad[6];
+    unsigned char flags;
+    unsigned char team;
+    char pad2[84 - 8];
+    int profile;
+    char pad3[176 - 88];
+    int group;
+    char pad4[188 - 180];
+    unsigned char active;
+    char rest[0x114 - 189];
+} Waypoint;
+typedef struct {
+    int x;
+    int y;
+    int z;
+    unsigned short angle;
+    unsigned char team;
+    char pad;
+    int slot;
+    int one;
+    int kind;
+    int group;
+    int flags;
+    int a;
+    int b;
+    void *owner;
+} SpawnRequest;
+typedef struct {
+    int pad[2];
+    int x;
+    int z;
+    unsigned short angle;
+    unsigned char waypoint;
+    char pad1;
+    unsigned short remaining;
+    unsigned char slot;
+    char pad2;
+    unsigned short slots;
+    short pad3;
+    int last_time;
+    int interval;
+    unsigned char mode;
+    unsigned char kind;
+    unsigned char max_alive;
+    unsigned char alive;
+    char pad4[8];
+    int arg48;
+} Spawner;
+extern int D_800D2FE0;
+extern Waypoint D_800E3E68[];
+unsigned int func_80086C84(void);
+int func_80052E54(Waypoint *);
+int func_8004305C(int, int, int, int, int, int, int);
+Profile *func_80053338(int);
+int func_8003EEF8(SpawnRequest *);
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int has_flag(Waypoint *wp, int flag) {
+    return wp->flags & flag;
+}
+
+static inline int gate_closed(Spawner *s, Waypoint *wp) {
+    int closed = 0;
+
+    if (s->mode == 4) {
+        closed = !has_flag(wp, 4);
+    }
+    return closed;
+}
+
+void func_80034A40(Spawner *s, int *done) {
+    Waypoint *wp;
+    int slot;
+    SpawnRequest req;
+
+    wp = waypoint_at(s->waypoint);
+    if (s->remaining == 0 && s->alive == 0) {
+        *done = 1;
+        wp->active--;
+        return;
+    }
+    if (s->alive >= s->max_alive || s->remaining == 0) {
+        return;
+    }
+    if ((func_80086C84() & 0xF) != 0 && s->mode != 2 && s->mode != 3) {
+        return;
+    }
+    if (D_800D2FE0 < s->last_time + s->interval) {
+        return;
+    }
+    if (func_80052E54(wp) == 0) {
+        return;
+    }
+    if (gate_closed(s, wp)) {
+        return;
+    }
+    do {
+        if (++s->slot == 15) {
+            s->slot = 0;
+        }
+    } while (((s->slots >> (slot = s->slot)) & 1) == 0);
+    if (func_8004305C(slot, s->x, s->z, s->angle, 1, 0, s->arg48) == 0) {
+        return;
+    }
+    req.one = 1;
+    req.slot = slot;
+    req.kind = s->kind;
+    req.group = wp->group;
+    req.angle = s->angle;
+    req.x = s->x;
+    req.y = 0;
+    req.z = s->z;
+    req.flags = (s->mode == 3) << 6;
+    req.team = wp->team;
+    req.a = func_80053338(wp->profile)->a;
+    req.b = func_80053338(wp->profile)->b;
+    req.owner = s;
+    if (func_8003EEF8(&req) != 0) {
+        s->last_time = D_800D2FE0;
+        s->alive++;
+        if (s->remaining != 0xFFFF) {
+            s->remaining--;
+        }
+    }
+}

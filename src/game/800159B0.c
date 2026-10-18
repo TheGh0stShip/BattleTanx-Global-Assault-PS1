@@ -1,14 +1,35 @@
-asm(".text\n\t.globl func_800159B0\nfunc_800159B0:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x3c10800c,0x261062b0\n\t"
-    ".word 0x02002021,0x00002821,0xafbf0014,0x0c022a92\n\t"
-    ".word 0x3406cb20,0x00002821,0x2406ffff,0x30a3ffff\n\t"
-    ".word 0x24a40001,0x00802821,0x00031080,0x00431021\n\t"
-    ".word 0x000210c0,0x00501021,0xa4440008,0xac460000\n\t"
-    ".word 0x30a2ffff,0x2c420513,0x1440fff5,0x30a3ffff\n\t"
-    ".word 0x3c02800c,0x244262b0,0x34038000,0x00431021\n\t"
-    ".word 0x3403ffff,0xa4434b00,0x2403ffff,0xac434af8\n\t"
-    ".word 0x3c02800d,0x8c432fe4,0x3c02800c,0xa4406288\n\t"
-    ".word 0x8464000c,0x8465000e,0x84660010,0x84670012\n\t"
-    ".word 0x3c02800a,0x0c0056a0,0xa4404370,0x2404d120\n\t"
-    ".word 0x00802821,0x24062ee0,0x0c0056a0,0x00c03821\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next;
+    char pad0A[0x28 - 0xA];
+} Cell;
+typedef struct Bounds {
+    char pad00[0xC];
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+} Bounds;
+extern Cell D_800C62B0[1300];
+extern short D_800C6288;
+extern short D_800A4370;
+extern Bounds *D_800D2FE4;
+void func_8008AA48(void *, int, int);
+void func_80015A80(int, int, int, int);
+
+void func_800159B0(void) {
+    unsigned short i;
+
+    func_8008AA48(D_800C62B0, 0, sizeof(D_800C62B0));
+    for (i = 0; i < 1299; i++) {
+        D_800C62B0[i].next = i + 1;
+        D_800C62B0[i].head = -1;
+    }
+    D_800C62B0[1299].next = 0xFFFF;
+    D_800C62B0[1299].head = -1;
+    D_800C6288 = 0;
+    D_800A4370 = 0;
+    func_80015A80(D_800D2FE4->x0, D_800D2FE4->z0, D_800D2FE4->x1, D_800D2FE4->z1);
+    func_80015A80(-12000, -12000, 12000, 12000);
+}

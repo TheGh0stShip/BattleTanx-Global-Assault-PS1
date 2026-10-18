@@ -1,15 +1,48 @@
-asm(".text\n\t.globl func_8005A700\nfunc_8005A700:\n\t"
-    ".word 0x8c830004,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x1040000b,0x00003021,0x90620001,0x00000000\n\t"
-    ".word 0x30420080,0x14400006,0x00603021,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440fff7,0x00003021\n\t"
-    ".word 0x10c00025,0x00000000,0x90c20020,0x00000000\n\t"
-    ".word 0x1040000b,0x24c30020,0x90620001,0x00000000\n\t"
-    ".word 0x30420010,0x14400007,0x00000000,0x24630020\n\t"
-    ".word 0x90620000,0x00000000,0x1440fff7,0x00000000\n\t"
-    ".word 0x00001821,0x8c620008,0x00000000,0x1045000a\n\t"
-    ".word 0x00000000,0x90c20001,0x00000000,0x3042007f\n\t"
-    ".word 0xa0c20001,0x90620001,0x00000000,0x34420080\n\t"
-    ".word 0x080169c0,0xa0620001,0x90c20001,0x00000000\n\t"
-    ".word 0x3042007f,0xa0c20001,0x90620001,0x00000000\n\t"
-    ".word 0x34420080,0xa0620001,0x03e00008,0x00000000\n\t");
+typedef struct Item {
+    unsigned char valid;
+    unsigned char flags;
+    char pad2[6];
+    int value;
+    char padC[0x20 - 0xC];
+} Item;
+typedef struct {
+    char pad0[4];
+    Item *items;
+} Menu;
+
+static inline Item *find_selected(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x80) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+static inline Item *find_selectable(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x10) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+void func_8005A700(Menu *menu, int value) {
+    Item *cur;
+    Item *next;
+
+again:
+    cur = find_selected(menu->items);
+    if (cur == 0) {
+        return;
+    }
+    next = find_selectable(cur + 1);
+    if (next->value != value) {
+        cur->flags &= 0x7F;
+        next->flags |= 0x80;
+        goto again;
+    }
+    cur->flags &= 0x7F;
+    next->flags |= 0x80;
+}

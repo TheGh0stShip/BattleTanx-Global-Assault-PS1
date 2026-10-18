@@ -1,20 +1,58 @@
-asm(".text\n\t.globl func_800735C8\nfunc_800735C8:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0x30A5FFFF\n\t"
-    ".word 0xAFB1001C,0x00058902,0x24040007,0xAFB30024\n\t"
-    ".word 0x00C09821,0xAFB40028,0x00E0A021,0x24050030\n\t"
-    ".word 0xAFBF002C,0x0C008DF4,0xAFB00018,0x00408021\n\t"
-    ".word 0x12000030,0x00000000,0x0C021B21,0x00000000\n\t"
-    ".word 0x00021402,0x00021980,0x00621821,0x00031C03\n\t"
-    ".word 0x2463FFE0,0x3063FFFF,0x02238821,0x8E480000\n\t"
-    ".word 0x8E490004,0x8E4A0008,0xAE080008,0xAE09000C\n\t"
-    ".word 0xAE0A0010,0x0C022B58,0x02202021,0x3C0A000A\n\t"
-    ".word 0x004A0018,0x00004012,0x00004810,0x00084302\n\t"
-    ".word 0x00094D00,0x01094025,0x02202021,0x0C022B30\n\t"
-    ".word 0xAE080014,0x3C09000A,0x00490018,0x00005812\n\t"
-    ".word 0x00004010,0x000B5B02,0x00084500,0x01685825\n\t"
-    ".word 0x3C020001,0xAE0B001C,0xAE000018,0xA6130024\n\t"
-    ".word 0xA6140026,0xAE020020,0x0C021B21,0xA6000028\n\t"
-    ".word 0x00021402,0xA602002A,0x8FA20040,0x00000000\n\t"
-    ".word 0xAE02002C,0x8FBF002C,0x8FB40028,0x8FB30024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    char pad[8];
+    Vector pos;
+    int vx;
+    int vy;
+    int vz;
+    int scale;
+    short a;
+    short b;
+    short age;
+    unsigned short spin;
+    int owner;
+} Debris;
+
+extern Debris *func_800237D0(int kind, int size);
+extern unsigned int func_80086C84(void);
+extern int func_8008AD60(int angle);
+extern int func_8008ACC0(int angle);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+typedef struct {
+    short x, y, z, pad;
+} SVecUnused;
+
+void func_800735C8(Vector *pos, unsigned short heading, int a, int b, int owner) {
+    Debris *d;
+    int angle;
+    SVecUnused spare;
+
+    angle = heading >> 4;
+    d = func_800237D0(7, 48);
+    if (d != 0) {
+        angle += (unsigned short)(((int)(func_80086C84() >> 16) * 65 >> 16) - 32);
+        d->pos = *pos;
+        d->vx = fixed_mul(func_8008AD60(angle), 0xA0000);
+        d->vz = fixed_mul(func_8008ACC0(angle), 0xA0000);
+        d->vy = 0;
+        d->a = a;
+        d->b = b;
+        d->scale = 0x10000;
+        d->age = 0;
+        d->spin = func_80086C84() >> 16;
+        d->owner = owner;
+    }
+}

@@ -1,13 +1,24 @@
-asm(".text\n\t.globl func_800775A8\nfunc_800775A8:\n\t"
-    ".word 0x27bdffd0,0x24060032,0x240800c8,0x3c02800c\n\t"
-    ".word 0x8c4360cc,0x24020001,0x14620003,0xafbf0028\n\t"
-    ".word 0x24060050,0x24080130,0x3c02800f,0x8c43bc48\n\t"
-    ".word 0x24090002,0x14690006,0x24020003,0x24050003\n\t"
-    ".word 0x3c02800b,0x8c44e994,0x0801dd89,0x24070078\n\t"
-    ".word 0x14620005,0x00402821,0x3c02800b,0x8c44e998\n\t"
-    ".word 0x0801dd89,0x24070078,0x1460000f,0x24050003\n\t"
-    ".word 0x24070078,0x3c02800b,0x8c44e990,0x24021000\n\t"
-    ".word 0xafa20010,0xafa20014,0x2402ffff,0xafa20020\n\t"
-    ".word 0x3c02800b,0x2442ea58,0xafa80018,0xafa9001c\n\t"
-    ".word 0x0c015b92,0xafa20024,0x8fbf0028,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+extern int D_800C60CC;
+extern int D_800EBC48;
+extern void *D_800AE990;
+extern void *D_800AE994;
+extern void *D_800AE998;
+extern char D_800AEA58[];
+extern void func_80056E48(void *, int, int, int, int, int, int, int, int, void *);
+
+void func_800775A8(void) {
+    int y = 50;
+    int x = 200;
+
+    if (D_800C60CC == 1) {
+        y = 80;
+        x = 304;
+    }
+    if (D_800EBC48 == 2) {
+        func_80056E48(D_800AE994, 3, y, 120, 4096, 4096, x, 2, -1, D_800AEA58);
+    } else if (D_800EBC48 == 3) {
+        func_80056E48(D_800AE998, 3, y, 120, 4096, 4096, x, 2, -1, D_800AEA58);
+    } else if (D_800EBC48 == 0) {
+        func_80056E48(D_800AE990, 3, y, 120, 4096, 4096, x, 2, -1, D_800AEA58);
+    }
+}

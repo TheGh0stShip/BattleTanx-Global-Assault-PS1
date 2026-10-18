@@ -1,23 +1,51 @@
-asm(".text\n\t.globl func_80027DE0\nfunc_80027DE0:\n\t"
-    ".word 0x27BDFFD0,0xAFB20018,0x00809021,0xAFB00010\n\t"
-    ".word 0x00C08021,0xAFBF0028,0xAFB50024,0xAFB40020\n\t"
-    ".word 0xAFB3001C,0xAFB10014,0x8CB40000,0x00E02821\n\t"
-    ".word 0x8E550000,0x8FA60040,0x26B30018,0x0C01A6AD\n\t"
-    ".word 0x26910018,0x00404021,0x1100003A,0x25070006\n\t"
-    ".word 0x2685001C,0x8E420000,0x26A6001E,0x8C490008\n\t"
-    ".word 0x86230000,0x86620000,0x00000000,0x00621823\n\t"
-    ".word 0x96620000,0x02030018,0x00005012,0x00002010\n\t"
-    ".word 0x000A5302,0x00042500,0x01445025,0x01401821\n\t"
-    ".word 0x00431021,0xA5020000,0x84A3FFFE,0x84C2FFFC\n\t"
-    ".word 0x00000000,0x00621823,0x94C2FFFC,0x02030018\n\t"
-    ".word 0x00005012,0x00002010,0x000A5302,0x00042500\n\t"
-    ".word 0x01445025,0x01401821,0x00431021,0xA4E2FFFC\n\t"
-    ".word 0x84A30000,0x84C2FFFE,0x00000000,0x00621823\n\t"
-    ".word 0x94C2FFFE,0x02030018,0x00005012,0x00002010\n\t"
-    ".word 0x000A5302,0x00042500,0x01445025,0x01401821\n\t"
-    ".word 0x00431021,0xA4E2FFFE,0x94C20000,0x2529FFFF\n\t"
-    ".word 0x19200008,0xA4E20000,0x24C60008,0x26730008\n\t"
-    ".word 0x24A50008,0x26310008,0x24E70008,0x08009F90\n\t"
-    ".word 0x25080008,0x8FBF0028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short w;
+} Vert;
+
+typedef struct {
+    char pad0[8];
+    int count;
+    char pad0C[0x18 - 0xC];
+    Vert verts[1];
+} Mesh;
+
+extern Vert *func_80069AB4(Mesh **, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80027DE0(Mesh **from, Mesh **to, int t, int id, int mode) {
+    Mesh *b = *to;
+    Mesh *a = *from;
+    Vert *va = a->verts;
+    Vert *vb = b->verts;
+    Vert *out = func_80069AB4(from, id, mode);
+    int n;
+
+    if (out == 0) {
+        return;
+    }
+    n = (*from)->count;
+    while (1) {
+        out->x = va->x + fixed_mul(t, vb->x - va->x);
+        out->y = va->y + fixed_mul(t, vb->y - va->y);
+        out->z = va->z + fixed_mul(t, vb->z - va->z);
+        out->w = va->w;
+        if (--n <= 0) {
+            break;
+        }
+        va++;
+        vb++;
+        out++;
+    }
+}

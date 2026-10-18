@@ -1,8 +1,10 @@
-asm(".text\n\t.globl func_80037878\nfunc_80037878:\n\t"
-    ".word 0x27bdffe0,0x3c05800a,0x24a54ef4,0xafbf0018\n\t"
-    ".word 0x8c830008,0x94870018,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00451021\n\t"
-    ".word 0x8c430044,0xafa00010,0x90820021,0x2485000c\n\t"
-    ".word 0xafa20014,0x3c02800d,0x24422e14,0x00031880\n\t"
-    ".word 0x00621821,0x8c640000,0x0c01a525,0x00003021\n\t"
-    ".word 0x8fbf0018,0x00000000,0x03e00008,0x27bd0020\n\t");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[68]; int model; char rest[0xD0 - 72]; } VehicleInfo;
+typedef struct { int pad[2]; int vehicle; Vector pos; unsigned short angle; char pad2[7]; unsigned char flag; } Fx;
+extern VehicleInfo D_800A4EF4[];
+extern int D_800D2E14[];
+void func_80069494(int, Vector *, int, int, int, int);
+
+void func_80037878(Fx *fx) {
+    func_80069494(D_800D2E14[D_800A4EF4[fx->vehicle].model], &fx->pos, 0, fx->angle, 0, fx->flag);
+}

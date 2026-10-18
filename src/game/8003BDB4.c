@@ -1,31 +1,67 @@
-asm(".text\n\t.globl func_8003BDB4\nfunc_8003BDB4:\n\t"
-    ".word 0x27BDFEE0,0xAFB1010C,0x27B10058,0x02202021\n\t"
-    ".word 0x3C05800C,0x24A5EA54,0xAFBF0118,0xAFB30114\n\t"
-    ".word 0xAFB20110,0x0C023681,0xAFB00108,0x3C10800A\n\t"
-    ".word 0x3C02800D,0x24522FE4,0x8E420044,0x261048E0\n\t"
-    ".word 0x00021080,0x00501021,0x8C450000,0x0C023655\n\t"
-    ".word 0x02202021,0x02202021,0x3C05800E,0x0C00F3B7\n\t"
-    ".word 0x24A549A0,0x3C04800C,0x0C00F33A,0x2484EA64\n\t"
-    ".word 0x02202021,0x3C03800C,0x2473EA74,0x02602821\n\t"
-    ".word 0x3C03800B,0x0C023681,0xAC62DA04,0x8E420044\n\t"
-    ".word 0x00000000,0x00021080,0x00501021,0x8C450000\n\t"
-    ".word 0x0C023655,0x02202021,0x02202021,0x3C05800E\n\t"
-    ".word 0x0C00F3B7,0x24A5DDF8,0x3C03800A,0x8E420044\n\t"
-    ".word 0x247049F8,0x00021080,0x00501021,0x8C420000\n\t"
-    ".word 0x00000000,0x10400013,0x3C02800B,0x02202021\n\t"
-    ".word 0x0C023681,0x02602821,0x8E420044,0x00000000\n\t"
-    ".word 0x00021080,0x00501021,0x8C450000,0x0C023655\n\t"
-    ".word 0x02202021,0x02202021,0x3C10800E,0x2610E0CC\n\t"
-    ".word 0x0C00F3B7,0x02002821,0x3C02800B,0x0800EFB7\n\t"
-    ".word 0xAC50AF34,0xAC40AF34,0x0C00F56E,0x00000000\n\t"
-    ".word 0x27B00058,0x02002021,0x3C05800C,0x0C023681\n\t"
-    ".word 0x24A5EA74,0x3C03800A,0x3C02800D,0x8C423028\n\t"
-    ".word 0x246348E0,0x00021080,0x00431021,0x8C450000\n\t"
-    ".word 0x0C023655,0x02002021,0x02002021,0x3C05800C\n\t"
-    ".word 0x0C023655,0x24A5EA7C,0x27A400C0,0x0C020909\n\t"
-    ".word 0x02002821,0x8FB000CC,0x0C01A369,0x02002021\n\t"
-    ".word 0x27A400C0,0x00408821,0x02202821,0x0C020A15\n\t"
-    ".word 0x02003021,0x0C0209A8,0x27A400C0,0x8FBF0118\n\t"
-    ".word 0x8FB30114,0x8FB20110,0x3C03800E,0xAC71DDF0\n\t"
-    ".word 0x8FB1010C,0x8FB00108,0x24020001,0x03E00008\n\t"
-    ".word 0x27BD0120\n");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { char pad[0x44]; int level; } Game;
+extern Game D_800D2FE4;
+extern int D_800D3028;
+extern char *D_800A48E0[];
+extern char *D_800A49F8[];
+extern char D_800BEA54[];
+extern char D_800BEA64[];
+extern char D_800BEA74[];
+extern char D_800BEA7C[];
+extern int D_800E49A0;
+extern int D_800DDDF8;
+extern int D_800DE0CC;
+extern int *D_800AAF34;
+extern int D_800ADA04;
+extern void *D_800DDDF0;
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_8003CEDC(char *, int *);
+extern int func_8003CCE8(char *);
+extern void func_8003D5B8(void);
+extern void func_80082424(File *, char *);
+extern void *func_80068DA4(int);
+extern int func_80082854(File *, void *, int);
+extern void func_800826A0(File *);
+
+static inline void *load_file(char *path)
+{
+    File file;
+    int size;
+    void *buf;
+
+    func_80082424(&file, path);
+    size = file.size;
+    buf = func_80068DA4(size);
+    func_80082854(&file, buf, size);
+    func_800826A0(&file);
+    return buf;
+}
+
+int func_8003BDB4(void)
+{
+    File unused;
+    char path[104];
+
+    func_8008DA04(path, D_800BEA54);
+    func_8008D954(path, D_800A48E0[D_800D2FE4.level]);
+    func_8003CEDC(path, &D_800E49A0);
+    D_800ADA04 = func_8003CCE8(D_800BEA64);
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800A48E0[D_800D2FE4.level]);
+    func_8003CEDC(path, &D_800DDDF8);
+    if (D_800A49F8[D_800D2FE4.level] != 0) {
+        func_8008DA04(path, D_800BEA74);
+        func_8008D954(path, D_800A49F8[D_800D2FE4.level]);
+        func_8003CEDC(path, &D_800DE0CC);
+        D_800AAF34 = &D_800DE0CC;
+    } else {
+        D_800AAF34 = 0;
+    }
+    func_8003D5B8();
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800A48E0[D_800D3028]);
+    func_8008D954(path, D_800BEA7C);
+    D_800DDDF0 = load_file(path);
+    return 1;
+}

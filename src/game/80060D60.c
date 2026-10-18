@@ -1,17 +1,67 @@
-asm(".text\n\t.globl func_80060D60\nfunc_80060D60:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x0c0168a8,0x00000000\n\t"
-    ".word 0x00402021,0x8c820008,0x00000000,0x8c420000\n\t"
-    ".word 0x00000000,0x8c420000,0x00000000,0x90420000\n\t"
-    ".word 0x00000000,0x2443ffbe,0x2c620019,0x10400025\n\t"
-    ".word 0x00002821,0x3c02800c,0x2442fd08,0x00031880\n\t"
-    ".word 0x00621821,0x8c620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x8c820008,0x00000000,0x8c420000\n\t"
-    ".word 0x00000000,0x8c420000,0x00000000,0x90430001\n\t"
-    ".word 0x2402004c,0x10620013,0x2402004f,0x14620011\n\t"
-    ".word 0x24850160,0x3c02800b,0x0801838d,0x24458b64\n\t"
-    ".word 0x0801838d,0x24850160,0x0801838d,0x24850140\n\t"
-    ".word 0x0801838d,0x24850120,0x0801838d,0x24850100\n\t"
-    ".word 0x0801838d,0x248500e0,0x0801838d,0x248500c0\n\t"
-    ".word 0x248500a0,0x10a00003,0x00000000,0x0c0168bc\n\t"
-    ".word 0x00000000,0x8fbf0010,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct Element {
+    int pad[2];
+    unsigned char ***name;
+} Element;
+
+extern char D_800A8B64[];
+extern Element *func_8005A2A0(void *);
+extern void func_8005A2F0(Element *, void *);
+
+void func_80060D60(void *menu) {
+    Element *element;
+    char *target;
+
+    element = func_8005A2A0(menu);
+    target = 0;
+    switch (***element->name) {
+    case 'C':
+        switch ((**element->name)[1]) {
+        case 'L':
+            break;
+        case 'O':
+            target = D_800A8B64;
+            break;
+        default:
+            target = (char *)element + 0x160;
+            break;
+        }
+        break;
+    case 'B':
+    case 'D':
+    case 'F':
+    case 'G':
+    case 'H':
+    case 'J':
+    case 'K':
+    case 'L':
+    case 'M':
+    case 'P':
+        target = (char *)element + 0x160;
+        break;
+    case 'N':
+    case 'Q':
+    case 'R':
+        target = (char *)element + 0x140;
+        break;
+    case 'S':
+        target = (char *)element + 0x120;
+        break;
+    case 'T':
+    case 'V':
+        target = (char *)element + 0x100;
+        break;
+    case 'W':
+        target = (char *)element + 0xE0;
+        break;
+    case 'X':
+    case 'Y':
+        target = (char *)element + 0xC0;
+        break;
+    case 'Z':
+        target = (char *)element + 0xA0;
+        break;
+    }
+    if (target != 0) {
+        func_8005A2F0(element, target);
+    }
+}

@@ -1,18 +1,53 @@
-asm(".text\n\t.globl func_8006FCA4\nfunc_8006FCA4:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00a08021,0xafbf0014\n\t"
-    ".word 0x88c70003,0x98c70000,0x88c80007,0x98c80004\n\t"
-    ".word 0xaa07000f,0xba07000c,0xaa080013,0xba080010\n\t"
-    ".word 0x0c021b21,0x00000000,0x00021402,0x000219c0\n\t"
-    ".word 0x00621821,0x00031c03,0x2463ffc0,0x2402ffa0\n\t"
-    ".word 0xa6030016,0x0c021b21,0xa6020018,0x00021402\n\t"
-    ".word 0x000219c0,0x00621821,0x00031c03,0x2463ffc0\n\t"
-    ".word 0x0c021b21,0xa603001a,0x00021402,0x0c021b21\n\t"
-    ".word 0xa6020014,0x3c047fff,0x3484ffff,0x00021402\n\t"
-    ".word 0x00021a00,0x00621821,0x00031c03,0x2463ff80\n\t"
-    ".word 0xa203001e,0xae040004,0x0c021b21,0xae040008\n\t"
-    ".word 0x00021402,0x00021880,0x00621821,0x00031c03\n\t"
-    ".word 0x2463001c,0xa6030020,0x0c021b21,0xa6000022\n\t"
-    ".word 0x00021402,0x00021900,0x00621821,0x00031c03\n\t"
-    ".word 0x24630050,0x24020006,0xa2030026,0xa2030025\n\t"
-    ".word 0xa2030024,0xa200001f,0xa2020027,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct Bytes8 {
+    unsigned char b[8];
+} Bytes8;
+
+typedef struct Source {
+    char pad[0x1C];
+    int size;
+} Source;
+
+typedef struct Sprite {
+    int pad0;
+    int scale_x;
+    int scale_y;
+    Bytes8 color;
+    short angle;
+    short rx;
+    short ry;
+    short rz;
+    char pad1C[2];
+    signed char spin;
+    unsigned char visible;
+    short radius;
+    short drift;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char mode;
+} Sprite;
+
+extern unsigned int func_80086C84(void);
+
+void func_8006FCA4(Source *src, Sprite *sprite, Bytes8 *color) {
+    int scale;
+    int shade;
+
+    sprite->color = *color;
+    sprite->rx = ((int)(func_80086C84() >> 16) * 129 >> 16) - 64;
+    sprite->ry = -96;
+    sprite->rz = ((int)(func_80086C84() >> 16) * 129 >> 16) - 64;
+    sprite->angle = func_80086C84() >> 16;
+    sprite->spin = ((int)(func_80086C84() >> 16) * 257 >> 16) - 128;
+    scale = 0x7FFFFFFF;
+    sprite->scale_x = scale;
+    sprite->scale_y = scale;
+    sprite->radius = ((int)(func_80086C84() >> 16) * 5 >> 16) + 28;
+    sprite->drift = 0;
+    shade = ((int)(func_80086C84() >> 16) * 17 >> 16) + 80;
+    sprite->b = shade;
+    sprite->g = shade;
+    sprite->r = shade;
+    sprite->visible = 0;
+    sprite->mode = 6;
+}

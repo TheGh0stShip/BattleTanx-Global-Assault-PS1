@@ -1,12 +1,26 @@
-asm(".text\n\t.globl func_8003DDB4\nfunc_8003DDB4:\n\t"
-    ".word 0x27bdffe0,0x2404ffff,0xafbf0018,0xafb10014\n\t"
-    ".word 0x0c0217d7,0xafb00010,0x3c03800a,0x8c6348dc\n\t"
-    ".word 0x00000000,0x10600002,0x2450fc00,0x26108300\n\t"
-    ".word 0x3c020006,0x34421a80,0x0050102a,0x10400003\n\t"
-    ".word 0x00000000,0x3c100006,0x36101a80,0x0c01fe9d\n\t"
-    ".word 0x00002021,0x3c11800e,0x8e24ddec,0x00000000\n\t"
-    ".word 0x10800003,0x00000000,0x0c01a3e7,0x00000000\n\t"
-    ".word 0x0c01a3cd,0x02002021,0x00402021,0x02002821\n\t"
-    ".word 0x0c01fdc2,0xae22ddec,0x0c01fdd0,0x24040002\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int D_800A48DC;
+extern void *D_800DDDEC;
+int func_80085F5C(int);
+void func_8007FA74(int);
+void func_80068F9C(void *);
+void *func_80068F34(int);
+void func_8007F708(void *, int);
+void func_8007F740(int);
+
+void func_8003DDB4(void) {
+    int size = func_80085F5C(-1) - 1024;
+
+    if (D_800A48DC != 0) {
+        size -= 32000;
+    }
+    if (size > 400000) {
+        size = 400000;
+    }
+    func_8007FA74(0);
+    if (D_800DDDEC != 0) {
+        func_80068F9C(D_800DDDEC);
+    }
+    D_800DDDEC = func_80068F34(size);
+    func_8007F708(D_800DDDEC, size);
+    func_8007F740(2);
+}

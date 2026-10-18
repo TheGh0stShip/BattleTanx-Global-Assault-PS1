@@ -1,12 +1,12 @@
-asm(".text\n\t.globl func_8008FE78\nfunc_8008FE78:\n\t"
-    ".word 0x90830003,0x2402003a,0x14620010,0x00003021\n\t"
-    ".word 0x90830000,0x24020063,0x1462000c,0x2402006f\n\t"
-    ".word 0x90830001,0x00000000,0x14620008,0x2402006d\n\t"
-    ".word 0x90830002,0x00000000,0x14620004,0x24020001\n\t"
-    ".word 0xaca20000,0x08023fc5,0x00403021,0x90830004\n\t"
-    ".word 0x2402003a,0x14620011,0x24020063,0x90830000\n\t"
-    ".word 0x00000000,0x1462000d,0x2402006f,0x90830001\n\t"
-    ".word 0x00000000,0x14620009,0x2402006d,0x90830002\n\t"
-    ".word 0x00000000,0x14620005,0x00000000,0x90820003\n\t"
-    ".word 0x24060001,0x2442ffd0,0xaca20000,0x03e00008\n\t"
-    ".word 0x00c01021\n\t");
+int func_8008FE78(unsigned char *name, int *port) {
+    int found = 0;
+
+    if (name[3] == ':' && name[0] == 'c' && name[1] == 'o' && name[2] == 'm') {
+        *port = 1;
+        found = 1;
+    } else if (name[4] == ':' && name[0] == 'c' && name[1] == 'o' && name[2] == 'm') {
+        *port = name[3] - '0';
+        found = 1;
+    }
+    return found;
+}

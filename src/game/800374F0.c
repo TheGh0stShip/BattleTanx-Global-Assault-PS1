@@ -1,47 +1,98 @@
-asm(".text\n\t.globl func_800374F0\nfunc_800374F0:\n\t"
-    ".word 0x27BDFFA8,0xAFB3004C,0x00809821,0xAFB20048\n\t"
-    ".word 0xAFBF0050,0xAFB10044,0xAFB00040,0x966202B8\n\t"
-    ".word 0x3411FFFF,0x14510003,0x00A09021,0x0800DDED\n\t"
-    ".word 0x2402FFFF,0x2404000B,0x0C008DF4,0x2405002C\n\t"
-    ".word 0x00408021,0x16000009,0x2404FFF7,0x966202B8\n\t"
-    ".word 0x00000000,0x1051FFF5,0x00000000,0x0C006C25\n\t"
-    ".word 0x00402021,0x0800DDED,0x2402FFFF,0x8E62009C\n\t"
-    ".word 0x00000000,0xAE020008,0x8E680008,0x8E69000C\n\t"
-    ".word 0x8E6A0010,0xAE08000C,0xAE090010,0xAE0A0014\n\t"
-    ".word 0x9662002C,0xA2000020,0xA6020018,0x8E620208\n\t"
-    ".word 0x00000000,0xAE02001C,0x926202FC,0x00000000\n\t"
-    ".word 0xA2020021,0x3C02800D,0x8C422FE0,0x00000000\n\t"
-    ".word 0xAE020028,0x966202B8,0x3C05800C,0xA602001A\n\t"
-    ".word 0xA67102B8,0x9603001A,0x24A562B0,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00451021,0xAC500004\n\t"
-    ".word 0x9603001A,0x00000000,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00451021,0x8C430000,0x00000000\n\t"
-    ".word 0x00641824,0xAC430000,0x9603001A,0x00000000\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00451021\n\t"
-    ".word 0x8C430000,0x3C040040,0x00641825,0x3C04800A\n\t"
-    ".word 0xAC430000,0x8E030008,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x94420030,0x00000000,0x00021082\n\t"
-    ".word 0xAE020024,0x2402000B,0x1062000F,0x2604000C\n\t"
-    ".word 0x3C02800B,0x9042ED56,0x00000000,0x30420001\n\t"
-    ".word 0x10400003,0x24050015,0x0800DDA6,0x24060190\n\t"
-    ".word 0x24050008,0x24060258,0x8E62009C,0x00003821\n\t"
-    ".word 0x0C00A6FC,0xAFA20010,0x324200FF,0x10400002\n\t"
-    ".word 0x24040007,0xAE000024,0x26650008,0x00003021\n\t"
-    ".word 0x0C01BF6C,0x00C03821,0x00002021,0x3C03FFFC\n\t"
-    ".word 0x8E620008,0x3C100004,0x00431021,0xAFA20020\n\t"
-    ".word 0x8E62000C,0x24050003,0x00501021,0xAFA20024\n\t"
-    ".word 0x8E620010,0x27A60020,0x00501023,0xAFA20028\n\t"
-    ".word 0x8E620008,0x3C110006,0x00501021,0xAFA20030\n\t"
-    ".word 0x8E62000C,0x27B20030,0x00511021,0xAFA20034\n\t"
-    ".word 0x8E620010,0x02403821,0x00501021,0xAFA20038\n\t"
-    ".word 0x24023000,0xAFA20014,0x24020400,0xAFA00010\n\t"
-    ".word 0xAFA20018,0x0C01B0CD,0xAFB1001C,0x8E620008\n\t"
-    ".word 0x3C03FFF0,0x00431021,0xAFA20020,0x8E62000C\n\t"
-    ".word 0x27A40020,0x00501021,0xAFA20024,0x8E620010\n\t"
-    ".word 0x02402821,0x00431021,0xAFA20028,0x8E620008\n\t"
-    ".word 0x3C030010,0x00431021,0xAFA20030,0x8E62000C\n\t"
-    ".word 0x24060800,0x00511021,0xAFA20034,0x8E620010\n\t"
-    ".word 0x02003821,0x00431021,0x0C01C357,0xAFA20038\n\t"
-    ".word 0x00001021,0x8FBF0050,0x8FB3004C,0x8FB20048\n\t"
-    ".word 0x8FB10044,0x8FB00040,0x03E00008,0x27BD0058\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { unsigned int flags; void *obj; char pad[40 - 8]; } Voice;
+typedef struct { char pad[0x30]; unsigned short wreck_time; char pad2[0xD0 - 0x32]; } Vehicle;
+typedef struct {
+    int f0;
+    int f4;
+    int type;
+    Vector pos;
+    unsigned short heading;
+    unsigned short voice;
+    void *owner;
+    unsigned char f20;
+    unsigned char f21;
+    char pad[2];
+    int timer;
+    int start_time;
+} Wreck;
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad1[0x2C - 0x14];
+    unsigned short heading;
+    char pad2[0x9C - 0x2E];
+    int type;
+    char pad3[0x208 - 0xA0];
+    void *owner;
+    char pad4[0x2B8 - 0x20C];
+    unsigned short voice;
+    char pad5[0x2FC - 0x2BA];
+    unsigned char f2FC;
+} Tank;
+extern Voice D_800C62B0[];
+extern Vehicle D_800A4EF4[];
+extern int D_800D2FE0;
+extern unsigned char D_800AED56;
+extern Wreck *func_800237D0(int, int);
+extern void func_8001B094(int);
+extern void func_80029BF0(Vector *, int, int, int, int);
+extern void func_8006FDB0(int, Vector *, int, int);
+extern void func_8006C334(void *, int, Vector *, Vector *, int, int, int, int);
+extern void func_80070D5C(Vector *, Vector *, int, int);
+
+int func_800374F0(Tank *t, unsigned char keep)
+{
+    Wreck *w;
+    Vector lo;
+    Vector hi;
+
+    if (t->voice == 0xFFFF) {
+        return -1;
+    }
+    w = func_800237D0(11, 44);
+    if (w == 0) {
+        if (t->voice != 0xFFFF) {
+            func_8001B094(t->voice);
+        }
+        return -1;
+    }
+    w->type = t->type;
+    w->pos = t->pos;
+    w->heading = t->heading;
+    w->f20 = 0;
+    w->owner = t->owner;
+    w->f21 = t->f2FC;
+    w->start_time = D_800D2FE0;
+    w->voice = t->voice;
+    t->voice = 0xFFFF;
+    D_800C62B0[w->voice].obj = w;
+    D_800C62B0[w->voice].flags &= ~8;
+    D_800C62B0[w->voice].flags |= 0x400000;
+    w->timer = D_800A4EF4[w->type].wreck_time >> 2;
+    if (w->type != 11) {
+        if (D_800AED56 & 1) {
+            func_80029BF0(&w->pos, 21, 400, 0, t->type);
+        } else {
+            func_80029BF0(&w->pos, 8, 600, 0, t->type);
+        }
+    }
+    if (keep) {
+        w->timer = 0;
+    }
+    func_8006FDB0(7, &t->pos, 0, 0);
+    lo.x = t->pos.x - 0x40000;
+    lo.y = t->pos.y + 0x40000;
+    lo.z = t->pos.z - 0x40000;
+    hi.x = t->pos.x + 0x40000;
+    hi.y = t->pos.y + 0x60000;
+    hi.z = t->pos.z + 0x40000;
+    func_8006C334(0, 3, &lo, &hi, 0, 12288, 1024, 0x60000);
+    lo.x = t->pos.x - 0x100000;
+    lo.y = t->pos.y + 0x40000;
+    lo.z = t->pos.z - 0x100000;
+    hi.x = t->pos.x + 0x100000;
+    hi.y = t->pos.y + 0x60000;
+    hi.z = t->pos.z + 0x100000;
+    func_80070D5C(&lo, &hi, 2048, 0x40000);
+    return 0;
+}

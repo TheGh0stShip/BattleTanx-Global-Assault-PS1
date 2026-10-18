@@ -1,11 +1,25 @@
-asm(".text\n\t.globl func_80037AA0\nfunc_80037AA0:\n\t"
-    ".word 0x94a20004,0x00000000,0x2442fffc,0x00021400\n\t"
-    ".word 0x00021c03,0x2c620031,0x1040001d,0x3c02800c\n\t"
-    ".word 0x2442e6ec,0x00031880,0x00621821,0x8c620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x90820020\n\t"
-    ".word 0x00000000,0x10400003,0x24020002,0x03e00008\n\t"
-    ".word 0xace20000,0x94c20010,0x8c830024,0x00000000\n\t"
-    ".word 0x00621823,0x24020001,0xac830024,0x03e00008\n\t"
-    ".word 0xace20000,0x8c820024,0x00000000,0x24428ad0\n\t"
-    ".word 0xac820024,0x24020009,0x03e00008,0xace20000\n\t"
-    ".word 0x24020001,0x03e00008,0xace20000\n\t");
+typedef struct { char pad[32]; unsigned char shielded; char pad2[3]; int hp; } Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[4]; unsigned short amount; } MsgData;
+
+void func_80037AA0(Obj *obj, Msg *msg, MsgData *data, int *result) {
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        if (obj->shielded != 0) {
+            *result = 2;
+            return;
+        }
+        obj->hp -= data->amount;
+        *result = 1;
+        return;
+    case 4:
+        obj->hp -= 30000;
+        *result = 9;
+        return;
+    }
+    *result = 1;
+}

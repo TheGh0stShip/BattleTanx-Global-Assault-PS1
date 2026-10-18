@@ -1,16 +1,47 @@
-asm(".text\n\t.globl func_80061448\nfunc_80061448:\n\t"
-    ".word 0x3c05800e,0x94a24d6c,0x27bdffe8,0xafbf0014\n\t"
-    ".word 0x14400033,0xafb00010,0x3c02800a,0x8c436070\n\t"
-    ".word 0x2402000a,0x1062002e,0x24040001,0x00801021\n\t"
-    ".word 0x0c01ab1f,0xa4a24d6c,0x0c01878e,0x00000000\n\t"
-    ".word 0x3c02800d,0x90432fec,0x24020001,0x10620010\n\t"
-    ".word 0x24020002,0x1462000e,0x3c02800b,0x2444b2b8\n\t"
-    ".word 0x00002821,0x24060001,0x3c03800b,0x2463ba54\n\t"
-    ".word 0x3c10800b,0xac43b2b8,0x24630002,0xae03b458\n\t"
-    ".word 0x0c016554,0x2610b458,0x0801853b,0x02002021\n\t"
-    ".word 0x3c04800b,0x3c02800b,0x2442ba54,0xac82b118\n\t"
-    ".word 0x2484b118,0x00002821,0x0c016554,0x24060001\n\t"
-    ".word 0x3c02800d,0x90432fec,0x24020001,0x10620005\n\t"
-    ".word 0x24020002,0x10620004,0x24040002,0x0801854a\n\t"
-    ".word 0x00000000,0x24040001,0x0c00e880,0x00000000\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct Cursor {
+    short *value;
+} Cursor;
+
+extern unsigned short D_800E4D6C;
+extern int D_800A6070;
+extern unsigned char D_800D2FEC;
+extern Cursor D_800AB118;
+extern Cursor D_800AB2B8;
+extern Cursor D_800AB458;
+extern short D_800ABA54[];
+extern void func_8006AC7C(int);
+extern void func_80061E38(void);
+extern void func_80059550(void *, void *, int);
+extern void func_8003A200(int);
+
+void func_80061448(void) {
+    if (D_800E4D6C == 0 && D_800A6070 != 10) {
+        D_800E4D6C = 1;
+        func_8006AC7C(1);
+        func_80061E38();
+        switch (D_800D2FEC) {
+        case 1:
+            D_800AB118.value = &D_800ABA54[0];
+            func_80059550(&D_800AB118, 0, 1);
+            break;
+        case 2:
+            D_800AB2B8.value = &D_800ABA54[0];
+            D_800AB458.value = &D_800ABA54[1];
+            func_80059550(&D_800AB2B8, 0, 1);
+            func_80059550(&D_800AB458, 0, 1);
+            break;
+        default:
+            D_800AB118.value = &D_800ABA54[0];
+            func_80059550(&D_800AB118, 0, 1);
+            break;
+        }
+        switch (D_800D2FEC) {
+        case 1:
+            func_8003A200(1);
+            break;
+        case 2:
+            func_8003A200(2);
+            break;
+        }
+    }
+}

@@ -1,26 +1,75 @@
-asm(".text\n\t.globl func_80017260\nfunc_80017260:\n\t"
-    ".word 0x27BDFFC8,0xAFB00030,0x00808021,0x00A02021\n\t"
-    ".word 0xAFBF0034,0x0C005BFD,0x27A50010,0x8FA30010\n\t"
-    ".word 0x8FA60018,0x00000000,0x00C3102A,0x10400002\n\t"
-    ".word 0x00000000,0x00C01821,0x8FA50020,0x00000000\n\t"
-    ".word 0x00A3102A,0x10400002,0x00000000,0x00A01821\n\t"
-    ".word 0x8FA40028,0x00000000,0x0083102A,0x10400002\n\t"
-    ".word 0x00000000,0x00801821,0x86020018,0x00000000\n\t"
-    ".word 0x00021380,0x0043102A,0x14400040,0x24020001\n\t"
-    ".word 0x8FA30010,0x00000000,0x0066102A,0x10400003\n\t"
-    ".word 0x0065102A,0x00C01821,0x0065102A,0x10400003\n\t"
-    ".word 0x0064102A,0x00A01821,0x0064102A,0x10400002\n\t"
-    ".word 0x00000000,0x00801821,0x86020016,0x00000000\n\t"
-    ".word 0x00021380,0x0062102A,0x1440002C,0x24020001\n\t"
-    ".word 0x8FA30014,0x8FA6001C,0x00000000,0x00C3102A\n\t"
-    ".word 0x10400002,0x00000000,0x00C01821,0x8FA50024\n\t"
-    ".word 0x00000000,0x00A3102A,0x10400002,0x00000000\n\t"
-    ".word 0x00A01821,0x8FA4002C,0x00000000,0x0083102A\n\t"
-    ".word 0x10400002,0x00000000,0x00801821,0x8602001C\n\t"
-    ".word 0x00000000,0x00021380,0x0043102A,0x14400013\n\t"
-    ".word 0x24020001,0x8FA30014,0x00000000,0x0066102A\n\t"
-    ".word 0x10400003,0x0065102A,0x00C01821,0x0065102A\n\t"
-    ".word 0x10400003,0x0064102A,0x00A01821,0x0064102A\n\t"
-    ".word 0x10400002,0x00000000,0x00801821,0x8602001A\n\t"
-    ".word 0x00000000,0x00021380,0x0062102A,0x8FBF0034\n\t"
-    ".word 0x8FB00030,0x03E00008,0x27BD0038\n");
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    char pad14[2];
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    char pad1E[0x28 - 0x1E];
+} Cell;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+void func_80016FF4(Cell *, Pos2 *);
+
+int func_80017260(Cell *a, Cell *b) {
+    Pos2 c[4];
+    int v;
+
+    func_80016FF4(b, c);
+    v = c[0].x;
+    if (c[1].x < v) {
+        v = c[1].x;
+    }
+    if (c[2].x < v) {
+        v = c[2].x;
+    }
+    if (c[3].x < v) {
+        v = c[3].x;
+    }
+    if (a->max_x << 14 < v) {
+        return 1;
+    }
+    v = c[0].x;
+    if (v < c[1].x) {
+        v = c[1].x;
+    }
+    if (v < c[2].x) {
+        v = c[2].x;
+    }
+    if (v < c[3].x) {
+        v = c[3].x;
+    }
+    if (v < a->min_x << 14) {
+        return 1;
+    }
+    v = c[0].z;
+    if (c[1].z < v) {
+        v = c[1].z;
+    }
+    if (c[2].z < v) {
+        v = c[2].z;
+    }
+    if (c[3].z < v) {
+        v = c[3].z;
+    }
+    if (a->max_z << 14 < v) {
+        return 1;
+    }
+    v = c[0].z;
+    if (v < c[1].z) {
+        v = c[1].z;
+    }
+    if (v < c[2].z) {
+        v = c[2].z;
+    }
+    if (v < c[3].z) {
+        v = c[3].z;
+    }
+    return v < a->min_z << 14;
+}

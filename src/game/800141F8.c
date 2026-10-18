@@ -1,39 +1,93 @@
-asm(".text\n\t.globl func_800141F8\nfunc_800141F8:\n\t"
-    ".word 0x3C02800C,0x8C4260D0,0x27BDFFD0,0xAFBF0028\n\t"
-    ".word 0xAFB50024,0xAFB40020,0xAFB3001C,0xAFB20018\n\t"
-    ".word 0xAFB10014,0x2442FFFD,0x2C420002,0x1440001F\n\t"
-    ".word 0xAFB00010,0x3C02800B,0x9042AD00,0x00000000\n\t"
-    ".word 0x14400003,0x00000000,0x0C01D6BB,0x00000000\n\t"
-    ".word 0x0C01E33C,0x00000000,0x00002021,0x3405FFFB\n\t"
-    ".word 0x24060320,0x0C021479,0x24070190,0x24040001\n\t"
-    ".word 0x3405FFFB,0x24060320,0x0C021479,0x24070190\n\t"
-    ".word 0x0C01A38C,0x00000000,0x0C01A369,0x3404C350\n\t"
-    ".word 0x3C03800E,0xAC62DDEC,0x00402021,0x0C01FDC2\n\t"
-    ".word 0x3405C350,0x0C01FDD0,0x24040002,0x0C00E880\n\t"
-    ".word 0x24040005,0x3C04800B,0x9083AD00,0x24020002\n\t"
-    ".word 0x14620003,0x3C03800C,0x24020001,0xA082AD00\n\t"
-    ".word 0x8C6260CC,0x00000000,0x1440004F,0x3C02800B\n\t"
-    ".word 0x3C15800B,0x3C14800F,0x00809821,0x00608021\n\t"
-    ".word 0x3C12800C,0x3C11800C,0x0C021226,0x24040064\n\t"
-    ".word 0x3C02800A,0x8044606C,0x0C00807E,0x00000000\n\t"
-    ".word 0x0C00E984,0x00000000,0x0C008A7E,0x00000000\n\t"
-    ".word 0x0C01E739,0x304400FF,0x0C00E9D1,0x00000000\n\t"
-    ".word 0x92A2E9EA,0x00000000,0x1040000D,0x00000000\n\t"
-    ".word 0x8E84AFBC,0x0C01D61B,0x00000000,0x92A2E9EA\n\t"
-    ".word 0x00000000,0x10400006,0x24020004,0x8E83AFBC\n\t"
-    ".word 0x00000000,0x10620002,0x3C02800F,0xAC40BC3C\n\t"
-    ".word 0x0C016823,0x00000000,0x9262AD00,0x00000000\n\t"
-    ".word 0x10400005,0x00000000,0x0C01D6BB,0x00000000\n\t"
-    ".word 0x080050E6,0xA260AD00,0x0C00EA3D,0x00000000\n\t"
-    ".word 0x3C02800C,0x8E0360CC,0x8C4460C8,0x00000000\n\t"
-    ".word 0x10640005,0x3C02800C,0xAC4360C4,0xAE0460CC\n\t"
-    ".word 0x080050F2,0xAE4060E4,0x24020001,0xAE4260E4\n\t"
-    ".word 0x3C02800C,0x8E2360D0,0x8C4460DC,0x00000000\n\t"
-    ".word 0x10640006,0x3C02800C,0xAC4360D4,0x3C02800C\n\t"
-    ".word 0xAE2460D0,0x08005100,0xAC4060D8,0x3C03800C\n\t"
-    ".word 0x24020001,0xAC6260D8,0x8E0260CC,0x00000000\n\t"
-    ".word 0x1040FFB9,0x3C02800B,0x9042E9EA,0x00000000\n\t"
-    ".word 0x10400003,0x00000000,0x0C01D91B,0x00000000\n\t"
-    ".word 0x0C01A39C,0x00000000,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+extern int D_800C60C4;
+extern int D_800C60C8;
+extern int D_800C60CC;
+extern int D_800C60D0;
+extern int D_800C60D4;
+extern int D_800C60D8;
+extern int D_800C60DC;
+extern int D_800C60E4;
+extern unsigned char D_800AAD00;
+extern unsigned char D_800AE9EA;
+extern int D_800DDDEC;
+extern int D_800EAFBC;
+extern int D_800EBC3C;
+extern signed char D_800A606C;
+void func_80075AEC(void);
+void func_80078CF0(void);
+void func_800851E4(int, int, int, int);
+void func_80068E30(void);
+int func_80068DA4(int);
+void func_8007F708(int, int);
+void func_8007F740(int);
+void func_8003A200(int);
+void func_80084898(int);
+void func_800201F8(int);
+void func_8003A610(void);
+unsigned char func_800229F8(void);
+void func_80079CE4(int);
+void func_8003A744(void);
+void func_8007586C(int);
+void func_8005A08C(void);
+void func_8003A8F4(void);
+void func_8007646C(void);
+void func_80068E70(void);
+
+void func_800141F8(void) {
+    int heap;
+
+    if (D_800C60D0 != 3 && D_800C60D0 != 4) {
+        if (D_800AAD00 == 0) {
+            func_80075AEC();
+        }
+        func_80078CF0();
+        func_800851E4(0, 0xFFFB, 800, 400);
+        func_800851E4(1, 0xFFFB, 800, 400);
+        func_80068E30();
+        heap = func_80068DA4(50000);
+        D_800DDDEC = heap;
+        func_8007F708(heap, 50000);
+        func_8007F740(2);
+    }
+    func_8003A200(5);
+    if (D_800AAD00 == 2) {
+        D_800AAD00 = 1;
+    }
+    while (D_800C60CC == 0) {
+        func_80084898(100);
+        func_800201F8(D_800A606C);
+        func_8003A610();
+        func_80079CE4(func_800229F8());
+        func_8003A744();
+        if (D_800AE9EA != 0) {
+            func_8007586C(D_800EAFBC);
+            if (D_800AE9EA != 0 && D_800EAFBC != 4) {
+                D_800EBC3C = 0;
+            }
+        }
+        func_8005A08C();
+        if (D_800AAD00 != 0) {
+            func_80075AEC();
+            D_800AAD00 = 0;
+        } else {
+            func_8003A8F4();
+        }
+        if (D_800C60CC != D_800C60C8) {
+            D_800C60C4 = D_800C60CC;
+            D_800C60CC = D_800C60C8;
+            D_800C60E4 = 0;
+        } else {
+            D_800C60E4 = 1;
+        }
+        if (D_800C60D0 != D_800C60DC) {
+            D_800C60D4 = D_800C60D0;
+            D_800C60D0 = D_800C60DC;
+            D_800C60D8 = 0;
+        } else {
+            D_800C60D8 = 1;
+        }
+    }
+    if (D_800AE9EA != 0) {
+        func_8007646C();
+    }
+    func_80068E70();
+}

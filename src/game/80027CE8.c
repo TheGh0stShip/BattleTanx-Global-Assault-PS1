@@ -1,17 +1,56 @@
-asm(".text\n\t.globl func_80027CE8\nfunc_80027CE8:\n\t"
-    ".word 0x27bdffe8,0x8fa80028,0x24020003,0x10c20029\n\t"
-    ".word 0xafbf0010,0x2cc20004,0x10400005,0x00000000\n\t"
-    ".word 0x10c0000a,0x00e03021,0x08009f74,0x00000000\n\t"
-    ".word 0x24020005,0x10c20009,0x24020006,0x10c20019\n\t"
-    ".word 0x00e03021,0x08009f74,0x00000000,0x0c009db6\n\t"
-    ".word 0x01003821,0x08009f74,0x00000000,0x8ce20000\n\t"
-    ".word 0x00000000,0x14400020,0x00000000,0x90830017\n\t"
-    ".word 0x00000000,0x28620006,0x1040001b,0x00000000\n\t"
-    ".word 0x04600019,0x24020001,0xa1020000,0x8c820008\n\t"
-    ".word 0x00000000,0xad020004,0x8c820010,0x08009f74\n\t"
-    ".word 0xad020008,0x0c009e16,0x01003821,0x08009f74\n\t"
-    ".word 0x00000000,0x80820016,0x8ce3000c,0x00000000\n\t"
-    ".word 0x0043102a,0x90830016,0x10400003,0x00000000\n\t"
-    ".word 0x08009f74,0xa0800016,0x90e2000c,0x00000000\n\t"
-    ".word 0x00621023,0xa0820016,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+    char pad14[2];
+    signed char health;
+    unsigned char slot;
+} Crate;
+
+typedef struct {
+    int busy;
+    int pad4[2];
+    int damage;
+} Data;
+
+typedef struct {
+    unsigned char valid;
+    char pad1[3];
+    int x;
+    int z;
+} Out;
+
+extern void func_800276D8(Crate *, int, Data *, Out *);
+extern void func_80027858(Crate *, int, Data *, Out *);
+
+void func_80027CE8(Crate *self, int arg, unsigned int cmd, Data *data, Out *out) {
+    switch (cmd) {
+    case 0:
+        func_800276D8(self, arg, data, out);
+        break;
+    case 5:
+        if (data->busy == 0) {
+            int slot = self->slot;
+
+            if (slot < 6) {
+                if (slot >= 0) {
+                    out->valid = 1;
+                    out->x = self->x;
+                    out->z = self->z;
+                }
+            }
+        }
+        break;
+    case 6:
+        func_80027858(self, arg, data, out);
+        break;
+    case 3:
+        if (self->health < data->damage) {
+            self->health = 0;
+        } else {
+            self->health -= data->damage;
+        }
+        break;
+    }
+}

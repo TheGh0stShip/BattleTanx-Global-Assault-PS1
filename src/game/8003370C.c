@@ -1,26 +1,43 @@
-asm(".text\n\t.globl func_8003370C\nfunc_8003370C:\n\t"
-    ".word 0x27BDFFB8,0xAFB40038,0x00A0A021,0xAFB20030\n\t"
-    ".word 0x00009021,0xAFB1002C,0x00808821,0xAFB5003C\n\t"
-    ".word 0x00C0A821,0xAFBF0040,0xAFB30034,0x12200005\n\t"
-    ".word 0xAFB00028,0x8E31001C,0x00000000,0x1620FFFD\n\t"
-    ".word 0x26520001,0x12400047,0x24020001,0x16420009\n\t"
-    ".word 0x00808821,0x02802821,0x00003021,0xAFA00010\n\t"
-    ".word 0x8C840010,0x0C01A86F,0x34078000,0x0800CE1C\n\t"
-    ".word 0x00000000,0x1220003B,0x00009821,0x3402FFFF\n\t"
-    ".word 0x0052001A,0x16400002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x16410004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001012,0x00000000\n\t"
-    ".word 0x00000000,0x00530018,0x00001812,0x02A38021\n\t"
-    ".word 0x3210FFFF,0x00108102,0x0C022B58,0x02002021\n\t"
-    ".word 0x3C090003,0x3529C000,0x01220018,0x00001812\n\t"
-    ".word 0x00004010,0x00031B02,0x00084500,0x00681825\n\t"
-    ".word 0x8E820000,0x00000000,0x00431021,0xAFA20018\n\t"
-    ".word 0x8E820004,0x02002021,0x0C022B30,0xAFA2001C\n\t"
-    ".word 0x3C090003,0x3529C000,0x01220018,0x00001812\n\t"
-    ".word 0x00004010,0x00031B02,0x00084500,0x00681825\n\t"
-    ".word 0x27A50018,0x8E820008,0x00003021,0x00431021\n\t"
-    ".word 0xAFA20020,0xAFA00010,0x8E240010,0x0C01A86F\n\t"
-    ".word 0x34078000,0x8E31001C,0x00000000,0x1620FFC7\n\t"
-    ".word 0x26730001,0x8FBF0040,0x8FB5003C,0x8FB40038\n\t"
-    ".word 0x8FB30034,0x8FB20030,0x8FB1002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0048\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct Item Item;
+struct Item { int pad[4]; int model; int pad2[2]; Item *next; };
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_8006A1BC(int, Vector *, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8003370C(Item *list, Vector *center, unsigned short base) {
+    Item *it;
+    int count;
+    int i;
+    int angle;
+    Vector v;
+
+    count = 0;
+    for (it = list; it != 0; it = it->next) {
+        count++;
+    }
+    if (count == 0) {
+        return;
+    }
+    if (count == 1) {
+        func_8006A1BC(list->model, center, 0, 0x8000, 0);
+        return;
+    }
+    for (it = list, i = 0; it != 0; it = it->next, i++) {
+        angle = (unsigned short)(base + 0xFFFF / count * i) >> 4;
+        v.x = center->x + fixed_mul(0x3C000, func_8008AD60(angle));
+        v.y = center->y;
+        v.z = center->z + fixed_mul(0x3C000, func_8008ACC0(angle));
+        func_8006A1BC(it->model, &v, 0, 0x8000, 0);
+    }
+}

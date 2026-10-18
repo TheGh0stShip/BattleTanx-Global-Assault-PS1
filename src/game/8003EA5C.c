@@ -1,20 +1,37 @@
-asm(".text\n\t.globl func_8003EA5C\nfunc_8003EA5C:\n\t"
-    ".word 0x3C05800D,0x24A53034,0x24860014,0x90A30001\n\t"
-    ".word 0x24A50004,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00431023,0x00021080,0x00452821,0x8C830020\n\t"
-    ".word 0x8CA20008,0x00000000,0x00621823,0x04600006\n\t"
-    ".word 0x24840020,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800FAB4,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800FAB6,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xACC20000\n\t"
-    ".word 0x8C830004,0x8CA2000C,0x00000000,0x00621823\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800FAC8,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800FACA,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xACC20004\n\t"
-    ".word 0x8C830008,0x8CA20010,0x00000000,0x00621823\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800FADC,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800FADE,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0x03E00008\n\t"
-    ".word 0xACC20008\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { char pad[8]; Vector pos; char pad2[156 - 20]; } View;
+typedef struct { unsigned char f0; unsigned char current; char pad[2]; View views[1]; } ViewSet;
+typedef struct { char pad[20]; Vector rel; Vector pos; } Obj;
+extern ViewSet D_800D3034;
+
+static inline int round_int(int a, int b)
+{
+    int r;
+    int v;
+
+    v = a - b;
+    if (v >= 0) {
+        r = v + 2048;
+        if (r >= 0) {
+            return r >> 12;
+        }
+        return -(-r >> 12);
+    }
+    r = v - 2048;
+    if (r >= 0) {
+        return r >> 12;
+    }
+    return -((2048 - v) >> 12);
+}
+
+static inline void relative_pos(Vector *out, Vector *pos, View *ref)
+{
+    out->x = round_int(pos->x, ref->pos.x);
+    out->y = round_int(pos->y, ref->pos.y);
+    out->z = round_int(pos->z, ref->pos.z);
+}
+
+void func_8003EA5C(Obj *obj)
+{
+    relative_pos(&obj->rel, &obj->pos, &D_800D3034.views[D_800D3034.current]);
+}

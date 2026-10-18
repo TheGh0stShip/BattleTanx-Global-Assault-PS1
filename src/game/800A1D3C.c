@@ -1,39 +1,118 @@
-asm(".text\n\t.globl func_800A1D3C\nfunc_800A1D3C:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFB3001C\n\t"
-    ".word 0x24130001,0x00002821,0xAFB20018,0x00F3902B\n\t"
-    ".word 0xAFBF0020,0x10E00041,0xAFB00010,0x92220032\n\t"
-    ".word 0x00000000,0x24420003,0x10C20002,0x00000000\n\t"
-    ".word 0x02609021,0x1640006A,0x3C02800F,0x2450FD0C\n\t"
-    ".word 0x0C028648,0x02002021,0x92230032,0x00000000\n\t"
-    ".word 0x00701821,0x90630003,0x304200FF,0x10430002\n\t"
-    ".word 0x00000000,0x24120001,0x1640005D,0x00000000\n\t"
-    ".word 0x8E220004,0x00000000,0x30420100,0x1040000D\n\t"
-    ".word 0x00000000,0x92020002,0x8E230038,0x00000000\n\t"
-    ".word 0x10600002,0xA2220030,0xA0620000,0x8E220004\n\t"
-    ".word 0x2403FEFF,0x00431024,0xAE220004,0x08028786\n\t"
-    ".word 0x00000000,0x92230030,0x92020002,0x00000000\n\t"
-    ".word 0x10620002,0x00000000,0x24120001,0x16400044\n\t"
-    ".word 0x3C02800F,0x9045FD0D,0x92220031,0x30A400FF\n\t"
-    ".word 0x1082000E,0x24020004,0x92230030,0x00000000\n\t"
-    ".word 0x14620009,0x00000000,0x14800007,0x00000000\n\t"
-    ".word 0x8E220004,0xA2200031,0x34420100,0xAE220004\n\t"
-    ".word 0x0802879A,0x00000000,0x24120001,0x16400030\n\t"
-    ".word 0x00000000,0x92220031,0x00000000,0x14A20018\n\t"
-    ".word 0x3C02800F,0x9050FD0C,0x00000000,0x12000014\n\t"
-    ".word 0x2445FD0C,0x8E220044,0x8E270034,0x00000000\n\t"
-    ".word 0x00471823,0x0070102B,0x10400002,0x00000000\n\t"
-    ".word 0x00608021,0x24A50003,0x8E24003C,0x02003021\n\t"
-    ".word 0x0C022A21,0x00872021,0x8E220034,0x8E23002C\n\t"
-    ".word 0x00501021,0x00701821,0xAE220034,0xAE23002C\n\t"
-    ".word 0x8E220034,0x8E230040,0x00000000,0x0043102B\n\t"
-    ".word 0x14400005,0x02202021,0x0C028679,0x24040001\n\t"
-    ".word 0x080287C7,0x00009821,0x24050001,0x0C0286CB\n\t"
-    ".word 0x24060008,0x10400002,0x00000000,0x00009821\n\t"
-    ".word 0x16400003,0x00000000,0x12600014,0x00000000\n\t"
-    ".word 0x0C023E69,0x00000000,0x24030004,0x14430008\n\t"
-    ".word 0x02202021,0x0C0286AC,0x02202021,0x02202021\n\t"
-    ".word 0x0C028825,0x24050001,0x080287DA,0x00000000\n\t"
-    ".word 0x24050002,0x0C0286CB,0x24060009,0x14400003\n\t"
-    ".word 0x00000000,0x0C028679,0x00002021,0x8FBF0020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Link {
+    int unk00;
+    volatile int flags;
+    int unk08;
+    unsigned int limit;
+    unsigned int tries;
+    unsigned int tries2;
+    int errors;
+    int pad1C;
+    int unk20;
+    int last_time;
+    int sent;
+    int total;
+    unsigned char cmd;
+    unsigned char seq;
+    unsigned char length;
+    char pad33;
+    unsigned int count;
+    int data38;
+    int data3C;
+    unsigned int data40;
+    unsigned int data44;
+    void (*done)(struct Link *, int, int, int, int);
+} Link;
+
+typedef struct LinkGlobals {
+    unsigned char rx_length;
+    unsigned char rx_data[0x102];
+    unsigned char packet[4];
+    char pad107;
+    Link *current;
+} LinkGlobals;
+
+extern Link *D_800EFE14;
+extern void func_800A19E4(int);
+
+extern LinkGlobals D_800EFD0C;
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern int func_8008F9A4(void);
+extern void func_800A1AF8(Link *, int);
+extern int func_800A1994(int, int, int, int);
+
+extern void func_800A1AB0(Link *);
+extern int func_800A2094(Link *, int);
+extern int func_800A1B2C(Link *, int, int);
+extern unsigned char func_800A1920(void *);
+extern void func_8008A884(void *, void *, unsigned int);
+
+void func_800A1D3C(Link *c, int a1, int length, int ok) {
+    int more = 1;
+    unsigned char seq = 0;
+    int bad = !ok;
+    unsigned int n;
+
+    if (ok != 0) {
+        if (length != c->length + 3) {
+            bad = 1;
+        }
+        if (bad == 0) {
+            if (func_800A1920(&D_800EFD0C) != D_800EFD0C.rx_data[c->length + 2]) {
+                bad = 1;
+            }
+            if (bad == 0) {
+                if (c->flags & 0x100) {
+                    c->cmd = D_800EFD0C.rx_data[1];
+                    if (c->data38 != 0) {
+                        *(unsigned char *)c->data38 = c->cmd;
+                    }
+                    c->flags &= ~0x100;
+                } else if (c->cmd != D_800EFD0C.rx_data[1]) {
+                    bad = 1;
+                }
+                if (bad == 0) {
+                    seq = D_800EFD0C.rx_data[0];
+                    if (seq != c->seq) {
+                        if (c->cmd == 4 && seq == 0) {
+                            c->seq = 0;
+                            c->flags |= 0x100;
+                        } else {
+                            bad = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (bad == 0) {
+        if (seq == c->seq) {
+            n = D_800EFD0C.rx_length;
+            if (n != 0) {
+                if (c->data44 - c->count < n) {
+                    n = c->data44 - c->count;
+                }
+                func_8008A884((char *)c->data3C + c->count, &D_800EFD0C.rx_data[2], n);
+                c->count += n;
+                c->total += n;
+            }
+        }
+        if (c->count >= c->data40) {
+            func_800A19E4(1);
+            more = 0;
+        } else if (func_800A1B2C(c, 1, 8) != 0) {
+            more = 0;
+        }
+    }
+    if (bad != 0 || more != 0) {
+        int result;
+        if (func_8008F9A4() == 4) {
+            func_800A1AB0(c);
+            result = func_800A2094(c, 1);
+        } else {
+            result = func_800A1B2C(c, 2, 9);
+        }
+        if (result == 0) {
+            func_800A19E4(0);
+        }
+    }
+}

@@ -1,11 +1,27 @@
-asm(".text\n\t.globl func_80054C08\nfunc_80054C08:\n\t"
-    ".word 0x27bdff80,0xafb00068,0x27b00050,0x02002021\n\t"
-    ".word 0xafbf0078,0xafb30074,0xafb20070,0x0c024315\n\t"
-    ".word 0xafb1006c,0x00008821,0x24130001,0x24120010\n\t"
-    ".word 0x322300ff,0x02031021,0x90420000,0x00000000\n\t"
-    ".word 0x14530006,0x27a40010,0x00621004,0xafa20010\n\t"
-    ".word 0xafb20014,0x0c024384,0xa7a00024,0x26310001\n\t"
-    ".word 0x322200ff,0x2c420018,0x1440fff2,0x322300ff\n\t"
-    ".word 0x3c03800e,0x8fbf0078,0x8fb30074,0x8fb20070\n\t"
-    ".word 0x8fb1006c,0x8fb00068,0x24020001,0xac6246bc\n\t"
-    ".word 0x03e00008,0x27bd0080\n\t");
+typedef struct {
+    unsigned int voice;
+    unsigned int mask;
+    char pad8[12];
+    unsigned short pitch;
+    char pad16[42];
+} VoiceAttr;
+extern int D_800E46BC;
+extern void func_80090C54(unsigned char *);
+extern void func_80090E10(VoiceAttr *);
+
+void func_80054C08(void) {
+    VoiceAttr attr;
+    unsigned char status[24];
+    unsigned char i;
+
+    func_80090C54(status);
+    for (i = 0; i < 24; i++) {
+        if (status[i] == 1) {
+            attr.voice = 1 << i;
+            attr.mask = 16;
+            attr.pitch = 0;
+            func_80090E10(&attr);
+        }
+    }
+    D_800E46BC = 1;
+}

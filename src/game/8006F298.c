@@ -1,17 +1,49 @@
-asm(".text\n\t.globl func_8006F298\nfunc_8006F298:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafbf0018,0x88c70003,0x98c70000\n\t"
-    ".word 0x88c80007,0x98c80004,0xaa27000f,0xba27000c\n\t"
-    ".word 0xaa280013,0xba280010,0xa6200016,0xa6200018\n\t"
-    ".word 0x0c021b21,0xa620001a,0x00021402,0x0c021b21\n\t"
-    ".word 0xa6220014,0x00021402,0x000219c0,0x00621821\n\t"
-    ".word 0x00031c03,0x2463ffc0,0xa223001e,0x8e03001c\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021040\n\t"
-    ".word 0xae220004,0x0c021b21,0xae220008,0x00021402\n\t"
-    ".word 0x00021940,0x00621821,0x00031c03,0x8e02001c\n\t"
-    ".word 0x34630040,0x00620018,0x00001012,0x04410002\n\t"
-    ".word 0x00000000,0x24420fff,0x00021303,0xa6220020\n\t"
-    ".word 0x2402fff6,0xa6220022,0x24020060,0xa2220024\n\t"
-    ".word 0xa2220025,0xa2220026,0x24020001,0xa222001f\n\t"
-    ".word 0x24020002,0xa2220027,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    short x, y, z, pad;
+} SVec;
+
+typedef struct {
+    int pad0;
+    int a;
+    int b;
+    SVec pos;
+    unsigned short angle;
+    short v16;
+    short v18;
+    short v1A;
+    short v1C;
+    signed char spin;
+    char active;
+    short speed;
+    short gravity;
+    unsigned char r, g, b2;
+    char kind;
+} Particle;
+
+typedef struct {
+    char pad[0x1C];
+    int scale;
+} Emitter;
+
+extern unsigned int func_80086C84(void);
+
+void func_8006F298(Emitter *em, Particle *p, SVec *pos) {
+    int t;
+
+    p->pos = *pos;
+    p->v16 = 0;
+    p->v18 = 0;
+    p->v1A = 0;
+    p->angle = func_80086C84() >> 16;
+    p->spin = ((int)(func_80086C84() >> 16) * 129 >> 16) - 64;
+    t = em->scale * 6;
+    p->a = t;
+    p->b = t;
+    p->speed = ((int)(func_80086C84() >> 16) * 33 >> 16 | 0x40) * em->scale / 4096;
+    p->gravity = -10;
+    p->r = 96;
+    p->g = 96;
+    p->b2 = 96;
+    p->active = 1;
+    p->kind = 2;
+}

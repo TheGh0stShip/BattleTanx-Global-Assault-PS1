@@ -1,14 +1,28 @@
-asm(".text\n\t.globl func_800335C0\nfunc_800335C0:\n\t"
-    ".word 0x3c02800d,0x94423254,0x00000000,0x00022400\n\t"
-    ".word 0x00041c03,0x2402ffff,0x1062002b,0x3c02800d\n\t"
-    ".word 0x8c453258,0x24090008,0x2408007f,0x3c02800e\n\t"
-    ".word 0x24473e68,0x2406ffff,0x00041283,0x00a22021\n\t"
-    ".word 0x84820004,0x00000000,0x14490019,0x00000000\n\t"
-    ".word 0x8c82000c,0x00000000,0x14400015,0x00000000\n\t"
-    ".word 0x8c820014,0x00000000,0x90420018,0x00000000\n\t"
-    ".word 0x14480003,0x00401821,0x0800cd96,0x00001021\n\t"
-    ".word 0x00031100,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x00471021,0x8c43000c,0x00000000\n\t"
-    ".word 0x94620004,0x00000000,0x24420001,0xa4620004\n\t"
-    ".word 0x94820002,0x00000000,0x00022400,0x00041403\n\t"
-    ".word 0x1446ffde,0x00041283,0x03e00008,0x00000000\n\t");
+typedef struct { int pad; unsigned short count; } Counter;
+typedef struct { char pad[12]; Counter *counter; char rest[0x114 - 16]; } Waypoint;
+typedef struct { char pad[24]; unsigned char waypoint; } Ref;
+typedef struct { short pad; short next; short type; short pad2; int pad3; int used; int pad4; Ref *ref; char rest[40]; } Node;
+extern short D_800D3254;
+extern Node *D_800D3258;
+extern Waypoint D_800E3E68[];
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800335C0(void) {
+    short i;
+    Node *n;
+
+    i = D_800D3254;
+    while (i != -1) {
+        n = &D_800D3258[i];
+        if (n->type == 8 && n->used == 0) {
+            waypoint_at(n->ref->waypoint)->counter->count++;
+        }
+        i = n->next;
+    }
+}

@@ -1,9 +1,24 @@
-asm(".text\n\t.globl func_800757F0\nfunc_800757F0:\n\t"
-    ".word 0x3c02800a,0x3c04800a,0x8c4248b0,0x8c8448ac\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x000218c0,0x00621821\n\t"
-    ".word 0x00031880,0x00621821,0x000318c0,0x3c02800e\n\t"
-    ".word 0x2442db9c,0x00621821,0x00041040,0x00441021\n\t"
-    ".word 0x000210c0,0x00441023,0x00021080,0x00621821\n\t"
-    ".word 0x3c04800b,0x84650000,0x84660002,0x0c01ff3a\n\t"
-    ".word 0x2484e9e0,0x0c01fe9d,0x00002021,0x8fbf0010\n\t"
-    ".word 0x00000000,0x03e00008,0x27bd0018\n\t");
+typedef struct Spot {
+    short x;
+    short y;
+    char pad[88];
+} Spot;
+
+typedef struct Area {
+    Spot spots[3];
+    char pad[20];
+} Area;
+
+extern int D_800A48B0;
+extern int D_800A48AC;
+extern Area D_800DDB9C[];
+extern char D_800AE9E0[];
+extern void func_8007FCE8(void *, int, int);
+extern void func_8007FA74(int);
+
+void func_800757F0(void) {
+    Area *a = &D_800DDB9C[D_800A48B0];
+    Spot *s = &a->spots[D_800A48AC];
+    func_8007FCE8(D_800AE9E0, s->x, s->y);
+    func_8007FA74(0);
+}

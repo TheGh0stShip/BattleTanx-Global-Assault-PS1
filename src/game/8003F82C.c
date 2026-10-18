@@ -1,53 +1,138 @@
-asm(".text\n\t.globl func_8003F82C\nfunc_8003F82C:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0x00A02021\n\t"
-    ".word 0xAFBF001C,0xAFB20018,0xAFB10014,0x8E020218\n\t"
-    ".word 0x00000000,0x30420001,0x104000BE,0x00C09021\n\t"
-    ".word 0x2402007F,0x1082001D,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00438821,0x8E020208,0x8E23000C\n\t"
-    ".word 0x8C42000C,0x00000000,0x10620010,0x00000000\n\t"
-    ".word 0x0C014A61,0x24050001,0x02202021,0x3C05800A\n\t"
-    ".word 0x8E03009C,0x24A54EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00451021\n\t"
-    ".word 0x944500CA,0x0C014C38,0x00003021,0x8E020208\n\t"
-    ".word 0x00000000,0x8C43000C,0x00000000,0x94620002\n\t"
-    ".word 0x00000000,0x24420001,0xA4620002,0x8E030208\n\t"
-    ".word 0x00000000,0x946200D2,0x02002021,0x24420001\n\t"
-    ".word 0x0C00CE8E,0xA46200D2,0x8E020218,0x00000000\n\t"
-    ".word 0x30420040,0x10400006,0x3C03800D,0x24632FE4\n\t"
-    ".word 0x8C620010,0x00000000,0x2442FFFF,0xAC620010\n\t"
-    ".word 0x2E420002,0x14400006,0x24020001,0x24020002\n\t"
-    ".word 0x12420014,0x24020001,0x0800FE79,0x00000000\n\t"
-    ".word 0x8E03009C,0x00000000,0x14620005,0x2404002B\n\t"
-    ".word 0x8E050008,0x8E060010,0x0800FE61,0x24040007\n\t"
-    ".word 0x8E050008,0x8E060010,0x0C014DE4,0x00000000\n\t"
-    ".word 0x02002021,0x0C00DD3C,0x00002821,0x0800FE7E\n\t"
-    ".word 0x00000000,0x8E03009C,0x00000000,0x14620005\n\t"
-    ".word 0x2404002A,0x8E050008,0x8E060010,0x0800FE72\n\t"
-    ".word 0x24040007,0x8E050008,0x8E060010,0x0C014DE4\n\t"
-    ".word 0x00000000,0x02002021,0x0C00DD3C,0x24050001\n\t"
-    ".word 0x0800FE7E,0x00000000,0x960402B8,0x0C006C25\n\t"
-    ".word 0x00000000,0x3402FFFF,0xA60202B8,0x8E020218\n\t"
-    ".word 0x00000000,0x30420002,0x10400012,0x00000000\n\t"
-    ".word 0x96040098,0x0C018F6E,0x00000000,0x96040098\n\t"
-    ".word 0x00000000,0x2C820002,0x10400005,0x3C03800B\n\t"
-    ".word 0x2463BA68,0x00041040,0x00431021,0xA4400000\n\t"
-    ".word 0x8E020218,0x00000000,0x30420002,0x14400005\n\t"
-    ".word 0x00000000,0x8E0200A0,0x00000000,0x14400006\n\t"
-    ".word 0x00000000,0x8E040208,0x0C014AFA,0x02002821\n\t"
-    ".word 0x0C014F85,0x02002021,0x8E0402A4,0x00000000\n\t"
-    ".word 0x10800009,0x2402000E,0x84830004,0x00000000\n\t"
-    ".word 0x14620005,0x00000000,0x90820027,0x00000000\n\t"
-    ".word 0x2442FFFF,0xA0820027,0x02002021,0x8E1100A0\n\t"
-    ".word 0x0C0138AB,0x2405001D,0x8E030208,0x00111080\n\t"
-    ".word 0x24420078,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x1040000A,0x02002021,0x8C640000,0x00000000\n\t"
-    ".word 0x10900005,0x00000000,0x8C820004,0x00000000\n\t"
-    ".word 0x1440FFF9,0x24830004,0x02002021,0x24050001\n\t"
-    ".word 0x8E020004,0x00003021,0xAC620000,0x8C830208\n\t"
-    ".word 0x2408FFFE,0x00711821,0x90620084,0x3C09800E\n\t"
-    ".word 0x2442FFFF,0xA0620084,0x8C820218,0x8C870000\n\t"
-    ".word 0x9523E338,0x00481024,0x2463FFFF,0xAC820218\n\t"
-    ".word 0x24020003,0xACE00008,0xA523E338,0x0C011EEE\n\t"
-    ".word 0xAC8200A0,0x8FBF001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct { short f0; unsigned short deaths; } TeamStats;
+typedef struct Tank Tank;
+typedef struct {
+    char pad0[0xC];
+    TeamStats *team;
+    char pad1[0x78 - 0x10];
+    Tank *lists[3];
+    unsigned char counts[4];
+    char pad2[0xD2 - 0x88];
+    unsigned short losses;
+} Owner;
+typedef struct { char pad[0xC]; TeamStats *team; char pad2[0x114 - 0x10]; } Killer;
+typedef struct { char pad[0xCA]; unsigned short points; char pad2[0xD0 - 0xCC]; } Vehicle;
+typedef struct { char pad[4]; short kind; char pad2[0x27 - 6]; unsigned char count; } Carrier;
+typedef struct { char pad[8]; int active; } Body;
+struct Tank {
+    Body *body;
+    Tank *next;
+    int x;
+    int y;
+    int z;
+    char pad0[0x98 - 0x14];
+    unsigned short player;
+    char pad1[2];
+    int type;
+    int list;
+    char pad2[0x208 - 0xA4];
+    Owner *owner;
+    char pad3[0x218 - 0x20C];
+    unsigned int status;
+    char pad4[0x2A4 - 0x21C];
+    Carrier *carrier;
+    char pad5[0x2B8 - 0x2A8];
+    unsigned short voice;
+};
+typedef struct { char pad[0x10]; int alive; } Game;
+extern Killer D_800E3E68[];
+extern Vehicle D_800A4EF4[];
+extern Game D_800D2FE4;
+extern short D_800ABA68[];
+extern unsigned short D_800DE338;
+extern void func_80052984(int, int);
+extern void func_800530E0(Killer *, int, int);
+extern void func_80033A38(Tank *);
+extern void func_80053790(int, int, int);
+extern int func_800374F0(Tank *, int);
+extern void func_8001B094(int);
+extern void func_80063DB8(int);
+extern void func_80052BE8(Owner *, Tank *);
+extern void func_80053E14(Tank *);
+extern void func_8004E2AC(Tank *, int);
+extern void func_80047BB8(Tank *, int, int);
+
+static inline void unlink_tank(Tank *t, int list)
+{
+    Tank **link;
+    Tank *p;
+
+    link = &t->owner->lists[list];
+    while (*link != 0) {
+        p = *link;
+        if (p == t) {
+            break;
+        }
+        link = &p->next;
+    }
+    *link = t->next;
+    t->owner->counts[list]--;
+    t->status &= ~1;
+    t->body->active = 0;
+    D_800DE338--;
+    t->list = 3;
+    func_80047BB8(t, 1, 0);
+}
+
+void func_8003F82C(Tank *t, int killer, unsigned int kind)
+{
+    Killer *k;
+    int list;
+    unsigned int player;
+
+    if (!(t->status & 1)) {
+        return;
+    }
+    if (killer != 127) {
+        k = &D_800E3E68[killer];
+        if (k->team != t->owner->team) {
+            func_80052984(killer, 1);
+            func_800530E0(k, D_800A4EF4[t->type].points, 0);
+        }
+    }
+    t->owner->team->deaths++;
+    t->owner->losses++;
+    func_80033A38(t);
+    if (t->status & 0x40) {
+        D_800D2FE4.alive--;
+    }
+    switch (kind) {
+    case 0:
+    case 1:
+        if (t->type == 1) {
+            func_80053790(7, t->x, t->z);
+        } else {
+            func_80053790(43, t->x, t->z);
+        }
+        func_800374F0(t, 0);
+        break;
+    case 2:
+        if (t->type == 1) {
+            func_80053790(7, t->x, t->z);
+        } else {
+            func_80053790(42, t->x, t->z);
+        }
+        func_800374F0(t, 1);
+        break;
+    default:
+        func_8001B094(t->voice);
+        t->voice = 0xFFFF;
+        break;
+    }
+    if (t->status & 2) {
+        func_80063DB8(t->player);
+        player = t->player;
+        if (player < 2) {
+            D_800ABA68[player] = 0;
+        }
+    }
+    if ((t->status & 2) || t->list == 0) {
+        func_80052BE8(t->owner, t);
+        func_80053E14(t);
+    }
+    if (t->carrier != 0 && t->carrier->kind == 14) {
+        t->carrier->count--;
+    }
+    list = t->list;
+    func_8004E2AC(t, 29);
+    unlink_tank(t, list);
+}

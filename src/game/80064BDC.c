@@ -1,19 +1,58 @@
-asm(".text\n\t.globl func_80064BDC\nfunc_80064BDC:\n\t"
-    ".word 0x3C02800B,0x8C42BA84,0x27BDFFE0,0xAFB10014\n\t"
-    ".word 0x00808821,0xAFBF0018,0x1040003B,0xAFB00010\n\t"
-    ".word 0x0C008A05,0x00000000,0x10400027,0x00000000\n\t"
-    ".word 0x0C015353,0x00000000,0x0C01ABFF,0x00002021\n\t"
-    ".word 0x0C008A65,0x00000000,0x14400008,0x3C02800B\n\t"
-    ".word 0x3C04800B,0x2484D86C,0x02202821,0x0C016554\n\t"
-    ".word 0x24060001,0x08019327,0x3C02800A,0x2450D7B8\n\t"
-    ".word 0x02002021,0x02202821,0x0C016554,0x24060001\n\t"
-    ".word 0x0C0168A8,0x02002021,0x8C430008,0x3C02800F\n\t"
-    ".word 0x2442AF38,0x10620009,0x00408821,0x0C016953\n\t"
-    ".word 0x02002021,0x0C0168A8,0x02002021,0x8C420008\n\t"
-    ".word 0x00000000,0x1451FFF9,0x00000000,0x3C02800A\n\t"
-    ".word 0x08019339,0xA0404381,0x0C015353,0x00000000\n\t"
-    ".word 0x0C01ABFF,0x00002021,0x3C04800B,0x2484D92C\n\t"
-    ".word 0x02202821,0x24060001,0x3C02800B,0x2442D888\n\t"
-    ".word 0x24030090,0xA0430021,0x24030010,0xA0430041\n\t"
-    ".word 0x0C016554,0xA0430061,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct Element {
+    int pad[2];
+    int *style;
+} Element;
+
+typedef struct Rows {
+    char pad0[0x21];
+    unsigned char flag0;
+    char pad1[0x1F];
+    unsigned char flag1;
+    char pad2[0x1F];
+    unsigned char flag2;
+} Rows;
+
+extern int D_800ABA84;
+extern int D_800AD86C;
+extern int D_800AD7B8;
+extern int D_800AD92C;
+extern Rows D_800AD888;
+extern int D_800EAF38;
+extern char D_800A4381;
+extern int func_80022814(void);
+extern int func_80022994(void);
+extern void func_80054D4C(void);
+extern void func_8006AFFC(int);
+extern void func_80059550(void *, void *, int);
+extern Element *func_8005A2A0(void *);
+extern void func_8005A54C(void *);
+
+void func_80064BDC(void *menu) {
+    void *group;
+
+    if (D_800ABA84 != 0) {
+        if (func_80022814()) {
+            func_80054D4C();
+            func_8006AFFC(0);
+            if (func_80022994() == 0) {
+                func_80059550(&D_800AD86C, menu, 1);
+            } else {
+                group = &D_800AD7B8;
+                func_80059550(group, menu, 1);
+                if (func_8005A2A0(group)->style != &D_800EAF38) {
+                    do {
+                        func_8005A54C(group);
+                    } while (func_8005A2A0(group)->style != &D_800EAF38);
+                }
+            }
+            D_800A4381 = 0;
+        } else {
+            func_80054D4C();
+            func_8006AFFC(0);
+            D_800AD888.flag0 = 0x90;
+            D_800AD888.flag1 = 16;
+            D_800AD888.flag2 = 16;
+            func_80059550(&D_800AD92C, menu, 1);
+        }
+    }
+}

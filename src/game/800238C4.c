@@ -1,46 +1,79 @@
-asm(".text\n\t.globl func_800238C4\nfunc_800238C4:\n\t"
-    ".word 0x27BDFFD0,0x00803821,0xAFB20028,0x00A09021\n\t"
-    ".word 0x2A420002,0xAFBF002C,0xAFB10024,0x144000A4\n\t"
-    ".word 0xAFB00020,0x24020002,0x1642001F,0x24110001\n\t"
-    ".word 0x8CE30008,0x8CE20014,0x00000000,0x0043102A\n\t"
-    ".word 0x1040009B,0x00000000,0x8CE20004,0x00000000\n\t"
-    ".word 0xAFA20014,0x8CE20000,0x00000000,0xAFA20010\n\t"
-    ".word 0x8CE20008,0x00000000,0xAFA20018,0x8CE20010\n\t"
-    ".word 0x8CE3000C,0x8CE40014,0xACE20004,0xACE30000\n\t"
-    ".word 0xACE40008,0x8FA20014,0x00000000,0xACE20010\n\t"
-    ".word 0x8FA20010,0x00000000,0xACE2000C,0x8FA20018\n\t"
-    ".word 0x08008EDD,0xACE20014,0x2646FFFF,0x8CE80008\n\t"
-    ".word 0x0226102A,0x10400034,0x02261004,0x00461021\n\t"
-    ".word 0x00021080,0x00472821,0x24E4000C,0x00801821\n\t"
-    ".word 0x8C620008,0x00000000,0x0102102A,0x14400004\n\t"
-    ".word 0x00000000,0x2464000C,0x08008E90,0x26310001\n\t"
-    ".word 0x8CA20008,0x00000000,0x0048102A,0x14400004\n\t"
-    ".word 0x00A01821,0x2465FFF4,0x08008E90,0x24C6FFFF\n\t"
-    ".word 0x8C820004,0x00000000,0xAFA20014,0x8C820000\n\t"
-    ".word 0x00000000,0xAFA20010,0x8C820008,0x00000000\n\t"
-    ".word 0xAFA20018,0x8CA20004,0x00000000,0xAC820004\n\t"
-    ".word 0x8CA20000,0x00000000,0xAC820000,0x8CA20008\n\t"
-    ".word 0x00000000,0xAC820008,0x8FA20014,0x00000000\n\t"
-    ".word 0xACA20004,0x8FA20010,0x00000000,0xACA20000\n\t"
-    ".word 0x8FA20018,0x00000000,0xACA20008,0x0226102A\n\t"
-    ".word 0x1440FFD3,0x00801821,0x00111040,0x00511021\n\t"
-    ".word 0x00021080,0x00478021,0x8E020008,0x00000000\n\t"
-    ".word 0x0048102A,0x10400021,0x00E02021,0x8E020004\n\t"
-    ".word 0x00000000,0xAFA20014,0x8E020000,0x00000000\n\t"
-    ".word 0xAFA20010,0x8E020008,0x00000000,0xAFA20018\n\t"
-    ".word 0x8CE20004,0x00000000,0xAE020004,0x8CE20000\n\t"
-    ".word 0x00000000,0xAE020000,0x8CE20008,0x00000000\n\t"
-    ".word 0xAE020008,0x8FA20014,0x00000000,0xACE20004\n\t"
-    ".word 0x8FA20010,0x00000000,0xAC820000,0x8FA20018\n\t"
-    ".word 0x02202821,0x0C008E31,0xAC820008,0x2604000C\n\t"
-    ".word 0x02512823,0x08008EDB,0x24A5FFFF,0x2603FFF4\n\t"
-    ".word 0x8C620004,0x00000000,0xAFA20014,0x8E02FFF4\n\t"
-    ".word 0x00000000,0xAFA20010,0x8C620008,0x00000000\n\t"
-    ".word 0xAFA20018,0x8CE20004,0x00000000,0xAC620004\n\t"
-    ".word 0x8CE20000,0x00000000,0xAE02FFF4,0x8CE20008\n\t"
-    ".word 0x00000000,0xAC620008,0x8FA20014,0x00000000\n\t"
-    ".word 0xACE20004,0x8FA20010,0x00000000,0xAC820000\n\t"
-    ".word 0x8FA20018,0x2625FFFF,0x0C008E31,0xAC820008\n\t"
-    ".word 0x02002021,0x02512823,0x0C008E31,0x00000000\n\t"
-    ".word 0x8FBF002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct SortEntry {
+    int a;
+    int b;
+    int key;
+} SortEntry;
+
+void func_800238C4(SortEntry *list, int count) {
+    SortEntry tmp;
+    SortEntry *mid;
+    SortEntry *x;
+    int lo;
+    int hi;
+    int pivot;
+
+    if (count < 2) {
+        return;
+    }
+    if (count == 2) {
+        if (list[0].key > list[1].key) {
+            tmp.b = list[0].b;
+            tmp.a = list[0].a;
+            tmp.key = list[0].key;
+            list[0].b = list[1].b;
+            list[0].a = list[1].a;
+            list[0].key = list[1].key;
+            list[1].b = tmp.b;
+            list[1].a = tmp.a;
+            list[1].key = tmp.key;
+        }
+        return;
+    }
+    lo = 1;
+    hi = count - 1;
+    pivot = list[0].key;
+    while (lo < hi) {
+        if (list[lo].key <= pivot) {
+            lo++;
+        } else if (list[hi].key >= pivot) {
+            hi--;
+        } else {
+            tmp.b = list[lo].b;
+            tmp.a = list[lo].a;
+            tmp.key = list[lo].key;
+            list[lo].b = list[hi].b;
+            list[lo].a = list[hi].a;
+            list[lo].key = list[hi].key;
+            list[hi].b = tmp.b;
+            list[hi].a = tmp.a;
+            list[hi].key = tmp.key;
+        }
+    }
+    mid = (SortEntry *)((lo * sizeof(SortEntry)) + (int)list);
+    if (mid->key < pivot) {
+        tmp.b = mid->b;
+        tmp.a = mid->a;
+        tmp.key = mid->key;
+        mid->b = list->b;
+        mid->a = list->a;
+        mid->key = list->key;
+        list->b = tmp.b;
+        list->a = tmp.a;
+        list->key = tmp.key;
+        func_800238C4(list, lo);
+        func_800238C4(mid + 1, count - lo - 1);
+    } else {
+        x = mid - 1;
+        tmp.b = x->b;
+        tmp.a = x->a;
+        tmp.key = x->key;
+        x->b = list->b;
+        x->a = list->a;
+        x->key = list->key;
+        list->b = tmp.b;
+        list->a = tmp.a;
+        list->key = tmp.key;
+        func_800238C4(list, lo - 1);
+        func_800238C4(mid, count - lo);
+    }
+}

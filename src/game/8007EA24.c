@@ -1,12 +1,21 @@
-asm(".text\n\t.globl func_8007EA24\nfunc_8007EA24:\n\t"
-    ".word 0x27bdffe0,0x00801021,0xafb10014,0x00a08821\n\t"
-    ".word 0xafb20018,0x00c09021,0xafb00010,0x3c10800f\n\t"
-    ".word 0x2610c288,0x02002021,0xafbf001c,0x0c01fa5d\n\t"
-    ".word 0x00402821,0x02002021,0x02202821,0x0c02509a\n\t"
-    ".word 0x00003021,0x00408021,0x2402ffff,0x1202000d\n\t"
-    ".word 0x00000000,0x12400009,0x02002021,0x00002821\n\t"
-    ".word 0x0c0250ad,0x24060002,0xae420000,0x02002021\n\t"
-    ".word 0x00002821,0x0c0250ad,0x00a03021,0x0801faab\n\t"
-    ".word 0x26100001,0x00008021,0x02001021,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern char D_800EC288[];
+extern void func_8007E974(char *, char *);
+extern int func_80094268(char *, int, int);
+extern int func_800942B4(int, int, int);
+
+int func_8007EA24(char *name, int mode, int *size) {
+    int fd;
+
+    func_8007E974(D_800EC288, name);
+    fd = func_80094268(D_800EC288, mode, 0);
+    if (fd != -1) {
+        if (size != 0) {
+            *size = func_800942B4(fd, 0, 2);
+            func_800942B4(fd, 0, 0);
+        }
+        fd++;
+    } else {
+        fd = 0;
+    }
+    return fd;
+}

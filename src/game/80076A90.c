@@ -1,16 +1,47 @@
-asm(".text\n\t.globl func_80076A90\nfunc_80076A90:\n\t"
-    ".word 0x27bdffc8,0xafb00020,0x3c10800f,0x8e02afec\n\t"
-    ".word 0xafb10024,0x00808821,0xafb20028,0x00a09021\n\t"
-    ".word 0xafb3002c,0x8fb30048,0x00c02821,0xafb40030\n\t"
-    ".word 0x00e0a021,0x10400026,0xafbf0034,0x27a40010\n\t"
-    ".word 0x0c025011,0x24060010,0x2e42000d,0x1040000c\n\t"
-    ".word 0xa3a0001f,0x2e42000a,0x1440000a,0x3c02800f\n\t"
-    ".word 0x24040001,0x8e02afec,0x00002821,0x0220f809\n\t"
-    ".word 0xac510004,0x8e03afec,0x0801dac8,0xac620000\n\t"
-    ".word 0x3c02800f,0x8c42afec,0x00000000,0xac510000\n\t"
-    ".word 0x3c05800c,0x24a53cec,0x3c10800f,0x8e04afec\n\t"
-    ".word 0x27a60010,0x0c022bec,0x2484000c,0x8e02afec\n\t"
-    ".word 0x00000000,0xac54001c,0xac520008,0x8e630020\n\t"
-    ".word 0x8c440020,0xac430020,0xae620020,0xae04afec\n\t"
-    ".word 0x8fbf0034,0x8fb40030,0x8fb3002c,0x8fb20028\n\t"
-    ".word 0x8fb10024,0x8fb00020,0x03e00008,0x27bd0038\n\t");
+typedef struct Entry {
+    void *value;
+    void *(*getter)(int, int);
+    unsigned int kind;
+    char name[16];
+    int data;
+    struct Entry *next;
+} Entry;
+
+typedef struct Menu {
+    char pad[32];
+    Entry *entries;
+} Menu;
+
+extern Entry *D_800EAFEC;
+extern char D_800C3CEC[];
+extern char *func_80094044(char *, char *, int);
+extern int func_8008AFB0(char *, char *, ...);
+
+void func_80076A90(void *(*source)(int, int), unsigned int kind, char *label, int data, Menu *menu) {
+    char name[16];
+    Entry *next;
+
+    if (D_800EAFEC == 0) {
+        return;
+    }
+    func_80094044(name, label, 16);
+    name[15] = 0;
+    switch (kind) {
+    case 10:
+    case 11:
+    case 12:
+        D_800EAFEC->getter = source;
+        D_800EAFEC->value = source(1, 0);
+        break;
+    default:
+        D_800EAFEC->value = source;
+        break;
+    }
+    func_8008AFB0(D_800EAFEC->name, D_800C3CEC, name);
+    D_800EAFEC->data = data;
+    D_800EAFEC->kind = kind;
+    next = D_800EAFEC->next;
+    D_800EAFEC->next = menu->entries;
+    menu->entries = D_800EAFEC;
+    D_800EAFEC = next;
+}

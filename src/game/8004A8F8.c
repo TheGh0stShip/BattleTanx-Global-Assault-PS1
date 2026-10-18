@@ -1,14 +1,89 @@
-asm(".text\n\t.globl func_8004A8F8\nfunc_8004A8F8:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0x00808021,0x2ca20005\n\t"
-    ".word 0x10400028,0xafbf0014,0x3c02800c,0x2442f488\n\t"
-    ".word 0x00051880,0x00621821,0x8c620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x24020001,0xa2020000\n\t"
-    ".word 0xa6000002,0xae000004,0x08012a6b,0xa6000008\n\t"
-    ".word 0x24020002,0xa2020000,0xa6000002,0xae000004\n\t"
-    ".word 0xae000008,0xa600000c,0xa600000e,0xa6000010\n\t"
-    ".word 0x08012a6b,0xa2000012,0x24020003,0x26040010\n\t"
-    ".word 0xa2020000,0xa6000002,0xae00000c,0x0c0124d8\n\t"
-    ".word 0xae000004,0xa2000018,0x08012a6b,0xa600001a\n\t"
-    ".word 0x24020004,0xa2020000,0xa6000002,0xae000004\n\t"
-    ".word 0xae000008,0x8fbf0014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0018\n\t");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int target;
+    short count;
+} MoveA;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int b;
+    short c;
+    short d;
+    short e;
+    unsigned char f;
+} MoveB;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int pad8;
+    int b;
+    SVector point;
+    unsigned char c;
+    char pad19;
+    short d;
+} MoveC;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int b;
+} MoveD;
+typedef union {
+    unsigned char kind;
+    MoveA a;
+    MoveB b;
+    MoveC c;
+    MoveD d;
+} Movement;
+extern void func_80049360(SVector *);
+
+void func_8004A8F8(Movement *move, unsigned int kind) {
+    switch (kind) {
+    case 0:
+        break;
+    case 1:
+        move->a.kind = 1;
+        move->a.current = 0;
+        move->a.target = 0;
+        move->a.count = 0;
+        break;
+    case 2:
+        move->b.kind = 2;
+        move->b.current = 0;
+        move->b.a = 0;
+        move->b.b = 0;
+        move->b.c = 0;
+        move->b.d = 0;
+        move->b.e = 0;
+        move->b.f = 0;
+        break;
+    case 3:
+        move->c.kind = 3;
+        move->c.current = 0;
+        move->c.b = 0;
+        move->c.a = 0;
+        func_80049360(&move->c.point);
+        move->c.c = 0;
+        move->c.d = 0;
+        break;
+    case 4:
+        move->d.kind = 4;
+        move->d.current = 0;
+        move->d.a = 0;
+        move->d.b = 0;
+        break;
+    }
+}

@@ -1,13 +1,44 @@
-asm(".text\n\t.globl func_8003E030\nfunc_8003E030:\n\t"
-    ".word 0x27bdffb0,0x24040020,0xafb00048,0x03a48021\n\t"
-    ".word 0x24020001,0xafbf004c,0xafa00020,0xae020014\n\t"
-    ".word 0x00801021,0xae000004,0xae000008,0xae00000c\n\t"
-    ".word 0xae000010,0x0c01a3cd,0xae02001c,0x24040001\n\t"
-    ".word 0x3405c210,0x24430002,0xae020018,0xa4400000\n\t"
-    ".word 0xa4650000,0x24840001,0x28820010,0x1440fffc\n\t"
-    ".word 0x24630002,0x0c00f295,0x02002021,0x8e020024\n\t"
-    ".word 0x3c04800e,0x9446000a,0x94450008,0x2484e0b0\n\t"
-    ".word 0xafa60010,0x8e020008,0x00a03821,0xafa00018\n\t"
-    ".word 0x0c022f1d,0xafa20014,0x8e040018,0x0c01a3e7\n\t"
-    ".word 0x00000000,0x8fbf004c,0x8fb00048,0x03e00008\n\t"
-    ".word 0x27bd0050\n\t");
+typedef struct { char pad[8]; unsigned short w; unsigned short h; } Img;
+typedef struct {
+    int f0;
+    int f4;
+    int f8;
+    int fC;
+    int f10;
+    int f14;
+    unsigned short *clut;
+    int size;
+    int f20;
+    Img *img;
+} Conv;
+extern unsigned short *func_80068F34(int);
+extern void func_80068F9C(unsigned short *);
+extern void func_8003CA54(Conv *);
+extern int D_800DE0B0;
+extern void func_8008BC74(int *, int, int, int, int, int, int);
+
+void func_8003E030(void)
+{
+    Conv c;
+    Conv *p;
+    unsigned short *clut;
+    int i;
+
+    p = &c;
+
+    p->f0 = 0;
+    p->f14 = 1;
+    p->f4 = 0;
+    p->f8 = 0;
+    p->fC = 0;
+    p->f10 = 0;
+    p->size = 32;
+    p->clut = clut = func_80068F34(32);
+    clut[0] = 0;
+    for (i = 1; i < 16; i++) {
+        clut[i] = 0xC210;
+    }
+    func_8003CA54(p);
+    func_8008BC74(&D_800DE0B0, p->img->w, p->img->h, p->img->w, p->img->h, p->f8, 0);
+    func_80068F9C(p->clut);
+}

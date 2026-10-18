@@ -1,11 +1,33 @@
-asm(".text\n\t.globl func_80052DB4\nfunc_80052DB4:\n\t"
-    ".word 0x27bdffe8,0xafb00010,0xafbf0014,0x0c008a05\n\t"
-    ".word 0x00808021,0x1040001e,0x00000000,0x92020006\n\t"
-    ".word 0x00000000,0x30420002,0x1040000e,0x00000000\n\t"
-    ".word 0x92020084,0x00000000,0x14400008,0x00000000\n\t"
-    ".word 0x8e02000c,0x00000000,0x8c42000c,0x00000000\n\t"
-    ".word 0x28420005,0x1440000d,0x24020002,0x08014b91\n\t"
-    ".word 0xae000058,0x92020085,0x92030086,0x00000000\n\t"
-    ".word 0x00431021,0x14400006,0x00000000,0x920200bc\n\t"
-    ".word 0x00000000,0x14400002,0x24020002,0xae020058\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0xC];
+    int level;
+} Info;
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7[5];
+    Info *info;
+    char pad10[0x58 - 0x10];
+    int mode;
+    char pad5C[0x84 - 0x5C];
+    unsigned char a;
+    unsigned char b;
+    unsigned char c;
+    char pad87[0xBC - 0x87];
+    unsigned char d;
+} Unit;
+extern int func_80022814(Unit *);
+
+void func_80052DB4(Unit *unit) {
+    if (func_80022814(unit) != 0) {
+        if (unit->flags & 2) {
+            if (unit->a == 0 && unit->info->level < 5) {
+                unit->mode = 2;
+            } else {
+                unit->mode = 0;
+            }
+        } else if (unit->b + unit->c == 0 && unit->d == 0) {
+            unit->mode = 2;
+        }
+    }
+}

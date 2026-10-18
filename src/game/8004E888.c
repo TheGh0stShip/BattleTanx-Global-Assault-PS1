@@ -1,27 +1,82 @@
-asm(".text\n\t.globl func_8004E888\nfunc_8004E888:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFB40020\n\t"
-    ".word 0xAFBF0024,0xAFB20018,0xAFB10014,0xAFB00010\n\t"
-    ".word 0x8E630184,0x24100001,0x10700006,0x26740184\n\t"
-    ".word 0x24020002,0x10620038,0x00000000,0x08013A7F\n\t"
-    ".word 0x00000000,0x8E640208,0x00000000,0x8C830014\n\t"
-    ".word 0x24020007,0x1462002C,0x00000000,0x90820052\n\t"
-    ".word 0x00000000,0x14400005,0x00008821,0x8E820004\n\t"
-    ".word 0x00000000,0x14400024,0x00000000,0x02209021\n\t"
-    ".word 0x08013A53,0x02202021,0x86020018,0x00000000\n\t"
-    ".word 0x1840000C,0x02002021,0x26640008,0x0C012576\n\t"
-    ".word 0x26050008,0x12200004,0x00401821,0x0072102A\n\t"
-    ".word 0x10400004,0x02002021,0x02008821,0x00609021\n\t"
-    ".word 0x02002021,0x0C008E1C,0x2405001E,0x00408021\n\t"
-    ".word 0x1600FFED,0x00000000,0x12200026,0x02202821\n\t"
-    ".word 0x02602021,0x3C060019,0x0C013895,0x00003821\n\t"
-    ".word 0x02602021,0x0C013623,0x02202821,0x24020002\n\t"
-    ".word 0x08013A7F,0xAE820000,0x0C013757,0x02602021\n\t"
-    ".word 0x08013A7F,0x00000000,0x8E620208,0x00000000\n\t"
-    ".word 0x8C430014,0x24020007,0x10620003,0x02602021\n\t"
-    ".word 0x0C0138AB,0x24050006,0x8E820004,0x00000000\n\t"
-    ".word 0x1040000C,0x00000000,0x8E620208,0x00000000\n\t"
-    ".word 0x90420052,0x00000000,0x14400006,0x00000000\n\t"
-    ".word 0x0C013757,0x02602021,0x0C013601,0x02602021\n\t"
-    ".word 0xAE700184,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct WorldObject WorldObject;
+struct WorldObject {
+    char pad0[8];
+    Vector position;
+    char pad14[0x18 - 0x14];
+    short health;
+};
+typedef struct {
+    char pad0[0x14];
+    int mode;
+    char pad18[0x52 - 0x18];
+    unsigned char hold;
+} Owner;
+typedef struct {
+    int state;
+    int flag;
+} Block;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0x184 - 0x14];
+    Block block;
+    char pad18C[0x208 - 0x18C];
+    Owner *owner;
+} Tank;
+extern WorldObject *func_80023870(WorldObject *, int);
+extern int func_800495D8(Vector *, Vector *);
+extern void func_8004E254(Tank *, WorldObject *, int, int);
+extern void func_8004D88C(Tank *, WorldObject *);
+extern void func_8004DD5C(Tank *);
+extern void func_8004D804(Tank *);
+extern void func_8004E2AC(Tank *, int);
+
+void func_8004E888(Tank *tank) {
+    Block *block = &tank->block;
+    Owner *owner;
+    WorldObject *obj;
+    WorldObject *best;
+    int best_dist;
+    int dist;
+
+    switch (block->state) {
+    case 1:
+        owner = tank->owner;
+        if (owner->mode == 7 && (owner->hold != 0 || block->flag == 0)) {
+            best = 0;
+            best_dist = 0;
+            for (obj = func_80023870(0, 30); obj != 0; obj = func_80023870(obj, 30)) {
+                if (obj->health > 0) {
+                    dist = func_800495D8(&tank->position, &obj->position);
+                    if (best == 0 || dist < best_dist) {
+                        best = obj;
+                        best_dist = dist;
+                    }
+                }
+            }
+            if (best != 0) {
+                func_8004E254(tank, best, 0x190000, 0);
+                func_8004D88C(tank, best);
+                block->state = 2;
+            }
+        } else {
+            func_8004DD5C(tank);
+        }
+        break;
+    case 2:
+        if (tank->owner->mode != 7) {
+            func_8004E2AC(tank, 6);
+        }
+        if (block->flag != 0 && tank->owner->hold == 0) {
+            func_8004DD5C(tank);
+            func_8004D804(tank);
+            tank->block.state = 1;
+        }
+        break;
+    }
+}

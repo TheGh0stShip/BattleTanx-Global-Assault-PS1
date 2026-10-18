@@ -1,11 +1,35 @@
-asm(".text\n\t.globl func_80093CBC\nfunc_80093CBC:\n\t"
-    ".word 0x3c02800f,0x9043efac,0x27bdffe0,0xafb10014\n\t"
-    ".word 0x00008821,0xafb00010,0x2450efac,0x1060001a\n\t"
-    ".word 0xafbf0018,0x0c0245bd,0x00000000,0x92020006\n\t"
-    ".word 0x00000000,0x10400015,0x02201021,0x0c02468d\n\t"
-    ".word 0x00000000,0x3c048009,0x24843c90,0x24020001\n\t"
-    ".word 0xa2000006,0xa2020005,0x0c024581,0x00000000\n\t"
-    ".word 0x2404001b,0x02202821,0x0c025c4f,0x02203021\n\t"
-    ".word 0x10400003,0x00000000,0x08024f51,0x24110001\n\t"
-    ".word 0x0c024dd1,0x24040005,0x02201021,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+extern void func_800916F4(void);
+extern void func_80091A34(void);
+extern void func_80091604(void *);
+extern int func_8009713C(int, int, int);
+extern void func_80093744(int);
+extern void func_80093C90(void);
+
+typedef struct {
+    unsigned char active;
+    char pad1[4];
+    volatile unsigned char b5;
+    volatile unsigned char b6;
+} S80093CBC;
+extern S80093CBC D_800EEFAC;
+
+int func_80093CBC(void) {
+    S80093CBC *s = &D_800EEFAC;
+    int r = 0;
+
+    if (s->active != 0) {
+        func_800916F4();
+        if (s->b6 != 0) {
+            func_80091A34();
+            s->b6 = 0;
+            s->b5 = 1;
+            func_80091604(func_80093C90);
+            if (func_8009713C(27, 0, 0) != 0) {
+                r = 1;
+            } else {
+                func_80093744(5);
+            }
+        }
+    }
+    return r;
+}

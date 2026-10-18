@@ -1,24 +1,71 @@
-asm(".text\n\t.globl func_80087F28\nfunc_80087F28:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x24120001,0x3C02800F\n\t"
-    ".word 0xAFB00010,0x2450E588,0xAFBF001C,0xAFB10014\n\t"
-    ".word 0x92020005,0x00000000,0x1440003B,0x00008821\n\t"
-    ".word 0x24020005,0x14820038,0x00000000,0x14A00025\n\t"
-    ".word 0x24A2FFFF,0x8E0400C8,0x8E0700CC,0x00000000\n\t"
-    ".word 0x00871021,0xAE0200C8,0x8E0200D0,0x8E0300D4\n\t"
-    ".word 0x00471021,0x00621823,0x1460000F,0xAE0200D0\n\t"
-    ".word 0x2CE20080,0x10400006,0x2605003C,0x0C0229EF\n\t"
-    ".word 0x00E03021,0x8E0200CC,0x08021FF2,0xAE0200C0\n\t"
-    ".word 0x8E0200BC,0x00000000,0x00471021,0xAE0200BC\n\t"
-    ".word 0x08022010,0x24110001,0x2604003C,0x24060080\n\t"
-    ".word 0x8E0500BC,0x00C01021,0xAE0300CC,0xAE0400D8\n\t"
-    ".word 0xAE0200DC,0xAE0000E0,0x00A72821,0x0802200B\n\t"
-    ".word 0xAE0500BC,0x2C420002,0x1040000F,0x00000000\n\t"
-    ".word 0x8E0300E0,0x00000000,0x2C620005,0x1040000A\n\t"
-    ".word 0x24620001,0x8E0400D8,0x8E0500BC,0x8E0600DC\n\t"
-    ".word 0xAE0200E0,0x0C025525,0x00000000,0x10400002\n\t"
-    ".word 0x00000000,0x00009021,0x1240000E,0x00000000\n\t"
-    ".word 0x1220000A,0x3C02800F,0x2443E588,0x90620008\n\t"
-    ".word 0x00000000,0x10400005,0x00000000,0x8C6400C4\n\t"
-    ".word 0x8C6500D4,0x0C021F44,0x00000000,0x0C021C4D\n\t"
-    ".word 0x02202021,0x8FBF001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct CardIo {
+    char pad00[5];
+    unsigned char busy;
+    char pad06[2];
+    unsigned char notify;
+    char pad09[0x33];
+    char buffer[0x80];
+    char *src;
+    int last;
+    int user;
+    char *dst;
+    unsigned int chunk;
+    int done;
+    int total;
+    char *io_buf;
+    int io_len;
+    unsigned int retries;
+} CardIo;
+
+extern CardIo D_800EE588;
+extern void func_8008A7BC(void *, void *, unsigned int);
+extern int func_80095494(char *, char *, int);
+extern void func_80087D10(int, int);
+extern void func_80087134(int);
+
+void func_80087F28(int event, int code) {
+    int fail = 1;
+    int finished = 0;
+    char *dst;
+    unsigned int chunk;
+    int rest;
+
+    if (D_800EE588.busy == 0 && event == 5) {
+        if (code == 0) {
+            dst = D_800EE588.dst;
+            chunk = D_800EE588.chunk;
+            D_800EE588.dst = dst + chunk;
+            D_800EE588.done += chunk;
+            rest = D_800EE588.total - D_800EE588.done;
+            if (rest == 0) {
+                if (chunk < 128) {
+                    func_8008A7BC(dst, D_800EE588.buffer, chunk);
+                    D_800EE588.last = D_800EE588.chunk;
+                } else {
+                    D_800EE588.src += chunk;
+                }
+                finished = 1;
+            } else {
+                D_800EE588.chunk = rest;
+                D_800EE588.io_buf = D_800EE588.buffer;
+                D_800EE588.io_len = 128;
+                D_800EE588.retries = 0;
+                D_800EE588.src += chunk;
+                if (func_80095494(D_800EE588.buffer, D_800EE588.src, 128)) {
+                    fail = 0;
+                }
+            }
+        } else if ((unsigned int)(code - 1) < 2 && D_800EE588.retries < 5) {
+            D_800EE588.retries++;
+            if (func_80095494(D_800EE588.io_buf, D_800EE588.src, D_800EE588.io_len)) {
+                fail = 0;
+            }
+        }
+    }
+    if (fail) {
+        if (finished && D_800EE588.notify != 0) {
+            func_80087D10(D_800EE588.user, D_800EE588.total);
+        }
+        func_80087134(finished);
+    }
+}

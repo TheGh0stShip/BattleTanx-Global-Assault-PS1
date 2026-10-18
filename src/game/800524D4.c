@@ -1,20 +1,58 @@
-asm(".text\n\t.globl func_800524D4\nfunc_800524D4:\n\t"
-    ".word 0x27BDFFC8,0xAFB1002C,0x00808821,0x2402007F\n\t"
-    ".word 0xAFBF0034,0xAFB20030,0x16220003,0xAFB00028\n\t"
-    ".word 0x08014947,0x00008021,0x00111100,0x00511021\n\t"
-    ".word 0x00021080,0x00511021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00438021,0x92020006,0x00000000\n\t"
-    ".word 0x30420002,0x10400030,0x3C02800A,0x8C436070\n\t"
-    ".word 0x2402000A,0x1062002C,0x322500FF,0x2404000B\n\t"
-    ".word 0x27A60018,0x27A7001C,0x27A20020,0x0C01E41B\n\t"
-    ".word 0xAFA20010,0x8FA20018,0x00000000,0x10400007\n\t"
-    ".word 0x3C02800C,0x8C4360D0,0x24020007,0x10620004\n\t"
-    ".word 0x27A20020,0x0C01455A,0x02002021,0x27A20020\n\t"
-    ".word 0xAFA20010,0x24040012,0x322500FF,0x27A60018\n\t"
-    ".word 0x0C01E41B,0x27A7001C,0x10400013,0x3C12800C\n\t"
-    ".word 0x8E4260DC,0x24100007,0x1050000F,0x3C02800A\n\t"
-    ".word 0x8C436070,0x2402000A,0x1062000B,0x3C02800D\n\t"
-    ".word 0x90423030,0x00000000,0x14400007,0x3C02800B\n\t"
-    ".word 0x0C01854E,0xA051BA5A,0x0C015302,0xAE5060DC\n\t"
-    ".word 0x0C01ABE5,0x00002021,0x8FBF0034,0x8FB20030\n\t"
-    ".word 0x8FB1002C,0x8FB00028,0x03E00008,0x27BD0038\n");
+typedef struct Waypoint {
+    char pad000[6];
+    unsigned char flags;
+    char pad007[0x114 - 7];
+} Waypoint;
+extern Waypoint D_800E3E68[];
+extern int D_800A6070;
+extern int D_800C60D0;
+extern int D_800C60DC;
+extern unsigned char D_800D3030;
+extern unsigned char D_800ABA5A;
+extern int func_8007906C(int, unsigned char, int *, int *, int *);
+extern void func_80051568(Waypoint *);
+extern void func_80061538(void);
+extern void func_80054C08(void);
+extern void func_8006AF94(int);
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_800524D4(int index) {
+    Waypoint *wp = waypoint(index);
+    int pressed;
+    int held;
+    int released;
+
+    if (!(wp->flags & 2)) {
+        return;
+    }
+    if (D_800A6070 == 10) {
+        return;
+    }
+    func_8007906C(11, index, &pressed, &held, &released);
+    if (pressed != 0 && D_800C60D0 != 7) {
+        func_80051568(wp);
+    }
+    if (func_8007906C(18, index, &pressed, &held, &released) == 0) {
+        return;
+    }
+    if (D_800C60DC == 7) {
+        return;
+    }
+    if (D_800A6070 == 10) {
+        return;
+    }
+    if (D_800D3030 != 0) {
+        return;
+    }
+    D_800ABA5A = index;
+    func_80061538();
+    D_800C60DC = 7;
+    func_80054C08();
+    func_8006AF94(0);
+}

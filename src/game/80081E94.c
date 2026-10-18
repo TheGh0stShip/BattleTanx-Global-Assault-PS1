@@ -1,25 +1,54 @@
-asm(".text\n\t.globl func_80081E94\nfunc_80081E94:\n\t"
-    ".word 0x27BDFFB0,0xAFB5003C,0x0080A821,0xAFBE0048\n\t"
-    ".word 0x00A0F021,0xAFB70044,0x00C0B821,0xAFB40038\n\t"
-    ".word 0x02A0A021,0xAFB30034,0x00009821,0xAFB1002C\n\t"
-    ".word 0x02608821,0xAFB20030,0x27B20010,0xAFB60040\n\t"
-    ".word 0x2416003A,0xAFBF004C,0xAFB00028,0xAFA7005C\n\t"
-    ".word 0x02B11021,0x90500000,0x0C0252AB,0x02002021\n\t"
-    ".word 0x02511821,0x1216002A,0xA0620000,0x12000006\n\t"
-    ".word 0x03B11021,0x26310001,0x2E220009,0x1440FFF5\n\t"
-    ".word 0x02B11021,0x03B11021,0x12600025,0xA0400010\n\t"
-    ".word 0x2412FFFF,0x3C02800F,0x2443DC9C,0x8C620008\n\t"
-    ".word 0x00000000,0x10400018,0x00008821,0x00609821\n\t"
-    ".word 0x02608021,0x24040001,0x27A50010,0x02E03021\n\t"
-    ".word 0xAFA00020,0x8E02000C,0x00000000,0x0040F809\n\t"
-    ".word 0x27A70020,0x10400007,0x00000000,0x8FA20020\n\t"
-    ".word 0x00000000,0x10400008,0x02209021,0x080207E7\n\t"
-    ".word 0x02A0A021,0x8E620008,0x26310001,0x0222102B\n\t"
-    ".word 0x1440FFEC,0x26100004,0x080207F4,0xAFD20000\n\t"
-    ".word 0x26310001,0x02B1A021,0x080207C6,0x24130001\n\t"
-    ".word 0x3C02800F,0x8C43DC9C,0x2442DC9C,0xAFC30000\n\t"
-    ".word 0x8C420004,0x00000000,0xAEE20000,0x8FA8005C\n\t"
-    ".word 0x00000000,0x11000002,0x00000000,0xAD140000\n\t"
-    ".word 0x8FBF004C,0x8FBE0048,0x8FB70044,0x8FB60040\n\t"
-    ".word 0x8FB5003C,0x8FB40038,0x8FB30034,0x8FB20030\n\t"
-    ".word 0x8FB1002C,0x8FB00028,0x03E00008,0x27BD0050\n");
+typedef struct RequestTable {
+    int default_port;
+    int default_unit;
+    unsigned int port_count;
+    int (*io[10])(int, char *, int *, int *);
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+extern char func_80094AAC(int);
+
+void func_80081E94(char *path, int *port, int *unit, char **name) {
+    char device[16];
+    int found;
+    char *rest = path;
+    int has_device = 0;
+    unsigned int i = 0;
+    char c;
+    int result;
+
+    for (; i < 9; i++) {
+        c = path[i];
+        device[i] = func_80094AAC(c);
+        if (c == ':') {
+            i++;
+            rest = path + i;
+            has_device = 1;
+            break;
+        }
+        if (c == 0) {
+            break;
+        }
+    }
+    device[i] = 0;
+    if (has_device) {
+        result = -1;
+        for (i = 0; i < D_800EDC9C.port_count; i++) {
+            found = 0;
+            if (D_800EDC9C.io[i](1, device, unit, &found)) {
+                result = i;
+                if (found != 0) {
+                    rest = path;
+                }
+                break;
+            }
+        }
+        *port = result;
+    } else {
+        *port = D_800EDC9C.default_port;
+        *unit = D_800EDC9C.default_unit;
+    }
+    if (name != 0) {
+        *name = rest;
+    }
+}

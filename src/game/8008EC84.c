@@ -1,10 +1,17 @@
-asm(".text\n\t.globl func_8008EC84\nfunc_8008EC84:\n\t"
-    ".word 0x27bdffd0,0xafb1001c,0x8fb10040,0xafb20020\n\t"
-    ".word 0x00809021,0xafb30024,0x00a09821,0xafb40028\n\t"
-    ".word 0x00c0a021,0xafb00018,0xafbf002c,0x0c023b10\n\t"
-    ".word 0x00e08021,0x3c028009,0x2442e860,0x3c04800f\n\t"
-    ".word 0x2484ec34,0x02402821,0x02603021,0x02803821\n\t"
-    ".word 0xafb00010,0xafa20014,0xac910004,0x0c0265ce\n\t"
-    ".word 0x24840010,0x8fbf002c,0x8fb40028,0x8fb30024\n\t"
-    ".word 0x8fb20020,0x8fb1001c,0x8fb00018,0x03e00008\n\t"
-    ".word 0x27bd0030\n\t");
+extern void func_8008EC40(void);
+extern void func_80099738(void *, int, int, int, int, void *);
+extern void func_8008E860(void);
+
+typedef struct {
+    int flags;
+    int arg;
+    char pad[8];
+    char body[1];
+} S8008EC84;
+extern S8008EC84 D_800EEC34;
+
+void func_8008EC84(int a0, int a1, int a2, int a3, int a4) {
+    func_8008EC40();
+    D_800EEC34.arg = a4;
+    func_80099738(D_800EEC34.body, a0, a1, a2, a3, func_8008E860);
+}

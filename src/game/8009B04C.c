@@ -1,19 +1,32 @@
-asm(".text\n\t.globl func_8009B04C\nfunc_8009B04C:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00808021,0x24040001\n\t"
-    ".word 0x00002821,0x27A60010,0xAFBF0020,0x0C025CEB\n\t"
-    ".word 0xAFB1001C,0x93A20010,0x00000000,0x30420010\n\t"
-    ".word 0x14400035,0x24020010,0x24040013,0x00002821\n\t"
-    ".word 0x0C025CEB,0x27A60010,0x00402021,0x24020001\n\t"
-    ".word 0x16020009,0x24110002,0x93A30010,0x24020002\n\t"
-    ".word 0x14620028,0x00000000,0x14800027,0x00000000\n\t"
-    ".word 0x08026C55,0x24020005,0x00008021,0x93A30010\n\t"
-    ".word 0x00000000,0x30620002,0x10400013,0x00000000\n\t"
-    ".word 0x14710003,0x00000000,0x1480001B,0x24020002\n\t"
-    ".word 0x0C02221C,0x2404001E,0x24040013,0x00002821\n\t"
-    ".word 0x0C025CEB,0x27A60010,0x93A30010,0x00000000\n\t"
-    ".word 0x1471FFF7,0x00402021,0x1080FFF5,0x24020002\n\t"
-    ".word 0x08026C55,0x00000000,0x0C02221C,0x2404001E\n\t"
-    ".word 0x24040013,0x00002821,0x0C025CEB,0x27A60010\n\t"
-    ".word 0x00402021,0x26100001,0x2A02000A,0x1440FFDF\n\t"
-    ".word 0x00000000,0x24020005,0x8FBF0020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0028\n");
+extern int func_800973AC(int, int, unsigned char *);
+extern void func_80088870(int);
+
+int func_8009B04C(int mode) {
+    unsigned char result[8];
+    int ret;
+    int i;
+
+    func_800973AC(1, 0, result);
+    if (result[0] & 0x10) {
+        return 16;
+    }
+    ret = func_800973AC(19, 0, result);
+    if (mode == 1) {
+        if (result[0] == 2 && ret != 0) {
+            return 2;
+        }
+        return 5;
+    }
+    for (i = 0; i < 10; i++) {
+        if (result[0] & 2) {
+            while (result[0] != 2 || ret == 0) {
+                func_80088870(30);
+                ret = func_800973AC(19, 0, result);
+            }
+            return 2;
+        }
+        func_80088870(30);
+        ret = func_800973AC(19, 0, result);
+    }
+    return 5;
+}

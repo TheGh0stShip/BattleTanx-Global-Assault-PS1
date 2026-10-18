@@ -1,7 +1,12 @@
-asm(".text\n\t.globl func_800A22C8\nfunc_800A22C8:\n\t"
-    ".word 0x27bdffe0,0x00801821,0x2404000a,0x24020005\n\t"
-    ".word 0xafbf0018,0xac620008,0x24020001,0xac600020\n\t"
-    ".word 0xafa20010,0x3c02800a,0x24421994,0x3c07800f\n\t"
-    ".word 0x00003021,0xafa20014,0x8c650000,0x0c023fc7\n\t"
-    ".word 0x24e7fe0f,0x14400003,0,0x0c028679\n\t"
-    ".word 0x00002021,0x8fbf0018,0,0x03e00008,0x27bd0020");
+extern int func_8008FF1C(int, int, int, void *, int, void *);
+extern void func_800A19E4(int);
+extern char D_800EFE0F[];
+extern void func_800A1994(void);
+
+void func_800A22C8(int *p) {
+    p[2] = 5;
+    p[8] = 0;
+    if (func_8008FF1C(10, p[0], 0, D_800EFE0F, 1, func_800A1994) == 0) {
+        func_800A19E4(0);
+    }
+}

@@ -1,13 +1,37 @@
-asm(".text\n\t.globl func_80063F44\nfunc_80063F44:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb20018\n\t"
-    ".word 0x00a09021,0x3c03800c,0x2402ffff,0xac6260e4\n\t"
-    ".word 0x3c02800a,0x8c426070,0x24030001,0xafbf001c\n\t"
-    ".word 0x1443000a,0xafb00010,0x3c02800c,0x3c10800a\n\t"
-    ".word 0xac4060c8,0x3c02800a,0xa2034381,0x0c0080f8\n\t"
-    ".word 0xac4348dc,0x08018fec,0xa2004381,0x3c02800c\n\t"
-    ".word 0xac4060c8,0x3c02800a,0xac4348dc,0x3c02800b\n\t"
-    ".word 0xa440ba54,0x2442ba54,0xa4400002,0x3c02800b\n\t"
-    ".word 0x0c015353,0xa440ba58,0x12200004,0x02402021\n\t"
-    ".word 0x8e250004,0x0c0168bc,0x24a50060,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x24020003\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct Menu {
+    int pad;
+    char *base;
+} Menu;
+
+extern int D_800C60E4;
+extern int D_800C60C8;
+extern int D_800A6070;
+extern char D_800A4381;
+extern int D_800A48DC;
+extern short D_800ABA54[];
+extern short D_800ABA58;
+extern void func_800203E0(void);
+extern void func_80054D4C(void);
+extern void func_8005A2F0(int, void *);
+
+int func_80063F44(Menu *menu, int arg) {
+    D_800C60E4 = -1;
+    if (D_800A6070 == 1) {
+        D_800C60C8 = 0;
+        D_800A4381 = 1;
+        D_800A48DC = 1;
+        func_800203E0();
+        D_800A4381 = 0;
+    } else {
+        D_800C60C8 = 0;
+        D_800A48DC = 1;
+    }
+    D_800ABA54[0] = 0;
+    D_800ABA54[1] = 0;
+    D_800ABA58 = 0;
+    func_80054D4C();
+    if (menu != 0) {
+        func_8005A2F0(arg, menu->base + 0x60);
+    }
+    return 3;
+}

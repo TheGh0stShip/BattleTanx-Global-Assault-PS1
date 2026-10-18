@@ -1,24 +1,55 @@
-asm(".text\n\t.globl func_800836E8\nfunc_800836E8:\n\t"
-    ".word 0x27BDFFE0,0x3C03800F,0x2463DF08,0x00041040\n\t"
-    ".word 0x00441021,0x00021080,0xAFB00010,0x00438021\n\t"
-    ".word 0x00041080,0x00441021,0x00021080,0x00431821\n\t"
-    ".word 0xAFBF001C,0xAFB20018,0xAFB10014,0x8C620000\n\t"
-    ".word 0x8E110050,0x14400009,0x00000000,0x8C620010\n\t"
-    ".word 0x00000000,0x14400014,0x3C02800F,0x96020058\n\t"
-    ".word 0x00000000,0x14400010,0x3C02800F,0x9602005A\n\t"
-    ".word 0x00000000,0x10400004,0x00000000,0x0C024545\n\t"
-    ".word 0x02202021,0xA600005A,0x02202021,0x3405FFFF\n\t"
-    ".word 0x0C024504,0x24061000,0x0C024552,0x02202021\n\t"
-    ".word 0x08020E0F,0x00000000,0x2442DF08,0x00041880\n\t"
-    ".word 0x00641821,0x00031880,0x00621821,0x8C620010\n\t"
-    ".word 0x00000000,0x10400011,0x3410FFFF,0x8C65000C\n\t"
-    ".word 0x00000000,0x10A0000E,0x3C02800F,0x8C620008\n\t"
-    ".word 0x00000000,0x00A21823,0x3405FFFF,0x00A3102B\n\t"
-    ".word 0x10400005,0x00000000,0x00031842,0x00A3102B\n\t"
-    ".word 0x14400003,0x3C02800F,0x00608021,0x3C02800F\n\t"
-    ".word 0x2442DF08,0x00041840,0x00641821,0x00031880\n\t"
-    ".word 0x00629021,0x9642005A,0x3205FFFF,0x10450009\n\t"
-    ".word 0x00000000,0x02202021,0x0C024504,0x24061000\n\t"
-    ".word 0x0C024552,0x02202021,0x0C024539,0x02202021\n\t"
-    ".word 0xA650005A,0x8FBF001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct TimerSource {
+    int busy;
+    int pad04;
+    unsigned int start;
+    unsigned int end;
+    int enabled;
+} TimerSource;
+
+typedef struct TimerChannel {
+    int device;
+    int pad04;
+    unsigned short pending;
+    unsigned short rate;
+} TimerChannel;
+
+typedef struct TimerBlock {
+    TimerSource source[4];
+    TimerChannel channel[4];
+} TimerBlock;
+
+extern TimerBlock D_800EDF08;
+extern void func_80091514(int);
+extern void func_80091410(int, int, int);
+extern void func_80091548(int);
+extern void func_800914E4(int);
+
+void func_800836E8(int ch) {
+    int device = D_800EDF08.channel[ch].device;
+    unsigned short rate;
+    unsigned int span;
+
+    if (D_800EDF08.source[ch].busy != 0
+        || (D_800EDF08.source[ch].enabled == 0 && D_800EDF08.channel[ch].pending == 0)) {
+        if (D_800EDF08.channel[ch].rate != 0) {
+            func_80091514(device);
+            D_800EDF08.channel[ch].rate = 0;
+        }
+        func_80091410(device, 0xFFFF, 0x1000);
+        func_80091548(device);
+    } else {
+        rate = 0xFFFF;
+        if (D_800EDF08.source[ch].enabled != 0 && D_800EDF08.source[ch].end != 0) {
+            span = D_800EDF08.source[ch].end - D_800EDF08.source[ch].start;
+            if (span <= 0xFFFF || (span >>= 1) <= 0xFFFF) {
+                rate = span;
+            }
+        }
+        if (D_800EDF08.channel[ch].rate != rate) {
+            func_80091410(device, rate, 0x1000);
+            func_80091548(device);
+            func_800914E4(device);
+            D_800EDF08.channel[ch].rate = rate;
+        }
+    }
+}

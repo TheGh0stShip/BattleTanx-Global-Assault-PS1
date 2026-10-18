@@ -1,33 +1,63 @@
-asm(".text\n\t.globl func_8001B130\nfunc_8001B130:\n\t"
-    ".word 0x00803821,0x8CE20060,0x00000000,0x8C440000\n\t"
-    ".word 0x27BDFFF0,0xAFA40000,0x8CE20060,0x00000000\n\t"
-    ".word 0x8C430004,0x00000000,0xAFA30004,0x8CE20060\n\t"
-    ".word 0x00A03021,0x8C490010,0x8C4A0008,0x00000000\n\t"
-    ".word 0x012A0018,0x00004012,0x00002810,0x00084302\n\t"
-    ".word 0x00052D00,0x01054025,0x01001021,0x00821021\n\t"
-    ".word 0xAFA20008,0x8CE20060,0x00000000,0x8C490010\n\t"
-    ".word 0x8C4A000C,0x00000000,0x012A0018,0x00004012\n\t"
-    ".word 0x00002810,0x00084302,0x00052D00,0x01054025\n\t"
-    ".word 0x01001021,0x00621821,0xAFA3000C,0x8CC20000\n\t"
-    ".word 0x00000000,0x00441023,0x04400003,0x00401821\n\t"
-    ".word 0x08006C7D,0x00022303,0x00031023,0x00021303\n\t"
-    ".word 0x00022023,0x8CC30004,0x8FA20004,0x00000000\n\t"
-    ".word 0x00621023,0x04400003,0x00401821,0x08006C88\n\t"
-    ".word 0x00021303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00840018,0x00002012,0x00000000,0x00000000\n\t"
-    ".word 0x00420018,0x8CC30000,0x8FA20008,0x00000000\n\t"
-    ".word 0x00621023,0x00401821,0x00005812,0x04400003\n\t"
-    ".word 0x008B2821,0x08006C9A,0x00022303,0x00031023\n\t"
-    ".word 0x00021303,0x00022023,0x8CC30004,0x8FA2000C\n\t"
-    ".word 0x00000000,0x00621023,0x04400003,0x00401821\n\t"
-    ".word 0x08006CA5,0x00021303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00840018,0x00001812,0x00000000\n\t"
-    ".word 0x00000000,0x00420018,0x8CE20060,0x00000000\n\t"
-    ".word 0x8C420010,0x00005812,0x04400003,0x006B1821\n\t"
-    ".word 0x08006CB5,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00420018,0x00002012,0x0085102A\n\t"
-    ".word 0x10400007,0x0083102A,0x8FA20008,0x00000000\n\t"
-    ".word 0xACC20000,0x8FA3000C,0x08006CC7,0x24020001\n\t"
-    ".word 0x10400007,0x00001021,0x8FA20000,0x00000000\n\t"
-    ".word 0xACC20000,0x8FA30004,0x24020001,0xACC30004\n\t"
-    ".word 0x03E00008,0x27BD0010\n");
+typedef struct Segment {
+    int x;
+    int z;
+    int dx;
+    int dz;
+    int length;
+} Segment;
+typedef struct Body {
+    char pad00[0x60];
+    Segment *segment;
+} Body;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline int sq(int v) {
+    return v * v;
+}
+
+static inline int dist2(int dx, int dz) {
+    return dx * dx + dz * dz;
+}
+
+int func_8001B130(Body *body, Pos2 *p) {
+    Pos2 ends[2];
+    int d0;
+    int d1;
+    int len;
+
+    ends[0].x = body->segment->x;
+    ends[0].z = body->segment->z;
+    ends[1].x = ends[0].x + fixed_mul(body->segment->length, body->segment->dx);
+    ends[1].z = ends[0].z + fixed_mul(body->segment->length, body->segment->dz);
+    d0 = dist2(to_int(p->x - ends[0].x), to_int(p->z - ends[0].z));
+    d1 = dist2(to_int(p->x - ends[1].x), to_int(p->z - ends[1].z));
+    len = sq(to_int(body->segment->length));
+    if (len < d0) {
+        p->x = ends[1].x;
+        p->z = ends[1].z;
+        return 1;
+    }
+    if (len < d1) {
+        p->x = ends[0].x;
+        p->z = ends[0].z;
+        return 1;
+    }
+    return 0;
+}

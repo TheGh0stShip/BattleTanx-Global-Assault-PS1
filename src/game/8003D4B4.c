@@ -1,18 +1,35 @@
-asm(".text\n\t.globl func_8003D4B4\nfunc_8003D4B4:\n\t"
-    ".word 0x27bdffc8,0xafb3002c,0x00809821,0xafb00020\n\t"
-    ".word 0x00a08021,0x00132080,0x00932021,0x00042080\n\t"
-    ".word 0xafbf0034,0xafb40030,0xafb20028,0x0c01a369\n\t"
-    ".word 0xafb10024,0x00009021,0x12600029,0x0040a021\n\t"
-    ".word 0x02808821,0x8e030024,0x8e020020,0x9464000a\n\t"
-    ".word 0x94450008,0x9446000a,0x94670008,0xafa40010\n\t"
-    ".word 0x8e020008,0x02202021,0xafa00018,0x0c022f1d\n\t"
-    ".word 0xafa20014,0x8e030008,0x24020002,0x1062000b\n\t"
-    ".word 0x00000000,0x8e020018,0x00000000,0x94420000\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x96220002\n\t"
-    ".word 0x00000000,0x34428000,0xa6220002,0x8e020014\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x96220002\n\t"
-    ".word 0x00000000,0x34424000,0xa6220002,0x26310014\n\t"
-    ".word 0x26520001,0x0253102b,0x1440ffda,0x26100028\n\t"
-    ".word 0x02801021,0x8fbf0034,0x8fb40030,0x8fb3002c\n\t"
-    ".word 0x8fb20028,0x8fb10024,0x8fb00020,0x03e00008\n\t"
-    ".word 0x27bd0038\n\t");
+typedef struct { char pad[8]; unsigned short w; unsigned short h; } Img;
+typedef struct {
+    int f0;
+    int f4;
+    int mode;
+    int fC;
+    int f10;
+    int f14;
+    unsigned short *clut;
+    int size;
+    Img *src;
+    Img *dst;
+} Conv;
+typedef struct { short f0; unsigned short flags; char pad[16]; } Tex;
+extern Tex *func_80068DA4(int);
+extern void func_8008BC74(Tex *, int, int, int, int, int, int);
+
+Tex *func_8003D4B4(unsigned int count, Conv *conv)
+{
+    Tex *texs;
+    Tex *t;
+    unsigned int i;
+
+    texs = func_80068DA4(count * sizeof(Tex));
+    for (i = 0; i < count; i++) {
+        func_8008BC74(&texs[i], conv[i].src->w, conv[i].src->h, conv[i].dst->w, conv[i].dst->h, conv[i].mode, 0);
+        if (conv[i].mode != 2 && conv[i].clut[0] == 0) {
+            texs[i].flags |= 0x8000;
+        }
+        if (conv[i].f14 == 0) {
+            texs[i].flags |= 0x4000;
+        }
+    }
+    return texs;
+}

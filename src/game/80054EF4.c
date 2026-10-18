@@ -1,11 +1,20 @@
-asm(".text\n\t.globl func_80054EF4\nfunc_80054EF4:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb00010\n\t"
-    ".word 0x323000ff,0x02002021,0x00002821,0xafbf0018\n\t"
-    ".word 0x0c024338,0x00a03021,0x00002021,0x3c02800e\n\t"
-    ".word 0x2406ffff,0x8c454658,0x308200ff,0x00021880\n\t"
-    ".word 0x00621821,0x00031880,0x00651821,0x84620012\n\t"
-    ".word 0x00000000,0x14500003,0x24840001,0x080153da\n\t"
-    ".word 0xa4660012,0x308200ff,0x2c420018,0x1440fff3\n\t"
-    ".word 0x308200ff,0x00002021,0x24050001,0x0c0241f1\n\t"
-    ".word 0x02252804,0x8fbf0018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    char pad0[0x12];
+    short voice;
+} SoundEntry;
+extern SoundEntry *D_800E4658;
+extern void func_80090CE0(int, int, int);
+extern void func_800907C4(int, int);
+
+void func_80054EF4(int voice) {
+    unsigned char i;
+
+    func_80090CE0((unsigned char)voice, 0, 0);
+    for (i = 0; i < 24; i++) {
+        if (D_800E4658[i].voice == (unsigned char)voice) {
+            D_800E4658[i].voice = -1;
+            break;
+        }
+    }
+    func_800907C4(0, 1 << voice);
+}

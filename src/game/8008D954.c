@@ -1,12 +1,27 @@
-asm(".text\n\t.globl func_8008D954\nfunc_8008D954:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafb20018\n\t"
-    ".word 0x00a09021,0xafbf001c,0x1220001b,0xafb00010\n\t"
-    ".word 0x1240001a,0x00001021,0x0c024061,0x02202021\n\t"
-    ".word 0x02402021,0x0c024061,0x02228021,0x02421021\n\t"
-    ".word 0x12020011,0x02201821,0x80620000,0x00000000\n\t"
-    ".word 0x10400005,0x24710001,0x82220000,0x00000000\n\t"
-    ".word 0x1440fffd,0x26310001,0x2631ffff,0x92420000\n\t"
-    ".word 0x26520001,0xa2220000,0x1440fffc,0x26310001\n\t"
-    ".word 0x08023678,0x00601021,0x00001021,0x8fbf001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+extern int func_80090184(char *);
+
+char *func_8008D954(char *dst, char *src) {
+    char *start;
+    char *end;
+    int c;
+
+    if (dst == 0) {
+        return 0;
+    }
+    if (src == 0) {
+        return 0;
+    }
+    end = dst + func_80090184(dst);
+    if (end != src + func_80090184(src)) {
+        start = dst;
+        while (*(signed char *)dst++ != 0) {
+        }
+        dst--;
+        do {
+            c = *(unsigned char *)src++;
+            *dst++ = c;
+        } while (c != 0);
+        return start;
+    }
+    return 0;
+}

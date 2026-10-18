@@ -1,35 +1,96 @@
-asm(".text\n\t.globl func_80093960\nfunc_80093960:\n\t"
-    ".word 0x27BDFFB8,0x3C02800F,0xAFB00020,0x2450EFAC\n\t"
-    ".word 0x9042EFAC,0xAFB40030,0x8FB40058,0xAFB3002C\n\t"
-    ".word 0x00809821,0xAFB60038,0x00A0B021,0xAFB7003C\n\t"
-    ".word 0x00C0B821,0xAFBE0040,0x00E0F021,0xAFB20028\n\t"
-    ".word 0x00009021,0xAFB50034,0x24150001,0xAFBF0044\n\t"
-    ".word 0x1040005D,0xAFB10024,0xA2000006,0xA2000007\n\t"
-    ".word 0xA2000009,0x0C02468D,0x00000000,0x92020003\n\t"
-    ".word 0x00000000,0x1440000D,0x00000000,0x92020004\n\t"
-    ".word 0x00000000,0x14400009,0x00000000,0x92020005\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x92020008\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x0C024F5B\n\t"
-    ".word 0x00000000,0x0C0245BD,0x00000000,0x0C024581\n\t"
-    ".word 0x00002021,0x0C02458B,0x00002021,0x0C024586\n\t"
-    ".word 0x00002021,0x001322C2,0x27B00018,0x24020001\n\t"
-    ".word 0x3C01800C,0xAC2260BC,0x0C025D67,0x02002821\n\t"
-    ".word 0x24040002,0x02002821,0x0C025CEB,0x00003021\n\t"
-    ".word 0x3C02800F,0x2442EFAC,0x90420001,0x00000000\n\t"
-    ".word 0x10400005,0x00000000,0x0C02464B,0x00000000\n\t"
-    ".word 0x08024EA5,0x24020048,0x0C024653,0x00000000\n\t"
-    ".word 0x240200C8,0xA3A20010,0x2404000E,0x27A50010\n\t"
-    ".word 0x0C025CEB,0x00003021,0x2404000D,0x3C10800F\n\t"
-    ".word 0x2610EFAC,0x26050024,0x00003021,0x24110001\n\t"
-    ".word 0xA2110024,0x0C025CEB,0xA2170025,0x3C048009\n\t"
-    ".word 0x248437E4,0x02761021,0xA2110003,0xA211000A\n\t"
-    ".word 0xAE13000C,0xAE130010,0xAE020014,0xAE160018\n\t"
-    ".word 0xAE1E0030,0x0C024581,0xAE140034,0x24040015\n\t"
-    ".word 0x27A50018,0x0C025C4F,0x00003021,0x10400003\n\t"
-    ".word 0x00000000,0x08024ECA,0x24120001,0x0C024D97\n\t"
-    ".word 0x24040005,0x0000A821,0x16400008,0x02401021\n\t"
-    ".word 0x12A00006,0x00000000,0x12800004,0x00000000\n\t"
-    ".word 0x0280F809,0x00002021,0x02401021,0x8FBF0044\n\t"
-    ".word 0x8FBE0040,0x8FB7003C,0x8FB60038,0x8FB50034\n\t"
-    ".word 0x8FB40030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0048\n");
+extern void func_80091A34(void);
+extern void func_80093D6C(void);
+extern void func_800916F4(void);
+extern void func_80091604(void *);
+extern void func_8009162C(void *);
+extern void func_80091618(void *);
+extern void func_8009759C(unsigned int, unsigned char *);
+extern int func_800973AC(int, unsigned char *, unsigned char *);
+extern void func_8009192C(void);
+extern void func_8009194C(void);
+extern int func_8009713C(int, unsigned char *, unsigned char *);
+extern void func_8009365C(int);
+extern void func_800937E4(void);
+
+
+typedef struct {
+    unsigned char active;
+    volatile unsigned char stereo;
+    char pad2;
+    volatile unsigned char b3;
+    volatile unsigned char b4;
+    volatile unsigned char b5;
+    volatile unsigned char b6;
+    volatile unsigned char b7;
+    volatile unsigned char b8;
+    volatile unsigned char b9;
+    volatile unsigned char b10;
+    char pad11;
+    unsigned int start;
+    unsigned int cur;
+    unsigned int end;
+    int len;
+    char pad28[8];
+    unsigned char filter[2];
+    char pad38[10];
+    int arg48;
+    void (*done)(int);
+} S80093960;
+extern S80093960 D_800EEFAC;
+
+int func_80093960(unsigned int pos, int len, int chan, int arg, void (*done)(int)) {
+    S80093960 *s = &D_800EEFAC;
+    S80093960 *t;
+    unsigned char speed[8];
+    unsigned char loc[8];
+    int r = 0;
+    int notify = 1;
+
+    if (s->active != 0) {
+        s->b6 = 0;
+        s->b7 = 0;
+        s->b9 = 0;
+        func_80091A34();
+        if (s->b3 != 0 || s->b4 != 0 || s->b5 != 0 || s->b8 != 0) {
+            func_80093D6C();
+        }
+        func_800916F4();
+        func_80091604(0);
+        func_8009162C(0);
+        func_80091618(0);
+        *(int *)0x800C60BC = 1;
+        func_8009759C(pos >> 11, loc);
+        func_800973AC(2, loc, 0);
+        if (D_800EEFAC.stereo != 0) {
+            func_8009192C();
+            speed[0] = 72;
+        } else {
+            func_8009194C();
+            speed[0] = 200;
+        }
+        func_800973AC(14, speed, 0);
+        t = &D_800EEFAC;
+        t->filter[0] = 1;
+        t->filter[1] = chan;
+        func_800973AC(13, t->filter, 0);
+        t->b3 = 1;
+        t->b10 = 1;
+        t->start = pos;
+        t->cur = pos;
+        t->end = pos + len;
+        t->len = len;
+        t->arg48 = arg;
+        t->done = done;
+        func_80091604(func_800937E4);
+        if (func_8009713C(21, loc, 0) != 0) {
+            r = 1;
+        } else {
+            func_8009365C(5);
+            notify = 0;
+        }
+    }
+    if (r == 0 && notify != 0 && done != 0) {
+        done(0);
+    }
+    return r;
+}

@@ -1,10 +1,19 @@
-asm(".text\n\t.globl func_8009EDA4\nfunc_8009EDA4:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x90830046,0x24020003\n\t"
-    ".word 0x10620010,0x28620004,0x10400005,0x24020002\n\t"
-    ".word 0x10620008,0x00000000,0x08027b86,0x00000000\n\t"
-    ".word 0x24020004,0x1062000c,0x00000000,0x08027b86\n\t"
-    ".word 0x00000000,0x0c027d42,0x00000000,0x08027b86\n\t"
-    ".word 0x00000000,0x908500e4,0x0c027d47,0x00000000\n\t"
-    ".word 0x08027b86,0x00000000,0x90850047,0x0c027d57\n\t"
-    ".word 0x00000000,0x8fbf0010,0x27bd0018,0x03e00008\n\t"
-    ".word 0x00000000\n\t");
+typedef struct { unsigned char pad[0x46]; unsigned char kind; unsigned char arg47; unsigned char pad2[0xE4 - 0x48]; unsigned char argE4; } Port;
+void func_8009F508(Port *);
+void func_8009F51C(Port *, int);
+void func_8009F55C(Port *, int);
+
+void func_8009EDA4(Port *p)
+{
+    switch (p->kind) {
+    case 2:
+        func_8009F508(p);
+        break;
+    case 3:
+        func_8009F51C(p, p->argE4);
+        break;
+    case 4:
+        func_8009F55C(p, p->arg47);
+        break;
+    }
+}

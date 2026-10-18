@@ -1,17 +1,35 @@
-asm(".text\n\t.globl func_800301FC\nfunc_800301FC:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0xafbf0020\n\t"
-    ".word 0xafb20018,0xafb10014,0xafb00010,0x8e720008\n\t"
-    ".word 0x8e620018,0x8e700010,0x26510008,0x00021fc2\n\t"
-    ".word 0x00431021,0x00021043,0x96240018,0x02028021\n\t"
-    ".word 0x0c022b58,0x00042102,0x02020018,0x00001812\n\t"
-    ".word 0x00003810,0x00031b02,0x00073d00,0x00671825\n\t"
-    ".word 0x96240018,0x8e420008,0x00042102,0x0c022b30\n\t"
-    ".word 0x00439021,0x02020018,0x00001812,0x00003810\n\t"
-    ".word 0x00031b02,0x00073d00,0x00671825,0x8e220004\n\t"
-    ".word 0x06400003,0x00433021,0x0800c0aa,0x00121303\n\t"
-    ".word 0x00121023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x04c00003,0x00022c03,0x0800c0b2,0x00061303\n\t"
-    ".word 0x00061023,0x00021303,0x00021023,0x00023380\n\t"
-    ".word 0x96640020,0x0c005864,0x00063403,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct { int x; int z; int pad[4]; unsigned short angle; } Frame;
+typedef struct { int pad[2]; Frame frame; } Body;
+typedef struct { int pad[2]; Body *body; int pad2; int offset; int pad3; int length; int pad4; unsigned short id; } Arm;
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_80016190(int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_800301FC(Arm *arm) {
+    Body *body = arm->body;
+    Frame *f = &body->frame;
+    int reach = arm->offset + arm->length / 2;
+    int x;
+    int z;
+
+    x = body->frame.x + fixed_mul(reach, func_8008AD60(f->angle >> 4));
+    z = f->z + fixed_mul(reach, func_8008ACC0(f->angle >> 4));
+    func_80016190(arm->id, (to_int(x) << 14) >> 16, (to_int(z) << 14) >> 16);
+}

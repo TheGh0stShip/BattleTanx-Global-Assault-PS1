@@ -1,42 +1,75 @@
-asm(".text\n\t.globl func_80076E28\nfunc_80076E28:\n\t"
-    ".word 0x27BDFFA8,0xAFB00050,0x00808021,0x27A50010\n\t"
-    ".word 0x3C02800C,0x24433E10,0x30620003,0x10400017\n\t"
-    ".word 0xAFBF0054,0x24620030,0x88660003,0x98660000\n\t"
-    ".word 0x88670007,0x98670004,0x8868000B,0x98680008\n\t"
-    ".word 0x8869000F,0x9869000C,0xA8A60003,0xB8A60000\n\t"
-    ".word 0xA8A70007,0xB8A70004,0xA8A8000B,0xB8A80008\n\t"
-    ".word 0xA8A9000F,0xB8A9000C,0x24630010,0x1462FFEE\n\t"
-    ".word 0x24A50010,0x0801DBB6,0x02002021,0x24620030\n\t"
-    ".word 0x8C660000,0x8C670004,0x8C680008,0x8C69000C\n\t"
-    ".word 0xACA60000,0xACA70004,0xACA80008,0xACA9000C\n\t"
-    ".word 0x24630010,0x1462FFF6,0x24A50010,0x02002021\n\t"
-    ".word 0x88660003,0x98660000,0x88670007,0x98670004\n\t"
-    ".word 0x80680008,0x80690009,0xA8A60003,0xB8A60000\n\t"
-    ".word 0xA8A70007,0xB8A70004,0xA0A80008,0xA0A90009\n\t"
-    ".word 0x0C023681,0x27A50010,0x3C02800A,0x904260D8\n\t"
-    ".word 0x00000000,0xA202003A,0x3C02800B,0x9042ED48\n\t"
-    ".word 0x00000000,0xA202003B,0x3C02800B,0x9042ED49\n\t"
-    ".word 0x00000000,0xA202003C,0x3C02800B,0x9042ED4A\n\t"
-    ".word 0x00000000,0xA202003D,0x3C02800B,0x9042ED4B\n\t"
-    ".word 0x00000000,0xA202003E,0x3C02800B,0x9042ED4C\n\t"
-    ".word 0x00000000,0xA202003F,0x3C02800B,0x9042ED4D\n\t"
-    ".word 0x00000000,0xA2020040,0x3C02800B,0x9042ED4E\n\t"
-    ".word 0x00000000,0xA2020041,0x3C02800B,0x9042ED4F\n\t"
-    ".word 0x00000000,0xA2020042,0x3C02800B,0x9042ED50\n\t"
-    ".word 0x00000000,0xA2020043,0x3C02800B,0x9042ED51\n\t"
-    ".word 0x00000000,0xA2020044,0x3C02800B,0x9042ED52\n\t"
-    ".word 0x00000000,0xA2020045,0x3C02800B,0x9042ED53\n\t"
-    ".word 0x00000000,0xA2020046,0x3C02800B,0x9042ED54\n\t"
-    ".word 0x00000000,0xA2020047,0x3C02800B,0x9042ED55\n\t"
-    ".word 0x00000000,0xA2020048,0x3C02800B,0x9042ED56\n\t"
-    ".word 0x00000000,0xA2020049,0x3C02800B,0x9042ED57\n\t"
-    ".word 0x00000000,0xA202004A,0x3C02800B,0x9042ED58\n\t"
-    ".word 0x00000000,0xA202004B,0x3C02800B,0x9042ED59\n\t"
-    ".word 0x00002021,0x0C0218B5,0xA202004C,0x10400003\n\t"
-    ".word 0x24020001,0x0801DC16,0xA202004D,0xA200004D\n\t"
-    ".word 0x0C0218B5,0x24040001,0x10400003,0x24020001\n\t"
-    ".word 0x0801DC1D,0xA202004E,0xA200004E,0x3C02800E\n\t"
-    ".word 0x3C03800E,0x94424654,0x9463540C,0xA6020050\n\t"
-    ".word 0x3C02800F,0xA6030052,0x9443C0F8,0x2442C0F8\n\t"
-    ".word 0xA6030054,0x94420004,0x00000000,0xA6020056\n\t"
-    ".word 0x8FBF0054,0x8FB00050,0x03E00008,0x27BD0058\n");
+typedef struct SaveHeader {
+    char title[58];
+    unsigned char difficulty;
+    unsigned char options[18];
+    unsigned char vibration[2];
+    char pad4F;
+    unsigned short music;
+    unsigned short sfx;
+    unsigned short pad_mode[2];
+} SaveHeader;
+
+extern unsigned char D_800A60D8;
+extern unsigned char D_800AED48;
+extern unsigned char D_800AED49;
+extern unsigned char D_800AED4A;
+extern unsigned char D_800AED4B;
+extern unsigned char D_800AED4C;
+extern unsigned char D_800AED4D;
+extern unsigned char D_800AED4E;
+extern unsigned char D_800AED4F;
+extern unsigned char D_800AED50;
+extern unsigned char D_800AED51;
+extern unsigned char D_800AED52;
+extern unsigned char D_800AED53;
+extern unsigned char D_800AED54;
+extern unsigned char D_800AED55;
+extern unsigned char D_800AED56;
+extern unsigned char D_800AED57;
+extern unsigned char D_800AED58;
+extern unsigned char D_800AED59;
+extern unsigned short D_800E4654;
+extern unsigned short D_800E540C;
+extern int D_800EC0F8[];
+extern char *func_8008DA04(char *, char *);
+extern int func_800862D4(int);
+
+void func_80076E28(SaveHeader *save) {
+    char title[58] = "BattleTanx Global Assault, Copyright 1999 The 3DO Company";
+    int i;
+
+    func_8008DA04(save->title, title);
+    save->difficulty = D_800A60D8;
+    save->options[0] = D_800AED48;
+    save->options[1] = D_800AED49;
+    save->options[2] = D_800AED4A;
+    save->options[3] = D_800AED4B;
+    save->options[4] = D_800AED4C;
+    save->options[5] = D_800AED4D;
+    save->options[6] = D_800AED4E;
+    save->options[7] = D_800AED4F;
+    save->options[8] = D_800AED50;
+    save->options[9] = D_800AED51;
+    save->options[10] = D_800AED52;
+    save->options[11] = D_800AED53;
+    save->options[12] = D_800AED54;
+    save->options[13] = D_800AED55;
+    save->options[14] = D_800AED56;
+    save->options[15] = D_800AED57;
+    save->options[16] = D_800AED58;
+    save->options[17] = D_800AED59;
+    if (func_800862D4(0)) {
+        save->vibration[0] = 1;
+    } else {
+        save->vibration[0] = 0;
+    }
+    if (func_800862D4(1)) {
+        save->vibration[1] = 1;
+    } else {
+        save->vibration[1] = 0;
+    }
+    save->music = D_800E4654;
+    save->sfx = D_800E540C;
+    save->pad_mode[0] = D_800EC0F8[0];
+    save->pad_mode[1] = D_800EC0F8[1];
+}

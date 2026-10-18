@@ -1,54 +1,117 @@
-asm(".text\n\t.globl func_8005B360\nfunc_8005B360:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFBF0020\n\t"
-    ".word 0xAFB20018,0xAFB10014,0x0C0168A8,0xAFB00010\n\t"
-    ".word 0x00409021,0x3C02800F,0x8E430008,0x2442AD48\n\t"
-    ".word 0x14620044,0x3C02800F,0x3C04800F,0x96630014\n\t"
-    ".word 0x2484E028,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x00431023,0x00021080,0x00441021,0x8E64000C\n\t"
-    ".word 0x94430004,0x8C820018,0x00000000,0x00621024\n\t"
-    ".word 0x14400007,0x24100002,0x8C820014,0x00000000\n\t"
-    ".word 0x00621024,0x14400002,0x2410FFFE,0x00008021\n\t"
-    ".word 0x00101400,0x10400027,0x3C11800E,0x96224828\n\t"
-    ".word 0x00000000,0x2442FFFF,0xA6224828,0x00021400\n\t"
-    ".word 0x04410008,0x3C04800A,0x0C01528C,0x24040003\n\t"
-    ".word 0x96224828,0x00000000,0x24420005,0xA6224828\n\t"
-    ".word 0x3C04800A,0x90826080,0x00000000,0x02021021\n\t"
-    ".word 0xA0826080,0x00021600,0x00021E03,0x2862005C\n\t"
-    ".word 0x14400003,0x2402005B,0x08016D1B,0xA0826080\n\t"
-    ".word 0x04610003,0x3C02800A,0xA0806080,0x3C02800A\n\t"
-    ".word 0x80426080,0x00000000,0x00022100,0x00822023\n\t"
-    ".word 0x0C015371,0x00042080,0x00101400,0x1C400002\n\t"
-    ".word 0x24020010,0x24020001,0xA2420040,0x8E430008\n\t"
-    ".word 0x3C02800F,0x2442AD28,0x14620046,0x3C03800B\n\t"
-    ".word 0x3C10800B,0x9202ACE3,0x00000000,0x10400005\n\t"
-    ".word 0x3C04800F,0x0C01AB1F,0x24040001,0xA200ACE3\n\t"
-    ".word 0x3C04800F,0x96630014,0x2484E028,0x000310C0\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x00021080\n\t"
-    ".word 0x00441021,0x8E64000C,0x94430004,0x8C820018\n\t"
-    ".word 0x00000000,0x00621024,0x14400007,0x24100002\n\t"
-    ".word 0x8C820014,0x00000000,0x00621024,0x14400002\n\t"
-    ".word 0x2410FFFE,0x00008021,0x00101400,0x10400022\n\t"
-    ".word 0x3C04800A,0x90826081,0x00000000,0x02021021\n\t"
-    ".word 0xA0826081,0x00021600,0x00021E03,0x2862005C\n\t"
-    ".word 0x14400003,0x2402005B,0x08016D5B,0xA0826081\n\t"
-    ".word 0x04610003,0x3C02800A,0xA0806081,0x3C02800A\n\t"
-    ".word 0x80436081,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00022100,0x00822023,0x000424C0,0x0C01AC11\n\t"
-    ".word 0x00042403,0x3C02800E,0x8444540C,0x0C0246A4\n\t"
-    ".word 0x00802821,0x00101400,0x18400003,0x24020010\n\t"
-    ".word 0x08016D78,0xA2420040,0x24020001,0x08016D78\n\t"
-    ".word 0xA2420040,0x9062ACE3,0x00000000,0x14400004\n\t"
-    ".word 0x24020001,0xA062ACE3,0x0C01ABFF,0x00002021\n\t"
-    ".word 0x3C038888,0x3C02800E,0x94474654,0x34638889\n\t"
-    ".word 0x00073C00,0x00072403,0x00830018,0x3C06B60B\n\t"
-    ".word 0x34C660B7,0x3C03800E,0x9468540C,0x00073FC3\n\t"
-    ".word 0x00084400,0x00082C03,0x00004810,0x01242021\n\t"
-    ".word 0x00042143,0x00A60018,0x8E660004,0x00872023\n\t"
-    ".word 0x24C600A0,0x8CC70008,0x24830005,0xA4E30008\n\t"
-    ".word 0x2483001C,0x24840020,0xA4C30022,0xA4C40042\n\t"
-    ".word 0x8E640004,0x000847C3,0x24840120,0x8C860008\n\t"
-    ".word 0x00004810,0x01252821,0x00052A03,0x00A82823\n\t"
-    ".word 0x24A30005,0xA4C30008,0x24A3001C,0x24A50020\n\t"
-    ".word 0xA4830022,0xA4850042,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x00001021\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct {
+    char pad0[8];
+    short x;
+} Knob;
+typedef struct {
+    unsigned char tint;
+    char pad1;
+    short x;
+    char pad4[4];
+    void *data;
+    char padC[0x20 - 0xC];
+} Item;
+typedef struct {
+    char pad0[0x14];
+    int left;
+    int right;
+} Keys;
+typedef struct {
+    char pad0[4];
+    Item *items;
+    char pad8[4];
+    Keys *keys;
+    char pad10[4];
+    unsigned short player;
+} Menu;
+typedef struct {
+    char pad0[4];
+    unsigned short held;
+    char pad6[0x8C - 6];
+} Pad;
+extern Pad D_800EE028[];
+extern char D_800EAD48[];
+extern char D_800EAD28[];
+extern short D_800E4828;
+extern signed char D_800A6080;
+extern signed char D_800A6081;
+extern unsigned char D_800AACE3;
+extern short D_800E4654;
+extern short D_800E540C;
+extern Item *func_8005A2A0(Menu *);
+extern int func_80054A30(unsigned char);
+extern void func_80054DC4(int);
+extern void func_8006AC7C(int);
+extern void func_8006B044(short);
+extern void func_80091A90(short, short);
+extern void func_8006AFFC(int);
+
+static inline short direction(Menu *menu) {
+    unsigned short held = D_800EE028[menu->player].held;
+
+    if (held & menu->keys->right) {
+        return 2;
+    }
+    if (held & menu->keys->left) {
+        return -2;
+    }
+    return 0;
+}
+
+static inline void set_bar(Item *bar, int v) {
+    ((Knob *)bar->data)->x = v + 5;
+    bar[1].x = v + 28;
+    bar[2].x = v + 32;
+}
+
+int func_8005B360(Menu *menu) {
+    Item *item = func_8005A2A0(menu);
+    short dir;
+    int music;
+    int sfx;
+
+    if (item->data == D_800EAD48) {
+        dir = direction(menu);
+        if (dir != 0) {
+            if (--D_800E4828 < 0) {
+                func_80054A30(3);
+                D_800E4828 += 5;
+            }
+            D_800A6080 += dir;
+            if (D_800A6080 >= 92) {
+                D_800A6080 = 91;
+            } else if (D_800A6080 < 0) {
+                D_800A6080 = 0;
+            }
+            func_80054DC4(D_800A6080 * 60);
+        }
+        item[2].tint = dir > 0 ? 16 : 1;
+    }
+    if (item->data == D_800EAD28) {
+        if (D_800AACE3 != 0) {
+            func_8006AC7C(1);
+            D_800AACE3 = 0;
+        }
+        dir = direction(menu);
+        if (dir != 0) {
+            D_800A6081 += dir;
+            if (D_800A6081 >= 92) {
+                D_800A6081 = 91;
+            } else if (D_800A6081 < 0) {
+                D_800A6081 = 0;
+            }
+            func_8006B044(D_800A6081 * 360);
+            func_80091A90(D_800E540C, D_800E540C);
+        }
+        item[2].tint = dir > 0 ? 16 : 1;
+    } else if (D_800AACE3 == 0) {
+        D_800AACE3 = 1;
+        func_8006AFFC(0);
+    }
+    music = D_800E4654;
+    music /= 60;
+    sfx = D_800E540C;
+    sfx /= 360;
+    set_bar(&menu->items[5], music);
+    set_bar(&menu->items[9], sfx);
+    return 0;
+}

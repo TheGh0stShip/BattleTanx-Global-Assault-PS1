@@ -1,10 +1,40 @@
-asm(".text\n\t.globl func_8005F284\nfunc_8005F284:\n\t"
-    ".word 0x3c03800a,0x8c626074,0x00000000,0x2442ffff\n\t"
-    ".word 0x14400003,0xac626074,0x24020003,0xac626074\n\t"
-    ".word 0x8c636074,0x24020002,0x10620013,0x24a50020\n\t"
-    ".word 0x2c620003,0x10400005,0x24020001,0x10620008\n\t"
-    ".word 0x00000000,0x08017cc0,0x3c02800f,0x24020003\n\t"
-    ".word 0x10620006,0x00000000,0x08017cc0,0x3c02800f\n\t"
-    ".word 0x3c02800f,0x08017cc1,0x2442af5c,0x3c02800f\n\t"
-    ".word 0x08017cc1,0x2442af60,0x3c02800f,0x2442af64\n\t"
-    ".word 0xaca20008,0x03e00008,0x00001021\n\t");
+extern unsigned int D_800A6074;
+extern int D_800EAF5C;
+extern int D_800EAF60;
+extern int D_800EAF64;
+
+typedef struct Holder {
+    int pad[2];
+    int *target;
+} Holder;
+
+typedef struct Page {
+    char pad[0x20];
+    Holder holder;
+} Page;
+
+static inline void select_mode_slot(Holder *holder) {
+    switch (D_800A6074) {
+    case 2:
+        holder->target = &D_800EAF64;
+        break;
+    case 1:
+        holder->target = &D_800EAF5C;
+        break;
+    case 3:
+        holder->target = &D_800EAF60;
+        break;
+    default:
+        holder->target = &D_800EAF64;
+        break;
+    }
+}
+
+int func_8005F284(int unused, Page *page) {
+    D_800A6074--;
+    if (D_800A6074 == 0) {
+        D_800A6074 = 3;
+    }
+    select_mode_slot(&page->holder);
+    return 0;
+}

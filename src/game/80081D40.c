@@ -1,17 +1,35 @@
-asm(".text\n\t.globl func_80081D40\nfunc_80081D40:\n\t"
-    ".word 0x3c02800b,0x90420c62,0x27bdffe8,0xafb00010\n\t"
-    ".word 0x00808021,0x2c420002,0x14400008,0xafbf0014\n\t"
-    ".word 0x3c04800c,0x24844c6c,0x3c02800b,0x8c420c5c\n\t"
-    ".word 0x00000000,0x0040f809,0x02002821,0x0c02221c\n\t"
-    ".word 0x2404ffff,0x3c03800b,0x8c630d44,0x244200f0\n\t"
-    ".word 0x3c01800b,0xac220d6c,0x3c01800b,0xac200d70\n\t"
-    ".word 0x8c620000,0x08020774,0x3c030100,0x0c0206d7\n\t"
-    ".word 0x00000000,0x1440001d,0x2402ffff,0x3c02800b\n\t"
-    ".word 0x8c420d44,0x00000000,0x8c420000,0x3c030100\n\t"
-    ".word 0x00431024,0x1440fff5,0x00000000,0x3c02800b\n\t"
-    ".word 0x8c420d38,0x00000000,0x8c420000,0x3c030400\n\t"
-    ".word 0x00431024,0x1040ffed,0x00000000,0x3c058008\n\t"
-    ".word 0x24a51e3c,0x0c025114,0x24040002,0x3c02800b\n\t"
-    ".word 0x8c420c58,0x00000000,0x8c420018,0x00000000\n\t"
-    ".word 0x0040f809,0x02002021,0x00001021,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    void *fn[6];
+    void (*sync)(int);
+} GpuOps;
+
+extern unsigned char D_800B0C62;
+extern int (*D_800B0C5C)(char *, ...);
+extern GpuOps *D_800B0C58;
+extern volatile int *D_800B0D38;
+extern volatile int *D_800B0D44;
+extern int D_800B0D6C;
+extern int D_800B0D70;
+extern char D_800C4C6C[];
+
+extern int func_80088870(int);
+extern int func_80081B5C(void);
+extern void func_80094450(int, void (*)(void));
+extern void func_80081E3C(void);
+
+int func_80081D40(int arg)
+{
+    if (D_800B0C62 >= 2) {
+        D_800B0C5C(D_800C4C6C, arg);
+    }
+    D_800B0D6C = func_80088870(-1) + 240;
+    D_800B0D70 = 0;
+    while ((*D_800B0D44 & 0x01000000) || !(*D_800B0D38 & 0x04000000)) {
+        if (func_80081B5C()) {
+            return -1;
+        }
+    }
+    func_80094450(2, func_80081E3C);
+    D_800B0C58->sync(arg);
+    return 0;
+}

@@ -1,8 +1,16 @@
-asm(".text\n\t.globl func_8002A30C\nfunc_8002A30C:\n\t"
-    ".word 0x00003021,0x3c02800a,0x00403821,0x3c02800a\n\t"
-    ".word 0x24454720,0x3c02800a,0x244246f4,0x00402021\n\t"
-    ".word 0x24020001,0xace0474c,0xa482000a,0x94a20000\n\t"
-    ".word 0x24c60001,0xa4820000,0x84a30000,0x24a50002\n\t"
-    ".word 0x8ce2474c,0,0x00431021,0xace2474c\n\t"
-    ".word 0x28c20015,0x1440fff5,0x24840002,0x3c03800a\n\t"
-    ".word 0x24020001,0x03e00008,0xac624750");
+extern short D_800A46F4[];
+extern short D_800A4720[];
+extern int D_800A474C;
+extern int D_800A4750;
+
+void func_8002A30C(void) {
+    int i;
+
+    D_800A474C = 0;
+    D_800A46F4[5] = 1;
+    for (i = 0; i < 21; i++) {
+        D_800A46F4[i] = D_800A4720[i];
+        D_800A474C += D_800A4720[i];
+    }
+    D_800A4750 = 1;
+}

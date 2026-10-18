@@ -1,17 +1,109 @@
-asm(".text\n\t.globl func_8004A694\nfunc_8004A694:\n\t"
-    ".word 0x27bdffe0,0x3c02800a,0x8c435b24,0x34028000\n\t"
-    ".word 0xafbf001c,0xafb20018,0xafb10014,0xafb00010\n\t"
-    ".word 0x00621821,0x8c706008,0x00000000,0x16000005\n\t"
-    ".word 0x00808821,0x1220002c,0x00001021,0x080129df\n\t"
-    ".word 0xae200000,0x8e020004,0x96120008,0xac626008\n\t"
-    ".word 0x24020003,0x10a20015,0xa2050000,0x2ca20004\n\t"
-    ".word 0x10400005,0x24020002,0x10a20008,0x00000000\n\t"
-    ".word 0x080129dc,0x00000000,0x24020004,0x10a20013\n\t"
-    ".word 0x00000000,0x080129dc,0x00000000,0xa6000002\n\t"
-    ".word 0xae000004,0xae000008,0xa600000c,0xa600000e\n\t"
-    ".word 0xa6000010,0x080129dc,0xa2000012,0x26040010\n\t"
-    ".word 0xa6000002,0xae00000c,0x0c0124d8,0xae000004\n\t"
-    ".word 0xa2000018,0x080129dc,0xa600001a,0xa2050000\n\t"
-    ".word 0xa6000002,0xae000004,0xae000008,0x12200002\n\t"
-    ".word 0x3242ffff,0xae300000,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int target;
+    short count;
+} MoveA;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int b;
+    short c;
+    short d;
+    short e;
+    unsigned char f;
+} MoveB;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int pad8;
+    int b;
+    SVector point;
+    unsigned char c;
+    char pad19;
+    short d;
+} MoveC;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int a;
+    int b;
+} MoveD;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    void *next;
+    unsigned short id;
+} MoveFree;
+typedef union {
+    unsigned char kind;
+    MoveFree free;
+    MoveA a;
+    MoveB b;
+    MoveC c;
+    MoveD d;
+} Movement;
+typedef struct {
+    char pad0[0xE008];
+    Movement *free_moves;
+} MoveSystem;
+extern MoveSystem *D_800A5B24;
+extern void func_80049360(SVector *);
+
+unsigned short func_8004A694(Movement **out, unsigned int kind) {
+    MoveSystem *sys = D_800A5B24;
+    Movement *move = sys->free_moves;
+    unsigned short id;
+
+    if (move == 0) {
+        if (out != 0) {
+            *out = 0;
+        }
+        return 0;
+    }
+    id = move->free.id;
+    sys->free_moves = move->free.next;
+    move->kind = kind;
+    switch (kind) {
+    case 2:
+        move->b.current = 0;
+        move->b.a = 0;
+        move->b.b = 0;
+        move->b.c = 0;
+        move->b.d = 0;
+        move->b.e = 0;
+        move->b.f = 0;
+        break;
+    case 3:
+        move->c.current = 0;
+        move->c.b = 0;
+        move->c.a = 0;
+        func_80049360(&move->c.point);
+        move->c.c = 0;
+        move->c.d = 0;
+        break;
+    case 4:
+        move->d.kind = kind;
+        move->d.current = 0;
+        move->d.a = 0;
+        move->d.b = 0;
+        break;
+    }
+    if (out != 0) {
+        *out = move;
+    }
+    return id;
+}
