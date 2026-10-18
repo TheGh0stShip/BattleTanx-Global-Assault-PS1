@@ -1,8 +1,37 @@
-asm(".text\n\t.globl func_800579A0\nfunc_800579A0:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00c08821,0xafb00010\n\t"
-    ".word 0x00808021,0xafbf0018,0x0c00f72b,0x00a02021\n\t"
-    ".word 0x3c03800e,0x246346c0,0x3210ffff,0x00108100\n\t"
-    ".word 0x944401e6,0x02038021,0xa6040000,0x944301e8\n\t"
-    ".word 0,0xa6030002,0x944301ea,0xae020008\n\t"
-    ".word 0xae11000c,0xa6030004,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020");
+typedef unsigned short u16;
+typedef unsigned int u32;
+
+typedef struct {
+    char pad000[0x1E6];
+    u16 width;
+    u16 height;
+    u16 depth;
+} Resource;
+
+typedef struct {
+    u16 width;
+    u16 height;
+    u16 depth;
+    u16 pad006;
+    Resource *resource;
+    u32 payload;
+} RuntimeSlot;
+
+extern RuntimeSlot D_800E46C0[];
+
+Resource *func_8003DCAC(int);
+
+void func_800579A0(u16 slot_index, int resource_index, u32 payload) {
+    RuntimeSlot *slots;
+    RuntimeSlot *slot;
+    Resource *resource;
+
+    resource = func_8003DCAC(resource_index);
+    slots = D_800E46C0;
+    slot = &slots[slot_index];
+    slot->width = resource->width;
+    slot->height = resource->height;
+    slot->depth = resource->depth;
+    slot->resource = resource;
+    slot->payload = payload;
+}

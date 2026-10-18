@@ -1,8 +1,34 @@
-asm(".text\n\t.globl func_80052F38\nfunc_80052F38:\n\t"
-    ".word 0x10a00006,0,0x8ca20218,0\n\t"
-    ".word 0x30420001,0x14400004,0,0x8c850078\n\t"
-    ".word 0x08014bda,0x00001821,0x8ca300a0,0x8ca50004\n\t"
-    ".word 0,0x14a00009,0x00031080,0x00442021\n\t"
-    ".word 0x2c620002,0x10400005,0x24840004,0x8c850078\n\t"
-    ".word 0,0x10a0fffa,0x24630001,0x03e00008\n\t"
-    ".word 0x00a01021");
+typedef unsigned int u32;
+
+typedef struct {
+    char pad000[0x78];
+    void *slots[3];
+} Context;
+
+typedef struct {
+    char pad000[4];
+    void *current;
+    char pad008[0x98];
+    u32 slot_index;
+    char pad0A4[0x174];
+    u32 flags;
+} Participant;
+
+void *func_80052F38(Context *context, Participant *participant) {
+    void *current;
+    u32 slot_index;
+
+    if (participant == 0 || !(participant->flags & 1)) {
+        current = context->slots[0];
+        slot_index = 0;
+    } else {
+        slot_index = participant->slot_index;
+        current = participant->current;
+    }
+
+    while (current == 0 && slot_index < 2) {
+        slot_index++;
+        current = context->slots[slot_index];
+    }
+    return current;
+}
