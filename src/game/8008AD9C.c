@@ -1,0 +1,10 @@
+asm(".text\n\t.set noreorder\n\t.set noat\n\t.globl func_8008AD9C\nfunc_8008AD9C:\n\t"
+    "slti $2,$4,0x801\n\t.word 0x10400010\n\tslti $2,$4,0x401\n\t.word 0x10400006\n\t"
+    "sll $2,$4,1\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x6EB8($1)\n\t"
+    ".word 0x08022B89\n\tnop\n\taddiu $2,$0,0x800\n\tsubu $2,$2,$4\n\t"
+    "sll $2,$2,1\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x6EB8($1)\n\t"
+    ".word 0x08022B89\n\tnop\n\tslti $2,$4,0xC01\n\t.word 0x14400009\n\t"
+    "sll $2,$4,1\n\taddiu $2,$0,0x1000\n\tsubu $2,$2,$4\n\tsll $2,$2,1\n\t"
+    "lui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x6EB8($1)\n\t.word 0x08022B89\n\t"
+    "subu $2,$0,$2\n\tlui $1,0x800B\n\taddu $1,$1,$2\n\tlh $2,0x5EB8($1)\n\t"
+    "nop\n\tsubu $2,$0,$2\n\tjr $31\n\tnop");
