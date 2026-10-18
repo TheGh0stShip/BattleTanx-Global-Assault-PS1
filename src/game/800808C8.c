@@ -1,11 +1,52 @@
-asm(".text\n\t.globl func_800808C8\nfunc_800808C8:\n\t"
-    ".word 0x00041400,0x00023403,0x04c0000b,0x00001021\n\t"
-    ".word 0x3c02800b,0x84420c64,0x00000000,0x2442ffff\n\t"
-    ".word 0x0046102a,0x3c06800b,0x94c60c64,0x14400002\n\t"
-    ".word 0x24c2ffff,0x00801021,0x00402021,0x00051400\n\t"
-    ".word 0x00023403,0x04c0000c,0x00000000,0x3c02800b\n\t"
-    ".word 0x84420c66,0x00000000,0x2442ffff,0x0046102a\n\t"
-    ".word 0x3c06800b,0x94c60c66,0x10400005,0x30a303ff\n\t"
-    ".word 0x08020251,0x24c5ffff,0x00002821,0x30a303ff\n\t"
-    ".word 0x00031a80,0x308203ff,0x3c04e300,0x00441025\n\t"
-    ".word 0x03e00008,0x00621025\n\t");
+typedef unsigned int u32;
+
+extern short D_800B0C64;
+extern short D_800B0C66;
+
+static __inline__ u32 pack_x(int x)
+{
+    return (x & 0x3FF) | 0xE3000000;
+}
+
+u32 func_800808C8(int x, int y)
+{
+    register int temporary asm("$2");
+    register int signed_value asm("$6");
+    register u32 packed_y asm("$3");
+
+    asm("sll %0,%2,16\n\tsra %1,%0,16"
+        : "=r"(temporary), "=r"(signed_value) : "r"(x));
+    temporary = 0;
+    if (signed_value >= 0) {
+        temporary = D_800B0C64 - 1;
+        temporary = temporary < signed_value;
+        asm("lui %0,%%hi(D_800B0C64)\n\tlhu %0,%%lo(D_800B0C64)(%0)"
+            : "=r"(signed_value) : "r"(temporary));
+        if (temporary == 0) {
+            temporary = x;
+        } else {
+            temporary = signed_value - 1;
+        }
+    }
+    x = temporary;
+
+    asm("sll %0,%2,16\n\tsra %1,%0,16"
+        : "=r"(temporary), "=r"(signed_value) : "r"(y));
+    if (signed_value < 0) {
+        goto negative_y;
+    }
+    temporary = D_800B0C66 - 1;
+    temporary = temporary < signed_value;
+    asm("lui %0,%%hi(D_800B0C66)\n\tlhu %0,%%lo(D_800B0C66)(%0)"
+        : "=r"(signed_value) : "r"(temporary));
+    if (temporary == 0) {
+        goto pack_y;
+    }
+    y = signed_value - 1;
+    goto pack_y;
+negative_y:
+    y = 0;
+pack_y:
+    packed_y = (y & 0x3FF) << 10;
+    return packed_y | pack_x(x);
+}
