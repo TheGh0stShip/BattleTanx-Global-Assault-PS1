@@ -1265,7 +1265,7 @@
     {"name": "func_800344D4", "address": "0x800344D4", "size": "0x70", "source": "src/game/800344D4.c", "symbols": {}},
     {"name": "func_80037878", "address": "0x80037878", "size": "0x70", "source": "src/game/80037878.c", "symbols": {}},
     {"name": "func_8004C0F8", "address": "0x8004C0F8", "size": "0x70", "source": "src/game/8004C0F8.c", "symbols": {}},
-    {"name": "func_80050668", "address": "0x80050668", "size": "0x70", "source": "src/game/80050668.c", "symbols": {}},
+    {"name": "func_80050668", "address": "0x80050668", "size": "0x70", "source": "src/game/80050668.c", "symbols": {"D_800A4EF4": "0x800A4EF4"}},
     {"name": "func_8006128C", "address": "0x8006128C", "size": "0x70", "source": "src/game/8006128C.c", "symbols": {}},
     {"name": "func_80063BF8", "address": "0x80063BF8", "size": "0x70", "source": "src/game/80063BF8.c", "symbols": {}},
     {"name": "func_80078E54", "address": "0x80078E54", "size": "0x70", "source": "src/game/80078E54.c", "symbols": {"D_800A9A88": "0x800A9A88", "D_800AEA5C": "0x800AEA5C", "D_800AEB30": "0x800AEB30", "D_800EAC90": "0x800EAC90", "D_800EBC3C": "0x800EBC3C", "D_800EBC40": "0x800EBC40", "func_80059550": "0x80059550", "func_80076E28": "0x80076E28"}},

@@ -1,8 +1,41 @@
-asm(".text\n\t.globl func_80050668\nfunc_80050668:\n\t"
-    ".word 0x00803021,0xaca0000c,0x24c50184,0x94c2002c\n\t"
-    ".word 0x94a30008,0x3c04800a,0x00431023,0x8cc3009c\n\t"
-    ".word 0x24844ef4,0xa4c2002c,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8c420010,0x00000000,0x30420001,0x10400006\n\t"
-    ".word 0x00000000,0x94a20008,0x94c30030,0x00021040\n\t"
-    ".word 0x00621821,0xa4c30030,0x03e00008,0x00000000\n\t");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct SteeringState {
+    u8 pad_00[8];
+    u16 turn;
+} SteeringState;
+
+typedef struct Tank {
+    u8 pad_000[0x2C];
+    u16 heading;
+    u8 pad_02E[2];
+    u16 turn_accumulator;
+    u8 pad_032[0x9C - 0x32];
+    int type;
+    u8 pad_0A0[0x184 - 0xA0];
+    SteeringState steering;
+} Tank;
+
+typedef struct Output {
+    u8 pad_00[12];
+    int field_0C;
+} Output;
+
+typedef struct TankDefinition {
+    u8 pad_00[0x10];
+    int flags;
+    u8 pad_14[0xD0 - 0x14];
+} TankDefinition;
+
+extern TankDefinition D_800A4EF4[];
+
+void func_80050668(Tank *tank, Output *output) {
+    SteeringState *steering;
+
+    output->field_0C = 0;
+    steering = &tank->steering;
+    tank->heading -= steering->turn;
+    if (D_800A4EF4[tank->type].flags & 1)
+        tank->turn_accumulator += steering->turn * 2;
+}
