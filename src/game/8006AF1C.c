@@ -1,9 +1,23 @@
-asm(".text\n\t.globl func_8006AF1C\nfunc_8006AF1C:\n\t"
-    ".word 0x27bdffd8,0xafb00018,0x00808021,0x24040004\n\t"
-    ".word 0xafb1001c,0xafbf0020,0x0c024d64,0x00a08821\n\t"
-    ".word 0x3c02800e,0x8444540c,0x0c0246a4,0x00802821\n\t"
-    ".word 0x00002821,0x3c028007,0x2442aee8,0xafa20014\n\t"
-    ".word 0x3c02800b,0x2442de3c,0x00108080,0x02028021\n\t"
-    ".word 0x00a03021,0xafa00010,0x8e040000,0x0c024e0f\n\t"
-    ".word 0x322700ff,0x8fbf0020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef signed short s16;
+
+extern void func_80093590(int type, int value);
+extern int func_80091A90(int first, int second);
+extern int func_8009383C(void *entry, int arg1, int arg2, int variant,
+                        int arg4, void (*callback)(void *));
+extern void func_8006AEE8(void *context);
+extern void *D_800ADE3C[];
+extern s16 D_800E540C;
+
+void func_8006AF1C(int index, int variant) {
+    int saved_index = index;
+    register int saved_variant asm("$17");
+    register int zero asm("$5");
+    register int third asm("$6");
+
+    func_80093590(4, saved_variant = variant);
+    func_80091A90(D_800E540C, D_800E540C);
+    zero = 0;
+    third = zero;
+    func_8009383C(D_800ADE3C[saved_index], zero, third,
+                  saved_variant & 0xFF, 0, func_8006AEE8);
+}
