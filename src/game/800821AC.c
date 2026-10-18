@@ -1,9 +1,22 @@
-asm(".text\n\t.globl func_800821AC\nfunc_800821AC:\n\t"
-    ".word 0x27bdffd8,0xafb00018,0x3c10800f,0xafb1001c\n\t"
-    ".word 0x8e11dc9c,0xafb20020,0x2612dc9c,0x10a00004\n\t"
-    ".word 0xafbf0024,0x8e420004,0x00000000,0xaca20000\n\t"
-    ".word 0x27a50010,0x27a60014,0x0c0207a5,0x00003821\n\t"
-    ".word 0x8fa30010,0x2402ffff,0x10620005,0x02201021\n\t"
-    ".word 0x8fa20014,0xae03dc9c,0xae420004,0x02201021\n\t"
-    ".word 0x8fbf0024,0x8fb20020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+extern unsigned char D_800EDC9C;
+extern void func_80081E94(int input, int *slot, void **value, int unused);
+
+int func_800821AC(int input, void **previous_value)
+{
+    register int previous_slot asm("$17") = *(int *)&D_800EDC9C;
+    register unsigned char *base asm("$18") = &D_800EDC9C;
+    int slot;
+    void *value;
+
+    if (previous_value != 0) {
+        *previous_value = *(void **)(base + 4);
+    }
+
+    func_80081E94(input, &slot, &value, 0);
+    if (slot != -1) {
+        *(int *)&D_800EDC9C = slot;
+        *(void **)(base + 4) = value;
+    }
+
+    return previous_slot;
+}
