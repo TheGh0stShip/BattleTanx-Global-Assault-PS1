@@ -66,10 +66,11 @@ MMM uses `MM01`, a count, and 12-byte table records. Each record begins with a
 signed blob offset or `-1`; its other two words are zero on disc. The loader
 rebases the record to the CM01 header and its following 3MDL chunk.
 
-CM01 is 0x24 bytes. It stores divided bounding minima and maxima, opaque words,
-and two identical signed center triplets at `0x14` and `0x1C`. The value at
-`0x22` is the renderer's signed cull radius; the exact role of the other extent
-at `0x1A` remains unresolved. The 3MDL header contains its magic, vertex-group
+CM01 is 0x24 bytes. It stores divided bounding minima and maxima and two
+identical signed center triplets at `0x14` and `0x1C`. The signed value at
+`0x1A` is exactly `isqrt(dx*dx + dy*dy + dz*dz)` over the three divided
+bounding-box spans in all 4,761 models. The value at `0x22` is the renderer's
+signed cull radius. The 3MDL header contains its magic, vertex-group
 count, vertex count, primitive count, constant format flags `0x47F`, and chunk size.
 Vertices are four 16-bit words: signed x, y and z, followed by a preserved flag
 word. Bit 15 terminates a vertex group. The declared count equals the number of

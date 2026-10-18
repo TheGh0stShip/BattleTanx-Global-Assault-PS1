@@ -1,4 +1,5 @@
 """Synthetic fixture builders.  No retail bytes are used anywhere in the unit tests."""
+import math
 import struct
 
 
@@ -56,8 +57,11 @@ def model(verts, words, prims=None, unk4=1, flags=0x47F):
     mdl = b"3MDL" + u32(unk4, len(verts), nprims, flags, size) + vb + stream
     xs = [v[0] for v in verts]; ys = [v[1] for v in verts]; zs = [v[2] for v in verts]
     q = lambda x: int(x / 4)
-    cm = b"CM01" + struct.pack("<16h", q(min(xs)), q(min(ys)), q(min(zs)), 0, q(max(xs)), q(max(ys)), q(max(zs)), 0,
-                               0, 0, 0, 0, 0, 0, 0, 64)
+    lo = [q(min(xs)), q(min(ys)), q(min(zs))]
+    hi = [q(max(xs)), q(max(ys)), q(max(zs))]
+    diagonal = math.isqrt(sum((hi[i] - lo[i]) ** 2 for i in range(3)))
+    cm = b"CM01" + struct.pack("<16h", lo[0], lo[1], lo[2], 0, hi[0], hi[1], hi[2], 0,
+                               0, 0, 0, diagonal, 0, 0, 0, 64)
     return cm + mdl
 
 

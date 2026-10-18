@@ -125,6 +125,7 @@ class Models(unittest.TestCase):
         m = mm["models"][1]
         self.assertTrue(m["primitive_count_matches"])
         self.assertTrue(m["cm01"]["bbox_matches_vertices"])
+        self.assertEqual(m["cm01"]["bbox_diagonal_div4_0x1A"], 22)
         self.assertEqual(m["mdl"]["vertex_group_count"], 1)
         self.assertEqual(m["mdl"]["format_flags_0x10"], 0x47F)
         self.assertEqual(m["mdl"]["vertex_group_end_indices"], [3])

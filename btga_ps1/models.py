@@ -12,6 +12,8 @@ Evidence (SLUS_010.44):
   * Command interpreter 0x8007D708..0x8007D790 with handler table 0x8007DC30 (64 slots,
     two instructions each) and primitive emitter table 0x8007DD78 (16 pointers).
 """
+from math import isqrt
+
 from .binio import FormatError, Reader
 
 MAX_MODELS = 4096
@@ -212,11 +214,16 @@ def decode_mmm(data, name="<mmm>", ttt=None):
                    and hdr[3] == 0 and hdr[7] == 0)
         if hdr[8:11] != hdr[12:15]:
             raise FormatError("%s: CM01 duplicated bounds centers disagree" % where)
+        bbox_span = [hdr[4 + axis] - hdr[axis] for axis in range(3)]
+        bbox_diagonal = isqrt(sum(x * x for x in bbox_span))
+        if hdr[11] != bbox_diagonal:
+            raise FormatError("%s: CM01 bounding-box diagonal %d != calculated %d" %
+                              (where, hdr[11], bbox_diagonal))
         spans.append((o, m + size, i))
         models.append({
             "index": i, "empty": False, "table_words": [off, f1, f2], "offset": o, "length": 0x24 + size,
             "cm01": {"bbox_min_div4": hdr[0:3], "bbox_max_div4": hdr[4:7], "bbox_matches_vertices": bbox_ok,
-                     "bounds_center": hdr[8:11], "unknown_extent_0x1A": hdr[11],
+                     "bounds_center": hdr[8:11], "bbox_diagonal_div4_0x1A": hdr[11],
                      "cull_radius_s16_0x22": hdr[15]},
             "mdl": {"vertex_group_count": unk4, "vertex_group_end_indices": vertex_group_ends,
                     "empty_vertex_groups": empty_vertex_groups, "vertex_count": nverts,
