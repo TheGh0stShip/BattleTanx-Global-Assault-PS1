@@ -1,13 +1,46 @@
-asm(".text\n\t.globl func_80078CF0\nfunc_80078CF0:\n\t"
-    ".word 0x27bdffd8,0x24040041,0x3c05800b,0x24a5eb24\n\t"
-    ".word 0xafbf0020,0xafb1001c,0x0c022186,0xafb00018\n\t"
-    ".word 0x3c02800b,0x2442e9b8,0xafa20010,0x3c02800a\n\t"
-    ".word 0x24110064,0x00003021,0x8c454358,0x00c03821\n\t"
-    ".word 0xafb10014,0x24a40094,0x0c022191,0x24a50014\n\t"
-    ".word 0x0c021baa,0x24040001,0x3c10800f,0x2610bc54\n\t"
-    ".word 0x0c021b9b,0x02002021,0x00502021,0x3c05800c\n\t"
-    ".word 0x0c023681,0x24a53e04,0x3c02800f,0xa451bc50\n\t"
-    ".word 0x3c02800f,0x3c03800f,0xac40bc3c,0x2462bbb4\n\t"
-    ".word 0xa0400001,0x8fbf0020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x3c02800f,0xac40bc38,0x3c02800f,0xa060bbb4\n\t"
-    ".word 0xac40bc44,0x03e00008,0x27bd0028\n\t");
+typedef signed int s32;
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+extern char *D_800A4358;
+extern char D_800AE9B8[];
+extern char D_800AEB24[];
+extern char D_800C3E04[];
+typedef struct BytePair {
+    u8 first;
+    u8 second;
+} BytePair;
+
+extern BytePair D_800EBBB4;
+extern s32 D_800EBC38;
+extern s32 D_800EBC3C;
+extern s32 D_800EBC44;
+extern u16 D_800EBC50;
+extern char D_800EBC54[];
+extern s32 func_80086E6C(void *state);
+extern void func_80086EA8(s32 mode);
+extern void func_80088618(s32 count, void *table);
+extern void func_80088644(void *destination, void *source, s32 zero_a,
+                          s32 zero_b, void *table, s32 count);
+extern void func_8008DA04(void *destination, void *source);
+
+void func_80078CF0(void) {
+    register s32 count asm("$17") = 100;
+    register char *state asm("$16");
+    s32 offset;
+
+    func_80088618(0x41, D_800AEB24);
+    func_80088644(D_800A4358 + 0x94, D_800A4358 + 0x14, 0, 0,
+                  D_800AE9B8, count);
+    func_80086EA8(1);
+    state = D_800EBC54;
+    offset = func_80086E6C(state);
+    asm volatile("" : : "r"(state));
+    func_8008DA04(state + offset, D_800C3E04);
+    D_800EBC50 = count;
+    D_800EBC3C = 0;
+    D_800EBBB4.second = 0;
+    D_800EBC38 = 0;
+    D_800EBBB4.first = 0;
+    D_800EBC44 = 0;
+}
