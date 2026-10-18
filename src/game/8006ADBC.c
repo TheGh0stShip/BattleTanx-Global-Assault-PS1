@@ -1,8 +1,18 @@
-asm(".text\n\t.globl func_8006ADBC\nfunc_8006ADBC:\n\t"
-    ".word 0x27bdffd8,0xafbf0020,0xafb1001c,0x10800012\n\t"
-    ".word 0xafb00018,0x3c10800b,0x0c021b21,0x2610de3c\n\t"
-    ".word 0x00028b82,0x32310004,0x0c021b21,0x02308821\n\t"
-    ".word 0x3c038007,0x2463adbc,0x00021402,0x00002821\n\t"
-    ".word 0x00a03021,0xafa00010,0xafa30014,0x8e240000\n\t"
-    ".word 0x0c024e0f,0x30470007,0x8fbf0020,0x8fb1001c\n\t"
-    ".word 0x8fb00018,0x03e00008,0x27bd0028");
+typedef unsigned int u32;
+
+extern u32 func_80086C84(void);
+extern int func_8009383C(void *entry, int arg1, int arg2, int variant,
+                        int arg4, void (*callback)(void *));
+extern char D_800ADE3C[];
+
+void func_8006ADBC(void *context) {
+    char *base;
+    void **entry;
+
+    if (context != 0) {
+        base = D_800ADE3C;
+        entry = (void **)(base + ((func_80086C84() >> 14) & 4));
+        func_8009383C(*entry, 0, 0, (func_80086C84() >> 16) & 7,
+                      0, func_8006ADBC);
+    }
+}
