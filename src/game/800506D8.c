@@ -1,20 +1,56 @@
-asm(".text\n\t.globl func_800506D8\nfunc_800506D8:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0xAFB00010\n\t"
-    ".word 0xAFBF0018,0x8E230184,0x24040002,0x10640017\n\t"
-    ".word 0x26300184,0x2C620003,0x10400005,0x24020001\n\t"
-    ".word 0x1062000A,0x3C02800D,0x080141FC,0x00000000\n\t"
-    ".word 0x24020003,0x10620019,0x24020004,0x10620029\n\t"
-    ".word 0x3C02800D,0x080141FC,0x00000000,0x8C422FE0\n\t"
-    ".word 0x8E030004,0x00000000,0x0043102A,0x1440002A\n\t"
-    ".word 0x00000000,0x080141FC,0xAE240184,0x96030008\n\t"
-    ".word 0x00000000,0x2C620201,0x14400004,0x24020100\n\t"
-    ".word 0x2462FE00,0x080141FC,0xA6020008,0xA6020008\n\t"
-    ".word 0x24020003,0x080141FC,0xAE220184,0x9624002C\n\t"
-    ".word 0x9605000A,0x0C011EE6,0x00000000,0x96030008\n\t"
-    ".word 0x3042FFFF,0x0062182B,0x14600013,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x9603000A,0x2442005A,0xA623002C\n\t"
-    ".word 0xAE020004,0x24020004,0xA6000008,0x080141FC\n\t"
-    ".word 0xAE220184,0x8C422FE0,0x8E030004,0x00000000\n\t"
-    ".word 0x0043102A,0x14400004,0x00000000,0x8E05000C\n\t"
-    ".word 0x0C0138AB,0x02202021,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef unsigned short u16;
+typedef unsigned int u32;
+
+typedef struct {
+    u32 state;
+    int deadline;
+    u16 amount;
+    u16 target_heading;
+    int next_state;
+} TurnState;
+
+typedef struct {
+    char pad000[0x2C];
+    u16 heading;
+    char pad02E[0x156];
+    TurnState turn;
+} Tank;
+
+extern int D_800D2FE0;
+
+u16 func_80047B98(u16, u16);
+void func_8004E2AC(Tank *, int);
+
+void func_800506D8(Tank *tank) {
+    TurnState *turn;
+
+    turn = &tank->turn;
+    switch (turn->state) {
+    case 1:
+        if (D_800D2FE0 >= turn->deadline) {
+            turn->state = 2;
+        }
+        break;
+    case 2:
+        if (turn->amount >= 513) {
+            turn->amount -= 512;
+        } else {
+            turn->amount = 256;
+            turn->state = 3;
+        }
+        break;
+    case 3:
+        if (turn->amount >= func_80047B98(tank->heading, turn->target_heading)) {
+            tank->heading = turn->target_heading;
+            turn->deadline = D_800D2FE0 + 90;
+            turn->amount = 0;
+            turn->state = 4;
+        }
+        break;
+    case 4:
+        if (D_800D2FE0 >= turn->deadline) {
+            func_8004E2AC(tank, turn->next_state);
+        }
+        break;
+    }
+}

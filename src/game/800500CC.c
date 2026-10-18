@@ -1,17 +1,64 @@
-asm(".text\n\t.globl func_800500CC\nfunc_800500CC:\n\t"
-    ".word 0x27bdffe0,0xafb10014,0x00808821,0xafbf0018\n\t"
-    ".word 0xafb00010,0x8e2200a4,0x00000000,0x10400005\n\t"
-    ".word 0x00000000,0x0c0138ab,0x24050014,0x0801406b\n\t"
-    ".word 0x00000000,0x00002021,0x0c008e1c,0x24050008\n\t"
-    ".word 0x00402821,0x8e230184,0x24020001,0x10620006\n\t"
-    ".word 0x26300184,0x24020002,0x10620012,0x00000000\n\t"
-    ".word 0x0801406b,0x00000000,0x14a00004,0x02202021\n\t"
-    ".word 0xae000004,0x0801406b,0xae000008,0xae050004\n\t"
-    ".word 0x84a20000,0x24a50020,0x00003021,0x24070001\n\t"
-    ".word 0x0c013858,0xae020008,0x24020002,0x0801406b\n\t"
-    ".word 0xae220184,0x10a0000a,0x00000000,0x8e020004\n\t"
-    ".word 0x00000000,0x14a20006,0x00000000,0x84a30000\n\t"
-    ".word 0x8e020008,0x00000000,0x10620005,0x00000000\n\t"
-    ".word 0x0c01382f,0x02202021,0x24020001,0xae020000\n\t"
-    ".word 0x8fbf0018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef unsigned int u32;
+typedef signed short s16;
+
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    s16 generation;
+    char pad002[0x1E];
+    Vector position;
+} Candidate;
+
+typedef struct {
+    u32 state;
+    Candidate *candidate;
+    int generation;
+} MoveState;
+
+typedef struct {
+    char pad000[0xA4];
+    void *active_object;
+    char pad0A8[0xDC];
+    MoveState move;
+} Tank;
+
+Candidate *func_80023870(int, int);
+void func_8004E0BC(Tank *);
+void func_8004E160(Tank *, Vector *, int, int);
+void func_8004E2AC(Tank *, int);
+
+void func_800500CC(Tank *tank) {
+    Candidate *candidate;
+    MoveState *move;
+
+    if (tank->active_object != 0) {
+        func_8004E2AC(tank, 20);
+    } else {
+        candidate = func_80023870(0, 8);
+        move = &tank->move;
+        switch (move->state) {
+        case 1:
+            if (candidate == 0) {
+                move->candidate = 0;
+                move->generation = 0;
+            } else {
+                move->candidate = candidate;
+                move->generation = candidate->generation;
+                func_8004E160(tank, &candidate->position, 0, 1);
+                move->state = 2;
+            }
+            break;
+        case 2:
+            if (candidate == 0 || candidate != move->candidate ||
+                candidate->generation != move->generation) {
+                func_8004E0BC(tank);
+                move->state = 1;
+            }
+            break;
+        }
+    }
+}
