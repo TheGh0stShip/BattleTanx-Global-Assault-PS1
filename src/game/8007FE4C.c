@@ -1,7 +1,22 @@
-asm(".text\n\t.globl func_8007FE4C\nfunc_8007FE4C:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0x3c02800b\n\t"
-    ".word 0x8c420c58,0xafbf0018,0xafb10014,0x8c42003c\n\t"
-    ".word 0x92110003,0x0040f809,0x00002021,0x3c02800b\n\t"
-    ".word 0x8c420c58,0x26040004,0x8c420014,0x00000000\n\t"
-    ".word 0x0040f809,0x02202821,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct DisplayInterface {
+    void *unknown_00[5];
+    void (*submit)(void *data, unsigned int option);
+    void *unknown_18[9];
+    void (*apply)(void *value);
+} DisplayInterface;
+
+typedef struct DisplayPacket {
+    unsigned char header[4];
+    unsigned char data[1];
+} DisplayPacket;
+
+extern DisplayInterface *D_800B0C58_apply;
+extern DisplayInterface *D_800B0C58_submit;
+
+void func_8007FE4C(DisplayPacket *packet)
+{
+    unsigned int option = packet->header[3];
+
+    D_800B0C58_apply->apply(0);
+    D_800B0C58_submit->submit(packet->data, option);
+}
