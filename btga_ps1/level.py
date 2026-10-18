@@ -142,6 +142,24 @@ def decode_level_bin(data, name="<bin>"):
             }
             if rec["fields"]["reserved_u16"] != 0:
                 raise FormatError("%s: opcode 30 at 0x%X has nonzero reserved word" % (name, rel))
+        elif opcode == 6:
+            rec["fields"] = {"grid_row": r.u8(pos + 1), "grid_column": r.u8(pos + 2)}
+            if r.u8(pos + 3):
+                raise FormatError("%s: opcode 6 at 0x%X has nonzero reserved byte" % (name, rel))
+        elif opcode == 7:
+            rec["fields"] = {"turret_mode": r.u8(pos + 1), "spawn_parameter": r.u8(pos + 2)}
+            if r.u8(pos + 3):
+                raise FormatError("%s: opcode 7 at 0x%X has nonzero reserved byte" % (name, rel))
+        elif opcode == 27:
+            rec["fields"] = {"randomized_hazard_type": bool(r.u8(pos + 1))}
+            if r.u16(pos + 2):
+                raise FormatError("%s: opcode 27 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 37:
+            rec["fields"] = {"environment_rgb": [list(raw[k:k + 3]) for k in (1, 4, 7, 10, 13, 16, 19)]}
+            if r.u16(pos + 22):
+                raise FormatError("%s: opcode 37 at 0x%X has nonzero reserved bytes" % (name, rel))
+        elif opcode == 38:
+            rec["fields"] = {"player_rgb": list(raw[1:4])}
         object_by_offset[rel] = len(object_records)
         object_records.append(rec)
         pos += size

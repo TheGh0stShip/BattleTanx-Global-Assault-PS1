@@ -123,7 +123,11 @@ entries are decoded. Opcodes 0, 1, 11, 14, 35, 42 and 43 use their `u16` at
 references are validated. Opcode 30 is decoded as `{u8 opcode, u8 mode, s16
 min_offset[3], s16 max_offset[3], u16 reserved}`. This agrees with the N64
 entry dispatcher, and the reserved word is zero in every PS1 record. Other
-still-unidentified object fields remain preserved.
+cross-platform matches decode opcode 6's grid row/column, opcode 7's turret
+mode and spawn parameter, opcode 27's randomized-hazard selector, opcode 37's
+seven environment RGB triplets, and opcode 38's per-player RGB triplet. In
+total, 3,890 of 5,698 records now have semantic fields. Other unidentified
+object fields remain preserved.
 
 Font BIN files contain 81 glyph records `{u16 x, u16 y, u16 width}`, followed by
 one metrics record `{u16 glyph_height, u16 fixed_advance, u16 space_width}`.

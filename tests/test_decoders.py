@@ -239,16 +239,27 @@ class Level(unittest.TestCase):
 
     def test_level_object_fields(self):
         bounds = struct.pack("<BBhhhhhhH", 30, 2, -1, -2, -3, 4, 5, 6, 0)
-        b = level.decode_level_bin(fx.level_bin(object_records=[bytes([0, 0, 0, 0]), bounds]))
+        palette = bytes([37]) + bytes(range(1, 22)) + bytes(2)
+        records = [bytes([0, 0, 0, 0]), bounds, bytes([6, 2, 3, 0]), bytes([7, 20, 1, 0]),
+                   bytes([27, 1, 0, 0]), palette, bytes([38, 10, 20, 30])]
+        b = level.decode_level_bin(fx.level_bin(object_records=records))
         self.assertEqual(b["object_records"][0]["fields"],
                          {"model_name_index": 0, "model_name": "fixture"})
         self.assertEqual(b["object_records"][1]["fields"],
                          {"mode": 2, "min_offset": [-1, -2, -3], "max_offset": [4, 5, 6],
                           "reserved_u16": 0})
+        self.assertEqual(b["object_records"][2]["fields"], {"grid_row": 2, "grid_column": 3})
+        self.assertEqual(b["object_records"][3]["fields"], {"turret_mode": 20, "spawn_parameter": 1})
+        self.assertEqual(b["object_records"][4]["fields"], {"randomized_hazard_type": True})
+        self.assertEqual(b["object_records"][5]["fields"]["environment_rgb"][0], [1, 2, 3])
+        self.assertEqual(b["object_records"][5]["fields"]["environment_rgb"][-1], [19, 20, 21])
+        self.assertEqual(b["object_records"][6]["fields"], {"player_rgb": [10, 20, 30]})
         bad_ref = bytearray(fx.level_bin(object_records=[bytes([0, 0, 2, 0])]))
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_ref))
         bad_reserved = bytearray(fx.level_bin(object_records=[bounds[:-2] + b"\1\0"]))
         self.assertRaises(FormatError, level.decode_level_bin, bytes(bad_reserved))
+        self.assertRaises(FormatError, level.decode_level_bin,
+                          fx.level_bin(object_records=[bytes([6, 0, 0, 1])]))
 
     def test_font(self):
         data = struct.pack("<6H", 0, 0, 5, 5, 0, 6) + bytes(79 * 6) + struct.pack("<3H", 8, 10, 4)

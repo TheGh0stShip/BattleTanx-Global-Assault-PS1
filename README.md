@@ -47,7 +47,7 @@ is also reported separately and never inflates either executable measurement.
 | MMM/3MDL | 76 files / 4,761 models | first CM01 extent role | geometry, bounds centers, vertex grouping, flags, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files / 307,200 RGB blocks | 0 cells | terrain cells, RGB plane, and tile-63 sentinel decoded |
-| Level BIN | 75 files / 30,758 placements | remaining object parameter names | groups, placements, model references, bounds records, and names decoded |
+| Level BIN | 75 files / 30,758 placements | 1,808 object records need field names | 3,890 of 5,698 object records have semantic fields |
 | Font BIN | 4 files / 324 glyphs and 4 metrics records | 0 records | glyph rectangles, height, fixed advance, and space width decoded |
 | VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
 | STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |

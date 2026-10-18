@@ -150,6 +150,7 @@ def run(root, out, previews=False, objs=False, wavs=False):
                                       "placements": len(b["placements"]), "active_first": b["active_first"],
                                       "active_count": b["active_count"], "groups": b["groups"],
                                       "object_records": len(b["object_records"]),
+                                      "semantic_object_records": sum("fields" in x for x in b["object_records"]),
                                       "model_references": sum(x["opcode"] in level.OBJECT_MODEL_REFERENCE_OPCODES
                                                               for x in b["object_records"]),
                                       "bounds_records": sum(x["opcode"] == 30 for x in b["object_records"]),
