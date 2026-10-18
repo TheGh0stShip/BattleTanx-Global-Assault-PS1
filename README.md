@@ -9,7 +9,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 ## Progress
 
-![Executable matching: 4.22%](https://img.shields.io/badge/executable_matching-4.22%25-red)
+![Executable matching: 4.17%](https://img.shields.io/badge/executable_matching-4.17%25-red)
 ![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 
@@ -20,14 +20,14 @@ source compiles to identical machine code.
 
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
-| Matching C text | 31,532 bytes | 715,988 bytes | 4.22% |
+| Matching C text | 31,148 bytes | 716,372 bytes | 4.17% |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 candidates | review required | no match credit |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed function boundaries | 587 | candidate audit required | in progress |
-| Functions matched | 587 | 1,194 provisional candidates | 585 provisional starts matched (32.88%); 2 additional entries |
+| Reviewed function boundaries | 575 | candidate audit required | in progress |
+| Functions matched | 575 | 1,206 provisional candidates | 573 provisional starts matched (32.21%); 2 additional entries |
 
 | Asset work | Complete | Remaining | Coverage |
 |---|---:|---:|---:|
@@ -43,15 +43,15 @@ source compiles to identical machine code.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Validation tests | 43 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 47 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 The four opaque corpus files are the game executable, boot configuration, text,
 and license data. “Structural” means the format tiles the file exactly with
 bounds-checked parsing; it does not mean every field's gameplay meaning is known.
 
-This is an early matching C reconstruction of the main executable. Five hundred eighty-seven
-functions currently compile to 31,532 identical retail bytes. Compiler
+This is an early matching C reconstruction of the main executable. Five hundred seventy-five
+functions currently compile to 31,148 identical retail bytes. Compiler
 corroboration and executable segmentation are the next decompilation milestones;
 the ignored matching report is generated directly by the exact-byte verifier.
 

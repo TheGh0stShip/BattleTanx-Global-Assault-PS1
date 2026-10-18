@@ -36,6 +36,27 @@ def oracle_slice(executable, address, size):
     return executable[offset:offset + size]
 
 
+def validate_units(config):
+    units = config["units"]
+    for key in ("name", "address", "source"):
+        seen = set()
+        for unit in units:
+            value = parse_int(unit[key]) if key == "address" else unit[key]
+            if value in seen:
+                raise ValueError("duplicate matching-unit %s: %s" % (key, value))
+            seen.add(value)
+
+    ranges = sorted(
+        (parse_int(unit["address"]), parse_int(unit["size"]), unit["name"])
+        for unit in units
+    )
+    for previous, current in zip(ranges, ranges[1:]):
+        if current[0] < previous[0] + previous[1]:
+            raise ValueError(
+                "overlapping matching units: %s and %s" % (previous[2], current[2])
+            )
+
+
 def run_checked(args, **kwargs):
     subprocess.run(args, check=True, **kwargs)
 
@@ -79,6 +100,7 @@ def compile_unit(unit, config, prefix, work):
 
 def verify(config_path, executable_path, output_path, prefix):
     config = json.loads(Path(config_path).read_text())
+    validate_units(config)
     executable = Path(executable_path).read_bytes()
     results = []
     with tempfile.TemporaryDirectory() as directory:
