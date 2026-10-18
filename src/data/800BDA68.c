@@ -1,0 +1,6 @@
+asm(".text\n\t.globl data_800BDA68\ndata_800BDA68:\n\t"
+    ".word 0x8002D35C,0x8002D35C,0x8002D35C,0x8002D35C\n\t"
+    ".word 0x8002D35C,0x8002D35C,0x8002D35C,0x8002D188\n\t"
+    ".word 0x8002D258,0x8002D35C,0x8002D35C,0x8002D35C\n\t"
+    ".word 0x8002D35C,0x8002D35C,0x8002D35C\n\t"
+);

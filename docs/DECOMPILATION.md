@@ -34,17 +34,16 @@ The first split deliberately emits the entire loaded range for inspection. It
 does not count unknown bytes as decompiled. The next milestones are broader
 compiler corroboration, function-boundary recovery, and section ownership.
 
-One thousand seven hundred sixty-one production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and match all 589,544 retail bytes after the pinned assembler compatibility pass.
+One thousand seven hundred eighty-nine production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
+and match all 593,416 retail bytes after the pinned assembler compatibility pass.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.
 
-The initial control-flow scan exposes 1,779 aligned call-target candidates.
+The initial control-flow scan exposes 1,779 aligned call-target candidates, all of which now have exact source coverage.
 `make function-inventory` records them in an ignored deterministic report. They
-remain provisional until instruction flow, returns, jump tables, embedded data,
-and callerless entry points are audited; the candidate count is not a completed
-function count.
+Their classification remains provisional until instruction flow, returns, jump tables, embedded data,
+and callerless entry points are audited; the candidate count is not a completed function count.
 
 The pointer table at `0x800B6AEC` establishes a callerless entry at `0x8009450C`.
 The preceding accessor at `0x800944F4` therefore ends at `0x8009450C`; both

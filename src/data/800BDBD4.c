@@ -1,0 +1,6 @@
+asm(".text\n\t.globl data_800BDBD4\ndata_800BDBD4:\n\t"
+    ".word 0x8002E558,0x8002E558,0x8002E558,0x8002E558\n\t"
+    ".word 0x8002E558,0x8002E558,0x8002E558,0x8002E558\n\t"
+    ".word 0x8002E448,0x8002E558,0x8002E558,0x8002E558\n\t"
+    ".word 0x8002E558,0x8002E558\n\t"
+);
