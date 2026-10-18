@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+.pytest_cache/
+.venv/
+build/
+dist/
+out/
+
+# Original media and derived output must remain local.
+*.bin
+*.cue
+*.iso
+*.exe
+*.dis
+*.obj
+*.png
+manifest.json
+extracted/
+REPORT.md

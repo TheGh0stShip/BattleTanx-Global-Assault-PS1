@@ -1,0 +1,30 @@
+"""Gated real-corpus test.  Set BTGA_PS1_EXTRACTED to the extracted disc directory;
+skips cleanly when absent.  Never writes inside the corpus."""
+import os
+import tempfile
+import unittest
+
+CORPUS = os.environ.get("BTGA_PS1_EXTRACTED", "")
+
+
+@unittest.skipUnless(CORPUS and os.path.isdir(CORPUS), "BTGA_PS1_EXTRACTED not set or missing")
+class RealCorpus(unittest.TestCase):
+    def test_every_file_accepted(self):
+        from btga_ps1 import inventory
+        with tempfile.TemporaryDirectory() as out:
+            m = inventory.run(CORPUS, out)
+        self.assertEqual(m["file_count"], 737)
+        rejected = {k: e["reason"] for k, e in m["files"].items() if e["status"] == "rejected"}
+        self.assertEqual(rejected, {})
+        fam = m["summary"]
+        self.assertEqual(fam["TEX:accepted"], 256)
+        self.assertEqual(fam["MMM:accepted"], 76)
+        self.assertEqual(fam["BIN-level:accepted"], 75)
+        models = [x for k, e in m["files"].items() if k.endswith(".MMM") for x in e["decoded"]["models"] if not x.get("empty")]
+        self.assertEqual(len(models), 4761)
+        self.assertTrue(all(x["cm01"]["bbox_matches_vertices"] for x in models))
+        self.assertEqual(sum(not x["primitive_count_matches_header"] for x in models), 1)
+
+
+if __name__ == "__main__":
+    unittest.main()

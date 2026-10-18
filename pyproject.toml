@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btga-ps1"
+version = "0.1.0"
+description = "BattleTanx: Global Assault PlayStation asset decoders"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "BattleTanx decompilation contributors" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.scripts]
+btga-ps1-inventory = "btga_ps1.inventory:main"
+
+[tool.setuptools]
+packages = ["btga_ps1"]

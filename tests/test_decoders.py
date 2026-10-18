@@ -1,0 +1,261 @@
+import os
+import struct
+import tempfile
+import unittest
+
+from btga_ps1 import level, models, textures
+from btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
+from btga_ps1.png import encode_rgba
+from tests import fixtures as fx
+
+
+class BinIO(unittest.TestCase):
+    def test_little_endian(self):
+        r = Reader(b"\x01\x02\x03\x04\xff\xff")
+        self.assertEqual(r.u32(0), 0x04030201)
+        self.assertEqual(r.u16(0), 0x0201)
+        self.assertEqual(r.s16(4), -1)
+
+    def test_bounds(self):
+        r = Reader(b"\x00" * 4)
+        self.assertRaises(FormatError, r.u32, 1)
+        self.assertRaises(FormatError, r.u16, 3)
+        self.assertRaises(FormatError, r.bytes, 0, 5)
+        self.assertRaises(FormatError, r.need, -1, 1)
+
+    def test_alignment(self):
+        self.assertRaises(FormatError, Reader(bytes(8)).aligned, 2, 4)
+
+    def test_bgr555(self):
+        self.assertEqual(bgr555_to_rgba(0x001F), (255, 0, 0, 255))
+        self.assertEqual(bgr555_to_rgba(0x03E0), (0, 255, 0, 255))
+        self.assertEqual(bgr555_to_rgba(0x7C00), (0, 0, 255, 255))
+        self.assertEqual(bgr555_to_rgba(0x0000), (0, 0, 0, 0))
+        self.assertEqual(bgr555_to_rgba(0x8000), (0, 0, 0, 255))
+
+
+class Tex(unittest.TestCase):
+    def test_4bpp_nibble_order_and_clut(self):
+        d = textures.decode_tex(fx.tex_4bpp())
+        e = d["entries"][0]
+        self.assertEqual((e["width"], e["height"], e["bpp"], e["pixel_bytes"]), (4, 2, 4, 4))
+        px = textures.render_rgba(e, e["_cluts"][0])
+        idx = [0, 1, 2, 3, 4, 5, 6, 7]                       # low nibble first
+        self.assertEqual(px, [bgr555_to_rgba((k * 0x0421) & 0x7FFF) for k in idx])
+        self.assertEqual(e["clut_offset"], 8 + 12 + 4)
+
+    def test_8bpp_engine_cursor_quirk(self):
+        d = textures.decode_tex(fx.tex_8bpp(3, 2))            # 6 pixel bytes, not a multiple of 4
+        e = d["entries"][0]
+        self.assertTrue(e["engine_layout_mismatch"])
+        self.assertEqual(e["engine_clut_offset"], e["clut_offset"] - 2)
+
+    def test_16bpp(self):
+        e = textures.decode_tex(fx.tex_16bpp())["entries"][0]
+        self.assertIsNone(e["clut_offset"])
+        self.assertEqual(textures.render_rgba(e)[0], (255, 0, 0, 255))
+
+    def test_3pal_explicit_clut_count(self):
+        d = textures.decode_tex(fx.tex_4bpp(magic=b"3PAL", pal_count=2))
+        self.assertEqual(d["entries"][0]["clut_count"], 2)
+
+    def test_rejects(self):
+        good = fx.tex_4bpp()
+        self.assertRaises(FormatError, textures.decode_tex, good[:-1])              # truncated
+        self.assertRaises(FormatError, textures.decode_tex, good + b"\0")           # trailing
+        self.assertRaises(FormatError, textures.decode_tex, b"XTEX" + good[4:])     # magic
+        bad_mode = good[:16] + struct.pack("<I", 7) + good[20:]
+        self.assertRaises(FormatError, textures.decode_tex, bad_mode)
+        huge = good[:8] + struct.pack("<II", 4096, 4096) + good[16:]
+        self.assertRaises(FormatError, textures.decode_tex, huge)
+        self.assertRaises(FormatError, textures.decode_tex, b"3TEX" + fx.u32(0))   # zero count
+        self.assertRaises(FormatError, textures.decode_tex, fx.tex_4bpp(w=3, h=2))  # odd 4bpp width
+
+
+class ImgPlt(unittest.TestCase):
+    def test_pairing_and_multi_clut_records(self):
+        img, plt = fx.img_plt()
+        i, p = textures.decode_img(img), textures.decode_plt(plt)
+        pairs = textures.pair_img_plt(i, p)
+        self.assertEqual([q["clut_count"] for _, q in pairs], [1, 9])
+        self.assertEqual(p["records"][1]["offset"], 8 + 40)
+        px = textures.render_rgba(pairs[1][0], pairs[1][1]["_cluts"][0])
+        self.assertEqual(px[0], bgr555_to_rgba(1 + 1))       # byte 0x11 -> index 1 of CLUT (i + k)
+
+    def test_rejects(self):
+        img, plt = fx.img_plt()
+        self.assertRaises(FormatError, textures.decode_img, img[:-1])
+        self.assertRaises(FormatError, textures.decode_plt, plt[:-2])
+        bad = plt[:12] + fx.u32(0) + plt[16:]                 # zero CLUT count
+        self.assertRaises(FormatError, textures.decode_plt, bad)
+        img1, plt1 = fx.img_plt(n=1)
+        self.assertRaises(FormatError, textures.pair_img_plt, textures.decode_img(img),
+                          textures.decode_plt(plt1))
+
+
+class Ful(unittest.TestCase):
+    def test_frames(self):
+        f = textures.decode_ful(fx.ful(frames=3))
+        self.assertEqual((f["width"], f["height"], f["frames"]), (320, 256, 3))
+
+    def test_small_frames(self):
+        f = textures.decode_ful(fx.ful(160, 120, 2))
+        self.assertEqual((f["width"], f["height"]), (160, 120))
+
+    def test_rejects(self):
+        d = bytearray(fx.ful(frames=2))
+        d[4 + 320 * 256 * 2] = 9                               # frame number not sequential
+        self.assertRaises(FormatError, textures.decode_ful, bytes(d))
+        self.assertRaises(FormatError, textures.decode_ful, fx.ful()[:-2])
+
+
+class Models(unittest.TestCase):
+    def build(self, words=None, verts=None, tex=(0,)):
+        v, w = fx.quad_model()
+        m = fx.model(verts or v, words or w)
+        mmm, ttt = fx.mmm_ttt([None, m], [[], list(tex)])
+        t = models.decode_ttt(ttt)
+        return models.decode_mmm(mmm, "syn", t), t
+
+    def test_quad(self):
+        mm, _ = self.build()
+        self.assertTrue(mm["models"][0]["empty"])
+        m = mm["models"][1]
+        self.assertTrue(m["primitive_count_matches"])
+        self.assertTrue(m["cm01"]["bbox_matches_vertices"])
+        (p,) = m["primitives"]
+        self.assertEqual(p["vertices"], [0, 1, 2, 3])
+        self.assertEqual(p["uvs"], [(0, 0), (63, 0), (63, 63), (0, 63)])
+        self.assertEqual((p["corners"], p["textured"], p["gouraud"], p["gp0_code"]), (4, True, True, 0x3C))
+        self.assertEqual(p["cull"], "front_if_nclip_negative")
+        self.assertEqual(p["colors"][0], 0x008080)
+
+    def test_obj_order_and_axes(self):
+        mm, _ = self.build()
+        obj = models.model_to_obj(mm["models"][1], "syn", [(64, 64)])
+        self.assertIn("v 64 64 0", obj)
+        self.assertIn("v 0 64 0", obj)
+        face = [l for l in obj.splitlines() if l.startswith("f ")][0]
+        self.assertEqual([int(x.split("/")[0]) for x in face.split()[1:]], [4, 3, 2, 1])   # mode 1 reversed
+
+    def test_normal_unpack(self):
+        self.assertEqual(models._normal(0x7F000010), (127 << 5, 0, 0))
+        self.assertEqual(models._normal(0x0080FF10), (16, -128 << 5, -1 << 5))   # x keeps bits 19-23 like the engine
+
+    def test_guard_block(self):
+        v, w = fx.quad_model()
+        w = w[:-1]
+        guarded = [0x00002064, 0x00000002] + w[-6:]          # 0x20-byte block: guard + mask + 6 words
+        words = w[:-6] + guarded + [0x68]
+        mm, _ = self.build(words=words)
+        p = mm["models"][1]["primitives"][0]
+        self.assertEqual(p["guards"][0]["masks"], [2])
+
+    def test_rejects(self):
+        v, w = fx.quad_model()
+        bad_idx = list(w)
+        bad_idx[6] = (0x000 << 20) | (0x009 << 8) | 0x40     # vertex 9 of 4
+        self.assertRaises(FormatError, self.build, bad_idx)
+        unknown = list(w)
+        unknown.insert(2, 0x000000B0)
+        self.assertRaises(FormatError, self.build, unknown)
+        no_end = list(w[:-1]) + [0x60]
+        self.assertRaises(FormatError, self.build, no_end)
+        self.assertRaises(FormatError, self.build, None, None, ())        # texture slot 0 of 0
+        m = fx.model(v, w)
+        mmm, ttt = fx.mmm_ttt([m], [[0]])
+        self.assertRaises(FormatError, models.decode_mmm, mmm[:-4], "t", models.decode_ttt(ttt))
+        mmm2, ttt2 = fx.mmm_ttt([m, m], [[0], [0]])
+        self.assertRaises(FormatError, models.decode_mmm, mmm, "t", models.decode_ttt(ttt2))   # count mismatch
+        self.assertRaises(FormatError, models.decode_ttt, ttt.replace(b"LBTX", b"XBTX"))
+
+
+class Level(unittest.TestCase):
+    def test_flb(self):
+        f = level.decode_flb(fx.flb(), tile_count=6)
+        self.assertEqual((f["width"], f["height"]), (64, 256))
+        self.assertEqual(f["tile_histogram"], {5: 64 * 256})
+        self.assertEqual(level.flb_cell((7 << 18) | (3 << 16) | 0x8000 | 0x1234)["uv_rotation"], 3)
+        self.assertEqual(level.decode_flb(fx.flb(), tile_count=5)["cells_with_tile_beyond_tex"], 64 * 256)
+
+    def test_flb_rejects(self):
+        self.assertRaises(FormatError, level.decode_flb, fx.flb()[:-1])
+        self.assertRaises(FormatError, level.decode_flb, fx.flb() + b"\0\0\0\0")   # trailing cell
+        self.assertRaises(FormatError, level.decode_flb, struct.pack("<HH", 100, 1) + bytes(400))
+
+    def test_level_bin(self):
+        b = level.decode_level_bin(fx.level_bin())
+        self.assertEqual(len(b["placements"]), 3)
+        self.assertEqual(b["placements"][1]["yaw_u16"], 16384)
+        self.assertEqual((b["active_first"], b["active_count"]), (1, 2))
+
+    def test_level_bin_rejects(self):
+        d = fx.level_bin()
+        self.assertRaises(FormatError, level.decode_level_bin, d[:20])
+        bad = bytearray(d)
+        struct.pack_into("<I", bad, 8, 0x21)                 # placement section no longer a multiple of 12
+        self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
+        bad = bytearray(d)
+        struct.pack_into("<I", bad, 0x44 + 8, 0xFFFF)        # placement data offset beyond section 4
+        self.assertRaises(FormatError, level.decode_level_bin, bytes(bad))
+
+    def test_font(self):
+        g = level.decode_font_bin(struct.pack("<9H", 0, 0, 5, 5, 0, 6, 0, 0, 0), sheet_size=(16, 8))
+        self.assertEqual(g["absent"], 1)
+        self.assertRaises(FormatError, level.decode_font_bin, struct.pack("<3H", 12, 0, 6), sheet_size=(16, 8))
+        self.assertRaises(FormatError, level.decode_font_bin, struct.pack("<3H", 1, 0, 0))
+        self.assertRaises(FormatError, level.decode_font_bin, b"\0" * 5)
+
+    def test_sfx(self):
+        s = level.decode_sfx(fx.sfx())
+        self.assertEqual(s["count"], 2)
+        self.assertRaises(FormatError, level.decode_sfx, fx.sfx()[:-1])
+
+    def test_xa(self):
+        x = level.inventory_xa(fx.xa_sectors())
+        self.assertEqual(x["sectors"], 2)
+        self.assertEqual(x["sector_kinds"], {"audio:ch0": 1, "video:ch0": 1})
+        self.assertRaises(FormatError, level.inventory_xa, bytes(100))
+
+
+class Png(unittest.TestCase):
+    def test_deterministic(self):
+        a = encode_rgba(2, 1, [(1, 2, 3, 4), (5, 6, 7, 8)])
+        self.assertEqual(a, encode_rgba(2, 1, [(1, 2, 3, 4), (5, 6, 7, 8)]))
+        self.assertTrue(a.startswith(b"\x89PNG"))
+        self.assertRaises(ValueError, encode_rgba, 2, 2, [(0, 0, 0, 0)])
+
+
+class InventoryIsolation(unittest.TestCase):
+    def test_refuses_output_inside_input(self):
+        from btga_ps1 import inventory
+        with tempfile.TemporaryDirectory() as d:
+            self.assertRaises(SystemExit, inventory.run, d, os.path.join(d, "out"))
+
+    def test_synthetic_corpus_deterministic(self):
+        from btga_ps1 import inventory
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as o1, tempfile.TemporaryDirectory() as o2:
+            a = os.path.join(root, "ASSETS")
+            os.makedirs(a)
+            img, plt = fx.img_plt()
+            v, w = fx.quad_model()
+            mmm, ttt = fx.mmm_ttt([fx.model(v, w)], [[0]])
+            files = {"X.TEX": fx.tex_4bpp(), "X.IMG": img, "X.PLT": plt, "X.MMM": mmm, "X.TTT": ttt,
+                     "X.FLB": fx.flb(), "X.BIN": fx.level_bin(), "V.SFX": fx.sfx(), "BAD.TEX": b"junk"}
+            for k, b in files.items():
+                with open(os.path.join(a, k), "wb") as fh:
+                    fh.write(b)
+            m1 = inventory.run(root, o1, previews=True, objs=True)
+            inventory.run(root, o2, previews=True, objs=True)
+            self.assertEqual(m1["files"]["ASSETS/BAD.TEX"]["status"], "rejected")
+            self.assertEqual(sum(e["status"] == "accepted" for e in m1["files"].values()), 8)
+            for dp, _, fs in os.walk(o1):
+                for f in fs:
+                    p1 = os.path.join(dp, f)
+                    p2 = os.path.join(o2, os.path.relpath(p1, o1))
+                    with open(p1, "rb") as left, open(p2, "rb") as right:
+                        self.assertEqual(left.read(), right.read(), p1)
+
+
+if __name__ == "__main__":
+    unittest.main()
