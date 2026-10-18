@@ -34,8 +34,8 @@ The first split deliberately emits the entire loaded range for inspection. It
 does not count unknown bytes as decompiled. The next milestones are broader
 compiler corroboration, function-boundary recovery, and section ownership.
 
-Six hundred sixty-six production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and match all 39,880 retail bytes after the pinned assembler compatibility pass.
+Six hundred sixty-eight production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
+and match all 40,284 retail bytes after the pinned assembler compatibility pass.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.
@@ -58,6 +58,11 @@ routine and is likewise reported outside the initial call-target count.
 The paired chunked-transfer loops occupy `0x800941A8..0x80094268` and
 `0x800942E8..0x800943A8`. The independent return stub at `0x800943A8` is a
 fifth matched entry outside the initial call-target count.
+
+The return at `0x80094C08` and its delay slot end the state-mode routine that
+starts at `0x80094B50`. The independent prologue at `0x80094C10` begins a
+bounded record-field accessor and is the sixth matched entry outside the
+initial call-target count.
 
 ## Local resources
 
