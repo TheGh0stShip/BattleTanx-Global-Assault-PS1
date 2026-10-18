@@ -14,3 +14,10 @@ jobs:
           python-version: "3.12"
       - name: Run portable checks
         run: make check
+      - name: Generate progress report
+        run: python3 tools/progress_report.py
+      - name: Upload progress report
+        uses: actions/upload-artifact@v4
+        with:
+          name: SLUS_01044_report
+          path: build/us/report.json

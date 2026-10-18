@@ -13,6 +13,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ![Executable matching: 100%](https://img.shields.io/badge/executable_matching-100%25-brightgreen)
 ![Asset files structurally decoded: 99.46%](https://img.shields.io/badge/asset_files_decoded-99.46%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
+[![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
 
 The executable percentage is the authoritative decompilation measurement. It is
 `matched text bytes / 747,520 text bytes` from `SLUS_010.44`; asset research is
@@ -46,7 +47,7 @@ source compiles to identical machine code.
 | Font BIN | 4 files / 328 records | glyph height semantics | partial |
 | VAGS.SFX | 1 file / 57 entries | 4 words per entry | partial |
 | STR/PCK | 20 files | media decoding | sector inventory only |
-| Validation tests | 48 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 50 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 The four opaque corpus files are the game executable, boot configuration, text,
@@ -58,6 +59,8 @@ One thousand eight hundred sixty-nine source units compile and link into all
 a complete executable matching both supported hashes. Semantic naming,
 consolidation, and compiler corroboration remain active decompilation work;
 ignored reports are generated directly by the exact-byte verifiers.
+CI also publishes an objdiff-compatible `SLUS_01044_report` artifact so public
+progress indexes can ingest the same unit and byte totals.
 
 ## Requirements
 

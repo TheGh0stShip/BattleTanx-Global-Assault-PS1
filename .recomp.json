@@ -6,11 +6,12 @@
   "original": {
     "region": "USA",
     "revision": "1.0",
-    "serial": "SLUS-01044"
+    "serial": "SLUS-01044",
+    "sha1": "5c3280f903d442922a7764a4d9f9f6f9fd0c0c34"
   },
-  "project": "BattleTanx: Global Assault PS1",
-  "status": "exploring",
-  "approach": "Matching C decompilation with format research and deterministic validation",
+  "project": "BattleTanx: Global Assault (PlayStation)",
+  "status": "in-progress",
+  "approach": "Matching source reconstruction with exact linked-file verification",
   "maintainers": [
     {
       "name": "TheGh0stShip",
@@ -18,10 +19,14 @@
     }
   ],
   "help": [
-    "Original compiler identification",
-    "Executable segmentation",
-    "Matching MIPS functions",
-    "Level script format research"
+    "Semantic function reconstruction",
+    "Compiler identification",
+    "Asset field research"
   ],
-  "notes": "Asset decoders cover 733 of 737 files. Five hundred sixty-three functions totaling 29,916 bytes match the executable exactly."
+  "tags": [
+    "matching",
+    "MIPS",
+    "Psy-Q"
+  ],
+  "notes": "The US executable rebuilds byte-for-byte from 1,869 source units. Semantic naming and reconstruction continue. Original game data is not distributed."
 }
