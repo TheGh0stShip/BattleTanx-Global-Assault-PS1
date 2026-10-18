@@ -387,6 +387,20 @@
       "symbols": {"D_800AACB8": "0x800AACB8", "func_8005A7E0": "0x8005A7E0", "func_8005A834": "0x8005A834"}
     },
     {
+      "name": "func_8005FB70",
+      "address": "0x8005FB70",
+      "size": "0x64",
+      "source": "src/game/8005FB70.c",
+      "symbols": {"D_800AACD4": "0x800AACD4", "D_800AACF0": "0x800AACF0", "D_800DE0C8": "0x800DE0C8", "func_8007FC88": "0x8007FC88"}
+    },
+    {
+      "name": "func_8005FBD4",
+      "address": "0x8005FBD4",
+      "size": "0x64",
+      "source": "src/game/8005FBD4.c",
+      "symbols": {"D_800AACD5": "0x800AACD5", "D_800AACF8": "0x800AACF8", "D_800DE0C8": "0x800DE0C8", "func_8007FC88": "0x8007FC88"}
+    },
+    {
       "name": "func_8005FD50",
       "address": "0x8005FD50",
       "size": "0x14",
