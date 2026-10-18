@@ -1,7 +1,40 @@
-asm(".text\n\t.globl func_80053354\nfunc_80053354:\n\t"
-    ".word 0x24841000,0x00043043,0x00042143,0x308400ff\n\t"
-    ".word 0x3c05800a,0x24a55da8,0x24820001,0x00021040\n\t"
-    ".word 0x00451021,0x00042040,0x00852021,0x84430000\n\t"
-    ".word 0x84820000,0x30c6000f,0x00621823,0x00c30018\n\t"
-    ".word 0x00031880,0x30630007,0x00003012,0x00062083\n\t"
-    ".word 0x30840003,0x00833025,0x03e00008,0x00c21021");
+typedef signed int s32;
+typedef signed short s16;
+
+extern s16 D_800A5DA8[];
+
+s32 func_80053354(s32 value) {
+    register s32 shifted asm("$6");
+    register s32 table asm("$5");
+    register s32 next_or_base asm("$2");
+    register s32 sum asm("$3");
+    register s32 low_bits asm("$4");
+
+    value += 0x1000;
+    shifted = value >> 1;
+    asm volatile("" : "+r"(shifted), "+r"(value));
+    value >>= 5;
+    value &= 0xFF;
+    table = (s32)D_800A5DA8;
+    asm volatile("" : "+r"(table), "+r"(value));
+    next_or_base = value + 1;
+    next_or_base = (next_or_base << 1) + table;
+    asm volatile("" : "+r"(next_or_base));
+    value <<= 1;
+    asm volatile("" : "+r"(value));
+    value += table;
+    sum = *(s16 *)next_or_base;
+    next_or_base = *(s16 *)value;
+    shifted &= 0xF;
+    sum -= next_or_base;
+    asm volatile(
+        ".set noreorder\n\t"
+        "mult $6,$3\n\t"
+        "sll $3,$3,2\n\t"
+        "andi $3,$3,7\n\t"
+        "mflo $6");
+    asm volatile("" : "+r"(shifted), "+r"(sum));
+    low_bits = (shifted >> 2) & 3;
+    shifted = low_bits | sum;
+    return shifted + next_or_base;
+}
