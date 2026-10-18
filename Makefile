@@ -4,7 +4,7 @@ VENV_PYTHON := $(VENV)/bin/python
 VENV_STAMP := $(VENV)/.installed
 EXE := baseroms/us/SLUS_010.44
 
-.PHONY: all setup verify split inventory test check clean-generated
+.PHONY: all setup verify split function-inventory inventory test check clean-generated
 
 all: split
 
@@ -21,6 +21,9 @@ verify:
 
 split: setup verify
 	$(VENV_PYTHON) -m splat split config/us/splat.yaml
+
+function-inventory: split
+	$(PYTHON) tools/inventory_functions.py asm/us/main.s build/us/function_candidates.json
 
 inventory: verify
 	@echo "usage: python3 -m btga_ps1.inventory EXTRACTED_DIR out --previews --obj"

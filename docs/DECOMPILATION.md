@@ -35,6 +35,12 @@ does not count any byte as decompiled. The next milestones are library/compiler
 fingerprinting, function-boundary recovery, section ownership, and the first
 independently compiled matching unit.
 
+The initial control-flow scan exposes 1,779 aligned call-target candidates.
+`make function-inventory` records them in an ignored deterministic report. They
+remain provisional until instruction flow, returns, jump tables, embedded data,
+and callerless entry points are audited; the candidate count is not a completed
+function count.
+
 ## Local resources
 
 Original disc files, generated assembly, extracted textures, rendered models,

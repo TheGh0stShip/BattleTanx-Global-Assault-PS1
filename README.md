@@ -24,7 +24,8 @@ source compiles to identical machine code.
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 0 | 1 | 0.00% |
 | Executable segment map | 1 | 0 | 100% |
-| Functions identified | not measured | segmentation required | pending |
+| Provisional function starts | 1,779 candidates | review required | no match credit |
+| Reviewed function boundaries | 0 | candidate audit required | pending |
 | Functions matched | not measured | function inventory required | pending |
 
 | Asset work | Complete | Remaining | Coverage |
@@ -72,6 +73,7 @@ Place it locally at `baseroms/us/SLUS_010.44`; that directory is ignored.
 make setup
 make verify
 make split
+make function-inventory
 make check
 ```
 
