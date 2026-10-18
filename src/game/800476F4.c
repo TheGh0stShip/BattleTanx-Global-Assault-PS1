@@ -1,11 +1,35 @@
-asm(".text\n\t.globl func_800476F4\nfunc_800476F4:\n\t"
-    ".word 0x24020001,0x10a20006,0x00803021,0x2402000c\n\t"
-    ".word 0x10a2001d,0x2402001e,0x08011de1,0x00000000\n\t"
-    ".word 0x3c04800a,0x8cc3009c,0x24844ef4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8c43005c,0x8cc20218,0x00000000\n\t"
-    ".word 0x30420002,0x1040000a,0x00031b03,0x3c02800b\n\t"
-    ".word 0x9042ed53,0x00000000,0x30420001,0x10400004\n\t"
-    ".word 0x28620006,0x14400002,0x00000000,0x24030005\n\t"
-    ".word 0x03e00008,0x00601021,0x03e00008,0x24020005\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef unsigned char u8;
+typedef unsigned int u32;
+
+typedef struct Object {
+    u8 pad_000[0x9C];
+    u32 table_index;
+    u8 pad_0A0[0x218 - 0xA0];
+    u32 flags;
+} Object;
+
+typedef struct Entry {
+    u8 pad_00[0x5C];
+    int state_fixed;
+    u8 pad_60[0xD0 - 0x60];
+} Entry;
+
+extern Entry D_800A4EF4[];
+extern u8 D_800AED53;
+
+int func_800476F4(Object *object, int message) {
+    int state;
+
+    switch (message) {
+    case 1:
+        state = D_800A4EF4[object->table_index].state_fixed >> 12;
+        if ((object->flags & 2) && (D_800AED53 & 1) && state >= 6) {
+            state = 5;
+        }
+        return state;
+    case 12:
+        return 5;
+    default:
+        return 30;
+    }
+}
