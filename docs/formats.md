@@ -56,9 +56,9 @@ BGR555 palettes. IMG record *i* pairs with PLT record *i*.
 FUL stores sequential one-based frame numbers followed by raw BGR555 frames.
 Renderer `0x80076060` computes `(frame - 1) * 0x28004` and requests exactly
 `0x28004` bytes, proving a four-byte number followed by a 320x256 BGR555 image
-for AMAA, TITLE, LEGAL, FULLSCR, MS_BMP and MB_BMP. TK_BMP is 160x120 by exact
-file tiling, sequential frame numbers, and row autocorrelation; its renderer
-remains to be identified.
+for AMAA, TITLE, LEGAL, FULLSCR, MS_BMP and MB_BMP. TK_BMP contains twelve
+160x120 frames, proven by exact file tiling, sequential frame numbers, row
+autocorrelation, and the executable's exact `0x70830`-byte load allocation.
 
 ## Models
 
@@ -153,9 +153,13 @@ including its decoded height, fits within the paired TEX sheet.
 
 VAGS.SFX uses `1SFX`, with data offset, data byte count, table byte count, and
 entry count. Each 20-byte table entry is `{u32 SPU offset, u32 sample bytes,
-u32 flags, u32 volume, u16 pitch, s16 sentinel}`. All samples are contiguous;
-the final sample ends at the declared data size. The corpus uses flag 1, maximum
-SPU volume `0x3FFF`, sentinel `-1`, and three base pitches. STR and PCK files
+u32 authoring_constant_1, u32 authoring_constant_3fff, u16 pitch, s16 voice_slot}`.
+All samples are contiguous; the final sample ends at the declared data size.
+The loader rebases the SPU offset. Playback consumers read that address and the
+pitch, then replace the initial voice slot `-1` with an allocated slot. The two
+constant words are never read by the runtime; playback separately hardcodes
+`0x3FFF`, so they remain preserved authoring metadata rather than being given
+speculative runtime names. The corpus uses three base pitches. STR and PCK files
 contain raw 2,336-byte Mode-2 sectors and are inventoried by sector kind and
 channel. The inventory's `--wav` option decodes every 16-byte SPU ADPCM frame
 to deterministic mono 16-bit PCM, using the record pitch to set the WAV sample
@@ -176,5 +180,4 @@ texel coordinates and normalize as `(u + 0.5) / width` and
 
 1. Trace the authoring provenance of opcode 25; the PS1 runtime ignores it.
 2. Recover construction of the terrain tile table at `0x800DDFF8`.
-3. Trace SPU voice setup to identify the remaining SFX entry words.
-4. Identify the original compiler before creating the matching C build.
+3. Identify the original compiler before creating the matching C build.

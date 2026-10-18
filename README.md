@@ -43,16 +43,16 @@ is also reported separately and never inflates either executable measurement.
 | TEX | 256 files | 0 files | 100% |
 | IMG | 71 files | 0 files | 100% |
 | PLT | 71 files | 0 files | 100% |
-| FUL | 7 files | TK_BMP renderer identification | decoded; 320x256 stride proven from executable, 160x120 proven from corpus |
+| FUL | 7 files / 79 frames | 0 frames | 320x256 and 160x120 BGR555 frames completely decoded |
 | MMM/3MDL | 76 files / 4,761 models | 0 models | geometry, bounds, named visibility groups, vertex grouping, flags, and command stream decoded |
 | TTT | 76 files / 8,781 references | 0 files | 100% structural |
 | FLB | 75 files / 307,200 RGB blocks | 0 cells | terrain cells, RGB plane, and tile-63 sentinel decoded |
 | Level BIN | 75 files / 30,758 placements | Complete | all 5,462 object records have typed fields |
 | Font BIN | 4 files / 324 glyphs and 4 metrics records | 0 records | glyph rectangles, height, fixed advance, and space width decoded |
-| VAGS.SFX | 1 file / 57 entries | flag meaning | ADPCM and WAV decoding complete |
+| VAGS.SFX | 1 file / 57 entries | 0 entries | addresses, sizes, pitch, voice-slot state, ADPCM, and WAV decoding complete |
 | STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
-| Validation tests | 58 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 59 tests | 0 tests | 100% passing with the local corpus |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 Every corpus file now has a bounds-checked structural decoder. This includes the

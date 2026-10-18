@@ -321,7 +321,9 @@ class Level(unittest.TestCase):
         self.assertEqual(s["count"], 2)
         self.assertEqual(s["entries"][0]["data_bytes"], 32)
         self.assertEqual(s["entries"][0]["pitch"], 0x400)
-        self.assertEqual(s["entries"][0]["sentinel_s16"], -1)
+        self.assertEqual(s["entries"][0]["initial_voice_slot"], -1)
+        self.assertEqual(s["entries"][0]["unused_authoring_u32_0x08"], 1)
+        self.assertEqual(s["entries"][0]["unused_authoring_u32_0x0C"], 0x3FFF)
         self.assertRaises(FormatError, level.decode_sfx, fx.sfx()[:-1])
 
     def test_xa(self):

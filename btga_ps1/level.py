@@ -16,6 +16,8 @@ Evidence (SLUS_010.44):
     contiguity of x+width across every record).
   * VAGS.SFX: loader 0x80054B10: words [1]=data offset, [2]=data bytes (SPU upload),
     [3]=table bytes, [4]=entries; table copied from +20; entry word 0 rebased to SPU.
+    Playback consumers read the rebased address and pitch, overwrite the high halfword
+    at +0x12 with a voice slot, and never read the constant words at +0x08/+0x0C.
 """
 from .binio import FormatError, Reader
 
@@ -327,9 +329,10 @@ def decode_sfx(data, name="<sfx>"):
         o = 20 + 20 * i
         packed = r.u32(o + 16)
         ents.append({"spu_offset": r.u32(o), "data_bytes": r.u32(o + 4),
-                     "flags": r.u32(o + 8), "volume": r.u32(o + 12),
+                     "unused_authoring_u32_0x08": r.u32(o + 8),
+                     "unused_authoring_u32_0x0C": r.u32(o + 12),
                      "pitch": packed & 0xFFFF,
-                     "sentinel_s16": packed >> 16 if packed < 0x80000000 else (packed >> 16) - 0x10000})
+                     "initial_voice_slot": packed >> 16 if packed < 0x80000000 else (packed >> 16) - 0x10000})
     starts = [e["spu_offset"] for e in ents]
     if any(s >= data_len for s in starts):
         raise FormatError("%s: entry offset beyond VAG data" % name)
@@ -337,8 +340,9 @@ def decode_sfx(data, name="<sfx>"):
         expected_end = starts[i + 1] if i + 1 < count else data_len
         if e["spu_offset"] + e["data_bytes"] != expected_end:
             raise FormatError("%s: entry %d does not end at the next sample" % (name, i))
-        if e["flags"] != 1 or e["volume"] != 0x3FFF or e["sentinel_s16"] != -1:
-            raise FormatError("%s: entry %d has unexpected playback constants" % (name, i))
+        if (e["unused_authoring_u32_0x08"] != 1 or e["unused_authoring_u32_0x0C"] != 0x3FFF or
+                e["initial_voice_slot"] != -1):
+            raise FormatError("%s: entry %d has unexpected authoring/voice constants" % (name, i))
     return {"data_offset": data_off, "data_bytes": data_len, "count": count, "entries": ents}
 
 
