@@ -67,14 +67,17 @@ signed blob offset or `-1`; its other two words are zero on disc. The loader
 rebases the record to the CM01 header and its following 3MDL chunk.
 
 CM01 is 0x24 bytes. It stores divided bounding minima and maxima, opaque words,
-and a signed cull radius at offset 0x22. The 3MDL header contains its magic,
-vertex-group count, vertex count, primitive count, flags, and chunk size.
+and two identical signed center triplets at `0x14` and `0x1C`. The value at
+`0x22` is the renderer's signed cull radius; the exact role of the other extent
+at `0x1A` remains unresolved. The 3MDL header contains its magic, vertex-group
+count, vertex count, primitive count, constant format flags `0x47F`, and chunk size.
 Vertices are four 16-bit words: signed x, y and z, followed by a preserved flag
 word. Bit 15 terminates a vertex group. The declared count equals the number of
 terminators in 4,695 of 4,761 models; the other 66 declare exactly one additional
 empty group. No other difference occurs across the corpus. All 163,804 vertex
 flag words are either `0x0000` or the group terminator `0x8000`; the decoder
-rejects every other bit.
+rejects every other bit. All 4,761 chunks carry `0x47F`, and every CM01 center
+pair agrees; both invariants are enforced.
 
 The command stream dispatches on `word & 0xFC`; `word >> 8` is the payload. Its
 commands set corner colours, normals, UVs, vertex indices, texture slots,

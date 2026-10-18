@@ -186,6 +186,8 @@ def decode_mmm(data, name="<mmm>", ttt=None):
         m = o + 0x24
         r.magic(m, b"3MDL")
         unk4, nverts, nprims, flags, size = (r.u32(m + 4 + 4 * k) for k in range(5))
+        if flags != 0x47F:
+            raise FormatError("%s: 3MDL format flags 0x%X != 0x47F" % (where, flags))
         if not 1 <= nverts <= MAX_VERTS:
             raise FormatError("%s: vertex count %d out of range" % (where, nverts))
         r.need(m, size, where + " 3MDL chunk")
@@ -208,14 +210,17 @@ def decode_mmm(data, name="<mmm>", ttt=None):
         mx = [max(v[a] for v in verts) for a in range(3)]
         bbox_ok = (hdr[0:3] == [int(x / 4) for x in mn] and hdr[4:7] == [int(x / 4) for x in mx]
                    and hdr[3] == 0 and hdr[7] == 0)
+        if hdr[8:11] != hdr[12:15]:
+            raise FormatError("%s: CM01 duplicated bounds centers disagree" % where)
         spans.append((o, m + size, i))
         models.append({
             "index": i, "empty": False, "table_words": [off, f1, f2], "offset": o, "length": 0x24 + size,
             "cm01": {"bbox_min_div4": hdr[0:3], "bbox_max_div4": hdr[4:7], "bbox_matches_vertices": bbox_ok,
-                     "cull_radius_s16_0x22": hdr[15], "opaque_s16_0x14_0x20": hdr[8:15]},
+                     "bounds_center": hdr[8:11], "unknown_extent_0x1A": hdr[11],
+                     "cull_radius_s16_0x22": hdr[15]},
             "mdl": {"vertex_group_count": unk4, "vertex_group_end_indices": vertex_group_ends,
                     "empty_vertex_groups": empty_vertex_groups, "vertex_count": nverts,
-                    "primitive_count_field": nprims, "flags_0x10": flags, "chunk_size": size},
+                    "primitive_count_field": nprims, "format_flags_0x10": flags, "chunk_size": size},
             "vertices": verts, **stream,
             "primitive_count_matches": nprims == len(stream["primitives"]),
         })

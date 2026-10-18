@@ -126,6 +126,7 @@ class Models(unittest.TestCase):
         self.assertTrue(m["primitive_count_matches"])
         self.assertTrue(m["cm01"]["bbox_matches_vertices"])
         self.assertEqual(m["mdl"]["vertex_group_count"], 1)
+        self.assertEqual(m["mdl"]["format_flags_0x10"], 0x47F)
         self.assertEqual(m["mdl"]["vertex_group_end_indices"], [3])
         self.assertEqual(m["mdl"]["empty_vertex_groups"], 0)
         (p,) = m["primitives"]
@@ -176,6 +177,12 @@ class Models(unittest.TestCase):
         bad_vertex_flag = bytearray(mmm)
         struct.pack_into("<H", bad_vertex_flag, 8 + 12 + 0x24 + 24 + 6, 1)
         self.assertRaises(FormatError, models.decode_mmm, bytes(bad_vertex_flag), "t", models.decode_ttt(ttt))
+        bad_flags = bytearray(mmm)
+        struct.pack_into("<I", bad_flags, 8 + 12 + 0x24 + 16, 0)
+        self.assertRaises(FormatError, models.decode_mmm, bytes(bad_flags), "t", models.decode_ttt(ttt))
+        bad_center = bytearray(mmm)
+        struct.pack_into("<h", bad_center, 8 + 12 + 0x1C, 1)
+        self.assertRaises(FormatError, models.decode_mmm, bytes(bad_center), "t", models.decode_ttt(ttt))
         mmm2, ttt2 = fx.mmm_ttt([m, m], [[0], [0]])
         self.assertRaises(FormatError, models.decode_mmm, mmm, "t", models.decode_ttt(ttt2))   # count mismatch
         self.assertRaises(FormatError, models.decode_ttt, ttt.replace(b"LBTX", b"XBTX"))
