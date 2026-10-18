@@ -1,5 +1,27 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80094480\nfunc_80094480:\n\t"
-    "addiu $29,$29,-0x18\n\tlui $2,0x800B\n\tlw $2,0x6B00($2)\n\t"
-    "addu $5,$4,$0\n\tsw $31,0x10($29)\n\tlw $2,0x14($2)\n\tnop\n\t"
-    "jalr $2\n\taddiu $4,$0,4\n\tlw $31,0x10($29)\n\t"
-    "addiu $29,$29,0x18\n\tjr $31\n\tnop");
+typedef int (*Callback)(int kind, int value);
+
+int func_80094480(int value)
+{
+    volatile char outgoing[20];
+    register Callback callback asm("$2");
+    register int argument asm("$5");
+
+    asm volatile("" : : : "memory");
+    callback = *(Callback *)0x800B6B00;
+    asm volatile("" : "+r"(callback) : : "memory");
+    asm("addu %0,%1,$zero" : "=r"(argument) : "r"(value));
+    asm volatile("sw $31,16($sp)" : : "r"(callback), "r"(argument) : "memory");
+    callback = *(Callback *)((char *)callback + 0x14);
+    asm volatile(
+        ".set noreorder\n\t"
+        "nop\n\t"
+        "jalr $2\n\t"
+        "addiu $4,$zero,4\n\t"
+        ".set reorder"
+        : "+r"(callback)
+        : "r"(argument)
+        : "$4", "memory"
+    );
+    asm volatile("lw $31,16($sp)" : : : "memory");
+    return (int)callback;
+}

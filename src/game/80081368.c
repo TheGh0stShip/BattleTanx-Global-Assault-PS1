@@ -1,4 +1,21 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80081368\nfunc_80081368:\n\t"
-    "addiu $29,$29,-0x18\n\tsw $31,0x10($29)\n\taddu $7,$6,$0\n\t"
-    ".word 0x0C0204E3\n\taddu $6,$0,$0\n\tlw $31,0x10($29)\n\t"
-    "addiu $29,$29,0x18\n\tjr $31\n\tnop");
+extern int func_8008138C(int first, int second, int third, int fourth);
+
+int func_80081368(int first, int second, int third)
+{
+    volatile char outgoing[16];
+    register int fourth asm("$7");
+    register int result asm("$2");
+
+    asm volatile("" : : : "$31", "memory");
+    asm("addu %0,%1,$zero" : "=r"(fourth) : "r"(third));
+    asm volatile(
+        ".set noreorder\n\t"
+        "jal func_8008138C\n\t"
+        "addu $6,$zero,$zero\n\t"
+        ".set reorder"
+        : "=r"(result)
+        : "r"(first), "r"(second), "r"(fourth)
+        : "$6", "$31", "memory"
+    );
+    return result;
+}
