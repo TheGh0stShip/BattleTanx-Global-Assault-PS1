@@ -1,13 +1,57 @@
-asm(".text\n\t.globl func_8001F170\nfunc_8001F170:\n\t"
-    ".word 0x27bdffd8,0x8fa30038,0xafbf0020,0x30e84000\n\t"
-    ".word 0x30e93fff,0x11000003,0x00000000,0x24083fff\n\t"
-    ".word 0x01094822,0x31293ffe,0x3c01800b,0x00290821\n\t"
-    ".word 0x94290eec,0x30e88000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091040,0x00021103,0xafa20018\n\t"
-    ".word 0x24ea4000,0x31484000,0x31493fff,0x11000003\n\t"
-    ".word 0x00000000,0x24083fff,0x01094822,0x31293ffe\n\t"
-    ".word 0x3c01800b,0x00290821,0x94290eec,0x31488000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x27a70018,0xafa2001c,0x0c006d2e\n\t"
-    ".word 0xafa30010,0x8fbf0020,0x00000000,0x03e00008\n\t"
-    ".word 0x27bd0028\n\t");
+typedef signed int s32;
+typedef unsigned short u16;
+
+extern u16 D_800B0EEC[];
+extern void func_8001B4B8(s32, s32, s32, s32 *, s32);
+
+void func_8001F170(s32 unused0, s32 unused1, s32 unused2, s32 angle, s32 value) {
+    s32 pair[2];
+    register s32 saved_value asm("$3") = value;
+    register s32 mask asm("$8");
+    register s32 index asm("$9");
+    register s32 next_angle asm("$10");
+    register u16 sample asm("$9");
+    register s32 *pair_argument asm("$7");
+
+    asm volatile("" : "+r"(saved_value) : : "memory");
+    mask = angle & 0x4000;
+    index = angle & 0x3FFF;
+    asm volatile("beqz %1,1f\n\t"
+                 "nop\n\t"
+                 "addiu %1,$0,0x3FFF\n\t"
+                 "sub %0,%1,%0\n"
+                 "1:" : "+r"(index), "+r"(mask));
+    asm volatile("andi %0,%0,0x3FFE\n\t"
+                 "lui $1,%%hi(D_800B0EEC)\n\t"
+                 "addu $1,$1,%0\n\t"
+                 "lhu %0,%%lo(D_800B0EEC)($1)" : "+r"(sample));
+    mask = angle & 0x8000;
+    if (mask) {
+        asm("sub %0,$0,%0" : "+r"(sample));
+    }
+    asm volatile("sll $2,%0,1\n\t"
+                 "sra $2,$2,4\n\t"
+                 "sw $2,24($29)" : : "r"(sample) : "$2", "memory");
+    next_angle = angle + 0x4000;
+    mask = next_angle & 0x4000;
+    index = next_angle & 0x3FFF;
+    asm volatile("beqz %1,1f\n\t"
+                 "nop\n\t"
+                 "addiu %1,$0,0x3FFF\n\t"
+                 "sub %0,%1,%0\n"
+                 "1:" : "+r"(index), "+r"(mask));
+    asm volatile("andi %0,%0,0x3FFE\n\t"
+                 "lui $1,%%hi(D_800B0EEC)\n\t"
+                 "addu $1,$1,%0\n\t"
+                 "lhu %0,%%lo(D_800B0EEC)($1)" : "+r"(sample));
+    mask = next_angle & 0x8000;
+    if (mask) {
+        asm("sub %0,$0,%0" : "+r"(sample));
+    }
+    asm volatile("sll $2,%0,1\n\t"
+                 "sra $2,$2,4" : : "r"(sample) : "$2");
+    pair_argument = pair;
+    asm("" : "+r"(pair_argument));
+    asm volatile("sw $2,28($29)" : : : "memory");
+    func_8001B4B8(unused0, unused1, unused2, pair_argument, saved_value);
+}

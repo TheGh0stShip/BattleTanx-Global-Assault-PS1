@@ -1,13 +1,70 @@
-asm(".text\n\t.set noreorder\n\t.set noat\n\t.globl func_80049680\nfunc_80049680:\n\t"
-    "andi $8,$6,0x4000\n\tandi $9,$6,0x3FFF\n\t.word 0x11000003\n\tnop\n\t"
-    "addiu $8,$0,0x3FFF\n\tsub $9,$8,$9\n\tandi $9,$9,0x3FFE\n\tlui $1,0x800B\n\t"
-    "addu $1,$1,$9\n\tlhu $9,0x0EEC($1)\n\tandi $8,$6,0x8000\n\t.word 0x11000002\n\t"
-    "nop\n\tsub $9,$0,$9\n\tsll $2,$9,1\n\tsra $2,$2,4\n\t"
-    "mult $2,$5\n\tmflo $3\n\tmfhi $7\n\tsrl $3,$3,12\n\tsll $7,$7,20\n\t"
-    "or $3,$3,$7\n\tsw $3,0($4)\n\taddiu $10,$6,0x4000\n\tandi $8,$10,0x4000\n\t"
-    "andi $9,$10,0x3FFF\n\t.word 0x11000003\n\tnop\n\taddiu $8,$0,0x3FFF\n\t"
-    "sub $9,$8,$9\n\tandi $9,$9,0x3FFE\n\tlui $1,0x800B\n\taddu $1,$1,$9\n\t"
-    "lhu $9,0x0EEC($1)\n\tandi $8,$10,0x8000\n\t.word 0x11000002\n\tnop\n\t"
-    "sub $9,$0,$9\n\tsll $2,$9,1\n\tsra $2,$2,4\n\tmult $2,$5\n\t"
-    "mflo $3\n\tmfhi $7\n\tsrl $3,$3,12\n\tsll $7,$7,20\n\tor $3,$3,$7\n\t"
-    "jr $31\n\tsw $3,8($4)");
+typedef signed int s32;
+typedef unsigned short u16;
+
+extern u16 D_800B0EEC[];
+
+typedef struct VectorXZ {
+    s32 x;
+    s32 unused;
+    s32 z;
+} VectorXZ;
+
+void func_80049680(VectorXZ *output, s32 magnitude, s32 angle) {
+    register s32 mask asm("$8");
+    register s32 index asm("$9");
+    register s32 next_angle asm("$10");
+    register u16 sample asm("$9");
+    register s32 trig asm("$2");
+    register s32 result asm("$3");
+    register s32 high asm("$7");
+
+    mask = angle & 0x4000;
+    index = angle & 0x3FFF;
+    asm volatile("beqz %1,1f\n\t"
+                 "nop\n\t"
+                 "addiu %1,$0,0x3FFF\n\t"
+                 "sub %0,%1,%0\n"
+                 "1:" : "+r"(index), "+r"(mask));
+    asm volatile("andi %0,%0,0x3FFE\n\t"
+                 "lui $1,%%hi(D_800B0EEC)\n\t"
+                 "addu $1,$1,%0\n\t"
+                 "lhu %0,%%lo(D_800B0EEC)($1)" : "+r"(sample));
+    mask = angle & 0x8000;
+    if (mask != 0) {
+        asm("sub %0,$0,%0" : "+r"(sample));
+    }
+    asm("sll %0,%1,1\n\tsra %0,%0,4" : "=r"(trig) : "r"(sample));
+    asm volatile("mult %2,%3\n\t"
+                 "mflo %0\n\t"
+                 "mfhi %1\n\t"
+                 "srl %0,%0,12\n\t"
+                 "sll %1,%1,20\n\t"
+                 "or %0,%0,%1"
+                 : "=&r"(result), "=&r"(high) : "r"(trig), "r"(magnitude));
+    output->x = result;
+    next_angle = angle + 0x4000;
+    mask = next_angle & 0x4000;
+    index = next_angle & 0x3FFF;
+    asm volatile("beqz %1,1f\n\t"
+                 "nop\n\t"
+                 "addiu %1,$0,0x3FFF\n\t"
+                 "sub %0,%1,%0\n"
+                 "1:" : "+r"(index), "+r"(mask));
+    asm volatile("andi %0,%0,0x3FFE\n\t"
+                 "lui $1,%%hi(D_800B0EEC)\n\t"
+                 "addu $1,$1,%0\n\t"
+                 "lhu %0,%%lo(D_800B0EEC)($1)" : "+r"(sample));
+    mask = next_angle & 0x8000;
+    if (mask != 0) {
+        asm("sub %0,$0,%0" : "+r"(sample));
+    }
+    asm("sll %0,%1,1\n\tsra %0,%0,4" : "=r"(trig) : "r"(sample));
+    asm volatile("mult %2,%3\n\t"
+                 "mflo %0\n\t"
+                 "mfhi %1\n\t"
+                 "srl %0,%0,12\n\t"
+                 "sll %1,%1,20\n\t"
+                 "or %0,%0,%1"
+                 : "=&r"(result), "=&r"(high) : "r"(trig), "r"(magnitude));
+    output->z = result;
+}
