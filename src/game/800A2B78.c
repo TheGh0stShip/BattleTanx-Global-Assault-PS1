@@ -1,11 +1,45 @@
-asm(".text\n\t.globl func_800A2B78\nfunc_800A2B78:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafbf001c,0xafb20018,0x8e020004\n\t"
-    ".word 0x00000000,0x30420001,0x10400003,0x00c09021\n\t"
-    ".word 0x0c028679,0x00002021,0x12200002,0x24020003\n\t"
-    ".word 0x24020001,0xa2020030,0x3c02800f,0x02002021\n\t"
-    ".word 0x2406000a,0xae000034,0xae00003c,0xae000044\n\t"
-    ".word 0xae120048,0xac50fe14,0x8e020004,0x90850030\n\t"
-    ".word 0x34420001,0xac820004,0x0c0286cb,0x00000000\n\t"
-    ".word 0x8fbf001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef struct SoundState {
+    int unused0;
+    unsigned int flags;
+    unsigned char unused8[40];
+    unsigned char mode;
+    unsigned char unused31[3];
+    int value34;
+    unsigned char unused38[4];
+    int value3C;
+    unsigned char unused40[4];
+    int value44;
+    int argument48;
+} SoundState;
+
+extern SoundState *D_800EFE14;
+extern void func_800A19E4(int value);
+extern void func_800A1B2C(SoundState *state, unsigned char mode, int value);
+
+void func_800A2B78(SoundState *state, int enabled, int argument) {
+    register SoundState *call_state asm("$4");
+    register int call_value asm("$6");
+    register unsigned int flags asm("$2");
+    register unsigned int mode asm("$5");
+
+    if (state->flags & 1) {
+        func_800A19E4(0);
+    }
+    state->mode = enabled ? 1 : 3;
+    asm volatile("lui $2,%%hi(D_800EFE14)\n\t"
+                 "addu %0,%2,$0\n\t"
+                 "addiu %1,$0,10\n\t"
+                 "sw $0,52(%2)\n\t"
+                 "sw $0,60(%2)\n\t"
+                 "sw $0,68(%2)\n\t"
+                 "sw %3,72(%2)\n\t"
+                 "sw %2,%%lo(D_800EFE14)($2)"
+                 : "=r"(call_state), "=r"(call_value)
+                 : "r"(state), "r"(argument) : "$2", "memory");
+    flags = state->flags;
+    mode = call_state->mode;
+    flags |= 1;
+    call_state->flags = flags;
+    asm volatile("" : : "m"(call_state->flags) : "memory");
+    func_800A1B2C(call_state, mode, call_value);
+}

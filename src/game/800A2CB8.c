@@ -1,18 +1,59 @@
-asm(".text\n\t.globl func_800A2CB8\nfunc_800A2CB8:\n\t"
-    ".word 0x27bdffd0,0xafb10014,0x00808821,0xafb50024\n\t"
-    ".word 0x00a0a821,0xafb3001c,0x2413efff,0x3c028008\n\t"
-    ".word 0xafb40020,0x24546058,0xafbf0028,0xafb20018\n\t"
-    ".word 0xafb00010,0x8e220004,0x00000000,0x38520001\n\t"
-    ".word 0x32520001,0x16400024,0x00000000,0x0c023e5e\n\t"
-    ".word 0x00000000,0x30420004,0x1040001f,0x00000000\n\t"
-    ".word 0x0c023e09,0x00000000,0x0c02221c,0x24040001\n\t"
-    ".word 0x8e230004,0x00000000,0x30631000,0x1460000e\n\t"
-    ".word 0x00408021,0x8e830004,0x2402003c,0x14620002\n\t"
-    ".word 0x24040147,0x24040189,0x8e220024,0x00000000\n\t"
-    ".word 0x02021023,0x0044102b,0x14400007,0x00000000\n\t"
-    ".word 0x0c028b7f,0x24040019,0x8e220004,0xae300024\n\t"
-    ".word 0x00531024,0xae220004,0x0c023e09,0x00000000\n\t"
-    ".word 0x08028b65,0x00000000,0xae200024,0x16400003\n\t"
-    ".word 0x02401021,0x16a0ffd3,0x00000000,0x8fbf0028\n\t"
-    ".word 0x8fb50024,0x8fb40020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0030\n\t");
+typedef struct SoundTransfer {
+    int unused0;
+    unsigned int flags;
+    unsigned char unused8[28];
+    unsigned int timestamp;
+} SoundTransfer;
+
+typedef struct VideoConfig {
+    int unused0;
+    int rate;
+} VideoConfig;
+
+extern VideoConfig D_80086058;
+extern unsigned int func_80088870(int source);
+extern void func_8008F824(void);
+extern unsigned int func_8008F978(void);
+extern void func_800A2DFC(unsigned int ticks);
+
+int func_800A2CB8(SoundTransfer *transfer, int repeat) {
+    register SoundTransfer *saved_transfer asm("$17") = transfer;
+    register int saved_repeat asm("$21") = repeat;
+    register int clear_wait asm("$19") = -0x1001;
+    VideoConfig *config = &D_80086058;
+    register unsigned int ready asm("$18");
+    register unsigned int now asm("$16");
+    register unsigned int current_flags asm("$2");
+    unsigned int delay;
+
+    asm("" : "+r"(saved_transfer), "+r"(saved_repeat),
+              "+r"(clear_wait));
+    do {
+        current_flags = saved_transfer->flags;
+        asm("" : "+r"(current_flags));
+        ready = current_flags ^ 1U;
+        ready &= 1U;
+        if (ready == 0 && (func_8008F978() & 4U) != 0) {
+            func_8008F824();
+            now = func_80088870(1);
+            if ((saved_transfer->flags & 0x1000U) == 0) {
+                delay = 0x147;
+                if (config->rate == 0x3C) {
+                    delay = 0x189;
+                }
+                if (now - saved_transfer->timestamp >= delay) {
+                    func_800A2DFC(0x19);
+                    saved_transfer->timestamp = now;
+                    saved_transfer->flags &= clear_wait;
+                }
+            } else {
+                saved_transfer->timestamp = now;
+                saved_transfer->flags &= clear_wait;
+            }
+            func_8008F824();
+        } else {
+            saved_transfer->timestamp = 0;
+        }
+    } while (ready == 0 && saved_repeat != 0);
+    return ready;
+}

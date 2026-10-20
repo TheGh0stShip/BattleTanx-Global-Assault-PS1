@@ -1,12 +1,57 @@
-asm(".text\n\t.globl func_800A2C10\nfunc_800A2C10:\n\t"
-    ".word 0x27bdffd8,0xafb00010,0x00808021,0xafb10014\n\t"
-    ".word 0x00a08821,0xafb20018,0x00c09021,0xafbf0020\n\t"
-    ".word 0xafb3001c,0x8e020004,0x00000000,0x30420001\n\t"
-    ".word 0x10400003,0x00e09821,0x0c028679,0x00002021\n\t"
-    ".word 0xa2110030,0xae000034,0xae12003c,0xae130044\n\t"
-    ".word 0x8fa20038,0x2403fbff,0xae020048,0x3c02800f\n\t"
-    ".word 0xac50fe14,0x8e020004,0x02002021,0x00431024\n\t"
-    ".word 0xae020004,0x8e020004,0x00002821,0x34420001\n\t"
-    ".word 0xac820004,0x0c0289bd,0x00000000,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct SoundState {
+    int unused0;
+    volatile unsigned int flags;
+    unsigned char unused8[40];
+    unsigned char mode;
+    unsigned char unused31[3];
+    int value34;
+    unsigned char unused38[4];
+    int value3C;
+    unsigned char unused40[4];
+    int value44;
+    int argument48;
+} SoundState;
+
+extern SoundState *D_800EFE14;
+extern void func_800A19E4(int value);
+extern void func_800A26F4(SoundState *state, int value);
+
+void func_800A2C10(SoundState *state, int mode, int value3C,
+                   int value44, int argument48) {
+    register SoundState *saved_state asm("$16") = state;
+    register int saved_mode asm("$17") = mode;
+    register int saved_value3C asm("$18") = value3C;
+    register int saved_value44 asm("$19");
+    register SoundState *call_state asm("$4");
+    register int call_value asm("$5");
+
+    asm("" : "+r"(saved_state), "+r"(saved_mode),
+              "+r"(saved_value3C));
+    saved_value44 = value44;
+    if (saved_state->flags & 1) {
+        func_800A19E4(0);
+    }
+    asm volatile("sb %3,48(%2)\n\t"
+                 "sw $0,52(%2)\n\t"
+                 "sw %4,60(%2)\n\t"
+                 "sw %5,68(%2)\n\t"
+                 "lw $2,56($29)\n\t"
+                 "addiu $3,$0,-1025\n\t"
+                 "sw $2,72(%2)\n\t"
+                 "lui $2,%%hi(D_800EFE14)\n\t"
+                 "sw %2,%%lo(D_800EFE14)($2)\n\t"
+                 "lw $2,4(%2)\n\t"
+                 "addu %0,%2,$0\n\t"
+                 "and $2,$2,$3\n\t"
+                 "sw $2,4(%2)\n\t"
+                 "lw $2,4(%2)\n\t"
+                 "addu %1,$0,$0\n\t"
+                 "ori $2,$2,1\n\t"
+                 "sw $2,4(%0)"
+                 : "=r"(call_state), "=r"(call_value)
+                 : "r"(saved_state), "r"(saved_mode), "r"(saved_value3C),
+                   "r"(saved_value44)
+                 : "$2", "$3", "memory");
+    asm volatile("" : : "m"(call_state->flags) : "memory");
+    func_800A26F4(call_state, call_value);
+}

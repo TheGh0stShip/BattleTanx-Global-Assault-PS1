@@ -1,14 +1,34 @@
-asm(".text\n\t.globl func_800A1810\nfunc_800A1810:\n\t"
-    ".word 0x27bdffd8,0xafb20018,0x00809021,0xafb3001c\n\t"
-    ".word 0x00a09821,0xafb10014,0x3c11800c,0x263190d8\n\t"
-    ".word 0xafbf0020,0xafb00010,0x0c02221c,0x2404ffff\n\t"
-    ".word 0x8e230000,0x00000000,0x246304b0,0x0062182a\n\t"
-    ".word 0x14600013,0x2410ffff,0x8e22fff8,0x00000000\n\t"
-    ".word 0x04400009,0x00000000,0x0c02221c,0x2404ffff\n\t"
-    ".word 0x8e23fffc,0x00000000,0x2463003c,0x0062182a\n\t"
-    ".word 0x10600006,0x00000000,0x0c028548,0x24040001\n\t"
-    ".word 0x8e30ffe4,0x08028628,0x00000000,0x8e30fff8\n\t"
-    ".word 0x16400003,0x24040001,0x1e00ffe3,0x00000000\n\t"
-    ".word 0x0c025c3d,0x02602821,0x02001021,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+extern int func_80088870(int source);
+extern void func_800970F4(int enabled, int value);
+extern void func_800A1520(int mode);
+extern int D_800B90D8;
+
+int func_800A1810(int repeat, int value) {
+    register int saved_repeat asm("$18") = repeat;
+    register int saved_value asm("$19") = value;
+    register volatile int *clock asm("$17") = &D_800B90D8;
+    register int result asm("$16");
+
+    asm("" : "+r"(saved_repeat), "+r"(saved_value), "+r"(clock));
+    do {
+        int now = func_80088870(-1);
+
+        result = -1;
+        if (clock[0] + 0x4B0 >= now) {
+            if (clock[-2] < 0) {
+                func_800A1520(1);
+                result = clock[-7];
+            } else {
+                now = func_80088870(-1);
+                if (clock[-1] + 0x3C < now) {
+                    func_800A1520(1);
+                    result = clock[-7];
+                } else {
+                    result = clock[-2];
+                }
+            }
+        }
+    } while (saved_repeat == 0 && result > 0);
+    func_800970F4(1, saved_value);
+    return result;
+}

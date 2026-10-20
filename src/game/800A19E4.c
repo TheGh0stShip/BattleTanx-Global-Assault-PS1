@@ -1,14 +1,73 @@
-asm(".text\n\t.globl func_800A19E4\nfunc_800A19E4:\n\t"
-    ".word 0x27bdffd0,0xafb40028,0x0080a021,0x3c02800f\n\t"
-    ".word 0x2442fd0c,0xafbf002c,0xafb30024,0xafb20020\n\t"
-    ".word 0xafb1001c,0xafb00018,0x8c440108,0x00000000\n\t"
-    ".word 0x1080001e,0x00808021,0xac400108,0x8e13003c\n\t"
-    ".word 0x8e020004,0x8e030004,0x8e110048,0x8e120034\n\t"
-    ".word 0x2404fbfc,0xae000008,0xae00003c,0x00641824\n\t"
-    ".word 0x30420001,0xae030004,0x16800008,0x00000000\n\t"
-    ".word 0x10400006,0x00000000,0x8e050000,0x0c023fc7\n\t"
-    ".word 0x2404000d,0x0c023e69,0x00000000,0x12200007\n\t"
-    ".word 0x02002021,0x02603021,0x92050030,0x02403821\n\t"
-    ".word 0xac800048,0x0220f809,0xafb40010,0x8fbf002c\n\t"
-    ".word 0x8fb40028,0x8fb30024,0x8fb20020,0x8fb1001c\n\t"
-    ".word 0x8fb00018,0x03e00008,0x27bd0030\n\t");
+typedef struct SoundTransfer {
+    int handle;
+    volatile unsigned int flags;
+    int active;
+    unsigned char unusedC[36];
+    unsigned char mode;
+    unsigned char unused31[3];
+    int value34;
+    unsigned char unused38[4];
+    int value3C;
+    unsigned char unused40[8];
+    void (*callback)(struct SoundTransfer *, unsigned char, int, int, int);
+} SoundTransfer;
+
+typedef struct SoundGlobals {
+    unsigned char unused0[0x108];
+    SoundTransfer *active;
+} SoundGlobals;
+
+extern SoundGlobals D_800EFD0C;
+extern void func_8008FF1C(int event, int handle);
+extern void func_8008F9A4(void);
+
+void func_800A19E4(int reason) {
+    register int saved_reason asm("$20") = reason;
+    register SoundTransfer *transfer asm("$16");
+    register int value3C asm("$19");
+    register void (*callback)(SoundTransfer *, unsigned char, int, int, int)
+        asm("$17");
+    register int value34 asm("$18");
+    register SoundTransfer *active_arg asm("$4");
+
+    asm("" : "+r"(saved_reason));
+    active_arg = D_800EFD0C.active;
+    if (active_arg != 0) {
+        register unsigned int active_flags asm("$2");
+        register unsigned int new_flags asm("$3");
+        int clear_mask;
+
+        transfer = active_arg;
+        D_800EFD0C.active = 0;
+        value3C = transfer->value3C;
+        asm volatile("" : : : "memory");
+        active_flags = transfer->flags;
+        asm volatile("" : : : "memory");
+        new_flags = transfer->flags;
+        asm volatile("" : : : "memory");
+        callback = transfer->callback;
+        asm volatile("" : : : "memory");
+        value34 = transfer->value34;
+        asm volatile("" : : "r"(value3C), "r"(active_flags),
+                     "r"(new_flags), "r"(callback), "r"(value34)
+                     : "memory");
+        clear_mask = -0x404;
+        transfer->active = 0;
+        asm volatile("" : : : "memory");
+        transfer->value3C = 0;
+        asm volatile("" : "+r"(active_flags), "+r"(new_flags)
+                     : "r"(clear_mask) : "memory");
+        new_flags &= clear_mask;
+        active_flags &= 1U;
+        transfer->flags = new_flags;
+        if (saved_reason == 0 && active_flags != 0) {
+            func_8008FF1C(0xD, transfer->handle);
+            func_8008F9A4();
+        }
+        if (callback != 0) {
+            transfer->callback = 0;
+            callback(transfer, transfer->mode, value3C, value34,
+                     saved_reason);
+        }
+    }
+}

@@ -1,10 +1,65 @@
-asm(".text\n\t.globl func_800A2FF0\nfunc_800A2FF0:\n\t"
-    ".word 0x3c02800f,0x8c42f238,0x3c03800f,0x8c63f230\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x00021140,0x00621821\n\t"
-    ".word 0x24020002,0xa4620000,0x3c06800f,0x24c6fe20\n\t"
-    ".word 0x8862001f,0x9862001c,0x00000000,0xa8c20003\n\t"
-    ".word 0xb8c20000,0x8c620008,0x3c03800f,0x8c63f234\n\t"
-    ".word 0x3c04800f,0x8c84f1f8,0x3c01800f,0xac22fe24\n\t"
-    ".word 0x3c01800f,0x10800003,0xac23f238,0x0080f809\n\t"
-    ".word 0x00000000,0x3c01800f,0xac20f228,0x8fbf0010\n\t"
-    ".word 0x27bd0018,0x03e00008,0x00000000\n\t");
+typedef struct BufferRecord {
+    short state;
+    unsigned char unused2[6];
+    int value8;
+    unsigned char unusedC[16];
+    unsigned int value1C;
+} BufferRecord;
+
+typedef struct PackedWord {
+    unsigned int value;
+} __attribute__((packed)) PackedWord;
+
+extern BufferRecord *D_800EF230;
+extern int D_800EF234;
+extern int D_800EF238;
+extern void (*D_800EF1F8)(void);
+extern int D_800EF228;
+extern PackedWord D_800EFE20;
+extern int D_800EFE24;
+
+void func_800A2FF0(void) {
+    register BufferRecord *record asm("$3");
+    register PackedWord *destination asm("$6");
+    register unsigned int value asm("$2");
+
+    asm volatile("lui $2,%%hi(D_800EF238)\n\t"
+                 "lw $2,%%lo(D_800EF238)($2)\n\t"
+                 "lui $3,%%hi(D_800EF230)\n\t"
+                 "lw $3,%%lo(D_800EF230)($3)\n\t"
+                 "addiu $29,$29,-24\n\t"
+                 "sw $31,16($29)\n\t"
+                 "sll $2,$2,5\n\t"
+                 "addu $3,$3,$2\n\t"
+                 "addiu $2,$0,2\n\t"
+                 "sh $2,0($3)"
+                 : "=r"(record) : : "$2", "memory");
+    destination = &D_800EFE20;
+    asm("" : "+r"(destination));
+    value = ((PackedWord *)&record->value1C)->value;
+    asm volatile("nop" : "+r"(value));
+    destination->value = value;
+    asm volatile("lw $2,8($3)\n\t"
+                 "lui $3,%%hi(D_800EF234)\n\t"
+                 "lw $3,%%lo(D_800EF234)($3)\n\t"
+                 "lui $4,%%hi(D_800EF1F8)\n\t"
+                 "lw $4,%%lo(D_800EF1F8)($4)\n\t"
+                 "lui $1,%%hi(D_800EFE24)\n\t"
+                 "sw $2,%%lo(D_800EFE24)($1)\n\t"
+                 "lui $1,%%hi(D_800EF238)\n\t"
+                 "beqz $4,1f\n\t"
+                 "sw $3,%%lo(D_800EF238)($1)\n\t"
+                 "jalr $4\n\t"
+                 "nop\n"
+                 "1:\n\t"
+                 "lui $1,%%hi(D_800EF228)\n\t"
+                 "sw $0,%%lo(D_800EF228)($1)\n\t"
+                 "lw $31,16($29)\n\t"
+                 "addiu $29,$29,24\n\t"
+                 "jr $31\n\t"
+                 "nop\n\t"
+                 ".macro j args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm"
+                 : : "r"(record), "r"(value) : "$1", "$2", "$3", "$4", "memory");
+}

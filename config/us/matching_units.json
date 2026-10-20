@@ -8350,7 +8350,15 @@
       "address": "0x800A2FF0",
       "size": "0x8C",
       "source": "src/game/800A2FF0.c",
-      "symbols": {}
+      "symbols": {
+        "D_800EF1F8": "0x800EF1F8",
+        "D_800EF228": "0x800EF228",
+        "D_800EF230": "0x800EF230",
+        "D_800EF234": "0x800EF234",
+        "D_800EF238": "0x800EF238",
+        "D_800EFE20": "0x800EFE20",
+        "D_800EFE24": "0x800EFE24"
+      }
     },
     {
       "name": "func_80014FFC",
@@ -8674,7 +8682,11 @@
       "address": "0x800A2B78",
       "size": "0x98",
       "source": "src/game/800A2B78.c",
-      "symbols": {}
+      "symbols": {
+        "D_800EFE14": "0x800EFE14",
+        "func_800A19E4": "0x800A19E4",
+        "func_800A1B2C": "0x800A1B2C"
+      }
     },
     {
       "name": "func_800A417C",
@@ -9325,7 +9337,11 @@
       "address": "0x800A2C10",
       "size": "0xA8",
       "source": "src/game/800A2C10.c",
-      "symbols": {}
+      "symbols": {
+        "D_800EFE14": "0x800EFE14",
+        "func_800A19E4": "0x800A19E4",
+        "func_800A26F4": "0x800A26F4"
+      }
     },
     {
       "name": "func_800A3954",
@@ -9979,7 +9995,12 @@
       "address": "0x800A1810",
       "size": "0xC8",
       "source": "src/game/800A1810.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B90D8": "0x800B90D8",
+        "func_80088870": "0x80088870",
+        "func_800970F4": "0x800970F4",
+        "func_800A1520": "0x800A1520"
+      }
     },
     {
       "name": "func_800A1B2C",
@@ -10389,7 +10410,11 @@
       "address": "0x800A19E4",
       "size": "0xCC",
       "source": "src/game/800A19E4.c",
-      "symbols": {}
+      "symbols": {
+        "D_800EFD0C": "0x800EFD0C",
+        "func_8008F9A4": "0x8008F9A4",
+        "func_8008FF1C": "0x8008FF1C"
+      }
     },
     {
       "name": "func_800A21F8",
@@ -11562,7 +11587,13 @@
       "address": "0x800A2CB8",
       "size": "0x110",
       "source": "src/game/800A2CB8.c",
-      "symbols": {}
+      "symbols": {
+        "D_80086058": "0x80086058",
+        "func_80088870": "0x80088870",
+        "func_8008F824": "0x8008F824",
+        "func_8008F978": "0x8008F978",
+        "func_800A2DFC": "0x800A2DFC"
+      }
     },
     {
       "name": "func_80016EE0",
