@@ -1,29 +1,28 @@
-__asm__(
-    ".set noreorder\n"
-    ".text\n"
-    ".align 2\n"
-    ".globl func_8008BC28\n"
-    ".ent func_8008BC28\n"
-    "func_8008BC28:\n"
-    "lui $9,0x1F80\n"
-    "ori $9,$9,0x0300\n"
-    "lh $3,10($9)\n"
-    "andi $4,$4,3\n"
-    "andi $3,$3,0xFF9F\n"
-    "sll $4,$4,5\n"
-    "or $3,$4,$3\n"
-    "sh $3,10($9)\n"
-    "lh $3,30($9)\n"
-    "nop\n"
-    "andi $3,$3,0xFF9F\n"
-    "or $3,$4,$3\n"
-    "sh $3,30($9)\n"
-    "lh $3,50($9)\n"
-    "nop\n"
-    "andi $3,$3,0xFF9F\n"
-    "or $3,$4,$3\n"
-    "jr $31\n"
-    "sh $3,50($9)\n"
-    ".end func_8008BC28\n"
-    ".set reorder\n"
-);
+typedef struct ScratchChannel {
+    unsigned char unused0[10];
+    short mode;
+    unsigned char unusedC[8];
+} ScratchChannel;
+
+void func_8008BC28(unsigned int mode) {
+    register ScratchChannel *channels asm("$9") = (ScratchChannel *)0x1F800300;
+    register unsigned int bits asm("$4") = mode;
+    register int value asm("$3");
+
+    asm("" : "+r"(channels), "+r"(bits));
+    value = channels[0].mode;
+    asm("" : "+r"(value), "+r"(bits));
+    bits &= 3U;
+    value &= 0xFF9F;
+    bits <<= 5;
+    value = bits | value;
+    channels[0].mode = (short)value;
+    value = channels[1].mode;
+    value &= 0xFF9F;
+    value = bits | value;
+    channels[1].mode = (short)value;
+    value = channels[2].mode;
+    value &= 0xFF9F;
+    value = bits | value;
+    channels[2].mode = (short)value;
+}

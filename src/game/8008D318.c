@@ -1,11 +1,44 @@
-asm(".text\n\t.globl func_8008D318\nfunc_8008D318:\n\t"
-    ".word 0x27bdffd0,0xafb20020,0x00809021,0xafb1001c\n\t"
-    ".word 0x00a08821,0xafb00018,0x00c08021,0xafb30024\n\t"
-    ".word 0x00e09821,0x26440008,0x00002821,0x24060080\n\t"
-    ".word 0xafbf0028,0xae510000,0x0c022a92,0xae400004\n\t"
-    ".word 0x12000008,0x00001821,0xae230004,0x02201821\n\t"
-    ".word 0x24620010,0xac620000,0x2610ffff,0x1600fffa\n\t"
-    ".word 0x00408821,0x8fa60040,0x02402021,0xac600000\n\t"
-    ".word 0x8fa20048,0x8fa70044,0x02602821,0x0c0234b3\n\t"
-    ".word 0xafa20010,0x8fbf0028,0x8fb30024,0x8fb20020\n\t"
-    ".word 0x8fb1001c,0x8fb00018,0x03e00008,0x27bd0030\n\t");
+typedef struct PoolNode {
+    struct PoolNode *next;
+    struct PoolNode *previous;
+    unsigned char payload[8];
+} PoolNode;
+
+typedef struct PoolState {
+    PoolNode *first;
+    int active;
+    unsigned char control[0x80];
+} PoolState;
+
+extern void func_8008AA48(void *destination, int value, unsigned int size);
+extern void func_8008D2CC(PoolState *state, int mode, int first, int second, int third);
+
+void func_8008D318(PoolState *state, PoolNode *nodes, int count, int mode,
+                   int first, int second, int third) {
+    register PoolState *saved_state asm("$18") = state;
+    register PoolNode *node asm("$17") = nodes;
+    register int remaining asm("$16") = count;
+    register int saved_mode asm("$19") = mode;
+    register PoolNode *previous asm("$3");
+    register PoolNode *next asm("$2");
+
+    asm("" : "+r"(saved_state), "+r"(node), "+r"(remaining), "+r"(saved_mode));
+    saved_state->first = node;
+    saved_state->active = 0;
+    func_8008AA48(saved_state->control, 0, 0x80);
+    previous = 0;
+    if (remaining != 0) {
+        do {
+            node->previous = previous;
+            previous = node;
+            next = previous + 1;
+            asm("" : "+r"(next));
+            previous->next = next;
+            asm volatile("" : : "m"(previous->next) : "memory");
+            remaining--;
+            node = next;
+        } while (remaining != 0);
+    }
+    previous->next = 0;
+    func_8008D2CC(saved_state, saved_mode, first, second, third);
+}
