@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -74,6 +75,17 @@ def run_checked(args, **kwargs):
     subprocess.run(args, check=True, **kwargs)
 
 
+def rewrite_move_pseudos(path):
+    """Expand move as PSY-Q's addu while preserving all other assembly."""
+    source = path.read_text()
+    source = re.sub(
+        r"(?m)^(\s*)move\s+(\$[A-Za-z0-9]+)\s*,\s*(\$[A-Za-z0-9]+)(\s*(?:#.*)?)$",
+        r"\1addu\t\2,\3,$zero\4",
+        source,
+    )
+    path.write_text(source)
+
+
 def compile_unit(unit, config, prefix, work):
     cc1 = compiler_path(unit, config)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
@@ -98,6 +110,8 @@ def compile_unit(unit, config, prefix, work):
              *unit.get("maspsx_flags_extra", []), str(assembly)],
             stdout=output,
         )
+    if unit.get("rewrite_move_pseudos"):
+        rewrite_move_pseudos(processed)
     run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:

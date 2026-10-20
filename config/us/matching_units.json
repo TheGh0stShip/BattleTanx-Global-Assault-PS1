@@ -19718,7 +19718,17 @@
       "address": "0x8009A8C0",
       "size": "0xA4",
       "source": "src/game/8009A8C0.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B76F0": "0x800B76F0",
+        "D_800B7714": "0x800B7714",
+        "D_800B7718": "0x800B7718",
+        "D_800B771C": "0x800B771C",
+        "D_800B7720": "0x800B7720"
+      },
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true
     },
     {
       "name": "data_800A74BC",

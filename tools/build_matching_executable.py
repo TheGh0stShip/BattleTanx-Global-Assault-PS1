@@ -14,11 +14,13 @@ from pathlib import Path
 
 try:
     from .verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int,
+        rewrite_move_pseudos, validate_units,
     )
 except ImportError:
     from verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int,
+        rewrite_move_pseudos, validate_units,
     )
 
 
@@ -81,6 +83,8 @@ def compile_object(item, config, prefix, work_root):
     if result.returncode:
         sys.stderr.buffer.write(result.stderr)
         raise subprocess.CalledProcessError(result.returncode, result.args)
+    if unit.get("rewrite_move_pseudos"):
+        rewrite_move_pseudos(processed)
     run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:

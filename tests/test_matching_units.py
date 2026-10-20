@@ -1,4 +1,6 @@
+import tempfile
 import unittest
+from pathlib import Path
 
 from tools import verify_matching_units
 
@@ -44,6 +46,20 @@ class MatchingUnits(unittest.TestCase):
             name="second", address="0x80010010", source="second.c")]
         with self.assertRaises(ValueError):
             verify_matching_units.validate_units({"units": units})
+
+    def test_rewrite_move_pseudos_preserves_other_instructions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            assembly = Path(directory) / "unit.s"
+            assembly.write_text(
+                "\tmove\t$6,$4 # delay slot\n"
+                "\taddu\t$3,$7,$zero\n"
+            )
+            verify_matching_units.rewrite_move_pseudos(assembly)
+            self.assertEqual(
+                assembly.read_text(),
+                "\taddu\t$6,$4,$zero # delay slot\n"
+                "\taddu\t$3,$7,$zero\n",
+            )
 
 
 if __name__ == "__main__":
