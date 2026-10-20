@@ -10810,7 +10810,10 @@
       "address": "0x8002EA70",
       "size": "0xF8",
       "source": "src/game/8002EA70.c",
-      "symbols": {}
+      "symbols": {
+        "D_800C62B0": "0x800C62B0",
+        "D_800D2FE4": "0x800D2FE4"
+      }
     },
     {
       "name": "func_800301FC",

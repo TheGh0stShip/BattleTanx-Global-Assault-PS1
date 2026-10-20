@@ -1,17 +1,96 @@
-asm(".text\n\t.globl func_8002EA70\nfunc_8002EA70:\n\t"
-    ".word 0x00803021,0x8cc2002c,0x8cc30024,0x00000000\n\t"
-    ".word 0xac43003c,0x94c30038,0x3402ffff,0x10620034\n\t"
-    ".word 0x00031080,0x00431021,0x000210c0,0x3c05800c\n\t"
-    ".word 0x24a562b0,0x00451021,0xac400004,0x94c30038\n\t"
-    ".word 0x00000000,0x00031080,0x00431021,0x000210c0\n\t"
-    ".word 0x00451021,0x8c430000,0x00000000,0x34630040\n\t"
-    ".word 0xac430000,0x94c30038,0x00000000,0x00031080\n\t"
-    ".word 0x00431021,0x000210c0,0x00451021,0x8c430000\n\t"
-    ".word 0x2404fffd,0x00641824,0xac430000,0x94c30038\n\t"
-    ".word 0x00000000,0x00031080,0x00431021,0x000210c0\n\t"
-    ".word 0x90c30036,0x00451021,0xa4430020,0x90c20037\n\t"
-    ".word 0x00000000,0x2442ffff,0x2c420002,0x1040000a\n\t"
-    ".word 0x3c02800d,0x24442fe4,0x8c830004,0x2402000c\n\t"
-    ".word 0x14620006,0x24020005,0x8c820010,0x00000000\n\t"
-    ".word 0x2442ffff,0xac820010,0x24020005,0xa0c20035\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef signed int s32;
+typedef signed short s16;
+typedef unsigned short u16;
+typedef unsigned char u8;
+
+typedef struct PoolEntry {
+    s32 flags;
+    s32 value;
+    u8 unused08[0x18];
+    s16 type;
+    u8 unused22[6];
+} PoolEntry;
+
+typedef struct ChildState {
+    u8 unused00[0x3C];
+    s32 value;
+} ChildState;
+
+typedef struct ObjectState {
+    u8 unused00[0x24];
+    s32 value;
+    u8 unused28[4];
+    ChildState *child;
+    u8 unused30[5];
+    u8 state;
+    u8 type;
+    u8 mode;
+    u16 entry;
+} ObjectState;
+
+typedef struct GlobalState {
+    s32 unused00;
+    s32 mode;
+    u8 unused08[8];
+    s32 count;
+} GlobalState;
+
+extern PoolEntry D_800C62B0[];
+extern GlobalState D_800D2FE4;
+
+void func_8002EA70(ObjectState *object) {
+    register ObjectState *saved asm("$6") = object;
+    register ChildState *child asm("$2");
+    register s32 value asm("$3");
+    register unsigned int index asm("$3");
+    register unsigned int offset asm("$2");
+    register PoolEntry *base asm("$5");
+    register PoolEntry *entry asm("$2");
+    register s32 flags asm("$3");
+    register s32 mask asm("$4");
+
+    asm("" : "+r"(saved));
+    child = saved->child;
+    value = saved->value;
+    child->value = value;
+    index = saved->entry;
+    asm("" : "+r"(index));
+    if (index != 0xFFFF) {
+        offset = (index * 5) << 3;
+        base = D_800C62B0;
+        asm("" : "+r"(base), "+r"(offset));
+        entry = (PoolEntry *)offset;
+        asm("addu %0,%0,%1" : "+r"(entry) : "r"(base));
+        entry->value = 0;
+        index = saved->entry;
+        asm("" : "+r"(index));
+        offset = (index * 5) << 3;
+        entry = (PoolEntry *)offset;
+        asm("addu %0,%0,%1" : "+r"(entry) : "r"(base));
+        flags = entry->flags;
+        flags |= 0x40;
+        entry->flags = flags;
+        index = saved->entry;
+        asm("" : "+r"(index));
+        offset = (index * 5) << 3;
+        entry = (PoolEntry *)offset;
+        asm("addu %0,%0,%1" : "+r"(entry) : "r"(base));
+        flags = entry->flags;
+        mask = -3;
+        flags &= mask;
+        entry->flags = flags;
+        index = saved->entry;
+        asm("" : "+r"(index));
+        offset = (index * 5) << 3;
+        value = saved->type;
+        entry = (PoolEntry *)offset;
+        asm("addu %0,%0,%1" : "+r"(entry) : "r"(base));
+        entry->type = (s16)value;
+        if ((unsigned int)(saved->mode - 1) < 2U) {
+            if (D_800D2FE4.mode == 12) {
+                D_800D2FE4.count--;
+            }
+        }
+        saved->state = 5;
+    }
+}
