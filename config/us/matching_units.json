@@ -18610,7 +18610,20 @@
       "address": "0x8002A378",
       "size": "0x59C",
       "source": "src/game/8002A378.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B0EEC": "0x800B0EEC",
+        "D_800C628C": "0x800C628C",
+        "func_80019D80": "0x80019D80",
+        "func_800235E0": "0x800235E0",
+        "func_80047B7C": "0x80047B7C",
+        "func_80053354": "0x80053354",
+        "func_8008ACC0": "0x8008ACC0",
+        "func_8008AD60": "0x8008AD60",
+        "func_8008AE30": "0x8008AE30"
+      },
+      "maspsx_flags_extra": [
+        "--expand-div"
+      ]
     },
     {
       "name": "func_8002F9BC",

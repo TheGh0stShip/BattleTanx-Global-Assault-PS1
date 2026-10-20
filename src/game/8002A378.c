@@ -1,91 +1,389 @@
-asm(".text\n\t.globl func_8002A378\nfunc_8002A378:\n\t"
-    ".word 0x27BDFF70,0xAFB30084,0xAFB00078,0x00808021\n\t"
-    ".word 0xAFBF0088,0xAFB20080,0xAFB1007C,0x92120037\n\t"
-    ".word 0x24020002,0x16420156,0x00A09821,0x96020034\n\t"
-    ".word 0x00000000,0x24420800,0x3044FFFF,0x00042102\n\t"
-    ".word 0x0C022B58,0xA6020034,0x8E0C0020,0x00000000\n\t"
-    ".word 0x01820018,0x00008812,0x00005810,0x00118B02\n\t"
-    ".word 0x000B5D00,0x022B8825,0x96040032,0x0C022B58\n\t"
-    ".word 0x00042102,0x00510018,0x00001812,0x00005810\n\t"
-    ".word 0x00031B02,0x000B5D00,0x006B1825,0x8E020024\n\t"
-    ".word 0x00000000,0x00431021,0xAFA20040,0x96040032\n\t"
-    ".word 0x0C022B30,0x00042102,0x00510018,0x00006012\n\t"
-    ".word 0x00001810,0x000C6302,0x00031D00,0x01836025\n\t"
-    ".word 0x01801021,0x27A40050,0x27A50060,0x24060403\n\t"
-    ".word 0x00003821,0x8E03002C,0x8FA90040,0x00621821\n\t"
-    ".word 0xAFA30044,0x8E080024,0x3C02800C,0xA440628C\n\t"
-    ".word 0xAFA80048,0x8E0A002C,0x27A20018,0xAFA80050\n\t"
-    ".word 0xAFA00054,0xAFA90060,0xAFA00064,0xAFA30068\n\t"
-    ".word 0xAFAA004C,0xAFAA0058,0xAFA00010,0x0C006760\n\t"
-    ".word 0xAFA20014,0x8FA30050,0x8FA40058,0x8FA50060\n\t"
-    ".word 0x8FA60068,0x3042FFFF,0xAFA30048,0xAFA4004C\n\t"
-    ".word 0xAFA50040,0x104000B7,0xAFA60044,0x92020036\n\t"
-    ".word 0x00000000,0x14400010,0x24030001,0x8FA4002C\n\t"
-    ".word 0x8FA50034,0x0C022B8C,0x00000000,0x30420FFF\n\t"
-    ".word 0x96040032,0x0C011EDF,0x00022900,0x18400003\n\t"
-    ".word 0x24020001,0x0800A942,0xA2020036,0xA2120036\n\t"
-    ".word 0x24030001,0x92020036,0x96040032,0x14430002\n\t"
-    ".word 0x2482FC00,0x24820400,0x3044FFFF,0x00042102\n\t"
-    ".word 0x0C022B58,0xA6020032,0x00510018,0x00001812\n\t"
-    ".word 0x00005810,0x00031B02,0x000B5D00,0x006B1825\n\t"
-    ".word 0x8E020024,0x00000000,0x00431021,0xAFA20040\n\t"
-    ".word 0x96040032,0x0C022B30,0x00042102,0x00510018\n\t"
-    ".word 0x00006012,0x00001810,0x000C6302,0x00031D00\n\t"
-    ".word 0x01836025,0x01801021,0x27A40050,0x27A50060\n\t"
-    ".word 0x24060403,0x00003821,0x8E03002C,0x8FA90040\n\t"
-    ".word 0x00621821,0xAFA30044,0x8E080024,0x3C02800C\n\t"
-    ".word 0xA440628C,0xAFA80048,0x8E0A002C,0x27A20018\n\t"
-    ".word 0xAFA80050,0xAFA00054,0xAFA90060,0xAFA00064\n\t"
-    ".word 0xAFA30068,0xAFAA004C,0xAFAA0058,0xAFA00010\n\t"
-    ".word 0x0C006760,0xAFA20014,0x8FA30050,0x8FA40058\n\t"
-    ".word 0x8FA50060,0x8FA60068,0x3042FFFF,0xAFA30048\n\t"
-    ".word 0xAFA4004C,0xAFA50040,0x10400066,0xAFA60044\n\t"
-    ".word 0x8FA30028,0x8E02002C,0x00000000,0x00623023\n\t"
-    ".word 0x8FA20020,0x8E030024,0x04C10002,0x00C02821\n\t"
-    ".word 0x00052823,0x00431023,0x04410002,0x00402021\n\t"
-    ".word 0x00042023,0x00A4102A,0x10400002,0x00000000\n\t"
-    ".word 0x00802821,0x04C10002,0x00C01821,0x00031823\n\t"
-    ".word 0x0083102A,0x10400003,0x00031040,0x00801821\n\t"
-    ".word 0x00031040,0x00431021,0x04410002,0x00000000\n\t"
-    ".word 0x24420007,0x8E040020,0x000210C3,0x14800002\n\t"
-    ".word 0x00A22821,0x24040002,0x3C028000,0x00A21824\n\t"
-    ".word 0x00821024,0x00624826,0x04A10002,0x00A01821\n\t"
-    ".word 0x00031823,0x04810002,0x00803021,0x00063023\n\t"
-    ".word 0x4883F000,0x00000000,0x00000000,0x27A20070\n\t"
-    ".word 0xE85F0000,0x8FA40070,0x00000000,0x2488FFF4\n\t"
-    ".word 0x05010023,0x00000000,0x00831804,0x4886F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20074,0xE85F0000\n\t"
-    ".word 0x8FA50074,0x00000000,0x00A43823,0x04E0000F\n\t"
-    ".word 0x2402000C,0x00451023,0x04400003,0x00000000\n\t"
-    ".word 0x0800A9CA,0x00461007,0x00021023,0x00461004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00002012,0x0800A9E0,0x00E42004,0x00081023\n\t"
-    ".word 0x00461007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00002012,0x0800A9E0,0x00000000\n\t"
-    ".word 0x00031B00,0x0066001B,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00002012,0x11200002,0x00000000\n\t"
-    ".word 0x00042023,0x0C014CD5,0x00000000,0x00021100\n\t"
-    ".word 0xA6020034,0x96020034,0x00000000,0x2C424000\n\t"
-    ".word 0x14400053,0x24020003,0x24060001,0xA2020037\n\t"
-    ".word 0xAE660000,0x8E020008,0x00000000,0xAC400040\n\t"
-    ".word 0x8E030008,0x8E020014,0x00000000,0xAC62003C\n\t"
-    ".word 0x8E030008,0x8E020024,0x00000000,0xAC620020\n\t"
-    ".word 0x8E030008,0x8E02002C,0x00000000,0xAC620028\n\t"
-    ".word 0x8E020008,0x00000000,0xAC400024,0x8E0B0008\n\t"
-    ".word 0x960C0032,0x24081000,0xAD680008,0xA5600002\n\t"
-    ".word 0xA5600006,0xA560000E,0xAD600014,0xAD600018\n\t"
-    ".word 0xAD60001C,0x31884000,0x31893FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x31888000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00095040\n\t"
-    ".word 0x000A5103,0xA56A0004,0x000A5022,0xA56A000C\n\t"
-    ".word 0x258A4000,0x31484000,0x31493FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x31488000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00095040\n\t"
-    ".word 0x000A5103,0xA56A0000,0xA56A0010,0x27A40050\n\t"
-    ".word 0xAE660000,0x8FA20040,0x8FA30044,0x24050064\n\t"
-    ".word 0xAFA20050,0xAFA30058,0x8E020028,0x2407007F\n\t"
-    ".word 0xAFA20054,0x24020100,0x0C008D78,0xAFA20010\n\t"
-    ".word 0x8FBF0088,0x8FB30084,0x8FB20080,0x8FB1007C\n\t"
-    ".word 0x8FB00078,0x03E00008,0x27BD0090\n");
+typedef signed char s8;
+typedef unsigned char u8;
+typedef signed short s16;
+typedef unsigned short u16;
+typedef signed int s32;
+typedef unsigned int u32;
+
+typedef struct Vector {
+    s32 x;
+    s32 y;
+    s32 z;
+} Vector;
+
+typedef struct Hit {
+    s32 pad00[2];
+    s32 x;
+    s32 pad0C;
+    s32 z;
+    s32 angle_x;
+    s32 pad18;
+    s32 angle_z;
+    s32 pad20;
+} Hit;
+
+typedef struct MatrixObject {
+    s16 m00;
+    s16 m01;
+    s16 m02;
+    s16 pad06;
+    s32 scale;
+    s16 m10;
+    s16 m11;
+    s16 m12;
+    s16 pad12;
+    s32 zero14;
+    s32 zero18;
+    s32 zero1C;
+    s32 x;
+    s32 y;
+    s32 z;
+    s8 pad2C[0x10];
+    s32 source;
+    s32 enabled;
+} MatrixObject;
+
+typedef struct TurretSweep {
+    s8 pad00[8];
+    MatrixObject *object;
+    s8 pad0C[8];
+    s32 source;
+    s8 pad18[8];
+    s32 radius;
+    s32 x;
+    s32 y;
+    s32 z;
+    s8 pad30[2];
+    u16 heading;
+    u16 sweep;
+    u8 direction;
+    u8 mode;
+} TurretSweep;
+
+extern u16 func_80019D80(Vector *, Vector *, s32, s32, s32, Hit *);
+extern void func_800235E0(Vector *, s32, s32, s32, s32);
+extern s32 func_80047B7C(u16, s32);
+extern s32 func_80053354(s32);
+extern s32 func_8008ACC0(s32);
+extern s32 func_8008AD60(s32);
+extern s32 func_8008AE30(s32, s32);
+extern u8 D_800B0EEC[];
+extern s16 D_800C628C;
+
+static __inline__ s32 fixed_mul(s32 a, s32 b) {
+    s32 low;
+    s32 high;
+    __asm__ volatile(
+        "mult %2,%3\n\t"
+        "mflo %0\n\t"
+        "mfhi %1\n\t"
+        "srl %0,%0,12\n\t"
+        "sll %1,%1,20\n\t"
+        "or %0,%0,%1"
+        : "=&r"(low), "=&r"(high) : "r"(a), "r"(b));
+    return low;
+}
+
+static __inline__ void gte_ldlzc(s32 value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static __inline__ void gte_stlzc(s32 *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static __inline__ s32 leading_zeros(s32 value) {
+    s32 count;
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+extern s32 abs(s32);
+
+static __inline__ s32 fixed_div(s32 numerator, s32 denominator) {
+    register s32 negative asm("$9");
+    register s32 n asm("$3");
+    register s32 d asm("$6");
+    register s32 n_zeros asm("$4");
+    register s32 d_zeros asm("$5");
+    register s32 excess asm("$8");
+    register s32 difference asm("$7");
+    register s32 divisor asm("$2");
+    s32 scale;
+    register u32 quotient asm("$4");
+
+    s32 result;
+
+    __asm__ volatile(
+        "lui $2,0x8000\n"
+        "and $3,$5,$2\n"
+        "and $2,$4,$2\n"
+        "xor $9,$3,$2\n"
+        ".word 0x04A10002\n"
+        "addu $3,$5,$0\n"
+        "negu $3,$3\n"
+        "1:\n"
+        ".word 0x04810002\n"
+        "addu $6,$4,$0\n"
+        "negu $6,$6\n"
+        "2:\n"
+        : "=r"(negative), "=r"(n), "=r"(d)
+        : "r"(numerator), "r"(denominator));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        difference = d_zeros - n_zeros;
+        if (difference >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                divisor = d >> scale;
+            } else {
+                divisor = d << -scale;
+            }
+            quotient = (u32)n / (u32)divisor;
+            quotient <<= difference;
+        } else {
+            divisor = d >> -excess;
+            quotient = (u32)n / (u32)divisor;
+        }
+    } else {
+        n <<= 12;
+        quotient = (u32)n / (u32)d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static __inline__ s32 collide(Vector *from, Vector *to, Hit *hit) {
+    D_800C628C = 0;
+    return func_80019D80(from, to, 0x403, 0, 0, hit) & 0xFFFF;
+}
+
+void func_8002A378(TurretSweep *arg0, s32 *arg1) {
+    Hit hit;
+    s32 target[2];
+    s32 current[2];
+    Vector from;
+    Vector to;
+    s32 collided;
+    register s32 *done asm("$19") = arg1;
+    register TurretSweep *sweep asm("$16") = arg0;
+    s32 reach;
+    register u8 mode asm("$18");
+    s32 angle;
+    s32 heading_value;
+    mode = sweep->mode;
+    if (mode != 2) {
+        return;
+    }
+
+    sweep->sweep += 0x800;
+    reach = fixed_mul(sweep->radius, func_8008AD60(sweep->sweep >> 4));
+    target[0] = sweep->x + fixed_mul(func_8008AD60(sweep->heading >> 4), reach);
+    target[1] = sweep->z + fixed_mul(func_8008ACC0(sweep->heading >> 4), reach);
+    current[0] = sweep->x;
+    current[1] = sweep->z;
+    from.x = current[0];
+    from.y = 0;
+    from.z = current[1];
+    to.x = target[0];
+    to.y = 0;
+    to.z = target[1];
+
+    collided = collide(&from, &to, &hit);
+    current[0] = from.x;
+    current[1] = from.z;
+    target[0] = to.x;
+    target[1] = to.z;
+    if (collided) {
+        register s32 direction_one asm("$3") = 1;
+        register s32 current_direction asm("$2");
+
+        if (sweep->direction == 0) {
+            angle = (func_8008AE30(hit.angle_x, hit.angle_z) & 0xFFF) << 4;
+            if (func_80047B7C(sweep->heading, angle) > 0) {
+                sweep->direction = 1;
+            } else {
+                sweep->direction = mode;
+            }
+            __asm__ volatile("addiu $3,$0,1");
+        }
+        current_direction = sweep->direction;
+        __asm__ volatile("" : "+r"(current_direction));
+        heading_value = sweep->heading;
+        if (current_direction == direction_one) {
+            current_direction = heading_value + 0x400;
+        } else {
+            current_direction = heading_value - 0x400;
+        }
+        angle = current_direction;
+        sweep->heading = angle;
+
+        target[0] = sweep->x + fixed_mul(func_8008AD60((u32)(angle & 0xFFFF) >> 4), reach);
+        target[1] = sweep->z + fixed_mul(func_8008ACC0(sweep->heading >> 4), reach);
+        current[0] = sweep->x;
+        current[1] = sweep->z;
+        from.x = current[0];
+        from.y = 0;
+        from.z = current[1];
+        to.x = target[0];
+        to.y = 0;
+        to.z = target[1];
+
+        collided = collide(&from, &to, &hit);
+        current[0] = from.x;
+        current[1] = from.z;
+        target[0] = to.x;
+        target[1] = to.z;
+        if (collided) {
+            register s32 delta_z asm("$6");
+            register s32 largest asm("$5");
+            register s32 delta_x asm("$2");
+            register s32 abs_x asm("$4");
+            register s32 smallest asm("$3");
+            register s32 hit_z asm("$3");
+            register s32 origin_z asm("$2");
+            register s32 hit_x asm("$2");
+            register s32 origin_x asm("$3");
+
+            hit_z = hit.z;
+            origin_z = sweep->z;
+            delta_z = hit_z - origin_z;
+            hit_x = hit.x;
+            origin_x = sweep->x;
+            largest = delta_z;
+            if (delta_z < 0) {
+                largest = -largest;
+            }
+            delta_x = hit_x - origin_x;
+            abs_x = delta_x;
+            if (delta_x < 0) {
+                abs_x = -abs_x;
+            }
+            if (largest < abs_x) {
+                largest = abs_x;
+            }
+            smallest = delta_z;
+            if (delta_z < 0) {
+                smallest = -smallest;
+            }
+            __asm__ volatile(
+                "slt $2,$4,$3\n"
+                "beqz $2,1f\n"
+                "sll $2,$3,1\n"
+                "addu $3,$4,$0\n"
+                "sll $2,$3,1\n"
+                "1:\n"
+                : "+r"(smallest), "=r"(delta_x)
+                : "r"(abs_x));
+            delta_x += smallest;
+            if (delta_x < 0) {
+                delta_x += 7;
+            }
+            largest += delta_x >> 3;
+            abs_x = sweep->radius;
+            if (abs_x == 0) {
+                abs_x = 2;
+            }
+            sweep->sweep = func_80053354(fixed_div(largest, abs_x)) << 4;
+        }
+    }
+
+    if (sweep->sweep < 0x4000) {
+        return;
+    }
+
+    {
+    register s32 three asm("$2") = 3;
+    __asm__ volatile(
+        "addiu $6,$0,1\n"
+        "sb $2,0x37($16)\n"
+        "sw $6,0($19)\n"
+        "lw $2,8($16)\n"
+        "nop\n"
+        "sw $0,0x40($2)\n"
+        "lw $3,8($16)\n"
+        "lw $2,0x14($16)\n"
+        "nop\n"
+        "sw $2,0x3c($3)\n"
+        "lw $3,8($16)\n"
+        "lw $2,0x24($16)\n"
+        "nop\n"
+        "sw $2,0x20($3)\n"
+        "lw $3,8($16)\n"
+        "lw $2,0x2c($16)\n"
+        "nop\n"
+        "sw $2,0x28($3)\n"
+        "lw $2,8($16)\n"
+        "nop\n"
+        "sw $0,0x24($2)\n"
+        "lw $11,8($16)\n"
+        "lhu $12,0x32($16)\n"
+        "addiu $8,$0,0x1000\n"
+        "sw $8,8($11)\n"
+        "sh $0,2($11)\n"
+        "sh $0,6($11)\n"
+        "sh $0,0xe($11)\n"
+        "sw $0,0x14($11)\n"
+        "sw $0,0x18($11)\n"
+        "sw $0,0x1c($11)\n"
+        "andi $8,$12,0x4000\n"
+        "andi $9,$12,0x3fff\n"
+        ".word 0x11000003\n"
+        "nop\n"
+        "addiu $8,$0,0x3fff\n"
+        "sub $9,$8,$9\n"
+        "andi $9,$9,0x3ffe\n"
+        "lui $1,%%hi(D_800B0EEC)\n"
+        "addu $1,$1,$9\n"
+        "lhu $9,%%lo(D_800B0EEC)($1)\n"
+        "andi $8,$12,0x8000\n"
+        ".word 0x11000002\n"
+        "nop\n"
+        "neg $9,$9\n"
+        "sll $10,$9,1\n"
+        "sra $10,$10,4\n"
+        "sh $10,4($11)\n"
+        "neg $10,$10\n"
+        "sh $10,0xc($11)\n"
+        "addiu $10,$12,0x4000\n"
+        "andi $8,$10,0x4000\n"
+        "andi $9,$10,0x3fff\n"
+        ".word 0x11000003\n"
+        "nop\n"
+        "addiu $8,$0,0x3fff\n"
+        "sub $9,$8,$9\n"
+        "andi $9,$9,0x3ffe\n"
+        "lui $1,%%hi(D_800B0EEC)\n"
+        "addu $1,$1,$9\n"
+        "lhu $9,%%lo(D_800B0EEC)($1)\n"
+        "andi $8,$10,0x8000\n"
+        ".word 0x11000002\n"
+        "nop\n"
+        "neg $9,$9\n"
+        "sll $10,$9,1\n"
+        "sra $10,$10,4\n"
+        "sh $10,0($11)\n"
+        "sh $10,0x10($11)\n"
+        "addiu $4,$29,0x50\n"
+        "sw $6,0($19)\n"
+        "lw $2,0x40($29)\n"
+        "lw $3,0x44($29)\n"
+        "addiu $5,$0,0x64\n"
+        "sw $2,0x50($29)\n"
+        "sw $3,0x58($29)\n"
+        "lw $2,0x28($16)\n"
+        "addiu $7,$0,0x7f\n"
+        "sw $2,0x54($29)\n"
+        "addiu $2,$0,0x100\n"
+        ".word 0x0C008D78\n"
+        "sw $2,0x10($29)\n"
+        : : "r"(three), "r"(done), "r"(sweep) : "memory");
+    }
+}
