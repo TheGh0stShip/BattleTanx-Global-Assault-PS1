@@ -1,17 +1,72 @@
-asm(".text\n\t.globl func_8003D0CC\nfunc_8003D0CC:\n\t"
-    ".word 0x27bdffe0,0x24820004,0xafbf001c,0xafb00018\n\t"
-    ".word 0xafa20010,0x8c900004,0x24840008,0xafa40010\n\t"
-    ".word 0x00102080,0x00902021,0x0c01a3cd,0x000420c0\n\t"
-    ".word 0x00003021,0x1200002a,0x00404021,0x27a70010\n\t"
-    ".word 0x240a0001,0x24090002,0x01002821,0x8ce40000\n\t"
-    ".word 0x00000000,0x8c820000,0x24840004,0x104a000f\n\t"
-    ".word 0xaca20008,0x10400005,0x00000000,0x10490015\n\t"
-    ".word 0x00000000,0x0800f467,0xace40000,0x8c830000\n\t"
-    ".word 0x24840004,0xaca40018,0xaca30014,0x00601021\n\t"
-    ".word 0x00031940,0x0800f461,0x00021140,0x8c830000\n\t"
-    ".word 0x24840004,0xaca40018,0xaca30014,0x00601021\n\t"
-    ".word 0x00031a40,0x00021240,0x00822021,0x0800f466\n\t"
-    ".word 0xaca3001c,0xaca00014,0xaca0001c,0xace40000\n\t"
-    ".word 0x24c60001,0x00d0102b,0x1440ffdc,0x24a50028\n\t"
-    ".word 0x8fbf001c,0x8fb00018,0x01001021,0x03e00008\n\t"
-    ".word 0x27bd0020\n\t");
+typedef unsigned int u32;
+
+typedef struct PaletteRecord {
+    unsigned char fields00[8];
+    u32 mode;
+    unsigned char fields0C[8];
+    u32 clut_count;
+    u32 *clut;
+    u32 clut_size;
+    unsigned char fields20[8];
+} PaletteRecord;
+
+typedef char PaletteRecord_size[(sizeof(PaletteRecord) == 40) ? 1 : -1];
+
+extern PaletteRecord *func_80068F34(u32);
+
+static inline void read_record(u32 **cursor, PaletteRecord *record) {
+    u32 *words = *cursor;
+
+    record->mode = *words++;
+    switch (record->mode) {
+    case 0:
+        {
+            register u32 bytes asm("$3") = *words++;
+            register u32 elements asm("$2");
+
+            record->clut = words;
+            record->clut_count = bytes;
+            asm("" : "+r"(bytes) : : "memory");
+            elements = bytes;
+            asm("" : "+r"(elements), "+r"(bytes));
+            bytes <<= 5;
+            words += elements << 3;
+            record->clut_size = bytes;
+        }
+        break;
+    case 1:
+        {
+            register u32 bytes asm("$3") = *words++;
+            register u32 elements asm("$2");
+
+            record->clut = words;
+            record->clut_count = bytes;
+            asm("" : "+r"(bytes) : : "memory");
+            elements = bytes;
+            asm("" : "+r"(elements), "+r"(bytes));
+            bytes <<= 9;
+            words += elements << 7;
+            record->clut_size = bytes;
+        }
+        break;
+    case 2:
+        record->clut_count = 0;
+        record->clut_size = 0;
+        break;
+    }
+    *cursor = words;
+}
+
+PaletteRecord *func_8003D0CC(u32 *data) {
+    u32 *cursor = data;
+    u32 count;
+    u32 i;
+    PaletteRecord *records;
+
+    cursor++;
+    count = *cursor++;
+    records = func_80068F34(count * 40);
+    for (i = 0; i < count; i++)
+        read_record(&cursor, &records[i]);
+    return records;
+}

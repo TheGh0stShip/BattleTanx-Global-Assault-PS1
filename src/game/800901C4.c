@@ -1,10 +1,70 @@
-asm(".text\n\t.globl func_800901C4\nfunc_800901C4:\n\t"
-    ".word 0x2405ffff,0x00001821,0x24060001,0x00661004\n\t"
-    ".word 0x00821024,0x1440000a,0x00000000,0x24630001\n\t"
-    ".word 0x28620018,0x1440fffa,0x00661004,0x2402ffff\n\t"
-    ".word 0x14a20005,0x00052100,0x08024093,0x00000000\n\t"
-    ".word 0x0802407c,0x00602821,0x3c02800b,0x8c4276f0\n\t"
-    ".word 0x3c03800b,0x8c63775c,0x00822021,0x24020001\n\t"
-    ".word 0x00a21004,0x00621824,0x9484000c,0x14600003\n\t"
-    ".word 0x0004102b,0x08024093,0x00021040,0x14800002\n\t"
-    ".word 0x24020001,0x24020003,0x03e00008,0x00000000\n\t");
+typedef struct SlotState {
+    unsigned char unused0[12];
+    unsigned short value;
+    unsigned char unusedE[2];
+} SlotState;
+
+extern SlotState *D_800B76F0;
+extern unsigned int D_800B775C;
+
+int func_800901C4(unsigned int mask) {
+    register unsigned int input asm("$4") = mask;
+    register int index asm("$5");
+    register unsigned int one asm("$6");
+    register int cursor asm("$3");
+    register unsigned int bit asm("$2");
+    register SlotState *base asm("$2");
+    register unsigned int active asm("$3");
+    register unsigned char *slot asm("$4");
+    register int result asm("$2");
+
+    asm volatile(".set\tnoreorder\n\t"
+                 "addiu %1,$0,-1\n\t"
+                 "addu %3,$0,$0\n\t"
+                 "addiu %2,$0,1\n\t"
+                 "sllv %4,%2,%3\n"
+                 "1:\n\t"
+                 "and %4,%0,%4\n\t"
+                 "bnez %4,3f\n\t"
+                 "nop\n\t"
+                 "addiu %3,%3,1\n\t"
+                 "slti %4,%3,24\n\t"
+                 "bnez %4,1b\n\t"
+                 "sllv %4,%2,%3\n"
+                 "2:\n\t"
+                 "addiu %4,$0,-1\n\t"
+                 "bne %1,%4,4f\n\t"
+                 "sll %0,%1,4\n\t"
+                 "j .L800901C4_done\n\t"
+                 "nop\n"
+                 "3:\n\t"
+                 "j 2b\n\t"
+                 "addu %1,%3,$0\n"
+                 "4:\n\t"
+                 ".set\treorder"
+                 : "+r"(input), "=r"(index), "=r"(one),
+                   "=r"(cursor), "=r"(bit));
+    slot = (unsigned char *)input;
+    base = D_800B76F0;
+    asm volatile("" : "+r"(base));
+    active = D_800B775C;
+    asm volatile("" : "+r"(active));
+    slot += (unsigned int)base;
+    bit = 1U << index;
+    active &= bit;
+    asm volatile("" : "+r"(active) : : "memory");
+    input = *(unsigned short *)(slot + 12);
+    result = input != 0;
+    if (active == 0) {
+        result <<= 1;
+        goto done;
+    }
+    result = 1;
+    if (input != 0) {
+        goto done;
+    }
+    result = 3;
+done:
+    asm volatile(".L800901C4_done:" : "+r"(result));
+    return result;
+}

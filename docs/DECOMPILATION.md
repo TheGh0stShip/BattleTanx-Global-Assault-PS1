@@ -23,6 +23,14 @@ bytes. The loaded range is `0x80010000..0x800C6800`; execution begins at
 7. Rebuild the complete executable and require both supported hashes to match
    before declaring the executable complete.
 
+Byte equality does not by itself establish a correct C calling contract.
+Audit incoming and forwarded arguments at tail calls: an incorrect no-argument
+declaration can match because the emitted jump happens to preserve caller
+registers. The corrected `func_800237D0` forwards its kind argument explicitly;
+`tests/test_node_allocation_contract.py` checks that interface independently
+of instruction matching. Host interface checks preserve full host pointers
+and do not establish target layout or physical-console behavior.
+
 ## Initial map
 
 | File range | Loaded range | Size | Classification |

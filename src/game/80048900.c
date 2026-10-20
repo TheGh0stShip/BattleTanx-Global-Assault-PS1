@@ -1,33 +1,126 @@
-asm(".text\n\t.globl func_80048900\nfunc_80048900:\n\t"
-    ".word 0x27BDFF88,0xAFB3006C,0x00809821,0xAFB40070\n\t"
-    ".word 0x00A0A021,0xAFBF0074,0xAFB20068,0xAFB10064\n\t"
-    ".word 0x0C0133ED,0xAFB00060,0x02602021,0x00408821\n\t"
-    ".word 0x0C0133FF,0x02202821,0x10400051,0x24020001\n\t"
-    ".word 0xAE800000,0x9663002C,0xAE800004,0xAE820010\n\t"
-    ".word 0xA6830008,0x8E620180,0x00000000,0x30420082\n\t"
-    ".word 0x1440005E,0x00000000,0x0C0137FB,0x02602021\n\t"
-    ".word 0x00409021,0x12400059,0x27B00028,0x02002021\n\t"
-    ".word 0x02402821,0x8E620008,0x3C0600BB,0xAFA20028\n\t"
-    ".word 0x8E620010,0x34C68000,0x0C01261B,0xAFA20030\n\t"
-    ".word 0x1040004E,0x26710008,0x02202021,0x02002821\n\t"
-    ".word 0x3C060008,0x3C07800A,0x8E63009C,0x24E74EF4\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00471021,0x944700A8,0x8E630000\n\t"
-    ".word 0x3C02800C,0xA440628C,0x27A20038,0xAFA20014\n\t"
-    ".word 0x30E7FFFF,0x0C006760,0xAFA30010,0x3042FFFF\n\t"
-    ".word 0x14400036,0x27A40018,0x02202821,0x0C012583\n\t"
-    ".word 0x02403021,0x02202021,0x0C012576,0x02402821\n\t"
-    ".word 0x27A40018,0x0C0125D0,0xAE820000,0xA6820008\n\t"
-    ".word 0xAE800010,0x8E630180,0x00000000,0x30620200\n\t"
-    ".word 0x14400004,0x34620200,0x24091000,0x08012296\n\t"
-    ".word 0xAE620180,0x24091000,0x8E7301F8,0x00000000\n\t"
-    ".word 0x01330018,0x00004012,0x00001010,0x00084302\n\t"
-    ".word 0x00021500,0x01024025,0x080122B7,0xAE880004\n\t"
-    ".word 0x27A40018,0x26700008,0x02002821,0x0C012583\n\t"
-    ".word 0x02203021,0x02002021,0x0C012576,0x02202821\n\t"
-    ".word 0x24091000,0xAE820000,0x8E7301F8,0x00000000\n\t"
-    ".word 0x01330018,0x00004012,0x00001010,0x00084302\n\t"
-    ".word 0x00021500,0x01024025,0x27A40018,0x0C0125D0\n\t"
-    ".word 0xAE880004,0xA6820008,0xAE800010,0x8FBF0074\n\t"
-    ".word 0x8FB40070,0x8FB3006C,0x8FB20068,0x8FB10064\n\t"
-    ".word 0x8FB00060,0x03E00008,0x27BD0078\n");
+static inline int fixed_mul(int a, int b) {
+    register int scale asm("$9") = a;
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+            : "=&r"(low), "=&r"(high)
+            : "r"(scale), "r"(b));
+    return low;
+}
+
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector;
+
+typedef struct AiTankType {
+    char pad00[0xA8];
+    unsigned short reach;
+    short ratio;
+    char padAC[0xD0 - 0xAC];
+} AiTankType;
+
+typedef struct AiTank {
+    int id;
+    char pad04[0x8 - 0x4];
+    Vector position;
+    char pad18[0x2C - 0x18];
+    unsigned short heading;
+    char pad2E[0x9C - 0x2E];
+    int type;
+    char padA0[0x180 - 0xA0];
+    int status;
+    char pad184[0x1F8 - 0x184];
+    int speed;
+} AiTank;
+
+typedef struct Move {
+    int dist;
+    int speed;
+    unsigned short heading;
+    char pad0A[0x10 - 0xA];
+    int arrived;
+} Move;
+
+typedef char Vector_size[(sizeof(Vector) == 0x10) ? 1 : -1];
+typedef char AiTankType_size[(sizeof(AiTankType) == 0xD0) ? 1 : -1];
+typedef char AiTank_size[(sizeof(AiTank) == 0x1FC) ? 1 : -1];
+typedef char Move_size[(sizeof(Move) == 0x14) ? 1 : -1];
+
+extern AiTankType D_800A4EF4[];
+extern unsigned short D_800C628C;
+
+void *func_8004CFB4(AiTank *);
+int func_8004CFFC(AiTank *, void *);
+void *func_8004DFEC(AiTank *);
+int func_8004986C(Vector *, void *, int);
+unsigned short func_80019D80(Vector *, Vector *, int, unsigned short, int, void *);
+void func_8004960C(Vector *, Vector *, void *);
+int func_800495D8(Vector *, void *);
+unsigned short func_80049740(Vector *);
+
+void func_80048900(AiTank *tank, Move *move) {
+    register void *target asm("$18") = 0;
+    register void *goal asm("$17");
+    Vector delta;
+
+    __asm__("" : "+r"(target));
+    goal = func_8004CFB4(tank);
+    if (func_8004CFFC(tank, goal)) {
+        Vector probe;
+        Vector *probe_ptr;
+        char hit[40];
+        unsigned short reach;
+
+        move->dist = 0;
+        move->heading = tank->heading;
+        move->speed = 0;
+        move->arrived = 1;
+        if (tank->status & 0x82) {
+            return;
+        }
+        target = func_8004DFEC(tank);
+        if (target == 0) {
+            return;
+        }
+        probe_ptr = &probe;
+        __asm__("" : "+r"(probe_ptr));
+        probe.x = tank->position.x;
+        probe.z = tank->position.z;
+        if (!func_8004986C(probe_ptr, target, 0xBB8000)) {
+            return;
+        }
+        reach = D_800A4EF4[tank->type].reach;
+        D_800C628C = 0;
+        if (func_80019D80(&tank->position, probe_ptr, 0x80000, reach, tank->id, hit)) {
+            return;
+        }
+        func_8004960C(&delta, &tank->position, target);
+        move->dist = func_800495D8(&tank->position, target);
+        move->heading = func_80049740(&delta);
+        move->arrived = 0;
+        {
+            int speed;
+            if (!(tank->status & 0x200)) {
+                int flags = tank->status | 0x200;
+                __asm__ volatile("" : : : "$9");
+                speed = 4096;
+                tank->status = flags;
+            } else {
+                __asm__ volatile("" : : : "$9");
+                speed = 4096;
+                __asm__("" : "+r"(speed));
+            }
+            move->speed = fixed_mul(speed, tank->speed);
+        }
+    } else {
+        func_8004960C(&delta, &tank->position, goal);
+        move->dist = func_800495D8(&tank->position, goal);
+        move->speed = fixed_mul(4096, tank->speed);
+        move->heading = func_80049740(&delta);
+        move->arrived = 0;
+    }
+}

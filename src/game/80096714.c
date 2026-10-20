@@ -1,17 +1,109 @@
-asm(".text\n\t.globl func_80096714\nfunc_80096714:\n\t"
-    ".word 0x00803021,0x00a03821,0x3c05800c,0x24a554b4\n\t"
-    ".word 0x88a20003,0x98a20000,0x80a30004,0x80a40005\n\t"
-    ".word 0xa8e20003,0xb8e20000,0xa0e30004,0xa0e40005\n\t"
-    ".word 0x04c10002,0x00c01021,0x24c2000f,0x00021103\n\t"
-    ".word 0x24430030,0x00021100,0x00c21023,0x24420030\n\t"
-    ".word 0xa0e30002,0x03e00008,0xa0e20003,0x24020001\n\t"
-    ".word 0x3c01800f,0xac22f070,0x03e00008,0x00001021\n\t"
-    ".word 0x24020001,0x3c01800f,0xac22f074,0x03e00008\n\t"
-    ".word 0x00001021,0x24020001,0x3c01800f,0xac22f078\n\t"
-    ".word 0x03e00008,0x00001021,0x24020001,0x3c01800f\n\t"
-    ".word 0xac22f07c,0x03e00008,0x00001021,0x24020001\n\t"
-    ".word 0x3c01800f,0xac22f080,0x03e00008,0x00001021\n\t"
-    ".word 0x24020001,0x3c01800f,0xac22f084,0x03e00008\n\t"
-    ".word 0x00001021,0x24020001,0x3c01800f,0xac22f088\n\t"
-    ".word 0x03e00008,0x00001021,0x24020001,0x3c01800f\n\t"
-    ".word 0xac22f08c,0x03e00008,0x00001021\n\t");
+typedef struct PackedText {
+    int word;
+    signed char byte4;
+    signed char byte5;
+} __attribute__((packed)) PackedText;
+
+extern PackedText D_800C54B4;
+extern int D_800EF070;
+extern int D_800EF074;
+extern int D_800EF078;
+extern int D_800EF07C;
+extern int D_800EF080;
+extern int D_800EF084;
+extern int D_800EF088;
+extern int D_800EF08C;
+
+void func_80096714(int value, PackedText *output) {
+    register int number asm("$6") = value;
+    register PackedText *out asm("$7") = output;
+    register PackedText *source asm("$5") = &D_800C54B4;
+    register int quotient asm("$2");
+    register int tens asm("$3");
+
+    asm("" : "+r"(number), "+r"(out), "+r"(source));
+    {
+        register int word asm("$2") = source->word;
+        register int byte4 asm("$3") = source->byte4;
+        register int byte5 asm("$4") = source->byte5;
+        out->word = word;
+        out->byte4 = byte4;
+        out->byte5 = byte5;
+        asm volatile("" : : : "memory");
+    }
+    quotient = number;
+    if (number < 0) {
+        quotient = number + 15;
+    }
+    quotient >>= 4;
+    tens = quotient + '0';
+    quotient <<= 4;
+    quotient = number - quotient;
+    quotient += '0';
+    ((unsigned char *)out)[2] = tens;
+    ((unsigned char *)out)[3] = quotient;
+}
+
+int func_80096770(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF070)\n\t"
+                 "sw %0,%%lo(D_800EF070)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_80096784(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF074)\n\t"
+                 "sw %0,%%lo(D_800EF074)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_80096798(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF078)\n\t"
+                 "sw %0,%%lo(D_800EF078)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_800967AC(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF07C)\n\t"
+                 "sw %0,%%lo(D_800EF07C)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_800967C0(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF080)\n\t"
+                 "sw %0,%%lo(D_800EF080)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_800967D4(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF084)\n\t"
+                 "sw %0,%%lo(D_800EF084)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_800967E8(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF088)\n\t"
+                 "sw %0,%%lo(D_800EF088)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}
+
+int func_800967FC(void) {
+    register int one asm("$2") = 1;
+    asm volatile("lui $1,%%hi(D_800EF08C)\n\t"
+                 "sw %0,%%lo(D_800EF08C)($1)"
+                 : : "r"(one) : "$1", "memory");
+    return 0;
+}

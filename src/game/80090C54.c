@@ -1,10 +1,47 @@
-asm(".text\n\t.globl func_80090C54\nfunc_80090C54:\n\t"
-    ".word 0x240a0018,0x00003021,0x24070001,0x24090003\n\t"
-    ".word 0x24080002,0x00802821,0x00062100,0x3c02800b\n\t"
-    ".word 0x8c4276f0,0x3c03800b,0x8c63775c,0x00822021\n\t"
-    ".word 0x00c71004,0x00621824,0x9482000c,0x10600007\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x08024331\n\t"
-    ".word 0xa0a70000,0x08024331,0xa0a90000,0x10400003\n\t"
-    ".word 0x00000000,0x08024331,0xa0a80000,0xa0a00000\n\t"
-    ".word 0x24c60001,0x00ca102a,0x1440ffe7,0x24a50001\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef struct Entry {
+    unsigned char pad[12];
+    unsigned short state;
+    unsigned char tail[2];
+} Entry;
+
+extern Entry * volatile D_800B76F0;
+extern unsigned int volatile D_800B775C;
+
+void func_80090C54(unsigned char *output) {
+    register int limit asm("$10") = 24;
+    register int index asm("$6") = 0;
+    register unsigned int one asm("$7") = 1;
+    register unsigned int three asm("$9") = 3;
+    register unsigned int two asm("$8") = 2;
+    register unsigned char *current asm("$5") = output;
+
+    do {
+        register unsigned int offset asm("$4") = index << 4;
+        register Entry *base asm("$2");
+        register unsigned int selected asm("$3");
+        register unsigned int state asm("$2");
+        asm volatile("lui %0,%%hi(D_800B76F0)\n\t"
+                     "lw %0,%%lo(D_800B76F0)(%0)"
+                     : "=r"(base) : : "memory");
+        asm volatile("lui %0,%%hi(D_800B775C)\n\t"
+                     "lw %0,%%lo(D_800B775C)(%0)"
+                     : "=r"(selected) : : "memory");
+        offset += (unsigned int)base;
+        state = one << index;
+        selected &= state;
+        state = ((Entry *)offset)->state;
+        if (selected != 0) {
+            if (state != 0) {
+                *current = one;
+            } else {
+                *current = three;
+            }
+        } else if (state != 0) {
+            *current = two;
+        } else {
+            *current = 0;
+        }
+        index++;
+        current++;
+    } while (index < limit);
+}

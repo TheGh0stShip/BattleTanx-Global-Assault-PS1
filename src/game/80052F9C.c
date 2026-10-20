@@ -1,22 +1,78 @@
-asm(".text\n\t.globl func_80052F9C\nfunc_80052F9C:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFB20018\n\t"
-    ".word 0x00C09021,0xAFB3001C,0x00E09821,0xAFBF0020\n\t"
-    ".word 0x10A00006,0xAFB00010,0x8CA20218,0x00000000\n\t"
-    ".word 0x30420001,0x14400004,0x00000000,0x8E240078\n\t"
-    ".word 0x08014BFB,0x00003021,0x8CA600A0,0x8CA40004\n\t"
-    ".word 0x00000000,0x14800032,0x00808021,0x00061080\n\t"
-    ".word 0x00511821,0x2CC20002,0x1040002D,0x00808021\n\t"
-    ".word 0x24630004,0x8C640078,0x00000000,0x1080FFF9\n\t"
-    ".word 0x24C60001,0x08014C2F,0x00808021,0x8E020218\n\t"
-    ".word 0x00000000,0x00521024,0x14520007,0x00000000\n\t"
-    ".word 0x12600021,0x02001021,0x0C011DA2,0x02002021\n\t"
-    ".word 0x1440001D,0x02001021,0x12000006,0x00000000\n\t"
-    ".word 0x8E020218,0x00000000,0x30420001,0x14400004\n\t"
-    ".word 0x00000000,0x8E240078,0x08014C21,0x00002821\n\t"
-    ".word 0x8E0500A0,0x8E040004,0x00000000,0x1480000C\n\t"
-    ".word 0x00808021,0x00051080,0x00511821,0x2CA20002\n\t"
-    ".word 0x10400007,0x00808021,0x24630004,0x8C640078\n\t"
-    ".word 0x00000000,0x1080FFF9,0x24A50001,0x00808021\n\t"
-    ".word 0x1600FFDA,0x02001021,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Unit Unit;
+
+struct Unit {
+    int field00;
+    Unit *next;
+    unsigned char fields08[0xA0 - 8];
+    unsigned int slot;
+    unsigned char fieldsA4[0x218 - 0xA4];
+    unsigned int flags;
+};
+
+typedef struct UnitSet {
+    unsigned char fields00[0x78];
+    Unit *heads[3];
+} UnitSet;
+
+typedef char Unit_size[(sizeof(Unit) == 0x21C) ? 1 : -1];
+typedef char UnitSet_size[(sizeof(UnitSet) == 0x84) ? 1 : -1];
+
+extern int func_80047688(Unit *);
+
+static inline Unit *first_unit(UnitSet *set, Unit *unit) {
+    unsigned int slot;
+    Unit *result;
+
+    if (unit == 0 || !(unit->flags & 1)) {
+        result = set->heads[0];
+        slot = 0;
+    } else {
+        slot = unit->slot;
+        result = unit->next;
+    }
+    {
+        register unsigned int initial asm("$6") = slot;
+        asm("" : "+r"(initial));
+        slot = initial;
+    }
+    while (result == 0 && slot < 2) {
+        slot++;
+        result = set->heads[slot];
+    }
+    return result;
+}
+
+static inline Unit *following_unit(UnitSet *set, Unit *unit) {
+    unsigned int slot;
+    Unit *result;
+
+    if (unit == 0 || !(unit->flags & 1)) {
+        result = set->heads[0];
+        slot = 0;
+    } else {
+        slot = unit->slot;
+        result = unit->next;
+    }
+    {
+        register unsigned int initial asm("$5") = slot;
+        asm("" : "+r"(initial));
+        slot = initial;
+    }
+    while (result == 0 && slot < 2) {
+        slot++;
+        result = set->heads[slot];
+    }
+    return result;
+}
+
+Unit *func_80052F9C(UnitSet *set, Unit *after, unsigned int mask, int check) {
+    Unit *unit = first_unit(set, after);
+
+    while (unit != 0) {
+        if ((unit->flags & mask) == mask &&
+            (check == 0 || func_80047688(unit) != 0))
+            break;
+        unit = following_unit(set, unit);
+    }
+    return unit;
+}

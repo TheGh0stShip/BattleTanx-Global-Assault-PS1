@@ -1,16 +1,37 @@
-asm(".text\n\t.globl func_80034544\nfunc_80034544:\n\t"
-    ".word 0x27bdffd8,0xafb3001c,0x00809821,0x24040031\n\t"
-    ".word 0x24050020,0xafbf0020,0xafb20018,0xafb10014\n\t"
-    ".word 0x0c008df4,0xafb00010,0x00401821,0x10600029\n\t"
-    ".word 0x00008821,0x3c1251eb,0x3652851f,0x3c02800d\n\t"
-    ".word 0x8c422fe0,0x00608021,0x8e660000,0x8e670004\n\t"
-    ".word 0x8e680008,0xae060008,0xae07000c,0xae080010\n\t"
-    ".word 0xae020014,0x0c021b21,0x26310001,0x00520019\n\t"
-    ".word 0x00003010,0x00062142,0x00041840,0x00641821\n\t"
-    ".word 0x000318c0,0x00641821,0x00031880,0x00431023\n\t"
-    ".word 0x2442ffce,0x0c021b21,0xa2020018,0x3c03cccc\n\t"
-    ".word 0x3463cccd,0x00430019,0x00003010,0x00062102\n\t"
-    ".word 0x00041880,0x00641821,0x00031880,0x00431023\n\t"
-    ".word 0x2442fff6,0xa2020019,0x2a220004,0x1440ffe5\n\t"
-    ".word 0x26100002,0x8fbf0020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef struct Position {
+    int x;
+    int y;
+    int z;
+} Position;
+
+typedef struct Offset {
+    signed char x;
+    signed char y;
+} Offset;
+
+typedef struct Effect {
+    unsigned char fields00[8];
+    Position position;
+    int created;
+    Offset offsets[4];
+} Effect;
+
+typedef char Effect_size[(sizeof(Effect) == 0x20) ? 1 : -1];
+
+extern int D_800D2FE0;
+extern Effect *func_800237D0(int, int);
+extern unsigned int func_80086C84(void);
+
+void func_80034544(Position *position) {
+    Effect *effect = func_800237D0(49, 32);
+    int i;
+
+    if (effect != 0) {
+        effect->position = *position;
+        effect->created = D_800D2FE0;
+        for (i = 0; i < 4; i++) {
+            effect->offsets[i].x = func_80086C84() % 100 - 50;
+            effect->offsets[i].y = func_80086C84() % 20 - 10;
+        }
+    }
+}

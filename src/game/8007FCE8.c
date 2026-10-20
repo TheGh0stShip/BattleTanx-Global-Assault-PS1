@@ -1,13 +1,52 @@
-asm(".text\n\t.globl func_8007FCE8\nfunc_8007FCE8:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafb20018\n\t"
-    ".word 0x00a09021,0xafb10014,0x00c08821,0x3c04800c\n\t"
-    ".word 0x24844c30,0xafbf001c,0x0c01feb7,0x02002821\n\t"
-    ".word 0x86020004,0x00000000,0x10400019,0x2402ffff\n\t"
-    ".word 0x86020006,0x00000000,0x14400003,0x00111400\n\t"
-    ".word 0x0801ff62,0x2402ffff,0x3c03800b,0x24630d00\n\t"
-    ".word 0x3244ffff,0x00441025,0x8e050000,0x3c07800b\n\t"
-    ".word 0x8ce70c58,0x24060014,0xac620004,0xac650000\n\t"
-    ".word 0x8e020004,0x2465fff8,0xac620008,0x8ce40018\n\t"
-    ".word 0x8ce20008,0x00000000,0x0040f809,0x00003821\n\t"
-    ".word 0x8fbf001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0020\n\t");
+typedef union Rect {
+    struct {
+        short x;
+        short y;
+        short width;
+        short height;
+    } area;
+    unsigned int words[2];
+} Rect;
+
+typedef struct DisplayInterface {
+    void *fields00[2];
+    int (*dispatch)(void *, void *, int, int);
+    void *fields0C[3];
+    void *context;
+} DisplayInterface;
+
+typedef char Rect_size[(sizeof(Rect) == 8) ? 1 : -1];
+typedef char DisplayInterface_size[(sizeof(DisplayInterface) == 0x1C) ? 1 : -1];
+
+extern DisplayInterface *D_800B0C58;
+extern unsigned int D_800B0D00[];
+extern char D_800C4C30[];
+extern void func_8007FADC(char *, Rect *);
+
+int func_8007FCE8(Rect *rect, int low, int high) {
+    register unsigned int *packet asm("$3");
+    register unsigned int packed asm("$2");
+    register unsigned int xy asm("$5");
+    register DisplayInterface *interface asm("$7");
+    register int size asm("$6");
+
+    func_8007FADC(D_800C4C30, rect);
+    if (rect->area.width == 0 || rect->area.height == 0)
+        return -1;
+    packed = (unsigned int)high << 16;
+    packet = D_800B0D00;
+    asm("" : "+r"(packet));
+    packed |= low & 0xFFFF;
+    xy = rect->words[0];
+    asm("lui %0,%%hi(D_800B0C58)\n\t"
+        "lw %0,%%lo(D_800B0C58)(%0)"
+        : "=r"(interface) : "r"(xy) : "memory");
+    size = 20;
+    asm("" : "+r"(size) : : "memory");
+    packet[1] = packed;
+    packet[0] = xy;
+    asm volatile("" : : : "memory");
+    packet[2] = rect->words[1];
+    return interface->dispatch(interface->context,
+                               (unsigned char *)packet - 8, size, 0);
+}

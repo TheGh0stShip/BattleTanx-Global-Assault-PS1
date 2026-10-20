@@ -11,7 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic C decompilation: 43.83%](https://img.shields.io/badge/semantic_C-43.83%25-yellow)
+![Semantic C decompilation: 45.11%](https://img.shields.io/badge/semantic_C-45.11%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -25,8 +25,8 @@ is also reported separately and never inflates either executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching C | 258,536 code bytes | 331,300 code bytes | 43.83% |
-| Semantic functions | 1,324 functions | 441 raw instruction units | 75.01% by provisional function count |
+| Semantic matching C | 266,076 code bytes | 323,760 code bytes | 45.11% |
+| Semantic functions | 1,358 functions | 407 raw instruction units | 76.94% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
@@ -52,7 +52,7 @@ is also reported separately and never inflates either executable measurement.
 | VAGS.SFX | 1 file / 57 entries | 0 entries | addresses, sizes, pitch, voice-slot state, ADPCM, and WAV decoding complete |
 | STR/PCK | 20 files | 0 files | lossless local FFV1/FLAC decoding complete |
 | Disc metadata | 5 files | 0 files | text, boot config, executable container, and licence sectors decoded |
-| Validation tests | 59 tests | 0 tests | 100% passing with the local corpus |
+| Validation tests | 63 tests | 0 tests | 100% passing with the local corpus and a native C compiler |
 | Deliberate fault checks | 12 checks | 0 checks | 100% detected |
 
 Every corpus file now has a bounds-checked structural decoder. This includes the
@@ -107,6 +107,10 @@ current memory map. SDK and compiler evidence is tracked separately in
 python3 -m unittest discover -s tests -t .
 python3 mutation_check.py
 ```
+
+When a native `cc` is available, the suite also compiles an interface regression
+check for the node-allocation wrapper. This host-only check complements the
+separate MIPS byte comparisons.
 
 To include the optional corpus test, point the environment variable at the root
 of the extracted disc filesystem:

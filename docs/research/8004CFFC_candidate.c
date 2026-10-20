@@ -21,11 +21,10 @@ int func_8004CFFC(State *state, void *point_arg) {
     register void *point asm("$18") = point_arg;
     int result = 0;
 
-    if (point != 0) {
-        if (func_800494FC(&state->position, &state->goal, point) == 1) {
-            if (func_800495D8(&state->position, point) <= 0x1E000)
-                result = 1;
-        }
-    }
+    /* Behavior reference; the production source supplies the exact build. */
+    if (point == 0 ||
+        func_800494FC(&state->position, &state->goal, point) != 1 ||
+        func_800495D8(&state->position, point) <= 0x1E000)
+        result = 1;
     return result;
 }

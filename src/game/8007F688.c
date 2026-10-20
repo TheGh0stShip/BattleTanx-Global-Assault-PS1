@@ -1,9 +1,39 @@
-asm(".text\n\t.globl func_8007F688\nfunc_8007F688:\n\t"
-    ".word 0x27bdffe0,0x00803821,0x3c02800f,0xafb10014\n\t"
-    ".word 0x2451c334,0xafbf0018,0xafb00010,0x8e220008\n\t"
-    ".word 0x00000000,0x14400010,0x00003021,0x8e230010\n\t"
-    ".word 0x00000000,0x1060000c,0x00c02021,0x8e220014\n\t"
-    ".word 0x00000000,0x00620018,0x00008012,0x00e0f809\n\t"
-    ".word 0x02003021,0x10400003,0x02003021,0x0801fdbc\n\t"
-    ".word 0xae220008,0x2406ffff,0x8fbf0018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x00c01021,0x03e00008,0x27bd0020\n\t");
+typedef struct BufferPool {
+    void *begin;
+    void *end;
+    void *allocation;
+    int cursor;
+    int chunk_size;
+    int chunk_count;
+} BufferPool;
+
+typedef char BufferPool_size[(sizeof(BufferPool) == 0x18) ? 1 : -1];
+typedef void *(*AllocateBuffer)(int, void *, int);
+
+extern BufferPool D_800EC334;
+
+int func_8007F688(AllocateBuffer allocate_arg, void *argument) {
+    register AllocateBuffer allocate asm("$7") = allocate_arg;
+    BufferPool *pool = &D_800EC334;
+    register int result asm("$6") = 0;
+    register int size asm("$16");
+    void *allocation;
+
+    if (pool->allocation == 0) {
+        register int chunk_size asm("$3");
+        asm("" : "+r"(result));
+        chunk_size = pool->chunk_size;
+        if (chunk_size != 0) {
+            register int chunks asm("$2") = pool->chunk_count;
+            size = chunk_size * chunks;
+            allocation = allocate(result, argument, size);
+            if (allocation != 0) {
+                pool->allocation = allocation;
+                result = size;
+            } else {
+                result = -1;
+            }
+        }
+    }
+    return result;
+}

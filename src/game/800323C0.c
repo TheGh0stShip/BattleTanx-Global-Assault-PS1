@@ -1,12 +1,45 @@
-asm(".text\n\t.globl func_800323C0\nfunc_800323C0:\n\t"
-    ".word 0x27bdffe0,0x3c02800d,0x8443329c,0x2402ffff\n\t"
-    ".word 0xafbf001c,0xafb20018,0xafb10014,0x1062001e\n\t"
-    ".word 0xafb00010,0x00602021,0x3c12800d,0x3c02800e\n\t"
-    ".word 0x24513e68,0x8e433258,0x00041180,0x00628021\n\t"
-    ".word 0x92030016,0x2402007f,0x14620003,0x00602021\n\t"
-    ".word 0x0800c90c,0x00002021,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x00512021\n\t"
-    ".word 0x8c830058,0x24020002,0x10620003,0x240509c4\n\t"
-    ".word 0x0c014c38,0x24060001,0x86040002,0x2402ffff\n\t"
-    ".word 0x1482ffe8,0x00000000,0x8fbf001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Node {
+    short field00;
+    short next;
+    unsigned char fields04[0x16 - 4];
+    unsigned char subject;
+    unsigned char fields17[0x40 - 0x17];
+} Node;
+
+typedef struct Subject {
+    unsigned char fields00[0x58];
+    int state;
+    unsigned char fields5C[0x114 - 0x5C];
+} Subject;
+
+typedef char Node_size[(sizeof(Node) == 0x40) ? 1 : -1];
+typedef char Subject_size[(sizeof(Subject) == 0x114) ? 1 : -1];
+
+extern short D_800D329C;
+extern Node *D_800D3258;
+extern Subject D_800E3E68[];
+extern void func_800530E0(Subject *, int, int);
+
+static inline Subject *get_subject(int index) {
+    if (index == 127)
+        return 0;
+    return &D_800E3E68[index];
+}
+
+void func_800323C0(void) {
+    register int first asm("$3") = D_800D329C;
+    int index;
+    Node *node;
+    Subject *subject;
+
+    if (first == -1)
+        return;
+    index = first;
+    do {
+        node = &D_800D3258[index];
+        subject = get_subject(node->subject);
+        if (subject->state != 2)
+            func_800530E0(subject, 2500, 1);
+        index = node->next;
+    } while (index != -1);
+}

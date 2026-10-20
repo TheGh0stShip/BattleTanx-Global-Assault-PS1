@@ -1,22 +1,98 @@
-asm(".text\n\t.globl func_800988D0\nfunc_800988D0:\n\t"
-    ".word 0x8CAB0000,0x8CAC0004,0x8CAD0008,0x8C880000\n\t"
-    ".word 0x00000000,0x3109FFFF,0x00094C00,0x00094C03\n\t"
-    ".word 0x012B0019,0x00004812,0x00094B03,0x3129FFFF\n\t"
-    ".word 0x00085403,0x014C0019,0x00005012,0x000A5303\n\t"
-    ".word 0x000A5400,0x012A4825,0xAC890000,0x8C880004\n\t"
-    ".word 0x00000000,0x3109FFFF,0x00094C00,0x00094C03\n\t"
-    ".word 0x012D0019,0x00004812,0x00094B03,0x3129FFFF\n\t"
-    ".word 0x00085403,0x014B0019,0x00005012,0x000A5303\n\t"
-    ".word 0x000A5400,0x012A4825,0xAC890004,0x8C880008\n\t"
-    ".word 0x00000000,0x3109FFFF,0x00094C00,0x00094C03\n\t"
-    ".word 0x012C0019,0x00004812,0x00094B03,0x3129FFFF\n\t"
-    ".word 0x00085403,0x014D0019,0x00005012,0x000A5303\n\t"
-    ".word 0x000A5400,0x012A4825,0xAC890008,0x8C88000C\n\t"
-    ".word 0x00000000,0x3109FFFF,0x00094C00,0x00094C03\n\t"
-    ".word 0x012B0019,0x00004812,0x00094B03,0x3129FFFF\n\t"
-    ".word 0x00085403,0x014C0019,0x00005012,0x000A5303\n\t"
-    ".word 0x000A5400,0x012A4825,0xAC89000C,0x8C880010\n\t"
-    ".word 0x00000000,0x3109FFFF,0x00094C00,0x00094C03\n\t"
-    ".word 0x012D0019,0x00004812,0x00094B03,0xAC890010\n\t"
-    ".word 0x03E00008,0x00801021\n\t"
-);
+unsigned int *func_800988D0(unsigned int *matrix, unsigned int *scale) {
+    register unsigned int scale0 asm("$11") = scale[0];
+    register unsigned int scale1 asm("$12") = scale[1];
+    register unsigned int scale2 asm("$13") = scale[2];
+    register unsigned int word asm("$8");
+    register unsigned int low asm("$9");
+    register unsigned int high asm("$10");
+    register unsigned int *target asm("$4") = matrix;
+
+    asm("" : "+r"(scale0), "+r"(scale1), "+r"(scale2), "+r"(target));
+    word = target[0];
+    asm("" : "+r"(word));
+    low = word & 0xFFFF;
+    asm("" : "+r"(low));
+    low = (unsigned int)(int)(short)low;
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(low) : "r"(scale0) : "hi", "lo");
+    low = (unsigned int)((int)low >> 12);
+    low &= 0xFFFF;
+    asm("" : "+r"(low));
+    high = (unsigned int)((int)word >> 16);
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(high) : "r"(scale1) : "hi", "lo");
+    high = (unsigned int)((int)high >> 12);
+    high <<= 16;
+    low |= high;
+    target[0] = low;
+    asm volatile("" : : : "memory");
+
+    word = target[1];
+    asm("" : "+r"(word));
+    low = word & 0xFFFF;
+    asm("" : "+r"(low));
+    low = (unsigned int)(int)(short)low;
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(low) : "r"(scale2) : "hi", "lo");
+    low = (unsigned int)((int)low >> 12);
+    low &= 0xFFFF;
+    asm("" : "+r"(low));
+    high = (unsigned int)((int)word >> 16);
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(high) : "r"(scale0) : "hi", "lo");
+    high = (unsigned int)((int)high >> 12);
+    high <<= 16;
+    low |= high;
+    target[1] = low;
+    asm volatile("" : : : "memory");
+
+    word = target[2];
+    asm("" : "+r"(word));
+    low = word & 0xFFFF;
+    asm("" : "+r"(low));
+    low = (unsigned int)(int)(short)low;
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(low) : "r"(scale1) : "hi", "lo");
+    low = (unsigned int)((int)low >> 12);
+    low &= 0xFFFF;
+    asm("" : "+r"(low));
+    high = (unsigned int)((int)word >> 16);
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(high) : "r"(scale2) : "hi", "lo");
+    high = (unsigned int)((int)high >> 12);
+    high <<= 16;
+    low |= high;
+    target[2] = low;
+    asm volatile("" : : : "memory");
+
+    word = target[3];
+    asm("" : "+r"(word));
+    low = word & 0xFFFF;
+    asm("" : "+r"(low));
+    low = (unsigned int)(int)(short)low;
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(low) : "r"(scale0) : "hi", "lo");
+    low = (unsigned int)((int)low >> 12);
+    low &= 0xFFFF;
+    asm("" : "+r"(low));
+    high = (unsigned int)((int)word >> 16);
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(high) : "r"(scale1) : "hi", "lo");
+    high = (unsigned int)((int)high >> 12);
+    high <<= 16;
+    low |= high;
+    target[3] = low;
+    asm volatile("" : : : "memory");
+
+    word = target[4];
+    asm("" : "+r"(word));
+    low = word & 0xFFFF;
+    asm("" : "+r"(low));
+    low = (unsigned int)(int)(short)low;
+    asm volatile("multu %0,%1\n\tmflo %0"
+                 : "+r"(low) : "r"(scale2) : "hi", "lo");
+    low = (unsigned int)((int)low >> 12);
+    target[4] = low;
+    asm("" : "+r"(target) : : "memory");
+    return target;
+}

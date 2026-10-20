@@ -1,17 +1,85 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80068CA8\nfunc_80068CA8:\n\t"
-    "lw $13,0($5)\n\tlw $14,4($5)\n\tlw $15,8($5)\n\tlhu $10,0($4)\n\t"
-    "lhu $11,6($4)\n\tlhu $12,0xC($4)\n\tctc2 $13,$0\n\tlw $13,0xC($5)\n\t"
-    "mtc2 $10,$9\n\tlw $10,0x10($5)\n\tctc2 $14,$1\n\tctc2 $15,$2\n\t"
-    "mtc2 $11,$10\n\tmtc2 $12,$11\n\tctc2 $13,$3\n\tctc2 $10,$4\n\t"
-    "nop\n\tnop\n\t.word 0x4A49E012\n\tlhu $10,2($4)\n\t"
-    "lhu $11,8($4)\n\tlhu $12,0xE($4)\n\tmfc2 $13,$9\n\tmfc2 $14,$10\n\t"
-    "mfc2 $15,$11\n\tmtc2 $10,$9\n\tmtc2 $11,$10\n\tmtc2 $12,$11\n\t"
-    "lhu $10,4($4)\n\tlhu $11,0xA($4)\n\tlhu $12,0x10($4)\n\t.word 0x4A49E012\n\t"
-    "sh $13,0($4)\n\tsh $14,6($4)\n\tsh $15,0xC($4)\n\tmfc2 $13,$9\n\t"
-    "mfc2 $14,$10\n\tmfc2 $15,$11\n\tmtc2 $10,$9\n\tmtc2 $11,$10\n\t"
-    "mtc2 $12,$11\n\tsh $13,2($4)\n\tsh $14,8($4)\n\tsh $15,0xE($4)\n\t"
-    ".word 0x4A49E012\n\tlw $10,0($4)\n\tlw $12,0xC($4)\n\tmfc2 $13,$9\n\t"
-    "mfc2 $14,$10\n\tmfc2 $15,$11\n\tsh $13,4($4)\n\tsh $14,0xA($4)\n\t"
-    "sh $15,0x10($4)\n\tlw $11,4($4)\n\tlw $13,8($4)\n\tlw $14,0x10($4)\n\t"
-    "ctc2 $10,$0\n\tctc2 $11,$1\n\tctc2 $12,$3\n\tctc2 $13,$2\n\t"
-    "ctc2 $14,$4\n\tjr $31\n\tnop");
+void func_80068CA8(unsigned short *matrix, unsigned int *transform) {
+    register unsigned short *target asm("$4") = matrix;
+    register unsigned int *source asm("$5") = transform;
+    register unsigned int t2 asm("$10");
+    register unsigned int t3 asm("$11");
+    register unsigned int t4 asm("$12");
+    register unsigned int t5 asm("$13");
+    register unsigned int t6 asm("$14");
+    register unsigned int t7 asm("$15");
+
+    asm("" : "+r"(target), "+r"(source));
+    t5 = source[0];
+    t6 = source[1];
+    t7 = source[2];
+    asm volatile("" : "+r"(t5), "+r"(t6), "+r"(t7) : : "memory");
+    t2 = target[0];
+    t3 = target[3];
+    t4 = target[6];
+    asm("" : "+r"(t2), "+r"(t3), "+r"(t4));
+    asm("" : "+r"(t5), "+r"(t6), "+r"(t7));
+    asm volatile("ctc2 %0,$0" : : "r"(t5));
+    t5 = source[3];
+    asm volatile("mtc2 %0,$9" : : "r"(t2));
+    t2 = source[4];
+    asm volatile("ctc2 %0,$1\n\t"
+                 "ctc2 %1,$2\n\t"
+                 "mtc2 %2,$10\n\t"
+                 "mtc2 %3,$11\n\t"
+                 "ctc2 %4,$3\n\t"
+                 "ctc2 %5,$4\n\t"
+                 "nop\n\tnop\n\tcop2 0x49E012"
+                 : : "r"(t6), "r"(t7), "r"(t3), "r"(t4), "r"(t5), "r"(t2)
+                 : "memory");
+
+    t2 = target[1];
+    t3 = target[4];
+    t4 = target[7];
+    asm volatile("mfc2 %0,$9\n\t"
+                 "mfc2 %1,$10\n\t"
+                 "mfc2 %2,$11\n\t"
+                 "mtc2 %3,$9\n\t"
+                 "mtc2 %4,$10\n\t"
+                 "mtc2 %5,$11"
+                 : "=r"(t5), "=r"(t6), "=r"(t7)
+                 : "r"(t2), "r"(t3), "r"(t4) : "memory");
+    t2 = target[2];
+    t3 = target[5];
+    t4 = target[8];
+    asm volatile("cop2 0x49E012" : : : "memory");
+    target[0] = t5;
+    target[3] = t6;
+    target[6] = t7;
+    asm volatile("mfc2 %0,$9\n\t"
+                 "mfc2 %1,$10\n\t"
+                 "mfc2 %2,$11\n\t"
+                 "mtc2 %3,$9\n\t"
+                 "mtc2 %4,$10\n\t"
+                 "mtc2 %5,$11"
+                 : "=r"(t5), "=r"(t6), "=r"(t7)
+                 : "r"(t2), "r"(t3), "r"(t4) : "memory");
+    target[1] = t5;
+    target[4] = t6;
+    target[7] = t7;
+    asm volatile("cop2 0x49E012" : : : "memory");
+
+    t2 = *(unsigned int *)((unsigned char *)target + 0);
+    t4 = *(unsigned int *)((unsigned char *)target + 12);
+    asm volatile("mfc2 %0,$9\n\t"
+                 "mfc2 %1,$10\n\t"
+                 "mfc2 %2,$11"
+                 : "=r"(t5), "=r"(t6), "=r"(t7));
+    target[2] = t5;
+    target[5] = t6;
+    target[8] = t7;
+    asm volatile("" : : "m"(target[2]), "m"(target[5]), "m"(target[8]) : "memory");
+    t3 = *(unsigned int *)((unsigned char *)target + 4);
+    t5 = *(unsigned int *)((unsigned char *)target + 8);
+    t6 = *(unsigned int *)((unsigned char *)target + 16);
+    asm volatile("ctc2 %0,$0\n\t"
+                 "ctc2 %1,$1\n\t"
+                 "ctc2 %2,$3\n\t"
+                 "ctc2 %3,$2\n\t"
+                 "ctc2 %4,$4"
+                 : : "r"(t2), "r"(t3), "r"(t4), "r"(t5), "r"(t6));
+}

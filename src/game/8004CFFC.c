@@ -1,9 +1,43 @@
-asm(".text\n\t.globl func_8004CFFC\nfunc_8004CFFC:\n\t"
-    ".word 0x27bdffe0,0xafb20018,0x00a09021,0xafb10014\n\t"
-    ".word 0x00008821,0xafbf001c,0xafb00010,0x1240000f\n\t"
-    ".word 0x2485013c,0x24900008,0x02002021,0x0c01253f\n\t"
-    ".word 0x02403021,0x24030001,0x14430008,0x02002021\n\t"
-    ".word 0x0c012576,0x02402821,0x3c030001,0x3463e000\n\t"
-    ".word 0x0062182a,0x14600003,0x02201021,0x24110001\n\t"
-    ".word 0x02201021,0x8fbf001c,0x8fb20018,0x8fb10014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct PathTank {
+    unsigned char pad000[8];
+    Vector position;
+    unsigned char pad014[0x13C - 0x14];
+    Vector goal;
+} PathTank;
+
+typedef char Vector_size[(sizeof(Vector) == 0xC) ? 1 : -1];
+typedef char PathTank_size[(sizeof(PathTank) == 0x148) ? 1 : -1];
+
+extern int func_800494FC(Vector *, Vector *, Vector *);
+extern int func_800495D8(Vector *, Vector *);
+
+int func_8004CFFC(PathTank *tank, Vector *target_arg) {
+    register Vector *target asm("$18") = target_arg;
+    int reached = 0;
+    register Vector *position asm("$16");
+    Vector *goal;
+
+    asm("" : "=r"(target) : "0"(target));
+
+    do {
+    } while (0);
+    goal = &tank->goal;
+    do {
+        if (target == 0)
+            break;
+        position = &tank->position;
+        if (func_800494FC(position, goal, target) != 1)
+            break;
+        if (func_800495D8(position, target) > 0x1E000)
+            goto done;
+    } while (0);
+    reached = 1;
+done:
+    return reached;
+}

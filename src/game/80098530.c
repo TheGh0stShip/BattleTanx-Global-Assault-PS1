@@ -1,28 +1,132 @@
-asm(".text\n\t.globl func_80098530\nfunc_80098530:\n\t"
-    ".word 0x00807821,0x00A01021,0x05E1000D,0x31F90FFF\n\t"
-    ".word 0x000F7823,0x05E10001,0x31EF0FFF,0x000FC080\n\t"
-    ".word 0x3C19800C,0x0338C821,0x8F3990F8,0x00000000\n\t"
-    ".word 0x00197400,0x000E4C03,0x08026165,0x00194403\n\t"
-    ".word 0x0019C080,0x3C19800C,0x0338C821,0x8F3990F8\n\t"
-    ".word 0x00000000,0x0019C400,0x00187C03,0x000F4823\n\t"
-    ".word 0x00194403,0x84AA0000,0x84AD000C,0x010A0019\n\t"
-    ".word 0x84AB0002,0x84AE000E,0x0000C012,0x84AC0004\n\t"
-    ".word 0x84AF0010,0x012D0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C823,0x0019C303,0x010B0019\n\t"
-    ".word 0xA4B80000,0x00000000,0x0000C012,0x00000000\n\t"
-    ".word 0x00000000,0x012E0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C823,0x0019C303,0x010C0019\n\t"
-    ".word 0xA4B80002,0x00000000,0x0000C012,0x00000000\n\t"
-    ".word 0x00000000,0x012F0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C823,0x0019C303,0x012A0019\n\t"
-    ".word 0xA4B80004,0x00000000,0x0000C012,0x00000000\n\t"
-    ".word 0x00000000,0x010D0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C821,0x0019C303,0x012B0019\n\t"
-    ".word 0xA4B8000C,0x00000000,0x0000C012,0x00000000\n\t"
-    ".word 0x00000000,0x010E0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C821,0x0019C303,0x012C0019\n\t"
-    ".word 0xA4B8000E,0x00000000,0x0000C012,0x00000000\n\t"
-    ".word 0x00000000,0x010F0019,0x00000000,0x00000000\n\t"
-    ".word 0x0000C812,0x0319C821,0x0019C303,0xA4B80010\n\t"
-    ".word 0x03E00008,0x00000000\n\t"
-);
+typedef struct Matrix3x3 {
+    short value[9];
+} Matrix3x3;
+
+extern unsigned int D_800B90F8[];
+
+Matrix3x3 *func_80098530(int angle, Matrix3x3 *matrix) {
+    register int angle_value asm("$15") = angle;
+    register Matrix3x3 *target asm("$5") = matrix;
+    register Matrix3x3 *result asm("$2") = matrix;
+    register int cosine asm("$8");
+    register int sine asm("$9");
+    register int first0 asm("$10");
+    register int first1 asm("$11");
+    register int first2 asm("$12");
+    register int second0 asm("$13");
+    register int second1 asm("$14");
+    register int second2 asm("$15");
+    register unsigned int product0 asm("$24");
+    register unsigned int product1 asm("$25");
+    register unsigned int packed asm("$25");
+    register unsigned int offset asm("$24");
+
+    asm("" : "+r"(angle_value), "+r"(target), "+r"(result));
+    packed = angle_value & 0xFFF;
+    if (angle_value < 0) {
+        register int low asm("$14");
+        angle_value = -angle_value;
+        asm volatile(".set\tnoreorder\n\t"
+                     "bgez %0,1f\n\t"
+                     "andi %0,%0,0xFFF\n"
+                     "1:\n\t"
+                     ".set\treorder"
+                     : "+r"(angle_value));
+        offset = angle_value << 2;
+        asm volatile("lui %0,%%hi(D_800B90F8)\n\t"
+                     "addu %0,%0,%1\n\t"
+                     "lw %0,%%lo(D_800B90F8)(%0)"
+                     : "=r"(packed) : "r"(offset) : "memory");
+        low = packed << 16;
+        asm("" : "+r"(low));
+        sine = low >> 16;
+        asm("" : "+r"(sine));
+        cosine = (int)packed >> 16;
+    } else {
+        register int low asm("$24");
+        offset = packed << 2;
+        asm volatile("lui %0,%%hi(D_800B90F8)\n\t"
+                     "addu %0,%0,%1\n\t"
+                     "lw %0,%%lo(D_800B90F8)(%0)"
+                     : "=r"(packed) : "r"(offset) : "memory");
+        low = packed << 16;
+        asm("" : "+r"(low));
+        angle_value = low >> 16;
+        sine = -angle_value;
+        cosine = (int)packed >> 16;
+    }
+
+    first0 = target->value[0];
+    second0 = target->value[6];
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(first0) : "hi", "lo");
+    first1 = target->value[1];
+    asm("" : "+r"(first1));
+    second1 = target->value[7];
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    first2 = target->value[2];
+    asm("" : "+r"(first2));
+    second2 = target->value[8];
+
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(second0) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 - product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(first1) : "hi", "lo");
+    target->value[0] = (short)product0;
+    asm volatile("nop");
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(second1) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 - product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(first2) : "hi", "lo");
+    target->value[1] = (short)product0;
+    asm volatile("nop");
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(second2) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 - product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(first0) : "hi", "lo");
+    target->value[2] = (short)product0;
+    asm volatile("nop");
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(second0) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 + product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(first1) : "hi", "lo");
+    target->value[6] = (short)product0;
+    asm volatile("nop");
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(second1) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 + product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+
+    asm volatile("multu %0,%1" : : "r"(sine), "r"(first2) : "hi", "lo");
+    target->value[7] = (short)product0;
+    asm volatile("nop");
+    asm volatile("mflo %0" : "=r"(product0) : : "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("multu %0,%1" : : "r"(cosine), "r"(second2) : "hi", "lo");
+    asm volatile("nop\n\tnop");
+    asm volatile("mflo %0" : "=r"(product1) : : "lo");
+    product1 = product0 + product1;
+    product0 = (unsigned int)((int)product1 >> 12);
+    *(volatile short *)&target->value[8] = (short)product0;
+    return result;
+}

@@ -1,10 +1,11 @@
 static inline int fixed_mul(int a, int b) {
+    register int scale asm("$9") = a;
     int low;
     int high;
 
     __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
             : "=&r"(low), "=&r"(high)
-            : "r"(a), "r"(b));
+            : "r"(scale), "r"(b));
     return low;
 }
 
@@ -44,6 +45,11 @@ typedef struct Move {
     int arrived;
 } Move;
 
+typedef char Vector_size[(sizeof(Vector) == 0x10) ? 1 : -1];
+typedef char AiTankType_size[(sizeof(AiTankType) == 0xD0) ? 1 : -1];
+typedef char AiTank_size[(sizeof(AiTank) == 0x1FC) ? 1 : -1];
+typedef char Move_size[(sizeof(Move) == 0x14) ? 1 : -1];
+
 extern AiTankType D_800A4EF4[];
 extern unsigned short D_800C628C;
 
@@ -57,8 +63,8 @@ int func_800495D8(Vector *, void *);
 unsigned short func_80049740(Vector *);
 
 void func_80048900(AiTank *tank, Move *move) {
-    register void *target = 0;
-    void *goal;
+    register void *target asm("$18") = 0;
+    register void *goal asm("$17");
     Vector delta;
 
     __asm__("" : "+r"(target));
@@ -96,10 +102,20 @@ void func_80048900(AiTank *tank, Move *move) {
         move->dist = func_800495D8(&tank->position, target);
         move->heading = func_80049740(&delta);
         move->arrived = 0;
-        if (!(tank->status & 0x200)) {
-            tank->status |= 0x200;
+        {
+            int speed;
+            if (!(tank->status & 0x200)) {
+                int flags = tank->status | 0x200;
+                __asm__ volatile("" : : : "$9");
+                speed = 4096;
+                tank->status = flags;
+            } else {
+                __asm__ volatile("" : : : "$9");
+                speed = 4096;
+                __asm__("" : "+r"(speed));
+            }
+            move->speed = fixed_mul(speed, tank->speed);
         }
-        move->speed = fixed_mul(4096, tank->speed);
     } else {
         func_8004960C(&delta, &tank->position, goal);
         move->dist = func_800495D8(&tank->position, goal);

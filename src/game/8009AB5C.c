@@ -1,8 +1,52 @@
-asm(".text\n\t.globl func_8009AB5C\nfunc_8009AB5C:\n\t"
-    ".word 0x3c02800b,0x8c427bc0,0x27bdffe8,0x14400014\n\t"
-    ".word 0xafbf0010,0x24020001,0x3c01800b,0x0c025066\n\t"
-    ".word 0xac227bc0,0x3c04800a,0x0c028bd8,0x2484a4bc\n\t"
-    ".word 0x3c04f000,0x34840009,0x24050020,0x24062000\n\t"
-    ".word 0x0c025056,0x00003821,0x00402021,0x3c01800b\n\t"
-    ".word 0x0c02502d,0xac247758,0x0c02505a,0x00000000\n\t"
-    ".word 0x8fbf0010,0x27bd0018,0x03e00008,0x00000000\n\t");
+extern int D_800B7BC0;
+extern int D_800B7758;
+extern unsigned char D_8009A4BC[];
+extern void func_80094198(void);
+extern void func_800A2F60(void *value);
+extern int func_80094158(unsigned int mode, unsigned int count,
+                         unsigned int size, unsigned int unused);
+extern void func_800940B4(int value);
+extern int func_80094168(void);
+
+void func_8009AB5C(void) __attribute__((noreturn));
+
+void func_8009AB5C(void) {
+    int handle;
+
+    if (D_800B7BC0 == 0) {
+        {
+            register int one asm("$2") = 1;
+            asm volatile(".set\tnoreorder\n\t"
+                         "lui $1,%%hi(D_800B7BC0)\n\t"
+                         "jal func_80094198\n\t"
+                         "sw %0,%%lo(D_800B7BC0)($1)\n\t"
+                         ".set\treorder"
+                         : : "r"(one) : "$1", "$31", "memory");
+        }
+        func_800A2F60(D_8009A4BC);
+        handle = func_80094158(0xF0000009U, 32, 0x2000, 0);
+        {
+            register int argument asm("$4") = handle;
+            asm volatile(".set\tnoreorder\n\t"
+                         "lui $1,%%hi(D_800B7758)\n\t"
+                         "jal func_800940B4\n\t"
+                         "sw %0,%%lo(D_800B7758)($1)\n\t"
+                         ".set\treorder"
+                         : : "r"(argument) : "$1", "$31", "memory");
+        }
+        func_80094168();
+    }
+    asm volatile("lw $31,16($29)\n\t"
+                 "addiu $29,$29,24\n\t"
+                 "jr $31\n\t"
+                 "nop\n\t"
+                 ".macro lw args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm\n\t"
+                 ".macro j args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm\n\t"
+                 ".macro addu args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm");
+}

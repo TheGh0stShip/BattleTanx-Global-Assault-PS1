@@ -1,11 +1,69 @@
-asm(".text\n\t.globl func_80091410\nfunc_80091410:\n\t"
-    ".word 0x3088ffff,0x29020003,0x14400003,0x24070048\n\t"
-    ".word 0x08024529,0x00001021,0x3c02800b,0x8c425940\n\t"
-    ".word 0x00081900,0x00621821,0x2d020002,0xa4600004\n\t"
-    ".word 0xa4650008,0x10400008,0x30c20010,0x10400002\n\t"
-    ".word 0x30c20001,0x24070049,0x1440000a,0x30c21000\n\t"
-    ".word 0x08024521,0x34e70100,0x24020002,0x15020005\n\t"
-    ".word 0x30c21000,0x30c20001,0x14400002,0x30c21000\n\t"
-    ".word 0x24070248,0x10400002,0x24020001,0x34e70010\n\t"
-    ".word 0x3c04800b,0x8c845940,0x00081900,0x00641821\n\t"
-    ".word 0xa4670004,0x03e00008,0x00000000\n\t");
+typedef struct ChannelState {
+    unsigned char unused0[4];
+    unsigned short flags;
+    unsigned char unused6[2];
+    volatile short value;
+    unsigned char unusedA[6];
+} ChannelState;
+
+extern ChannelState *D_800B5940;
+
+int func_80091410(int channel, short value, unsigned int options) {
+    int index;
+    unsigned short flags;
+    register int result asm("$2");
+    register ChannelState *state asm("$3");
+
+    index = channel & 0xFFFF;
+    flags = 0x48;
+    if (index >= 3) {
+        result = 0;
+        goto done;
+    }
+    state = (ChannelState *)((index << 4) + (unsigned int)D_800B5940);
+    asm("" : "+r"(state));
+    state->flags = 0;
+    state->value = value;
+    if ((unsigned int)index < 2U) {
+        result = options & 0x10;
+        if (result != 0) {
+            flags = 0x49;
+        }
+        result = options & 1;
+        if (result == 0) {
+            flags |= 0x100;
+        }
+        result = options & 0x1000;
+    } else {
+        result = 2;
+        if (index != result) {
+            result = options & 0x1000;
+        } else {
+            result = options & 1;
+            if (result == 0) {
+                flags = 0x248;
+            }
+            result = options & 0x1000;
+        }
+    }
+    asm volatile(".set\tnoreorder\n\t"
+                 "beqz %0,1f\n\t"
+                 "addiu %0,$0,1\n\t"
+                 "ori %1,%1,0x10\n"
+                 "1:\n\t"
+                 ".set\treorder"
+                 : "+r"(result), "+r"(flags));
+    {
+        register ChannelState *base asm("$4");
+        register ChannelState *target asm("$3");
+        asm volatile("lui %0,%%hi(D_800B5940)\n\t"
+                     "lw %0,%%lo(D_800B5940)(%0)"
+                     : "=r"(base));
+        target = (ChannelState *)((index << 4) + (unsigned int)base);
+        asm("" : "+r"(base), "+r"(target));
+        *(volatile unsigned short *)&target->flags = flags;
+    }
+done:
+    asm volatile("" : "+r"(result));
+    return result;
+}

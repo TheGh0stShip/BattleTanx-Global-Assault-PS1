@@ -1,9 +1,32 @@
-asm(".text\n\t.globl func_800976A0\nfunc_800976A0:\n\t"
-    ".word 0x90830000,0x90860001,0x00032902,0x00051080\n\t"
-    ".word 0x00451021,0x00021040,0x3063000f,0x00431021\n\t"
-    ".word 0x00022900,0x00a22823,0x00052880,0x00061902\n\t"
-    ".word 0x00031080,0x00431021,0x00021040,0x30c6000f\n\t"
-    ".word 0x00461021,0x00a22821,0x00051880,0x00651821\n\t"
-    ".word 0x00031100,0x90850002,0x00431023,0x00052102\n\t"
-    ".word 0x00041880,0x00641821,0x00031840,0x30a5000f\n\t"
-    ".word 0x00651821,0x00431021,0x03e00008,0x2442ff6a\n\t");
+int func_800976A0(volatile unsigned char *digits) {
+    register unsigned int x asm("$3") = digits[0];
+    register unsigned int y asm("$6") = digits[1];
+    register unsigned int value asm("$2");
+    register unsigned int total asm("$5");
+    register unsigned int high asm("$4");
+
+    total = x >> 4;
+    value = (total << 2) + total;
+    value <<= 1;
+    x &= 15;
+    value += x;
+    total = (value << 4) - value;
+    total <<= 2;
+    x = y >> 4;
+    value = (x << 2) + x;
+    value <<= 1;
+    y &= 15;
+    value += y;
+    total += value;
+    x = (total << 2) + total;
+    value = x << 4;
+    total = digits[2];
+    value -= x;
+    high = total >> 4;
+    x = (high << 2) + high;
+    x <<= 1;
+    total &= 15;
+    x += total;
+    value += x;
+    return value - 150;
+}

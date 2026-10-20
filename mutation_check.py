@@ -23,7 +23,7 @@ for label, rel, old, new in MUTATIONS:
             HERE,
             dst,
             ignore=shutil.ignore_patterns(
-                ".git", ".venv", ".splache", "__pycache__", "*.pyc",
+                ".git", ".venv", ".toolchain", ".splache", "__pycache__", "*.pyc",
                 "asm", "baseroms", "build", "out*",
             ),
         )

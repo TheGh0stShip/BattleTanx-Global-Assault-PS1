@@ -1,18 +1,69 @@
-asm(".text\n\t.globl func_8008BB1C\nfunc_8008BB1C:\n\t"
-    ".word 0x3c081f80,0x35080300,0xad000000,0xad000004\n\t"
-    ".word 0xad000008,0xad00000c,0xad000010,0xad000014\n\t"
-    ".word 0xad000018,0xad00001c,0xad000020,0xad000024\n\t"
-    ".word 0xad000028,0xad00002c,0xad000030,0xad000034\n\t"
-    ".word 0xad000038,0xad00003c,0xad000040,0xad000044\n\t"
-    ".word 0xad000048,0xad00004c,0xad000050,0xad000054\n\t"
-    ".word 0xad000058,0xad00005c,0xad000060,0xad000064\n\t"
-    ".word 0xad000068,0xad00006c,0xad000070,0xad000074\n\t"
-    ".word 0xad000078,0xad00007c,0xad000080,0xad000084\n\t"
-    ".word 0xad000088,0xad00008c,0xad000090,0xad000094\n\t"
-    ".word 0xad000098,0xad00009c,0xad0000a0,0xad0000a4\n\t"
-    ".word 0xad0000a8,0xad0000ac,0xad0000b0,0xad0000b4\n\t"
-    ".word 0xad0000b8,0xad0000bc,0xad0000c0,0xad0000c4\n\t"
-    ".word 0xad0000c8,0xad0000cc,0xad0000d0,0xad0000d4\n\t"
-    ".word 0xad0000d8,0xad0000dc,0xad0000e0,0xad0000e4\n\t"
-    ".word 0xad0000e8,0xad0000ec,0xad0000f0,0xad0000f4\n\t"
-    ".word 0xad0000f8,0x03e00008,0xad0000fc\n\t");
+void func_8008BB1C(void) {
+    register unsigned int *scratch asm("$8") = (unsigned int *)0x1F800300;
+
+    asm("" : "+r"(scratch));
+    scratch[0] = 0;
+    scratch[1] = 0;
+    scratch[2] = 0;
+    scratch[3] = 0;
+    scratch[4] = 0;
+    scratch[5] = 0;
+    scratch[6] = 0;
+    scratch[7] = 0;
+    scratch[8] = 0;
+    scratch[9] = 0;
+    scratch[10] = 0;
+    scratch[11] = 0;
+    scratch[12] = 0;
+    scratch[13] = 0;
+    scratch[14] = 0;
+    scratch[15] = 0;
+    scratch[16] = 0;
+    scratch[17] = 0;
+    scratch[18] = 0;
+    scratch[19] = 0;
+    scratch[20] = 0;
+    scratch[21] = 0;
+    scratch[22] = 0;
+    scratch[23] = 0;
+    scratch[24] = 0;
+    scratch[25] = 0;
+    scratch[26] = 0;
+    scratch[27] = 0;
+    scratch[28] = 0;
+    scratch[29] = 0;
+    scratch[30] = 0;
+    scratch[31] = 0;
+    scratch[32] = 0;
+    scratch[33] = 0;
+    scratch[34] = 0;
+    scratch[35] = 0;
+    scratch[36] = 0;
+    scratch[37] = 0;
+    scratch[38] = 0;
+    scratch[39] = 0;
+    scratch[40] = 0;
+    scratch[41] = 0;
+    scratch[42] = 0;
+    scratch[43] = 0;
+    scratch[44] = 0;
+    scratch[45] = 0;
+    scratch[46] = 0;
+    scratch[47] = 0;
+    scratch[48] = 0;
+    scratch[49] = 0;
+    scratch[50] = 0;
+    scratch[51] = 0;
+    scratch[52] = 0;
+    scratch[53] = 0;
+    scratch[54] = 0;
+    scratch[55] = 0;
+    scratch[56] = 0;
+    scratch[57] = 0;
+    scratch[58] = 0;
+    scratch[59] = 0;
+    scratch[60] = 0;
+    scratch[61] = 0;
+    scratch[62] = 0;
+    scratch[63] = 0;
+}

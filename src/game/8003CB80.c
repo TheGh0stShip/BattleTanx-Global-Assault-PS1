@@ -1,24 +1,81 @@
-asm(".text\n\t.globl func_8003CB80\nfunc_8003CB80:\n\t"
-    ".word 0x27BDFFE8,0x00805021,0x00A02021,0xAFBF0010\n\t"
-    ".word 0x8D470000,0x24090001,0x8CE80000,0x24E70004\n\t"
-    ".word 0xAC880000,0x8CE30000,0x24E70004,0xAC830004\n\t"
-    ".word 0x8CE20000,0x24E70004,0xAC87000C,0x00402821\n\t"
-    ".word 0x10A90020,0xAC820008,0x10A00005,0x24020002\n\t"
-    ".word 0x10A20032,0x00031840,0x0800F330,0xAD470000\n\t"
-    ".word 0x000817C2,0x01021021,0x00021043,0x00430018\n\t"
-    ".word 0x3C034C41,0x34635033,0x00001012,0xAC820010\n\t"
-    ".word 0x00021082,0x00021080,0x14C30005,0x00E23821\n\t"
-    ".word 0x8CE20000,0x24E70004,0x0800F309,0xAC820014\n\t"
-    ".word 0xAC890014,0x8C830014,0x8C820014,0xAC870018\n\t"
-    ".word 0x00031940,0x00E33821,0x00021140,0x0800F32F\n\t"
-    ".word 0xAC82001C,0x01030018,0x3C034C41,0x34635033\n\t"
-    ".word 0x00001012,0xAC820010,0x00021082,0x00021080\n\t"
-    ".word 0x14C30005,0x00E23821,0x8CE20000,0x24E70004\n\t"
-    ".word 0x0800F31F,0xAC820014,0xAC850014,0x8C830014\n\t"
-    ".word 0x8C820014,0xAC870018,0x00031A40,0x00E33821\n\t"
-    ".word 0x00021240,0x0800F32F,0xAC82001C,0x01030018\n\t"
-    ".word 0xAC800014,0xAC80001C,0x00001812,0x00031082\n\t"
-    ".word 0x00021080,0x00E23821,0xAC830010,0xAD470000\n\t"
-    ".word 0x8C820010,0x00000000,0x10400003,0x00000000\n\t"
-    ".word 0x0C00F295,0x00000000,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct Texture {
+    int width;
+    int height;
+    unsigned int mode;
+    int *pixels;
+    int size;
+    int clut_count;
+    int *clut;
+    int clut_size;
+    void *image;
+    void *clut_image;
+} Texture;
+
+typedef char Texture_size[(sizeof(Texture) == 40) ? 1 : -1];
+
+extern void func_8003CA54(Texture *);
+
+void func_8003CB80(int **cursor, Texture *texture_arg, unsigned int magic) {
+    register Texture *texture asm("$4") = texture_arg;
+    int *words = *cursor;
+    register int width asm("$8") = *words++;
+    int height;
+    register unsigned int mode asm("$5");
+
+    texture->width = width;
+    height = *words++;
+    texture->height = height;
+    {
+        unsigned int raw_mode = *words++;
+        texture->pixels = words;
+        mode = raw_mode;
+        asm("" : "+r"(mode));
+        texture->mode = raw_mode;
+    }
+    switch (mode) {
+    case 0:
+        texture->size = (width / 2) * height;
+        words += (unsigned int)texture->size >> 2;
+        if (magic == 0x4C415033U)
+            texture->clut_count = *words++;
+        else
+            texture->clut_count = 1;
+        {
+            register int elements asm("$3") = *(volatile int *)&texture->clut_count;
+            register int bytes asm("$2") = *(volatile int *)&texture->clut_count;
+            asm("" : : "r"(width));
+            texture->clut = words;
+            words += elements << 3;
+            texture->clut_size = bytes << 5;
+        }
+        break;
+    case 1:
+        texture->size = width * height;
+        words += (unsigned int)texture->size >> 2;
+        if (magic == 0x4C415033U)
+            texture->clut_count = *words++;
+        else
+            texture->clut_count = 1;
+        {
+            register int elements asm("$3") = *(volatile int *)&texture->clut_count;
+            register int bytes asm("$2") = *(volatile int *)&texture->clut_count;
+            asm("" : : "r"(width));
+            texture->clut = words;
+            words += elements << 7;
+            texture->clut_size = bytes << 9;
+        }
+        break;
+    case 2:
+        {
+            register int size asm("$3") = width * (height << 1);
+            texture->clut_count = 0;
+            texture->clut_size = 0;
+            words += (unsigned int)size >> 2;
+            texture->size = size;
+        }
+        break;
+    }
+    *cursor = words;
+    if (texture->size != 0)
+        func_8003CA54(texture);
+}

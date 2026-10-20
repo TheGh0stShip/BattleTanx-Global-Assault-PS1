@@ -1,12 +1,41 @@
-asm(".text\n\t.globl func_80083854\nfunc_80083854:\n\t"
-    ".word 0x27bdffe0,0xafb00010,0x00808021,0xafbf0018\n\t"
-    ".word 0x0c0252ba,0xafb10014,0x3c05800f,0x24a5df08\n\t"
-    ".word 0x00102040,0x00902021,0x00042080,0x00852021\n\t"
-    ".word 0x00101880,0x00701821,0x00031880,0x00653021\n\t"
-    ".word 0x9485005a,0x8cc30004,0x00000000,0x00651821\n\t"
-    ".word 0xacc30004,0x8cc30000,0x00000000,0x1460000b\n\t"
-    ".word 0x00408821,0x8cc20010,0x00000000,0x10400007\n\t"
-    ".word 0x00000000,0x8cc2000c,0x00000000,0x10400003\n\t"
-    ".word 0x00000000,0x0c020d50,0x02002021,0x0c020dba\n\t"
-    ".word 0x02002021,0x0c0252bf,0x02202021,0x8fbf0018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0020\n\t");
+typedef struct TimerSource {
+    int busy;
+    unsigned int counter;
+    unsigned int current;
+    unsigned int limit;
+    void (*callback)(void *);
+} TimerSource;
+
+typedef struct TimerChannel {
+    int device;
+    int field04;
+    unsigned short pending;
+    unsigned short rate;
+} TimerChannel;
+
+typedef struct TimerBlock {
+    TimerSource source[4];
+    TimerChannel channel[4];
+} TimerBlock;
+
+typedef char TimerSource_size[(sizeof(TimerSource) == 20) ? 1 : -1];
+typedef char TimerChannel_size[(sizeof(TimerChannel) == 12) ? 1 : -1];
+
+extern TimerBlock D_800EDF08;
+extern int func_80094AE8(void);
+extern int func_80094AFC(int);
+extern void func_80083540(unsigned int, unsigned int);
+extern void func_800836E8(int);
+
+void func_80083854(int channel) {
+    int previous = func_80094AE8();
+    unsigned int rate = D_800EDF08.channel[channel].rate;
+
+    D_800EDF08.source[channel].counter += rate;
+    if (D_800EDF08.source[channel].busy == 0 &&
+        D_800EDF08.source[channel].callback != 0 &&
+        D_800EDF08.source[channel].limit != 0)
+        func_80083540(channel, rate);
+    func_800836E8(channel);
+    func_80094AFC(previous);
+}

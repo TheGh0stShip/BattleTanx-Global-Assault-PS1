@@ -1,9 +1,48 @@
-asm(".text\n\t.globl func_8009C9BC\nfunc_8009C9BC:\n\t"
-    ".word 0x27bdffe8,0xafbf0010,0x0c025066,0x00000000\n\t"
-    ".word 0x3c03800c,0x8c638d48,0x24020001,0x14620007\n\t"
-    ".word 0x00000000,0x0c028c24,0x00002021,0x0c028c1f\n\t"
-    ".word 0x00002021,0x08027282,0x00000000,0x0c025d56\n\t"
-    ".word 0x00002021,0x0c025c4a,0x00002021,0x3c02800c\n\t"
-    ".word 0x8c428bac,0x00000000,0xa0400000,0x3c02800c\n\t"
-    ".word 0x8c428bb8,0x00000000,0x0c02505a,0xa0400000\n\t"
-    ".word 0x8fbf0010,0x27bd0018,0x03e00008,0x00000000\n\t");
+extern void func_80094198(void);
+extern void func_800A3090(int value);
+extern void func_800A307C(int value);
+extern void func_80097558(int value);
+extern void func_80097128(int value);
+extern void func_80094168(void);
+extern volatile int func_800B8D48;
+extern unsigned char * volatile D_800B8BAC;
+extern unsigned char * volatile D_800B8BB8;
+
+void func_8009C9BC(void) __attribute__((noreturn));
+
+void func_8009C9BC(void) {
+    register int mode asm("$3");
+
+    func_80094198();
+    asm volatile("lui %0,%%hi(func_800B8D48)\n\t"
+                 "lw %0,%%lo(func_800B8D48)(%0)"
+                 : "=r"(mode));
+    if (mode == 1) {
+        func_800A3090(0);
+        func_800A307C(0);
+    } else {
+        func_80097558(0);
+        func_80097128(0);
+    }
+    asm volatile("" : : : "memory");
+    *D_800B8BAC = 0;
+    {
+        register unsigned char *value asm("$2") = D_800B8BB8;
+        asm volatile("nop" : "+r"(value));
+        *value = 0;
+    }
+    func_80094168();
+    asm volatile("lw $31,16($29)\n\t"
+                 "addiu $29,$29,24\n\t"
+                 "jr $31\n\t"
+                 "nop\n\t"
+                 ".macro lw args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm\n\t"
+                 ".macro j args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm\n\t"
+                 ".macro addu args:vararg\n\t"
+                 ".word 0\n\t"
+                 ".endm");
+}
