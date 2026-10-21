@@ -1,12 +1,46 @@
-asm(".text\n\t.globl func_8009C88C\nfunc_8009C88C:\n\t"
-    ".word 0x27bdffe0,0x3c03800c,0x8c638b80,0x3c020010\n\t"
-    ".word 0xafbf0018,0xafa20010,0x8c620000,0x3c030100\n\t"
-    ".word 0x00431024,0x10400017,0x00001021,0x2404ffff\n\t"
-    ".word 0x8fa20010,0x00000000,0x2442ffff,0xafa20010\n\t"
-    ".word 0x8fa20010,0x00000000,0x14440006,0x00000000\n\t"
-    ".word 0x3c04800c,0x0c02724e,0x24845ab4,0x08027244\n\t"
-    ".word 0x2402ffff,0x3c02800c,0x8c428b80,0x00000000\n\t"
-    ".word 0x8c420000,0x00000000,0x00431024,0x1440ffec\n\t"
-    ".word 0x00001021,0x8fbf0018,0x27bd0020,0x03e00008\n\t"
-    ".word 0x00000000,0x3c02800c,0x8c428ba0,0x00000000\n\t"
-    ".word 0x8c420000,0x03e00008,0x00000000\n\t");
+typedef signed int s32;
+typedef unsigned int u32;
+
+extern volatile u32 *volatile D_800B8B80;
+extern volatile u32 *volatile D_800B8BA0;
+extern char D_800C5AB4;
+extern void func_8009C938(void *message);
+
+static __inline__ u32 read_busy_loop(void) {
+    register volatile u32 *status asm("$2");
+    asm volatile("lw %0,D_800B8B80" : "=r"(status));
+    return *status;
+}
+
+s32 func_8009C88C(void) {
+    volatile s32 counter;
+    s32 remaining;
+    register volatile u32 *status asm("$3");
+    register s32 initial_counter asm("$2");
+
+    asm("lw %0,D_800B8B80" : "=r"(status));
+    asm("lui %0,0x10" : "=r"(initial_counter) : "r"(status));
+    counter = initial_counter;
+    if (*status & 0x01000000) {
+        register s32 sentinel asm("$4") = -1;
+        do {
+            remaining = counter - 1;
+            counter = remaining;
+            remaining = counter;
+            if (remaining == sentinel) {
+                register char *message asm("$4");
+                asm("lui %0,0x800C" : "=r"(message));
+                message += 0x5AB4;
+                func_8009C938(message);
+                return -1;
+            }
+        } while (read_busy_loop() & 0x01000000);
+    }
+    return 0;
+}
+
+u32 func_8009C920(void) {
+    register volatile u32 *status asm("$2");
+    asm volatile("lw %0,D_800B8BA0" : "=r"(status));
+    return *status;
+}

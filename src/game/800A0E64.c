@@ -1,17 +1,35 @@
-asm(".text\n\t.globl func_800A0E64\nfunc_800A0E64:\n\t"
-    ".word 0x3c02800c,0x8c428fec,0x3c060002,0xa0400000\n\t"
-    ".word 0x3c03800c,0x8c638ff8,0x24020080,0xa0620000\n\t"
-    ".word 0x3c02800c,0x8c429020,0x34c60943,0xac460000\n\t"
-    ".word 0x3c03800c,0x8c638ffc,0x24021323,0xac620000\n\t"
-    ".word 0x3c03800c,0x8c639024,0x00000000,0x8c620000\n\t"
-    ".word 0x00000000,0x34428000,0xac620000,0x3c02800c\n\t"
-    ".word 0x8c429028,0x00000000,0xac440000,0x3c020001\n\t"
-    ".word 0x3c03800c,0x8c63902c,0x00a22825,0xac650000\n\t"
-    ".word 0x3c03800c,0x8c638fec,0x00000000,0x90620000\n\t"
-    ".word 0x00000000,0x30420040,0x1040fffc,0x3c021100\n\t"
-    ".word 0x3c03800c,0x8c639030,0x00000000,0xac620000\n\t"
-    ".word 0x3c04800c,0x8c849030,0x00000000,0x8c820000\n\t"
-    ".word 0x3c030100,0x00431024,0x10400007,0x00801821\n\t"
-    ".word 0x3c040100,0x8c620000,0x00000000,0x00441024\n\t"
-    ".word 0x1440fffc,0x00000000,0x3c03800c,0x8c638ffc\n\t"
-    ".word 0x24021325,0xac620000,0x03e00008,0x00001021\n\t");
+extern volatile unsigned char *D_800B8FEC;
+extern volatile unsigned char *func_800B8FF8;
+extern volatile unsigned int *D_800B8FFC;
+extern volatile unsigned int *D_800B9020;
+extern volatile unsigned int *D_800B9024;
+extern volatile unsigned int *D_800B9028;
+extern volatile unsigned int *D_800B902C;
+extern volatile unsigned int *D_800B9030;
+
+int func_800A0E64(unsigned int address, unsigned int length) {
+    register volatile unsigned char *cd_status asm("$3");
+    register volatile unsigned int *dma_status asm("$4");
+
+    *D_800B8FEC = 0;
+    *func_800B8FF8 = 0x80;
+    *D_800B9020 = 0x20943;
+    *D_800B8FFC = 0x1323;
+    *D_800B9024 |= 0x8000;
+    *D_800B9028 = address;
+    *D_800B902C = length | 0x10000;
+    cd_status = *(&D_800B8FEC);
+    asm volatile("nop");
+    do {
+    } while ((*cd_status & 0x40) == 0);
+    *D_800B9030 = 0x11000000;
+    dma_status = *(&D_800B9030);
+    if ((*dma_status & 0x01000000) != 0) {
+        register volatile unsigned int *loop_status asm("$3") = dma_status;
+        register unsigned int mask asm("$4") = 0x01000000;
+        do {
+        } while ((*loop_status & mask) != 0);
+    }
+    *D_800B8FFC = 0x1325;
+    return 0;
+}

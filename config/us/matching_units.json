@@ -9322,7 +9322,13 @@
       "address": "0x8009C88C",
       "size": "0xAC",
       "source": "src/game/8009C88C.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8B80": "0x800B8B80",
+        "D_800B8BA0": "0x800B8BA0",
+        "D_800C5AB4": "0x800C5AB4",
+        "func_8009C938": "0x8009C938"
+      },
+      "compiler": "gcc-2.7.2-psx"
     },
     {
       "name": "func_8009CA3C",
@@ -11468,7 +11474,17 @@
       "address": "0x800A0E64",
       "size": "0x100",
       "source": "src/game/800A0E64.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8FEC": "0x800B8FEC",
+        "D_800B8FFC": "0x800B8FFC",
+        "D_800B9020": "0x800B9020",
+        "D_800B9024": "0x800B9024",
+        "D_800B9028": "0x800B9028",
+        "D_800B902C": "0x800B902C",
+        "D_800B9030": "0x800B9030",
+        "func_800B8FF8": "0x800B8FF8"
+      },
+      "compiler": "gcc-2.7.2-psx"
     },
     {
       "name": "func_800A1710",
