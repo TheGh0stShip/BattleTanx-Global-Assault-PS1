@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 10,840-byte draft with the exact 320-byte retail frame, both jump tables, and the complete 397-operation COP2 stream |
+| `func_80065920` | 11,168 | Compiler-valid 10,824-byte draft with the exact 320-byte retail frame, both jump tables, and the complete 397-operation COP2 stream |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
@@ -57,6 +57,9 @@ Renderer data symbols and packet cursors now use byte-addressed arithmetic.
 This restores the retail 156-byte object stride, 8-byte vertex strides,
 8-byte packet-header advance, 4-byte packet-copy steps, and 4-byte reverse-copy
 steps that the provisional `M2C_UNK *` types had accidentally scaled by four.
+Both packet-relocation paths now calculate copy lengths from byte differences
+before converting them to word counts, matching the retail subtraction and
+right shift rather than dividing an already scaled C pointer difference again.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as

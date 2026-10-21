@@ -1346,7 +1346,7 @@ block_279:
                                             *temp_a0_5 = (*temp_a0_5 & high_mask) | ((s32) stack.spE0 & stack.sp104);
                                         }
                                         __asm__ volatile("swc2 $14, ($v0)");
-                                        var_a2_5 = ((s32) (temp_v0_33 - stack.spE0) >> 2) - 1;
+                                        var_a2_5 = (((s32) temp_v0_33 - (s32) stack.spE0) >> 2) - 1;
                                         if (var_a2_5 >= 0) {
                                             var_a0_4 = &temp_v0_33[var_a2_5];
                                             var_v1_2 = &stack.spE0[var_a2_5];
@@ -1358,7 +1358,7 @@ block_279:
                                                 var_a0_4 -= 1;
                                             } while (var_a2_5 >= 0);
                                         }
-                                        var_s3 = temp_v0_33 + (var_s3 - stack.spE0);
+                                        var_s3 = (s32 *)((s32) temp_v0_33 + ((s32) var_s3 - (s32) stack.spE0));
                                         stack.spE0 = temp_v0_33;
                                         stack.sp58 = stack.sp5C;
                                         __asm__ volatile("swc2 $14, ($v0)");
@@ -1499,7 +1499,7 @@ block_316:
                                             *stack.spE0 = (*stack.spE0 & high_mask) | (*temp_a0_6 & stack.sp104);
                                             *temp_a0_6 = (*temp_a0_6 & high_mask) | ((s32) stack.spE0 & stack.sp104);
                                         }
-                                        var_a2_8 = ((s32) (temp_v0_39 - stack.spE0) >> 2) - 1;
+                                        var_a2_8 = (((s32) temp_v0_39 - (s32) stack.spE0) >> 2) - 1;
                                         if (var_a2_8 >= 0) {
                                             var_a0_7 = &temp_v0_39[var_a2_8];
                                             var_v1_3 = &stack.spE0[var_a2_8];
@@ -1511,7 +1511,7 @@ block_316:
                                                 var_a0_7 -= 1;
                                             } while (var_a2_8 >= 0);
                                         }
-                                        var_s3 = temp_v0_39 + (var_s3 - stack.spE0);
+                                        var_s3 = (s32 *)((s32) temp_v0_39 + ((s32) var_s3 - (s32) stack.spE0));
                                         stack.spE0 = temp_v0_39;
                                         stack.sp5C = stack.sp64;
                                         stack.sp58 = stack.sp60;
