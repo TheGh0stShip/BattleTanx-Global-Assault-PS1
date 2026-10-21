@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 9,968-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
+| `func_80065920` | 11,168 | Compiler-valid 9,932-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
@@ -31,7 +31,12 @@ pointer is also recovered in retail `$s2`; the function prologue is exact and
 the initialization sequence agrees through the first 0x68 bytes.
 The initial render context is now held in retail `$a3`, with its identity and
 depth-scale values recovered in `$s6` and `$t8`; an unused speculative null
-initialization was removed from the later packet pointer.
+initialization was removed from the later packet pointer.  Retail `$s2` is now
+modeled across its actual lifetime: it begins as the display-state pointer,
+then becomes the `0x00FFFFFF` packet-link mask.  The first rendering pass now
+tests the recovered matrix count against 512 instead of folding that guard to
+an unconditional true value, and later passes reload the display-state global
+instead of incorrectly extending the original `$s2` pointer lifetime.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as

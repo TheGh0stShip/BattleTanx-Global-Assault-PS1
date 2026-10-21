@@ -99,7 +99,7 @@ typedef struct {
 void func_80065920(void * volatile arg0, s32 arg1) {
     Func80065920Frame stack;
     u32 high_mask;
-    register M2C_UNK *display_state __asm__("$18");
+    register M2C_UNK *state_or_mask __asm__("$18");
     M2C_UNK (*var_v0_2)(M2C_UNK *, M2C_UNK *, s16);
     M2C_UNK (*var_v0_3)(M2C_UNK *, M2C_UNK *, s16);
     M2C_UNK *var_a0_5;
@@ -198,7 +198,8 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     s32 var_a2_8;
     s32 var_fp;
     s32 var_fp_2;
-    register s32 var_s5 __asm__("$19");
+    register s32 matrix_count __asm__("$19");
+    register s32 var_s5 __asm__("$21");
     s32 var_s5_2;
     s32 var_s7;
     s32 var_s7_2;
@@ -248,16 +249,16 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     void *var_s1_2;
     void *var_s1_3;
     register void *var_t3 __asm__("$11");
-    var_s5 = 0;
-    __asm__ volatile("" : "+r" (var_s5));
+    matrix_count = 0;
+    __asm__ volatile("" : "+r" (matrix_count));
     stack.spE0 = ((void *)0);
     stack.spE4 = 0;
     stack.spF0 = 0;
     stack.spF8 = ((void *)0);
     stack.spD8 = 0;
     temp_v0 = func_8007F7D8();
-    display_state = &D_800AD9EC;
-    (*(s32 *)((u8 *)(display_state)+(8))) = temp_v0;
+    state_or_mask = &D_800AD9EC;
+    (*(s32 *)((u8 *)(state_or_mask)+(8))) = temp_v0;
     temp_v0 = func_8006A26C(4);
     D_800E53EC = temp_v0;
     D_800E53E8 = temp_v0;
@@ -301,15 +302,18 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     (*(s32 *)((u8 *)(&D_800E53AC)+(0))) = (s32) gte_cfc2_5();
     (*(s32 *)((u8 *)(&D_800E53AC)+(4))) = (s32) gte_cfc2_6();
     (*(s32 *)((u8 *)(&D_800E53AC)+(8))) = (s32) gte_cfc2_7();
+    var_s5 = matrix_count;
+    __asm__ volatile("" : "+r" (var_s5));
     stack.sp98 = func_800924F0();
     stack.sp9A = func_80092500();
     stack.spA0 = func_800924F0();
     stack.spA2 = func_80092500();
-    var_s1 = (*(void **)((u8 *)(display_state)+(0)));
-    if (var_s1 != (*(s32 *)((u8 *)(display_state)+(4)))) {
+    var_s1 = (*(void **)((u8 *)(state_or_mask)+(0)));
+    if (var_s1 != (*(s32 *)((u8 *)(state_or_mask)+(4)))) {
         stack.sp110 = &stack.spA8;
+        state_or_mask = (M2C_UNK *)0xFFFFFF;
         high_mask = 0xFF000000;
-        var_v0 = 0 < 0x200;
+        var_v0 = var_s5 < 0x200;
 loop_2:
         if (var_v0 != 0) {
             if ((u8) (*(u8 *)((u8 *)(var_s1)+(7))) < 0xECU) {
@@ -552,8 +556,8 @@ block_52:
                             temp_v1_5 = (s32) (*(s16 *)((u8 *)(var_s1)+(8)));
                             stack.spD8 = temp_v1_5;
                             if (temp_v1_5 == -1) {
-                                *var_s3 = (*var_s3 & high_mask) | ((*(s32 *)((u8 *)(arg0)+(4))) & 0xFFFFFF);
-                                (*(s32 *)((u8 *)(arg0)+(4))) = (s32) (((*(s32 *)((u8 *)(arg0)+(4))) & high_mask) | ((s32) var_s3 & 0xFFFFFF));
+                                *var_s3 = (*var_s3 & high_mask) | ((*(s32 *)((u8 *)(arg0)+(4))) & (u32)state_or_mask);
+                                (*(s32 *)((u8 *)(arg0)+(4))) = (s32) (((*(s32 *)((u8 *)(arg0)+(4))) & high_mask) | ((s32) var_s3 & (u32)state_or_mask));
                                 goto block_105;
                             }
                             if (temp_v1_5 <= 0) {
@@ -572,15 +576,15 @@ block_72:
                                     *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.spA0)+(0))) & 0x7FF));
                                     *(s8 *)8 = 0;
                                     temp_a0 = (stack.spD8 * 4) + arg0;
-                                    *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0 & 0xFFFFFF));
-                                    *temp_a0 = (*temp_a0 & high_mask) | (0 & 0xFFFFFF);
+                                    *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0 & (u32)state_or_mask));
+                                    *temp_a0 = (*temp_a0 & high_mask) | (0 & (u32)state_or_mask);
                                     goto block_76;
                                 }
                             } else {
 block_76:
                                 temp_a0_2 = (stack.spD8 * 4) + arg0;
-                                *var_s3 = (*var_s3 & high_mask) | (*temp_a0_2 & 0xFFFFFF);
-                                *temp_a0_2 = (*temp_a0_2 & high_mask) | ((s32) var_s3 & 0xFFFFFF);
+                                *var_s3 = (*var_s3 & high_mask) | (*temp_a0_2 & (u32)state_or_mask);
+                                *temp_a0_2 = (*temp_a0_2 & high_mask) | ((s32) var_s3 & (u32)state_or_mask);
                                 if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x40) {
                                     var_s3 = func_80068EE8(0xC);
                                     if (var_s3 != ((void *)0)) {
@@ -588,8 +592,8 @@ block_76:
                                         *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.sp98)+(0))) & 0x7FF));
                                         *(s8 *)8 = 0;
                                         temp_a0_3 = (stack.spD8 * 4) + arg0;
-                                        *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0_3 & 0xFFFFFF));
-                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | (0 & 0xFFFFFF);
+                                        *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0_3 & (u32)state_or_mask));
+                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | (0 & (u32)state_or_mask);
                                         goto block_105;
                                     }
                                 } else {
@@ -736,9 +740,9 @@ block_106:
 block_107:
         stack.spFC = var_s5;
         var_s5_2 = 0;
-        var_s1_2 = (*(void **)((u8 *)(display_state)+(0)));
+        var_s1_2 = (*(void **)((u8 *)(&D_800AD9EC)+(0)));
         D_800E5374 = &stack.sp38;
-        if (var_s1_2 != (*(s32 *)((u8 *)(display_state)+(4)))) {
+        if (var_s1_2 != (*(s32 *)((u8 *)(&D_800AD9EC)+(4)))) {
             stack.sp100 = &stack.sp58;
 loop_109:
             if (var_s5_2 < stack.spFC) {
@@ -1109,8 +1113,8 @@ block_192:
                             stack.spDC = gte_cfc2_31();
                             if (stack.spDC >= 0) {
                                 temp_a0_4 = (stack.spD8 * 4) + arg0;
-                                *stack.spE0 = (*stack.spE0 & high_mask) | (*temp_a0_4 & 0xFFFFFF);
-                                *temp_a0_4 = (*temp_a0_4 & high_mask) | ((s32) stack.spE0 & 0xFFFFFF);
+                                *stack.spE0 = (*stack.spE0 & high_mask) | (*temp_a0_4 & (u32)state_or_mask);
+                                *temp_a0_4 = (*temp_a0_4 & high_mask) | ((s32) stack.spE0 & (u32)state_or_mask);
                             }
                         }
                         goto block_199;
@@ -1142,10 +1146,10 @@ block_200:
         } else {
 block_201:
             D_800E5374 = &stack.sp38;
-            var_s1_3 = (*(void **)((u8 *)(display_state)+(0)));
+            var_s1_3 = (*(void **)((u8 *)(&D_800AD9EC)+(0)));
             D_800E53B8 = -0xA;
-            if (var_s1_3 != (*(s32 *)((u8 *)(display_state)+(4)))) {
-                stack.sp104 = 0xFFFFFF;
+            if (var_s1_3 != (*(s32 *)((u8 *)(&D_800AD9EC)+(4)))) {
+                stack.sp104 = (u32)state_or_mask;
 loop_203:
                 if (var_s5_2 < stack.spFC) {
                     if ((*(u8 *)((u8 *)(var_s1_3)+(2))) == 0) {
@@ -1157,12 +1161,12 @@ loop_203:
                                         if (temp_v1_18 != 0x20) {
                                             if (temp_v1_18 < 0x21) {
                                                 if (temp_v1_18 != 0x10) {
-                                                    var_t9 = display_state;
+                                                    var_t9 = &D_800AD9EC;
                                                 } else {
                                                     goto block_235;
                                                 }
                                             } else if ((temp_v1_18 != 0x24) && (temp_v1_18 != 0x28)) {
-                                                var_t9 = display_state;
+                                                var_t9 = &D_800AD9EC;
                                             } else {
                                                 goto block_235;
                                             }
@@ -1172,12 +1176,12 @@ loop_203:
                                     } else if (temp_v1_18 != 0x34) {
                                         if (temp_v1_18 < 0x35) {
                                             if (temp_v1_18 != 0x30) {
-                                                var_t9 = display_state;
+                                                var_t9 = &D_800AD9EC;
                                             } else {
                                                 goto block_235;
                                             }
                                         } else if ((temp_v1_18 != 0x38) && (temp_v1_18 != 0x3C)) {
-                                            var_t9 = display_state;
+                                            var_t9 = &D_800AD9EC;
                                         } else {
                                             goto block_235;
                                         }
@@ -1192,12 +1196,12 @@ loop_203:
                                     if (temp_v1_18 != 0xA4) {
                                         if (temp_v1_18 < 0xA5) {
                                             if (temp_v1_18 != 0x50) {
-                                                var_t9 = display_state;
+                                                var_t9 = &D_800AD9EC;
                                             } else {
                                                 goto block_234;
                                             }
                                         } else if ((temp_v1_18 != 0xB4) && (temp_v1_18 != 0xE0)) {
-                                            var_t9 = display_state;
+                                            var_t9 = &D_800AD9EC;
                                         } else {
                                             goto block_235;
                                         }
@@ -1205,7 +1209,7 @@ loop_203:
                                         goto block_235;
                                     }
                                 } else if (temp_v1_18 != 0xF0) {
-                                    var_t9 = display_state;
+                                    var_t9 = &D_800AD9EC;
                                 } else {
                                     D_800E53B8 = (*(s32 *)((u8 *)(var_s1_3)+(8)));
                                     goto block_334;
@@ -1292,14 +1296,14 @@ block_252:
                                 if (temp_v1_20 != 0x2C) {
                                     if (temp_v1_20 < 0x2D) {
                                         if (temp_v1_20 != 0x28) {
-                                            var_t9 = display_state;
+                                            var_t9 = &D_800AD9EC;
                                             goto block_336;
                                         }
                                         var_s0_3 = var_s1_3 + 0x1C;
                                         goto block_294;
                                     }
                                     if (temp_v1_20 != 0x38) {
-                                        var_t9 = display_state;
+                                        var_t9 = &D_800AD9EC;
                                         goto block_336;
                                     }
                                     var_s0_3 = var_s1_3 + 0x28;
@@ -1319,7 +1323,7 @@ block_252:
                             if (temp_v1_20 != 0x50) {
                                 if (temp_v1_20 < 0x51) {
                                     if (temp_v1_20 != 0x40) {
-                                        var_t9 = display_state;
+                                        var_t9 = &D_800AD9EC;
                                         goto block_336;
                                     }
                                     goto block_269;
@@ -1614,7 +1618,7 @@ block_334:
                                 }
                             } else {
 block_335:
-                                var_t9 = display_state;
+                                var_t9 = &D_800AD9EC;
 block_336:
                                 var_s1_3 += (*(u8 *)((u8 *)(var_s1_3)+(0))) * 4;
                                 if (var_s1_3 == (*(s32 *)((u8 *)(var_t9)+(4)))) {
