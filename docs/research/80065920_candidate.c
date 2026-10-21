@@ -100,7 +100,6 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     Func80065920Frame stack;
     u32 high_mask;
     register M2C_UNK *display_state __asm__("$18");
-    register s32 *matrix_pool __asm__("$20");
     M2C_UNK (*var_v0_2)(M2C_UNK *, M2C_UNK *, s16);
     M2C_UNK (*var_v0_3)(M2C_UNK *, M2C_UNK *, s16);
     M2C_UNK *var_a0_5;
@@ -251,7 +250,6 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     register void *var_t3 __asm__("$11");
     var_s5 = 0;
     __asm__ volatile("" : "+r" (var_s5));
-    var_s3 = ((void *)0);
     stack.spE0 = ((void *)0);
     stack.spE4 = 0;
     stack.spF0 = 0;
@@ -262,17 +260,23 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     (*(s32 *)((u8 *)(display_state)+(8))) = temp_v0;
     temp_v0 = func_8006A26C(4);
     D_800E53EC = temp_v0;
-    matrix_pool = &D_800E53E8;
-    *matrix_pool = temp_v0;
+    D_800E53E8 = temp_v0;
     D_800E53B8 = -0xA;
-    (*(s32 *)((u8 *)(&D_800E53C8)+(0))) = (s32) (0x1000 & 0xFFFF);
-    (*(s32 *)((u8 *)(&D_800E53C8)+(4))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8)+(8))) = (s32) (0xA00 & 0xFFFF);
-    (*(s32 *)((u8 *)(&D_800E53C8)+(0xC))) = 0;
-    (*(s16 *)((u8 *)(&D_800E53C8)+(0x10))) = 0x1000;
-    (*(s32 *)((u8 *)(&D_800E53C8)+(0x14))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8)+(0x18))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8)+(0x1C))) = 0;
+    __asm__ volatile("" ::: "memory");
+    {
+        register M2C_UNK *context __asm__("$7") = &D_800E53C8;
+        register s32 identity __asm__("$22") = 0x1000;
+        register s32 depth_scale __asm__("$24") = 0xA00;
+        __asm__ volatile("" : "+r" (context), "+r" (identity), "+r" (depth_scale));
+        (*(s32 *)((u8 *)(context)+(0))) = (s32) (identity & 0xFFFF);
+        (*(s32 *)((u8 *)(context)+(4))) = 0;
+        (*(s32 *)((u8 *)(context)+(8))) = (s32) (depth_scale & 0xFFFF);
+        (*(s32 *)((u8 *)(context)+(0xC))) = 0;
+        (*(s16 *)((u8 *)(context)+(0x10))) = identity;
+        (*(s32 *)((u8 *)(context)+(0x14))) = 0;
+        (*(s32 *)((u8 *)(context)+(0x18))) = 0;
+        (*(s32 *)((u8 *)(context)+(0x1C))) = 0;
+    }
     (*(s32 *)((u8 *)(&stack.sp38)+(0))) = 0x1000;
     (*(s32 *)((u8 *)(&stack.sp38)+(4))) = 0;
     (*(s32 *)((u8 *)(&stack.sp38)+(8))) = 0x1000;
@@ -339,7 +343,7 @@ block_9:
                 case 0x50:
                     temp_v0_2 = var_s5 << 5;
                     var_s5 += 1;
-                    temp_v0_3 = temp_v0_2 + *matrix_pool;
+                    temp_v0_3 = temp_v0_2 + D_800E53E8;
                     (*(s32 *)((u8 *)(temp_v0_3)+(0))) = (s32) gte_cfc2_0();
                     (*(s32 *)((u8 *)(temp_v0_3)+(4))) = (s32) gte_cfc2_1();
                     (*(s32 *)((u8 *)(temp_v0_3)+(8))) = (s32) gte_cfc2_2();
@@ -363,7 +367,7 @@ block_52:
                     case 0xE0:
                         temp_v0_5 = var_s5 << 5;
                         var_s5 += 1;
-                        temp_v0_6 = temp_v0_5 + *matrix_pool;
+                        temp_v0_6 = temp_v0_5 + D_800E53E8;
                         (*(s32 *)((u8 *)(temp_v0_6)+(0))) = (s32) gte_cfc2_0();
                         (*(s32 *)((u8 *)(temp_v0_6)+(4))) = (s32) gte_cfc2_1();
                         (*(s32 *)((u8 *)(temp_v0_6)+(8))) = (s32) gte_cfc2_2();
@@ -606,7 +610,7 @@ block_76:
 block_93:
                     temp_v0_11 = var_s5 << 5;
                     var_s5 += 1;
-                    temp_v0_12 = temp_v0_11 + *matrix_pool;
+                    temp_v0_12 = temp_v0_11 + D_800E53E8;
                     (*(s32 *)((u8 *)(temp_v0_12)+(0))) = (s32) gte_cfc2_0();
                     (*(s32 *)((u8 *)(temp_v0_12)+(4))) = (s32) gte_cfc2_1();
                     (*(s32 *)((u8 *)(temp_v0_12)+(8))) = (s32) gte_cfc2_2();
@@ -625,7 +629,7 @@ loop_94:
                         func_80065710(&stack.sp10, var_s0 + 8, &stack.sp20);
                         temp_v0_14 = var_s5 << 5;
                         var_s5 += 1;
-                        temp_v0_15 = temp_v0_14 + *matrix_pool;
+                        temp_v0_15 = temp_v0_14 + D_800E53E8;
                         (*(s32 *)((u8 *)(temp_v0_15)+(0))) = (s32) gte_cfc2_0();
                         (*(s32 *)((u8 *)(temp_v0_15)+(4))) = (s32) gte_cfc2_1();
                         (*(s32 *)((u8 *)(temp_v0_15)+(8))) = (s32) gte_cfc2_2();
@@ -652,7 +656,7 @@ block_101:
                     D_800E53BC(&stack.sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s1)+(0x16))));
                     temp_v0_17 = var_s5 << 5;
                     var_s5 += 1;
-                    temp_v0_18 = temp_v0_17 + *matrix_pool;
+                    temp_v0_18 = temp_v0_17 + D_800E53E8;
                     (*(s32 *)((u8 *)(temp_v0_18)+(0))) = (s32) gte_cfc2_0();
                     (*(s32 *)((u8 *)(temp_v0_18)+(4))) = (s32) gte_cfc2_1();
                     (*(s32 *)((u8 *)(temp_v0_18)+(8))) = (s32) gte_cfc2_2();
@@ -679,7 +683,7 @@ loop_103:
                             D_800E53BC(&stack.sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s0_2)+(0x16))));
                             temp_v0_20 = var_s5 << 5;
                             var_s5 += 1;
-                            temp_v0_21 = temp_v0_20 + *matrix_pool;
+                            temp_v0_21 = temp_v0_20 + D_800E53E8;
                             (*(s32 *)((u8 *)(temp_v0_21)+(0))) = (s32) gte_cfc2_0();
                             (*(s32 *)((u8 *)(temp_v0_21)+(4))) = (s32) gte_cfc2_1();
                             (*(s32 *)((u8 *)(temp_v0_21)+(8))) = (s32) gte_cfc2_2();
