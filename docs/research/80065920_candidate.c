@@ -572,12 +572,12 @@ block_72:
                             if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x20) {
                                 var_s3 = func_80068EE8(0xC);
                                 if (var_s3 != ((void *)0)) {
-                                    (*(u8 *)((u8 *)(var_s3)+(3))) = 2;
-                                    (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.spA0)+(0))) & 0x7FF));
-                                    (*(s32 *)((u8 *)(var_s3)+(8))) = 0;
+                                    *(u8 *)3 = 2;
+                                    *(s32 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.spA0)+(0))) & 0x7FF));
+                                    *(s32 *)8 = 0;
                                     temp_a0 = (stack.spD8 * 4) + arg0;
-                                    *var_s3 = (*var_s3 & high_mask) | (*temp_a0 & (u32)state_or_mask);
-                                    *temp_a0 = (*temp_a0 & high_mask) | ((s32)var_s3 & (u32)state_or_mask);
+                                    *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0 & (u32)state_or_mask));
+                                    *temp_a0 = (*temp_a0 & high_mask) | (0 & (u32)state_or_mask);
                                     goto block_76;
                                 }
                             } else {
@@ -588,12 +588,12 @@ block_76:
                                 if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x40) {
                                     var_s3 = func_80068EE8(0xC);
                                     if (var_s3 != ((void *)0)) {
-                                        (*(u8 *)((u8 *)(var_s3)+(3))) = 2;
-                                        (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.sp98)+(0))) & 0x7FF));
-                                        (*(s32 *)((u8 *)(var_s3)+(8))) = 0;
+                                        *(u8 *)3 = 2;
+                                        *(s32 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.sp98)+(0))) & 0x7FF));
+                                        *(s32 *)8 = 0;
                                         temp_a0_3 = (stack.spD8 * 4) + arg0;
-                                        *var_s3 = (*var_s3 & high_mask) | (*temp_a0_3 & (u32)state_or_mask);
-                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | ((s32)var_s3 & (u32)state_or_mask);
+                                        *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0_3 & (u32)state_or_mask));
+                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | (0 & (u32)state_or_mask);
                                         goto block_105;
                                     }
                                 } else {
@@ -1045,14 +1045,14 @@ block_173:
                                 temp_t0_2 = gte_mfc2_14();
                                 temp_t1_2 = temp_t0_2 >> 0x10;
                                 (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x1C))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1_2) << 0x10));
-                                (*(u16 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_2) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_2) << 0x10));
                                 (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_2) << 0x10));
                                 break;
                             case 0xA4:
                                 temp_t0_3 = gte_mfc2_14();
                                 temp_t1_3 = temp_t0_3 >> 0x10;
                                 (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_3) << 0x10));
-                                (*(u16 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_3) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_3) << 0x10));
                                 (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x28))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_3) << 0x10));
                                 break;
                             case 0xB4:

@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 9,988-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
+| `func_80065920` | 11,168 | Compiler-valid 10,020-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
@@ -37,10 +37,12 @@ then becomes the `0x00FFFFFF` packet-link mask.  The first rendering pass now
 tests the recovered matrix count against 512 instead of folding that guard to
 an unconditional true value, and later passes reload the display-state global
 instead of incorrectly extending the original `$s2` pointer lifetime.
-Two optional 12-byte packet allocations now initialize and link the returned
-packet rather than writing through absolute addresses `0`, `3`, `4`, and `8`.
-Recovered 16-bit packet fields also use halfword stores instead of pointer-sized
-stores throughout the second and third passes.
+The two optional 12-byte packet paths preserve the retail null-base writes at
+addresses `0`, `3`, `4`, and `8`, including the original byte/word access
+widths.  Recovered 16-bit packet fields use halfword stores instead of
+pointer-sized stores throughout the second and third passes.  Conversely, two
+packed XY coordinate fields at packet offset `0x18` now retain both 16-bit
+components with word stores instead of truncating the upper coordinate.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
