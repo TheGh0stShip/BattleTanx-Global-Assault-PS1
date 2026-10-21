@@ -6,11 +6,12 @@ import re
 import shutil
 from pathlib import Path
 
-from verify_matching_units import compile_unit
+from verify_matching_units import compile_unit, oracle_slice
 
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config/us/matching_units.json"
+EXECUTABLE_PATH = ROOT / "baseroms/us/SLUS_010.44"
 CANDIDATES = {
     "func_80044C38": "docs/research/80044C38_candidate.c",
     "func_80065920": "docs/research/80065920_candidate.c",
@@ -34,6 +35,7 @@ def candidate_symbols(source, entry):
 
 def main():
     config = json.loads(CONFIG_PATH.read_text())
+    executable = EXECUTABLE_PATH.read_bytes()
     units = {unit["name"]: unit for unit in config["units"]}
     work_root = ROOT / "build/large_candidates"
     shutil.rmtree(work_root, ignore_errors=True)
@@ -58,9 +60,32 @@ def main():
             continue
 
         delta = len(generated) - target_size
+        expected = oracle_slice(executable, int(unit["address"], 0), target_size)
+        compared = min(len(generated), target_size)
+        equal_bytes = sum(
+            generated[index] == expected[index] for index in range(compared)
+        )
+        exact = len(generated) == target_size and generated == expected
+        first_difference = next(
+            (
+                index
+                for index in range(compared)
+                if generated[index] != expected[index]
+            ),
+            compared,
+        )
         print(
-            "%-15s generated %5d / target %5d (%+d bytes)"
-            % (name, len(generated), target_size, delta)
+            "%-15s generated %5d / target %5d (%+d), "
+            "%5d equal bytes, first difference +0x%X%s"
+            % (
+                name,
+                len(generated),
+                target_size,
+                delta,
+                equal_bytes,
+                first_difference,
+                " EXACT" if exact else "",
+            )
         )
 
     return int(failed)
