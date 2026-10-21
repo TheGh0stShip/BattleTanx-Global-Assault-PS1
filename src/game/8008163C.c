@@ -1,39 +1,51 @@
-asm(".text\n\t.globl func_8008163C\nfunc_8008163C:\n\t"
-    ".word 0x3C02800B,0x8C420D44,0x27BDFFE0,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0xAFB00010,0x8C420000,0x3C100100\n\t"
-    ".word 0x00501024,0x14400089,0x24020001,0x0C02513D\n\t"
-    ".word 0x00002021,0x3C04800B,0x8C840D58,0x3C03800B\n\t"
-    ".word 0x8C630D5C,0x3C01800B,0x10830059,0xAC220D64\n\t"
-    ".word 0x3C02800B,0x8C420D44,0x00000000,0x8C420000\n\t"
-    ".word 0x00000000,0x00501024,0x14400051,0x00000000\n\t"
-    ".word 0x3C110400,0x3C100100,0x3C02800B,0x8C420D5C\n\t"
-    ".word 0x3C03800B,0x8C630D58,0x24420001,0x3042003F\n\t"
-    ".word 0x14430008,0x00000000,0x3C02800B,0x8C420C6C\n\t"
-    ".word 0x00000000,0x14400003,0x24040002,0x0C025114\n\t"
-    ".word 0x00002821,0x3C03800B,0x8C630D38,0x00000000\n\t"
-    ".word 0x8C620000,0x00000000,0x00511024,0x14400006\n\t"
-    ".word 0x3C040400,0x8C620000,0x00000000,0x00441024\n\t"
-    ".word 0x1040FFFC,0x00000000,0x3C05800B,0x8CA50D5C\n\t"
-    ".word 0x3C03800B,0x8C630D5C,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021140,0x00051840,0x00651821\n\t"
-    ".word 0x3C04800F,0x00822021,0x8C84C4A0,0x3C05800B\n\t"
-    ".word 0x8CA50D5C,0x00031940,0x00051040,0x00451021\n\t"
-    ".word 0x00021140,0x3C05800F,0x00A22821,0x8CA5C4A4\n\t"
-    ".word 0x3C02800F,0x00431021,0x8C42C49C,0x00000000\n\t"
-    ".word 0x0040F809,0x00000000,0x3C02800B,0x8C420D5C\n\t"
-    ".word 0x00000000,0x24420001,0x3042003F,0x3C01800B\n\t"
-    ".word 0xAC220D5C,0x3C03800B,0x8C630D58,0x3C02800B\n\t"
-    ".word 0x8C420D5C,0x00000000,0x10620009,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C420D44,0x00000000,0x8C420000\n\t"
-    ".word 0x00000000,0x00501024,0x1040FFB3,0x00000000\n\t"
-    ".word 0x3C04800B,0x8C840D64,0x0C02513D,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C630D58,0x3C02800B,0x8C420D5C\n\t"
-    ".word 0x00000000,0x14620016,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C420D44,0x00000000,0x8C420000,0x3C030100\n\t"
-    ".word 0x00431024,0x1440000E,0x00000000,0x3C03800B\n\t"
-    ".word 0x24630C68,0x8C620000,0x00000000,0x10400008\n\t"
-    ".word 0x00000000,0x8C640004,0x00000000,0x10800004\n\t"
-    ".word 0x2462FFF8,0xAC400008,0x0080F809,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C420D58,0x3C03800B,0x8C630D5C\n\t"
-    ".word 0x00000000,0x00431023,0x3042003F,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    void (*func)(void *, int);
+    void *param;
+    int arg;
+    unsigned long data[21];
+} GpuQueueEntry;
+
+typedef struct {
+    unsigned char pad0;
+    unsigned char sync_mode;
+    unsigned char pad2[6];
+    int pending;
+    void (*callback)(void);
+} GpuSyncState;
+
+extern GpuSyncState D_800B0C60;
+extern volatile unsigned long *D_800B0D38;
+extern volatile unsigned long *D_800B0D44;
+extern volatile int D_800B0D58;
+extern volatile int D_800B0D5C;
+extern int D_800B0D64;
+extern volatile GpuQueueEntry D_800EC49C[];
+
+extern int func_800944F4(int);
+extern void func_80094450(int, void *);
+
+int func_8008163C(void)
+{
+    if (*D_800B0D44 & 0x01000000)
+        return 1;
+    D_800B0D64 = func_800944F4(0);
+    while (D_800B0D58 != D_800B0D5C && !(*D_800B0D44 & 0x01000000)) {
+        if (((D_800B0D5C + 1) & 0x3F) == D_800B0D58 && D_800B0C60.callback == 0)
+            func_80094450(2, 0);
+        while (!(*D_800B0D38 & 0x04000000)) {
+        }
+        D_800EC49C[D_800B0D5C].func(D_800EC49C[D_800B0D5C].param, D_800EC49C[D_800B0D5C].arg);
+        D_800B0D5C = (D_800B0D5C + 1) & 0x3F;
+    }
+    func_800944F4(D_800B0D64);
+    if (D_800B0D58 == D_800B0D5C && !(*D_800B0D44 & 0x01000000)) {
+        volatile GpuSyncState *st;
+        void (*cb)(void);
+        if (D_800B0C60.pending && (cb = D_800B0C60.callback) != 0) {
+            st = &D_800B0C60;
+            st->pending = 0;
+            cb();
+        }
+    }
+    return (D_800B0D58 - D_800B0D5C) & 0x3F;
+}

@@ -1,113 +1,274 @@
-asm(".text\n\t.globl func_8001E0A4\nfunc_8001E0A4:\n\t"
-    ".word 0x27BDFE50,0xAFB5019C,0x0080A821,0xAFBF01AC\n\t"
-    ".word 0xAFBE01A8,0xAFB701A4,0xAFB601A0,0xAFB40198\n\t"
-    ".word 0xAFB30194,0xAFB20190,0xAFB1018C,0xAFB00188\n\t"
-    ".word 0xAFA601B8,0x8EA20060,0x00000000,0x10400006\n\t"
-    ".word 0xA7A50174,0x92A2005C,0x00000000,0x3442000F\n\t"
-    ".word 0x080079DD,0xA2A2005C,0x0000A021,0x3C02800E\n\t"
-    ".word 0x8C46E30C,0x27A70038,0x8EA90020,0x00000000\n\t"
-    ".word 0x00C90018,0x00002812,0x00001010,0x00052B02\n\t"
-    ".word 0x00021500,0x00A22825,0x3283FFFF,0x00031880\n\t"
-    ".word 0x02A32021,0x8C82004C,0x00000000,0x00451023\n\t"
-    ".word 0xAC82004C,0x8C82003C,0x00E31821,0xAC620000\n\t"
-    ".word 0x8C82003C,0x8C83004C,0x26940001,0x00431021\n\t"
-    ".word 0xAC82003C,0x3282FFFF,0x2C420004,0x1440FFE6\n\t"
-    ".word 0x240500E0,0x27A60048,0x3C02800C,0x97B00174\n\t"
-    ".word 0x00003821,0xA6A00034,0xA6A00036,0xA440628C\n\t"
-    ".word 0xAFA00010,0x0C005EAB,0x02002021,0x0000A021\n\t"
-    ".word 0x3042FFFF,0x0002502B,0xA3A00177,0xA3A00176\n\t"
-    ".word 0xAFA2017C,0xAFAA0180,0xAFB00178,0x92A2005C\n\t"
-    ".word 0x8EBE0024,0x304200F0,0xA2A2005C,0x03C08021\n\t"
-    ".word 0x8FAB0180,0x00000000,0x1160005C,0x00009021\n\t"
-    ".word 0x3282FFFF,0x0002B8C0,0x27B60018,0x02D79821\n\t"
-    ".word 0x93A20177,0x00000000,0x1440000B,0x3C0A800C\n\t"
-    ".word 0x8FA90178,0x254A62B0,0x27A50018,0x00092080\n\t"
-    ".word 0x00892021,0x000420C0,0x0C005BFD,0x008A2021\n\t"
-    ".word 0x240B0001,0xA3AB0177,0x8E620000,0x00000000\n\t"
-    ".word 0x04410004,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x8E620004,0x00000000,0x04400003\n\t"
-    ".word 0x00032082,0x0800789B,0x00022B03,0x00021023\n\t"
-    ".word 0x00021303,0x00022823,0x00042400,0x00042403\n\t"
-    ".word 0x3243FFFF,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x27A30048,0x00628821,0x96260004,0x00052B80\n\t"
-    ".word 0x0C005B5E,0x00052C03,0x3042FFFF,0x10400025\n\t"
-    ".word 0x3C09800C,0x96230004,0x252962B0,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00493021,0x8CC20000\n\t"
-    ".word 0x00000000,0x304300E0,0x24020020,0x10620008\n\t"
-    ".word 0x24020040,0x1462001E,0x021E102A,0x96240004\n\t"
-    ".word 0x0C00769C,0x02D72821,0x080078D4,0x00408021\n\t"
-    ".word 0x00C02821,0x84A3001E,0x84A20020,0x94A4001E\n\t"
-    ".word 0x04610002,0x00000000,0x00031823,0x04410002\n\t"
-    ".word 0x00000000,0x00021023,0x0043102A,0x94A30020\n\t"
-    ".word 0x14400011,0x00000000,0x94A20014,0x080078DE\n\t"
-    ".word 0x00621021,0x26520001,0x8FAA017C,0x3242FFFF\n\t"
-    ".word 0x004A102B,0x1440FFAA,0x00000000,0x021E102A\n\t"
-    ".word 0x1040000D,0x3282FFFF,0x06010009,0x021E8021\n\t"
-    ".word 0x080078E4,0x00022080,0x94C20014,0x00000000\n\t"
-    ".word 0x00821021,0x00021400,0x080078D4,0x00028083\n\t"
-    ".word 0x03C08021,0x3282FFFF,0x00022080,0x02A41821\n\t"
-    ".word 0x8C62003C,0x00000000,0x0050102A,0x1040007D\n\t"
-    ".word 0x03A41021,0xAC70003C,0x8C420038,0x00000000\n\t"
-    ".word 0x02021023,0x04400051,0x240AF800,0x8EA90028\n\t"
-    ".word 0x00000000,0x00490018,0x00002812,0x00005810\n\t"
-    ".word 0x00052B02,0x000B5D00,0x00AB2825,0x3C02800E\n\t"
-    ".word 0x8C44E30C,0x00000000,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20168,0xE85F0000,0x8FA50168\n\t"
-    ".word 0x00000000,0x24A7FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00A31804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2016C,0xE85F0000,0x8FA4016C,0x00000000\n\t"
-    ".word 0x00852823,0x04A0000F,0x2402000C,0x00441023\n\t"
-    ".word 0x04400003,0x00000000,0x08007923,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08007939\n\t"
-    ".word 0x00A31804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08007939,0x00000000,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x11000002,0x3282FFFF,0x00031823,0x00021080\n\t"
-    ".word 0x02A21021,0x08007949,0xAC43004C,0x8C6B004C\n\t"
-    ".word 0x00000000,0x014B0018,0x00004812,0x00001010\n\t"
-    ".word 0x00094B02,0x00021500,0x01224825,0xAC69004C\n\t"
-    ".word 0x3283FFFF,0x24020001,0x10620010,0x00000000\n\t"
-    ".word 0x28620002,0x10400005,0x00000000,0x10600008\n\t"
-    ".word 0x00000000,0x08007962,0x00000000,0x24020002\n\t"
-    ".word 0x10620009,0x00000000,0x08007962,0x00000000\n\t"
-    ".word 0x92A2005C,0x08007965,0x34420001,0x92A2005C\n\t"
-    ".word 0x08007965,0x34420002,0x92A2005C,0x08007965\n\t"
-    ".word 0x34420004,0x92A2005C,0x00000000,0x34420008\n\t"
-    ".word 0xA2A2005C,0x3282FFFF,0x00021080,0x02A21021\n\t"
-    ".word 0x8C42003C,0x8EA30024,0x00000000,0x10430003\n\t"
-    ".word 0x00000000,0x24090001,0xA3A90176,0x26940001\n\t"
-    ".word 0x3282FFFF,0x2C420004,0x1440FF01,0x03C08021\n\t"
-    ".word 0x93A20176,0x00000000,0x10400062,0x27A60170\n\t"
-    ".word 0x97A20174,0x00000000,0x00021880,0x00621821\n\t"
-    ".word 0x000318C0,0x3C02800C,0x244262B0,0x00622821\n\t"
-    ".word 0x84A20018,0x84A30016,0x94A40018,0x00431023\n\t"
-    ".word 0x94A30016,0x04400003,0x27A70172,0x0800798B\n\t"
-    ".word 0x00831023,0x00641023,0xA4C20000,0x84A2001C\n\t"
-    ".word 0x84A3001A,0x94A4001C,0x00431023,0x94A3001A\n\t"
-    ".word 0x04410002,0x00831023,0x00641023,0xA4E20000\n\t"
-    ".word 0x8EA3003C,0x8EA20040,0x00000000,0x00628023\n\t"
-    ".word 0x87A20172,0x87A30170,0x00028B80,0x12000005\n\t"
-    ".word 0x00039380,0x02002021,0x0C007618,0x02202821\n\t"
-    ".word 0xA6A20034,0x8EA30048,0x8EA20044,0x00000000\n\t"
-    ".word 0x00628023,0x12000008,0x02002021,0x0C007618\n\t"
-    ".word 0x02202821,0x96A30034,0x00000000,0x00621821\n\t"
-    ".word 0xA6A30034,0x8EA30048,0x8EA2003C,0x00000000\n\t"
-    ".word 0x00628023,0x12000004,0x02002021,0x0C007618\n\t"
-    ".word 0x02402821,0xA6A20036,0x8EA30044,0x8EA20040\n\t"
-    ".word 0x00000000,0x00628023,0x12000007,0x02002021\n\t"
-    ".word 0x0C007618,0x02402821,0x96A30036,0x00000000\n\t"
-    ".word 0x00621821,0xA6A30036,0x8EA2003C,0x8EA30040\n\t"
-    ".word 0x00000000,0x00431021,0x8EA30044,0x8EA40048\n\t"
-    ".word 0x00431021,0x00441021,0x24030004,0x0043001A\n\t"
-    ".word 0x14600002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x14610004,0x3C018000,0x14410002,0x00000000\n\t"
-    ".word 0x0006000D,0x00001012,0x8FA901B8,0x080079DD\n\t"
-    ".word 0xAD220000,0x8FAA01B8,0x00000000,0xAD430000\n\t"
-    ".word 0x8FBF01AC,0x8FBE01A8,0x8FB701A4,0x8FB601A0\n\t"
-    ".word 0x8FB5019C,0x8FB40198,0x8FB30194,0x8FB20190\n\t"
-    ".word 0x8FB1018C,0x8FB00188,0x03E00008,0x27BD01B0\n");
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+typedef struct {
+    int unk0;
+    unsigned short tile;
+    char pad6[30];
+} Contact;
+
+typedef struct {
+    unsigned int flags;
+    char pad4[16];
+    short height;
+    short x0;
+    short x1;
+    short z0;
+    short z1;
+    short rise_x;
+    short rise_z;
+    char pad22[6];
+} Tile;
+
+typedef struct {
+    char pad0[32];
+    int gravity;
+    int floor;
+    int bounce;
+    char pad2C[8];
+    short pitch;
+    short roll;
+    char pad38[4];
+    int height[4];
+    int velocity[4];
+    unsigned char contact_flags;
+    char pad5D[3];
+    int locked;
+} Body;
+
+extern int D_800DE30C;
+extern unsigned short D_800C628C;
+extern Tile D_800C62B0[];
+
+extern unsigned short func_80017AAC(int tile, int mask, Contact *contacts, int arg3, int arg4);
+extern void func_80016FF4(Tile *tile, Point *points);
+extern unsigned short func_80016D78(short x, short z, unsigned short tile);
+extern int func_8001DA70(unsigned short tile, Point *point);
+extern short func_8001D860(int delta, int extent);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int fixed_to_int(int value) {
+    return value >= 0 ? value >> 12 : -(-value >> 12);
+}
+
+static inline int average(int total, int count) {
+    return total / count;
+}
+
+static inline void get_tile_points(int tile, Point *points) {
+    func_80016FF4(&D_800C62B0[tile], points);
+}
+
+static inline void get_tile_extent(Tile *tile, short *extent_x, short *extent_z) {
+    *extent_x = tile->x1 - tile->x0 >= 0 ? tile->x1 - tile->x0 : tile->x0 - tile->x1;
+    *extent_z = tile->z1 - tile->z0 >= 0 ? tile->z1 - tile->z0 : tile->z0 - tile->z1;
+}
+
+void func_8001E0A4(Body *body, unsigned short tile, int *out_height) {
+    Point points[4];
+    int previous[4];
+    Contact contacts[8];
+    unsigned short i;
+    unsigned short j;
+    unsigned short count;
+    unsigned char changed;
+    unsigned char have_points;
+    int floor;
+    int height;
+    int delta;
+    int divisor;
+    int scaled;
+    Tile *hit;
+
+    if (body->locked != 0) {
+        body->contact_flags |= 0xF;
+        return;
+    }
+
+    for (i = 0; i < 4; i++) {
+        body->velocity[i] -= fixed_mul(D_800DE30C, body->gravity);
+        previous[i] = body->height[i];
+        body->height[i] += body->velocity[i];
+    }
+
+    body->pitch = 0;
+    body->roll = 0;
+    D_800C628C = 0;
+    count = func_80017AAC(tile, 0xE0, contacts, 0, 0);
+    have_points = 0;
+    changed = 0;
+    body->contact_flags &= 0xF0;
+    floor = body->floor;
+
+    for (i = 0; i < 4; i++) {
+        height = floor;
+        for (j = 0; j < count; j++) {
+            short x;
+            short z;
+
+            if (!have_points) {
+                get_tile_points(tile, points);
+                have_points = 1;
+            }
+            x = fixed_to_int(points[i].x) >> 2;
+            z = fixed_to_int(points[i].y) >> 2;
+            if (func_80016D78(x, z, contacts[j].tile)) {
+                switch (D_800C62B0[contacts[j].tile].flags & 0xE0) {
+                case 0x40:
+                    __asm__ volatile("" : : : "memory");
+                    height = func_8001DA70(contacts[j].tile, &points[i]);
+                    break;
+                case 0x20:
+                    hit = &D_800C62B0[contacts[j].tile];
+                    if (abs(hit->rise_x) > abs(hit->rise_z)) {
+                        height = (short)(hit->rise_x + hit->height) << 14;
+                    } else {
+                        height = (short)(hit->rise_z + hit->height) << 14;
+                    }
+                    break;
+                }
+                break;
+            }
+        }
+        if (height < floor) {
+            if (height < 0) {
+                height += floor;
+            } else {
+                height = floor;
+            }
+        }
+        if (body->height[i] < height) {
+            body->height[i] = height;
+            delta = height - previous[i];
+            if (delta >= 0) {
+                scaled = fixed_mul(delta, body->bounce);
+                divisor = D_800DE30C;
+                if (divisor == 0) {
+                    divisor = 2;
+                }
+                body->velocity[i] = fixed_div(scaled, divisor);
+            } else {
+                body->velocity[i] = fixed_mul(-2048, body->velocity[i]);
+            }
+            switch (i) {
+            case 0:
+                body->contact_flags |= 1;
+                break;
+            case 1:
+                body->contact_flags |= 2;
+                break;
+            case 2:
+                body->contact_flags |= 4;
+                break;
+            default:
+                body->contact_flags |= 8;
+                break;
+            }
+        }
+        if (body->height[i] != body->floor) {
+            changed = 1;
+        }
+    }
+
+    if (changed) {
+        short extent_x;
+        short extent_z;
+        int span_x;
+        int span_z;
+
+        get_tile_extent(&D_800C62B0[tile], &extent_x, &extent_z);
+        span_z = extent_z << 14;
+        span_x = extent_x << 14;
+        height = body->height[0] - body->height[1];
+        if (height != 0) {
+            body->pitch = func_8001D860(height, span_z);
+        }
+        height = body->height[3] - body->height[2];
+        if (height != 0) {
+            body->pitch += func_8001D860(height, span_z);
+        }
+        height = body->height[3] - body->height[0];
+        if (height != 0) {
+            body->roll = func_8001D860(height, span_x);
+        }
+        height = body->height[2] - body->height[1];
+        if (height != 0) {
+            body->roll += func_8001D860(height, span_x);
+        }
+        *out_height = average(body->height[0] + body->height[1] + body->height[2] + body->height[3], 4);
+    } else {
+        *out_height = body->floor;
+    }
+}

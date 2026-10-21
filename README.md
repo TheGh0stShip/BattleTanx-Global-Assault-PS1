@@ -13,7 +13,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 [![Verify](https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PS1/actions/workflows/verify.yml/badge.svg)](https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PS1/actions/workflows/verify.yml)
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic decompilation: 93.36%](https://img.shields.io/badge/semantic_source-93.36%25-yellow)
+![Semantic decompilation: 98.79%](https://img.shields.io/badge/semantic_source-98.79%25-brightgreen)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -29,8 +29,8 @@ executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching source | 550,688 code bytes | 39,148 code bytes | 93.36% |
-| Semantic functions | 1,745 functions | 49 raw instruction units | 97.27% by provisional function count |
+| Semantic matching source | 582,676 code bytes | 7,160 code bytes | 98.79% |
+| Semantic functions | 1,785 functions | 9 raw instruction units | 99.50% by provisional function count |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |

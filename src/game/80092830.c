@@ -1,46 +1,135 @@
-asm(".text\n\t.globl func_80092830\nfunc_80092830:\n\t"
-    ".word 0x27BDFFB0,0xAFB1002C,0x00808821,0xAFBE0048\n\t"
-    ".word 0x00A0F021,0xAFB70044,0x0000B821,0xAFB40038\n\t"
-    ".word 0x02E0A021,0x02E02821,0xAFA60058,0x2406006C\n\t"
-    ".word 0xAFBF004C,0xAFB60040,0xAFB5003C,0xAFB30034\n\t"
-    ".word 0xAFB20030,0x0C022A92,0xAFB00028,0x0C024676\n\t"
-    ".word 0x3C16800F,0x0C024661,0x00000000,0x26C2EF0C\n\t"
-    ".word 0xA2C0EF0C,0xA0400001,0x90420002,0x00000000\n\t"
-    ".word 0x1440004B,0x02E0A821,0x03C02021,0x27A50018\n\t"
-    ".word 0x0C0260AC,0x27A6001C,0x10400046,0x3C02800F\n\t"
-    ".word 0x8FA20018,0x8FA3001C,0x0002A2C2,0x246307FF\n\t"
-    ".word 0x00031AC2,0x0C0245BD,0x0283A821,0x02802021\n\t"
-    ".word 0x24020001,0x3C01800C,0xAC2260BC,0x0C025D67\n\t"
-    ".word 0x27A50010,0x24040002,0x27A50010,0x0C025CEB\n\t"
-    ".word 0x02E03021,0x10400032,0x24040015,0x02E02821\n\t"
-    ".word 0x0C025CEB,0x02E03021,0x2C500001,0x1600002D\n\t"
-    ".word 0x3C02800F,0x0C025C0B,0x00000000,0x30430080\n\t"
-    ".word 0x10620006,0xAFA30020,0x2404000E,0x27A50020\n\t"
-    ".word 0x0C025CEB,0x02E03021,0x2C500001,0x16000021\n\t"
-    ".word 0x3C02800F,0x3C048009,0x0C02458B,0x248427E4\n\t"
-    ".word 0x3C048009,0x248427C8,0x0C024586,0x00409821\n\t"
-    ".word 0x24040006,0x27A50010,0x00003021,0x0C025CEB\n\t"
-    ".word 0x00409021,0x2C500001,0x16000009,0x00000000\n\t"
-    ".word 0x92C2EF0C,0x00000000,0x14400005,0x02C01821\n\t"
-    ".word 0x9062EF0C,0x00000000,0x1040FFFD,0x00000000\n\t"
-    ".word 0x0C024586,0x02402021,0x0C02458B,0x02602021\n\t"
-    ".word 0x16000004,0x3C02800F,0x0C02459B,0x00000000\n\t"
-    ".word 0x3C02800F,0x2446EF0C,0x90C20001,0x00000000\n\t"
-    ".word 0x10400036,0x02E01021,0x94C8003E,0x00000000\n\t"
-    ".word 0x15000002,0x02B41823,0x24080001,0x00681821\n\t"
-    ".word 0x2463FFFF,0x0068001B,0x15000002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x3C100001,0x36101000\n\t"
-    ".word 0x02202021,0x00002821,0x94C20048,0x24170001\n\t"
-    ".word 0xAE220008,0x2402003C,0x94C7004A,0x8FA90058\n\t"
-    ".word 0x000832C0,0xAE290010,0xAE220014,0x02E01021\n\t"
-    ".word 0xAE220018,0x00081300,0x00461021,0xAE30002C\n\t"
-    ".word 0xAE260050,0xAE22004C,0xAE34005C,0xAE350060\n\t"
-    ".word 0xAE200064,0xAE3E0068,0xAE27000C,0x00771021\n\t"
-    ".word 0x2463FFFE,0xAE220020,0x0C0249E3,0xAE23001C\n\t"
-    ".word 0x02202021,0x02E02821,0x0C0249E3,0xAE220024\n\t"
-    ".word 0x8E230024,0xAE220028,0x00621821,0x02E31804\n\t"
-    ".word 0x00701821,0xAE230030,0x02E01021,0x3C03800F\n\t"
-    ".word 0xA060EF0C,0x2463EF0C,0xA0600001,0x8FBF004C\n\t"
-    ".word 0x8FBE0048,0x8FB70044,0x8FB60040,0x8FB5003C\n\t"
-    ".word 0x8FB40038,0x8FB30034,0x8FB20030,0x8FB1002C\n\t"
-    ".word 0x8FB00028,0x03E00008,0x27BD0050\n");
+typedef struct {
+    volatile unsigned char ready;
+    volatile unsigned char opened;
+    volatile unsigned char busy;
+    char pad3[0x3B];
+    unsigned short sectorsPerFrame;
+    char pad40[8];
+    unsigned short width;
+    unsigned short height;
+} MovieStream;
+
+typedef struct {
+    int pad0[2];
+    int width;
+    int height;
+    int depth;
+    int rate;
+    int active;
+    int lastFrame;
+    int frameCount;
+    int imageSize;
+    int imageSizeFixed;
+    int ringBase;
+    int bufferBase;
+    int pad34[6];
+    int ringSize;
+    int frameBytes;
+    int pad54[2];
+    int startSector;
+    int endSector;
+    int position;
+    char *fileName;
+} MovieInfo;
+
+typedef struct {
+    unsigned char minute, second, sector, track;
+} MovieCdLoc;
+
+extern MovieStream D_800EEF0C;
+extern void func_8008AA48(void *dst, int value, int size);
+extern void func_800919D8(void);
+extern void func_80091984(void);
+extern int func_800982B0(char *name, unsigned int *pos, unsigned int *size);
+extern void func_800916F4(void);
+extern void func_8009759C(int sector, MovieCdLoc *loc);
+extern int func_800973AC(int command, void *param, void *result);
+extern int func_8009702C(void);
+extern void *func_8009162C(void *callback);
+extern void *func_80091618(void *callback);
+extern void func_8009166C(void);
+extern int func_8009278C(MovieInfo *info, int fixedWidth);
+extern void func_800927E4(void);
+extern void func_800927C8(void);
+
+int func_80092830(MovieInfo *info, char *name, int depth) {
+    int ok = 0;
+    unsigned int start = 0;
+    unsigned int end;
+    unsigned int pos, size;
+    MovieCdLoc loc;
+    int mode;
+    int failed;
+    void *oldSync, *oldReady;
+    MovieStream *s;
+
+    func_8008AA48(info, 0, sizeof(MovieInfo));
+    func_800919D8();
+    func_80091984();
+    D_800EEF0C.ready = 0;
+    D_800EEF0C.opened = 0;
+    end = 0;
+    if (D_800EEF0C.busy == 0 && func_800982B0(name, &pos, &size)) {
+        start = pos >> 11;
+        end = start + ((size + 2047) >> 11);
+        func_800916F4();
+        *(int *)0x800C60BC = 1;
+        func_8009759C(start, &loc);
+        if (func_800973AC(2, &loc, 0)) {
+            failed = func_800973AC(21, 0, 0) == 0;
+            if (!failed) {
+                int status = func_8009702C();
+
+                mode = status & 0x80;
+                if (mode != status) {
+                    failed = func_800973AC(14, &mode, 0) == 0;
+                }
+                if (!failed) {
+                    oldSync = func_8009162C(func_800927E4);
+                    oldReady = func_80091618(func_800927C8);
+                    failed = func_800973AC(6, &loc, 0) == 0;
+                    if (!failed) {
+                        while (D_800EEF0C.ready == 0) {
+                        }
+                    }
+                    func_80091618(oldReady);
+                    func_8009162C(oldSync);
+                    if (!failed) {
+                        func_8009166C();
+                    }
+                }
+            }
+        }
+    }
+    s = &D_800EEF0C;
+    if (s->opened != 0) {
+        unsigned int frames = s->sectorsPerFrame;
+        unsigned int count;
+
+        if (frames == 0) {
+            frames = 1;
+        }
+        count = (end - start + frames - 1) / frames;
+        info->width = s->width;
+        info->height = s->height;
+        info->depth = depth;
+        info->rate = 60;
+        info->active = 1;
+        info->frameCount = count + 1;
+        info->lastFrame = count - 2;
+        info->ringBase = 0x11000;
+        info->frameBytes = frames << 11;
+        info->ringSize = (frames << 12) + (frames << 11);
+        info->startSector = start;
+        info->endSector = end;
+        info->position = 0;
+        info->fileName = name;
+        info->imageSize = func_8009278C(info, 0);
+        info->imageSizeFixed = func_8009278C(info, 1);
+        info->bufferBase = ((info->imageSize + info->imageSizeFixed) << 1) + 0x11000;
+        ok = 1;
+    }
+    D_800EEF0C.ready = 0;
+    D_800EEF0C.opened = 0;
+    return ok;
+}

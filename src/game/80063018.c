@@ -1,60 +1,193 @@
-asm(".text\n\t.globl func_80063018\nfunc_80063018:\n\t"
-    ".word 0x27BDFFE8,0x00806021,0x3C02800D,0x90472FEC\n\t"
-    ".word 0x3188FFFF,0x0107102B,0x104000DF,0xAFBF0010\n\t"
-    ".word 0x3C02800D,0x8444326C,0x2409FFFF,0x10890014\n\t"
-    ".word 0x3C02800C,0x8C4360D0,0x24020008,0x10620010\n\t"
-    ".word 0x24020001,0x10E200D4,0x3C02800D,0x8C433258\n\t"
-    ".word 0x00041180,0x00431821,0x84620002,0x00000000\n\t"
-    ".word 0x144900CD,0x00000000,0x8C620008,0x00000000\n\t"
-    ".word 0x90420007,0x00000000,0x104800C7,0x00000000\n\t"
-    ".word 0x3C02800E,0x24474ACC,0x3183FFFF,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x000218C0\n\t"
-    ".word 0x00671021,0x94440000,0x00000000,0x2C820004\n\t"
-    ".word 0x104000B9,0x24E20014,0x00621821,0x00003821\n\t"
-    ".word 0x1080001E,0x00E04021,0x240B003C,0x240A0080\n\t"
-    ".word 0x00804821,0x90640000,0x00000000,0x148B0006\n\t"
-    ".word 0x00000000,0x24630001,0x90620000,0x00000000\n\t"
-    ".word 0x1044000C,0x30E2FFFF,0x2404003C,0x30E2FFFF\n\t"
-    ".word 0x2C420080,0x10400007,0x30E2FFFF,0x24630001\n\t"
-    ".word 0x90620000,0x00000000,0x1444FFF8,0x24E70001\n\t"
-    ".word 0x30E2FFFF,0x104A0095,0x25080001,0x3102FFFF\n\t"
-    ".word 0x0049102B,0x1440FFE7,0x00000000,0x30E2FFFF\n\t"
-    ".word 0x10400004,0x2402003C,0xA0620000,0x24630001\n\t"
-    ".word 0x24E70001,0x90A40000,0x00000000,0x1080000C\n\t"
-    ".word 0x2402003C,0x30E2FFFF,0x2C420080,0x10400007\n\t"
-    ".word 0x24A50001,0xA0640000,0x24630001,0x90A40000\n\t"
-    ".word 0x00000000,0x1480FFF7,0x24E70001,0x2402003C\n\t"
-    ".word 0x30C6FFFF,0x3C05800E,0x24A54ACC,0x3187FFFF\n\t"
-    ".word 0xA0620000,0xA0600001,0x00071880,0x00671821\n\t"
-    ".word 0x00031880,0x00671823,0x000318C0,0x00652021\n\t"
-    ".word 0x94820000,0x00063300,0x00021080,0x00431021\n\t"
-    ".word 0x00451021,0xAC460004,0x94820000,0x00000000\n\t"
-    ".word 0x24420001,0xA4820000,0x24020001,0x10E2000A\n\t"
-    ".word 0x28E20002,0x14400020,0x3C02800A,0x24020002\n\t"
-    ".word 0x10E20011,0x24020003,0x10E20019,0x3C02800A\n\t"
-    ".word 0x08018CA4,0x00000000,0x3C02800A,0x8043606C\n\t"
-    ".word 0x24020003,0x10620010,0x28620004,0x14400023\n\t"
-    ".word 0x24050002,0x24020004,0x14620021,0x3C04800E\n\t"
-    ".word 0x08018CB6,0x24050004,0x3C02800A,0x8043606C\n\t"
-    ".word 0x24020003,0x10620019,0x24050006,0x24020004\n\t"
-    ".word 0x14620017,0x3C04800E,0x08018CB5,0x24050005\n\t"
-    ".word 0x08018CB5,0x24050006,0x8043606C,0x00000000\n\t"
-    ".word 0x28620004,0x10400005,0x28620002,0x10400008\n\t"
-    ".word 0x00002821,0x08018CB6,0x3C04800E,0x24020004\n\t"
-    ".word 0x10620005,0x00002821,0x08018CB6,0x3C04800E\n\t"
-    ".word 0x08018CB5,0x24050001,0x24050003,0x3C04800E\n\t"
-    ".word 0x24844ACC,0x3183FFFF,0x00031080,0x00431021\n\t"
-    ".word 0x00021080,0x00431023,0x000210C0,0x00441821\n\t"
-    ".word 0x94640000,0x24020001,0x1482002B,0x00000000\n\t"
-    ".word 0x10A40007,0x00603021,0x10A0000F,0x24020002\n\t"
-    ".word 0x10A20008,0x3C02800B,0x08018CD6,0x2443B814\n\t"
-    ".word 0x3C02800B,0x2443B814,0x3C02800B,0x08018CD8\n\t"
-    ".word 0x2444B8C8,0x3C02800B,0x2443B81C,0x3C02800B\n\t"
-    ".word 0x08018CD8,0x2444B928,0x3C02800B,0x2443B814\n\t"
-    ".word 0x3C02800B,0x2444B868,0x24C20014,0xAC620000\n\t"
-    ".word 0x3183FFFF,0x8C850004,0x10600006,0x3C02800B\n\t"
-    ".word 0x24020001,0x10620007,0x3C02800B,0x08018CEA\n\t"
-    ".word 0x00002821,0x08018CE8,0x2442B7F4,0x08018CEC\n\t"
-    ".word 0xA0600000,0x2442B804,0xACA2002C,0x00002821\n\t"
-    ".word 0x0C016554,0x24060001,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct {
+    unsigned short count;
+    int values[4];
+    char text[132];
+} MessageSlot;
+
+typedef struct {
+    char pad0[7];
+    unsigned char owner;
+} PlayerInfo;
+
+typedef struct {
+    short unk0;
+    short link;
+    int unk4;
+    PlayerInfo *info;
+    char pad[52];
+} PlayerEntry;
+
+typedef struct {
+    char pad[44];
+    void *layout;
+} Panel;
+
+typedef struct {
+    int unk0;
+    Panel *panel;
+} Window;
+
+extern unsigned char D_800D2FEC;
+extern short D_800D326C;
+extern int D_800C60D0;
+extern PlayerEntry *D_800D3258;
+extern MessageSlot D_800E4ACC[];
+extern signed char D_800A606C;
+extern char *D_800AB814;
+extern char *D_800AB81C;
+extern Window D_800AB868;
+extern Window D_800AB8C8;
+extern Window D_800AB928;
+extern char D_800AB7F4[];
+extern char D_800AB804[];
+void func_80059550(Window *, int, int);
+
+void func_80063018(unsigned short id, char *str, unsigned short value) {
+    MessageSlot *slot;
+    char *dst;
+    unsigned short len;
+    unsigned short i;
+    unsigned short count;
+    unsigned int layout;
+    char **textp;
+    Window *win;
+    Panel *panel;
+    char c;
+
+    if (id >= D_800D2FEC) {
+        return;
+    }
+    if (D_800D326C != -1 && D_800C60D0 != 8) {
+        if (D_800D2FEC == 1) {
+            return;
+        }
+        if (D_800D3258[D_800D326C].link != -1) {
+            return;
+        }
+        if (D_800D3258[D_800D326C].info->owner == id) {
+            return;
+        }
+    }
+    count = D_800E4ACC[id].count;
+    if (count >= 4) {
+        return;
+    }
+    dst = D_800E4ACC[id].text;
+    len = 0;
+    for (i = 0; i < count; i++) {
+        c = *dst;
+        if (c != '<' || *++dst != c) {
+            c = '<';
+        scan:
+            if (len < 128) {
+                dst++;
+                len++;
+                if (*dst != c) {
+                    goto scan;
+                }
+            }
+        }
+        if (len == 128) {
+            *dst = 0;
+            return;
+        }
+    }
+    if (len != 0) {
+        *dst++ = '<';
+        len++;
+    }
+    while (*str != 0 && len < 128) {
+        *dst++ = *str++;
+        len++;
+    }
+    *dst++ = '<';
+    *dst = 0;
+    {
+        int scaled = value << 12;
+        D_800E4ACC[id].values[D_800E4ACC[id].count] = scaled;
+    }
+    D_800E4ACC[id].count++;
+
+    switch (id) {
+    case 1:
+        switch (D_800A606C) {
+        case 3:
+            layout = 5;
+            break;
+        case 4:
+            layout = 4;
+            break;
+        case 2:
+        default:
+            layout = 2;
+            break;
+        }
+        break;
+    case 2:
+        switch (D_800A606C) {
+        case 4:
+            layout = 5;
+            break;
+        case 3:
+        default:
+            layout = 6;
+            break;
+        }
+        break;
+    case 3:
+        layout = 6;
+        break;
+    case 0:
+    default:
+        switch (D_800A606C) {
+        case 2:
+        case 3:
+            layout = 1;
+            break;
+        case 4:
+            layout = 3;
+            break;
+        case 1:
+            layout = 0;
+            break;
+        default:
+            layout = 0;
+            break;
+        }
+        break;
+    }
+
+    if (D_800E4ACC[id].count != 1) {
+        return;
+    }
+    slot = &D_800E4ACC[id];
+    switch (layout) {
+    case 1:
+        textp = &D_800AB814;
+        win = &D_800AB8C8;
+        break;
+    case 2:
+        textp = &D_800AB81C;
+        win = &D_800AB928;
+        break;
+    case 0:
+        textp = &D_800AB814;
+        win = &D_800AB868;
+        break;
+    default:
+        textp = &D_800AB814;
+        win = &D_800AB868;
+        break;
+    }
+    *textp = slot->text;
+    panel = win->panel;
+    switch (id) {
+    case 0:
+        panel->layout = D_800AB7F4;
+        break;
+    case 1:
+        panel->layout = D_800AB804;
+        break;
+    }
+    func_80059550(win, 0, 1);
+}

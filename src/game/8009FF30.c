@@ -1,41 +1,112 @@
-asm(".text\n\t.globl func_8009FF30\nfunc_8009FF30:\n\t"
-    ".word 0x27BDFFC0,0xAFB60030,0x0080B021,0xAFB70034\n\t"
-    ".word 0x00A0B821,0x2404FFFF,0xAFBF003C,0xAFBE0038\n\t"
-    ".word 0xAFB5002C,0xAFB40028,0xAFB30024,0xAFB20020\n\t"
-    ".word 0xAFB1001C,0x0C02221C,0xAFB00018,0x3C1E800C\n\t"
-    ".word 0x27DE8D4C,0x3C14800C,0x26948DCC,0x3C12800C\n\t"
-    ".word 0x26529004,0x26550001,0x24130002,0x244203C0\n\t"
-    ".word 0x3C01800F,0xAC22FCF0,0x3C02800C,0x24425F0C\n\t"
-    ".word 0x3C01800F,0xAC20FCF4,0x3C01800F,0xAC22FCF8\n\t"
-    ".word 0x0C02221C,0x2404FFFF,0x3C03800F,0x8C63FCF0\n\t"
-    ".word 0x00000000,0x0062182A,0x1460000C,0x00000000\n\t"
-    ".word 0x3C02800F,0x8C42FCF4,0x00000000,0x00401821\n\t"
-    ".word 0x24420001,0x3C01800F,0xAC22FCF4,0x3C02003C\n\t"
-    ".word 0x0043102A,0x1040001B,0x00000000,0x3C04800C\n\t"
-    ".word 0x0C025BE7,0x24845E84,0x92440000,0x92420001\n\t"
-    ".word 0x3C05800F,0x8CA5FCF8,0x00021080,0x00541021\n\t"
-    ".word 0x00042080,0x8C430000,0x3C02800C,0x90428D45\n\t"
-    ".word 0x00942021,0x00021080,0x005E1021,0xAFA30010\n\t"
-    ".word 0x8C460000,0x8C870000,0x3C04800C,0x0C0250EC\n\t"
-    ".word 0x24845E94,0x0C028243,0x00000000,0x0802801A\n\t"
-    ".word 0x2402FFFF,0x00001021,0x14400045,0x2402FFFF\n\t"
-    ".word 0x0C025139,0x00000000,0x10400029,0x00000000\n\t"
-    ".word 0x3C02800C,0x8C428FEC,0x00000000,0x90420000\n\t"
-    ".word 0x00000000,0x30510003,0x0C027E75,0x00000000\n\t"
-    ".word 0x00408021,0x1200001A,0x32020004,0x1040000B\n\t"
-    ".word 0x32020002,0x3C02800C,0x8C428D28,0x00000000\n\t"
-    ".word 0x10400005,0x00000000,0x92A40000,0x3C05800F\n\t"
-    ".word 0x0040F809,0x24A5FCE0,0x32020002,0x1040FFEE\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428D24,0x00000000\n\t"
-    ".word 0x1040FFE9,0x00000000,0x92440000,0x3C05800F\n\t"
-    ".word 0x0040F809,0x24A5FCD8,0x08028026,0x00000000\n\t"
-    ".word 0x3C02800C,0x8C428FEC,0x00000000,0xA0510000\n\t"
-    ".word 0x92420000,0x00000000,0x304600FF,0x10D30003\n\t"
-    ".word 0x24020005,0x14C20010,0x00000000,0xA2530000\n\t"
-    ".word 0x02E02821,0x3C04800F,0x2484FCD8,0x10A00008\n\t"
-    ".word 0x24030007,0x2407FFFF,0x90820000,0x24840001\n\t"
-    ".word 0x2463FFFF,0xA0A20000,0x1467FFFB,0x24A50001\n\t"
-    ".word 0x08028060,0x00C01021,0x12C0FF8D,0x00001021\n\t"
-    ".word 0x8FBF003C,0x8FBE0038,0x8FB70034,0x8FB60030\n\t"
-    ".word 0x8FB5002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef void (*CdlCB)(unsigned char, unsigned char *);
+
+typedef struct {
+    int time;
+    int count;
+    char *name;
+} CdAlarm;
+
+extern CdAlarm D_800EFCF0;
+extern char D_800C5E84[];
+extern char D_800C5E94[];
+extern char D_800C5F0C[];
+extern char *D_800B8D4C[];
+extern char *D_800B8DCC[];
+extern unsigned char D_800B8D45;
+typedef struct {
+    unsigned char sync;
+    unsigned char ready;
+    unsigned char c;
+} CdIntr;
+
+extern volatile CdIntr D_800B9004;
+extern volatile unsigned char *D_800B8FEC;
+extern CdlCB D_800B8D24;
+extern CdlCB D_800B8D28;
+extern unsigned char D_800EFCD8[8];
+extern unsigned char D_800EFCE0[8];
+
+extern int VSync(int mode);
+extern int printf(const char *fmt, ...);
+extern int puts_(const char *s);
+extern void CD_flush(void);
+extern int CheckCallback(void);
+extern int CD_getintr(void);
+
+static inline void cd_memcpy(void *dst, void *src, int size)
+{
+    unsigned char *d = dst;
+    unsigned char *s = src;
+
+    if (d == 0) {
+        return;
+    }
+    while (size--) {
+        *d++ = *s++;
+    }
+}
+
+static inline int alarm_count(void)
+{
+    int c;
+    int old;
+
+    c = D_800EFCF0.count;
+    old = c++;
+    D_800EFCF0.count = c;
+    return old;
+}
+
+static inline int get_alarm(void)
+{
+    if (D_800EFCF0.time < VSync(-1) || alarm_count() > 0x3C0000) {
+        puts_(D_800C5E84);
+        printf(D_800C5E94, D_800EFCF0.name, D_800B8D4C[D_800B8D45],
+               D_800B8DCC[D_800B9004.sync], D_800B8DCC[D_800B9004.ready]);
+        CD_flush();
+        return -1;
+    }
+    return 0;
+}
+
+int func_8009FF30(int mode, unsigned char *result)
+{
+    int intr;
+    unsigned char reg0;
+    int sync;
+    volatile unsigned char *ready;
+
+    ready = &D_800B9004.ready;
+    D_800EFCF0.time = VSync(-1) + 960;
+    D_800EFCF0.count = 0;
+    D_800EFCF0.name = D_800C5F0C;
+
+    do {
+        if (get_alarm()) {
+            return -1;
+        }
+        if (CheckCallback()) {
+            reg0 = *D_800B8FEC & 3;
+            while ((intr = CD_getintr()) != 0) {
+                if (intr & 4) {
+                    if (D_800B8D28) {
+                        D_800B8D28(*ready, D_800EFCE0);
+                    }
+                }
+                if (intr & 2) {
+                    if (D_800B8D24) {
+                        D_800B8D24(D_800B9004.sync, D_800EFCD8);
+                    }
+                }
+            }
+            *D_800B8FEC = reg0;
+        }
+        sync = D_800B9004.sync;
+        if (sync == 2 || sync == 5) {
+            D_800B9004.sync = 2;
+            cd_memcpy(result, D_800EFCD8, 8);
+            return sync;
+        }
+    } while (mode == 0);
+    return 0;
+}

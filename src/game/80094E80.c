@@ -1,32 +1,85 @@
-asm(".text\n\t.globl func_80094E80\nfunc_80094E80:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0x8E030000,0x00000000,0x10600009\n\t"
-    ".word 0x00000000,0x0460006B,0x2411000A,0x1071000C\n\t"
-    ".word 0x2402000B,0x10620013,0x00001021,0x08025416\n\t"
-    ".word 0x00000000,0x3C01800F,0xAC20F040,0x3C01800F\n\t"
-    ".word 0x0C025ABC,0xAC20F03C,0x2402000A,0xAE020000\n\t"
-    ".word 0x3C04800F,0x8C84F0A0,0x0C027DAB,0x00000000\n\t"
-    ".word 0x8E020000,0x00000000,0x24420001,0x08025415\n\t"
-    ".word 0xAE020000,0x0C025B6A,0x00000000,0x10400052\n\t"
-    ".word 0x00001021,0x0C025AFE,0x00000000,0x00401821\n\t"
-    ".word 0x3C01800F,0xAC22F040,0x24050001,0x1065002B\n\t"
-    ".word 0x28620002,0x10400005,0x24020004,0x1060000D\n\t"
-    ".word 0x00000000,0x08025402,0x00000000,0x1462002E\n\t"
-    ".word 0x24040004,0x3C10800F,0x2610F0A0,0x8E020000\n\t"
-    ".word 0x3C03800F,0x8C63F090,0x00451004,0x0802540D\n\t"
-    ".word 0x00621825,0x3C10800F,0x2610F0A0,0x8E030000\n\t"
-    ".word 0x3C02800F,0x8C42F090,0x00652004,0x00441024\n\t"
-    ".word 0x14400009,0x00000000,0x3C02800F,0x8C42F090\n\t"
-    ".word 0x24030004,0x3C01800F,0xAC23F040,0x00441025\n\t"
-    ".word 0x3C01800F,0xAC22F090,0x3C04800F,0x8C84F040\n\t"
-    ".word 0x0C02598F,0x00000000,0x00402021,0x24020001\n\t"
-    ".word 0x2603FFF4,0x08025416,0xAC640004,0x3C02800F\n\t"
-    ".word 0x8C42F03C,0x00000000,0x24420001,0x3C01800F\n\t"
-    ".word 0xAC22F03C,0x28420010,0x10400003,0x00000000\n\t"
-    ".word 0x08025415,0xAE110000,0x3C10800F,0x2610F0A0\n\t"
-    ".word 0x24020001,0x8E030000,0x3C04800F,0x8C84F040\n\t"
-    ".word 0x00621004,0x3C03800F,0x8C63F090,0x00021027\n\t"
-    ".word 0x00621824,0x3C01800F,0xAC23F090,0x0C02598F\n\t"
-    ".word 0x2610FFF4,0x00401821,0x24020001,0x08025416\n\t"
-    ".word 0xAE030004,0x00001021,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int state;
+    int result;
+    int f8;
+    int chan;
+} CardState;
+
+extern volatile int D_800EF090;
+extern CardState D_800EF094;
+extern int D_800EF03C;
+extern int D_800EF040;
+extern void func_80096AF0(void);
+extern int func_8009F6AC(int);
+extern int func_80096DA8(void);
+extern int func_80096BF8(void);
+extern int func_8009663C(int);
+
+int func_80094E80(int *state)
+{
+    int r;
+    int bit;
+    int nbit;
+    int v;
+    int arg;
+    volatile int *chan;
+    volatile CardState *card;
+
+    switch (*state) {
+    case 0:
+        D_800EF040 = 0;
+        D_800EF03C = 0;
+        func_80096AF0();
+        *state = 10;
+    case 10:
+        func_8009F6AC(D_800EF094.chan);
+        (*state)++;
+        break;
+    case 11:
+        if (func_80096DA8() == 0) {
+            return 0;
+        }
+        r = func_80096BF8();
+        D_800EF040 = r;
+        switch (r) {
+        case 4:
+            arg = D_800EF040;
+            chan = &D_800EF094.chan;
+            r = D_800EF090 | (1 << *chan);
+            goto finish;
+        case 0:
+            chan = &D_800EF094.chan;
+            bit = 1 << *chan;
+            if ((D_800EF090 & bit) == 0) {
+                D_800EF040 = 4;
+                D_800EF090 |= bit;
+            }
+            v = func_8009663C(D_800EF040);
+            {
+                volatile CardState *c = (volatile CardState *)(chan - 3);
+                c->result = v;
+            }
+            return 1;
+        case 1:
+            if (++D_800EF03C < 16) {
+                *state = 10;
+                break;
+            }
+        default:
+            arg = D_800EF040;
+            chan = &D_800EF094.chan;
+            nbit = 1;
+            nbit <<= *chan;
+            r = D_800EF090 & ~nbit;
+        finish:
+            D_800EF090 = r;
+            __asm__ volatile("");
+            card = (volatile CardState *)(chan - 3);
+            __asm__("" : "=r"(card) : "0"(card));
+            card->result = func_8009663C(arg);
+            return 1;
+        }
+        break;
+    }
+    return 0;
+}

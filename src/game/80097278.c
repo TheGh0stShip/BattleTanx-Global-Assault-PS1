@@ -1,21 +1,28 @@
-asm(".text\n\t.globl func_80097278\nfunc_80097278:\n\t"
-    ".word 0x27BDFFC8,0xAFB10014,0x00A08821,0xAFB3001C\n\t"
-    ".word 0x00809821,0xAFB00010,0x24100003,0xAFBE0030\n\t"
-    ".word 0x241E0001,0xAFB20018,0x327200FF,0x3C03800B\n\t"
-    ".word 0x24636C94,0xAFB40020,0x3C14800C,0x8E948D24\n\t"
-    ".word 0x00121080,0xAFB50024,0x0043A821,0xAFB60028\n\t"
-    ".word 0x0000B021,0xAFB7002C,0x2417FFFF,0xAFBF0034\n\t"
-    ".word 0x3C01800C,0x125E000B,0xAC208D24,0x3C02800C\n\t"
-    ".word 0x90428D34,0x00000000,0x30420010,0x10400005\n\t"
-    ".word 0x24040001,0x00002821,0x00003021,0x0C02811E\n\t"
-    ".word 0x00003821,0x1220000B,0x00000000,0x8EA20000\n\t"
-    ".word 0x00000000,0x10400007,0x24040002,0x02202821\n\t"
-    ".word 0x00003021,0x0C02811E,0x00003821,0x1440000A\n\t"
-    ".word 0x00000000,0x3C01800C,0xAC348D24,0x326400FF\n\t"
-    ".word 0x02202821,0x00003021,0x0C02811E,0x24070001\n\t"
-    ".word 0x10400008,0x26C20001,0x2610FFFF,0x1617FFDC\n\t"
-    ".word 0x00000000,0x3C01800C,0xAC348D24,0x2416FFFF\n\t"
-    ".word 0x26C20001,0x8FBF0034,0x8FBE0030,0x8FB7002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+extern void *D_800B8D24;
+extern unsigned char D_800B8D34;
+extern int D_800B6C94[];
+extern int func_800A0478(int command, unsigned char *param, unsigned char *result, int async);
+
+int func_80097278(unsigned char command, unsigned char *param) {
+    void *savedCallback = D_800B8D24;
+    int tries = 4;
+    int failed;
+
+    while (tries-- != 0) {
+        D_800B8D24 = 0;
+        failed = 0;
+        if (command != 1 && (D_800B8D34 & 0x10)) {
+            func_800A0478(1, 0, 0, 0);
+        }
+        if (param == 0 || D_800B6C94[command] == 0 || func_800A0478(2, param, 0, 0) == 0) {
+            D_800B8D24 = savedCallback;
+            if (func_800A0478(command, param, 0, 1) == 0) {
+                goto done;
+            }
+        }
+    }
+    D_800B8D24 = savedCallback;
+    failed = -1;
+done:
+    return failed + 1;
+}

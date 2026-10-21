@@ -1,35 +1,97 @@
-asm(".text\n\t.globl func_800684C0\nfunc_800684C0:\n\t"
-    ".word 0x3C02800B,0x8C46D9EC,0x2442D9EC,0x8C430004\n\t"
-    ".word 0x00000000,0x10C3007D,0x00002821,0x24090010\n\t"
-    ".word 0x2407FFFC,0x24080038,0x3C02800C,0x244B0360\n\t"
-    ".word 0x00605021,0x90C20002,0x00000000,0x14400044\n\t"
-    ".word 0x00000000,0x90C20007,0x00000000,0x00471824\n\t"
-    ".word 0x24020040,0x10620038,0x28620041,0x10400022\n\t"
-    ".word 0x2402002C,0x10620038,0x2862002D,0x1040000F\n\t"
-    ".word 0x24020020,0x10620034,0x28620021,0x10400005\n\t"
-    ".word 0x24020024,0x10690030,0x00000000,0x0801A1AD\n\t"
-    ".word 0x00000000,0x1062002C,0x24020028,0x1062002A\n\t"
-    ".word 0x00000000,0x0801A1AD,0x00000000,0x24020034\n\t"
-    ".word 0x10620025,0x28620035,0x10400005,0x24020030\n\t"
-    ".word 0x10620021,0x00000000,0x0801A1AD,0x00000000\n\t"
-    ".word 0x1068001D,0x2402003C,0x1062001B,0x00000000\n\t"
-    ".word 0x0801A1AD,0x00000000,0x240200E8,0x10620016\n\t"
-    ".word 0x286200E9,0x1040003F,0x240200A4,0x10620012\n\t"
-    ".word 0x286200A5,0x10400005,0x24020050,0x1062000E\n\t"
-    ".word 0x00000000,0x0801A1AD,0x00000000,0x240200B4\n\t"
-    ".word 0x10620009,0x240200E0,0x10620007,0x00000000\n\t"
-    ".word 0x0801A1AD,0x00000000,0x24A50001,0x28A201FF\n\t"
-    ".word 0x1040002C,0x00000000,0x0801A1AD,0x24A50001\n\t"
-    ".word 0x90C20007,0x00000000,0x00471024,0x2443FFD8\n\t"
-    ".word 0x2C620029,0x10400023,0x00031080,0x004B1021\n\t"
-    ".word 0x8C420000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x90C30002,0x24A50001,0x1860001A,0x28A20200\n\t"
-    ".word 0x10400018,0x00000000,0x24A50001,0x0801A192\n\t"
-    ".word 0x2463FFFF,0x0801A1A0,0x24C4002C,0x0801A1A0\n\t"
-    ".word 0x24C40020,0x0801A1A0,0x24C40028,0x24C4001C\n\t"
-    ".word 0x90C30002,0x00000000,0x1860000A,0x24A50001\n\t"
-    ".word 0x28A20200,0x10400007,0x00000000,0x24A50001\n\t"
-    ".word 0x90820000,0x2463FFFF,0x00021080,0x1C60FFF8\n\t"
-    ".word 0x00822021,0x90C20000,0x00000000,0x00021080\n\t"
-    ".word 0x00C23021,0x14CAFF8B,0x00000000,0x03E00008\n\t"
-    ".word 0x00000000\n");
+typedef struct {
+    unsigned char size;
+    unsigned char unk1;
+    unsigned char count;
+    unsigned char unk3[4];
+    unsigned char code;
+} Packet;
+
+typedef struct {
+    Packet *start;
+    Packet *end;
+} PacketList;
+
+extern PacketList D_800AD9EC;
+
+void func_800684C0(void) {
+    Packet *packet;
+    volatile unsigned char *child;
+    int total;
+    int i;
+    int c;
+
+    total = 0;
+    for (packet = D_800AD9EC.start; packet != D_800AD9EC.end;
+         packet = (Packet *)((int *)packet + packet->size)) {
+        if (packet->count == 0) {
+            if (packet->code == 16) {}
+            c = packet->code & ~3;
+            if (c == 56) {}
+            switch (c) {
+            case 64:
+                total++;
+                if (total >= 511) {
+                    break;
+                }
+            case 16:
+            case 32:
+            case 36:
+            case 40:
+            case 44:
+            case 48:
+            case 52:
+            case 56:
+            case 60:
+            case 80:
+            case 164:
+            case 180:
+            case 224:
+            case 232:
+                total++;
+                break;
+            case 236:
+            case 240:
+            case 244:
+            case 248:
+            case 252:
+                break;
+            }
+        } else {
+            switch (packet->code & ~3) {
+            case 64:
+            case 80:
+                i = packet->count;
+                total++;
+            count_loop:
+                if (i > 0 && total < 512) {
+                    total++;
+                    i--;
+                    goto count_loop;
+                }
+                continue;
+            case 60:
+                child = (unsigned char *)packet + 44;
+                break;
+            case 44:
+                child = (unsigned char *)packet + 32;
+                break;
+            case 56:
+                child = (unsigned char *)packet + 40;
+                break;
+            case 40:
+                child = (unsigned char *)packet + 28;
+                break;
+            default:
+                continue;
+            }
+            total++;
+            for (i = packet->count; i > 0; i--) {
+                if (total >= 512) {
+                    break;
+                }
+                total++;
+                child += *child * 4;
+            }
+        }
+    }
+}

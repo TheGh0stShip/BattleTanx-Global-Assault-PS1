@@ -1,108 +1,288 @@
-asm(".text\n\t.globl func_8009D0AC\nfunc_8009D0AC:\n\t"
-    ".word 0x27BDFF88,0xAFB10054,0x00C08821,0xAFBF0074\n\t"
-    ".word 0xAFBE0070,0xAFB7006C,0xAFB60068,0xAFB50064\n\t"
-    ".word 0xAFB40060,0xAFB3005C,0xAFB20058,0x14A00003\n\t"
-    ".word 0xAFB00050,0x080275C4,0x00001021,0x00A0B821\n\t"
-    ".word 0x3C07800C,0x24E75AD8,0xAFA70048,0xAFA00038\n\t"
-    ".word 0x92E40000,0x00000000,0x10800175,0x24020025\n\t"
-    ".word 0x1482017C,0x00009821,0x2414FFFF,0x0000F021\n\t"
-    ".word 0xAFA0003C,0xAFA00040,0xAFA00044,0x26F70001\n\t"
-    ".word 0x92E30000,0x00000000,0x2C620079,0x1040016D\n\t"
-    ".word 0x00031080,0x3C01800C,0x00220821,0x8C225B08\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x17C0FFF3\n\t"
-    ".word 0x00000000,0x0802744A,0x241E0020,0x0802744A\n\t"
-    ".word 0x36730008,0x26310004,0x8E27FFFC,0x00000000\n\t"
-    ".word 0x04E1FFEA,0xAFA70044,0x00073823,0xAFA70044\n\t"
-    ".word 0x0802744A,0x36730010,0x0802744A,0x241E002B\n\t"
-    ".word 0x26F70001,0x92E30000,0x2402002A,0x14620005\n\t"
-    ".word 0x2C620080,0x26310004,0x8E30FFFC,0x08027485\n\t"
-    ".word 0x0200A021,0x10400012,0x00008021,0x92E40000\n\t"
-    ".word 0x3C02800B,0x00441021,0x90426B31,0x00000000\n\t"
-    ".word 0x30420004,0x1040000A,0x00101080,0x26F70001\n\t"
-    ".word 0x00501021,0x00021040,0x2442FFD0,0x92E30000\n\t"
-    ".word 0x00000000,0x2C630080,0x1460FFF0,0x00448021\n\t"
-    ".word 0x26F7FFFF,0x0200A021,0x0601FFC4,0x00000000\n\t"
-    ".word 0x0802744A,0x2414FFFF,0x0802744A,0x36730020\n\t"
-    ".word 0x00008021,0x92E20000,0x26F70001,0x00101880\n\t"
-    ".word 0x00701821,0x00031840,0x2463FFD0,0x92E40000\n\t"
-    ".word 0x00000000,0x2C840080,0x10800009,0x00628021\n\t"
-    ".word 0x92E20000,0x3C01800B,0x00220821,0x90226B31\n\t"
-    ".word 0x00000000,0x30420004,0x1440FFEE,0x00000000\n\t"
-    ".word 0xAFB00044,0x0802744A,0x26F7FFFF,0x0802744A\n\t"
-    ".word 0x36730002,0x0802744A,0x36730004,0x0802744A\n\t"
-    ".word 0x36730001,0x27B20010,0x26310004,0x24160001\n\t"
-    ".word 0x9222FFFC,0x0000F021,0x08027546,0xA3A20010\n\t"
-    ".word 0x36730001,0x32620001,0x14400007,0x32620004\n\t"
-    ".word 0x10400005,0x00000000,0x26310004,0x8623FFFC\n\t"
-    ".word 0x080274BC,0x00000000,0x26310004,0x8E23FFFC\n\t"
-    ".word 0x00000000,0x04610061,0x2405000A,0x00031823\n\t"
-    ".word 0x0802751E,0x241E002D,0x32620001,0x14400008\n\t"
-    ".word 0x32620004,0x10400006,0x00000000,0x26310004\n\t"
-    ".word 0x8E22FFFC,0x97A70038,0x080275C2,0xA4470000\n\t"
-    ".word 0x26310004,0x8E22FFFC,0x8FA70038,0x080275C2\n\t"
-    ".word 0xAC470000,0x36730001,0x32620001,0x14400007\n\t"
-    ".word 0x32620004,0x10400005,0x24050008,0x26310004\n\t"
-    ".word 0x8623FFFC,0x0802751E,0x0000F021,0x26310004\n\t"
-    ".word 0x8E23FFFC,0x0802751D,0x24050008,0x26310004\n\t"
-    ".word 0x8E23FFFC,0x0802751D,0x24050010,0x26310004\n\t"
-    ".word 0x8E32FFFC,0x00000000,0x16400003,0x00000000\n\t"
-    ".word 0x3C12800C,0x26525AEC,0x0680000B,0x02402021\n\t"
-    ".word 0x00002821,0x0C022A5D,0x02803021,0x10400004\n\t"
-    ".word 0x0052B023,0x0296102A,0x10400054,0x0000F021\n\t"
-    ".word 0x080274F8,0x0280B021,0x0C024061,0x02402021\n\t"
-    ".word 0x0040B021,0x08027546,0x0000F021,0x36730001\n\t"
-    ".word 0x32620001,0x14400007,0x32620004,0x10400005\n\t"
-    ".word 0x2405000A,0x26310004,0x8623FFFC,0x0802751E\n\t"
-    ".word 0x0000F021,0x26310004,0x8E23FFFC,0x0802751D\n\t"
-    ".word 0x2405000A,0x3C07800C,0x24E75AF4,0xAFA70048\n\t"
-    ".word 0x32620001,0x14400007,0x32620004,0x10400005\n\t"
-    ".word 0x24050010,0x26310004,0x8623FFFC,0x08027518\n\t"
-    ".word 0x32620008,0x26310004,0x8E23FFFC,0x24050010\n\t"
-    ".word 0x32620008,0x10400005,0x0000F021,0x10600003\n\t"
-    ".word 0x00000000,0x36730040,0x0000F021,0x06800003\n\t"
-    ".word 0xAFB4003C,0x2402FFDF,0x02629824,0x14600005\n\t"
-    ".word 0x27B20038,0x8FA7003C,0x00000000,0x10E0001E\n\t"
-    ".word 0x03B21023,0x0065001B,0x14A00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00001010,0x8FA70048\n\t"
-    ".word 0x00000000,0x00E21021,0x90440000,0x2652FFFF\n\t"
-    ".word 0x1460FFF4,0xA2440000,0x3C07800C,0x24E75AD8\n\t"
-    ".word 0x32620008,0x1040000B,0xAFA70048,0x24020008\n\t"
-    ".word 0x14A20009,0x03B21023,0x00041600,0x00021603\n\t"
-    ".word 0x24030030,0x10430004,0x03B21023,0x2652FFFF\n\t"
-    ".word 0xA2430000,0x03B21023,0x24560038,0x8FA70040\n\t"
-    ".word 0x13C00002,0x02C7A021,0x26940001,0x32620040\n\t"
-    ".word 0x10400002,0x00000000,0x26940002,0x8FB5003C\n\t"
-    ".word 0x00000000,0x02B4102A,0x10400002,0x32620030\n\t"
-    ".word 0x0280A821,0x1440000E,0x03C02021,0x8FA70044\n\t"
-    ".word 0x00000000,0x10E0000A,0x02A7102A,0x10400008\n\t"
-    ".word 0x02A08021,0x0C027E27,0x24040020,0x8FA70044\n\t"
-    ".word 0x26100001,0x0207102A,0x1440FFFA,0x03C02021\n\t"
-    ".word 0x10800004,0x32620040,0x0C027E27,0x00000000\n\t"
-    ".word 0x32620040,0x10400007,0x32630030,0x0C027E27\n\t"
-    ".word 0x24040030,0x82E40000,0x0C027E27,0x00000000\n\t"
-    ".word 0x32630030,0x24020020,0x1462000D,0x00000000\n\t"
-    ".word 0x8FA70044,0x00000000,0x02A7102A,0x10400008\n\t"
-    ".word 0x02A08021,0x0C027E27,0x24040030,0x8FA70044\n\t"
-    ".word 0x26100001,0x0207102A,0x1440FFFA,0x00000000\n\t"
-    ".word 0x8FA7003C,0x02808021,0x0207102A,0x10400008\n\t"
-    ".word 0x00000000,0x0C027E27,0x24040030,0x8FA7003C\n\t"
-    ".word 0x26100001,0x0207102A,0x1440FFFA,0x00000000\n\t"
-    ".word 0x26D0FFFF,0x0600000B,0x00000000,0x82440000\n\t"
-    ".word 0x26520001,0x0C027E27,0x2610FFFF,0x06000005\n\t"
-    ".word 0x00000000,0x0802758E,0x00000000,0x0C027E27\n\t"
-    ".word 0x24040030,0x8FA70040,0x00000000,0x24E7FFFF\n\t"
-    ".word 0x04E1FFFA,0xAFA70040,0x32620010,0x1040000D\n\t"
-    ".word 0x00000000,0x8FA70044,0x00000000,0x02A7102A\n\t"
-    ".word 0x10400008,0x02A08021,0x0C027E27,0x24040020\n\t"
-    ".word 0x8FA70044,0x26100001,0x0207102A,0x1440FFFA\n\t"
-    ".word 0x00000000,0x8FA30044,0x00000000,0x0075102A\n\t"
-    ".word 0x10400002,0x00000000,0x02A01821,0x8FA70038\n\t"
-    ".word 0x00000000,0x00E33821,0x080275C2,0xAFA70038\n\t"
-    ".word 0x0C027E66,0x00000000,0x8FA20038,0x080275C4\n\t"
-    ".word 0x00000000,0x8FA70038,0x82E40000,0x24E70001\n\t"
-    ".word 0xAFA70038,0x0C027E27,0x00000000,0x0802743F\n\t"
-    ".word 0x26F70001,0x8FBF0074,0x8FBE0070,0x8FB7006C\n\t"
-    ".word 0x8FB60068,0x8FB50064,0x8FB40060,0x8FB3005C\n\t"
-    ".word 0x8FB20058,0x8FB10054,0x8FB00050,0x03E00008\n\t"
-    ".word 0x27BD0078\n\t"
-);
+extern unsigned char D_800B6B31[];
+extern void func_8009F89C();
+extern void func_8009F998();
+extern void *func_8008A974(const void *s, int c, int n);
+extern int func_80090184(const char *s);
+
+int func_8009D0AC(int unused, unsigned char *fmt0, char *ap)
+{
+    unsigned char *fmt;
+    int ch;
+    int c;
+    int wnext;
+    int pnext;
+    int n;
+    signed char *cp;
+    int flags;
+    int ret;
+    int dprec;
+    int prec;
+    int sign;
+    int fpprec;
+    unsigned long ulval;
+    int base;
+    int width;
+    int fieldsz;
+    int realsz;
+    int size;
+    char *xdigs;
+    signed char buf[40];
+
+    if (fmt0 == 0) {
+        return 0;
+    }
+    fmt = fmt0;
+    xdigs = "0123456789abcdef";
+    ret = 0;
+    for (;; fmt++) {
+        c = *fmt;
+        if (c == '\0') {
+            func_8009F998();
+            return ret;
+        }
+        flags = 0;
+        if (c != '%') {
+            func_8009F89C(c);
+            continue;
+        }
+        prec = -1;
+        sign = 0;
+        dprec = 0;
+        fpprec = 0;
+        width = 0;
+rflag:
+        ch = *++fmt;
+        switch (ch) {
+        case ' ':
+            if (!sign) {
+                sign = ' ';
+            }
+            goto rflag;
+        case '#':
+            flags |= 0x08;
+            goto rflag;
+        case '*':
+            width = (ap += 4, *(int *)(ap - 4));
+            if (width >= 0) {
+                goto rflag;
+            }
+            width = -width;
+        case '-':
+            flags |= 0x10;
+            goto rflag;
+        case '+':
+            sign = '+';
+            goto rflag;
+        case '.':
+            ch = *++fmt;
+            if (ch == '*') {
+                n = (ap += 4, *(int *)(ap - 4));
+                prec = n;
+            } else {
+                n = 0;
+                if ((unsigned)ch < 128) {
+digit:
+                    if (D_800B6B31[c = *fmt] & 4) {
+                        n = 10 * n + (c - '0');
+                        pnext = *++fmt;
+                        if ((unsigned)pnext < 128) {
+                            goto digit;
+                        }
+                    }
+                }
+                fmt--;
+            }
+            prec = n < 0 ? -1 : n;
+            goto rflag;
+        case '0':
+            flags |= 0x20;
+            goto rflag;
+        case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+            n = 0;
+            do {
+                n = 10 * n + (*fmt - '0');
+                wnext = *++fmt;
+            } while ((unsigned)wnext < 128 && ({ __asm__("" : : : "memory"); D_800B6B31[*fmt] & 4; }));
+            width = n;
+            fmt--;
+            goto rflag;
+        case 'L':
+            flags |= 0x02;
+            goto rflag;
+        case 'h':
+            flags |= 0x04;
+            goto rflag;
+        case 'l':
+            flags |= 0x01;
+            goto rflag;
+        case 'c':
+            *(cp = buf) = (ap += 4, *(int *)(ap - 4));
+            size = 1;
+            sign = 0;
+            goto print;
+        case 'D':
+            flags |= 0x01;
+        case 'd':
+        case 'i':
+            if (flags & 0x01) {
+                ulval = (ap += 4, *(long *)(ap - 4));
+            } else if (flags & 0x04) {
+                ulval = (ap += 4, *(short *)(ap - 4));
+            } else {
+                ulval = (ap += 4, *(int *)(ap - 4));
+            }
+            if ((long)ulval < 0) {
+                ulval = -ulval;
+                sign = '-';
+            }
+            base = 10;
+            goto number;
+        case 'n':
+            if (flags & 0x01) {
+                *(ap += 4, *(long **)(ap - 4)) = ret;
+            } else if (flags & 0x04) {
+                *(ap += 4, *(short **)(ap - 4)) = ret;
+            } else {
+                *(ap += 4, *(int **)(ap - 4)) = ret;
+            }
+            continue;
+        case 'O':
+            flags |= 0x01;
+        case 'o':
+            if (flags & 0x01) {
+                ulval = (ap += 4, *(long *)(ap - 4));
+            } else if (flags & 0x04) {
+                ulval = (ap += 4, *(short *)(ap - 4));
+            } else {
+                ulval = (ap += 4, *(int *)(ap - 4));
+            }
+            base = 8;
+            sign = 0;
+            goto number;
+        case 'p':
+            ulval = (ap += 4, *(int *)(ap - 4));
+            base = 16;
+            sign = 0;
+            goto number;
+        case 's':
+            cp = (ap += 4, *(signed char **)(ap - 4));
+            if (cp == 0) {
+                cp = (signed char *)"(null)";
+            }
+            if (prec >= 0) {
+                signed char *p = func_8008A974(cp, 0, prec);
+
+                if (p != 0) {
+                    size = p - cp;
+                    if (size > prec) {
+                        size = prec;
+                    }
+                } else {
+                    size = prec;
+                }
+            } else {
+                size = func_80090184((char *)cp);
+            }
+            sign = 0;
+            goto print;
+        case 'U':
+            flags |= 0x01;
+        case 'u':
+            if (flags & 0x01) {
+                ulval = (ap += 4, *(long *)(ap - 4));
+            } else if (flags & 0x04) {
+                ulval = (ap += 4, *(short *)(ap - 4));
+            } else {
+                ulval = (ap += 4, *(int *)(ap - 4));
+            }
+            base = 10;
+            sign = 0;
+            goto number;
+        case 'X':
+            xdigs = "0123456789ABCDEF";
+        case 'x':
+            if (flags & 0x01) {
+                ulval = (ap += 4, *(long *)(ap - 4));
+            } else if (flags & 0x04) {
+                ulval = (ap += 4, *(short *)(ap - 4));
+            } else {
+                ulval = (ap += 4, *(int *)(ap - 4));
+            }
+            base = 16;
+            if ((flags & 0x08) && ulval != 0) {
+                flags |= 0x40;
+            }
+            sign = 0;
+number:
+            if ((dprec = prec) >= 0) {
+                flags &= ~0x20;
+            }
+            cp = buf + sizeof(buf);
+            if (ulval != 0 || prec != 0) {
+                do {
+                    *--cp = xdigs[ulval % base];
+                    ulval /= base;
+                } while (ulval != 0);
+                xdigs = "0123456789abcdef";
+                if ((flags & 0x08) && base == 8 && *cp != '0') {
+                    *--cp = '0';
+                }
+            }
+            size = buf + sizeof(buf) - cp;
+print:
+            fieldsz = size + fpprec;
+            if (sign) {
+                fieldsz++;
+            }
+            if (flags & 0x40) {
+                fieldsz += 2;
+            }
+            realsz = dprec;
+            if (realsz < fieldsz) {
+                realsz = fieldsz;
+            }
+
+            if (!(flags & (0x10 | 0x20)) && width) {
+                for (n = realsz; n < width; n++) {
+                    func_8009F89C(' ');
+                }
+            }
+            if ((c = sign) != 0) {
+                func_8009F89C(c);
+            }
+            if (flags & 0x40) {
+                func_8009F89C('0');
+                func_8009F89C((signed char)*fmt);
+            }
+            if ((flags & (0x10 | 0x20)) == 0x20) {
+                for (n = realsz; n < width; n++) {
+                    func_8009F89C('0');
+                }
+            }
+            for (n = fieldsz; n < dprec; n++) {
+                func_8009F89C('0');
+            }
+            for (n = size - 1; n >= 0; n--) {
+                func_8009F89C(*cp++);
+            }
+            while (--fpprec >= 0) {
+                func_8009F89C('0');
+            }
+            if (flags & 0x10) {
+                for (n = realsz; n < width; n++) {
+                    func_8009F89C(' ');
+                }
+            }
+            ret += realsz > width ? realsz : width;
+            break;
+        case '\0':
+            func_8009F998();
+            return ret;
+        default:
+            ret++;
+            func_8009F89C((signed char)*fmt);
+            break;
+        }
+    }
+}

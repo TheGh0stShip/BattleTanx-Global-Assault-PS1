@@ -1,33 +1,101 @@
-asm(".text\n\t.globl func_800950D4\nfunc_800950D4:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0x8E030000,0x00000000,0x2C620020\n\t"
-    ".word 0x10400070,0x00031080,0x3C01800C,0x00220821\n\t"
-    ".word 0x8C225240,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x3C048009,0x24844E80,0x3C01800F,0xAC20F04C\n\t"
-    ".word 0x3C01800F,0xAC20F048,0x3C01800F,0x0C027D6B\n\t"
-    ".word 0xAC20F044,0x2402000A,0x080254AE,0xAE020000\n\t"
-    ".word 0x3C11800F,0x2631F098,0x8E230000,0x00000000\n\t"
-    ".word 0x1060000C,0x24020003,0x14620057,0x24020001\n\t"
-    ".word 0x3C01800F,0x0C025ABC,0xAC22F04C,0x8E240008\n\t"
-    ".word 0x0C027DAF,0x00000000,0x24020015,0x080254AE\n\t"
-    ".word 0xAE020000,0x2402001E,0x080254AE,0xAE020000\n\t"
-    ".word 0x0C025B79,0x00000000,0x10400047,0x00001021\n\t"
-    ".word 0x0C025B34,0x00000000,0x2402001E,0xAE020000\n\t"
-    ".word 0x0C025ABC,0x00000000,0x3C04800F,0x8C84F0A0\n\t"
-    ".word 0x0C027DBF,0x00000000,0x8E020000,0x00000000\n\t"
-    ".word 0x24420001,0x080254AE,0xAE020000,0x0C025B6A\n\t"
-    ".word 0x00000000,0x10400034,0x00001021,0x0C025AFE\n\t"
-    ".word 0x00000000,0x00401821,0x3C01800F,0xAC22F048\n\t"
-    ".word 0x24020001,0x10620016,0x28620002,0x10400005\n\t"
-    ".word 0x24020004,0x10600007,0x00000000,0x080254A4\n\t"
-    ".word 0x00000000,0x10620009,0x00000000,0x080254A4\n\t"
-    ".word 0x00000000,0x3C02800F,0x8C42F04C,0x00000000\n\t"
-    ".word 0x10400002,0x00001821,0x24030003,0x3C02800F\n\t"
-    ".word 0x2442F094,0xAC430004,0x080254AF,0x24020001\n\t"
-    ".word 0x3C02800F,0x8C42F044,0x00000000,0x24420001\n\t"
-    ".word 0x3C01800F,0xAC22F044,0x28420010,0x10400003\n\t"
-    ".word 0x00000000,0x080254AE,0xAE000000,0x3C04800F\n\t"
-    ".word 0x8C84F048,0x0C02598F,0x00000000,0x00402021\n\t"
-    ".word 0x24020001,0x3C03800F,0x2463F094,0x080254AF\n\t"
-    ".word 0xAC640004,0x00001021,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int state;
+    volatile int result;
+    int f8;
+    int chan;
+} CardState;
+
+extern CardState D_800EF094;
+extern int D_800EF044;
+extern int D_800EF048;
+extern int D_800EF04C;
+extern int func_80094E80(int *state);
+extern void func_8009F5AC(int (*)(int *));
+extern void func_80096AF0(void);
+extern int func_8009F6BC(int);
+extern int func_80096DE4(void);
+extern void func_80096CD0(void);
+extern int func_8009F6FC(int);
+extern int func_80096DA8(void);
+extern int func_80096BF8(void);
+extern int func_8009663C(int);
+
+int func_800950D4(int *state)
+{
+    int r;
+    int st;
+    int res;
+
+    switch (*state) {
+    case 0:
+        D_800EF04C = 0;
+        D_800EF048 = 0;
+        D_800EF044 = 0;
+        func_8009F5AC(func_80094E80);
+        *state = 10;
+        break;
+    case 10:
+        st = D_800EF094.result;
+        if (st != 0) {
+            if (st != 3) {
+                return 1;
+            }
+            D_800EF04C = 1;
+            func_80096AF0();
+            func_8009F6BC(D_800EF094.chan);
+            *state = 21;
+        } else {
+            *state = 30;
+        }
+        break;
+    case 21:
+        if (func_80096DE4() == 0) {
+            return 0;
+        }
+        func_80096CD0();
+        *state = 30;
+    case 30:
+        func_80096AF0();
+        func_8009F6FC(D_800EF094.chan);
+        (*state)++;
+        break;
+    case 31:
+        if (func_80096DA8() == 0) {
+            return 0;
+        }
+        r = func_80096BF8();
+        D_800EF048 = r;
+        switch (r) {
+        case 0:
+            __asm__("" : "=r"(r) : "0"(r));
+            r = 0;
+            if (D_800EF04C != 0) {
+                r = 3;
+            }
+        case 4:
+            {
+                CardState *q = &D_800EF094;
+
+                __asm__("" : "=r"(q) : "0"(q));
+                q->result = r;
+            }
+            return 1;
+        case 1:
+            if (++D_800EF044 < 16) {
+                *state = 0;
+                break;
+            }
+        default:
+            res = func_8009663C(D_800EF048);
+            {
+                CardState *q = &D_800EF094;
+
+                __asm__("" : "=r"(q) : "0"(q));
+                q->result = res;
+            }
+            return 1;
+        }
+        break;
+    }
+    return 0;
+}

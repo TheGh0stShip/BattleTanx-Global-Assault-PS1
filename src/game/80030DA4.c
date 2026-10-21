@@ -1,65 +1,222 @@
-asm(".text\n\t.globl func_80030DA4\nfunc_80030DA4:\n\t"
-    ".word 0x27BDFFA0,0xAFA40060,0x24040001,0xAFA50064\n\t"
-    ".word 0x24050040,0xAFBF005C,0xAFBE0058,0xAFB70054\n\t"
-    ".word 0xAFB60050,0xAFB5004C,0xAFB40048,0xAFB30044\n\t"
-    ".word 0xAFB20040,0xAFB1003C,0x0C008DF4,0xAFB00038\n\t"
-    ".word 0x00409821,0x126000DF,0x27A40010,0x00002821\n\t"
-    ".word 0x0C022A92,0x2406000C,0x27B00020,0x02002021\n\t"
-    ".word 0x00002821,0x0C022A92,0x2406000C,0x27A60010\n\t"
-    ".word 0x8FA80060,0x8FA40064,0x8D050004,0x0C0098D0\n\t"
-    ".word 0x24070001,0x02003021,0x8FA90060,0x8FA40064\n\t"
-    ".word 0x8D250008,0x0C0098D0,0x24070001,0xAE600014\n\t"
-    ".word 0x97B10020,0x97A20010,0x97B00024,0x02228823\n\t"
-    ".word 0x00118C00,0x00118883,0x97A20014,0x02202021\n\t"
-    ".word 0x02028023,0x00108400,0x00108083,0x0C022B8C\n\t"
-    ".word 0x02002821,0x30520FFF,0x02402021,0x00121100\n\t"
-    ".word 0x0C022B58,0xA6620020,0x00510018,0x00004012\n\t"
-    ".word 0x00004810,0x00084302,0x00094D00,0x01094025\n\t"
-    ".word 0x01008821,0x0C022B30,0x02402021,0x00500018\n\t"
-    ".word 0x00004012,0x00001810,0x00084302,0x00031D00\n\t"
-    ".word 0x01034025,0x01001021,0x02228821,0xAE710010\n\t"
-    ".word 0x87A20010,0xAFA00030,0x00021380,0xAE620008\n\t"
-    ".word 0x87A40014,0x8E620010,0x2403F000,0xAE630018\n\t"
-    ".word 0xAE600028,0x24421000,0x00042380,0xAE62001C\n\t"
-    ".word 0xAE64000C,0x8FA90060,0x00000000,0x9523000E\n\t"
-    ".word 0x3C02800C,0xA663003A,0x91230001,0x24020002\n\t"
-    ".word 0xA2620039,0xAE60003C,0xAE600024,0xA2630038\n\t"
-    ".word 0x9522000C,0xAE60002C,0xAE600034,0xA6620030\n\t"
-    ".word 0x8FA80030,0x8FA90060,0x00081080,0x01221021\n\t"
-    ".word 0x8C430010,0x2402FFFF,0x1062007A,0x00000000\n\t"
-    ".word 0x8FA80064,0x00000000,0x8D020000,0x00000000\n\t"
-    ".word 0x8C500010,0x00000000,0x02038021,0x96050004\n\t"
-    ".word 0x0C0098C0,0x01002021,0x8FA40064,0x9605000A\n\t"
-    ".word 0x0C0098C0,0x0040F021,0x0040A821,0x8FC70008\n\t"
-    ".word 0x8FA40064,0x94E3000C,0x94E60004,0x96050006\n\t"
-    ".word 0x00661823,0x00031C00,0x00031883,0xAFA30034\n\t"
-    ".word 0x86060002,0x94E2000E,0x94E30006,0x92140001\n\t"
-    ".word 0x00068B80,0x00431023,0x00021400,0x0C0098C0\n\t"
-    ".word 0x0002B883,0x8FA40064,0x96050008,0x0C0098C0\n\t"
-    ".word 0x0040B021,0x00409021,0x92030001,0x24020004\n\t"
-    ".word 0x14620009,0x00008021,0x8EA20008,0x00000000\n\t"
-    ".word 0x9443000E,0x94420006,0x00000000,0x00621823\n\t"
-    ".word 0x00031C00,0x00038083,0x24040002,0x0C008DF4\n\t"
-    ".word 0x24050040,0x00402021,0x10800042,0x3402FFFF\n\t"
-    ".word 0xA4820020,0x8E620028,0x8E630024,0x00000000\n\t"
-    ".word 0x00431021,0xAC820010,0x8E620024,0x00000000\n\t"
-    ".word 0x00511021,0xAE620024,0xA4940022,0x3283FFFF\n\t"
-    ".word 0xAC97001C,0xAC910018,0xAC9E0024,0xAC920030\n\t"
-    ".word 0xAC960028,0xAC95002C,0xAC80000C,0xAC930008\n\t"
-    ".word 0x8FA90034,0x2C620007,0xAC890014,0x10400018\n\t"
-    ".word 0xAC90003C,0x00031080,0x3C08800C,0x2508DFCC\n\t"
-    ".word 0x00481021,0x8C420000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C020003,0x0800C436,0x34420D40\n\t"
-    ".word 0x24020064,0xAC820038,0x0800C441,0xAC820034\n\t"
-    ".word 0x24090014,0x01204021,0x0800C440,0xAC890038\n\t"
-    ".word 0x24090014,0xAC890038,0x01204021,0xAC880034\n\t"
-    ".word 0x8E62002C,0x00000000,0x14400003,0x00401821\n\t"
-    ".word 0x0800C452,0xAE64002C,0x8C62000C,0x00000000\n\t"
-    ".word 0x10400007,0x00000000,0x8C63000C,0x00000000\n\t"
-    ".word 0x8C62000C,0x00000000,0x1440FFFB,0x00000000\n\t"
-    ".word 0xAC64000C,0x8FA90030,0x00000000,0x25290001\n\t"
-    ".word 0x29220006,0x1440FF7A,0xAFA90030,0x24020064\n\t"
-    ".word 0xA2620032,0x8FBF005C,0x8FBE0058,0x8FB70054\n\t"
-    ".word 0x8FB60050,0x8FB5004C,0x8FB40048,0x8FB30044\n\t"
-    ".word 0x8FB20040,0x8FB1003C,0x8FB00038,0x03E00008\n\t"
-    ".word 0x27BD0060\n");
+typedef struct Spot {
+    int x;
+    int z;
+    short angle;
+    unsigned char used;
+    char pad;
+} Spot;
+
+typedef struct Bounds {
+    char pad00[4];
+    unsigned short x0;
+    unsigned short z0;
+    char pad08[4];
+    unsigned short x1;
+    unsigned short z1;
+} Bounds;
+
+typedef struct Shape {
+    char pad00[8];
+    Bounds *bounds;
+} Shape;
+
+typedef struct Seg {
+    unsigned char pad0;
+    unsigned char kind;
+    short length;
+    unsigned short shape;
+    unsigned short rail;
+    unsigned short left;
+    unsigned short right;
+} Seg;
+
+typedef struct Level {
+    struct {
+        char pad00[0x10];
+        char *segs;
+    } *data;
+} Level;
+
+typedef struct TrackDef {
+    char pad0;
+    unsigned char type;
+    char pad02[2];
+    int start_key;
+    int end_key;
+    unsigned short speed;
+    unsigned short sound;
+    int segs[6];
+} TrackDef;
+
+typedef struct Piece Piece;
+
+typedef struct Track {
+    char pad00[8];
+    int x;
+    int z;
+    int length;
+    int unk14;
+    int lo;
+    int hi;
+    char pad20[0x20 - 0x20];
+    unsigned short angle;
+    char pad22[2];
+    int pos;
+    int base;
+    Piece *pieces;
+    unsigned short speed;
+    unsigned char pace;
+    char pad33;
+    int unk34;
+    unsigned char type;
+    unsigned char state;
+    unsigned short sound;
+    int unk3C;
+} Track;
+
+struct Piece {
+    char pad00[8];
+    Track *track;
+    Piece *next;
+    int start;
+    int width;
+    int length;
+    int depth;
+    unsigned short flag;
+    unsigned short kind;
+    void *shape;
+    void *rail;
+    void *right;
+    void *left;
+    int rate;
+    int limit;
+    int offset;
+};
+
+void *func_800237D0(int, int);
+void func_8008AA48(void *, int, int);
+int func_80026340(Level *, int, Spot *, int);
+void *func_80026300(Level *, int);
+int func_8008AE30(int, int);
+int func_8008AD60(int);
+int func_8008ACC0(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80030DA4(TrackDef *def, Level *lvl) {
+    Track *t = func_800237D0(1, 64);
+    Spot start;
+    Spot end;
+    int i;
+    int width;
+    int dx, dz;
+    int angle;
+
+    if (t == 0) {
+        return;
+    }
+    func_8008AA48(&start, 0, sizeof(start));
+    func_8008AA48(&end, 0, sizeof(end));
+    func_80026340(lvl, def->start_key, &start, 1);
+    func_80026340(lvl, def->end_key, &end, 1);
+    t->unk14 = 0;
+    dx = (short)(end.x - start.x) << 14;
+    dz = (short)(end.z - start.z) << 14;
+    angle = func_8008AE30(dx, dz) & 0xFFF;
+    t->angle = angle << 4;
+    t->length = fixed_mul(func_8008AD60(angle), dx) + fixed_mul(func_8008ACC0(angle), dz);
+    t->x = (short)start.x << 14;
+    t->z = (short)start.z << 14;
+    t->lo = -4096;
+    t->hi = t->length + 4096;
+    t->base = 0;
+    t->sound = def->sound;
+    t->type = def->type;
+    t->state = 2;
+    t->unk3C = 0;
+    t->pos = 0;
+    t->speed = def->speed;
+    t->pieces = 0;
+    t->unk34 = 0;
+    for (i = 0; i < 6; i++) {
+        Seg *seg;
+        void *shape, *rail, *left, *right;
+        Bounds *b;
+        int length, depth, offset;
+        unsigned short kind;
+        Piece *p;
+
+        if (def->segs[i] == -1) {
+            continue;
+        }
+        seg = (Seg *)(lvl->data->segs + def->segs[i]);
+        shape = func_80026300(lvl, seg->shape);
+        right = func_80026300(lvl, seg->right);
+        b = ((Shape *)shape)->bounds;
+        width = (short)(b->x1 - b->x0) << 14;
+        length = seg->length << 14;
+        depth = (short)(b->z1 - b->z0) << 14;
+        kind = seg->kind;
+        rail = func_80026300(lvl, seg->rail);
+        left = func_80026300(lvl, seg->left);
+        if (seg->kind == 4) {
+            Bounds *rb = ((Shape *)right)->bounds;
+            offset = (short)(rb->z1 - rb->z0) << 14;
+        } else {
+            offset = 0;
+        }
+        p = func_800237D0(2, 64);
+        if (p == 0) {
+            continue;
+        }
+        p->flag = 0xFFFF;
+        p->start = t->base + t->pos;
+        t->pos += length;
+        p->kind = kind;
+        p->depth = depth;
+        p->length = length;
+        p->shape = shape;
+        p->left = left;
+        p->rail = rail;
+        p->right = right;
+        p->next = 0;
+        p->track = t;
+        p->width = width;
+        p->offset = offset;
+        switch (p->kind) {
+        case 0:
+        case 2:
+        case 6:
+            p->rate = p->limit = 200000;
+            break;
+        case 3:
+            p->rate = p->limit = 100;
+            break;
+        case 1:
+            p->rate = p->limit = 20;
+            break;
+        case 4:
+            p->limit = 20;
+            p->rate = 20;
+            break;
+        }
+        if (t->pieces == 0) {
+            t->pieces = p;
+        } else {
+            Piece *q = t->pieces;
+            while (q->next != 0) {
+                q = q->next;
+            }
+            q->next = p;
+        }
+    }
+    t->pace = 100;
+}

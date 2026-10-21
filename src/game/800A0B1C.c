@@ -1,31 +1,63 @@
-asm(".text\n\t.globl func_800A0B1C\nfunc_800A0B1C:\n\t"
-    ".word 0x27BDFFE8,0x3C04800C,0x24845F74,0xAFBF0010\n\t"
-    ".word 0x0C025BE7,0x00000000,0x3C04800C,0x24845F80\n\t"
-    ".word 0x3C05800C,0x0C0250EC,0x24A59008,0x3C01800C\n\t"
-    ".word 0xA0208D45,0x3C01800C,0xA0208D44,0x3C01800C\n\t"
-    ".word 0xAC208D28,0x3C01800C,0xAC208D24,0x3C01800C\n\t"
-    ".word 0xAC208D38,0x3C01800C,0x0C0250FC,0xAC208D34\n\t"
-    ".word 0x3C05800A,0x24A5105C,0x0C025108,0x24040002\n\t"
-    ".word 0x3C03800C,0x8C638FEC,0x24020001,0xA0620000\n\t"
-    ".word 0x3C02800C,0x8C428FF8,0x00000000,0x90420000\n\t"
-    ".word 0x00000000,0x30420007,0x10400016,0x24040001\n\t"
-    ".word 0x24030007,0x3C02800C,0x8C428FEC,0x00000000\n\t"
-    ".word 0xA0440000,0x3C02800C,0x8C428FF8,0x00000000\n\t"
-    ".word 0xA0430000,0x3C02800C,0x8C428FF4,0x00000000\n\t"
-    ".word 0xA0430000,0x3C02800C,0x8C428FF8,0x00000000\n\t"
-    ".word 0x90420000,0x00000000,0x30420007,0x1440FFED\n\t"
-    ".word 0x00000000,0x24040001,0x00002821,0x3C03800C\n\t"
-    ".word 0x24639004,0xA0600002,0x90620002,0x00003021\n\t"
-    ".word 0xA0620001,0x3C07800C,0x8CE78FEC,0x24020002\n\t"
-    ".word 0xA0620000,0xA0E00000,0x3C02800C,0x8C428FF8\n\t"
-    ".word 0x00003821,0xA0400000,0x3C03800C,0x8C638FFC\n\t"
-    ".word 0x24021325,0x0C02811E,0xAC620000,0x3C02800C\n\t"
-    ".word 0x8C428D34,0x00000000,0x30420010,0x10400005\n\t"
-    ".word 0x24040001,0x00002821,0x00003021,0x0C02811E\n\t"
-    ".word 0x00003821,0x2404000A,0x00002821,0x00003021\n\t"
-    ".word 0x0C02811E,0x00003821,0x14400011,0x2402FFFF\n\t"
-    ".word 0x2404000C,0x00002821,0x00003021,0x0C02811E\n\t"
-    ".word 0x00003821,0x14400009,0x00002021,0x0C027FCC\n\t"
-    ".word 0x00002821,0x00402021,0x24030002,0x14830004\n\t"
-    ".word 0x2402FFFF,0x0802833B,0x00001021,0x2402FFFF\n\t"
-    ".word 0x8FBF0010,0x27BD0018,0x03E00008,0x00000000\n");
+typedef unsigned char u_char;
+
+extern volatile u_char CD_status[];
+extern u_char CD_mode;
+extern u_char CD_com;
+extern volatile u_char *CD_reg0;
+extern volatile u_char *CD_reg2;
+extern volatile u_char *CD_reg3;
+extern volatile int *CD_comdelay;
+extern void (*CD_cbready)(int, u_char *);
+extern void (*CD_cbsync)(int, u_char *);
+extern int D_800B8D38;
+extern int D_800B8D34;
+extern char D_800C5F74[]; extern char D_800C5F80[]; extern u_char D_800B9008[];
+
+int printf(const char *, ...);
+int puts(const char *);
+int ResetCallback(void);
+void *InterruptCallback(int, void (*)(void));
+void CD_intr(void);
+int CD_sync(int, u_char *);
+int func_800A0478(u_char com, u_char *param, u_char *result, int async);
+
+int func_800A0B1C(void)
+{
+        register int zero asm("$0");
+
+    puts(D_800C5F74);
+    printf(D_800C5F80, D_800B9008);
+    CD_com = 0;
+    CD_mode = 0;
+    CD_cbready = 0;
+    CD_cbsync = 0;
+    D_800B8D38 = 0;
+    D_800B8D34 = 0;
+    ResetCallback();
+    InterruptCallback(2, CD_intr);
+    *CD_reg0 = 1;
+    while (*CD_reg3 & 7) {
+        *CD_reg0 = 1;
+        *CD_reg3 = 7;
+        *CD_reg2 = 7;
+    }
+    {
+        volatile u_char *status = CD_status;
+
+        status[1] = status[2] = 0;
+        status[0] = 2;     }
+    *CD_reg0 = 0;
+    *CD_reg3 = 0;
+    *CD_comdelay = 0x1325;
+    func_800A0478(1, (u_char *)zero, (u_char *)zero, zero);     if (D_800B8D34 & 0x10) {
+        func_800A0478(1, (u_char *)zero, (u_char *)zero, zero);
+    }
+    if (func_800A0478(10, (u_char *)zero, (u_char *)zero, zero)) {         return -1;
+    }
+    if (func_800A0478(12, (u_char *)zero, (u_char *)zero, zero)) {         return -1;
+    }
+    if (CD_sync(zero, (u_char *)zero) != 2) {
+        return -1;
+    }
+    return 0;
+}

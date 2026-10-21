@@ -1,104 +1,197 @@
-asm(".text\n\t.globl func_8009B2A8\nfunc_8009B2A8:\n\t"
-    ".word 0x27BDFF90,0x8FA30080,0xAFB60060,0x0080B021\n\t"
-    ".word 0xAFB70064,0x00A0B821,0xAFBE0068,0x00C0F021\n\t"
-    ".word 0xAFBF006C,0xAFB5005C,0xAFB40058,0xAFB30054\n\t"
-    ".word 0xAFB20050,0xAFB1004C,0x14E00003,0xAFB00048\n\t"
-    ".word 0x1060000A,0x00000000,0x3C02800F,0xAC47F19C\n\t"
-    ".word 0x2442F19C,0xAC430004,0x90E40000,0x24030001\n\t"
-    ".word 0xAC43000C,0xAC400014,0xA0440008,0x3C03800F\n\t"
-    ".word 0x2464F19C,0x90820008,0x00000000,0x1040016D\n\t"
-    ".word 0x00009821,0x0060A021,0x00808821,0x0000A821\n\t"
-    ".word 0x26E2FFFF,0x0262102B,0x10400041,0x02A07021\n\t"
-    ".word 0x92220008,0x00000000,0x1040003D,0x02763021\n\t"
-    ".word 0x92250008,0x24020025,0x30A400FF,0x14820005\n\t"
-    ".word 0x2402000A,0x8E220014,0x00000000,0x10400012\n\t"
-    ".word 0x2402000A,0x14820004,0x00000000,0x13C00002\n\t"
-    ".word 0x00000000,0x24150001,0x92220008,0x26730001\n\t"
-    ".word 0xA0C20000,0x8E23000C,0x8E82F19C,0x24C60001\n\t"
-    ".word 0x00431021,0x90420000,0x24630001,0xAE23000C\n\t"
-    ".word 0x08026D06,0xA2220008,0x8E82F19C,0x8E23000C\n\t"
-    ".word 0x00000000,0x00431021,0x90420000,0x00000000\n\t"
-    ".word 0x1444000E,0x00000000,0xA0C50000,0x24C60001\n\t"
-    ".word 0x26730001,0x8E24000C,0x8E83F19C,0x24820001\n\t"
-    ".word 0x00621821,0xAE22000C,0x90620000,0x24840002\n\t"
-    ".word 0xAE24000C,0x08026D06,0xA2220008,0x240E0001\n\t"
-    ".word 0x26E2FFFF,0x0262102B,0x10400009,0x00000000\n\t"
-    ".word 0x92220008,0x00000000,0x10400005,0x00000000\n\t"
-    ".word 0x16A00003,0x00000000,0x11C0FFC5,0x00000000\n\t"
-    ".word 0x00003021,0x02D31021,0xA0400000,0x11C000B1\n\t"
-    ".word 0xA3A00010,0x00C06021,0x00C06821,0x24050001\n\t"
-    ".word 0x240B002D,0x240A002B,0x24090030,0x24080020\n\t"
-    ".word 0x24070023,0x8E23000C,0x8E82F19C,0x92240008\n\t"
-    ".word 0x00431021,0x00651821,0xA3A40010,0x90420000\n\t"
-    ".word 0x08026D34,0x27A40010,0x2CA20032,0x10400017\n\t"
-    ".word 0x00851021,0x92230008,0x00000000,0xA0430000\n\t"
-    ".word 0x8E23000C,0x8E82F19C,0x24A50001,0x00431021\n\t"
-    ".word 0x90420000,0x24630001,0xAE23000C,0xA2220008\n\t"
-    ".word 0x304200FF,0x104BFFF0,0x00000000,0x104AFFEE\n\t"
-    ".word 0x00000000,0x1049FFEC,0x00000000,0x1048FFEA\n\t"
-    ".word 0x00000000,0x1047FFE9,0x2CA20032,0x92220008\n\t"
-    ".word 0x00000000,0x2442FFD0,0x2C42000A,0x10400015\n\t"
-    ".word 0x00000000,0x27A40010,0x2CA20032,0x10400011\n\t"
-    ".word 0x00851021,0x92230008,0x00000000,0xA0430000\n\t"
-    ".word 0x8E23000C,0x8E82F19C,0x00000000,0x00431021\n\t"
-    ".word 0x90420000,0x24630001,0xAE23000C,0xA2220008\n\t"
-    ".word 0x2442FFD0,0x304200FF,0x2C42000A,0x1440FFEE\n\t"
-    ".word 0x24A50001,0x92230008,0x2402002E,0x14620019\n\t"
-    ".word 0x2CA20032,0x10400037,0x27A40010,0x08026D67\n\t"
-    ".word 0x00851021,0x2CA20032,0x10400032,0x00851021\n\t"
-    ".word 0x92230008,0x00000000,0xA0430000,0x8E23000C\n\t"
-    ".word 0x8E82F19C,0x00000000,0x00431021,0x90420000\n\t"
-    ".word 0x24630001,0xAE23000C,0xA2220008,0x2442FFD0\n\t"
-    ".word 0x304200FF,0x2C42000A,0x1440FFEE,0x24A50001\n\t"
-    ".word 0x2CA20032,0x1040001F,0x24020068,0x92240008\n\t"
-    ".word 0x00000000,0x308300FF,0x1462000B,0x2402006C\n\t"
-    ".word 0x240C0001,0x03A51021,0xA0440010,0x8E23000C\n\t"
-    ".word 0x8E82F19C,0x00AC2821,0x00431021,0x90420000\n\t"
-    ".word 0x08026D95,0x006C1821,0x10620003,0x2402004C\n\t"
-    ".word 0x1462000C,0x00000000,0x240D0001,0x03A51021\n\t"
-    ".word 0xA0440010,0x8E23000C,0x8E82F19C,0x00AD2821\n\t"
-    ".word 0x00431021,0x90420000,0x006D1821,0xAE23000C\n\t"
-    ".word 0xA2220008,0x92220008,0x00000000,0x2443FFBD\n\t"
-    ".word 0x2C620036,0x1040001A,0x3C02800C,0x24425968\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x08026DB6,0x24060001\n\t"
-    ".word 0x1580000F,0x24060002,0x11A0000D,0x24060003\n\t"
-    ".word 0x08026DB6,0x24060004,0x240C0001,0x15800008\n\t"
-    ".word 0x24060005,0x11A00006,0x24060006,0x08026DB6\n\t"
-    ".word 0x24060007,0x08026DB6,0x24060008,0x24060009\n\t"
-    ".word 0x92230008,0x00000000,0x1060000C,0x2CA20032\n\t"
-    ".word 0x1040000A,0x03A51021,0xA0430010,0x8E23000C\n\t"
-    ".word 0x8E82F19C,0x24A50001,0x00431021,0x90420000\n\t"
-    ".word 0x24630001,0xAE23000C,0xA2220008,0x03A51021\n\t"
-    ".word 0xA0400010,0x2CC2000A,0x10400040,0x00009021\n\t"
-    ".word 0x3C02800C,0x24425A40,0x00061880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8E220004,0x00000000,0x24420004,0xAE220004\n\t"
-    ".word 0x9046FFFC,0x08026DE5,0x26240018,0x8E220004\n\t"
-    ".word 0x00000000,0x24420004,0xAE220004,0x8446FFFC\n\t"
-    ".word 0x08026DE5,0x26240018,0x8E220004,0x26240018\n\t"
-    ".word 0x24420004,0xAE220004,0x8C46FFFC,0x0C022BEC\n\t"
-    ".word 0x27A50010,0x08026E12,0x00409021,0x8E220004\n\t"
-    ".word 0x00000000,0x24420004,0xAE220004,0x8C45FFFC\n\t"
-    ".word 0x00000000,0x10A00022,0x00000000,0x8E82F19C\n\t"
-    ".word 0x92230008,0x8E24000C,0xAE85F19C,0xAE220014\n\t"
-    ".word 0xA2230009,0xAE240010,0x90A30000,0x24020001\n\t"
-    ".word 0xAE22000C,0x08026E12,0xA2230008,0x02D38021\n\t"
-    ".word 0x02002021,0x0C023681,0x27A50010,0x0C024061\n\t"
-    ".word 0x02002021,0x02629821,0x02D38021,0x02002021\n\t"
-    ".word 0x3C05800C,0x08026E0D,0x24A55948,0x11C00008\n\t"
-    ".word 0x27A50010,0x02D38021,0x02002021,0x0C023681\n\t"
-    ".word 0x00000000,0x0C024061,0x02002021,0x02629821\n\t"
-    ".word 0x1240000D,0x26220018,0x8E86F19C,0xAE82F19C\n\t"
-    ".word 0x92230008,0x8E24000C,0x92250018,0x24020001\n\t"
-    ".word 0xAE22000C,0xAE260014,0xA2230009,0xAE240010\n\t"
-    ".word 0x08026E2E,0xA2250008,0x92220008,0x00000000\n\t"
-    ".word 0x1440000B,0x00000000,0x8E240014,0x00000000\n\t"
-    ".word 0x10800007,0x00000000,0x92220009,0x8E230010\n\t"
-    ".word 0xAE84F19C,0xAE200014,0xA2220008,0xAE23000C\n\t"
-    ".word 0x16A00008,0x26E2FFFF,0x0262102B,0x10400006\n\t"
-    ".word 0x02D31021,0x92220008,0x00000000,0x1440FE98\n\t"
-    ".word 0x0000A821,0x02D31021,0xA0400000,0x02601021\n\t"
-    ".word 0x8FBF006C,0x8FBE0068,0x8FB70064,0x8FB60060\n\t"
-    ".word 0x8FB5005C,0x8FB40058,0x8FB30054,0x8FB20050\n\t"
-    ".word 0x8FB1004C,0x8FB00048,0x03E00008,0x27BD0070\n");
+typedef struct {
+    const unsigned char *str;
+    char *ap;
+    unsigned char ch;
+    unsigned char saved_ch;
+    int pos;
+    int saved_pos;
+    const unsigned char *saved_str;
+    unsigned char buf[256];
+} FormatState;
+
+extern FormatState D_800EF19C;
+extern int func_8008AFB0(unsigned char *dst, const unsigned char *fmt, ...);
+extern unsigned char *func_8008DA04(unsigned char *dst, const unsigned char *src);
+extern int func_80090184(const unsigned char *s);
+
+int func_8009B2A8(unsigned char *out, unsigned int size, int stop_at_newline,
+                  const unsigned char *fmt, char *ap)
+{
+    unsigned int n;
+    int done;
+    int in_spec;
+    unsigned char spec[50];
+    unsigned int len;
+    int type;
+    int is_short;
+    int is_long;
+    int expanded;
+
+    if (fmt != 0 || ap != 0) {
+        D_800EF19C.str = fmt;
+        D_800EF19C.ap = ap;
+        D_800EF19C.ch = fmt[0];
+        D_800EF19C.pos = 1;
+        D_800EF19C.saved_str = 0;
+    }
+    n = 0;
+    if (D_800EF19C.ch == 0) {
+        goto end;
+    }
+    do {
+        done = 0;
+        in_spec = 0;
+        while (n < size - 1 && D_800EF19C.ch != 0 && !done && !in_spec) {
+            unsigned char c = D_800EF19C.ch;
+            if (c != '%' || D_800EF19C.saved_str != 0) {
+                if (c == '\n' && stop_at_newline) {
+                    done = 1;
+                }
+                out[n] = D_800EF19C.ch;
+                n++;
+                D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+            } else if (D_800EF19C.str[D_800EF19C.pos] == c) {
+                out[n] = c;
+                n++;
+                D_800EF19C.pos++;
+                D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+            } else {
+                in_spec = 1;
+            }
+        }
+        type = 0;
+        out[n] = 0;
+        spec[0] = 0;
+        if (in_spec) {
+            is_short = 0;
+            is_long = 0;
+            spec[0] = D_800EF19C.ch;
+            len = 1;
+            D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+            {
+                unsigned char *q = spec;
+
+                while ((D_800EF19C.ch == '-' || D_800EF19C.ch == '+' || D_800EF19C.ch == '0'
+                        || D_800EF19C.ch == ' ' || D_800EF19C.ch == '#') && len < 50) {
+                    q[len] = D_800EF19C.ch;
+                    len++;
+                    D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+                }
+            }
+            while (D_800EF19C.ch >= '0' && D_800EF19C.ch <= '9' && len < 50) {
+                spec[len] = D_800EF19C.ch;
+                len++;
+                D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+            }
+            if (D_800EF19C.ch == '.' && len < 50) {
+                unsigned char *q = spec;
+                q[len] = D_800EF19C.ch;
+                len++;
+                D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+                while (D_800EF19C.ch >= '0' && D_800EF19C.ch <= '9' && len < 50) {
+                    q[len] = D_800EF19C.ch;
+                    len++;
+                    D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+                }
+            }
+            if (len < 50) {
+                if (D_800EF19C.ch == 'h') {
+                    is_short = 1;
+                    spec[len] = D_800EF19C.ch;
+                    len++;
+                    D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+                } else if (D_800EF19C.ch == 'l' || D_800EF19C.ch == 'L') {
+                    is_long = 1;
+                    spec[len] = D_800EF19C.ch;
+                    len++;
+                    D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+                }
+            }
+            switch (D_800EF19C.ch) {
+            case 'c': case 'C':
+                type = 1;
+                break;
+            case 'd': case 'i': case 'o': case 'u': case 'x': case 'X':
+                if (is_short) type = 2;
+                else if (is_long) type = 4;
+                else type = 3;
+                break;
+            case 'f':
+                is_short = 1;
+            case 'e': case 'E': case 'g': case 'G':
+                if (is_short) type = 5;
+                else if (is_long) type = 7;
+                else type = 6;
+                break;
+            case 'n': case 'p':
+                type = 8;
+                break;
+            case 's': case 'S':
+                type = 9;
+                break;
+            }
+            if (D_800EF19C.ch != 0 && len < 50) {
+                spec[len] = D_800EF19C.ch;
+                len++;
+                D_800EF19C.ch = D_800EF19C.str[D_800EF19C.pos++];
+            }
+            spec[len] = 0;
+        }
+        expanded = 0;
+        switch (type) {
+        case 1:
+                        expanded = *(unsigned char *)((D_800EF19C.ap += 4) - 4);
+            expanded = func_8008AFB0(D_800EF19C.buf, spec, expanded);
+            break;
+        case 2:
+            expanded = *(short *)((D_800EF19C.ap += 4) - 4);
+            expanded = func_8008AFB0(D_800EF19C.buf, spec, expanded);
+            break;
+        case 3: case 4: case 8:
+            expanded = *(int *)((D_800EF19C.ap += 4) - 4);
+            expanded = func_8008AFB0(D_800EF19C.buf, spec, expanded);
+            break;
+        case 9: {
+            const unsigned char *s = *(const unsigned char **)((D_800EF19C.ap += 4) - 4);
+            if (s != 0) {
+                D_800EF19C.saved_str = D_800EF19C.str;
+                D_800EF19C.str = s;
+                D_800EF19C.saved_ch = D_800EF19C.ch;
+                D_800EF19C.saved_pos = D_800EF19C.pos;
+                D_800EF19C.ch = s[0];
+                D_800EF19C.pos = 1;
+            }
+            break;
+        }
+        case 5: case 6: case 7:
+            func_8008DA04(out + n, spec);
+            n += func_80090184(out + n);
+            func_8008DA04(out + n, (const unsigned char *)"<double types not supported>");
+            n += func_80090184(out + n);
+            break;
+        case 0:
+        default:
+            if (in_spec) {
+                func_8008DA04(out + n, spec);
+                n += func_80090184(out + n);
+            }
+            break;
+        }
+        if (expanded != 0) {
+            D_800EF19C.saved_str = D_800EF19C.str;
+            D_800EF19C.str = D_800EF19C.buf;
+            D_800EF19C.saved_ch = D_800EF19C.ch;
+            D_800EF19C.saved_pos = D_800EF19C.pos;
+            D_800EF19C.pos = 1;
+            D_800EF19C.ch = D_800EF19C.buf[0];
+        } else if (D_800EF19C.ch == 0 && D_800EF19C.saved_str != 0) {
+            D_800EF19C.str = D_800EF19C.saved_str;
+            D_800EF19C.saved_str = 0;
+            D_800EF19C.ch = D_800EF19C.saved_ch;
+            D_800EF19C.pos = D_800EF19C.saved_pos;
+        }
+    } while (!done && n < size - 1 && D_800EF19C.ch != 0);
+end:
+    out[n] = 0;
+    return n;
+}

@@ -1,29 +1,81 @@
-asm(".text\n\t.globl func_8001AED4\nfunc_8001AED4:\n\t"
-    ".word 0x00807021,0x00A06021,0x00C06821,0x3402CB20\n\t"
-    ".word 0x3C03800C,0x246362B0,0x8FA40010,0x8FA50014\n\t"
-    ".word 0x8FAB0018,0x8FAA001C,0x8FA60020,0x8FA80024\n\t"
-    ".word 0x8FA90028,0x00621821,0xA46C0010,0xA46D0012\n\t"
-    ".word 0xA4670014,0x00051400,0x00021403,0x04410002\n\t"
-    ".word 0x00403821,0x00073823,0xA4640016,0x00042400\n\t"
-    ".word 0x00042403,0x04810002,0x00000000,0x00042023\n\t"
-    ".word 0x00E4102A,0xA4650018,0xA46B001A,0xA46A001C\n\t"
-    ".word 0xA466001E,0xA4680020,0x10400002,0xA4690024\n\t"
-    ".word 0x00803821,0x000A1400,0x00021403,0x04410002\n\t"
-    ".word 0x00402021,0x00042023,0x000B1400,0x00021403\n\t"
-    ".word 0x04410002,0x00402821,0x00052823,0x0085102A\n\t"
-    ".word 0x10400003,0x00041400,0x00A02021,0x00041400\n\t"
-    ".word 0x00022403,0x04810002,0x00803021,0x00063023\n\t"
-    ".word 0x00071400,0x00021403,0x04410002,0x00402821\n\t"
-    ".word 0x00052823,0x00C5102A,0x10400002,0x00000000\n\t"
-    ".word 0x00A03021,0x04810002,0x00000000,0x00042023\n\t"
-    ".word 0x00A4102A,0x10400003,0x00041040,0x00A02021\n\t"
-    ".word 0x00041040,0x00441021,0x04410002,0x00000000\n\t"
-    ".word 0x24420007,0x000210C3,0x00C21021,0xA4620022\n\t"
-    ".word 0x8FA2002C,0xAC6E0004,0xAC620000,0x3C03800C\n\t"
-    ".word 0x24656290,0x000C1400,0x84636290,0x00021403\n\t"
-    ".word 0x00432023,0x000D1400,0x84A30002,0x00021403\n\t"
-    ".word 0x0480000F,0x00431823,0x0460000D,0x00000000\n\t"
-    ".word 0x94A20008,0x00000000,0x00021280,0x0082102A\n\t"
-    ".word 0x10400007,0x00000000,0x94A2000A,0x00000000\n\t"
-    ".word 0x00021280,0x0062102A,0x14400003,0x00000000\n\t"
-    ".word 0x03E00008,0x3402FFFF,0x03E00008,0x24020514\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short y_low;
+    short y_high;
+    short radius;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Grid {
+    short x;
+    short z;
+    int pad4;
+    unsigned short width;
+    unsigned short depth;
+} Grid;
+extern Cell D_800C62B0[];
+extern Grid D_800C6290;
+int abs(int);
+
+
+static inline int abs_max(short a, short b) {
+    int r = abs(a);
+    int s = abs(b);
+    if (r < s) r = s;
+    return r;
+}
+
+static inline short approx_len(short a, short b) {
+    int big = abs(a);
+    int bb = abs(b);
+    int small;
+    if (big < bb) big = bb;
+    small = abs(a);
+    if (bb < small) small = bb;
+    return big + small * 3 / 8;
+}
+
+int func_8001AED4(void *owner, int x, int z, short y,
+                  short min_x, short max_x, short min_z, short max_z,
+                  short y_low, short y_high, unsigned short angle, int flags) {
+    int id = 1300;
+    int off = id * sizeof(Cell);
+    register Cell *cells asm("$3") = D_800C62B0;
+    Cell *c = (Cell *)((char *)cells + off);
+    int dx, dz;
+
+    c->x = x;
+    c->z = z;
+    c->y = y;
+    c->min_x = min_x;
+    c->max_x = max_x;
+    c->min_z = min_z;
+    c->max_z = max_z;
+    c->y_low = y_low;
+    c->y_high = y_high;
+    c->angle = angle;
+    {
+        int mx = abs_max(max_x, min_x);
+        int mz = abs_max(max_z, min_z);
+        c->radius = approx_len(mz, mx);
+    }
+    c->flags = flags;
+    c->owner = owner;
+    {
+        Grid *g = &D_800C6290;
+        dx = (short)x - g->x;
+        dz = (short)z - g->z;
+    }
+    if (dx < 0 || dz < 0 || dx >= D_800C6290.width << 10 || dz >= D_800C6290.depth << 10)
+        return 0xFFFF;
+    return id;
+}

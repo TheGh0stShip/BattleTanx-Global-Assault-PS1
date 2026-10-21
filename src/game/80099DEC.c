@@ -1,40 +1,87 @@
-asm(".text\n\t.globl func_80099DEC\nfunc_80099DEC:\n\t"
-    ".word 0x24030001,0x1083003A,0x00003821,0x10800005\n\t"
-    ".word 0x24020002,0x10820065,0x2407FFFF,0x0802680F\n\t"
-    ".word 0x00E01021,0x2CA20005,0x10400087,0x00051080\n\t"
-    ".word 0x3C01800C,0x00220821,0x8C225510,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800B,0x8C4276E8\n\t"
-    ".word 0x00000000,0x94420004,0x0802680E,0x3047FFFF\n\t"
-    ".word 0x3C02800B,0x8C4276E8,0x00000000,0x9442000A\n\t"
-    ".word 0x0802680E,0x3047FFFF,0x3C02800B,0x8C4276E8\n\t"
-    ".word 0x00000000,0x94420008,0x0802680E,0x3047FFFF\n\t"
-    ".word 0x3C03800B,0x8C6376E8,0x3C02001F,0x9463000E\n\t"
-    ".word 0x3442A400,0x0043001A,0x14600002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14610004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x00001012\n\t"
-    ".word 0x0802680E,0x3047FFFF,0x3C02800B,0x8C4276E8\n\t"
-    ".word 0x00000000,0x90420000,0x0802680E,0x304700FF\n\t"
-    ".word 0x24020002,0x10A20013,0x2CA20003,0x10400005\n\t"
-    ".word 0x24020003,0x10A30009,0x30C21CFF,0x0802680E\n\t"
-    ".word 0x2407FFFF,0x10A20012,0x24020004,0x10A2001D\n\t"
-    ".word 0x00000000,0x0802680E,0x2407FFFF,0x3C03800B\n\t"
-    ".word 0x8C6376E8,0x00000000,0xA462000A,0x0802680F\n\t"
-    ".word 0x00E01021,0x30C200FE,0x3C03800B,0x8C6376E8\n\t"
-    ".word 0x34420002,0xA4620008,0x0802680F,0x00E01021\n\t"
-    ".word 0x3C02001F,0x3442A400,0x0046001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001012,0x3C03800B\n\t"
-    ".word 0x8C6376E8,0x00000000,0xA462000E,0x0802680F\n\t"
-    ".word 0x00E01021,0x3C02800B,0x8C4276E8,0x00000000\n\t"
-    ".word 0xA0460000,0x0802680F,0x00E01021,0x10A00005\n\t"
-    ".word 0x00000000,0x10A3001D,0x2407FFFF,0x0802680F\n\t"
-    ".word 0x00E01021,0x3C02800B,0x8C4276E8,0x00000000\n\t"
-    ".word 0x9443000A,0x94440008,0x9445000E,0x3C01800F\n\t"
-    ".word 0xAC23F184,0x9443000A,0x3C01800F,0xAC24F17C\n\t"
-    ".word 0x3C04800F,0x9484F184,0x3C01800F,0xAC25F180\n\t"
-    ".word 0x3C05800F,0x94A5F17C,0x3C06800F,0x94C6F180\n\t"
-    ".word 0x34630040,0xA443000A,0xA444000A,0xA4450008\n\t"
-    ".word 0xA446000E,0x0802680E,0x2407FFFF,0x3C03800B\n\t"
-    ".word 0x8C6376E8,0x00000000,0x9462000A,0x00000000\n\t"
-    ".word 0x34420010,0xA462000A,0x2407FFFF,0x00E01021\n\t"
-    ".word 0x03E00008,0x00000000\n\t"
-);
+
+typedef struct SioRegs {
+    unsigned char data;
+    unsigned char pad1[3];
+    unsigned short status;
+    unsigned short pad6;
+    unsigned short mode;
+    unsigned short ctrl;
+    unsigned short pad12;
+    unsigned short baud;
+} SioRegs;
+
+extern volatile SioRegs *D_800B76E8;
+extern int D_800EF17C;
+extern int D_800EF180;
+extern int D_800EF184;
+
+
+int func_80099DEC(unsigned int cmd, unsigned int arg, unsigned int param)
+{
+    int ret = 0;
+
+    switch (cmd) {
+    case 0:
+        switch (arg) {
+        case 0:
+            ret = D_800B76E8->status;
+            break;
+        case 1:
+            ret = D_800B76E8->ctrl;
+            break;
+        case 2:
+            ret = D_800B76E8->mode;
+            break;
+        case 3:
+            ret = (unsigned short)(2073600 / D_800B76E8->baud);
+            break;
+        case 4:
+            ret = D_800B76E8->data;
+            break;
+        default:
+            ret = -1;
+            break;
+        }
+        break;
+    case 1:
+        switch (arg) {
+        case 1:
+            D_800B76E8->ctrl = param & 0x1CFF;
+            break;
+        case 2:
+            D_800B76E8->mode = (param & 0xFE) | 2;
+            break;
+        case 3:
+            D_800B76E8->baud = 2073600 / param;
+            break;
+        case 4:
+            D_800B76E8->data = param;
+            break;
+        default:
+            ret = -1;
+            break;
+        }
+        break;
+    case 2:
+        switch (arg) {
+        case 0:
+            D_800EF184 = D_800B76E8->ctrl;
+            D_800EF17C = D_800B76E8->mode;
+            D_800EF180 = D_800B76E8->baud;
+            D_800B76E8->ctrl |= 0x40;
+            D_800B76E8->ctrl = D_800EF184;
+            D_800B76E8->mode = D_800EF17C;
+            D_800B76E8->baud = D_800EF180;
+            break;
+        case 1:
+            D_800B76E8->ctrl |= 0x10;
+            break;
+        }
+        ret = -1;
+        break;
+    default:
+        ret = -1;
+        break;
+    }
+    return ret;
+}

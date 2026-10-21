@@ -1,66 +1,129 @@
-asm(".text\n\t.globl func_800A0478\nfunc_800A0478:\n\t"
-    ".word 0x3C02800C,0x8C428D30,0x27BDFFC8,0xAFB00018\n\t"
-    ".word 0x00A08021,0xAFB60030,0x00C0B021,0xAFB20020\n\t"
-    ".word 0x00E09021,0xAFB1001C,0x00808821,0xAFBF0034\n\t"
-    ".word 0xAFB5002C,0xAFB40028,0x28420002,0x14400009\n\t"
-    ".word 0xAFB30024,0x322200FF,0x00021080,0x3C05800C\n\t"
-    ".word 0x00A22821,0x8CA58D4C,0x3C04800C,0x0C0250EC\n\t"
-    ".word 0x24845F20,0x322200FF,0x00021880,0x3C02800C\n\t"
-    ".word 0x00431021,0x8C428F6C,0x00000000,0x10400010\n\t"
-    ".word 0x00002021,0x1600000E,0x00000000,0x3C02800C\n\t"
-    ".word 0x8C428D30,0x00000000,0x184000D2,0x2402FFFE\n\t"
-    ".word 0x3C05800C,0x00A32821,0x8CA58D4C,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845F28,0x08028217,0x2402FFFE\n\t"
-    ".word 0x0C027FCC,0x00002821,0x322300FF,0x24020002\n\t"
-    ".word 0x1462000D,0x2402000E,0x00002021,0x02041021\n\t"
-    ".word 0x90420000,0x3C01800C,0x00240821,0xA0228D40\n\t"
-    ".word 0x24840001,0x28820004,0x1440FFF9,0x02041021\n\t"
-    ".word 0x322300FF,0x2402000E,0x14620004,0x00000000\n\t"
-    ".word 0x92020000,0x3C01800C,0xA0228D44,0x3C05800C\n\t"
-    ".word 0x24A59004,0x00032080,0xA0A00000,0x3C02800C\n\t"
-    ".word 0x00441021,0x8C428E6C,0x3C03800C,0x10400002\n\t"
-    ".word 0x24638E6C,0xA0A00001,0x3C02800C,0x8C428FEC\n\t"
-    ".word 0x00000000,0xA0400000,0x24620100,0x00821821\n\t"
-    ".word 0x8C620000,0x00000000,0x1840000D,0x00002021\n\t"
-    ".word 0x00602821,0x02041021,0x3C03800C,0x8C638FF4\n\t"
-    ".word 0x90420000,0x00000000,0xA0620000,0x8CA20000\n\t"
-    ".word 0x24840001,0x0082102A,0x1440FFF7,0x02041021\n\t"
-    ".word 0x3C02800C,0x8C428FF0,0x3C01800C,0xA0318D45\n\t"
-    ".word 0xA0510000,0x1640008B,0x00001021,0x0C02221C\n\t"
-    ".word 0x2404FFFF,0x244203C0,0x3C04800C,0x24849004\n\t"
-    ".word 0x3C01800F,0xAC22FCF0,0x3C01800F,0xAC20FCF4\n\t"
-    ".word 0x90830000,0x3C02800C,0x24425F38,0x3C01800F\n\t"
-    ".word 0xAC22FCF8,0x14600067,0x02C03021,0x3C15800C\n\t"
-    ".word 0x26B58D4C,0x3C13800C,0x26738DCC,0x00809021\n\t"
-    ".word 0x26540001,0x0C02221C,0x2404FFFF,0x3C03800F\n\t"
-    ".word 0x8C63FCF0,0x00000000,0x0062182A,0x1460000C\n\t"
-    ".word 0x00000000,0x3C02800F,0x8C42FCF4,0x00000000\n\t"
-    ".word 0x00401821,0x24420001,0x3C01800F,0xAC22FCF4\n\t"
-    ".word 0x3C02003C,0x0043102A,0x1040001B,0x00000000\n\t"
-    ".word 0x3C04800C,0x0C025BE7,0x24845E84,0x92440000\n\t"
-    ".word 0x92420001,0x3C05800F,0x8CA5FCF8,0x00021080\n\t"
-    ".word 0x00531021,0x00042080,0x8C430000,0x3C02800C\n\t"
-    ".word 0x90428D45,0x00932021,0x00021080,0x00551021\n\t"
-    ".word 0xAFA30010,0x8C460000,0x8C870000,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845E94,0x0C028243,0x00000000\n\t"
-    ".word 0x080281D1,0x2402FFFF,0x00001021,0x14400045\n\t"
-    ".word 0x2402FFFF,0x0C025139,0x00000000,0x10400029\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428FEC,0x00000000\n\t"
-    ".word 0x90420000,0x00000000,0x30510003,0x0C027E75\n\t"
-    ".word 0x00000000,0x00408021,0x1200001A,0x32020004\n\t"
-    ".word 0x1040000B,0x32020002,0x3C02800C,0x8C428D28\n\t"
-    ".word 0x00000000,0x10400005,0x00000000,0x92840000\n\t"
-    ".word 0x3C05800F,0x0040F809,0x24A5FCE0,0x32020002\n\t"
-    ".word 0x1040FFEE,0x00000000,0x3C02800C,0x8C428D24\n\t"
-    ".word 0x00000000,0x1040FFE9,0x00000000,0x92440000\n\t"
-    ".word 0x3C05800F,0x0040F809,0x24A5FCD8,0x080281DD\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428FEC,0x00000000\n\t"
-    ".word 0xA0510000,0x92420000,0x00000000,0x1040FFA1\n\t"
-    ".word 0x02C03021,0x3C04800F,0x2484FCD8,0x10C00008\n\t"
-    ".word 0x24030007,0x2405FFFF,0x90820000,0x24840001\n\t"
-    ".word 0x2463FFFF,0xA0C20000,0x1465FFFB,0x24C60001\n\t"
-    ".word 0x00002021,0x3C02800C,0x24429004,0x90430000\n\t"
-    ".word 0x24020005,0x14620003,0x00801021,0x2404FFFF\n\t"
-    ".word 0x00801021,0x8FBF0034,0x8FB60030,0x8FB5002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0038\n");
+typedef unsigned char u_char;
+
+extern int CD_debug;
+extern char *CD_comstr[];
+extern char *CD_intstr[];
+extern int CD_comtbl[2][64];
+extern u_char CD_pos[4];
+extern u_char CD_mode;
+extern u_char CD_com;
+extern volatile u_char CD_status[3];
+extern volatile u_char *CD_reg0;
+extern volatile u_char *CD_reg1;
+extern volatile u_char *CD_reg2;
+extern void (*CD_cbready)(int, u_char *);
+extern void (*CD_cbsync)(int, u_char *);
+extern int CD_timeout_limit;
+extern int CD_timeout_count;
+extern char *CD_timeout_name;
+extern u_char CD_ready_result[8];
+extern u_char CD_sync_result[8];
+extern char D_800C5F20[], D_800C5F28[], D_800C5F38[], D_800C5E84[], D_800C5E94[];
+
+int printf(const char *, ...);
+int puts(const char *);
+int VSync(int);
+int CD_sync(int, u_char *);
+void CD_flush(void);
+int CheckCallback(void);
+int CD_getintr(void);
+
+static inline void CD_memcpy(u_char *dst, u_char *src, int n)
+{
+    if (dst) {
+        for (n--; n != -1; n--) {
+            *dst++ = *src++;
+        }
+    }
+}
+
+static inline int CD_checktimeout(void)
+{
+    if (CD_timeout_limit < VSync(-1) || CD_timeout_count++ > 0x3C0000) {
+        char **com = CD_comstr;
+        char **intr = CD_intstr;
+        puts(D_800C5E84);
+        {
+            int s = CD_status[0];
+            char *r = intr[CD_status[1]];
+            printf(D_800C5E94, CD_timeout_name, com[CD_com], intr[s], r);
+        }
+        CD_flush();
+        return -1;
+    }
+    return 0;
+}
+
+int func_800A0478(u_char com, u_char *param, u_char *result, int async)
+{
+    u_char *p = param;
+    int a = async;
+    u_char c = com;
+    int i;
+    register int zero asm("$0");
+
+    if (CD_debug >= 2) {
+        printf(D_800C5F20, CD_comstr[c]);
+    }
+    if (CD_comtbl[1][c] && p == 0) {
+        if (CD_debug > 0) {
+            printf(D_800C5F28, CD_comstr[c]);
+        }
+        return -2;
+    }
+    CD_sync(zero, (u_char *)zero);
+    if (c == 2) {
+        for (i = 0; i < 4; i++) {
+            CD_pos[i] = p[i];
+        }
+    }
+    if (c == 14) {
+        CD_mode = p[0];
+    }
+    {
+        int (*tbl)[64] = CD_comtbl;
+        int *cnt;
+
+        CD_status[0] = 0;
+        if (tbl[0][c]) {
+            CD_status[1] = 0;
+        }
+        *CD_reg0 = 0;
+        cnt = tbl[1];
+        for (i = 0; i < cnt[c]; i++) {
+            *CD_reg2 = p[i];
+        }
+    }
+    CD_com = c;
+    *CD_reg1 = c;
+    if (a) {
+        return 0;
+    }
+    CD_timeout_limit = VSync(-1) + 960;
+    CD_timeout_count = 0;
+    CD_timeout_name = D_800C5F38;
+    while (CD_status[0] == 0) {
+        if (CD_checktimeout() != 0) {
+            return -1;
+        }
+        if (CheckCallback()) {
+            int old = *CD_reg0 & 3;
+            int ret;
+            while ((ret = CD_getintr()) != 0) {
+                if ((ret & 4) && CD_cbready) {
+                    CD_cbready(CD_status[1], CD_ready_result);
+                }
+                if ((ret & 2) && CD_cbsync) {
+                    CD_cbsync(CD_status[0], CD_sync_result);
+                }
+            }
+            *CD_reg0 = old;
+        }
+    }
+    CD_memcpy(result, CD_sync_result, 8);
+    i = 0;
+    if (CD_status[0] == 5) {
+        i = -1;
+    }
+    return i;
+}

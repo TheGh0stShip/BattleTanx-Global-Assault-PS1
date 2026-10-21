@@ -1,21 +1,57 @@
-asm(".text\n\t.globl func_8009AEE4\nfunc_8009AEE4:\n\t"
-    ".word 0x27BDFFF8,0x3084FFFF,0x000421C0,0x30A5FFFF\n\t"
-    ".word 0x00852021,0x30C6FFFF,0x000631C0,0x30E7FFFF\n\t"
-    ".word 0x00C73021,0x00C43023,0x04C10002,0x00C02821\n\t"
-    ".word 0x00062823,0x3C022AAA,0x3442AAAB,0x00A20018\n\t"
-    ".word 0x000517C3,0x00004810,0x00091A03,0x00621823\n\t"
-    ".word 0x00602021,0x00041040,0x00441021,0x00021240\n\t"
-    ".word 0x04C00004,0x00A21823,0x24021000,0x08026BDC\n\t"
-    ".word 0x00821004,0x10600003,0x24020600,0x24840001\n\t"
-    ".word 0x00431823,0x24021000,0x00821007,0x3046FFFF\n\t"
-    ".word 0x2404103B,0x00C40018,0x00063B00,0x00002821\n\t"
-    ".word 0x04610002,0x00601021,0x00021023,0x00021942\n\t"
-    ".word 0x3048001F,0x00004812,0x10600010,0xAFA90000\n\t"
-    ".word 0x00C40018,0x00041180,0x00441021,0x00021100\n\t"
-    ".word 0x00441023,0x00021080,0x00003812,0x00442023\n\t"
-    ".word 0x00042302,0x00C40018,0x24A50001,0x00A3102A\n\t"
-    ".word 0x00004812,0x1440FFF3,0xAFA90000,0x8FA90000\n\t"
-    ".word 0x00000000,0x01271023,0x00021142,0x00480018\n\t"
-    ".word 0x00004812,0x00E91021,0x00021B02,0x2C624000\n\t"
-    ".word 0x14400003,0x3062FFFF,0x24033FFF,0x3062FFFF\n\t"
-    ".word 0x03E00008,0x27BD0008\n");
+unsigned short func_8009AEE4(unsigned short centerNote, unsigned short centerFine,
+                             unsigned short note, unsigned short fine) {
+    int center;
+    int diff;
+    int dist;
+    int octave;
+    int rem;
+    int scale;
+    int mag;
+    unsigned int base;
+    unsigned int factor;
+    unsigned int low;
+    unsigned int high;
+    int steps;
+    int frac;
+    int i;
+    unsigned int pitch;
+
+    center = (centerNote << 7) + centerFine;
+    diff = ((note << 7) + fine) - center;
+    dist = diff;
+    if (diff < 0) {
+        dist = -diff;
+    }
+    octave = dist / 1536;
+    rem = dist % 1536;
+    if (diff >= 0) {
+        scale = 4096 << octave;
+    } else {
+        if (rem != 0) {
+            octave++;
+            rem = 1536 - rem;
+        }
+        scale = 4096 >> octave;
+    }
+    base = (unsigned short)scale;
+    low = base << 12;
+    factor = 4155;
+    high = base * factor;
+    mag = __builtin_abs(rem);
+    steps = (unsigned int)mag >> 5;
+    frac = mag & 31;
+    i = 0;
+    if (steps != 0) {
+        do {
+            low = base * factor;
+            factor *= 4155;
+            factor >>= 12;
+            high = base * factor;
+        } while (++i < steps);
+    }
+    pitch = (low + ((high - low) >> 5) * frac) >> 12;
+    if (pitch > 0x3FFF) {
+        pitch = 0x3FFF;
+    }
+    return pitch;
+}

@@ -1,28 +1,117 @@
-asm(".text\n\t.globl func_80068940\nfunc_80068940:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0xAFB20018\n\t"
-    ".word 0x00A09021,0x00063400,0xAFB00010,0x00068403\n\t"
-    ".word 0x12000050,0xAFBF001C,0x0C022B58,0x02002021\n\t"
-    ".word 0x02002021,0x0C022B30,0x00408021,0x304EFFFF\n\t"
-    ".word 0x00106022,0x000C6400,0x018E6025,0x00106C00\n\t"
-    ".word 0x240F1000,0xAE2C0000,0xAE2D0004,0xAE2E0008\n\t"
-    ".word 0xAE20000C,0xAE2F0010,0x8E4D0000,0x8E4E0004\n\t"
-    ".word 0x8E4F0008,0x962A0000,0x962B0006,0x962C000C\n\t"
-    ".word 0x48CD0000,0x8E4D000C,0x488A4800,0x8E4A0010\n\t"
-    ".word 0x48CE0800,0x48CF1000,0x488B5000,0x488C5800\n\t"
-    ".word 0x48CD1800,0x48CA2000,0x00000000,0x00000000\n\t"
-    ".word 0x4A49E012,0x962A0002,0x962B0008,0x962C000E\n\t"
-    ".word 0x480D4800,0x480E5000,0x480F5800,0x488A4800\n\t"
-    ".word 0x488B5000,0x488C5800,0x962A0004,0x962B000A\n\t"
-    ".word 0x962C0010,0x4A49E012,0xA62D0000,0xA62E0006\n\t"
-    ".word 0xA62F000C,0x480D4800,0x480E5000,0x480F5800\n\t"
-    ".word 0x488A4800,0x488B5000,0x488C5800,0xA62D0002\n\t"
-    ".word 0xA62E0008,0xA62F000E,0x4A49E012,0x8E2A0000\n\t"
-    ".word 0x8E2C000C,0x480D4800,0x480E5000,0x480F5800\n\t"
-    ".word 0xA62D0004,0xA62E000A,0xA62F0010,0x8E2B0004\n\t"
-    ".word 0x8E2D0008,0x8E2E0010,0x48CA0000,0x48CB0800\n\t"
-    ".word 0x48CC1800,0x48CD1000,0x48CE2000,0x0801A2B3\n\t"
-    ".word 0x00000000,0x8E4C0000,0x8E4D0004,0x48CC0000\n\t"
-    ".word 0x48CD0800,0x8E4C0008,0x8E4D000C,0x8E4E0010\n\t"
-    ".word 0x48CC1000,0x48CD1800,0x48CE2000,0x8FBF001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+int func_8008ACC0(int);
+int func_8008AD60(int);
+
+
+void func_80068940(Matrix *out, Matrix *in, short angle) {
+    register int r10 __asm__("$10");
+    register int r11 __asm__("$11");
+    register int r12 __asm__("$12");
+    register int r13 __asm__("$13");
+    register int r14 __asm__("$14");
+    register int r15 __asm__("$15");
+    int s;
+    int *ow = (int *)out;
+    int *iw = (int *)in;
+    unsigned short *oh = (unsigned short *)out;
+
+    if (angle != 0) {
+
+        s = func_8008AD60(angle);
+        r14 = func_8008ACC0(angle) & 0xFFFF;
+        __asm__("neg %0, %1" : "=r"(r12) : "r"(s));
+        r12 = (r12 << 16) | r14;
+        r13 = s << 16;
+        r15 = 4096;
+        ow[0] = r12;
+        ow[1] = r13;
+        ow[2] = r14;
+        ow[3] = 0;
+        ow[4] = r15;
+
+
+        r13 = iw[0];
+        r14 = iw[1];
+        r15 = iw[2];
+        r10 = oh[0];
+        r11 = oh[3];
+        r12 = oh[6];
+        __asm__ volatile("ctc2 %0, $0" : : "r"(r13));
+        r13 = iw[3];
+        __asm__ volatile("mtc2 %0, $9" : : "r"(r10));
+        r10 = iw[4];
+        __asm__ volatile("ctc2 %0, $1" : : "r"(r14));
+        __asm__ volatile("ctc2 %0, $2" : : "r"(r15));
+        __asm__ volatile("mtc2 %0, $10" : : "r"(r11));
+        __asm__ volatile("mtc2 %0, $11" : : "r"(r12));
+        __asm__ volatile("ctc2 %0, $3" : : "r"(r13));
+        __asm__ volatile("ctc2 %0, $4" : : "r"(r10));
+        __asm__ volatile("nop\n\tnop\n\tcop2 0x049E012");
+
+
+        r10 = oh[1];
+        r11 = oh[4];
+        r12 = oh[7];
+        __asm__ volatile("mfc2 %0, $9" : "=r"(r13));
+        __asm__ volatile("mfc2 %0, $10" : "=r"(r14));
+        __asm__ volatile("mfc2 %0, $11" : "=r"(r15));
+        __asm__ volatile("mtc2 %0, $9" : : "r"(r10));
+        __asm__ volatile("mtc2 %0, $10" : : "r"(r11));
+        __asm__ volatile("mtc2 %0, $11" : : "r"(r12));
+        r10 = oh[2];
+        r11 = oh[5];
+        r12 = oh[8];
+        __asm__ volatile("cop2 0x049E012");
+        oh[0] = r13;
+        oh[3] = r14;
+        oh[6] = r15;
+
+
+        __asm__ volatile("mfc2 %0, $9" : "=r"(r13));
+        __asm__ volatile("mfc2 %0, $10" : "=r"(r14));
+        __asm__ volatile("mfc2 %0, $11" : "=r"(r15));
+        __asm__ volatile("mtc2 %0, $9" : : "r"(r10));
+        __asm__ volatile("mtc2 %0, $10" : : "r"(r11));
+        __asm__ volatile("mtc2 %0, $11" : : "r"(r12));
+        oh[1] = r13;
+        oh[4] = r14;
+        oh[7] = r15;
+        __asm__ volatile("cop2 0x049E012");
+        r10 = ow[0];
+        r12 = ow[3];
+        __asm__ volatile("mfc2 %0, $9" : "=r"(r13));
+        __asm__ volatile("mfc2 %0, $10" : "=r"(r14));
+        __asm__ volatile("mfc2 %0, $11" : "=r"(r15));
+        oh[2] = r13;
+        oh[5] = r14;
+        oh[8] = r15;
+        __asm__ volatile("");
+
+
+        r11 = ow[1];
+        r13 = ow[2];
+        r14 = ow[4];
+        __asm__ volatile("ctc2 %0, $0" : : "r"(r10));
+        __asm__ volatile("ctc2 %0, $1" : : "r"(r11));
+        __asm__ volatile("ctc2 %0, $3" : : "r"(r12));
+        __asm__ volatile("ctc2 %0, $2" : : "r"(r13));
+        __asm__ volatile("ctc2 %0, $4" : : "r"(r14));
+    } else {
+
+        r12 = iw[0];
+        r13 = iw[1];
+        __asm__ volatile("ctc2 %0, $0" : : "r"(r12));
+        __asm__ volatile("ctc2 %0, $1" : : "r"(r13));
+        r12 = iw[2];
+        r13 = iw[3];
+        r14 = iw[4];
+        __asm__ volatile("ctc2 %0, $2" : : "r"(r12));
+        __asm__ volatile("ctc2 %0, $3" : : "r"(r13));
+        __asm__ volatile("ctc2 %0, $4" : : "r"(r14));
+    }
+}

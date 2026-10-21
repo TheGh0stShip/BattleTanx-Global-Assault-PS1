@@ -1,57 +1,128 @@
-asm(".text\n\t.globl func_800A3318\nfunc_800A3318:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00808021,0xAFBF0014\n\t"
-    ".word 0x8E020010,0x00000000,0x1202000D,0x24060008\n\t"
-    ".word 0x8E02003C,0x00000000,0x90430001,0x00000000\n\t"
-    ".word 0x10600007,0x2402005A,0x10620005,0x00000000\n\t"
-    ".word 0x0C028DA6,0x240500FF,0x08028DA2,0x00000000\n\t"
-    ".word 0x8E02003C,0x8E050030,0x90420000,0x920700E8\n\t"
-    ".word 0x00000000,0x14E60003,0x00021902,0x08028D10\n\t"
-    ".word 0xA0A00000,0x2402000F,0x1062002B,0x00000000\n\t"
-    ".word 0x8E04003C,0xA20300E8,0xA0A00000,0x24A50001\n\t"
-    ".word 0x90820000,0x24840001,0xA0A20000,0x8E020010\n\t"
-    ".word 0x00000000,0x1202000D,0x24A50001,0xA2060044\n\t"
-    ".word 0x24840001,0x24030002,0x90820000,0x24840001\n\t"
-    ".word 0x24630001,0xA0A20000,0x28620008,0x1440FFFA\n\t"
-    ".word 0x24A50001,0x08028D10,0x00000000,0x14660004\n\t"
-    ".word 0x24030002,0x24020002,0x08028D10,0xA2020044\n\t"
-    ".word 0x92020044,0x00000000,0x0062102A,0x1040000A\n\t"
-    ".word 0x24840001,0x90820000,0x24840001,0x24630001\n\t"
-    ".word 0xA0A20000,0x92020044,0x00000000,0x0062102A\n\t"
-    ".word 0x1440FFF8,0x24A50001,0x8E02003C,0x00000000\n\t"
-    ".word 0x90420001,0x00000000,0x1440000D,0x24020001\n\t"
-    ".word 0x92030046,0x00000000,0x14620005,0x00000000\n\t"
-    ".word 0x8E020014,0x00000000,0x10400005,0x00000000\n\t"
-    ".word 0x92020050,0x00000000,0x10400018,0x00000000\n\t"
-    ".word 0x920200E8,0x00000000,0x10470019,0x00000000\n\t"
-    ".word 0x9202004A,0x00000000,0x14400015,0x00000000\n\t"
-    ".word 0x0C028E55,0x02002021,0x14400011,0x00000000\n\t"
-    ".word 0x8E020010,0x00000000,0x16020004,0x00000000\n\t"
-    ".word 0x92020037,0x08028D37,0x00000000,0x92020038\n\t"
-    ".word 0x00000000,0x14400006,0x00000000,0x3C02800C\n\t"
-    ".word 0x8C428C78,0x00000000,0x0040F809,0x02002021\n\t"
-    ".word 0x92030046,0x240200FF,0x10620061,0xA200004A\n\t"
-    ".word 0x2462FFFE,0x304200FF,0x2C4200FC,0x1040000C\n\t"
-    ".word 0x00000000,0x8E02003C,0x00000000,0x90430000\n\t"
-    ".word 0x240200F3,0x10620006,0x00000000,0x3C02800C\n\t"
-    ".word 0x8C428C78,0x00000000,0x0040F809,0x02002021\n\t"
-    ".word 0x92030046,0x00000000,0x1060000F,0x240200FF\n\t"
-    ".word 0x1062000E,0x24020001,0x8E020010,0x00000000\n\t"
-    ".word 0x16020004,0x00000000,0x92020036,0x08028D61\n\t"
-    ".word 0x00000000,0x92020037,0x00000000,0x10400040\n\t"
-    ".word 0x00000000,0x92030046,0x24020001,0x10620027\n\t"
-    ".word 0x28620002,0x10400005,0x240200FE,0x10600009\n\t"
-    ".word 0x00000000,0x08028D94,0x00000000,0x10620024\n\t"
-    ".word 0x240200FF,0x10620032,0x00000000,0x08028D94\n\t"
-    ".word 0x00000000,0x920400E8,0x00000000,0x1080002C\n\t"
-    ".word 0x00000000,0x8E03000C,0x00000000,0x14600005\n\t"
-    ".word 0x24020008,0x92020036,0x00000000,0x14400024\n\t"
-    ".word 0x24020008,0x14820009,0x00000000,0x8C62003C\n\t"
-    ".word 0x00000000,0x90430000,0x240200FF,0x14620003\n\t"
-    ".word 0x24020002,0x08028DA1,0xA2020049,0x92020046\n\t"
-    ".word 0x24030001,0x08028D8F,0xA2030049,0x92020046\n\t"
-    ".word 0xA2000047,0x24420001,0x08028DA2,0xA2020046\n\t"
-    ".word 0x08028DA2,0xA2020046,0x8E020018,0x00000000\n\t"
-    ".word 0x10400005,0x00000000,0x0040F809,0x02002021\n\t"
-    ".word 0x08028D9E,0x00000000,0x0C027B8A,0x02002021\n\t"
-    ".word 0x92030046,0x00000000,0x00621821,0xA2030046\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef unsigned char u8;
+
+typedef struct Track Track;
+struct Track {
+    u8 pad00[0x0C];
+    Track *link;
+    Track *master;
+    void *pending;
+    int (*handler)(Track *);
+    u8 pad1C[0x30 - 0x1C];
+    u8 *out;
+    u8 pad34[2];
+    u8 f36;
+    u8 f37;
+    u8 f38;
+    u8 pad39[0x3C - 0x39];
+    u8 *in;
+    u8 pad40[4];
+    u8 msgLen;
+    u8 pad45;
+    u8 state;
+    u8 f47;
+    u8 pad48;
+    u8 f49;
+    u8 f4A;
+    u8 pad4B[0x50 - 0x4B];
+    u8 f50;
+    u8 pad51[0xE8 - 0x51];
+    u8 status;
+};
+
+extern void (*D_800B8C78)(Track *);
+void func_800A3698(Track *t, int v);
+int func_800A3954(Track *t);
+int func_8009EE28(Track *t);
+
+void func_800A3318(Track *t)
+{
+    u8 *out;
+    u8 *in;
+    unsigned int old;
+    unsigned int hi;
+    int i;
+
+    if (t != t->master) {
+        u8 c = t->in[1];
+        if (c != 0 && c != 0x5A) {
+            func_800A3698(t, 0xFF);
+            return;
+        }
+    }
+
+    out = t->out;
+    hi = t->in[0] >> 4;
+    old = t->status;
+    if (old == 8) {
+        *out = 0;
+    } else if (hi != 15) {
+        t->status = hi;
+        in = t->in;
+        *out++ = 0;
+        *out++ = *in++;
+        if (t != t->master) {
+            t->msgLen = 8;
+            in++;
+            for (i = 2; i < 8; i++)
+                *out++ = *in++;
+        } else if (hi == 8) {
+            t->msgLen = 2;
+        } else {
+            in++;
+            for (i = 2; i < t->msgLen; i++)
+                *out++ = *in++;
+        }
+    }
+
+    if ((t->in[1] == 0 && !(t->state == 1 && t->pending == 0) && t->f50 == 0)
+        || (t->status != old && !t->f4A && !func_800A3954(t)
+            && !(t == t->master ? t->f37 : t->f38)))
+        D_800B8C78(t);
+
+    t->f4A = 0;
+    if (t->state == 0xFF)
+        return;
+    if ((u8)(t->state - 2) < 252 && t->in[0] != 0xF3)
+        D_800B8C78(t);
+
+    if (t->state != 0 && t->state != 0xFF) {
+        if (t == t->master) {
+            if (!t->f36)
+                return;
+        } else {
+            if (!t->f37)
+                return;
+        }
+    }
+
+    switch (t->state) {
+    case 0:
+        if (t->status == 0)
+            return;
+        if (t->link == 0 && t->f36)
+            return;
+        if (t->status == 8 && t->link->in[0] == 0xFF) {
+            t->f49 = 2;
+            t->state = 0xFF;
+        } else {
+            t->f49 = 1;
+            t->state++;
+        }
+        break;
+    case 1:
+        t->f47 = 0;
+        t->state++;
+        break;
+    case 0xFE:
+        t->state++;
+        break;
+    case 0xFF:
+        break;
+    default:
+        if (t->handler)
+            t->state += t->handler(t);
+        else
+            t->state += func_8009EE28(t);
+        break;
+    }
+}

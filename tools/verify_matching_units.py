@@ -296,6 +296,352 @@ def prepare_assembly(unit, config, source, assembly, processed):
         )
 
 
+# PsyQ libcd CD_cw/CD_ready inlined timeout report: the library compiler kept
+# the Intr[0] index chain in $4 and ordered one prologue parameter copy
+# differently from GCC 2.8.1.  Each replacement is unique and fails closed.
+def _cd_report_block(table_reg):
+    old = (
+        "lbu\t$7,0($18)\n"
+        "#.set\tnovolatile\n"
+        "#.set\tvolatile\n"
+        "lbu\t$2,1($18)\n"
+        "#.set\tnovolatile\n"
+        "lw\t$5,CD_timeout_name\n"
+        "sll\t$2,$2,2\n"
+        "addu\t$2,$2,{t}\n"
+        "sll\t$7,$7,2\n"
+        "lw\t$3,0($2)\n"
+        "lbu\t$2,CD_com\n"
+        "addu\t$7,$7,{t}\n"
+        "sll\t$2,$2,2\n"
+        "addu\t$2,$2,{c}\n"
+        "sw\t$3,16($sp)\n"
+        "lw\t$6,0($2)\n"
+        "lw\t$7,0($7)\n"
+        "la\t$4,D_800C5E94\n"
+        "jal\tprintf\n"
+    )
+    new = (
+        old.replace("lbu\t$7,0($18)", "lbu\t$4,0($18)")
+        .replace("sll\t$7,$7,2", "sll\t$4,$4,2")
+        .replace("addu\t$7,$7,{t}", "addu\t$4,$4,{t}")
+        .replace("lw\t$7,0($7)", "lw\t$7,0($4)")
+    )
+    return old, new
+
+
+def _cd_replace_once(source, old, new, what):
+    if source.count(old) != 1:
+        raise ValueError("%s shape changed" % what)
+    return source.replace(old, new)
+
+
+def _cd_ready_report(source):
+    old, new = _cd_report_block("$21")
+    old, new = old.format(t="$21", c="$fp"), new.format(t="$21", c="$fp")
+    source = _cd_replace_once(source, old, new, "cd_ready_report timeout report")
+    prologue_old = (
+        "sw\t$23,52($sp)\n"
+        "addu\t$23,$4,$zero\n"
+        "li\t$4,-1\t\t\t# 0xffffffff\n"
+        "sw\t$19,36($sp)\n"
+        "addu\t$19,$5,$zero\n"
+    )
+    prologue_new = (
+        "sw\t$23,52($sp)\n"
+        "addu\t$23,$4,$zero\n"
+        "sw\t$19,36($sp)\n"
+        "addu\t$19,$5,$zero\n"
+        "li\t$4,-1\t\t\t# 0xffffffff\n"
+    )
+    return _cd_replace_once(source, prologue_old, prologue_new, "cd_ready_report prologue")
+
+
+def _cd_cw_report(source):
+    old, new = _cd_report_block("$19")
+    old, new = old.format(t="$19", c="$21"), new.format(t="$19", c="$21")
+    source = _cd_replace_once(source, old, new, "cd_cw_report timeout report")
+    prologue_old = (
+        "sw\t$22,48($sp)\n"
+        "addu\t$22,$6,$zero\n"
+        "sw\t$16,24($sp)\n"
+        "addu\t$16,$5,$zero\n"
+    )
+    prologue_new = (
+        "sw\t$16,24($sp)\n"
+        "addu\t$16,$5,$zero\n"
+        "sw\t$22,48($sp)\n"
+        "addu\t$22,$6,$zero\n"
+    )
+    return _cd_replace_once(source, prologue_old, prologue_new, "cd_cw_report prologue")
+
+
+# func_80089B70 stream read setup: retail allocates dest to $22 and the saved
+# hook to $30 and computes the sector remainder before the offset store.
+_SSDS_REG = re.compile(r"\$(22|fp|30)\b")
+_SSDS_SCHED_OLD = (
+    "andi\t$3,$17,0x07ff\n"
+    "sw\t$3,120($4)\n"
+    "\n"
+    "li\t$2,-2048\t\t\t# 0xfffff800\n"
+    "and\t$17,$17,$2\n"
+    "li\t$2,2048\t\t\t# 0x00000800\n"
+    "lw\t$6,144($4)\n"
+    "#nop # DEBUG: 'subu\t$2,$2,$3' does not load from $6\n"
+    "subu\t$2,$2,$3\n"
+    "sw\t$2,124($4)\n"
+)
+_SSDS_SCHED_NEW = (
+    "andi\t$3,$17,0x07ff\n"
+    "li\t$2,2048\t\t\t# 0x00000800\n"
+    "subu\t$2,$2,$3\n"
+    "sw\t$3,120($4)\n"
+    "\n"
+    "li\t$3,-2048\t\t\t# 0xfffff800\n"
+    "lw\t$6,144($4)\n"
+    "and\t$17,$17,$3\n"
+    "sw\t$2,124($4)\n"
+)
+
+
+def _stream_setup_dest_swap(source):
+    """func_80089B70: retail allocates dest to $22 (slot 40) and the saved
+    stream hook to $30 (slot 48); GCC picks the reverse.  Retail also
+    computes 0x800 - (pos & 0x7FF) before the w78 store, off in v1."""
+    if source.count("func_80089B70:") != 1 or ".ent\tfunc_" in source.replace(".ent\tfunc_80089B70", "", 1):
+        raise ValueError("stream_setup_dest_swap: expected only func_80089B70")
+    regs = _SSDS_REG.findall(source)
+    if regs.count("22") != 9 or regs.count("fp") != 6 or regs.count("30") != 0:
+        raise ValueError("stream_setup_dest_swap: register counts changed %r" % regs)
+    if source.count(_SSDS_SCHED_OLD) != 1:
+        raise ValueError("stream_setup_dest_swap: w78/count schedule shape changed")
+    saves = ["sw\t$fp,48($sp)\n", "sw\t$22,40($sp)\n", "lw\t$fp,48($sp)\n", "lw\t$22,40($sp)\n"]
+    for s in saves:
+        if source.count(s) != 1:
+            raise ValueError("stream_setup_dest_swap: save slot shape changed (%r)" % s)
+    source = source.replace(_SSDS_SCHED_OLD, _SSDS_SCHED_NEW)
+    # Swap the registers, then put the save slots back (s6 at 40, s8 at 48).
+    source = _SSDS_REG.sub(lambda m: "$__S22__" if m.group(1) == "fp" else "$fp", source)
+    source = source.replace("$__S22__", "$22")
+    # Prologue: keep the store order, exchange the slots.
+    source = source.replace("sw\t$22,48($sp)", "sw\t$__T__,40($sp)")
+    source = source.replace("sw\t$fp,40($sp)", "sw\t$fp,48($sp)")
+    source = source.replace("sw\t$__T__,40($sp)", "sw\t$22,40($sp)")
+    # Epilogue: restores keep their original register/slot pairs.
+    source = source.replace("lw\t$22,48($sp)", "lw\t$fp,48($sp)")
+    source = source.replace("lw\t$fp,40($sp)", "lw\t$22,40($sp)")
+    return source
+
+
+# func_8009D0AC libc printf engine: PsyQ ASPSX expanded one symbolic indexed
+# load through its destination register and placed one load-delay nop before
+# a label.
+_PRNT_LOAD_OLD = """$L21:
+lbu\t$4,0($23)
+# EXPAND_AT START
+.set\tnoat
+lui\t$at,%hi(D_800B6B31)
+addu\t$at,$at,$4
+lbu\t$2,%lo(D_800B6B31)($at)
+.set\tat
+# EXPAND_AT END
+"""
+_PRNT_LOAD_NEW = """$L21:
+lbu\t$4,0($23)
+lui\t$2,%hi(D_800B6B31)
+addu\t$2,$2,$4
+lbu\t$2,%lo(D_800B6B31)($2)
+"""
+_PRNT_NOP_OLD = """lw\t$3,-4($17)
+$L49:
+nop # DEBUG: Reuse of '$3'. 'bgez\t$3,$L142' does not use $at
+# $L49:  # DEBUG: skipped
+bgez\t$3,$L142
+"""
+_PRNT_NOP_NEW = """lw\t$3,-4($17)
+nop
+$L49:
+bgez\t$3,$L142
+"""
+
+
+def _prnt_aspsx_macros(source):
+    for old, new in ((_PRNT_LOAD_OLD, _PRNT_LOAD_NEW), (_PRNT_NOP_OLD, _PRNT_NOP_NEW)):
+        if source.count(old) != 1:
+            raise ValueError("prnt_aspsx_macros: expected sequence not found exactly once")
+        source = source.replace(old, new)
+    return source
+
+
+# func_80097278 CD control retry loop: the library compiler scheduled the
+# `ret = 0` initialiser after the hoisted command-table pointer.
+_CDCR_EXPECTED = (
+    "li\t$16,0x00000003\t\t# 3\n"
+    "sw\t$22,40($sp)\n"
+    "addu\t$22,$0,$zero\n"
+    "sw\t$fp,48($sp)\n"
+    "li\t$fp,0x00000001\t\t# 1\n"
+    "sw\t$18,24($sp)\n"
+    "andi\t$18,$19,0x00ff\n"
+    "la\t$3,D_800B6C94\n"
+    "sw\t$20,32($sp)\n"
+    "lw\t$20,D_800B8D24\n"
+    "sll\t$2,$18,2\n"
+    "sw\t$21,36($sp)\n"
+    "addu\t$21,$2,$3\n"
+    "sw\t$23,44($sp)\n"
+)
+
+_CDCR_RETAIL = (
+    "li\t$16,0x00000003\t\t# 3\n"
+    "sw\t$fp,48($sp)\n"
+    "li\t$fp,0x00000001\t\t# 1\n"
+    "sw\t$18,24($sp)\n"
+    "andi\t$18,$19,0x00ff\n"
+    "la\t$3,D_800B6C94\n"
+    "sw\t$20,32($sp)\n"
+    "lw\t$20,D_800B8D24\n"
+    "sll\t$2,$18,2\n"
+    "sw\t$21,36($sp)\n"
+    "addu\t$21,$2,$3\n"
+    "sw\t$22,40($sp)\n"
+    "addu\t$22,$0,$zero\n"
+    "sw\t$23,44($sp)\n"
+)
+
+
+def _cd_control_retry_psyq(source):
+    if source.count(_CDCR_EXPECTED) != 1:
+        raise ValueError("cd_control_retry_psyq prologue schedule shape changed")
+    return source.replace(_CDCR_EXPECTED, _CDCR_RETAIL)
+
+
+# func_8009FF30 CD_sync: the library compiler hoisted the interrupt-status base
+# and the constant 2 into the opposite callee-saved registers.
+_CDSYNC_EXPECTED_BLOCK = (
+    "la\t$21,D_800B9004+1\n"
+    "addu\t$18,$21,-1\n"
+    "la\t$19,D_800B8DCC\n"
+    "li\t$20,0x00000002\t\t# 2\n"
+)
+_CDSYNC_RETAIL_BLOCK = (
+    "la\t$20,D_800B8DCC\n"
+    "la\t$18,D_800B9004\n"
+    "addu\t$21,$18,1\n"
+    "li\t$19,0x00000002\t\t# 2\n"
+)
+_CDSYNC_EXPECTED_BODY_USES = {
+    "addu\t$2,$2,$19\n": 1,
+    "addu\t$4,$4,$19\n": 1,
+    "beq\t$6,$20,$L30\n": 1,
+    "sb\t$20,0($18)\n": 1,
+}
+_CDSYNC_RETAIL_BODY_USES = {
+    "addu\t$2,$2,$19\n": "addu\t$2,$2,$20\n",
+    "addu\t$4,$4,$19\n": "addu\t$4,$4,$20\n",
+    "beq\t$6,$20,$L30\n": "beq\t$6,$19,$L30\n",
+    "sb\t$20,0($18)\n": "sb\t$19,0($18)\n",
+}
+
+
+def _cd_sync_hoist_regs(source):
+    if "func_8009FF30:" not in source:
+        raise ValueError("cd_sync_hoist_regs: not func_8009FF30")
+    if source.count(_CDSYNC_EXPECTED_BLOCK) != 1:
+        raise ValueError("cd_sync_hoist_regs: hoisted block not found exactly once")
+    for line, n in _CDSYNC_EXPECTED_BODY_USES.items():
+        if source.count(line) != n:
+            raise ValueError("cd_sync_hoist_regs: unexpected use count for %r" % line)
+    if len(re.findall(r"\$19\b", source)) != 5 or len(re.findall(r"\$20\b", source)) != 5:
+        raise ValueError("cd_sync_hoist_regs: unexpected $19/$20 reference count")
+    source = source.replace(_CDSYNC_EXPECTED_BLOCK, _CDSYNC_RETAIL_BLOCK)
+    for old, new in _CDSYNC_RETAIL_BODY_USES.items():
+        source = source.replace(old, new)
+    return source
+
+
+# func_800684C0 primitive packet walk: retail orders four loop-invariant
+# temporaries differently; the instruction stream is otherwise identical.
+KID_WALK_TREGS_MAP = {"8": "10", "9": "11", "10": "8", "11": "9"}
+KID_WALK_TREGS_COUNTS = {"8": 2, "9": 2, "10": 2, "11": 2}
+_KWT_TREG = re.compile(r"\$(8|9|10|11)(?![0-9A-Za-z_])")
+
+
+def _kid_walk_tregs(source):
+    if len(re.findall(r"(?m)^func_800684C0:", source)) != 1:
+        raise ValueError("kid_walk_tregs expects exactly one func_800684C0")
+    if re.search(r"(?m)^func_(?!800684C0)[0-9A-F]{8}:", source):
+        raise ValueError("kid_walk_tregs is restricted to func_800684C0")
+    counts = {r: 0 for r in KID_WALK_TREGS_MAP}
+    for m in _KWT_TREG.finditer(source):
+        counts[m.group(1)] += 1
+    if counts != KID_WALK_TREGS_COUNTS:
+        raise ValueError("kid_walk_tregs register counts %r != %r"
+                         % (counts, KID_WALK_TREGS_COUNTS))
+    return _KWT_TREG.sub(lambda m: "$" + KID_WALK_TREGS_MAP[m.group(1)], source)
+
+
+# func_80094E80 card finish callback: post-reload CSE turns the case-4 call
+# argument immediate into a copy of the switch constant register.
+_CFCA_OLD = (
+    ".set\tnoreorder\n"
+    ".set\tnomacro\n"
+    "bne\t$3,$2,{label}\n"
+    "addu\t$4,$2,$zero\n"
+    ".set\tmacro\n"
+    ".set\treorder\n"
+    "\n"
+    "la\t$16,D_800EF094+12\n"
+)
+
+
+def _card_finish_const_arg(source):
+    pattern = re.compile(
+        r"\.set\tnoreorder\n\.set\tnomacro\nbne\t\$3,\$2,(\$L\d+)\n"
+        r"addu\t\$4,\$2,\$zero\n\.set\tmacro\n\.set\treorder\n\n"
+        r"la\t\$16,D_800EF094\+12\n"
+    )
+    matches = pattern.findall(source)
+    if len(matches) != 1:
+        raise ValueError("card_finish_const_arg shape changed")
+    old = _CFCA_OLD.format(label=matches[0])
+    new = old.replace("addu\t$4,$2,$zero\n", "li\t$4,4\n")
+    if source.count(old) != 1:
+        raise ValueError("card_finish_const_arg shape changed")
+    return source.replace(old, new)
+
+
+# func_80099DEC libsio control: with a zero-size frame GCC 2.8.1 turns each
+# jump that stole the shared return copy into its own return; the library
+# object keeps the six jumps to the single final return.
+def _sio_control_shared_return(source):
+    tail = (
+        "$L2:\n"
+        "addu\t$2,$7,$zero\n"
+        "j\t$31\n"
+        "nop  # DEBUG: branch/jump\n"
+        ".end\tfunc_80099DEC"
+    )
+    if source.count(tail) != 1:
+        raise ValueError("sio_control_shared_return final return block not found once")
+    site = re.compile(r"(?m)^j\t\$31\naddu\t\$2,\$7,\$zero\n")
+    if len(site.findall(source)) != 6:
+        raise ValueError("sio_control_shared_return expected six stolen return copies")
+    if source.count("j\t$31") != 7 or "$Lsio_ret" in source:
+        raise ValueError("sio_control_shared_return unexpected return shape")
+    source = site.sub("j\t$Lsio_ret\naddu\t$2,$7,$zero\n", source)
+    source = source.replace(
+        tail,
+        "$L2:\n"
+        "addu\t$2,$7,$zero\n"
+        "$Lsio_ret:\n"
+        "j\t$31\n"
+        "nop  # DEBUG: branch/jump\n"
+        ".end\tfunc_80099DEC",
+    )
+    return source
+
+
 def apply_assembly_profile(path, profile):
     """Reproduce narrow PsyQ assembler choices that old GCC cannot express."""
     if profile == "tank_input_psyq":
@@ -1697,6 +2043,33 @@ addu\t$9,$18,$zero
         if source.count(old) != 1:
             raise ValueError("stream_pad_base_schedule loop preheader changed")
         path.write_text(source.replace(old, new))
+        return
+    if profile == "sio_control_shared_return":
+        path.write_text(_sio_control_shared_return(path.read_text()))
+        return
+    if profile == "card_finish_const_arg":
+        path.write_text(_card_finish_const_arg(path.read_text()))
+        return
+    if profile == "kid_walk_tregs":
+        path.write_text(_kid_walk_tregs(path.read_text()))
+        return
+    if profile == "cd_sync_hoist_regs":
+        path.write_text(_cd_sync_hoist_regs(path.read_text()))
+        return
+    if profile == "cd_control_retry_psyq":
+        path.write_text(_cd_control_retry_psyq(path.read_text()))
+        return
+    if profile == "prnt_aspsx_macros":
+        path.write_text(_prnt_aspsx_macros(path.read_text()))
+        return
+    if profile == "stream_setup_dest_swap":
+        path.write_text(_stream_setup_dest_swap(path.read_text()))
+        return
+    if profile == "cd_ready_report":
+        path.write_text(_cd_ready_report(path.read_text()))
+        return
+    if profile == "cd_cw_report":
+        path.write_text(_cd_cw_report(path.read_text()))
         return
     if profile == "ra_only_27_epilogue":
         source = path.read_text()

@@ -1,39 +1,131 @@
-asm(".text\n\t.globl func_8002B8EC\nfunc_8002B8EC:\n\t"
-    ".word 0x00051023,0x0082102A,0x10400046,0x27BDFFF0\n\t"
-    ".word 0x24A6FF80,0x00041023,0x14C00002,0x00452823\n\t"
-    ".word 0x24060002,0x3C028000,0x00A21824,0x00C21024\n\t"
-    ".word 0x00624026,0x04A10002,0x00A01021,0x00021023\n\t"
-    ".word 0x04C10002,0x00C02821,0x00052823,0x4882F000\n\t"
-    ".word 0x00000000,0x00000000,0xEBBF0000,0x8FA40000\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00021B00\n\t"
-    ".word 0x00821804,0x4885F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20004,0xE85F0000,0x8FA60004,0x00000000\n\t"
-    ".word 0x00C42023,0x0480000F,0x2402000C,0x00461023\n\t"
-    ".word 0x04400003,0x00000000,0x0800AE69,0x00451007\n\t"
-    ".word 0x00021023,0x00451004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800AE7E\n\t"
-    ".word 0x00831804,0x00071023,0x00451007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800AE80,0x00601021,0x0065001B,0x14A00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00601021,0x1100004D,0x00000000,0x0800AECE\n\t"
-    ".word 0x00021023,0x00A4102A,0x10400047,0x2402007F\n\t"
-    ".word 0x00453023,0x14C00002,0x00852023,0x24060002\n\t"
-    ".word 0x3C028000,0x00821824,0x00C21024,0x00624826\n\t"
-    ".word 0x04810002,0x00801821,0x00031823,0x04C10002\n\t"
-    ".word 0x00C02021,0x00042023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20008,0xE85F0000,0x8FA60008\n\t"
-    ".word 0x00000000,0x24C8FFF4,0x05010023,0x00000000\n\t"
-    ".word 0x00C31804,0x4884F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2000C,0xE85F0000,0x8FA7000C,0x00000000\n\t"
-    ".word 0x00E62823,0x04A0000F,0x2402000C,0x00471023\n\t"
-    ".word 0x04400003,0x00000000,0x0800AEB1,0x00441007\n\t"
-    ".word 0x00021023,0x00441004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800AEC7\n\t"
-    ".word 0x00A31804,0x00081023,0x00441007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800AEC9,0x00601021,0x00031B00,0x0064001B\n\t"
-    ".word 0x14800002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11200004,0x00000000\n\t"
-    ".word 0x0800AECE,0x00021023,0x00001021,0x03E00008\n\t"
-    ".word 0x27BD0010\n");
+int abs(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int difference;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        difference = d_zeros - n_zeros;
+        if (difference >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= difference;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int fixed_div_pinned(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    register int n_zeros asm("$6");
+    int shifted;
+    int d_zeros;
+    int excess;
+    register int difference asm("$5");
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        difference = d_zeros - n_zeros;
+        if (difference >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= difference;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+int func_8002B8EC(int x, int width) {
+    int span;
+
+    if (x < -width) {
+        span = width - 128;
+        width = -x - width;
+        if (span == 0) {
+            span = 2;
+        }
+        return fixed_div(width, span);
+    }
+    if (width < x) {
+        span = 127 - width;
+        x -= width;
+        if (span == 0) {
+            span = 2;
+        }
+        return fixed_div_pinned(x, span);
+    }
+    return 0;
+}

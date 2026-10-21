@@ -1,32 +1,62 @@
-asm(".text\n\t.globl func_800577B4\nfunc_800577B4:\n\t"
-    ".word 0x27BDFFB0,0xAFB5003C,0x0000A821,0xAFB1002C\n\t"
-    ".word 0x00808821,0xAFB60040,0x00A0B021,0x32C3FFFF\n\t"
-    ".word 0x00031900,0x3C02800E,0x244246C0,0x00621821\n\t"
-    ".word 0xAFB70044,0x00C0B821,0xAFBF004C,0xAFBE0048\n\t"
-    ".word 0xAFB40038,0xAFB30034,0xAFB20030,0xAFB00028\n\t"
-    ".word 0xAFA7005C,0x94620000,0x8FBE0060,0x00021300\n\t"
-    ".word 0x03C20018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x08015E1C,0x00021023\n\t"
-    ".word 0x2462F800,0x04400007,0x00000000,0x08015E1E\n\t"
-    ".word 0x00021303,0x08015E5C,0x24020001,0x08015E5B\n\t"
-    ".word 0xA1024740,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xA3A20020,0x3C14800E,0x96824744\n\t"
-    ".word 0x92230000,0x00553821,0x2402000A,0x10620015\n\t"
-    ".word 0x00008021,0x00079400,0x00409821,0x10600011\n\t"
-    ".word 0x02F03021,0x92240000,0x26310001,0x00063400\n\t"
-    ".word 0x32C5FFFF,0x8FA8005C,0x00063403,0xAFA80010\n\t"
-    ".word 0x8FA80064,0x00123C03,0xAFBE0014,0x0C015ADC\n\t"
-    ".word 0xAFA80018,0x92230000,0x00000000,0x1473FFEF\n\t"
-    ".word 0x02028021,0x93A20020,0x00000000,0x02A21821\n\t"
-    ".word 0x92220000,0x00000000,0x14400019,0x0060A821\n\t"
-    ".word 0x86844744,0x00031400,0x00021403,0x00021023\n\t"
-    ".word 0x0082102A,0x1440FFCF,0x28820023,0x10400006\n\t"
-    ".word 0x3C08800E,0x91034740,0x00000000,0x2C6200B4\n\t"
-    ".word 0x1440FFCA,0x24620001,0x0C008A7E,0x00000000\n\t"
-    ".word 0x304200FF,0x14400009,0x00001021,0x96824744\n\t"
-    ".word 0x00000000,0x2442FFFF,0x08015E5B,0xA6824744\n\t"
-    ".word 0x08015E20,0x26310001,0x00001021,0x8FBF004C\n\t"
-    ".word 0x8FBE0048,0x8FB70044,0x8FB60040,0x8FB5003C\n\t"
-    ".word 0x8FB40038,0x8FB30034,0x8FB20030,0x8FB1002C\n\t"
-    ".word 0x8FB00028,0x03E00008,0x27BD0050\n");
+typedef struct {
+    unsigned short height;
+    unsigned short space;
+    unsigned short blank;
+    char pad6[2];
+    void *glyphs;
+    void *image;
+} Font;
+extern Font D_800E46C0[];
+extern unsigned char D_800E4740;
+extern short D_800E4744;
+extern short func_80056B70(unsigned char, unsigned short, short, short, int, int, int);
+extern unsigned char func_800229F8(void);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+int func_800577B4(unsigned char *str, unsigned short font, short x, int scale, int color, int flags) {
+    short y = 0;
+    unsigned char *text = str;
+    Font *f = &D_800E46C0[font];
+    unsigned char line_height;
+    short width;
+    short ypos;
+
+    line_height = round_fixed(fixed_mul(color, f->height << 12));
+    for (;;) {
+        ypos = D_800E4744 + y;
+        width = 0;
+        while (*text != '\n' && *text != 0) {
+            width += func_80056B70(*text++, font, x + width, ypos, scale, color, flags);
+        }
+        y += line_height;
+        if (*text == 0) {
+            if (D_800E4744 < -y) {
+                return 1;
+            }
+            if (D_800E4744 < 35 && D_800E4740 < 180) {
+                D_800E4740++;
+                break;
+            }
+            if (func_800229F8() == 0) {
+                D_800E4744--;
+            }
+            break;
+        }
+        text++;
+    }
+    return 0;
+}

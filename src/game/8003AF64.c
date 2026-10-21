@@ -1,127 +1,207 @@
-asm(".text\n\t.globl func_8003AF64\nfunc_8003AF64:\n\t"
-    ".word 0x27BDFF48,0xAFB600A8,0x0000B021,0x3C02800E\n\t"
-    ".word 0x8C43DDF0,0x3C02800E,0xAFB00090,0x00808021\n\t"
-    ".word 0xAFBF00B4,0xAFBE00B0,0xAFB700AC,0xAFB500A4\n\t"
-    ".word 0xAFB400A0,0xAFB3009C,0xAFB20098,0xAFB10094\n\t"
-    ".word 0x24660004,0x94630000,0xAC46DDF4,0x24020080\n\t"
-    ".word 0xA7A70078,0xA7A30080,0x3063FFFF,0x10620017\n\t"
-    ".word 0x00A08821,0x28620081,0x10400005,0x24020040\n\t"
-    ".word 0x10620008,0x00051C00,0x0800EC1E,0x00000000\n\t"
-    ".word 0x24020100,0x10620018,0x00051C00,0x0800EC1E\n\t"
-    ".word 0x00000000,0x00031DC3,0x24630080,0x306300FF\n\t"
-    ".word 0x00031A00,0x00C31821,0x00041400,0x000215C3\n\t"
-    ".word 0x24420020,0x0800EC1C,0x3042003F,0x00051C00\n\t"
-    ".word 0x00031DC3,0x24630040,0x3063007F,0x00031A40\n\t"
-    ".word 0x00C31821,0x00041400,0x000215C3,0x24420040\n\t"
-    ".word 0x0800EC1C,0x3042007F,0x00031DC3,0x24630020\n\t"
-    ".word 0x3063003F,0x00031A40,0x00C31821,0x00041400\n\t"
-    ".word 0x000215C3,0x24420080,0x304200FF,0x00021080\n\t"
-    ".word 0x0062B021,0x0C00EF61,0x00000000,0x00101880\n\t"
-    ".word 0x3C04800A,0x3C05800A,0xAFA20084,0x27A20010\n\t"
-    ".word 0x9486489C,0x94A448A0,0x00661823,0x00042023\n\t"
-    ".word 0xA7A30018,0xA7A30010,0xA7A30020,0x3C03800A\n\t"
-    ".word 0xA7A4001A,0xA7A40012,0xA7A40022,0x946448A4\n\t"
-    ".word 0x00111880,0x00641823,0xA7A30014,0xA7A30024\n\t"
-    ".word 0x24630200,0xA7A3001C,0xC8400000,0xC8410004\n\t"
-    ".word 0xC8420008,0xC843000C,0xC8440010,0xC8450014\n\t"
-    ".word 0x00000000,0x00000000,0x4A280030,0x8EC30000\n\t"
-    ".word 0x00000000,0x3064007C,0x000424C0,0x3062003E\n\t"
-    ".word 0x000212C0,0x00822025,0x3063001F,0x000318C0\n\t"
-    ".word 0x97A20080,0x00832025,0xAFA40048,0x00021080\n\t"
-    ".word 0x00561021,0x8C430000,0x00000000,0x3064007C\n\t"
-    ".word 0x000424C0,0x3062003E,0x000212C0,0x00822025\n\t"
-    ".word 0x3063001F,0x000318C0,0x00832025,0x27A20028\n\t"
-    ".word 0xAFA4004C,0xE8510000,0xE8520004,0x27A20074\n\t"
-    ".word 0xA7A00062,0x484CF800,0x00000000,0xAC4C0000\n\t"
-    ".word 0x8FA20028,0x8FA80084,0x00000000,0x0048102B\n\t"
-    ".word 0x10400006,0x24020001,0x8FA2002C,0x00000000\n\t"
-    ".word 0x0048102B,0x14400003,0x24020001,0x0800EC6F\n\t"
-    ".word 0xA7A2006A,0xA7A0006A,0x97A80078,0x00000000\n\t"
-    ".word 0x00081400,0x0440014F,0x0000A821,0x27A80060\n\t"
-    ".word 0x27BE0030,0xAFA80088,0x27A80040,0x3C1700FF\n\t"
-    ".word 0x36F7FFFF,0xAFA8008C,0x0C01A3BA,0x24040034\n\t"
-    ".word 0x00409821,0x12600143,0x32A30001,0x8FA80088\n\t"
-    ".word 0x00031840,0x01031021,0xA4400000,0x27A20068\n\t"
-    ".word 0x00431021,0x26630008,0xA4400000,0x26620020\n\t"
-    ".word 0xE86C0000,0xE84D0000,0x3C02800E,0x8EC40000\n\t"
-    ".word 0x2442DDF8,0x00041BC2,0x306301F8,0x00621821\n\t"
-    ".word 0x94620000,0x00000000,0x34420020,0xA662001A\n\t"
-    ".word 0x00041402,0x000423C2,0x94650002,0x30840001\n\t"
-    ".word 0xA665000E,0x94630004,0x14800009,0x30460003\n\t"
-    ".word 0x2462003F,0xA7A20030,0x24623F3F,0xA7A20036\n\t"
-    ".word 0x24623F00,0xA7A30032,0x0800ECAC,0xA7A20034\n\t"
-    ".word 0x2462003F,0xA7A20032,0x24623F3F,0xA7A20034\n\t"
-    ".word 0x24623F00,0xA7A30030,0xA7A20036,0x97A30032\n\t"
-    ".word 0x97A20030,0x97A40034,0x97A50036,0xA7A3003A\n\t"
-    ".word 0x30C3FFFF,0xA7A20038,0x00031040,0x03C21021\n\t"
-    ".word 0xA7A4003C,0xA7A5003E,0x94420000,0x00000000\n\t"
-    ".word 0xA662000C,0x24620001,0x00021040,0x03C21021\n\t"
-    ".word 0x94420000,0x00000000,0xA6620018,0x24620002\n\t"
-    ".word 0x00021040,0x03C21021,0x24630003,0x00031840\n\t"
-    ".word 0x94420000,0x03C31821,0xA6620030,0x94620000\n\t"
-    ".word 0x26D60004,0xA6620024,0x97A20010,0x97A30018\n\t"
-    ".word 0x24420200,0x24630200,0xA7A20010,0x27A20010\n\t"
-    ".word 0xA7A30018,0xC8400000,0xC8440000,0xC8420008\n\t"
-    ".word 0x00000000,0x00000000,0x4A280030,0x32A70001\n\t"
-    ".word 0x000730C0,0x8FA8008C,0x8EC40000,0x01062821\n\t"
-    ".word 0x30837C00,0x000319C2,0x308203E0,0x00021180\n\t"
-    ".word 0x00621825,0x3084001F,0x000424C0,0x00641825\n\t"
-    ".word 0xACA30000,0x97A20080,0x00000000,0x00021080\n\t"
-    ".word 0x00561021,0x8C430000,0x00000000,0x30647C00\n\t"
-    ".word 0x000421C2,0x306203E0,0x00021180,0x00822025\n\t"
-    ".word 0x3063001F,0x00031CC0,0x00832025,0x27A20020\n\t"
-    ".word 0xACA40004,0x00462021,0xE8910000,0xE8920004\n\t"
-    ".word 0x26630014,0x2662002C,0xE86C0000,0xE84D0000\n\t"
-    ".word 0x27A20070,0x00071880,0x00431021,0x484CF800\n\t"
-    ".word 0x00000000,0xAC4C0000,0x8C820000,0x8FA80084\n\t"
-    ".word 0x00000000,0x0048102B,0x10400007,0x00071040\n\t"
-    ".word 0x8C820004,0x00000000,0x0048102B,0x14400007\n\t"
-    ".word 0x3C08800A,0x00071040,0x27A30068,0x00621821\n\t"
-    ".word 0x24020001,0xA4620000,0x3C08800A,0x8D0248B4\n\t"
-    ".word 0x3C08800D,0x25085B94,0x8E630000,0x000222C0\n\t"
-    ".word 0x00822021,0x000420C0,0x00882021,0x3C08FF00\n\t"
-    ".word 0x8C823FF8,0x00681824,0x00571024,0x00621825\n\t"
-    ".word 0xAE630000,0x8C823FF8,0x02771824,0x00481024\n\t"
-    ".word 0x00431025,0xAC823FF8,0x87A20068,0x00000000\n\t"
-    ".word 0x14400005,0x00000000,0x87A2006A,0x00000000\n\t"
-    ".word 0x1040006E,0x3AA20001,0x0C01A3BA,0x24040024\n\t"
-    ".word 0x0040A021,0x1280008F,0x3AA20001,0x30430001\n\t"
-    ".word 0x8FA80088,0x00031040,0x01029021,0x86420000\n\t"
-    ".word 0x00000000,0x14400011,0x27A60050,0x000310C0\n\t"
-    ".word 0x27B10010,0x00518821,0x27B00020,0x02028021\n\t"
-    ".word 0x8E240030,0x8E050000,0x0C022F35,0x27A70058\n\t"
-    ".word 0x27A60054,0x8E240034,0x8E050004,0x0C022F35\n\t"
-    ".word 0x27A7005C,0x24020001,0xA6420000,0x8FA20050\n\t"
-    ".word 0x27A60050,0xAE620004,0x8FA20054,0x32B20001\n\t"
-    ".word 0xAE62001C,0x8FA20058,0x27B10010,0xAE820004\n\t"
-    ".word 0x8FA2005C,0x27B00020,0xAE820014,0x001210C0\n\t"
-    ".word 0x00518821,0x02028021,0x8E240030,0x8E050000\n\t"
-    ".word 0x0C022F35,0x27A70058,0x27A60054,0x8E240034\n\t"
-    ".word 0x8E050004,0x0C022F35,0x27A7005C,0x00129040\n\t"
-    ".word 0x8FA80088,0x24020001,0x01129021,0xA6420000\n\t"
-    ".word 0x8FA20050,0x00000000,0xAE620010,0x8FA20054\n\t"
-    ".word 0x00000000,0xAE620028,0x8FA20058,0x00000000\n\t"
-    ".word 0xAE82000C,0x8FA2005C,0x00000000,0xAE82001C\n\t"
-    ".word 0x8E620008,0x00000000,0xAE820008,0x8E620014\n\t"
-    ".word 0x00000000,0xAE820010,0x8E620020,0x3C08800A\n\t"
-    ".word 0xAE820018,0x8E63002C,0x24020008,0xA2820003\n\t"
-    ".word 0x24020038,0xA2820007,0xAE830020,0x8D0248B4\n\t"
-    ".word 0x3C08800D,0x25085B94,0x8E830000,0x000222C0\n\t"
-    ".word 0x00822021,0x000420C0,0x00882021,0x3C08FF00\n\t"
-    ".word 0x8C823FF8,0x00681824,0x00571024,0x00621825\n\t"
-    ".word 0xAE830000,0x8C823FF8,0x02971824,0x00481024\n\t"
-    ".word 0x00431025,0xAC823FF8,0x2402000C,0xA2620003\n\t"
-    ".word 0x2402003E,0x0800EDB2,0xA2620007,0x30420001\n\t"
-    ".word 0x8FA8008C,0x000210C0,0x01021021,0x8C430000\n\t"
-    ".word 0x00000000,0xAE630004,0x8C420004,0x00000000\n\t"
-    ".word 0xAE62001C,0x32A20001,0x000210C0,0x01021021\n\t"
-    ".word 0x8C430000,0x00000000,0xAE630010,0x8C430004\n\t"
-    ".word 0x2402000C,0xA2620003,0x2402003C,0xA2620007\n\t"
-    ".word 0xAE630028,0x8FA20070,0x8FA30074,0x00000000\n\t"
-    ".word 0x00431025,0x04410004,0x26A30001,0x0C00EA87\n\t"
-    ".word 0x02602021,0x26A30001,0x0060A821,0x97A80078\n\t"
-    ".word 0x00031C00,0x00081400,0x0043102A,0x1040FEBA\n\t"
-    ".word 0x00000000,0x8FBF00B4,0x8FBE00B0,0x8FB700AC\n\t"
-    ".word 0x8FB600A8,0x8FB500A4,0x8FB400A0,0x8FB3009C\n\t"
-    ".word 0x8FB20098,0x8FB10094,0x8FB00090,0x03E00008\n\t"
-    ".word 0x27BD00B8\n");
+typedef struct { short x; short y; short z; short pad; } SVector;
+typedef struct { unsigned addr : 24; unsigned len : 8; } Tag;
+typedef struct {
+    Tag tag;
+    int rgb0;
+    int xy0;
+    unsigned short uv0, clut;
+    int rgb1;
+    int xy1;
+    unsigned short uv1, tpage;
+    int rgb2;
+    int xy2;
+    unsigned short uv2, pad2;
+    int rgb3;
+    int xy3;
+    unsigned short uv3, pad3;
+} PolyGT4;
+typedef struct {
+    Tag tag;
+    int rgb0;
+    int xy0;
+    int rgb1;
+    int xy1;
+    int rgb2;
+    int xy2;
+    int rgb3;
+    int xy3;
+} PolyG4;
+typedef struct { unsigned short tpage; unsigned short clut; unsigned short uv; unsigned short pad; } Tile;
+typedef struct { Tag head[2]; Tag ot[4096]; } OrderTable;
+
+typedef struct { unsigned short width; unsigned short pad; unsigned int cells[1]; } Flb;
+extern Flb *D_800DDDF0;
+extern unsigned int *D_800DDDF4;
+extern Tile D_800DDDF8[];
+extern unsigned short D_800A489C;
+extern unsigned short D_800A48A0;
+extern unsigned short D_800A48A4;
+extern struct { int v; } D_800A48B4;
+extern OrderTable D_800D5B8C[];
+extern unsigned int func_8003BD84(void);
+extern void *func_80068EE8(int);
+extern void func_8008BCD4(int, int, int *, int *);
+extern void func_8003AA1C(PolyGT4 *);
+
+static inline int conv_a(unsigned int c)
+{
+    return ((c & 0x7C) << 19) | ((c & 0x3E) << 11) | ((c & 0x1F) << 3);
+}
+
+static inline int conv_b(unsigned int c)
+{
+    return ((c & 0x7C00) >> 7) | ((c & 0x3E0) << 6) | ((c & 0x1F) << 19);
+}
+
+void func_8003AF64(short x, short z, int unused, short count)
+{
+    SVector v[2];
+    unsigned int sz[2][2];
+    unsigned short uv[8];
+    int col[2][2];
+    int out[4];
+    short done[2];
+    short clip[2];
+    int flag[2];
+    unsigned int *cell;
+    unsigned short width;
+    unsigned int far;
+    unsigned short rot;
+    unsigned short base;
+    unsigned int c;
+    Tile *tile;
+    PolyGT4 *poly;
+    PolyG4 *poly2;
+    Tag *ot;
+    short i;
+    int j;
+
+    cell = 0;
+    D_800DDDF4 = D_800DDDF0->cells;
+    width = D_800DDDF0->width;
+    switch (width) {
+    case 64:
+        cell = D_800DDDF4 + ((((z >> 7) + 128) & 0xFF) << 6) + (((x >> 7) + 32) & 0x3F);
+        break;
+    case 128:
+        cell = D_800DDDF4 + ((((z >> 7) + 64) & 0x7F) << 7) + (((x >> 7) + 64) & 0x7F);
+        break;
+    case 256:
+        cell = D_800DDDF4 + ((((z >> 7) + 32) & 0x3F) << 7) + (((x >> 7) + 128) & 0xFF);
+        break;
+    }
+    far = func_8003BD84();
+    ((SVector *)sz)->x = v[0].x = v[1].x = (x << 2) - D_800A489C;
+    ((SVector *)sz)->y = v[0].y = v[1].y = -D_800A48A0;
+    ((SVector *)sz)->z = v[0].z = (z << 2) - D_800A48A4;
+    v[1].z = v[0].z + 512;
+    __asm__ volatile("lwc2 $0, 0(%0)\n\tlwc2 $1, 4(%0)\n\tlwc2 $2, 8(%0)\n\tlwc2 $3, 12(%0)\n\tlwc2 $4, 16(%0)\n\tlwc2 $5, 20(%0)" : : "r"(v));
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x0280030");
+    col[1][0] = conv_a(cell[0]);
+    col[1][1] = conv_a(cell[width]);
+    __asm__ volatile("swc2 $17, 0(%0)\n\tswc2 $18, 4(%0)" : : "r"(sz[1]) : "memory");
+    done[1] = 0;
+    __asm__ volatile("cfc2 $12, $31\n\tnop\n\tsw $12, 0(%0)" : : "r"(&flag[1]) : "$12", "memory");
+    if (sz[1][0] >= far || sz[1][1] >= far) {
+        clip[1] = 1;
+    } else {
+        clip[1] = 0;
+    }
+    for (i = 0; i <= count; i++) {
+        poly = func_80068EE8(sizeof(PolyGT4));
+        if (poly == 0) {
+            return;
+        }
+        done[i & 1] = 0;
+        clip[i & 1] = 0;
+        __asm__ volatile("swc2 $12, 0(%0)\n\tswc2 $13, 0(%1)" : : "r"(&poly->xy0), "r"(&poly->xy2) : "memory");
+        c = *cell;
+        tile = &D_800DDDF8[(c >> 18) & 0x3F];
+        poly->tpage = tile->tpage | 0x20;
+        rot = (c >> 16) & 3;
+        poly->clut = tile->clut;
+        base = tile->uv;
+        if (!((c >> 15) & 1)) {
+            uv[0] = base + 63;
+            uv[3] = base + 16191;
+            uv[1] = base;
+            uv[2] = base + 16128;
+        } else {
+            uv[1] = base + 63;
+            uv[2] = base + 16191;
+            uv[0] = base;
+            uv[3] = base + 16128;
+        }
+        uv[4] = uv[0];
+        uv[5] = uv[1];
+        uv[6] = uv[2];
+        uv[7] = uv[3];
+        poly->uv0 = uv[rot];
+        poly->uv1 = uv[rot + 1];
+        poly->uv3 = uv[rot + 2];
+        poly->uv2 = uv[rot + 3];
+        cell++;
+        v[0].x += 512;
+        v[1].x += 512;
+        __asm__ volatile("lwc2 $0, 0(%0)\n\tlwc2 $4, 0(%0)\n\tlwc2 $2, 8(%0)" : : "r"(v));
+        __asm__ volatile("nop\n\tnop\n\tcop2 0x0280030");
+        {
+            int *cp = col[i & 1];
+            cp[0] = conv_b(cell[0]);
+            cp[1] = conv_b(cell[width]);
+        }
+        __asm__ volatile("swc2 $17, 0(%0)\n\tswc2 $18, 4(%0)" : : "r"(sz[i & 1]) : "memory");
+        __asm__ volatile("swc2 $12, 0(%0)\n\tswc2 $13, 0(%1)" : : "r"(&poly->xy1), "r"(&poly->xy3) : "memory");
+        __asm__ volatile("cfc2 $12, $31\n\tnop\n\tsw $12, 0(%0)" : : "r"(&flag[i & 1]) : "$12", "memory");
+        if (!(sz[i & 1][0] < far && sz[i & 1][1] < far)) {
+            clip[i & 1] = 1;
+        }
+        ot = &D_800D5B8C[D_800A48B4.v].ot[4094];
+        poly->tag.addr = ot->addr;
+        ot->addr = (unsigned int)poly;
+        if (clip[0] || clip[1]) {
+            poly2 = func_80068EE8(sizeof(PolyG4));
+            if (poly2 == 0) {
+                return;
+            }
+            j = (i ^ 1) & 1;
+            if (!done[j]) {
+                func_8008BCD4((*(col + j))[0], sz[j][0], &out[0], &out[2]);
+                func_8008BCD4((*(col + j))[1], sz[j][1], &out[1], &out[3]);
+                done[j] = 1;
+            }
+            poly->rgb0 = out[0];
+            poly->rgb2 = out[1];
+            poly2->rgb0 = out[2];
+            poly2->rgb2 = out[3];
+            func_8008BCD4((*(col + (i & 1)))[0], sz[i & 1][0], &out[0], &out[2]);
+            func_8008BCD4((*(col + (i & 1)))[1], sz[i & 1][1], &out[1], &out[3]);
+            done[i & 1] = 1;
+            poly->rgb1 = out[0];
+            poly->rgb3 = out[1];
+            poly2->rgb1 = out[2];
+            poly2->rgb3 = out[3];
+            poly2->xy0 = poly->xy0;
+            poly2->xy1 = poly->xy1;
+            poly2->xy2 = poly->xy2;
+            poly2->xy3 = poly->xy3;
+            poly2->tag.len = 8;
+            ((unsigned char *)&poly2->rgb0)[3] = 0x38;
+            ot = &D_800D5B8C[D_800A48B4.v].ot[4094];
+            poly2->tag.addr = ot->addr;
+            ot->addr = (unsigned int)poly2;
+            poly->tag.len = 12;
+            ((unsigned char *)&poly->rgb0)[3] = 0x3E;
+        } else {
+            poly->rgb0 = col[(i ^ 1) & 1][0];
+            poly->rgb2 = col[(i ^ 1) & 1][1];
+            poly->rgb1 = col[i & 1][0];
+            poly->rgb3 = col[i & 1][1];
+            poly->tag.len = 12;
+            ((unsigned char *)&poly->rgb0)[3] = 0x3C;
+        }
+        if ((flag[0] | flag[1]) < 0) {
+            func_8003AA1C(poly);
+        }
+    }
+}

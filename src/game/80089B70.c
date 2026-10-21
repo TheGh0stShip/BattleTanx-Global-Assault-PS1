@@ -1,43 +1,117 @@
-asm(".text\n\t.globl func_80089B70\nfunc_80089B70:\n\t"
-    ".word 0x27BDFFC8,0xAFB10014,0x00808821,0xAFB60028\n\t"
-    ".word 0x00A0B021,0xAFB20018,0x00C09021,0xAFB7002C\n\t"
-    ".word 0x00E0B821,0xAFB50024,0x8FB50050,0x3C02800F\n\t"
-    ".word 0xAFB00010,0x2450EAE8,0xAFBF0034,0xAFBE0030\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0x9202003C,0x8E1E006C\n\t"
-    ".word 0x38420001,0x2C530001,0x0C024661,0xAE15006C\n\t"
-    ".word 0x0C024653,0x00000000,0x92020033,0x00000000\n\t"
-    ".word 0x10400005,0x24140001,0x92020032,0x00000000\n\t"
-    ".word 0x14400004,0x00000000,0x0C0223EC,0xAE1E006C\n\t"
-    ".word 0xAE15006C,0x0C0245BD,0x00000000,0x3C02800F\n\t"
-    ".word 0x2444EAE8,0x322307FF,0x24020800,0x00431023\n\t"
-    ".word 0xAC830078,0x2403F800,0x8C860090,0x02238824\n\t"
-    ".word 0xAC82007C,0x0242102A,0xAC960070,0x10400002\n\t"
-    ".word 0xAC970074,0xAC92007C,0x8FA20048,0x90830039\n\t"
-    ".word 0x24050001,0xAC910090,0xAC820080,0x02F21023\n\t"
-    ".word 0x10600023,0xAC820084,0x14D10021,0x00000000\n\t"
-    ".word 0x9082003B,0x00000000,0x1440000C,0x00000000\n\t"
-    ".word 0xA0800033,0xA0800039,0x12600003,0x00000000\n\t"
-    ".word 0xA085003C,0xA0850033,0xA080003A,0x9082003B\n\t"
-    ".word 0x00000000,0x38420001,0x2C450001,0x10A0000A\n\t"
-    ".word 0x3C02800F,0x2442EAE8,0x8C440014,0x24030001\n\t"
-    ".word 0xA043003A,0xA0430033,0xA0430039,0x24840001\n\t"
-    ".word 0x0802273C,0xAC440014,0x3C03800F,0x2463EAE8\n\t"
-    ".word 0x8C620010,0x00000000,0x24420001,0xAC620010\n\t"
-    ".word 0x10A00037,0x3C02800F,0x2443EAE8,0x90620033\n\t"
-    ".word 0x00000000,0x1040000E,0x3C10800F,0x90620032\n\t"
-    ".word 0x00000000,0x1040000B,0x2610EAE8,0x90620039\n\t"
-    ".word 0x00000000,0x14400005,0x00000000,0x9062003C\n\t"
-    ".word 0x00000000,0x10400006,0x00000000,0x3C10800F\n\t"
-    ".word 0x2610EAE8,0x0C0223EC,0xAE1E006C,0xAE15006C\n\t"
-    ".word 0x0C0245BD,0x00000000,0x3C02800F,0x8C42EB44\n\t"
-    ".word 0x00000000,0x12220006,0x3C02800F,0x16600005\n\t"
-    ".word 0x2443EAE8,0x0C0222A0,0x00000000,0x3C02800F\n\t"
-    ".word 0x2443EAE8,0xA0600033,0xA0600039,0xA0600031\n\t"
-    ".word 0xA060003B,0xA060003A,0x12600004,0x24020001\n\t"
-    ".word 0xA062003C,0x08022770,0x00000000,0x8FA8004C\n\t"
-    ".word 0x00000000,0x11000003,0x00000000,0xA0620039\n\t"
-    ".word 0xA0620033,0x0C022696,0x00000000,0x0040A021\n\t"
-    ".word 0x02801021,0x8FBF0034,0x8FBE0030,0x8FB7002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+typedef struct {
+    char pad0[0x10];
+    int w10;
+    int w14;
+    char pad18[0x31 - 0x18];
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    char pad34[0x39 - 0x34];
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[0x5C - 0x3D];
+    int w5c;
+    char pad60[0x6C - 0x60];
+    int w6c;
+    int w70;
+    int w74;
+    int w78;
+    int w7c;
+    int w80;
+    int w84;
+    char pad88[8];
+    int w90;
+} StreamState;
+extern StreamState D_800EEAE8;
+
+extern void func_80091984(void);
+extern void func_8009194C(void);
+extern void func_80088FB0(void);
+extern void func_800916F4(void);
+extern void func_80088A80(void);
+extern int func_80089A58(void);
+
+int func_80089B70(int pos, int dest, int len, int total, int arg4, int arg5, int arg6)
+{
+    int primed;
+    int saved;
+    int result;
+    int ok;
+    int prev;
+    int count;
+
+    primed = D_800EEAE8.b3c == 1;
+    saved = D_800EEAE8.w6c;
+    D_800EEAE8.w6c = arg6;
+    func_80091984();
+    func_8009194C();
+    result = 1;
+    if (!D_800EEAE8.b33 || !D_800EEAE8.b32) {
+        D_800EEAE8.w6c = saved;
+        func_80088FB0();
+        D_800EEAE8.w6c = arg6;
+    }
+    func_800916F4();
+
+    D_800EEAE8.w78 = pos & 0x7FF;
+    __asm__ volatile("");
+    pos &= ~0x7FF;
+    D_800EEAE8.w70 = dest;
+    prev = D_800EEAE8.w90;
+    D_800EEAE8.w74 = total;
+    D_800EEAE8.w7c = 0x800 - D_800EEAE8.w78;
+    if (len < D_800EEAE8.w7c)
+        D_800EEAE8.w7c = len;
+    ok = 1;
+    D_800EEAE8.w80 = arg4;
+    D_800EEAE8.w90 = pos;
+    D_800EEAE8.w84 = total - len;
+
+    if (D_800EEAE8.b39 && prev == pos) {
+        if (!D_800EEAE8.b3b) {
+            D_800EEAE8.b33 = 0;
+            D_800EEAE8.b39 = 0;
+            if (primed) {
+                D_800EEAE8.b3c = 1;
+                D_800EEAE8.b33 = 1;
+            }
+            D_800EEAE8.b3a = 0;
+            ok = D_800EEAE8.b3b == 1;
+        }
+        if (ok) {
+            D_800EEAE8.b3a = 1;
+            D_800EEAE8.b33 = 1;
+            D_800EEAE8.b39 = 1;
+            D_800EEAE8.w14++;
+        } else {
+            D_800EEAE8.w10++;
+        }
+    }
+    if (ok) {
+
+    if (!D_800EEAE8.b33 || !D_800EEAE8.b32 || D_800EEAE8.b39 || D_800EEAE8.b3c) {
+        D_800EEAE8.w6c = saved;
+        func_80088FB0();
+        D_800EEAE8.w6c = arg6;
+    }
+    func_800916F4();
+    if (pos != D_800EEAE8.w5c && !primed)
+        func_80088A80();
+    D_800EEAE8.b33 = 0;
+    D_800EEAE8.b39 = 0;
+    D_800EEAE8.b31 = 0;
+    D_800EEAE8.b3b = 0;
+    D_800EEAE8.b3a = 0;
+    if (primed) {
+        D_800EEAE8.b3c = 1;
+        D_800EEAE8.b33 = 1;
+    } else if (arg5) {
+        D_800EEAE8.b39 = 1;
+        D_800EEAE8.b33 = 1;
+    }
+    result = func_80089A58();
+    }
+    return result;
+}

@@ -1,61 +1,144 @@
-asm(".text\n\t.globl func_80070900\nfunc_80070900:\n\t"
-    ".word 0x00804821,0x3C02800B,0x2445E144,0x8D230028\n\t"
-    ".word 0x8D240018,0x24630001,0x00031900,0x00651821\n\t"
-    ".word 0x8C620000,0x00000000,0x0082102A,0x14400010\n\t"
-    ".word 0x27BDFFF8,0x8D230028,0x00000000,0x24620001\n\t"
-    ".word 0xAD220028,0x28420003,0x1040004D,0x00000000\n\t"
-    ".word 0x24620002,0x00021100,0x00451021,0x8C420000\n\t"
-    ".word 0x00000000,0x0082102A,0x1040FFF2,0x00000000\n\t"
-    ".word 0x3C04800B,0x8D220028,0x2484E144,0x00021900\n\t"
-    ".word 0x00641821,0x24420001,0x00021100,0x00441021\n\t"
-    ".word 0x8C640000,0x8C420000,0x8D230018,0x00442823\n\t"
-    ".word 0x14A00002,0x00642023,0x24050002,0x3C028000\n\t"
-    ".word 0x00821824,0x00A21024,0x00624026,0x04810002\n\t"
-    ".word 0x00801021,0x00021023,0x04A10002,0x00A03021\n\t"
-    ".word 0x00063023,0x4882F000,0x00000000,0x00000000\n\t"
-    ".word 0xEBBF0000,0x8FA40000,0x00000000,0x2487FFF4\n\t"
-    ".word 0x04E10030,0x00021B00,0x00821804,0x4886F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20004,0xE85F0000\n\t"
-    ".word 0x8FA50004,0x00000000,0x00A42023,0x0480000F\n\t"
-    ".word 0x2402000C,0x00451023,0x04400003,0x00000000\n\t"
-    ".word 0x0801C290,0x00461007,0x00021023,0x00461004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0801C2B2,0x00831804,0x00071023\n\t"
-    ".word 0x00461007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0801C2B4,0x00602821\n\t"
-    ".word 0x3C03800D,0x8C642FE4,0x91220024,0x00000000\n\t"
-    ".word 0xA08201C1,0x8C642FE4,0x91220025,0x00000000\n\t"
-    ".word 0xA08201C2,0x8C642FE4,0x91230026,0x0801C32D\n\t"
-    ".word 0x24020001,0x0066001B,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00000000,0x00602821\n\t"
-    ".word 0x11000002,0x3C02800B,0x00052823,0x8D230028\n\t"
-    ".word 0x244BE144,0x00031100,0x004B1021,0x8C460004\n\t"
-    ".word 0x2408FFFF,0x14C80002,0x00000000,0x8D26001C\n\t"
-    ".word 0x8C470008,0x00000000,0x14E80002,0x24620001\n\t"
-    ".word 0x8D270020,0x00021100,0x004B1821,0x8C620004\n\t"
-    ".word 0x00000000,0x14480002,0x00000000,0x8D22001C\n\t"
-    ".word 0x8C640008,0x00000000,0x14880002,0x00000000\n\t"
-    ".word 0x8D240020,0x00461023,0x00450018,0x00007012\n\t"
-    ".word 0x00001810,0x000E7302,0x00031D00,0x01C37025\n\t"
-    ".word 0x01C01021,0x3C0D800D,0x8DA32FE4,0x00C21021\n\t"
-    ".word 0xAC620004,0x00871023,0x00450018,0x00007012\n\t"
-    ".word 0x00001810,0x000E7302,0x00031D00,0x01C37025\n\t"
-    ".word 0x01C01021,0x8DA32FE4,0x00E21021,0xAC620008\n\t"
-    ".word 0x8D280028,0x00000000,0x00081100,0x004B1821\n\t"
-    ".word 0x9062000C,0x240400FF,0x14440002,0x00403021\n\t"
-    ".word 0x91260024,0x9062000D,0x00000000,0x14440002\n\t"
-    ".word 0x00403821,0x91270025,0x9062000E,0x00000000\n\t"
-    ".word 0x14440002,0x00405021,0x912A0026,0x25020001\n\t"
-    ".word 0x00021100,0x004B1821,0x9062000C,0x00000000\n\t"
-    ".word 0x14440002,0x00404021,0x91280024,0x9062000D\n\t"
-    ".word 0x00000000,0x14440002,0x00405821,0x912B0025\n\t"
-    ".word 0x9062000E,0x00000000,0x14440002,0x00406021\n\t"
-    ".word 0x912C0026,0x01061023,0x00450018,0x00007012\n\t"
-    ".word 0x00001810,0x000E7302,0x00031D00,0x01C37025\n\t"
-    ".word 0x01C01021,0x8DA32FE4,0x00C21021,0xA06201C1\n\t"
-    ".word 0x01671023,0x00450018,0x00007012,0x00001810\n\t"
-    ".word 0x000E7302,0x00031D00,0x01C37025,0x01C01021\n\t"
-    ".word 0x8DA32FE4,0x00E21021,0xA06201C2,0x018A1023\n\t"
-    ".word 0x00450018,0x00001812,0x00007010,0x00031B02\n\t"
-    ".word 0x000E7500,0x006E1825,0x00001021,0x8DA42FE4\n\t"
-    ".word 0x01431821,0xA08301C3,0x03E00008,0x27BD0008\n");
+typedef struct { int time; int x; int y; unsigned char r, g, b, pad; } Key;
+typedef struct { char pad0[24]; int time; int x; int y; unsigned char r, g, b, pad27; int key; } Path;
+typedef struct { int pad0; int x; int y; char pad12[437]; unsigned char r, g, b; } Cam;
+extern Key D_800AE144[];
+typedef struct { Cam *cam; } Globals;
+extern Globals D_800D2FE4;
+int abs(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30" : : "r"(value));
+}
+
+static inline void gte_nop(void) {
+    __asm__ volatile("nop");
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_nop();
+    gte_nop();
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        quotient = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = quotient / (d >> scale);
+            } else {
+                quotient = quotient / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = quotient / (d >> -excess);
+        }
+    } else {
+        quotient = n << 12;
+        quotient = quotient / d;
+    }
+    if (negative) {
+        return -quotient;
+    }
+    return quotient;
+}
+
+static inline int pick_int(int v, int *fallback)
+{
+    if (v == -1) {
+        v = *fallback;
+    }
+    return v;
+}
+
+static inline int pick_colour(int v, unsigned char *fallback)
+{
+    int c = (short)v;
+    if (v == 255) {
+        c = *fallback;
+    }
+    return c;
+}
+
+int func_80070900(Path *p)
+{
+    int time = p->time;
+    int span, f;
+    int x0, y0, x1, y1;
+    int r0, g0, b0, r1, g1, b1;
+
+    while (time >= D_800AE144[p->key + 1].time) {
+        p->key++;
+        if (p->key >= 3) {
+            D_800D2FE4.cam->r = p->r;
+            D_800D2FE4.cam->g = p->g;
+            D_800D2FE4.cam->b = p->b;
+            return 1;
+        }
+    }
+    {
+        int k = p->key;
+        int start = D_800AE144[k].time;
+        int end = D_800AE144[k + 1].time;
+        int dt;
+        span = end - start;
+        dt = p->time - start;
+        if (span == 0) {
+            span = 2;
+        }
+        f = fixed_div(dt, span);
+    }
+
+    x0 = pick_int(D_800AE144[p->key].x, &p->x);
+    y0 = pick_int(D_800AE144[p->key].y, &p->y);
+    x1 = pick_int(D_800AE144[p->key + 1].x, &p->x);
+    y1 = pick_int(D_800AE144[p->key + 1].y, &p->y);
+    D_800D2FE4.cam->x = x0 + fixed_mul(x1 - x0, f);
+    D_800D2FE4.cam->y = y0 + fixed_mul(y1 - y0, f);
+
+    r0 = pick_colour(D_800AE144[p->key].r, &p->r);
+    g0 = pick_colour(D_800AE144[p->key].g, &p->g);
+    b0 = pick_colour(D_800AE144[p->key].b, &p->b);
+    r1 = pick_colour(D_800AE144[p->key + 1].r, &p->r);
+    g1 = pick_colour(D_800AE144[p->key + 1].g, &p->g);
+    b1 = pick_colour(D_800AE144[p->key + 1].b, &p->b);
+    D_800D2FE4.cam->r = r0 + fixed_mul(r1 - r0, f);
+    D_800D2FE4.cam->g = g0 + fixed_mul(g1 - g0, f);
+    D_800D2FE4.cam->b = b0 + fixed_mul(b1 - b0, f);
+    return 0;
+}

@@ -1,31 +1,73 @@
-asm(".text\n\t.globl func_800167D0\nfunc_800167D0:\n\t"
-    ".word 0x00805821,0x00A02021,0x3083FFFF,0x24024000\n\t"
-    ".word 0x10620014,0x00C06021,0x28624001,0x10400005\n\t"
-    ".word 0x34028000,0x10600009,0x00000000,0x08005A23\n\t"
-    ".word 0x00000000,0x10620012,0x3402C000,0x10620019\n\t"
-    ".word 0x00000000,0x08005A23,0x00000000,0x8D620000\n\t"
-    ".word 0x00000000,0xAD820000,0x8D620004,0x03E00008\n\t"
-    ".word 0xAD820004,0x8D620004,0x00000000,0x00021023\n\t"
-    ".word 0xAD820000,0x8D620000,0x03E00008,0xAD820004\n\t"
-    ".word 0x8D620000,0x00000000,0x00021023,0xAD820000\n\t"
-    ".word 0x8D620004,0x00000000,0x00021023,0x03E00008\n\t"
-    ".word 0xAD820004,0x8D620004,0x00000000,0xAD820000\n\t"
-    ".word 0x8D620000,0x08005A1B,0x00021023,0x30884000\n\t"
-    ".word 0x30893FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x30888000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00092840,0x00052903,0x248A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00092040,0x00042103\n\t"
-    ".word 0x00053023,0x8D630004,0x8D6D0000,0x00000000\n\t"
-    ".word 0x01A40018,0x00001012,0x00003810,0x00021302\n\t"
-    ".word 0x00073D00,0x00471025,0x00660018,0x00007012\n\t"
-    ".word 0x00006810,0x000E7302,0x000D6D00,0x01CD7025\n\t"
-    ".word 0x01C01821,0x00431021,0xAD820000,0x8D630004\n\t"
-    ".word 0x8D6B0000,0x00000000,0x01650018,0x00001012\n\t"
-    ".word 0x00007010,0x00021302,0x000E7500,0x004E1025\n\t"
-    ".word 0x00640018,0x00006812,0x00007010,0x000D6B02\n\t"
-    ".word 0x000E7500,0x01AE6825,0x01A01821,0x00431021\n\t"
-    ".word 0x03E00008,0xAD820004\n");
+typedef signed int s32;
+typedef unsigned short u16;
+
+extern u16 D_800B0EEC[];
+
+static inline s32 fixed_mul(s32 a, s32 b) {
+    s32 r, hi;
+    asm("mult %2,%3\n\tmflo %0\n\tmfhi %1\n\tsrl %0,%0,12\n\t"
+        "sll %1,%1,20\n\tor %0,%0,%1"
+        : "=&r"(r), "=&r"(hi) : "r"(a), "r"(b));
+    return r;
+}
+
+void func_800167D0(s32 *in, s32 angle_arg, s32 *out) {
+    s32 *src = in;
+
+    register s32 angle asm("$4") = angle_arg;
+    s32 *dst = out;
+    register s32 mask asm("$8");
+    register s32 index asm("$9");
+    register s32 next asm("$10");
+    register s32 s asm("$5");
+    register s32 c asm("$4");
+    s32 neg_s;
+    s32 x, y, b, b2;
+
+    switch ((u16)angle) {
+    case 0:
+        dst[0] = src[0];
+        dst[1] = src[1];
+        return;
+    case 0x4000:
+        dst[0] = -src[1];
+        dst[1] = src[0];
+        return;
+    case 0x8000:
+        dst[0] = -src[0];
+        dst[1] = -src[1];
+        return;
+    case 0xC000:
+        dst[0] = src[1];
+        dst[1] = -src[0];
+        return;
+    }
+
+    asm("andi %1,%2,0x4000\n\tandi %0,%2,0x3FFF\n\tbeqz %1,1f\n\tnop\n\t"
+        "addiu %1,$0,0x3FFF\n\tsub %0,%1,%0\n1:"
+        : "=r"(index), "=r"(mask) : "r"(angle));
+    index = *(u16 *)((char *)D_800B0EEC + (index & 0x3FFE));
+    asm("andi %1,%2,0x8000\n\tbeqz %1,1f\n\tnop\n\tsub %0,$0,%0\n1:"
+        : "+r"(index), "=r"(mask) : "r"(angle));
+    asm("sll %0,%1,1\n\tsra %0,%0,4" : "=r"(s) : "r"(index));
+
+    next = angle + 0x4000;
+    asm("andi %1,%2,0x4000\n\tandi %0,%2,0x3FFF\n\tbeqz %1,1f\n\tnop\n\t"
+        "addiu %1,$0,0x3FFF\n\tsub %0,%1,%0\n1:"
+        : "=r"(index), "=r"(mask) : "r"(next));
+    index = *(u16 *)((char *)D_800B0EEC + (index & 0x3FFE));
+    asm("andi %1,%2,0x8000\n\tbeqz %1,1f\n\tnop\n\tsub %0,$0,%0\n1:"
+        : "+r"(index), "=r"(mask) : "r"(next));
+    c = (index << 1) >> 4;
+    asm("" : "=r"(c) : "0"(c));
+
+    neg_s = -s;
+    asm("" : "=r"(b) : "0"(src[1]));
+    x = fixed_mul(src[0], c);
+    y = fixed_mul(b, neg_s);
+    dst[0] = x + y;
+    asm("" : "=r"(b2) : "0"(src[1]));
+    x = fixed_mul(src[0], s);
+    y = fixed_mul(b2, c);
+    dst[1] = x + y;
+}

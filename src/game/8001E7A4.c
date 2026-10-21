@@ -1,43 +1,116 @@
-asm(".text\n\t.globl func_8001E7A4\nfunc_8001E7A4:\n\t"
-    ".word 0x27BDFE70,0xAFB00168,0x30B0FFFF,0xAFA40190\n\t"
-    ".word 0x02002021,0x240500E0,0x27A60038,0x3C02800C\n\t"
-    ".word 0x00003821,0xAFBF018C,0xAFBE0188,0xAFB70184\n\t"
-    ".word 0xAFB60180,0xAFB5017C,0xAFB40178,0xAFB30174\n\t"
-    ".word 0xAFB20170,0xAFB1016C,0xA440628C,0x0C005EAB\n\t"
-    ".word 0xAFA00010,0x0000B821,0x02E0A021,0x3042FFFF\n\t"
-    ".word 0x0002402B,0xAFA80160,0x27A80018,0xAFA80158\n\t"
-    ".word 0x8FA80190,0x0200F021,0xAFA2015C,0x9102005C\n\t"
-    ".word 0x8D150024,0x304200F0,0xA102005C,0x02A08821\n\t"
-    ".word 0x8FA80160,0x00000000,0x1100005A,0x00009021\n\t"
-    ".word 0x3282FFFF,0x8FA80158,0x0002B0C0,0x01169821\n\t"
-    ".word 0x32E2FFFF,0x14400009,0x001E2080,0x009E2021\n\t"
-    ".word 0x000420C0,0x3C08800C,0x250862B0,0x00882021\n\t"
-    ".word 0x0C005BFD,0x27A50018,0x24170001,0x8E620000\n\t"
-    ".word 0x00000000,0x04410004,0x00021B03,0x00021023\n\t"
-    ".word 0x00021303,0x00021823,0x8E620004,0x00000000\n\t"
-    ".word 0x04400003,0x00032082,0x08007A30,0x00022B03\n\t"
-    ".word 0x00021023,0x00021303,0x00022823,0x00042400\n\t"
-    ".word 0x00042403,0x3243FFFF,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x27A30038,0x00628021,0x96060004\n\t"
-    ".word 0x00052B80,0x0C005B5E,0x00052C03,0x3042FFFF\n\t"
-    ".word 0x10400026,0x3C08800C,0x96030004,0x250862B0\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00483021\n\t"
-    ".word 0x8CC20000,0x00000000,0x304300E0,0x24020020\n\t"
-    ".word 0x10620009,0x24020040,0x1462001F,0x0235102A\n\t"
-    ".word 0x8FA80158,0x96040004,0x0C00769C,0x01162821\n\t"
-    ".word 0x08007A6A,0x00408821,0x00C02821,0x84A3001E\n\t"
-    ".word 0x84A20020,0x94A4001E,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x04410002,0x00000000,0x00021023\n\t"
-    ".word 0x0043102A,0x94A30020,0x14400011,0x00000000\n\t"
-    ".word 0x94A20014,0x08007A74,0x00621021,0x26520001\n\t"
-    ".word 0x8FA8015C,0x3242FFFF,0x0048102B,0x1440FFAD\n\t"
-    ".word 0x32E2FFFF,0x0235102A,0x1040000D,0x3282FFFF\n\t"
-    ".word 0x06210009,0x02358821,0x08007A7A,0x26940001\n\t"
-    ".word 0x94C20014,0x00000000,0x00821021,0x00021400\n\t"
-    ".word 0x08007A6A,0x00028883,0x02A08821,0x3282FFFF\n\t"
-    ".word 0x26940001,0x8FA80190,0x00021080,0x01021021\n\t"
-    ".word 0xAC51003C,0xAC40004C,0x3282FFFF,0x2C420004\n\t"
-    ".word 0x1440FF8B,0x02A08821,0x8FBF018C,0x8FBE0188\n\t"
-    ".word 0x8FB70184,0x8FB60180,0x8FB5017C,0x8FB40178\n\t"
-    ".word 0x8FB30174,0x8FB20170,0x8FB1016C,0x8FB00168\n\t"
-    ".word 0x03E00008,0x27BD0190\n");
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+typedef struct {
+    int unk0;
+    unsigned short tile;
+    char pad6[30];
+} Contact;
+
+typedef struct {
+    unsigned int flags;
+    char pad4[16];
+    short height;
+    short x0;
+    short x1;
+    short z0;
+    short z1;
+    short rise_x;
+    short rise_z;
+    char pad22[6];
+} Tile;
+
+typedef struct {
+    char pad0[32];
+    int gravity;
+    int floor;
+    int bounce;
+    char pad2C[8];
+    short pitch;
+    short roll;
+    char pad38[4];
+    int height[4];
+    int velocity[4];
+    unsigned char contact_flags;
+    char pad5D[3];
+    int locked;
+} Body;
+
+extern int D_800DE30C;
+extern unsigned short D_800C628C;
+extern Tile D_800C62B0[];
+
+extern unsigned short func_80017AAC(int tile, int mask, Contact *contacts, int arg3, int arg4);
+extern void func_80016FF4(Tile *tile, Point *points);
+extern unsigned short func_80016D78(short x, short z, unsigned short tile);
+extern int func_8001DA70(unsigned short tile, Point *point);
+extern short func_8001D860(int delta, int extent);
+
+int abs(int);
+static inline int fixed_to_int(int value) {
+    int result;
+    result = value >= 0 ? value >> 12 : -(-value >> 12);
+    return result;
+}
+static inline void get_tile_points(int tile, Point *points) {
+    Tile *t = &D_800C62B0[tile];
+    func_80016FF4(t, points);
+}
+void func_8001E7A4(Body *body, unsigned short tile) {
+    Point points[4];
+    Contact contacts[8];
+    unsigned short i;
+    unsigned short j;
+    unsigned short count;
+    unsigned short have_points;
+    int floor;
+    int height;
+
+    D_800C628C = 0;
+    count = func_80017AAC(tile, 0xE0, contacts, 0, 0);
+    have_points = 0;
+    body->contact_flags &= 0xF0;
+    floor = body->floor;
+    for (i = 0; i < 4; i++) {
+        height = floor;
+        for (j = 0; j < count; j++) {
+            short x;
+            short z;
+            if (!have_points) {
+                get_tile_points(tile, points);
+                have_points = 1;
+            }
+            x = (short)((unsigned int)fixed_to_int(points[i].x) >> 2);
+            z = (short)(fixed_to_int(points[i].y) >> 2);
+            if (func_80016D78(x, z, contacts[j].tile)) {
+                switch (D_800C62B0[contacts[j].tile].flags & 0xE0) {
+                case 0x40:
+                    __asm__ volatile("" : : : "memory");
+                    height = func_8001DA70(contacts[j].tile, &points[i]);
+                    break;
+                case 0x20: {
+                    Tile *hit = &D_800C62B0[contacts[j].tile];
+                    if (abs(hit->rise_x) > abs(hit->rise_z)) {
+                        height = (short)(hit->rise_x + hit->height) << 14;
+                    } else {
+                        height = (short)(hit->rise_z + hit->height) << 14;
+                    }
+                    break;
+                }
+                }
+                break;
+            }
+        }
+        if (height < floor) {
+            if (height < 0) {
+                height += floor;
+            } else {
+                height = floor;
+            }
+        }
+        body->height[i] = height;
+        body->velocity[i] = 0;
+    }
+}

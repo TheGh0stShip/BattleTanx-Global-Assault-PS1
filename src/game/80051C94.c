@@ -1,45 +1,132 @@
-asm(".text\n\t.globl func_80051C94\nfunc_80051C94:\n\t"
-    ".word 0x27BDFF80,0x3C04800E,0x24843E68,0x00002821\n\t"
-    ".word 0x24060564,0xAFBF0078,0xAFB70074,0xAFB60070\n\t"
-    ".word 0xAFB5006C,0xAFB40068,0xAFB30064,0xAFB20060\n\t"
-    ".word 0xAFB1005C,0x0C022A92,0xAFB00058,0x3C03800D\n\t"
-    ".word 0x24642FE4,0x90820009,0x00000000,0x10400091\n\t"
-    ".word 0x00008821,0x0060B821,0x00809021,0x24140002\n\t"
-    ".word 0x24150001,0x27B60010,0x02209821,0x92420008\n\t"
-    ".word 0x00000000,0x0222102A,0x10400002,0xA3A00010\n\t"
-    ".word 0xA3B40010,0x02322021,0x90830039,0xA3B10011\n\t"
-    ".word 0x00031100,0x00431023,0x00021080,0x8EE32FE4\n\t"
-    ".word 0x24420024,0x00621821,0xAFA30040,0x9082000B\n\t"
-    ".word 0x00118080,0xAFA00018,0xAFA0001C,0x000218C0\n\t"
-    ".word 0x00621821,0x00031880,0x3C02800E,0x24423DB4\n\t"
-    ".word 0x00621821,0x3C02800A,0x244260C4,0x02021021\n\t"
-    ".word 0xAFA30014,0x8C440000,0x0C014CCE,0xAFA40020\n\t"
-    ".word 0x8C420020,0x8FA40020,0x0C014CCE,0xAFA2004C\n\t"
-    ".word 0x27A40050,0x24450018,0x0C0229EF,0x24060008\n\t"
-    ".word 0x3C02800A,0x24426094,0x02028021,0x8E100000\n\t"
-    ".word 0x00000000,0x12140008,0x00001821,0x2E020003\n\t"
-    ".word 0x14400008,0x24020003,0x12020005,0x00000000\n\t"
-    ".word 0x0801477A,0x00000000,0x0801477A,0x24030001\n\t"
-    ".word 0x24030002,0x93A20010,0x00000000,0x30420002\n\t"
-    ".word 0x10400002,0x00002821,0x02831823,0x3C02800B\n\t"
-    ".word 0x2446028C,0x000310C0,0x00431023,0x00022080\n\t"
-    ".word 0x02C01821,0x00861021,0x24840004,0x8C420000\n\t"
-    ".word 0x24A50001,0xAC620014,0x28A20007,0x1440FFF9\n\t"
-    ".word 0x24630004,0x93A20010,0x00000000,0x30420002\n\t"
-    ".word 0x1040001A,0xA3A00044,0x3C02800A,0x8C436070\n\t"
-    ".word 0x2402000A,0x10620027,0x24020003,0x8E430004\n\t"
-    ".word 0x00000000,0x1062000B,0x2C620004,0x10400005\n\t"
-    ".word 0x24020005,0x10750007,0x00000000,0x080147C0\n\t"
-    ".word 0xAFA00048,0x10620005,0x00000000,0x080147AA\n\t"
-    ".word 0xAFA00048,0x080147C0,0xAFB40048,0x080147C0\n\t"
-    ".word 0xAFA30048,0x080147C1,0x3C04800E,0x8E430004\n\t"
-    ".word 0x24020003,0x1062000B,0x2C620004,0x10400005\n\t"
-    ".word 0x24020005,0x10750007,0x24020008,0x080147C0\n\t"
-    ".word 0xAFA20048,0x10620005,0x24020008,0x080147C0\n\t"
-    ".word 0xAFA20048,0x080147C0,0xAFB50048,0x080147BF\n\t"
-    ".word 0x24020006,0x24020008,0xAFA20048,0x3C04800E\n\t"
-    ".word 0x24843E68,0x02642021,0x0C0145AE,0x27A50010\n\t"
-    ".word 0x92420009,0x26310001,0x0222102A,0x1440FF77\n\t"
-    ".word 0x26730114,0x8FBF0078,0x8FB70074,0x8FB60070\n\t"
-    ".word 0x8FB5006C,0x8FB40068,0x8FB30064,0x8FB20060\n\t"
-    ".word 0x8FB1005C,0x8FB00058,0x03E00008,0x27BD0080\n");
+typedef struct {
+    short a0;
+    short a2;
+    short a4;
+    char pad6[2];
+    int a8;
+    int aC;
+    int a10;
+    char pad14[0x20 - 0x14];
+    unsigned char id;
+    unsigned char a21;
+    char pad22[2];
+} Team;
+typedef struct {
+    char *models;
+    unsigned int mode;
+    unsigned char humans;
+    unsigned char count;
+    char padA;
+    unsigned char team[46];
+    unsigned char type[7];
+} Setup;
+typedef struct {
+    unsigned char flags;
+    unsigned char index;
+    char pad2[2];
+    Team *team;
+    int a8;
+    int aC;
+    int value;
+    int stats[7];
+    char *model;
+    unsigned char kind;
+    char pad35[3];
+    int mode;
+    int a3C;
+    int pair[2];
+} Desc;
+typedef struct {
+    char data[0x114];
+} Player;
+typedef struct {
+    char pad0[0x18];
+    int pair[2];
+    int a20;
+} Profile;
+extern Player D_800E3E68[];
+extern Team D_800E3DB4[];
+extern Setup D_800D2FE4;
+extern int D_800A6070;
+extern unsigned int D_800A6094[];
+extern int D_800A60C4[];
+extern int D_800B028C[][7];
+extern void func_8008AA48(void *, int, int);
+extern void func_8008A7BC(void *, void *, int);
+extern Profile *func_80053338(int);
+extern void func_800516B8(Player *, Desc *);
+
+void func_80051C94(void) {
+    Desc desc;
+    int i;
+    int j;
+    int level;
+    int flags;
+
+    func_8008AA48(D_800E3E68, 0, 0x564);
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        desc.flags = 0;
+        if (i < D_800D2FE4.humans) {
+            flags = 2;
+            desc.flags = flags;
+        }
+        desc.model = D_800D2FE4.models + (D_800D2FE4.type[i] * 60 + 36);
+        desc.index = i;
+        desc.team = &D_800E3DB4[D_800D2FE4.team[i]];
+        desc.aC = desc.a8 = 0;
+        desc.value = D_800A60C4[i];
+        desc.a3C = func_80053338(desc.value)->a20;
+        func_8008A7BC(desc.pair, func_80053338(desc.value)->pair, 8);
+        level = 0;
+        switch (D_800A6094[i]) {
+        case 1:
+            level = 0;
+            break;
+        case 2:
+            level = 1;
+            break;
+        case 3:
+            level = 2;
+            break;
+        }
+        if (desc.flags & 2) {
+            level = 2 - level;
+        }
+        for (j = 0; j < 7; j++) {
+            desc.stats[j] = D_800B028C[level][j];
+        }
+        desc.kind = 0;
+        if (desc.flags & 2) {
+            if (D_800A6070 == 10) {
+                desc.mode = 8;
+            } else {
+                switch (D_800D2FE4.mode) {
+                case 1:
+                case 3:
+                    desc.mode = 2;
+                    break;
+                case 5:
+                    desc.mode = 5;
+                    break;
+                default:
+                    desc.mode = 0;
+                    break;
+                }
+            }
+        } else {
+            switch (D_800D2FE4.mode) {
+            case 1:
+            case 3:
+                desc.mode = 1;
+                break;
+            case 5:
+                desc.mode = 6;
+                break;
+            default:
+                desc.mode = 8;
+                break;
+            }
+        }
+        func_800516B8(&D_800E3E68[i], &desc);
+    }
+}

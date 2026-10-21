@@ -1,66 +1,82 @@
-asm(".text\n\t.globl func_8007471C\nfunc_8007471C:\n\t"
-    ".word 0x27BDFFD0,0xAFB60028,0xAFB10014,0x00808821\n\t"
-    ".word 0x3C03800B,0xAFBF002C,0xAFB50024,0xAFB40020\n\t"
-    ".word 0xAFB3001C,0xAFB20018,0xAFB00010,0x8E220010\n\t"
-    ".word 0x2463E280,0x00021080,0x00431021,0x8E230008\n\t"
-    ".word 0x8C540000,0x10600006,0x00A0B021,0x84630000\n\t"
-    ".word 0x9622000C,0x00000000,0x10620005,0x00000000\n\t"
-    ".word 0x86820000,0x00000000,0x00021300,0xAE220018\n\t"
-    ".word 0x86820000,0x8E230018,0x00021300,0x0062182A\n\t"
-    ".word 0x106000C7,0x00009821,0x8E2A0014,0x24081000\n\t"
-    ".word 0xAD480000,0xAD400004,0xAD480008,0xAD40000C\n\t"
-    ".word 0xAD480010,0xAD400014,0xAD400018,0xAD40001C\n\t"
-    ".word 0x0260A821,0x02809021,0x86430006,0x24020002\n\t"
-    ".word 0x1462001B,0x24020001,0x86820000,0x8E230018\n\t"
-    ".word 0x8646000A,0x00022300,0x00031040,0x00442823\n\t"
-    ".word 0x04A00003,0x00C20018,0x00851023,0x00C20018\n\t"
-    ".word 0x00001812,0x00000000,0x00000000,0x0064001A\n\t"
-    ".word 0x14800002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x14810004,0x3C018000,0x14610002,0x00000000\n\t"
-    ".word 0x0006000D,0x00009812,0x0801D22D,0x00000000\n\t"
-    ".word 0x14620016,0x00000000,0x8643000A,0x8E220018\n\t"
-    ".word 0x00000000,0x00620018,0x86820000,0x00001812\n\t"
-    ".word 0x00021300,0x00000000,0x0062001A,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14410004\n\t"
-    ".word 0x3C018000,0x14610002,0x00000000,0x0006000D\n\t"
-    ".word 0x00009812,0x0801D22D,0x00000000,0x14600002\n\t"
-    ".word 0x00000000,0x8653000A,0x8E230018,0x86420008\n\t"
-    ".word 0x00000000,0x00620018,0x9650000E,0x8642000C\n\t"
-    ".word 0x00001812,0x04610002,0x00000000,0x24630FFF\n\t"
-    ".word 0x00032303,0x0C022B58,0x00442021,0x00101C00\n\t"
-    ".word 0x00031C03,0x00621821,0x00131400,0x00021403\n\t"
-    ".word 0x00620018,0x00001812,0x04610002,0x00000000\n\t"
-    ".word 0x24630FFF,0x86440004,0x00000000,0x2C820009\n\t"
-    ".word 0x1040005B,0x00034B03,0x3C02800C,0x24420704\n\t"
-    ".word 0x00041880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x8E220014,0x00000000\n\t"
-    ".word 0x94430002,0x94440004,0x94450006,0x9446000A\n\t"
-    ".word 0x9447000C,0x9448000E,0x00691821,0x0801D2A3\n\t"
-    ".word 0xA4430002,0x8E220014,0x00000000,0x94430002\n\t"
-    ".word 0x94440004,0x94450006,0x9443000A,0x9444000C\n\t"
-    ".word 0x9445000E,0x00691821,0x0801D2A3,0xA443000A\n\t"
-    ".word 0x8E220014,0x00000000,0x94430002,0x94440004\n\t"
-    ".word 0x94450006,0x9446000A,0x9443000C,0x9444000E\n\t"
-    ".word 0x00691821,0x0801D2A3,0xA443000C,0x8E220014\n\t"
-    ".word 0x00000000,0x94430002,0x94430004,0x94440006\n\t"
-    ".word 0x9445000A,0x9446000C,0x9447000E,0x00691821\n\t"
-    ".word 0x0801D2A3,0xA4430004,0x8E220014,0x00000000\n\t"
-    ".word 0x94430002,0x94440004,0x94430006,0x9444000A\n\t"
-    ".word 0x9445000C,0x9446000E,0x00691821,0x0801D2A3\n\t"
-    ".word 0xA4430006,0x8E220014,0x00000000,0x94440002\n\t"
-    ".word 0x94450004,0x94460006,0x9447000A,0x9443000E\n\t"
-    ".word 0x9448000C,0x00691821,0x0801D2A3,0xA443000E\n\t"
-    ".word 0x8E240014,0x01202821,0x24061000,0x0801D2A1\n\t"
-    ".word 0x00C03821,0x8E240014,0x24051000,0x01203021\n\t"
-    ".word 0x0801D2A1,0x00A03821,0x8E240014,0x24051000\n\t"
-    ".word 0x00A03021,0x01203821,0x0C022944,0x00000000\n\t"
-    ".word 0x26B50001,0x2AA20005,0x1440FF4F,0x2652000C\n\t"
-    ".word 0x3C02800E,0x8E230018,0x8C42E30C,0x00000000\n\t"
-    ".word 0x00621821,0xAE230018,0x0801D2BF,0xAEC00000\n\t"
-    ".word 0x86820002,0x00000000,0x1040000C,0x24020001\n\t"
-    ".word 0x8E310014,0x24081000,0xAE280000,0xAE200004\n\t"
-    ".word 0xAE280008,0xAE20000C,0xAE280010,0xAE200014\n\t"
-    ".word 0xAE200018,0xAE20001C,0x24020001,0xAEC20000\n\t"
-    ".word 0x8FBF002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct { short m[3][3]; int t[3]; } MATRIX;
+typedef struct { short axis, mode, speed, amp, phase, offset; } Wobble;
+typedef struct { short duration; short hold; Wobble w[5]; } WobbleDef;
+typedef struct { int pad0, pad4; short *ref; unsigned short id; short pad; int index; MATRIX *mat; int time; } Obj;
+extern WobbleDef *D_800AE280[];
+extern int D_800DE30C;
+extern int func_8008AD60(int);
+extern void func_8008A510(MATRIX *, int, int, int);
+
+static inline void reset_matrix(Obj *o)
+{
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\tsw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)" : : "r"(o->mat) : "$8", "memory");
+}
+
+static inline void shear_matrix(MATRIX *m, int axis, int d)
+{
+    short xy = m->m[0][1], xz = m->m[0][2], yx = m->m[1][0];
+    short yz = m->m[1][2], zx = m->m[2][0], zy = m->m[2][1];
+
+    switch (axis) {
+    case 0: xy += d; break;
+    case 1: yz += d; break;
+    case 2: zx += d; break;
+    case 3: xz += d; break;
+    case 4: yx += d; break;
+    case 5: zy += d; break;
+    }
+    m->m[0][1] = xy; m->m[0][2] = xz; m->m[1][0] = yx;
+    m->m[1][2] = yz; m->m[2][0] = zx; m->m[2][1] = zy;
+}
+
+void func_8007471C(Obj *arg0, int *done)
+{
+    Obj *obj = arg0;
+    WobbleDef *def = D_800AE280[obj->index];
+    int amp, i, d;
+
+    if (obj->ref == 0 || *obj->ref != obj->id) {
+        obj->time = def->duration << 12;
+    }
+    if (obj->time < def->duration << 12) {
+        amp = 0;
+        reset_matrix(obj);
+        for (i = 0; i < 5; i++) {
+            short off;
+            if (def->w[i].mode == 2) {
+                int a = def->w[i].amp;
+                int len = def->duration << 12;
+                int t = obj->time << 1;
+                int over = t - len;
+                amp = a * (over >= 0 ? len - over : t) / len;
+            } else if (def->w[i].mode == 1) {
+                amp = def->w[i].amp * obj->time / (def->duration << 12);
+            } else if (def->w[i].mode == 0) {
+                amp = def->w[i].amp;
+            }
+            {
+                int tm = obj->time;
+                off = def->w[i].offset;
+                d = (off + func_8008AD60(def->w[i].phase + tm * def->w[i].speed / 4096)) * (short)amp / 4096;
+            }
+            switch (def->w[i].axis) {
+            case 0: shear_matrix(obj->mat, 0, d); break;
+            case 1: shear_matrix(obj->mat, 1, d); break;
+            case 2: shear_matrix(obj->mat, 2, d); break;
+            case 3: shear_matrix(obj->mat, 3, d); break;
+            case 4: shear_matrix(obj->mat, 4, d); break;
+            case 5: shear_matrix(obj->mat, 5, d); break;
+            case 6: func_8008A510(obj->mat, d, 0x1000, 0x1000); break;
+            case 7: func_8008A510(obj->mat, 0x1000, d, 0x1000); break;
+            case 8: func_8008A510(obj->mat, 0x1000, 0x1000, d); break;
+            }
+        }
+        obj->time += D_800DE30C;
+        *done = 0;
+    } else {
+        if (def->hold) {
+            reset_matrix(obj);
+        }
+        *done = 1;
+    }
+}

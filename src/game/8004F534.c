@@ -1,65 +1,157 @@
-asm(".text\n\t.globl func_8004F534\nfunc_8004F534:\n\t"
-    ".word 0x27BDFF98,0xAFB3005C,0x00809821,0xAFBF0060\n\t"
-    ".word 0xAFB20058,0xAFB10054,0xAFB00050,0x8E620094\n\t"
-    ".word 0x00000000,0x14400005,0x24100002,0x0C0138AB\n\t"
-    ".word 0x24050004,0x08013E46,0x00000000,0x8E630184\n\t"
-    ".word 0x00000000,0x1070000F,0x26720184,0x2C620003\n\t"
-    ".word 0x10400005,0x24020001,0x106200A1,0x00000000\n\t"
-    ".word 0x08013E46,0x00000000,0x24020003,0x10620043\n\t"
-    ".word 0x24020004,0x1062008E,0x00000000,0x08013E46\n\t"
-    ".word 0x00000000,0x3C02800D,0x8C432FE0,0x8E420024\n\t"
-    ".word 0x00000000,0x0062102A,0x14400012,0x2462000A\n\t"
-    ".word 0xAE420024,0x0C013C67,0x02602021,0x1040000D\n\t"
-    ".word 0x00000000,0x8C420208,0x8E630208,0x8C44000C\n\t"
-    ".word 0x8C62000C,0x00000000,0x14820004,0x24020004\n\t"
-    ".word 0x24020003,0x08013E46,0xAE620184,0x08013E46\n\t"
-    ".word 0xAE620184,0x8E6200AC,0x00000000,0x10400002\n\t"
-    ".word 0x24030333,0x24031000,0xAE430020,0x0C01427D\n\t"
-    ".word 0x02602021,0x104000B7,0x00000000,0x8E700094\n\t"
-    ".word 0x00000000,0x120000B1,0x00000000,0x8E020008\n\t"
-    ".word 0x00000000,0xAFA20010,0x8E02000C,0x0C021B21\n\t"
-    ".word 0xAFA20018,0x30420FFF,0x8E080010,0x00000000\n\t"
-    ".word 0x00480018,0x00002812,0x00003810,0x00052B02\n\t"
-    ".word 0x00073D00,0x00A72825,0x0C01258E,0x27A40010\n\t"
-    ".word 0x8E020000,0x26640194,0xAE620194,0x8E020004\n\t"
-    ".word 0x27A50010,0x08013E42,0xAE62019C,0x0C013C67\n\t"
-    ".word 0x02602021,0x00403021,0x10C00055,0x00000000\n\t"
-    ".word 0x8CC20208,0x8E630208,0x8C44000C,0x8C62000C\n\t"
-    ".word 0x00000000,0x1482004E,0x27A40020,0x8E710094\n\t"
-    ".word 0x00000000,0x8E220000,0x27A50040,0xAFA20040\n\t"
-    ".word 0x8E220004,0x24C60008,0x0C012583,0xAFA20048\n\t"
-    ".word 0x8E270008,0x8FA80020,0x00000000,0x00E80018\n\t"
-    ".word 0x00008012,0x00001010,0x00108302,0x00021500\n\t"
-    ".word 0x02028025,0x8E27000C,0x8FA80028,0x00000000\n\t"
-    ".word 0x00E80018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x27A40030,0x27A50040\n\t"
-    ".word 0x26660008,0x0C012583,0x02028021,0x8E270008\n\t"
-    ".word 0x8FA80030,0x00000000,0x00E80018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x8E31000C,0x8FA70038,0x00000000,0x02270018\n\t"
-    ".word 0x00001812,0x00002010,0x00031B02,0x00042500\n\t"
-    ".word 0x00641825,0x00431021,0x0202802A,0x12000006\n\t"
-    ".word 0x00000000,0x8E420004,0x8E43000C,0xAE420010\n\t"
-    ".word 0x08013E44,0xAE430018,0x8FA20040,0x00000000\n\t"
-    ".word 0xAE420010,0x8FA20048,0x08013E44,0xAE420018\n\t"
-    ".word 0x0C013C67,0x02602021,0x00403021,0x10C00008\n\t"
-    ".word 0x00000000,0x8CC20208,0x8E630208,0x8C44000C\n\t"
-    ".word 0x8C62000C,0x00000000,0x14820003,0x27A40020\n\t"
-    ".word 0x08013E46,0xAE700184,0x8E710094,0x00000000\n\t"
-    ".word 0x8E220000,0x27A50010,0xAFA20010,0x8E220004\n\t"
-    ".word 0x24C60008,0x0C012583,0xAFA20018,0x8E280008\n\t"
-    ".word 0x8FA70020,0x00000000,0x01070018,0x00009012\n\t"
-    ".word 0x00001010,0x00129302,0x00021500,0x02429025\n\t"
-    ".word 0x8E28000C,0x8FA70028,0x00000000,0x01070018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x27A40030,0x27A50010,0x26660008\n\t"
-    ".word 0x0C012583,0x02429021,0x8E220008,0x8FA80030\n\t"
-    ".word 0x00000000,0x00480018,0x00002012,0x00001810\n\t"
-    ".word 0x00042302,0x00031D00,0x00832025,0x8E27000C\n\t"
-    ".word 0x8FA80038,0x00000000,0x00E80018,0x00002012\n\t"
-    ".word 0x00001810,0x00042302,0x00031D00,0x00832025\n\t"
-    ".word 0x26700194,0x02002021,0xAE620194,0x8E22000C\n\t"
-    ".word 0x02402821,0x0C01258E,0xAE020008,0x02002021\n\t"
-    ".word 0x27A50010,0x0C012610,0x00000000,0x0C01427D\n\t"
-    ".word 0x02602021,0x8FBF0060,0x8FB3005C,0x8FB20058\n\t"
-    ".word 0x8FB10054,0x8FB00050,0x03E00008,0x27BD0068\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int z;
+    int dir_x;
+    int dir_z;
+    int radius;
+} Area;
+typedef struct {
+    unsigned int state;
+    Vector goal;
+    Vector alt;
+    char pad1C[0x20 - 0x1C];
+    int speed;
+    int time;
+    char pad28[0x30 - 0x28];
+} Patrol;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Squad;
+typedef struct Tank Tank;
+struct Tank {
+    char pad0[8];
+    Vector position;
+    char pad14[0x94 - 0x14];
+    Area *area;
+    char pad98[0xAC - 0x98];
+    int hurried;
+    char padB0[0x184 - 0xB0];
+    Patrol patrol;
+    char pad1B4[0x208 - 0x1B4];
+    Squad *squad;
+};
+extern int D_800D2FE0;
+extern void func_8004E2AC(Tank *, int);
+extern Tank *func_8004F19C(Tank *);
+extern void func_8004960C(Vector *, Vector *, Vector *);
+extern void func_80049638(Vector *, int);
+extern void func_80049840(Vector *, Vector *);
+extern unsigned int func_80086C84(void);
+extern int func_800509F4(Tank *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void vec_sub(Vector *out, Vector *from, Vector *to) {
+    func_8004960C(out, from, to);
+}
+
+void func_8004F534(Tank *tank) {
+    Patrol *patrol;
+    Area *area;
+    Area *zone;
+    Area *field;
+    Tank *other;
+    Tank *intruder;
+    Vector offset;
+    Vector to_other;
+    Vector to_self;
+    Vector center;
+    int other_side;
+    int self_side;
+    int lateral;
+    Vector *alt;
+
+    if (tank->area == 0) {
+        func_8004E2AC(tank, 4);
+        return;
+    }
+    patrol = &tank->patrol;
+    switch (patrol->state) {
+    case 1:
+        patrol->state = 2;
+        break;
+    case 2:
+        if (D_800D2FE0 >= patrol->time) {
+            patrol->time = D_800D2FE0 + 10;
+            intruder = func_8004F19C(tank);
+            if (intruder != 0) {
+                if (intruder->squad->team == tank->squad->team) {
+                    patrol->state = 3;
+                } else {
+                    patrol->state = 4;
+                }
+                return;
+            }
+        }
+        patrol->speed = tank->hurried != 0 ? 4096 : 819;
+        if (func_800509F4(tank) != 0) {
+            zone = tank->area;
+            if (zone != 0) {
+                offset.x = zone->dir_x;
+                offset.z = zone->dir_z;
+                func_80049638(&offset, fixed_mul(func_80086C84() & 0xFFF, zone->radius));
+                tank->patrol.alt.x = zone->x;
+                tank->patrol.alt.z = zone->z;
+                func_80049840(&tank->patrol.alt, &offset);
+            }
+            func_800509F4(tank);
+        }
+        break;
+    case 3:
+        other = func_8004F19C(tank);
+        if (other == 0 || other->squad->team != tank->squad->team) {
+            patrol->state = 2;
+            break;
+        }
+        area = tank->area;
+        center.x = area->x;
+        center.z = area->z;
+        vec_sub(&to_other, &center, &other->position);
+        other_side = fixed_mul(area->dir_x, to_other.x) + fixed_mul(area->dir_z, to_other.z);
+        vec_sub(&to_self, &center, &tank->position);
+        self_side = fixed_mul(area->dir_x, to_self.x) + fixed_mul(area->dir_z, to_self.z);
+        if (other_side < self_side) {
+            patrol->alt.x = patrol->goal.x;
+            patrol->alt.z = patrol->goal.z;
+        } else {
+            patrol->alt.x = center.x;
+            patrol->alt.z = center.z;
+        }
+        func_800509F4(tank);
+        break;
+    case 4:
+        other = func_8004F19C(tank);
+        if (other == 0 || other->squad->team == tank->squad->team) {
+            patrol->state = 2;
+            break;
+        }
+        field = tank->area;
+        offset.x = field->x;
+        offset.z = field->z;
+        func_8004960C(&to_other, &offset, &other->position);
+        lateral = fixed_mul(field->dir_x, to_other.x) + fixed_mul(field->dir_z, to_other.z);
+        func_8004960C(&to_self, &offset, &tank->position);
+        self_side = fixed_mul(field->dir_x, to_self.x) + fixed_mul(field->dir_z, to_self.z);
+        alt = &tank->patrol.alt;
+        alt->x = field->dir_x;
+        alt->z = field->dir_z;
+        func_80049638(alt, lateral);
+        func_80049840(alt, &offset);
+        func_800509F4(tank);
+        break;
+    }
+}

@@ -1,100 +1,215 @@
-asm(".text\n\t.globl func_8003077C\nfunc_8003077C:\n\t"
-    ".word 0x27BDFFC0,0xAFB60038,0x00A0B021,0xAFB40030\n\t"
-    ".word 0x0000A021,0xAFB10024,0x00808821,0xAFBF003C\n\t"
-    ".word 0xAFB50034,0xAFB3002C,0xAFB20028,0xAFB00020\n\t"
-    ".word 0x8E30002C,0x00000000,0x1200003A,0x02809821\n\t"
-    ".word 0x2412FF9C,0x3C15AAAA,0x36B5AAAB,0x8E020034\n\t"
-    ".word 0x00000000,0x1452001A,0x00000000,0x8E02000C\n\t"
-    ".word 0x00000000,0x10400012,0x00000000,0x8C420034\n\t"
-    ".word 0x00000000,0x1052000E,0x00000000,0x0C021B21\n\t"
-    ".word 0x00000000,0x00550019,0x00005810,0x000B2082\n\t"
-    ".word 0x00041840,0x00641821,0x00031840,0x14430004\n\t"
-    ".word 0x00000000,0x8E04000C,0x0C00C121,0x24050001\n\t"
-    ".word 0x8E020034,0x00000000,0x10520015,0x00000000\n\t"
-    ".word 0x8E02000C,0x00000000,0x10400011,0x00000000\n\t"
-    ".word 0x8C420034,0x00000000,0x1452000D,0x00000000\n\t"
-    ".word 0x0C021B21,0x00000000,0x00550019,0x00005810\n\t"
-    ".word 0x000B2082,0x00041840,0x00641821,0x00031840\n\t"
-    ".word 0x14430003,0x02002021,0x0C00C121,0x24050001\n\t"
-    ".word 0x8E10000C,0x00000000,0x1600FFCC,0x00000000\n\t"
-    ".word 0x8E30002C,0x00000000,0x12000026,0x00000000\n\t"
-    ".word 0x2415FFFF,0x24120003,0x8E020034,0x00000000\n\t"
-    ".word 0x14400019,0x00000000,0x96030022,0x00000000\n\t"
-    ".word 0x10720018,0xAE150034,0x28620004,0x10400005\n\t"
-    ".word 0x24020001,0x10620008,0x02002021,0x0800C24C\n\t"
-    ".word 0x00000000,0x24020004,0x10620007,0x00000000\n\t"
-    ".word 0x0800C24C,0x00000000,0x0C00C121,0x24050001\n\t"
-    ".word 0x0800C24C,0x00000000,0x0C00C177,0x02002021\n\t"
-    ".word 0x0800C24C,0x00000000,0x18400002,0x00000000\n\t"
-    ".word 0x26730001,0x8E10000C,0x00000000,0x1600FFDE\n\t"
-    ".word 0x00000000,0x1660000E,0x00000000,0x8E30002C\n\t"
-    ".word 0x00000000,0x12000008,0x24020001,0x02002021\n\t"
-    ".word 0x8C90000C,0x0C008B2B,0x00000000,0x1600FFFC\n\t"
-    ".word 0x02002021,0x24020001,0x0800C35F,0xAEC20000\n\t"
-    ".word 0x86220030,0x92230038,0x00000000,0x10600006\n\t"
-    ".word 0x00023300,0x24020001,0x1062003E,0x00000000\n\t"
-    ".word 0x0800C2CF,0x00000000,0x92230039,0x24050001\n\t"
-    ".word 0x10650024,0x00003821,0x28620002,0x10400005\n\t"
-    ".word 0x00000000,0x1060000A,0x00000000,0x0800C2CF\n\t"
-    ".word 0x00000000,0x24020002,0x10620050,0x24020003\n\t"
-    ".word 0x10620023,0x3C02800D,0x0800C2CF,0x00000000\n\t"
-    ".word 0x8E220010,0x8E240024,0xAFA00010,0x8E250028\n\t"
-    ".word 0x0C00BE6F,0x00442023,0x0040A021,0x8E230028\n\t"
-    ".word 0x8E240010,0x8E220024,0x00742821,0x00822023\n\t"
-    ".word 0x2482F000,0x0045102A,0x10400038,0x24020003\n\t"
-    ".word 0xA2220039,0x3C02800D,0x8C422FE0,0x0800C2C1\n\t"
-    ".word 0x00802821,0x8E220010,0x8E240024,0xAFA50010\n\t"
-    ".word 0x8E250028,0x0C00BE6F,0x00442023,0x8E230028\n\t"
-    ".word 0x0040A021,0x00742821,0x0800C2BB,0x28A21000\n\t"
-    ".word 0x8C432FE0,0x8E240034,0x9622003A,0x00641823\n\t"
-    ".word 0x0043102A,0x1040002E,0x00000000,0x0800C2CF\n\t"
-    ".word 0xA2250039,0x92230039,0x00000000,0x10600005\n\t"
-    ".word 0x24020002,0x1062001E,0x3C02800D,0x0800C2CF\n\t"
-    ".word 0x00000000,0x8E220010,0x8E240024,0x24070001\n\t"
-    ".word 0xAFA00010,0x8E250028,0x0C00BE6F,0x00442023\n\t"
-    ".word 0x0040A021,0x8E240028,0x8E220010,0x8E230024\n\t"
-    ".word 0x00942821,0x00431023,0x2442F000,0x0045102A\n\t"
-    ".word 0x10400006,0x24020002,0xA2220039,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x00002821,0xAE220034,0x0C00C0BD\n\t"
-    ".word 0x02202021,0x0800C2CF,0x00000000,0x3C02800D\n\t"
-    ".word 0x8C432FE0,0x8E240034,0x9622003A,0x00641823\n\t"
-    ".word 0x0043102A,0x10400002,0x00000000,0xA2200039\n\t"
-    ".word 0x12800075,0x00000000,0x962B0020,0x00000000\n\t"
-    ".word 0x31684000,0x31693FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31688000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00092040,0x8E230024\n\t"
-    ".word 0x24060002,0x0066001A,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14C10004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00001812\n\t"
-    ".word 0x8E220028,0x00042103,0x00431021,0x00440018\n\t"
-    ".word 0x00005812,0x00001810,0x000B5B02,0x00031D00\n\t"
-    ".word 0x01635825,0x8E240008,0x01601021,0x00822021\n\t"
-    ".word 0xAFA40018,0x962B0020,0x00000000,0x256A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00092840,0x8E230024\n\t"
-    ".word 0x00000000,0x0066001A,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14C10004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00001812\n\t"
-    ".word 0x8E220028,0x00052903,0x00431021,0x00450018\n\t"
-    ".word 0x00005812,0x00001810,0x000B5B02,0x00031D00\n\t"
-    ".word 0x01635825,0x8E25000C,0x01601021,0x00A22821\n\t"
-    ".word 0xAFA5001C,0x86300030,0x00000000,0x0290001A\n\t"
-    ".word 0x16000002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x16010004,0x3C018000,0x16810002,0x00000000\n\t"
-    ".word 0x0006000D,0x00008012,0x00000000,0x06010002\n\t"
-    ".word 0x00000000,0x00108023,0x0C014D66,0x00000000\n\t"
-    ".word 0x00021400,0x00021403,0x00500018,0x00005812\n\t"
-    ".word 0x00001810,0x000B5B02,0x00031D00,0x01635825\n\t"
-    ".word 0x0800C346,0x01601021,0x00001021,0x00021400\n\t"
-    ".word 0x00022C03,0x10A0000F,0x24020064,0x92230032\n\t"
-    ".word 0x00000000,0x14620006,0x24040031,0x00003021\n\t"
-    ".word 0x0C015203,0x24070001,0x0800C35F,0xA2220032\n\t"
-    ".word 0x92240032,0x0C015374,0x00000000,0x0800C35F\n\t"
-    ".word 0x00000000,0x92220032,0x24100064,0x10500004\n\t"
-    ".word 0x00000000,0x0C0153BD,0x00402021,0xA2300032\n\t"
-    ".word 0x8FBF003C,0x8FB60038,0x8FB50034,0x8FB40030\n\t"
-    ".word 0x8FB3002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct Segment {
+    char pad0[0xC];
+    struct Segment *next;
+    char pad10[0x22 - 0x10];
+    unsigned short type;
+    char pad24[0x34 - 0x24];
+    int timer;
+} Segment;
+
+typedef struct {
+    int x;
+    int z;
+} Pos2;
+
+typedef struct {
+    char pad0[8];
+    Pos2 pos;
+    int length;
+    char pad14[0x20 - 0x14];
+    unsigned short angle;
+    char pad22[0x24 - 0x22];
+    int width;
+    int offset;
+    Segment *segments;
+    short period;
+    unsigned char sound;
+    char pad33;
+    int timer;
+    unsigned char state;
+    unsigned char phase;
+    unsigned short delay;
+} Bridge;
+
+extern int D_800D2FE0;
+
+int abs(int);
+unsigned int func_80086C84(void);
+void func_80030484(Segment *, int);
+void func_800305DC(Segment *);
+void func_80022CAC(Segment *);
+int func_8002F9BC(int, int, int, int, int);
+void func_800302F4(Bridge *, int);
+short func_80053598(Pos2);
+int func_8005480C(int, int, int, int);
+void func_80054DD0(int, int);
+void func_80054EF4(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+
+    __asm__ volatile("mult %1, %2\n\tmflo %0\n\tmfhi $3\n\tsrl %0, %0, 12\n\tsll $3, $3, 20\n\tor %0, %0, $3"
+                     : "=&r"(low)
+                     : "r"(a), "r"(b)
+                     : "$3");
+    return low;
+}
+
+static inline int sine_lookup(unsigned short *angle) {
+    int out;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(out)
+                     : "r"(*angle)
+                     : "$8", "$9");
+    return out;
+}
+
+static inline int cosine_lookup(unsigned short *angle) {
+    int out;
+
+    __asm__ volatile("addu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(out)
+                     : "r"(*angle)
+                     : "$8", "$9", "$10");
+    return out;
+}
+
+void func_8003077C(Bridge *bridge_arg, int *finished) {
+    Bridge *bridge = bridge_arg;
+    Segment *seg;
+    Segment *next;
+    int alive;
+    int travel;
+    int span;
+    int target;
+    int speed;
+    short volume;
+    int two;
+    int trig;
+    int period;
+    Pos2 where;
+
+    travel = 0;
+    alive = 0;
+    for (seg = bridge->segments; seg != 0; seg = seg->next) {
+        if (seg->timer == -100 && seg->next != 0 && seg->next->timer != -100 &&
+            func_80086C84() % 6 == 0) {
+            func_80030484(seg->next, 1);
+        }
+        if (seg->timer != -100 && seg->next != 0 && seg->next->timer == -100 &&
+            func_80086C84() % 6 == 0) {
+            func_80030484(seg, 1);
+        }
+    }
+
+    for (seg = bridge->segments; seg != 0; seg = seg->next) {
+        if (seg->timer == 0) {
+            seg->timer = -1;
+            switch (seg->type) {
+            case 1:
+                func_80030484(seg, 1);
+                break;
+            case 3:
+                break;
+            case 4:
+                func_800305DC(seg);
+                break;
+            }
+        } else if (seg->timer > 0) {
+            alive++;
+        }
+    }
+
+    if (alive == 0) {
+        seg = bridge->segments;
+        while (seg != 0) {
+            next = seg->next;
+            func_80022CAC(seg);
+            seg = next;
+        }
+        *finished = 1;
+        return;
+    }
+
+    period = bridge->period << 12;
+    switch (bridge->state) {
+    case 0:
+        switch (bridge->phase) {
+        case 0:
+            travel = func_8002F9BC(bridge->length - bridge->width, bridge->offset, period, 0, 0);
+            target = bridge->offset + travel;
+            span = bridge->length - bridge->width;
+            if (span - 4096 < target) {
+                bridge->phase = 3;
+                bridge->timer = D_800D2FE0;
+                target = span;
+            }
+            func_800302F4(bridge, target);
+            break;
+        case 1:
+            travel = func_8002F9BC(bridge->length - bridge->width, bridge->offset, period, 0, 1);
+            target = bridge->offset + travel;
+            if (target < 4096) {
+                bridge->phase = 2;
+                bridge->timer = D_800D2FE0;
+                target = 0;
+            }
+            func_800302F4(bridge, target);
+            break;
+        case 2:
+            if (bridge->delay < D_800D2FE0 - bridge->timer) {
+                bridge->phase = 0;
+            }
+            break;
+        case 3:
+            if (bridge->delay < D_800D2FE0 - bridge->timer) {
+                bridge->phase = 1;
+            }
+            break;
+        }
+        break;
+    case 1:
+        switch (bridge->phase) {
+        case 0:
+            travel = func_8002F9BC(bridge->length - bridge->width, bridge->offset, period, 1, 0);
+            target = bridge->offset + travel;
+            if (bridge->length - bridge->width - 4096 < target) {
+                bridge->phase = 2;
+                bridge->timer = D_800D2FE0;
+                target = 0;
+            }
+            func_800302F4(bridge, target);
+            break;
+        case 2:
+            if (bridge->delay < D_800D2FE0 - bridge->timer) {
+                bridge->phase = 0;
+            }
+            break;
+        }
+        break;
+    }
+
+    if (travel != 0) {
+        trig = sine_lookup(&bridge->angle);
+        two = 2;
+        where.x = bridge->pos.x + fixed_mul(bridge->offset + bridge->width / two, trig >> 4);
+        trig = cosine_lookup(&bridge->angle);
+        where.z = bridge->pos.z + fixed_mul(bridge->offset + bridge->width / two, trig >> 4);
+        speed = abs(travel / bridge->period);
+        volume = fixed_mul(func_80053598(where), speed);
+    } else {
+        volume = 0;
+    }
+
+    if (volume != 0) {
+        if (bridge->sound == 100) {
+            bridge->sound = func_8005480C(49, volume, 0, 1);
+        } else {
+            func_80054DD0(bridge->sound, volume);
+        }
+    } else if (bridge->sound != 100) {
+        func_80054EF4(bridge->sound);
+        bridge->sound = 100;
+    }
+}

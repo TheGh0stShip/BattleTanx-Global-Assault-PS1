@@ -1,86 +1,129 @@
-asm(".text\n\t.globl func_8003AA1C\nfunc_8003AA1C:\n\t"
-    ".word 0x27BDFF60,0x00804821,0x3C07FFFE,0x34E7FFFE\n\t"
-    ".word 0x3C0BFEFE,0xAFBF0098,0xAFB70094,0xAFB60090\n\t"
-    ".word 0xAFB5008C,0xAFB40088,0xAFB30084,0xAFB20080\n\t"
-    ".word 0xAFB1007C,0xAFB00078,0x8D250008,0x9534000E\n\t"
-    ".word 0x9535001A,0x356BFEFE,0xAFA50010,0x00A72824\n\t"
-    ".word 0x8D260014,0x00052842,0xAFA60018,0x00C73024\n\t"
-    ".word 0x00063042,0x8D240020,0x00A61021,0xAFA40028\n\t"
-    ".word 0x00872024,0x8D23002C,0x00042042,0xAFA20014\n\t"
-    ".word 0x00A41021,0xAFA2001C,0xAFA30030,0x00671824\n\t"
-    ".word 0x00031842,0x00A32821,0x00C33021,0x00832021\n\t"
-    ".word 0xAFA50020,0xAFA60024,0xAFA4002C,0x952C000C\n\t"
-    ".word 0x3C08FCFC,0x3184FEFE,0xA7AC0038,0x95250018\n\t"
-    ".word 0x00042042,0xA7A5003C,0x30A5FEFE,0x00052842\n\t"
-    ".word 0x95260024,0x00851021,0xA7A60044,0x30C6FEFE\n\t"
-    ".word 0x95230030,0x00063042,0xA7A2003A,0x00861021\n\t"
-    ".word 0xA7A2003E,0xA7A30048,0x3063FEFE,0x00031842\n\t"
-    ".word 0x00832021,0x00A32821,0x00C33021,0xA7A40040\n\t"
-    ".word 0xA7A50042,0xA7A60046,0x8D240004,0x3508FCFC\n\t"
-    ".word 0x008B1824,0x00031842,0xAFA40050,0x00882024\n\t"
-    ".word 0x8D260010,0x00042082,0x00CB5024,0x000A5042\n\t"
-    ".word 0x006A1021,0xAFA60058,0x00C83024,0x8D27001C\n\t"
-    ".word 0x00063082,0xAFA70068,0x8D250028,0x00862021\n\t"
-    ".word 0xAFA20054,0x00EB1024,0x00021042,0x00621821\n\t"
-    ".word 0x00E83824,0x00073882,0x00872021,0xAFA3005C\n\t"
-    ".word 0x00A84024,0x00084082,0x00882021,0xAFA50070\n\t"
-    ".word 0x00AB2824,0x00052842,0x01455021,0x00451021\n\t"
-    ".word 0xAFA40060,0xAFAA0064,0xAFA2006C,0xA52C000C\n\t"
-    ".word 0x8FA20050,0x00000000,0xAD220004,0x8FA20010\n\t"
-    ".word 0x00000000,0xAD220008,0x97A2003A,0x00000000\n\t"
-    ".word 0xA5220018,0x8FA20054,0x00000000,0xAD220010\n\t"
-    ".word 0x8FA20014,0x00000000,0xAD220014,0x97A2003E\n\t"
-    ".word 0x00000000,0xA5220024,0x8FA2005C,0x00000000\n\t"
-    ".word 0xAD22001C,0x8FA2001C,0x00000000,0xAD220020\n\t"
-    ".word 0x97A20040,0x2417000C,0xA5220030,0x8FA20060\n\t"
-    ".word 0x2416003C,0xAD220028,0x8FA20020,0x24040034\n\t"
-    ".word 0xA1370003,0xA1360007,0xA534000E,0xAD22002C\n\t"
-    ".word 0x0C01A3BA,0xA535001A,0x00403021,0x10C000B3\n\t"
-    ".word 0x3C1000FF,0x97A2003A,0x00000000,0xA4C2000C\n\t"
-    ".word 0x8FA20054,0x00000000,0xACC20004,0x8FA20014\n\t"
-    ".word 0x00000000,0xACC20008,0x97A2003C,0x00000000\n\t"
-    ".word 0xA4C20018,0x8FA20058,0x00000000,0xACC20010\n\t"
-    ".word 0x8FA20018,0x00000000,0xACC20014,0x97A20040\n\t"
-    ".word 0x00000000,0xA4C20024,0x8FA20060,0x00000000\n\t"
-    ".word 0xACC2001C,0x8FA20020,0x00000000,0xACC20020\n\t"
-    ".word 0x97A20042,0x00000000,0xA4C20030,0x8FA20064\n\t"
-    ".word 0x3C13800A,0xACC20028,0x8FA20024,0x3610FFFF\n\t"
-    ".word 0xA0D70003,0x8CC30000,0x3C11FF00,0xA0D60007\n\t"
-    ".word 0xACC2002C,0x8E6248B4,0x24040034,0xA4D4000E\n\t"
-    ".word 0xA4D5001A,0x00022AC0,0x00A22821,0x000528C0\n\t"
-    ".word 0x3C02800D,0x24525B94,0x00B22821,0x8CA23FF8\n\t"
-    ".word 0x00711824,0x00501024,0x00621825,0xACC30000\n\t"
-    ".word 0x8CA23FF8,0x00D01824,0x00511024,0x00431025\n\t"
-    ".word 0x0C01A3BA,0xACA23FF8,0x00403021,0x10C00073\n\t"
-    ".word 0x24040034,0x97A2003E,0x00000000,0xA4C2000C\n\t"
-    ".word 0x8FA2005C,0x00000000,0xACC20004,0x8FA2001C\n\t"
-    ".word 0x00000000,0xACC20008,0x97A20040,0x00000000\n\t"
-    ".word 0xA4C20018,0x8FA20060,0x00000000,0xACC20010\n\t"
-    ".word 0x8FA20020,0x00000000,0xACC20014,0x97A20044\n\t"
-    ".word 0x00000000,0xA4C20024,0x8FA20068,0x00000000\n\t"
-    ".word 0xACC2001C,0x8FA20028,0x00000000,0xACC20020\n\t"
-    ".word 0x97A20046,0x00000000,0xA4C20030,0x8FA2006C\n\t"
-    ".word 0x00000000,0xACC20028,0x8FA2002C,0xA0D70003\n\t"
-    ".word 0x8CC30000,0xA0D60007,0xACC2002C,0x8E6248B4\n\t"
-    ".word 0xA4D4000E,0xA4D5001A,0x00022AC0,0x00A22821\n\t"
-    ".word 0x000528C0,0x00B22821,0x8CA23FF8,0x00711824\n\t"
-    ".word 0x00501024,0x00621825,0xACC30000,0x8CA23FF8\n\t"
-    ".word 0x00D01824,0x00511024,0x00431025,0x0C01A3BA\n\t"
-    ".word 0xACA23FF8,0x00403021,0x10C00038,0x00000000\n\t"
-    ".word 0x97A20040,0x00000000,0xA4C2000C,0x8FA20060\n\t"
-    ".word 0x00000000,0xACC20004,0x8FA20020,0x00000000\n\t"
-    ".word 0xACC20008,0x97A20042,0x00000000,0xA4C20018\n\t"
-    ".word 0x8FA20064,0x00000000,0xACC20010,0x8FA20024\n\t"
-    ".word 0x00000000,0xACC20014,0x97A20046,0x00000000\n\t"
-    ".word 0xA4C20024,0x8FA2006C,0x00000000,0xACC2001C\n\t"
-    ".word 0x8FA2002C,0x00000000,0xACC20020,0x97A20048\n\t"
-    ".word 0x00000000,0xA4C20030,0x8FA20070,0x00000000\n\t"
-    ".word 0xACC20028,0x8FA20030,0xA0D70003,0x8CC30000\n\t"
-    ".word 0xA0D60007,0xACC2002C,0x8E6248B4,0xA4D4000E\n\t"
-    ".word 0xA4D5001A,0x000222C0,0x00822021,0x000420C0\n\t"
-    ".word 0x00922021,0x8C823FF8,0x00711824,0x00501024\n\t"
-    ".word 0x00621825,0xACC30000,0x8C823FF8,0x00D01824\n\t"
-    ".word 0x00511024,0x00431025,0xAC823FF8,0x8FBF0098\n\t"
-    ".word 0x8FB70094,0x8FB60090,0x8FB5008C,0x8FB40088\n\t"
-    ".word 0x8FB30084,0x8FB20080,0x8FB1007C,0x8FB00078\n\t"
-    ".word 0x03E00008,0x27BD00A0\n");
+typedef struct {
+    unsigned int tag;
+    unsigned char r0, g0, b0, code;
+    short x0, y0;
+    unsigned short uv0;
+    unsigned short clut;
+    unsigned char r1, g1, b1, p1;
+    short x1, y1;
+    unsigned short uv1;
+    unsigned short tpage;
+    unsigned char r2, g2, b2, p2;
+    short x2, y2;
+    unsigned short uv2;
+    unsigned short pad2;
+    unsigned char r3, g3, b3, p3;
+    short x3, y3;
+    unsigned short uv3;
+    unsigned short pad3;
+} PolyGT4;
+
+typedef struct {
+    unsigned int hdr[2];
+    unsigned int ot[4096];
+} OtBuffer;
+
+extern int D_800A48B4;
+extern OtBuffer D_800D5B8C[];
+
+static inline unsigned int *current_ot(void)
+{
+    return D_800D5B8C[D_800A48B4].ot;
+}
+extern PolyGT4 *func_80068EE8(int size);
+
+
+static inline void add_prim(PolyGT4 *q)
+{
+    unsigned int *ot = &current_ot()[4094];
+
+    q->tag = (q->tag & 0xFF000000) | (*ot & 0xFFFFFF);
+    *ot = (*ot & 0xFF000000) | ((unsigned int)q & 0xFFFFFF);
+}
+
+static inline void set_quad(PolyGT4 *q, unsigned int *xy, unsigned short *uv,
+                            unsigned int *rgb, int a, int b, int c, int d,
+                            unsigned short clut, unsigned short tpage)
+{
+    q->uv0 = uv[a];
+    *(unsigned int *)&q->r0 = rgb[a];
+    *(unsigned int *)&q->x0 = xy[a];
+    q->uv1 = uv[b];
+    *(unsigned int *)&q->r1 = rgb[b];
+    *(unsigned int *)&q->x1 = xy[b];
+    q->uv2 = uv[c];
+    *(unsigned int *)&q->r2 = rgb[c];
+    *(unsigned int *)&q->x2 = xy[c];
+    q->uv3 = uv[d];
+    *(unsigned int *)&q->r3 = rgb[d];
+    *(unsigned int *)&q->x3 = xy[d];
+    ((unsigned char *)&q->tag)[3] = 12;
+    q->code = 0x3C;
+    q->clut = clut;
+    q->tpage = tpage;
+}
+
+void func_8003AA1C(PolyGT4 *p)
+{
+    unsigned int xy[9];
+    unsigned short uv[9];
+    unsigned int rgb[9];
+    unsigned int h0, h1, h2, h3;
+    unsigned int q0;
+    unsigned short clut, tpage;
+    PolyGT4 *q;
+
+    clut = p->clut;
+    tpage = p->tpage;
+
+    xy[0] = *(unsigned int *)&p->x0;
+    xy[2] = *(unsigned int *)&p->x1;
+    xy[6] = *(unsigned int *)&p->x2;
+    xy[8] = *(unsigned int *)&p->x3;
+    xy[1] = ((xy[0] & 0xFFFEFFFE) >> 1) + ((xy[2] & 0xFFFEFFFE) >> 1);
+    xy[3] = ((xy[0] & 0xFFFEFFFE) >> 1) + ((xy[6] & 0xFFFEFFFE) >> 1);
+    xy[4] = ((xy[0] & 0xFFFEFFFE) >> 1) + ((xy[8] & 0xFFFEFFFE) >> 1);
+    xy[5] = ((xy[2] & 0xFFFEFFFE) >> 1) + ((xy[8] & 0xFFFEFFFE) >> 1);
+    xy[7] = ((xy[6] & 0xFFFEFFFE) >> 1) + ((xy[8] & 0xFFFEFFFE) >> 1);
+
+    uv[0] = p->uv0;
+    uv[2] = p->uv1;
+    uv[6] = p->uv2;
+    uv[8] = p->uv3;
+    uv[1] = ((uv[0] & 0xFEFE) >> 1) + ((uv[2] & 0xFEFE) >> 1);
+    uv[3] = ((uv[0] & 0xFEFE) >> 1) + ((uv[6] & 0xFEFE) >> 1);
+    uv[4] = ((uv[0] & 0xFEFE) >> 1) + ((uv[8] & 0xFEFE) >> 1);
+    uv[5] = ((uv[2] & 0xFEFE) >> 1) + ((uv[8] & 0xFEFE) >> 1);
+    uv[7] = ((uv[6] & 0xFEFE) >> 1) + ((uv[8] & 0xFEFE) >> 1);
+
+    rgb[0] = *(unsigned int *)&p->r0;
+    rgb[2] = *(unsigned int *)&p->r1;
+    rgb[6] = *(unsigned int *)&p->r2;
+    rgb[8] = *(unsigned int *)&p->r3;
+    rgb[1] = ((rgb[0] & 0xFEFEFEFE) >> 1) + ((rgb[2] & 0xFEFEFEFE) >> 1);
+    rgb[3] = ((rgb[0] & 0xFEFEFEFE) >> 1) + ((rgb[6] & 0xFEFEFEFE) >> 1);
+    rgb[4] = ((rgb[0] & 0xFCFCFCFC) >> 2) + ((rgb[2] & 0xFCFCFCFC) >> 2)
+           + ((rgb[6] & 0xFCFCFCFC) >> 2) + ((rgb[8] & 0xFCFCFCFC) >> 2);
+    rgb[5] = ((rgb[2] & 0xFEFEFEFE) >> 1) + ((rgb[8] & 0xFEFEFEFE) >> 1);
+    rgb[7] = ((rgb[6] & 0xFEFEFEFE) >> 1) + ((rgb[8] & 0xFEFEFEFE) >> 1);
+
+    set_quad(p, xy, uv, rgb, 0, 1, 3, 4, clut, tpage);
+
+    q = func_80068EE8(sizeof(PolyGT4));
+    if (q == 0)
+        return;
+    set_quad(q, xy, uv, rgb, 1, 2, 4, 5, clut, tpage);
+    add_prim(q);
+
+    q = func_80068EE8(sizeof(PolyGT4));
+    if (q == 0)
+        return;
+    set_quad(q, xy, uv, rgb, 3, 4, 6, 7, clut, tpage);
+    add_prim(q);
+
+    q = func_80068EE8(sizeof(PolyGT4));
+    if (q == 0)
+        return;
+    set_quad(q, xy, uv, rgb, 4, 5, 7, 8, clut, tpage);
+    add_prim(q);
+}

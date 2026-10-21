@@ -1,12 +1,42 @@
-asm(".text\n\t.globl func_80095684\nfunc_80095684:\n\t"
-    ".word 0x27BDFFE8,0x3C07800F,0x24E7F0A4,0xAFBF0010\n\t"
-    ".word 0x8CE20000,0x00000000,0x04410004,0x00804021\n\t"
-    ".word 0x3C04800C,0x080255C3,0x248452E8,0x8CE2FFF0\n\t"
-    ".word 0x00000000,0x10400004,0x24E3FFF0,0x3C04800C\n\t"
-    ".word 0x080255C3,0x24845218,0x30C2007F,0x1440000C\n\t"
-    ".word 0x24020006,0x3C048009,0x24845728,0xACE2FFF0\n\t"
-    ".word 0xAC600004,0xAC600008,0xAC650014,0xAC68001C\n\t"
-    ".word 0x0C027D6B,0xAC660018,0x080255C6,0x24020001\n\t"
-    ".word 0x3C04800C,0x24845344,0x0C0250EC,0x00000000\n\t"
-    ".word 0x00001021,0x8FBF0010,0x27BD0018,0x03E00008\n\t"
-    ".word 0x00000000\n");
+typedef struct {
+    int state;
+    int unk4;
+    int unk8;
+    int unkC;
+    int handle;
+    int buf;
+    int size;
+    int port;
+} CardState;
+
+extern CardState D_800EF094;
+extern char D_800C52E8[];
+extern char D_800C5218[];
+extern char D_800C5344[];
+void func_800943B0(const char *, ...);
+void func_8009F5AC(int (*)(int *));
+int func_80095728(int *);
+
+int func_80095684(int port, int buf, int size)
+{
+    char *msg;
+
+    if (D_800EF094.handle < 0) {
+        msg = D_800C52E8;
+    } else if (D_800EF094.state != 0) {
+        msg = D_800C5218;
+    } else if ((size & 0x7F) == 0) {
+        D_800EF094.state = 6;
+        D_800EF094.unk4 = 0;
+        D_800EF094.unk8 = 0;
+        D_800EF094.buf = buf;
+        D_800EF094.port = port;
+        D_800EF094.size = size;
+        func_8009F5AC(func_80095728);
+        return 1;
+    } else {
+        msg = D_800C5344;
+    }
+    func_800943B0(msg);
+    return 0;
+}

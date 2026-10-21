@@ -1,41 +1,140 @@
-asm(".text\n\t.globl func_8004A160\nfunc_8004A160:\n\t"
-    ".word 0x94880000,0x00000000,0x3103FFFF,0x14600003\n\t"
-    ".word 0x00006021,0x03E00008,0x00001021,0x3C02800A\n\t"
-    ".word 0x00405821,0x240D0003,0x340F8000,0x240E0001\n\t"
-    ".word 0x01A31004,0x00431023,0x00021080,0xA4800000\n\t"
-    ".word 0x8D635B24,0x24420008,0x00623821,0xA4E00002\n\t"
-    ".word 0x00004821,0x90E30000,0x00000000,0x106D000C\n\t"
-    ".word 0x28620004,0x10400005,0x24020002,0x1062000E\n\t"
-    ".word 0x00000000,0x080128C6,0x24090001,0x24020004\n\t"
-    ".word 0x1062003E,0x24090001,0x080128C6,0x00000000\n\t"
-    ".word 0x94E6001A,0x080128AA,0x30C3FFFF,0x94620010\n\t"
-    ".word 0x0801289C,0xA4820000,0x10A0001F,0x00000000\n\t"
-    ".word 0x94A20014,0x00000000,0x10400015,0x24A40014\n\t"
-    ".word 0x8D6A5B24,0x3106FFFF,0x94830000,0x00000000\n\t"
-    ".word 0x14600003,0x000310C0,0x08012894,0x00001821\n\t"
-    ".word 0x00431023,0x00021080,0x24420008,0x01421821\n\t"
-    ".word 0x94820000,0x00000000,0x10C2FFE8,0x00000000\n\t"
-    ".word 0x94620010,0x00000000,0x1440FFEF,0x24640010\n\t"
-    ".word 0x94A30016,0x3102FFFF,0x14430003,0x00000000\n\t"
-    ".word 0xA4A00016,0xACA00018,0x94E6000E,0x00000000\n\t"
-    ".word 0x30C3FFFF,0x14600006,0x00000000,0x94E6000C\n\t"
-    ".word 0x00000000,0x30C3FFFF,0x1060001A,0x00000000\n\t"
-    ".word 0x00C04021,0x000310C0,0x00431023,0x00021080\n\t"
-    ".word 0x8D635B24,0x24420008,0x080128C6,0x00623821\n\t"
-    ".word 0x8CE20008,0x080128C5,0xAC820000,0x10A0000E\n\t"
-    ".word 0x00000000,0x8CA20000,0x00000000,0x1040000A\n\t"
-    ".word 0x00A02021,0x8C830000,0x00000000,0x10E3FFF4\n\t"
-    ".word 0x00000000,0x8C620008,0x00000000,0x1440FFF9\n\t"
-    ".word 0x24640008,0x24090001,0x1120FFA6,0x00000000\n\t"
-    ".word 0x94E60002,0x3103FFFF,0x14600003,0x000310C0\n\t"
-    ".word 0x080128D3,0x00002021,0x00431023,0x00021080\n\t"
-    ".word 0x8D635B24,0x24420008,0x00622021,0x8D625B24\n\t"
-    ".word 0x00000000,0x004F1021,0x8C436008,0x258C0001\n\t"
-    ".word 0xAC830004,0x30C3FFFF,0xAC446008,0xA4880008\n\t"
-    ".word 0x10600016,0xA08E0000,0x000310C0,0x00431023\n\t"
-    ".word 0x00021080,0x8D635B24,0x24420008,0x00623821\n\t"
-    ".word 0x90E20000,0x00000000,0x144D0003,0x3102FFFF\n\t"
-    ".word 0x080128C8,0x00C04021,0x94E3000E,0x00000000\n\t"
-    ".word 0x14620003,0x00000000,0x080128F1,0xA4E0000E\n\t"
-    ".word 0xA4E0000C,0x14C0FF7A,0x00C04021,0x03E00008\n\t"
-    ".word 0x3182FFFF\n");
+typedef struct Node Node;
+struct Node {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    Node *free_next;
+    union {
+        Node *next;
+        unsigned short id;
+    } u;
+    unsigned short branch_a;
+    unsigned short branch_b;
+    unsigned short chain;
+    char pad12[0x1A - 0x12];
+    unsigned short link;
+};
+typedef struct {
+    char pad0[8];
+    Node nodes[2048];
+    Node *free_list;
+} NodeSystem;
+typedef struct {
+    Node *pending;
+    char pad4[0x14 - 4];
+    unsigned short chain;
+    unsigned short current;
+    int current_key;
+} Route;
+extern NodeSystem *D_800A5B24;
+
+static inline Node *node_at(unsigned short id) {
+    if (id == 0) {
+        return 0;
+    }
+    return &D_800A5B24->nodes[id];
+}
+
+unsigned short func_8004A160(unsigned short *head, Route *route) {
+    unsigned short id = *head;
+    unsigned short count;
+    unsigned short next;
+    Node *node;
+    Node *link;
+    Node *dead;
+    unsigned short *chain;
+    Node **list;
+    int done;
+
+    if (id == 0) {
+        return 0;
+    }
+    count = 0;
+    *head = 0;
+    node = node_at(id);
+    node->prev = 0;
+    do {
+        done = 0;
+        __asm__("" : : "r"(id));
+        do {
+            switch (node->kind) {
+            case 3:
+                next = node->link;
+                if (next == 0) {
+                    done = 1;
+                } else {
+                    id = next;
+                    node = node_at(next);
+                }
+                break;
+            case 2:
+                if (route != 0) {
+                    for (chain = &route->chain; *chain != 0; chain = &link->chain) {
+                        link = node_at(*chain);
+                        if (id == *chain) {
+                            *chain = link->chain;
+                            break;
+                        }
+                    }
+                    if (id == route->current) {
+                        route->current = 0;
+                        route->current_key = 0;
+                    }
+                }
+                next = node->branch_b;
+                if (next != 0) {
+                    id = next;
+                    node = node_at(next);
+                    break;
+                }
+                next = node->branch_a;
+                if (next == 0) {
+                    done = 1;
+                } else {
+                    id = next;
+                    node = node_at(next);
+                }
+                break;
+            case 4:
+                if (route != 0) {
+                    for (list = &route->pending; *list != 0; list = &(*list)->u.next) {
+                        if (node == *list) {
+                            *list = node->u.next;
+                            break;
+                        }
+                    }
+                }
+                done = 1;
+                break;
+            default:
+                done = 1;
+                break;
+            }
+        } while (!done);
+        for (;;) {
+            next = node->prev;
+            dead = node_at(id);
+            dead->free_next = D_800A5B24->free_list;
+            D_800A5B24->free_list = dead;
+            dead->u.id = id;
+            dead->kind = 1;
+            count++;
+            if (next == 0) {
+                goto out;
+            }
+            node = node_at(next);
+            if (node->kind != 3) {
+                break;
+            }
+            id = next;
+        }
+        if (node->branch_b == id) {
+            node->branch_b = 0;
+        } else {
+            node->branch_a = 0;
+        }
+        id = next;
+    } while (next != 0);
+out:
+    return count;
+}

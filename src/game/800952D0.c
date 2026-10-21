@@ -1,25 +1,92 @@
-asm(".text\n\t.globl func_800952D0\nfunc_800952D0:\n\t"
-    ".word 0x27BDFFC0,0xAFB30024,0x00809821,0xAFB40028\n\t"
-    ".word 0x00A0A021,0xAFB5002C,0x00C0A821,0xAFB1001C\n\t"
-    ".word 0x3C11800F,0x2631F0A4,0xAFBF0038,0xAFB70034\n\t"
-    ".word 0xAFB60030,0xAFB20020,0xAFB00018,0x8E220000\n\t"
-    ".word 0x00000000,0x04400006,0x00009021,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x248452C0,0x08025509,0x2402FFFF\n\t"
-    ".word 0x02602021,0x26300010,0x0C0259C5,0x02002821\n\t"
-    ".word 0x02002021,0x0C023655,0x02802821,0xAE33FFFC\n\t"
-    ".word 0x2634FFF0,0x24110002,0x24160003,0x24170005\n\t"
-    ".word 0x02002021,0x0C027DC3,0x36A58000,0x0441002C\n\t"
-    ".word 0xAE02FFF0,0x0C025802,0x00002021,0x8E03FFE0\n\t"
-    ".word 0x3C01800F,0x10600006,0xAC22F0E8,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845218,0x080254F1,0x00002021\n\t"
-    ".word 0x3C048009,0x248450D4,0xAE11FFE0,0xAE800004\n\t"
-    ".word 0xAE800008,0x3C01800F,0x0C027D6B,0xAC33F0A0\n\t"
-    ".word 0x00002021,0x00002821,0x0C025807,0x27A60010\n\t"
-    ".word 0x3C04800F,0x8C84F0E8,0x0C025802,0x00000000\n\t"
-    ".word 0x8FA30010,0x00000000,0x1076FFDE,0x02002021\n\t"
-    ".word 0x14710005,0x00000000,0x26520001,0x2A420010\n\t"
-    ".word 0x1440FFD7,0x00000000,0x14600002,0x00000000\n\t"
-    ".word 0xAFB70010,0x8FA20010,0x08025509,0x00000000\n\t"
-    ".word 0x00001021,0x8FBF0038,0x8FB70034,0x8FB60030\n\t"
-    ".word 0x8FB5002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0040\n");
+typedef struct {
+    int state;
+    int result;
+    int f8;
+    int chan;
+    int fd;
+    int f14;
+    int f18;
+    int f1C;
+    char name[32];
+} CardState;
+
+extern CardState D_800EF094;
+extern int D_800EF0A0;
+extern int D_800EF0E8;
+extern char D_800C52C0[];
+extern char D_800C5218[];
+extern int func_800943B0(char *);
+extern void func_80096714(int, char *);
+extern char *func_8008D954(char *, char *);
+extern int func_8009F70C(char *, int);
+extern int func_80096008(int);
+extern int func_8009601C(int, int *, int *);
+extern void func_8009F5AC(int (*)(int *));
+extern int func_800950D4(int *);
+
+static inline int card_start_format(CardState *p, char *name, int chan)
+{
+    CardState *q = (CardState *)(name - 32);
+    if (q->state != 0) {
+        func_800943B0(D_800C5218);
+        return 0;
+    }
+    q->state = 2;
+    p->result = 0;
+    p->f8 = 0;
+    D_800EF0A0 = chan;
+    func_8009F5AC(func_800950D4);
+    return 0;
+}
+
+int func_800952D0(int chan, char *path, int mode_arg)
+{
+    int mode = mode_arg;
+    CardState *cs;
+    char *nm;
+    int result;
+    int retry = 0;
+    int fd;
+    int busy;
+    int unformatted;
+    int unknown;
+
+    if (D_800EF094.fd >= 0) {
+        func_800943B0(D_800C52C0);
+        return -1;
+    }
+    nm = D_800EF094.name;
+    func_80096714(chan, nm);
+    __asm__("" : : "r"(chan), "r"(chan));
+    func_8008D954(nm, path);
+    D_800EF094.chan = chan;
+    __asm__("" : : "r"(nm));
+    cs = &D_800EF094;
+    for (;;) {
+        busy = 2;
+        unformatted = 3;
+        unknown = 5;
+        fd = func_8009F70C(nm, mode | 0x8000);
+        ((CardState *)(nm - 32))->fd = fd;
+        if (fd >= 0) {
+            goto opened;
+        }
+        D_800EF0E8 = func_80096008(0);
+        func_8009601C(card_start_format(cs, nm, chan), 0, &result);
+        func_80096008(D_800EF0E8);
+        if (result == unformatted) {
+            continue;
+        }
+        if (result == busy) {
+            __asm__ volatile("");
+            if (++retry < 16) continue;
+        }
+        if (result == 0) {
+            result = unknown;
+        }
+        break;
+    }
+    return result;
+opened:
+    return 0;
+}

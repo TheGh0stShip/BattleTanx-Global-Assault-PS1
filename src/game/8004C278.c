@@ -1,65 +1,227 @@
-asm(".text\n\t.globl func_8004C278\nfunc_8004C278:\n\t"
-    ".word 0x27BDFF50,0xAFB40098,0x0080A021,0xAFBF00AC\n\t"
-    ".word 0xAFBE00A8,0xAFB700A4,0xAFB600A0,0xAFB5009C\n\t"
-    ".word 0xAFB30094,0xAFB20090,0xAFB1008C,0xAFB00088\n\t"
-    ".word 0x8E820180,0x00000000,0x30420002,0x104000E3\n\t"
-    ".word 0x0000B021,0x928300C9,0x24020001,0x146200E0\n\t"
-    ".word 0x02C01021,0x8E9200CC,0x00000000,0x124000DC\n\t"
-    ".word 0x00000000,0x8E420218,0x00000000,0x30420001\n\t"
-    ".word 0x104000D7,0x02C01021,0x8E420208,0x8E870208\n\t"
-    ".word 0x8C43000C,0x8CE2000C,0x00000000,0x106200CF\n\t"
-    ".word 0x3C03002C,0x3463700F,0x27A40018,0x3C05003E\n\t"
-    ".word 0x34A58000,0x9650002C,0x96420030,0x269300F8\n\t"
-    ".word 0x02028021,0x2606C000,0x8CE20010,0x30C6FFFF\n\t"
-    ".word 0x0C0125A0,0x0043F025,0x27B10028,0x02202021\n\t"
-    ".word 0x3C05003E,0x34A58000,0x26104000,0x0C0125A0\n\t"
-    ".word 0x3206FFFF,0x27A40018,0x26500008,0x0C012610\n\t"
-    ".word 0x02002821,0x02202021,0x0C012610,0x02002821\n\t"
-    ".word 0x26840008,0x0C012576,0x02002821,0x24052000\n\t"
-    ".word 0x3C038000,0x00434024,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x00A03821,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20078,0xE85F0000,0x8FA40078\n\t"
-    ".word 0x00000000,0x2486FFF4,0x04C10023,0x00000000\n\t"
-    ".word 0x00831804,0x4887F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2007C,0xE85F0000,0x8FA5007C,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x08013104,0x00471007\n\t"
-    ".word 0x00021023,0x00471004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00002812,0x0801311A\n\t"
-    ".word 0x00852804,0x00061023,0x00471007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00002812\n\t"
-    ".word 0x0801311A,0x00000000,0x00031B00,0x0065001B\n\t"
-    ".word 0x14A00002,0x00000000,0x0007000D,0x00002812\n\t"
-    ".word 0x11000002,0x00000000,0x00052823,0x27B00038\n\t"
-    ".word 0x9686002C,0x0C0125A0,0x02002021,0x02002021\n\t"
-    ".word 0x0C012610,0x26850008,0x02002021,0x0C012576\n\t"
-    ".word 0x27A50018,0x02002021,0x27B10028,0x02202821\n\t"
-    ".word 0x0C012576,0x00408021,0x0202802A,0x12000004\n\t"
-    ".word 0x27A20018,0xAFA20048,0x08013134,0xAFB1004C\n\t"
-    ".word 0xAFB10048,0xAFA2004C,0x00008021,0x3C02800A\n\t"
-    ".word 0x24574EF4,0x26920008,0x27B50050,0x02402021\n\t"
-    ".word 0x3C02800C,0xA440628C,0x3202FFFF,0x00021080\n\t"
-    ".word 0x27A50048,0x00A28821,0x8E83009C,0x8E250000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00571021,0x944700AA,0x8E820000\n\t"
-    ".word 0x03C03021,0xAFB50014,0x30E7FFFF,0x0C006760\n\t"
-    ".word 0xAFA20010,0x3042FFFF,0x1440003B,0x00000000\n\t"
-    ".word 0x8E620000,0x00000000,0x1040000C,0x00001821\n\t"
-    ".word 0x94440002,0x0C0129E5,0x00000000,0x8E250000\n\t"
-    ".word 0x24440004,0x0C012576,0xAFA20080,0x3C030006\n\t"
-    ".word 0x34633FFF,0x0062182A,0x38630001,0x1460002F\n\t"
-    ".word 0x24160001,0x0C012FD9,0x02802021,0x27A40080\n\t"
-    ".word 0x0C0129A5,0x24050003,0x27A40084,0x24050004\n\t"
-    ".word 0x0C0129A5,0xA6620004,0x8FA30080,0x00000000\n\t"
-    ".word 0xA462001A,0xA4600002,0x8E220000,0x00000000\n\t"
-    ".word 0x8C420000,0x00000000,0xAC620004,0x8E220000\n\t"
-    ".word 0x00000000,0x8C440008,0x24020003,0xA0620018\n\t"
-    ".word 0xAC64000C,0x8FA30084,0x96620004,0x00000000\n\t"
-    ".word 0xA4620002,0x8E250000,0x0C012576,0x02402021\n\t"
-    ".word 0x8FA30084,0x02802021,0xAC620004,0x24020002\n\t"
-    ".word 0xAC600008,0xA6620006,0x0C01333A,0xAE630000\n\t"
-    ".word 0x08013191,0x24160001,0x26100001,0x3202FFFF\n\t"
-    ".word 0x2C420002,0x1440FFAA,0x02402021,0x02C01021\n\t"
-    ".word 0x8FBF00AC,0x8FBE00A8,0x8FB700A4,0x8FB600A0\n\t"
-    ".word 0x8FB5009C,0x8FB40098,0x8FB30094,0x8FB20090\n\t"
-    ".word 0x8FB1008C,0x8FB00088,0x03E00008,0x27BD00B0\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    short id;
+} HitObject;
+typedef struct {
+    HitObject *object;
+    char pad4[36 - 4];
+} Hit;
+typedef struct Pending Pending;
+struct Pending {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    int key;
+    Pending *next;
+};
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    int x;
+    char pad8[4];
+    int z;
+    char pad10[0x18 - 0x10];
+    unsigned char mode;
+    char pad19;
+    unsigned short link;
+} Node;
+typedef struct {
+    char pad0[0xC];
+    int team;
+    int probe_mask;
+} Owner;
+typedef struct {
+    Pending *pending;
+    unsigned short head;
+    unsigned short count;
+} Route;
+typedef struct Tank Tank;
+struct Tank {
+    int id;
+    char pad04[4];
+    Vector position;
+    char pad14[0x2C - 0x14];
+    unsigned short heading;
+    char pad2E[2];
+    unsigned short turret;
+    char pad32[0x9C - 0x32];
+    int type;
+    char padA0[0xC9 - 0xA0];
+    unsigned char mode;
+    char padCA[2];
+    Tank *target;
+    char padD0[0xF8 - 0xD0];
+    Route route;
+    char pad100[0x180 - 0x100];
+    int flags;
+    char pad184[0x208 - 0x184];
+    Owner *owner;
+    char pad20C[0x218 - 0x20C];
+    int state;
+};
+typedef struct {
+    char pad0[0xAA];
+    unsigned short reach;
+    char padAC[0xD0 - 0xAC];
+} VehicleType;
+extern VehicleType D_800A4EF4[];
+extern short D_800C628C;
+extern unsigned short func_80019D80(Vector *, Vector *, int, unsigned short, int, Hit *);
+extern void func_80049680(Vector *, int, int);
+extern void func_80049840(Vector *, Vector *);
+extern int func_800495D8(Vector *, Vector *);
+extern Node *func_8004A794(unsigned short);
+extern unsigned short func_8004A694(void *, int);
+extern void func_8004BF64(Tank *);
+extern void func_8004CCE8(Tank *);
+int abs(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_div(int numerator, int denom) {
+    register int denominator asm("$5") = denom;
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int divisor;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                divisor = d >> scale;
+            } else {
+                divisor = d << -scale;
+            }
+            quotient = (unsigned int)n / divisor;
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int probe_clear(Vector *from, Vector *to, int mask, unsigned short reach, int id, Hit *hit) {
+    D_800C628C = 0;
+    return func_80019D80(from, to, mask, reach, id, hit) == 0;
+}
+
+int func_8004C278(Tank *tank) {
+    int result = 0;
+    Tank *target;
+    Route *route;
+    int mask;
+    unsigned short angle;
+    Vector left;
+    Vector right;
+    Vector ahead;
+    Vector *order[2];
+    Hit hit;
+    Node *first;
+    Pending *second;
+    unsigned short i;
+    int near;
+
+    if (!(tank->flags & 2)) {
+        goto end;
+    }
+    if (tank->mode != 1) {
+        goto end;
+    }
+    target = tank->target;
+    if (target == 0) {
+        goto end;
+    }
+    if (!(target->state & 1)) {
+        goto end;
+    }
+    if (target->owner->team == tank->owner->team) {
+        goto end;
+    }
+    route = &tank->route;
+    mask = tank->owner->probe_mask | 0x2C700F;
+    angle = target->heading + target->turret;
+    func_80049680(&left, 0x3E8000, (unsigned short)(angle - 0x4000));
+    func_80049680(&right, 0x3E8000, (unsigned short)(angle + 0x4000));
+    func_80049840(&left, &target->position);
+    func_80049840(&right, &target->position);
+    func_80049680(&ahead, fixed_div(func_800495D8(&tank->position, &target->position), 0x2000), tank->heading);
+    func_80049840(&ahead, &tank->position);
+    if (func_800495D8(&ahead, &left) < func_800495D8(&ahead, &right)) {
+        order[0] = &left;
+        order[1] = &right;
+    } else {
+        order[0] = &right;
+        order[1] = &left;
+    }
+    for (i = 0; i < 2; i++) {
+        if (probe_clear(&tank->position, order[i], mask, D_800A4EF4[tank->type].reach, tank->id, &hit)) {
+            near = 0;
+            if (route->pending != 0) {
+                first = func_8004A794(route->pending->prev);
+                near = func_800495D8((Vector *)&first->x, order[i]) < 0x64000;
+            }
+            if (!near) {
+                func_8004BF64(tank);
+                route->head = func_8004A694(&first, 3);
+                first->link = func_8004A694(&second, 4);
+                first->prev = 0;
+                first->x = order[i]->x;
+                first->z = order[i]->z;
+                first->mode = 3;
+                second->prev = route->head;
+                second->key = func_800495D8(&tank->position, order[i]);
+                second->next = 0;
+                route->count = 2;
+                route->pending = second;
+                func_8004CCE8(tank);
+            }
+            result = 1;
+            break;
+        }
+    }
+end:
+    return result;
+}
