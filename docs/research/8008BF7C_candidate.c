@@ -18,6 +18,28 @@ static __inline__ s32 gte_mfc2_25(void) { s32 value; __asm__ volatile("mfc2 %0,$
 static __inline__ s32 gte_mfc2_26(void) { s32 value; __asm__ volatile("mfc2 %0,$26" : "=r" (value)); return value; }
 static __inline__ s32 gte_mfc2_27(void) { s32 value; __asm__ volatile("mfc2 %0,$27" : "=r" (value)); return value; }
 static __inline__ s32 mult_hi(s32 left, s32 right) { s32 value; __asm__ volatile("mult %1,%2\n\tmfhi %0" : "=r" (value) : "r" (left), "r" (right)); return value; }
+static __inline__ void gte_SetMatrices(const s32 *matrix) {
+    __asm__ volatile(
+        "lw $9,0(%0)\n\t"
+        "lw $10,4(%0)\n\t"
+        "ctc2 $9,$0\n\t"
+        "ctc2 $10,$1\n\t"
+        "lw $9,8(%0)\n\t"
+        "lw $10,12(%0)\n\t"
+        "ctc2 $9,$2\n\t"
+        "ctc2 $10,$3\n\t"
+        "lw $9,16(%0)\n\t"
+        "lw $10,20(%0)\n\t"
+        "ctc2 $9,$4\n\t"
+        "ctc2 $10,$5\n\t"
+        "lw $9,24(%0)\n\t"
+        "lw $10,28(%0)\n\t"
+        "ctc2 $9,$6\n\t"
+        "ctc2 $10,$7"
+        :
+        : "r"(matrix)
+        : "$9", "$10");
+}
 s32 func_8007F7D8();
 M2C_UNK func_8007F7E8(s32);
 s32 func_8007F7F4();
@@ -237,14 +259,7 @@ void func_8008BF7C(void *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, void **ar
     u8 *var_s4_2;
     u8 *var_t0;
 
-    __asm__ volatile("ctc2 $t1, $0");
-    __asm__ volatile("ctc2 $t2, $1");
-    __asm__ volatile("ctc2 $t1, $2");
-    __asm__ volatile("ctc2 $t2, $3");
-    __asm__ volatile("ctc2 $t1, $4");
-    __asm__ volatile("ctc2 $t2, $5");
-    __asm__ volatile("ctc2 $t1, $6");
-    __asm__ volatile("ctc2 $t2, $7");
+    gte_SetMatrices((const s32 *)arg0);
     (*(s32 *)(scratch + 0x54)) = arg3;
     temp_s0 = func_8007F7D8() << 8;
     var_s0 = temp_s0 >> 8;
