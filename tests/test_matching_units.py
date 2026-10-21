@@ -61,6 +61,15 @@ class MatchingUnits(unittest.TestCase):
                 "\taddu\t$3,$7,$zero\n",
             )
 
+    def test_rejects_unknown_assembly_profile(self):
+        with tempfile.TemporaryDirectory() as directory:
+            assembly = Path(directory) / "unit.s"
+            assembly.write_text("nop\n")
+            with self.assertRaises(ValueError):
+                verify_matching_units.apply_assembly_profile(
+                    assembly, "unknown-profile"
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

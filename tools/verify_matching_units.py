@@ -156,6 +156,104 @@ def rewrite_move_pseudos(path):
     path.write_text(source)
 
 
+def apply_assembly_profile(path, profile):
+    """Reproduce narrow PsyQ assembler choices that old GCC cannot express."""
+    if profile != "gte_decoder_psyq":
+        raise ValueError("unknown assembly profile %r" % profile)
+
+    source = path.read_text()
+    start = source.index("$L88:")
+    end = source.index("$L235:", start)
+    region = source[start:end]
+    address_pattern = re.compile(
+        r"(?m)^(lui|addiu)(\s+)\$9(,.*D_800B0A14\+(?:128|256).*)$"
+    )
+    region, address_count = address_pattern.subn(
+        lambda match: match.group(0).replace("$9", "$3"), region
+    )
+    if address_count != 6:
+        raise ValueError(
+            "gte_decoder_psyq expected 6 table-base rewrites, found %d"
+            % address_count
+        )
+    region, add_count = re.subn(
+        r"(?m)^addu\s+\$2,\$2,\$9$", "addu\t$2,$2,$3", region
+    )
+    if add_count != 1:
+        raise ValueError(
+            "gte_decoder_psyq expected 1 indexed-base rewrite, found %d"
+            % add_count
+        )
+    source = source[:start] + region + source[end:]
+
+    class_zero_old = """$L92:
+
+addiu\t$4,$22,%lo(D_800EC100) # low
+lui\t$9,%hi(D_800B07C0) # high
+srl\t$2,$8,26
+andi\t$2,$2,0x0003
+lui\t$5,%hi(D_800C4868) # high
+srl\t$16,$8,16
+andi\t$16,$16,0x001f
+sw\t$2,16($sp)
+sll\t$2,$16,2
+addu\t$2,$2,$21
+lw\t$7,%lo(D_800B07C0)($9) # DEBUG: leaving for assembler to expand
+#nop # DEBUG: 'j\t$L238' does not load from $7
+j\t$L238
+addiu\t$5,$5,%lo(D_800C4868) # low
+"""
+    class_zero_new = """$L92:
+
+lui\t$9,%hi(D_800B07C0) # high
+srl\t$2,$8,26
+andi\t$2,$2,0x0003
+lui\t$5,%hi(D_800C4868) # high
+srl\t$16,$8,16
+andi\t$16,$16,0x001f
+sw\t$2,16($sp)
+sll\t$2,$16,2
+addu\t$2,$2,$21
+addiu\t$5,$5,%lo(D_800C4868) # low
+lw\t$7,%lo(D_800B07C0)($9) # DEBUG: leaving for assembler to expand
+j\t$L238_after_base
+lui\t$3,%hi(D_800B0A14+128) # high
+"""
+    if source.count(class_zero_old) != 1:
+        raise ValueError("gte_decoder_psyq class-zero setup shape changed")
+    source = source.replace(class_zero_old, class_zero_new, 1)
+    shared_base = """$L238:
+lui\t$3,%hi(D_800B0A14+128) # high
+lw\t$2,0($2)
+"""
+    shared_base_split = """$L238:
+lui\t$3,%hi(D_800B0A14+128) # high
+$L238_after_base:
+lw\t$2,0($2)
+"""
+    if source.count(shared_base) != 1:
+        raise ValueError("gte_decoder_psyq shared table-base shape changed")
+    source = source.replace(shared_base, shared_base_split, 1)
+
+    for immediate in (3583, 4031, 4095, 4607, 4479):
+        pattern = re.compile(
+            r"(?m)^(li\s+\$2,%d[^\n]*\n)"
+            r"beq\s+\$3,\$2,\$L116\n"
+            r"nop[^\n]*$" % immediate
+        )
+        replacement = (
+            r"\1beq\t$3,$2,$L251\n"
+            r"addiu\t$4,$22,%lo(D_800EC100) # low"
+        )
+        source, count = pattern.subn(replacement, source)
+        if count != 1:
+            raise ValueError(
+                "gte_decoder_psyq expected one delay-slot rewrite for %d, found %d"
+                % (immediate, count)
+            )
+    path.write_text(source)
+
+
 def compile_unit(unit, config, prefix, work):
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
     if not maspsx.is_file():
@@ -181,6 +279,8 @@ def compile_unit(unit, config, prefix, work):
         )
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
+    if unit.get("assembly_profile"):
+        apply_assembly_profile(processed, unit["assembly_profile"])
     run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
                  "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]

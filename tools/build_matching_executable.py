@@ -15,12 +15,12 @@ from pathlib import Path
 try:
     from .verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        rewrite_move_pseudos, run_compiler, validate_units,
+        apply_assembly_profile, rewrite_move_pseudos, run_compiler, validate_units,
     )
 except ImportError:
     from verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        rewrite_move_pseudos, run_compiler, validate_units,
+        apply_assembly_profile, rewrite_move_pseudos, run_compiler, validate_units,
     )
 
 
@@ -84,6 +84,8 @@ def compile_object(item, config, prefix, work_root):
         raise subprocess.CalledProcessError(result.returncode, result.args)
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
+    if unit.get("assembly_profile"):
+        apply_assembly_profile(processed, unit["assembly_profile"])
     run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
          "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]

@@ -8,7 +8,7 @@ compiler matching continues:
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
 | `func_80065920` | 11,168 | Compiler-valid 10,824-byte draft with the exact 320-byte retail frame, both jump tables, and the complete 397-operation COP2 stream |
-| `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
+| `func_8007AE20` | 4,788 | Exact semantic C; all 4,788 bytes match |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
 `func_80044C38` corresponds to the N64 tank input/update routine
@@ -74,6 +74,9 @@ The exception-name table and both eight-byte GTE opcode/name catalogs are now
 typed as 32-bit records.  Their reverse searches consequently use the retail
 eight-byte stride, and an unsuccessful extended-opcode search resets its index
 to zero instead of executing the earlier empty recovery branch.
+The pinned compiler's final register reuse and five delay-slot choices are
+normalized by the fail-closed `gte_decoder_psyq` assembly profile.  The profile
+requires the reviewed instruction shapes and refuses to build if they drift.
 
 `func_8008BF7C` begins by loading one 32-byte matrix into GTE control
 registers 0 through 7.  Keeping the loads and `ctc2` operations in one inline
@@ -86,9 +89,9 @@ hand-written assembly rather than compiler-emitted C; its semantic C candidate
 is therefore retained as documentation instead of being claimed as an exact C
 match.
 
-These candidates are research inputs and are not listed as matching units until
-they reproduce their target byte ranges exactly.  The raw wrappers remain the
-authoritative build fallback meanwhile.
+Candidates remain research inputs until they reproduce their target byte ranges
+exactly.  Exact candidates replace their raw wrappers in the matching manifest;
+the remaining raw wrappers stay as the authoritative build fallback.
 
 The adjacent polling routine `func_800940C4` has been promoted to exact C.  Its
 volatile stack reload and constrained hardware-pointer loads reproduce all 148

@@ -1,302 +1,1136 @@
-asm(".text\n\t.globl func_8007AE20\nfunc_8007AE20:\n\t"
-    ".word 0x27BDFF08,0xAFB400E0,0x0000A021,0xAFBF00F4\n\t"
-    ".word 0xAFBE00F0,0xAFB700EC,0xAFB600E8,0xAFB500E4\n\t"
-    ".word 0xAFB300DC,0xAFB200D8,0xAFB100D4,0xAFB000D0\n\t"
-    ".word 0x0C01FA38,0xAFA000C8,0x0C02505E,0x00000000\n\t"
-    ".word 0x00021082,0x305E000F,0x2FC2000D,0x10400007\n\t"
-    ".word 0x3C03800B,0x24630B94,0x001E1080,0x00431021\n\t"
-    ".word 0x8C520000,0x0801EBA5,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C520BC8,0x0C01FE9D,0x00002021,0x0C02221C\n\t"
-    ".word 0x24040002,0x0C025031,0x241000F0,0x27A40030\n\t"
-    ".word 0x00002821,0x00A03021,0x24070200,0x0C022E89\n\t"
-    ".word 0xAFB00010,0x27B10090,0x02202021,0x00002821\n\t"
-    ".word 0x00A03021,0x24070200,0x0C022EB6,0xAFB00010\n\t"
-    ".word 0x0C01FFC6,0x27A40030,0x0C01FFF6,0x02202021\n\t"
-    ".word 0x0C02474D,0x3C10800F,0x2610C180,0x02002021\n\t"
-    ".word 0x3C05800C,0x8C090110,0x24A54784,0x0C022BEC\n\t"
-    ".word 0xAFA900C0,0x00002021,0x24050020,0x00A03021\n\t"
-    ".word 0x3C0700FF,0x34E7FFFF,0x24110001,0xAFB10010\n\t"
-    ".word 0x0C024753,0xAFB00014,0x02002021,0x8FA900C8\n\t"
-    ".word 0x3C05800C,0x25290008,0xAFA900C8,0x8FA900C0\n\t"
-    ".word 0x24A547AC,0xAFA000C4,0x8D220088,0x02403021\n\t"
-    ".word 0x8C420000,0x0000F021,0xAFA20010,0x8D270088\n\t"
-    ".word 0x0C022BEC,0x0220B821,0x03C02021,0x24050020\n\t"
-    ".word 0x3C0700FF,0x8FA900C8,0x34E7FFFF,0xAFB10010\n\t"
-    ".word 0xAFB00014,0x0C024753,0x01253021,0x8FA900C8\n\t"
-    ".word 0x3C16800F,0x25290014,0xAFA900C8,0x8FA900C0\n\t"
-    ".word 0x3C02800B,0x8D230088,0x24550A14,0x2473FFD4\n\t"
-    ".word 0x3C03FF00,0x02631024,0x14430002,0x00000000\n\t"
-    ".word 0x00009821,0x8E680000,0x3C02A000,0x0282A025\n\t"
-    ".word 0x00081E82,0x2C62003C,0x104003D0,0x3106FFFF\n\t"
-    ".word 0x3C02800C,0x2442490C,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x1500000A,0x3103003F,0x26C4C100,0x3C05800C\n\t"
-    ".word 0x24A547C0,0x3C09800B,0x8D27090C,0x0C022BEC\n\t"
-    ".word 0x02603021,0x0801EFD0,0x00000000,0x2C62002C\n\t"
-    ".word 0x104000BA,0x3C02800C,0x244249FC,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x26C4C100,0x3C05800C,0x00088542\n\t"
-    ".word 0x3210001F,0x00101080,0x00551021,0x24A547CC\n\t"
-    ".word 0x3C09800B,0x8C420000,0x2529080C,0xAFA20010\n\t"
-    ".word 0x3102003F,0x00021080,0x00491021,0x8C470000\n\t"
-    ".word 0x0C022BEC,0x02603021,0x0801EDED,0x02178004\n\t"
-    ".word 0x00088D42,0x3231001F,0x00111080,0x00551021\n\t"
-    ".word 0x26C4C100,0x3C05800C,0x000882C2,0x3210001F\n\t"
-    ".word 0x24A547D8,0x8C420000,0x3C09800B,0xAFA20010\n\t"
-    ".word 0x00101080,0x00551021,0x8C420000,0x2529080C\n\t"
-    ".word 0xAFA20014,0x3102003F,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0C022BEC,0x02603021,0x0801ED60\n\t"
-    ".word 0x02178004,0x000882C2,0x3210001F,0x00101080\n\t"
-    ".word 0x00551021,0x00089542,0x3252001F,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x00088C02,0x3231001F,0x8C420000\n\t"
-    ".word 0x24A547E8,0xAFA20010,0x00121080,0x00551021\n\t"
-    ".word 0x8C420000,0x3C09800B,0xAFA20014,0x00111080\n\t"
-    ".word 0x00551021,0x8C420000,0x2529080C,0xAFA20018\n\t"
-    ".word 0x3102003F,0x00021080,0x00491021,0x8C470000\n\t"
-    ".word 0x0C022BEC,0x02603021,0x02178004,0x02579004\n\t"
-    ".word 0x0801ED60,0x02128025,0x00088542,0x3210001F\n\t"
-    ".word 0x00101080,0x00551021,0x26C4C100,0x3C05800C\n\t"
-    ".word 0x00088C02,0x3231001F,0x24A547D8,0x8C420000\n\t"
-    ".word 0x3C09800B,0xAFA20010,0x00111080,0x00551021\n\t"
-    ".word 0x8C420000,0x2529080C,0xAFA20014,0x3102003F\n\t"
-    ".word 0x00021080,0x00491021,0x8C470000,0x0C022BEC\n\t"
-    ".word 0x02603021,0x0801ED60,0x02178004,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x000882C2,0x3210001F,0x00101080\n\t"
-    ".word 0x00551021,0x24A547CC,0x3C09800B,0x8C420000\n\t"
-    ".word 0x2529080C,0xAFA20010,0x3102003F,0x00021080\n\t"
-    ".word 0x00491021,0x8C470000,0x0C022BEC,0x02603021\n\t"
-    ".word 0x0801EDED,0x02178004,0x000882C2,0x3210001F\n\t"
-    ".word 0x00101080,0x00551021,0x00088C02,0x3231001F\n\t"
-    ".word 0x26C4C100,0x3C05800C,0x8C420000,0x24A547E8\n\t"
-    ".word 0xAFA20010,0x00111080,0x00551021,0x8C420000\n\t"
-    ".word 0x3C09800B,0xAFA20014,0x00081102,0x3042007C\n\t"
-    ".word 0x00551021,0x8C420000,0x2529080C,0xAFA20018\n\t"
-    ".word 0x0801ED5A,0x3102003F,0x000882C2,0x3210001F\n\t"
-    ".word 0x00101080,0x00551021,0x00089402,0x3252001F\n\t"
-    ".word 0x26C4C100,0x3C05800C,0x00088D42,0x3231001F\n\t"
-    ".word 0x8C420000,0x24A547E8,0xAFA20010,0x00121080\n\t"
-    ".word 0x00551021,0x8C420000,0x3C09800B,0xAFA20014\n\t"
-    ".word 0x00111080,0x00551021,0x8C420000,0x2529080C\n\t"
-    ".word 0xAFA20018,0x3102003F,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0C022BEC,0x02603021,0x02178004\n\t"
-    ".word 0x02579004,0x0801ED60,0x02128025,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x24A547FC,0x02603021,0x0C022BEC\n\t"
-    ".word 0x01003821,0x0801EFD0,0x00000000,0x00061400\n\t"
-    ".word 0x24090010,0x01223007,0x00061080,0x24420004\n\t"
-    ".word 0x00531821,0x26C4C100,0x3C05800C,0x00088542\n\t"
-    ".word 0x3210001F,0x00101080,0x00551021,0x8C420000\n\t"
-    ".word 0x24A5480C,0xAFA30014,0x3C03800B,0x24630804\n\t"
-    ".word 0xAFA20010,0x00081382,0x3042007C,0x00431021\n\t"
-    ".word 0x8C470000,0x0C022BEC,0x02603021,0x0801EDED\n\t"
-    ".word 0x02178004,0x26C4C100,0x3C05800C,0x00088402\n\t"
-    ".word 0x3210001F,0x00101080,0x00551021,0x24A5480C\n\t"
-    ".word 0x3C09800B,0x8C420000,0x2529090C,0xAFA60014\n\t"
-    ".word 0xAFA20010,0x00081682,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0C022BEC,0x02603021,0x0801EDED\n\t"
-    ".word 0x02178004,0x00061400,0x24090010,0x01223007\n\t"
-    ".word 0x04C10005,0x3C02800C,0x00063023,0x3C02800C\n\t"
-    ".word 0x0801ED0B,0x24454820,0x24454824,0x00081382\n\t"
-    ".word 0x3042007C,0x00551021,0x8C420000,0x26C4C100\n\t"
-    ".word 0xAFA50014,0x3C05800C,0x00088542,0x3210001F\n\t"
-    ".word 0x24A54828,0x3C09800B,0xAFA60018,0xAFA20010\n\t"
-    ".word 0x00101080,0x00551021,0x8C420000,0x2529090C\n\t"
-    ".word 0xAFA2001C,0x00081682,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0801EDEB,0x02603021,0x00061400\n\t"
-    ".word 0x24090010,0x01223007,0x04C10005,0x3C02800C\n\t"
-    ".word 0x00063023,0x3C02800C,0x0801ED2D,0x24454820\n\t"
-    ".word 0x24454824,0x3C03800B,0x24630A94,0x00081382\n\t"
-    ".word 0x3042007C,0x00431021,0x8C420000,0x26C4C100\n\t"
-    ".word 0xAFA50014,0x3C05800C,0x00088542,0x3210001F\n\t"
-    ".word 0x24A54828,0x3C09800B,0xAFA60018,0xAFA20010\n\t"
-    ".word 0x00101080,0x00551021,0x8C420000,0x2529090C\n\t"
-    ".word 0xAFA2001C,0x00081682,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0801EDEB,0x02603021,0x00088C02\n\t"
-    ".word 0x3231001F,0x00111080,0x00551021,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x00088542,0x3210001F,0x24A54840\n\t"
-    ".word 0x8C420000,0x3C09800B,0xAFA20010,0x00101080\n\t"
-    ".word 0x00551021,0x8C420000,0x2529090C,0xAFA60018\n\t"
-    ".word 0xAFA20014,0x00081682,0x00021080,0x00491021\n\t"
-    ".word 0x8C470000,0x0C022BEC,0x02603021,0x02178004\n\t"
-    ".word 0x02378804,0x02118025,0x0801EFD0,0x0290A025\n\t"
-    ".word 0x00061400,0x24090010,0x01223007,0x00061080\n\t"
-    ".word 0x24420004,0x00531821,0x00088542,0x3210001F\n\t"
-    ".word 0x00101080,0x00551021,0x26C4C100,0x3C05800C\n\t"
-    ".word 0x24A54840,0x8C420000,0x3C09800B,0xAFA20010\n\t"
-    ".word 0x00081382,0x3042007C,0x00551021,0x8C420000\n\t"
-    ".word 0x2529090C,0xAFA30018,0xAFA20014,0x00081682\n\t"
-    ".word 0x00021080,0x00491021,0x8C470000,0x0801EDEB\n\t"
-    ".word 0x02603021,0x3C0203FF,0x3442FFFF,0x01023024\n\t"
-    ".word 0x00062080,0x26620004,0x3C03F000,0x00431024\n\t"
-    ".word 0x00821821,0x26C4C100,0x3C05800C,0x24A54858\n\t"
-    ".word 0x00081682,0x00021080,0x3C09800B,0x2529090C\n\t"
-    ".word 0x00491021,0x0801EFC6,0xAFA30010,0x00081542\n\t"
-    ".word 0x3043001F,0x24020002,0x1062000E,0x26C4C100\n\t"
-    ".word 0x28620003,0x10400005,0x24020004,0x1060002B\n\t"
-    ".word 0x01001821,0x0801EDF0,0x00031642,0x10620034\n\t"
-    ".word 0x24020006,0x10620015,0x26C4C100,0x0801EDEF\n\t"
-    ".word 0x01001821,0x3C09800B,0x252907C0,0x00081682\n\t"
-    ".word 0x30420003,0x3C05800C,0x000882C2,0x8D270008\n\t"
-    ".word 0x3210001F,0xAFA20010,0x00101080,0x00551021\n\t"
-    ".word 0x24A54868,0x3C03800B,0x8C420000,0x24630B14\n\t"
-    ".word 0xAFA20014,0x0801EDE6,0x00081382,0x3C09800B\n\t"
-    ".word 0x252907C0,0x00081682,0x30420003,0x3C05800C\n\t"
-    ".word 0x00088402,0x8D270018,0x3210001F,0xAFA20010\n\t"
-    ".word 0x00101080,0x00551021,0x24A54868,0x3C03800B\n\t"
-    ".word 0x8C420000,0x0801EDE4,0x24630B14,0x3C09800B\n\t"
-    ".word 0x00081682,0x30420003,0x3C05800C,0x00088402\n\t"
-    ".word 0x3210001F,0xAFA20010,0x00101080,0x00551021\n\t"
-    ".word 0x24A54868,0x8D2707C0,0x0801EDE2,0x3C03800B\n\t"
-    ".word 0x26C4C100,0x3C09800B,0x252907C0,0x00081682\n\t"
-    ".word 0x30420003,0x3C05800C,0x00088402,0x8D270010\n\t"
-    ".word 0x3210001F,0xAFA20010,0x00101080,0x00551021\n\t"
-    ".word 0x24A54868,0x3C03800B,0x8C420000,0x24630A94\n\t"
-    ".word 0xAFA20014,0x00081242,0x3042007C,0x00431021\n\t"
-    ".word 0x8C420000,0x02603021,0xAFA20018,0x0C022BEC\n\t"
-    ".word 0x02178004,0x0801EFD0,0x0290A025,0x00031642\n\t"
-    ".word 0x30420001,0x104001C9,0x24060016,0x3064FFFF\n\t"
-    ".word 0x3C02800B,0x24420588,0x244300B0,0x8C620000\n\t"
-    ".word 0x00000000,0x10820004,0x00000000,0x24C6FFFF\n\t"
-    ".word 0x04C1FFFA,0x2463FFF8,0x04C10002,0x3103FFFF\n\t"
-    ".word 0x00003021,0x2402107F,0x1062005B,0x00000000\n\t"
-    ".word 0x28621080,0x1040002C,0x24020E7F,0x10620056\n\t"
-    ".word 0x00000000,0x28620E80,0x10400012,0x240200BF\n\t"
-    ".word 0x10620051,0x00000000,0x286200C0,0x10400005\n\t"
-    ".word 0x2402007F,0x1062004D,0x26C4C100,0x0801EE6F\n\t"
-    ".word 0x2406002F,0x24020DFF,0x10620048,0x26C4C100\n\t"
-    ".word 0x24020E3F,0x10620046,0x00081682,0x0801EE6F\n\t"
-    ".word 0x2406002F,0x24020FBF,0x10620040,0x26C4C100\n\t"
-    ".word 0x28620FC0,0x10400008,0x24020EBF,0x1062003C\n\t"
-    ".word 0x00081682,0x24020F7F,0x10620039,0x00081682\n\t"
-    ".word 0x0801EE6F,0x2406002F,0x24020FFF,0x10620033\n\t"
-    ".word 0x26C4C100,0x2402103F,0x10620031,0x00081682\n\t"
-    ".word 0x0801EE6F,0x2406002F,0x240211FF,0x1062002B\n\t"
-    ".word 0x26C4C100,0x28621200,0x10400015,0x2402113F\n\t"
-    ".word 0x10620027,0x00081682,0x28621140,0x10400008\n\t"
-    ".word 0x240210BF,0x10620022,0x00081682,0x240210FF\n\t"
-    ".word 0x1062001F,0x00081682,0x0801EE6F,0x2406002F\n\t"
-    ".word 0x2402117F,0x10620019,0x26C4C100,0x240211BF\n\t"
-    ".word 0x10620017,0x00081682,0x0801EE6F,0x2406002F\n\t"
-    ".word 0x2402143F,0x10620154,0x28621440,0x10400007\n\t"
-    ".word 0x240213BF,0x1062012B,0x240213FF,0x1062014F\n\t"
-    ".word 0x26C4C100,0x0801EE6F,0x2406002F,0x2402147F\n\t"
-    ".word 0x10620149,0x240214BF,0x10620148,0x26C4C100\n\t"
-    ".word 0x0801EE6F,0x2406002F,0x26C4C100,0x00081682\n\t"
-    ".word 0x30420003,0x3C05800C,0x3C03800B,0x24630588\n\t"
-    ".word 0xAFA20010,0x000610C0,0x00431021,0x24A5487C\n\t"
-    ".word 0x3C09800B,0x8C420004,0x252907C0,0xAFA20014\n\t"
-    ".word 0x00081702,0x0801EFC5,0x00021100,0x3C0201FF\n\t"
-    ".word 0x3442FFFF,0x01022024,0x3C02800B,0x24420640\n\t"
-    ".word 0x24430178,0x8C620000,0x00000000,0x10820004\n\t"
-    ".word 0x00000000,0x24C6FFFF,0x04C1FFFA,0x2463FFF8\n\t"
-    ".word 0x04C10002,0x3C0201FF,0x00003021,0x3442FFFF\n\t"
-    ".word 0x3C04004B,0x34848012,0x01021824,0x106400D9\n\t"
-    ".word 0x00000000,0x0083102A,0x14400067,0x3C02004D\n\t"
-    ".word 0x3C020049,0x3442A012,0x106200D2,0x00000000\n\t"
-    ".word 0x0043102A,0x1440002F,0x3C02004A,0x3C020048\n\t"
-    ".word 0x3442A012,0x106200CB,0x00000000,0x0043102A\n\t"
-    ".word 0x14400013,0x3C020049,0x3C020048,0x34422012\n\t"
-    ".word 0x106200C4,0x00000000,0x0043102A,0x14400007\n\t"
-    ".word 0x3C020048,0x3C020041,0x3442E012,0x106200BE\n\t"
-    ".word 0x26C4C100,0x0801EECF,0x3C020048,0x34426012\n\t"
-    ".word 0x106200B9,0x26C4C100,0x0801EEB8,0x3C020048\n\t"
-    ".word 0x34422012,0x106200B4,0x26C4C100,0x0043102A\n\t"
-    ".word 0x14400007,0x3C020049,0x3C020048,0x3442E012\n\t"
-    ".word 0x106200AE,0x00081682,0x0801EECF,0x3C020049\n\t"
-    ".word 0x34426012,0x106200A8,0x26C4C100,0x3C020049\n\t"
-    ".word 0x34428012,0x106200A3,0x3C0301FF,0x0801EF6F\n\t"
-    ".word 0x3463FFFF,0x34428012,0x1062009F,0x26C4C100\n\t"
-    ".word 0x0043102A,0x1440001B,0x3C02004B,0x3C02004A\n\t"
-    ".word 0x34422012,0x10620098,0x00000000,0x0043102A\n\t"
-    ".word 0x1440000B,0x3C02004A,0x3C020049,0x3442E012\n\t"
-    ".word 0x10620092,0x00081682,0x3C02004A,0x34420012\n\t"
-    ".word 0x1062008C,0x3C0301FF,0x0801EF6F,0x3463FFFF\n\t"
-    ".word 0x34426012,0x10620088,0x26C4C100,0x3C02004A\n\t"
-    ".word 0x34426412,0x10620084,0x3C0301FF,0x0801EF70\n\t"
-    ".word 0x3463FFFF,0x34420012,0x1062007F,0x26C4C100\n\t"
-    ".word 0x0043102A,0x14400007,0x3C02004B,0x3C02004A\n\t"
-    ".word 0x3442A012,0x10620079,0x00081682,0x0801EF18\n\t"
-    ".word 0x3C02004A,0x34422012,0x10620073,0x26C4C100\n\t"
-    ".word 0x0801EF21,0x3C02004B,0x34428012,0x1062006E\n\t"
-    ".word 0x26C4C100,0x0043102A,0x14400033,0x3C020090\n\t"
-    ".word 0x3C02004C,0x34428012,0x10620067,0x00000000\n\t"
-    ".word 0x0043102A,0x14400013,0x3C02004D,0x3C02004C\n\t"
-    ".word 0x34420012,0x10620060,0x00000000,0x0043102A\n\t"
-    ".word 0x14400007,0x3C02004C,0x3C02004B,0x3442A012\n\t"
-    ".word 0x1062005A,0x00081682,0x0801EF18,0x3C02004B\n\t"
-    ".word 0x34422012,0x10620054,0x26C4C100,0x0801EF21\n\t"
-    ".word 0x3C02004C,0x34420012,0x1062004F,0x26C4C100\n\t"
-    ".word 0x0043102A,0x1440000B,0x3C02004D,0x3C02004C\n\t"
-    ".word 0x3442A012,0x10620049,0x00081682,0x3C02004C\n\t"
-    ".word 0x3442E012,0x10620043,0x3C0301FF,0x0801EF6F\n\t"
-    ".word 0x3463FFFF,0x34422012,0x1062003F,0x26C4C100\n\t"
-    ".word 0x3C02004D,0x34426012,0x1062003A,0x3C0301FF\n\t"
-    ".word 0x0801EF6F,0x3463FFFF,0x3442003D,0x10620036\n\t"
-    ".word 0x26C4C100,0x0043102A,0x1440001B,0x3C0200A0\n\t"
-    ".word 0x3C02004D,0x3442E012,0x1062002F,0x00000000\n\t"
-    ".word 0x0043102A,0x1440000B,0x3C020070,0x3C02004D\n\t"
-    ".word 0x3442A012,0x10620029,0x00081682,0x3C02004D\n\t"
-    ".word 0x3442A412,0x10620024,0x3C0301FF,0x0801EF70\n\t"
-    ".word 0x3463FFFF,0x3442000C,0x1062001F,0x26C4C100\n\t"
-    ".word 0x3C020078,0x3442000C,0x1062001B,0x3C0301FF\n\t"
-    ".word 0x0801EF70,0x3463FFFF,0x34420428,0x10620016\n\t"
-    ".word 0x26C4C100,0x0043102A,0x1440000B,0x3C0200A8\n\t"
-    ".word 0x3C020098,0x3442003D,0x10620010,0x00081682\n\t"
-    ".word 0x3C0200A0,0x3442003E,0x1062000B,0x3C0301FF\n\t"
-    ".word 0x0801EF70,0x3463FFFF,0x3442003E,0x10620006\n\t"
-    ".word 0x26C4C100,0x3C0200A8,0x34420428,0x14620012\n\t"
-    ".word 0x3C0301FF,0x26C4C100,0x00081682,0x30420003\n\t"
-    ".word 0x3C05800C,0x3C03800B,0x24630640,0xAFA20010\n\t"
-    ".word 0x000610C0,0x00431021,0x24A5487C,0x3C09800B\n\t"
-    ".word 0x8C420004,0x252907C0,0xAFA20014,0x00081702\n\t"
-    ".word 0x0801EFC5,0x00021100,0x3463FFFF,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x24A5488C,0x00081682,0x30420003\n\t"
-    ".word 0x01031824,0xAFA20010,0x00081702,0x00021100\n\t"
-    ".word 0x3C09800B,0x252907C0,0x00491021,0x0801EFC6\n\t"
-    ".word 0xAFA30014,0x26C4C100,0x3C05800C,0x24A5489C\n\t"
-    ".word 0x00081682,0x30420003,0xAFA20010,0x3C02800B\n\t"
-    ".word 0x24420588,0x000618C0,0x00621821,0x00081602\n\t"
-    ".word 0x8C630004,0x30420001,0xAFA20018,0x00081582\n\t"
-    ".word 0x30420003,0xAFA2001C,0x00081502,0x30420003\n\t"
-    ".word 0xAFA20020,0x00081482,0x30420003,0xAFA20024\n\t"
-    ".word 0x00081442,0x30420001,0xAFA20028,0x00081702\n\t"
-    ".word 0x00021100,0x3C09800B,0x252907C0,0x00491021\n\t"
-    ".word 0xAFA30014,0x8C470000,0x0C022BEC,0x02603021\n\t"
-    ".word 0x0801EFD0,0x00000000,0x26C4C100,0x3C05800C\n\t"
-    ".word 0x24A548C0,0x00081682,0x30420003,0xAFA20010\n\t"
-    ".word 0x3C02800B,0x24420588,0x000618C0,0x00621821\n\t"
-    ".word 0x00081602,0x8C630004,0x30420001,0xAFA20018\n\t"
-    ".word 0x00081702,0x00021100,0x3C09800B,0x252907C0\n\t"
-    ".word 0x00491021,0xAFA30014,0x8C470000,0x0C022BEC\n\t"
-    ".word 0x02603021,0x0801EFD0,0x00000000,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x24A548D4,0x00081682,0x30420003\n\t"
-    ".word 0xAFA20010,0x00081702,0x00021100,0x3C09800B\n\t"
-    ".word 0x252907C0,0x00491021,0x8C470000,0x0C022BEC\n\t"
-    ".word 0x02603021,0x0801EFD0,0x00000000,0x26C4C100\n\t"
-    ".word 0x3C05800C,0x24A548E8,0x0C022BEC,0x02603021\n\t"
-    ".word 0x8FA900C0,0x00000000,0x8D220088,0x00000000\n\t"
-    ".word 0x1662001E,0x00002021,0x3C0600FF,0x34C6FFFF\n\t"
-    ".word 0x27A400A8,0x001E18C0,0x24620020,0x24050200\n\t"
-    ".word 0x8FA900C8,0x24630028,0xA7A000B0,0xA7A500B4\n\t"
-    ".word 0xA7A000B8,0xA7A500BC,0x01221021,0x01231821\n\t"
-    ".word 0xA7A200B2,0xA7A200B6,0x24020080,0xAFA200AC\n\t"
-    ".word 0x24020005,0xA7A300BA,0xA7A300BE,0xA3A200AB\n\t"
-    ".word 0x8FA300A8,0x24020028,0xA3A200AF,0x00661825\n\t"
-    ".word 0x0C01FF93,0xAFA300A8,0x00002021,0x24050020\n\t"
-    ".word 0x001E30C0,0x00C53021,0x3C0700FF,0x8FA900C8\n\t"
-    ".word 0x34E7FFFF,0xAFB70010,0x01263021,0x3C09800F\n\t"
-    ".word 0x2529C100,0x0C024753,0xAFA90014,0x26730004\n\t"
-    ".word 0x8FA900C4,0x27DE0001,0x25290001,0x29220014\n\t"
-    ".word 0x1440FBEB,0xAFA900C4,0x2402FFFE,0x0282A024\n\t"
-    ".word 0x0000F021,0x24150001,0x3C02800F,0x2453C100\n\t"
-    ".word 0x3C02800B,0x24520A14,0x8FB100C0,0x24100020\n\t"
-    ".word 0x03D51004,0x02821024,0x10400010,0x02602021\n\t"
-    ".word 0x3C05800C,0x8E460000,0x8E270008,0x0C022BEC\n\t"
-    ".word 0x24A54904,0x00002021,0x2405016A,0x3C0700FF\n\t"
-    ".word 0x8FA900C8,0x34E7FFFF,0xAFB50010,0xAFB30014\n\t"
-    ".word 0x0C024753,0x01303021,0x26100008,0x26520004\n\t"
-    ".word 0x27DE0001,0x2BC20020,0x1440FFE9,0x26310004\n\t"
-    ".word 0x8FBF00F4,0x8FBE00F0,0x8FB700EC,0x8FB600E8\n\t"
-    ".word 0x8FB500E4,0x8FB400E0,0x8FB300DC,0x8FB200D8\n\t"
-    ".word 0x8FB100D4,0x8FB000D0,0x00001021,0x03E00008\n\t"
-    ".word 0x27BD00F8\n\t"
-);
+typedef signed char s8;
+typedef signed short s16;
+typedef signed int s32;
+typedef unsigned char u8;
+typedef unsigned int u32;
+typedef unsigned char M2C_UNK;
+typedef struct {
+    u32 *name;
+    u32 fields[3];
+} OpcodeClass;
+typedef struct {
+    u32 opcode;
+    u32 *name;
+} GteOpcode;
+typedef struct {
+    union {
+        s32 word;
+        struct { u8 pad[3]; s8 byte; } parts;
+    } a8;
+    union {
+        s32 word;
+        struct { u8 pad[3]; s8 byte; } parts;
+    } ac;
+    s16 b0;
+    s16 b2;
+    s16 b4;
+    s16 b6;
+    s16 b8;
+    s16 ba;
+    s16 bc;
+    s16 be;
+} ScreenPrimitive;
+typedef union {
+    M2C_UNK bytes[0x30];
+    struct {
+        M2C_UNK header[0x18];
+        ScreenPrimitive primitive;
+    } layout;
+} ScreenBuffer;
+extern int func_8007E8E0();
+extern int func_8007FA74();
+extern int func_8007FE4C();
+extern int func_8007FF18();
+extern int func_8007FFD8();
+extern int func_80088870();
+extern int func_8008AFB0();
+extern int func_8008BA24();
+extern int func_8008BAD8();
+extern int func_80091D34();
+extern int func_80091D4C();
+extern int func_800940C4();
+extern u32 func_80094178();
+extern GteOpcode D_800B0588[];
+extern GteOpcode D_800B0640[];
+extern OpcodeClass D_800B07C0[];
+extern M2C_UNK D_800B0804;
+extern u32 *D_800B080C;
+extern u32 *D_800B090C;
+extern u32 *D_800B0A14;
+extern u32 D_800B0B94[];
+extern u32 *D_800B0BC8;
+extern M2C_UNK D_800C4784;
+extern M2C_UNK D_800C47AC;
+extern M2C_UNK D_800C47C0;
+extern M2C_UNK D_800C47CC;
+extern M2C_UNK D_800C47D8;
+extern M2C_UNK D_800C47E8;
+extern M2C_UNK D_800C47FC;
+extern M2C_UNK D_800C480C;
+extern M2C_UNK D_800C4820;
+extern M2C_UNK D_800C4824;
+extern M2C_UNK D_800C4828;
+extern M2C_UNK D_800C4840;
+extern M2C_UNK D_800C4858;
+extern M2C_UNK D_800C4868;
+extern M2C_UNK D_800C487C;
+extern M2C_UNK D_800C488C;
+extern M2C_UNK D_800C489C;
+extern M2C_UNK D_800C48C0;
+extern M2C_UNK D_800C48D4;
+extern M2C_UNK D_800C48E8;
+extern M2C_UNK D_800C4904;
+extern M2C_UNK D_800EC100;
+extern M2C_UNK D_800EC180;
+s32 func_8007AE20(void) {
+    void *spC0;
+    s32 spC4;
+    s32 spC8;
+    M2C_UNK sp30[0x60];
+    ScreenBuffer sp90;
+    M2C_UNK *var_a0;
+    M2C_UNK *var_a0_2;
+    M2C_UNK *var_a0_3;
+    M2C_UNK *var_a0_4;
+    M2C_UNK *var_a1;
+    M2C_UNK *var_a1_2;
+    M2C_UNK *var_a1_3;
+    s16 temp_v0;
+    s16 temp_v1_7;
+    s32 temp_v1_4;
+    GteOpcode *var_v1;
+    register s32 temp_a2 asm("$6");
+    s32 temp_s0;
+    s32 temp_s0_2;
+    s32 temp_s0_3;
+    s32 temp_s0_4;
+    s32 temp_s0_5;
+    s32 temp_s0_6;
+    s32 temp_s0_7;
+    s32 temp_s0_8;
+    s32 temp_s2;
+    s32 temp_s2_2;
+    s32 temp_t1_2;
+    s32 temp_t1_3;
+    s32 temp_v1_3;
+    s32 temp_v1_5;
+    s32 temp_v1_6;
+    s32 var_a2;
+    s32 var_fp;
+    s32 var_fp_2;
+    s32 var_s0;
+    s32 var_s0_2;
+    s32 var_s0_3;
+    s32 var_s0_4;
+    s32 var_s0_5;
+    register s32 shared_mask_first asm("$16");
+    register s32 shared_mask_second asm("$17");
+    s32 var_s1;
+    register s32 var_s4 asm("$20");
+    s32 var_v0_4;
+    s32 var_v0_5;
+    s32 var_v0_6;
+    s32 var_v0_7;
+    s32 var_v0_8;
+    u32 **var_s2_2;
+    u32 **var_t1;
+    u32 **var_v0_2;
+    u32 *var_a3;
+    u32 *var_s2;
+    u32 *var_s3;
+    u32 temp_t0;
+    u32 temp_v1;
+    u32 temp_v1_2;
+    u32 var_v0;
+    register u32 var_v0_3 asm("$2");
+    void *temp_t1;
+    void *var_s1_2;
+    var_s4 = 0;
+    spC8 = 0;
+    func_8007E8E0();
+    {
+        func_80094178();
+        __asm__ volatile (
+            "srl $2,$2,2\n\t"
+            "andi %0,$2,15"
+            : "=r" (var_fp)
+            :
+            : "$2");
+    }
+    if ((u32) var_fp < 0xDU) {
+        var_s2 = (u32 *) D_800B0B94[var_fp];
+    } else {
+        var_s2 = D_800B0BC8;
+    }
+    func_8007FA74(0);
+    func_80088870(2);
+    func_800940C4();
+    func_8008BA24(&sp30, 0, 0, 0x200, 0xF0);
+    func_8008BAD8(&sp90, 0, 0, 0x200, 0xF0);
+    func_8007FF18(&sp30);
+    func_8007FFD8(&sp90);
+    func_80091D34();
+    temp_t1 = *(void **)0x110;
+    spC0 = temp_t1;
+    var_a0 = &D_800EC180;
+    func_8008AFB0(var_a0, &D_800C4784);
+    func_80091D4C(0, 0x20, 0x20, 0xFFFFFF, 1, var_a0);
+    temp_t1_2 = spC8 + 8;
+    spC8 = temp_t1_2;
+    spC4 = 0;
+    func_8008AFB0(var_a0, &D_800C47AC, var_s2,
+                  *(u32 **)((u8 *)temp_t1 + 0x88),
+                  **(u32 **)((u8 *)temp_t1 + 0x88));
+    var_fp = 0;
+    func_80091D4C(0, 0x20, temp_t1_2 + 0x20, 0xFFFFFF, 1, var_a0);
+    spC8 = temp_t1_2 + 0x14;
+    {
+        register u32 *record_pc asm("$3");
+        record_pc = *(u32 **)((u8 *)temp_t1 + 0x88);
+        var_s3 = record_pc - 0xB;
+    }
+    do {
+        {
+            register s32 address_mask asm("$3");
+            register s32 masked_address asm("$2");
+            __asm__ volatile (
+                "lui %0,0xff00\n\t"
+                "and %1,%2,%0"
+                : "=r" (address_mask), "=r" (masked_address)
+                : "r" (var_s3));
+            if (masked_address == address_mask) {
+                var_s3 = 0;
+            }
+        }
+        temp_t0 = *var_s3;
+        {
+            register u32 high_bits asm("$2");
+            __asm__ volatile ("lui %0,0xa000" : "=r" (high_bits));
+            var_s4 |= high_bits;
+        }
+        __asm__ volatile ("srl %0,%1,26" : "=r" (temp_v1) : "r" (temp_t0));
+        temp_a2 = temp_t0 & 0xFFFF;
+        switch (temp_v1) {
+        case 0x0:
+            temp_v1_2 = temp_t0 & 0x3F;
+            if (temp_t0 == 0) {
+                func_8008AFB0(&D_800EC100, &D_800C47C0, var_s3, D_800B090C);
+                __asm__ volatile ("");
+            } else {
+                switch (temp_v1_2) {
+                case 8:
+                    var_a1 = &D_800C47CC;
+                    temp_s0 = (temp_t0 >> 0x15) & 0x1F;
+                    func_8008AFB0(&D_800EC100, var_a1, var_s3, (&D_800B080C)[temp_t0 & 0x3F], (u32) (&D_800B0A14)[temp_s0]);
+                    __asm__ volatile ("");
+                    var_s4 |= 1 << temp_s0;
+                    break;
+                case 9:
+                    {
+                        register u32 **source_slot asm("$2");
+                        register M2C_UNK *call_output asm("$4");
+                        register M2C_UNK *case_format asm("$5");
+                        __asm__ volatile (
+                            "srl %0,%1,21\n\t"
+                            "andi %0,%0,31"
+                            : "=r" (temp_s2) : "r" (temp_t0));
+                        source_slot = &(&D_800B0A14)[temp_s2];
+                        call_output = &D_800EC100;
+                        __asm__ volatile ("" : "+r" (source_slot),
+                                              "+r" (call_output));
+                        __asm__ volatile ("lui %0,0x800c"
+                                          : "=r" (case_format));
+                        temp_s0_2 = (temp_t0 >> 0xB) & 0x1F;
+                        case_format += 0x47D8;
+                        func_8008AFB0(call_output, case_format, var_s3,
+                                      (&D_800B080C)[temp_t0 & 0x3F],
+                                      (u32) *source_slot,
+                                      (&D_800B0A14)[temp_s0_2]);
+                        __asm__ volatile ("");
+                    }
+                    temp_s0_2 = 1 << temp_s0_2;
+                    temp_s2 = 1 << temp_s2;
+                    temp_s0_2 |= temp_s2;
+                    var_s4 |= temp_s0_2;
+                    break;
+                case 32:
+                case 33:
+                case 34:
+                case 35:
+                case 36:
+                case 37:
+                case 38:
+                case 39:
+                case 42:
+                case 43:
+                {
+                    register u32 **case32_first_slot asm("$2");
+                    register M2C_UNK *case32_output asm("$4");
+                    register M2C_UNK *case32_format asm("$5");
+                    __asm__ volatile (
+                        "srl %0,%1,11\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (temp_s0_3) : "r" (temp_t0));
+                    case32_first_slot = &(&D_800B0A14)[temp_s0_3];
+                    __asm__ volatile ("" : "+r" (case32_first_slot));
+                    __asm__ volatile (
+                        "srl %0,%1,21\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (var_s1) : "r" (temp_t0));
+                    case32_output = &D_800EC100;
+                    __asm__ volatile ("" : "+r" (case32_output));
+                    __asm__ volatile ("lui %0,0x800c"
+                                      : "=r" (case32_format));
+                    __asm__ volatile (
+                        "srl %0,%1,16\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (temp_s2) : "r" (temp_t0));
+                    case32_format += 0x47E8;
+                    func_8008AFB0(case32_output, case32_format, var_s3, (&D_800B080C)[temp_t0 & 0x3F], (u32) *case32_first_slot, (&D_800B0A14)[var_s1], (s32) (&D_800B0A14)[temp_s2]);
+                    __asm__ volatile ("");
+                    temp_s0_3 = 1 << temp_s0_3;
+                    var_s1 = 1 << var_s1;
+                    temp_s0_3 |= var_s1;
+                    temp_s2 = 1 << temp_s2;
+                    temp_s0_3 |= temp_s2;
+                    var_s4 |= temp_s0_3;
+                    break;
+                }
+                case 24:
+                case 25:
+                case 26:
+                case 27:
+                {
+                    register s32 case24_s1 asm("$17");
+                    register u32 **case24_first_slot asm("$2");
+                    register M2C_UNK *case24_output asm("$4");
+                    register M2C_UNK *case24_format asm("$5");
+                    __asm__ volatile (
+                        "srl %0,%1,21\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (temp_s0_3) : "r" (temp_t0));
+                    case24_first_slot = &(&D_800B0A14)[temp_s0_3];
+                    __asm__ volatile ("" : "+r" (case24_first_slot));
+                    case24_output = &D_800EC100;
+                    __asm__ volatile ("" : "+r" (case24_output));
+                    __asm__ volatile ("lui %0,0x800c"
+                                      : "=r" (case24_format));
+                    __asm__ volatile (
+                        "srl %0,%1,16\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (case24_s1)
+                        : "r" (temp_t0));
+                    case24_format += 0x47D8;
+                    func_8008AFB0(case24_output, case24_format, var_s3, (&D_800B080C)[temp_t0 & 0x3F], (u32) *case24_first_slot, (&D_800B0A14)[case24_s1]);
+                    __asm__ volatile ("");
+                    temp_s0_3 = 1 << temp_s0_3;
+                    case24_s1 = 1 << case24_s1;
+                    temp_s0_3 |= case24_s1;
+                    var_s4 |= temp_s0_3;
+                    break;
+                }
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                {
+                    register M2C_UNK *case16_output asm("$4");
+                    register M2C_UNK *case16_format asm("$5");
+                    case16_output = &D_800EC100;
+                    __asm__ volatile ("" : "+r" (case16_output));
+                    __asm__ volatile ("lui %0,0x800c"
+                                      : "=r" (case16_format));
+                    temp_s0_5 = (temp_t0 >> 0xB) & 0x1F;
+                    case16_format += 0x47CC;
+                    func_8008AFB0(case16_output, case16_format, var_s3, (&D_800B080C)[temp_t0 & 0x3F], (u32) (&D_800B0A14)[temp_s0_5]);
+                    __asm__ volatile ("");
+                    var_s4 |= 1 << temp_s0_5;
+                    break;
+                }
+                case 0:
+                case 2:
+                case 3:
+                {
+                    register u32 **case0_first_slot asm("$2");
+                    register M2C_UNK *case0_output asm("$4");
+                    register M2C_UNK *case0_format asm("$5");
+                    __asm__ volatile (
+                        "srl %0,%1,11\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (shared_mask_first)
+                        : "r" (temp_t0));
+                    case0_first_slot = &(&D_800B0A14)[shared_mask_first];
+                    __asm__ volatile ("" : "+r" (case0_first_slot));
+                    __asm__ volatile (
+                        "srl %0,%1,16\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (shared_mask_second)
+                        : "r" (temp_t0));
+                    case0_output = &D_800EC100;
+                    __asm__ volatile ("" : "+r" (case0_output));
+                    __asm__ volatile ("lui %0,0x800c"
+                                      : "=r" (case0_format));
+                    case0_format += 0x47E8;
+                    func_8008AFB0(case0_output, case0_format, var_s3,
+                                  (&D_800B080C)[temp_t0 & 0x3F],
+                                  (u32) *case0_first_slot,
+                                  (&D_800B0A14)[shared_mask_second],
+                                  (s32) (&D_800B0A14)[(temp_t0 >> 6) & 0x1F]);
+                    goto shared_two_register_mask;
+                }
+                case 4:
+                case 6:
+                case 7:
+                {
+                    register u32 **case4_first_slot asm("$2");
+                    register M2C_UNK *case4_output asm("$4");
+                    register M2C_UNK *case4_format asm("$5");
+                    temp_s0_6 = (temp_t0 >> 0xB) & 0x1F;
+                    case4_first_slot = &(&D_800B0A14)[temp_s0_6];
+                    __asm__ volatile ("" : "+r" (case4_first_slot));
+                    __asm__ volatile (
+                        "srl %0,%1,16\n\t"
+                        "andi %0,%0,31"
+                        : "=r" (var_s1) : "r" (temp_t0));
+                    case4_output = &D_800EC100;
+                    __asm__ volatile ("" : "+r" (case4_output));
+                    __asm__ volatile ("lui %0,0x800c"
+                                      : "=r" (case4_format));
+                    temp_s2_2 = (temp_t0 >> 0x15) & 0x1F;
+                    case4_format += 0x47E8;
+                    func_8008AFB0(case4_output, case4_format, var_s3, (&D_800B080C)[temp_t0 & 0x3F], (u32) *case4_first_slot, (&D_800B0A14)[var_s1], (s32) (&D_800B0A14)[temp_s2_2]);
+                    __asm__ volatile ("");
+                    temp_s0_6 = 1 << temp_s0_6;
+                    var_s1 = 1 << var_s1;
+                    temp_s0_6 |= var_s1;
+                    temp_s2_2 = 1 << temp_s2_2;
+                    temp_s0_6 |= temp_s2_2;
+                    var_s4 |= temp_s0_6;
+                    break;
+                }
+                default:
+                    func_8008AFB0(&D_800EC100, &D_800C47FC, var_s3, (u32 *) temp_t0);
+                    break;
+                }
+            }
+            break;
+        case 0x1:
+            {
+                register s32 branch_scratch asm("$2");
+                register u32 *branch_target asm("$3");
+                register M2C_UNK *branch_output asm("$4");
+                register M2C_UNK *branch_format asm("$5");
+                u8 *branch_table_base;
+                __asm__ volatile (
+                    "sll %0,%2,16\n\t"
+                    "li $9,16\n\t"
+                    "srav %2,%0,$9\n\t"
+                    "sll %0,%2,2\n\t"
+                    "addiu %0,%0,4\n\t"
+                    "addu %1,%0,%3"
+                    : "=&r" (branch_scratch), "=&r" (branch_target),
+                      "+r" (temp_a2)
+                    : "r" (var_s3));
+                branch_output = &D_800EC100;
+                __asm__ volatile ("" : "+r" (branch_output));
+                __asm__ volatile ("lui %0,0x800c"
+                                  : "=r" (branch_format));
+                temp_s0_7 = (temp_t0 >> 0x15) & 0x1F;
+                branch_format += 0x480C;
+                branch_table_base = (u8 *)&D_800B0804;
+                func_8008AFB0(branch_output, branch_format, var_s3,
+                              *(u32 *)(branch_table_base + ((temp_t0 >> 0xE) & 0x7C)),
+                              (u32) (&D_800B0A14)[temp_s0_7], branch_target);
+                __asm__ volatile ("");
+            }
+            var_s4 |= 1 << temp_s0_7;
+            break;
+        case 0xF:
+        {
+            register M2C_UNK *casef_output asm("$4");
+            register M2C_UNK *casef_format asm("$5");
+            casef_output = &D_800EC100;
+            __asm__ volatile ("" : "+r" (casef_output));
+            __asm__ volatile ("lui %0,0x800c"
+                              : "=r" (casef_format));
+            __asm__ volatile (
+                "srl %0,%1,16\n\t"
+                "andi %0,%0,31"
+                : "=r" (shared_mask_first)
+                : "r" (temp_t0));
+            casef_format += 0x480C;
+            func_8008AFB0(casef_output, casef_format, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          (u32) (&D_800B0A14)[shared_mask_first],
+                          (u32 *) temp_a2);
+            goto shared_single_register_mask;
+        }
+        case 0x20:
+        case 0x21:
+        case 0x22:
+        case 0x23:
+        case 0x24:
+        case 0x25:
+        case 0x26:
+        case 0x28:
+        case 0x29:
+        case 0x2A:
+        case 0x2B:
+        case 0x2E:
+        {
+            register s32 sign_scratch asm("$2");
+            register u32 operand_value asm("$2");
+            register M2C_UNK *case20_output asm("$4");
+            __asm__ volatile (
+                "sll %1,%0,16\n\t"
+                "li $9,16\n\t"
+                "srav %0,%1,$9"
+                : "+r" (temp_a2), "=&r" (sign_scratch));
+            if (temp_a2 < 0) {
+                temp_a2 = -temp_a2;
+                var_a1_2 = &D_800C4820;
+            } else {
+                var_a1_2 = &D_800C4824;
+            }
+            operand_value = (u32) (&D_800B0A14)[(temp_t0 >> 0x10) & 0x1F];
+            __asm__ volatile ("addiu %0,$22,-16128" : "=r" (case20_output));
+            func_8008AFB0(case20_output, &D_800C4828, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          operand_value,
+                          var_a1_2, temp_a2,
+                          (&D_800B0A14)[(temp_t0 >> 21) & 31]);
+            shared_mask_first = (temp_t0 >> 21) & 31;
+            var_s4 |= 1 << shared_mask_first;
+            break;
+        }
+        case 0x30:
+        case 0x31:
+        case 0x32:
+        case 0x33:
+        case 0x38:
+        case 0x39:
+        case 0x3A:
+        case 0x3B:
+        {
+            register s32 sign_scratch asm("$2");
+            register u32 operand_value asm("$2");
+            register u8 *operand_base asm("$3");
+            register M2C_UNK *immediate_output asm("$4");
+            __asm__ volatile (
+                "sll %1,%0,16\n\t"
+                "li $9,16\n\t"
+                "srav %0,%1,$9"
+                : "+r" (temp_a2), "=&r" (sign_scratch));
+            if (temp_a2 < 0) {
+                temp_a2 = -temp_a2;
+                var_a1_2 = &D_800C4820;
+            } else {
+                var_a1_2 = &D_800C4824;
+            }
+            operand_base = (u8 *)&D_800B0A14 + 0x80;
+            operand_value = *(u32 *)(operand_base + ((temp_t0 >> 14) & 0x7C));
+            immediate_output = &D_800EC100;
+            func_8008AFB0(immediate_output, &D_800C4828, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          operand_value,
+                          var_a1_2, temp_a2,
+                          (&D_800B0A14)[(temp_t0 >> 21) & 31]);
+            var_s0_4 = (temp_t0 >> 0x15) & 0x1F;
+            var_s4 |= 1 << var_s0_4;
+            break;
+        }
+        case 0x8:
+        case 0x9:
+        case 0xA:
+        case 0xB:
+        case 0xC:
+        case 0xD:
+        case 0xE:
+        {
+            register u32 **outer_first_slot asm("$2");
+            register M2C_UNK *outer_output asm("$4");
+            register M2C_UNK *outer_format asm("$5");
+            __asm__ volatile (
+                "srl %0,%1,16\n\t"
+                "andi %0,%0,31"
+                : "=r" (shared_mask_second)
+                : "r" (temp_t0));
+            outer_first_slot = &(&D_800B0A14)[shared_mask_second];
+            __asm__ volatile ("" : "+r" (outer_first_slot));
+            outer_output = &D_800EC100;
+            __asm__ volatile ("" : "+r" (outer_output));
+            __asm__ volatile ("lui %0,0x800c"
+                              : "=r" (outer_format));
+            __asm__ volatile (
+                "srl %0,%1,21\n\t"
+                "andi %0,%0,31"
+                : "=r" (shared_mask_first)
+                : "r" (temp_t0));
+            outer_format += 0x4840;
+            func_8008AFB0(outer_output, outer_format, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          (u32) *outer_first_slot,
+                          (&D_800B0A14)[shared_mask_first], temp_a2);
+shared_two_register_mask:
+            shared_mask_first = 1 << shared_mask_first;
+            shared_mask_second = 1 << shared_mask_second;
+            shared_mask_first |= shared_mask_second;
+            var_s4 |= shared_mask_first;
+            break;
+        }
+        case 0x4:
+        case 0x5:
+        case 0x6:
+        case 0x7:
+        {
+            register s32 branch_scratch asm("$2");
+            register u32 *branch_target asm("$3");
+            register u32 **branch_first_slot asm("$2");
+            register M2C_UNK *branch_output asm("$4");
+            register M2C_UNK *branch_format asm("$5");
+            __asm__ volatile (
+                "sll %0,%2,16\n\t"
+                "li $9,16\n\t"
+                "srav %2,%0,$9\n\t"
+                "sll %0,%2,2\n\t"
+                "addiu %0,%0,4\n\t"
+                "addu %1,%0,%3"
+                : "=&r" (branch_scratch), "=&r" (branch_target),
+                  "+r" (temp_a2)
+                : "r" (var_s3));
+            __asm__ volatile (
+                "srl %0,%1,21\n\t"
+                "andi %0,%0,31"
+                : "=r" (shared_mask_first)
+                : "r" (temp_t0));
+            branch_first_slot = &(&D_800B0A14)[shared_mask_first];
+            __asm__ volatile ("" : "+r" (branch_first_slot));
+            branch_output = &D_800EC100;
+            __asm__ volatile ("" : "+r" (branch_output));
+            __asm__ volatile ("lui %0,0x800c"
+                              : "=r" (branch_format));
+            branch_format += 0x4840;
+            func_8008AFB0(branch_output, branch_format, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          (u32) *branch_first_slot,
+                          (&D_800B0A14)[(temp_t0 >> 0x10) & 0x1F],
+                          branch_target);
+            var_s4 |= 1 << shared_mask_first;
+            break;
+        }
+        case 0x2:
+        case 0x3:
+        {
+            register u32 jump_mask asm("$2");
+            register u32 jump_bits asm("$6");
+            register u32 jump_shifted asm("$4");
+            register u32 jump_address asm("$3");
+            jump_mask = 0x03FFFFFF;
+            jump_bits = temp_t0 & jump_mask;
+            jump_shifted = jump_bits << 2;
+            jump_mask = (u32) (var_s3 + 1);
+            jump_address = 0xF0000000;
+            jump_mask &= jump_address;
+            __asm__ volatile ("addu %0,%1,%2"
+                              : "=r" (jump_address)
+                              : "r" (jump_shifted), "r" (jump_mask));
+            func_8008AFB0(&D_800EC100, &D_800C4858, var_s3,
+                          (&D_800B090C)[temp_t0 >> 0x1A],
+                          jump_address);
+            break;
+        }
+block_188:
+            break;
+        case 0x10:
+        case 0x11:
+        case 0x12:
+        case 0x13:
+            __asm__ volatile ("srl %0,%1,21"
+                              : "=r" (var_v0_3)
+                              : "r" (temp_t0));
+            temp_v1_3 = var_v0_3 & 0x1F;
+            if (temp_v1_3 == 2) {
+                goto gte_class_2;
+            }
+            if (temp_v1_3 < 3) {
+                if (temp_v1_3 != 0) {
+                    temp_v1_3 = temp_t0;
+                    __asm__ volatile ("" : "+r" (temp_v1_3));
+                    var_v0_3 = (u32) temp_v1_3 >> 0x19;
+                    goto block_52;
+                }
+                goto gte_class_0;
+            }
+            if (temp_v1_3 == 4) {
+                goto gte_class_4;
+            }
+            var_a0_2 = &D_800EC100;
+            if (temp_v1_3 != 6) {
+                temp_v1_3 = temp_t0;
+                goto gte_default_shift;
+            }
+            goto gte_class_6;
+gte_class_2:
+            var_a0_2 = &D_800EC100;
+            func_8008AFB0(var_a0_2, &D_800C4868, var_s3,
+                          D_800B07C0[0].fields[1],
+                          (temp_t0 >> 0x1A) & 3,
+                          (&D_800B0A14)[(temp_t0 >> 11) & 31],
+                          (&D_800B0A14)[0x40 + ((temp_t0 >> 16) & 0x1F)]);
+            shared_mask_first = (temp_t0 >> 11) & 31;
+shared_single_register_mask:
+            shared_mask_first = 1 << shared_mask_first;
+            var_s4 |= shared_mask_first;
+            break;
+gte_class_6:
+            func_8008AFB0(var_a0_2, &D_800C4868, var_s3,
+                          D_800B07C0[1].fields[1],
+                          (temp_t0 >> 0x1A) & 3,
+                          (&D_800B0A14)[(temp_t0 >> 16) & 31],
+                          (&D_800B0A14)[0x40 + ((temp_t0 >> 11) & 0x1F)]);
+            shared_mask_first = (temp_t0 >> 16) & 31;
+            var_s4 |= 1 << shared_mask_first;
+            break;
+gte_class_0:
+            __asm__ volatile ("");
+            func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                          D_800B07C0[0].name,
+                          (temp_t0 >> 0x1A) & 3,
+                          (&D_800B0A14)[(temp_t0 >> 16) & 31],
+                          (&D_800B0A14)[0x20 + ((temp_t0 >> 11) & 0x1F)]);
+            shared_mask_first = (temp_t0 >> 16) & 31;
+            var_s4 |= 1 << shared_mask_first;
+            break;
+gte_class_4:
+            func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                          D_800B07C0[1].name,
+                          (temp_t0 >> 0x1A) & 3,
+                          (&D_800B0A14)[(temp_t0 >> 16) & 31],
+                          (&D_800B0A14)[0x20 + ((temp_t0 >> 11) & 0x1F)]);
+            shared_mask_first = (temp_t0 >> 16) & 31;
+            var_s4 |= 1 << shared_mask_first;
+            break;
+            if (temp_v1_3 != 2) {
+                if (temp_v1_3 < 3) {
+                    if (temp_v1_3 != 0) {
+                        var_v0_3 = temp_t0 >> 0x19;
+                        goto block_52;
+                    }
+                    var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
+                    func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                                  D_800B07C0[0].name,
+                                  (temp_t0 >> 0x1A) & 3,
+                                  (&D_800B0A14)[var_s0_4],
+                                  (&D_800B0A14)[0x20 + ((temp_t0 >> 11) & 0x1F)]);
+                    var_s4 |= 1 << var_s0_4;
+                    break;
+                }
+                if (temp_v1_3 != 4) {
+                    var_a0_2 = &D_800EC100;
+                    if (temp_v1_3 != 6) {
+gte_default_shift:
+                        __asm__ volatile ("srl %0,%1,25"
+                                          : "=r" (var_v0_3)
+                                          : "r" (temp_v1_3));
+block_52:
+                        var_a2 = 0x16;
+                        if (var_v0_3 & 1) {
+                            {
+                                register u32 first_opcode asm("$4");
+                                __asm__ volatile ("andi %0,$3,0xffff"
+                                                  : "=r" (first_opcode));
+                                var_v1 = &D_800B0588[var_a2];
+loop_index:
+                                {
+                                    register u32 first_loaded asm("$2");
+                                    first_loaded = var_v1->opcode;
+                                    if (first_opcode != first_loaded) {
+                                    var_a2--;
+                                    var_v1--;
+                                    if (var_a2 >= 0) {
+                                        goto loop_index;
+                                    }
+                                    }
+                                }
+                            }
+                            temp_v1_4 = temp_t0 & 0xFFFF;
+                            if (var_a2 < 0) {
+                                var_a2 = 0;
+                            }
+                            if (temp_v1_4 != 0x107F) {
+                                __asm__ volatile ("");
+                                if (temp_v1_4 < 0x1080) {
+                                    if (temp_v1_4 != 0xE7F) {
+                                        if (temp_v1_4 < 0xE80) {
+                                            if (temp_v1_4 != 0xBF) {
+                                                if (temp_v1_4 < 0xC0) {
+                                                    var_a0_3 = &D_800EC100;
+                                                    if (temp_v1_4 != 0x7F) {
+                                                    var_a2 = 0x2F;
+                                                    goto late_search_setup;
+                                                    }
+                                                    var_a0_3 = &D_800EC100;
+                                                    goto block_95;
+                                                }
+                                                var_a0_3 = &D_800EC100;
+                                                if (temp_v1_4 == 0xDFF) {
+                                                    goto block_95;
+                                                }
+                                                if (temp_v1_4 == 0xE3F) {
+                                                    var_v0_3 = temp_t0 >> 0x1A;
+                                                    goto block_97;
+                                                }
+                                                var_a2 = 0x2F;
+                                                goto late_search_setup;
+                                            }
+                                            goto block_95;
+                                        }
+                                        var_a0_3 = &D_800EC100;
+                                        if (temp_v1_4 == 0xFBF) {
+                                            goto block_95;
+                                        }
+                                        if (temp_v1_4 < 0xFC0) {
+                                            if ((temp_v1_4 == 0xEBF) || (temp_v1_4 == 0xF7F)) {
+                                                var_v0_3 = temp_t0 >> 0x1A;
+                                                goto block_97;
+                                            }
+                                            var_a2 = 0x2F;
+                                            goto late_search_setup;
+                                        }
+                                        var_a0_3 = &D_800EC100;
+                                        if (temp_v1_4 == 0xFFF) {
+                                            goto block_95;
+                                        }
+                                        if (temp_v1_4 == 0x103F) {
+                                                var_v0_3 = temp_t0 >> 0x1A;
+                                                goto block_97;
+                                        }
+                                        var_a2 = 0x2F;
+                                        goto late_search_setup;
+                                    }
+                                    goto block_95;
+                                    goto block_188;
+                                }
+                                var_a0_3 = &D_800EC100;
+                                if (temp_v1_4 != 0x11FF) {
+                                    if (temp_v1_4 < 0x1200) {
+                                        if (temp_v1_4 == 0x113F) {
+                                            var_v0_3 = temp_t0 >> 0x1A;
+                                            goto block_97;
+                                        }
+                                        if (temp_v1_4 < 0x1140) {
+                                            if ((temp_v1_4 == 0x10BF) || (temp_v1_4 == 0x10FF)) {
+                                                var_v0_3 = temp_t0 >> 0x1A;
+                                                goto block_97;
+                                            }
+                                            var_a2 = 0x2F;
+                                            goto late_search_setup;
+                                        }
+                                        var_a0_3 = &D_800EC100;
+                                        if (temp_v1_4 == 0x117F) {
+                                            goto block_95;
+                                        }
+                                        if (temp_v1_4 == 0x11BF) {
+                                                var_v0_3 = temp_t0 >> 0x1A;
+                                                goto block_97;
+                                        }
+                                        var_a2 = 0x2F;
+                                        goto late_search_setup;
+                                    }
+                                    if (temp_v1_4 != 0x143F) {
+                                        if (temp_v1_4 < 0x1440) {
+                                            if (temp_v1_4 == 0x13BF) {
+                                                goto block_183;
+                                            }
+                                            var_v0_3 = 0x13FF;
+                                            __asm__ volatile ("");
+                                            var_a0_4 = &D_800EC100;
+                                            if (temp_v1_4 == var_v0_3) {
+                                                goto block_185;
+                                            }
+                                            var_a2 = 0x2F;
+                                            goto late_search_setup;
+                                        } else {
+                                            if (temp_v1_4 == 0x147F) {
+                                                goto block_184;
+                                            }
+                                            var_v0_3 = 0x14BF;
+                                            __asm__ volatile ("");
+                                            var_a0_4 = &D_800EC100;
+                                            if (temp_v1_4 == var_v0_3) {
+                                                goto block_185_high;
+                                            }
+                                            var_a2 = 0x2F;
+                                            goto late_search_setup;
+                                                    {
+                                                    register GteOpcode *late_base asm("$2");
+                                                    register GteOpcode *late_ptr asm("$3");
+                                                    register u32 late_opcode asm("$4");
+                                                    u32 loaded_opcode;
+                                                    __asm__ volatile ("" : "=r" (late_base), "=r" (late_ptr));
+                                                    __asm__ volatile ("" : "+r" (var_a2));
+                                                    if (var_a2 == 0x2F) {
+                                                        goto late_search_setup;
+                                                    }
+                                                    var_a0_3 = &D_800EC100;
+                                                    {
+                                                        register GteOpcode *outer_base asm("$3");
+                                                        register s32 outer_mode asm("$2");
+                                                        register M2C_UNK *outer_output asm("$4");
+                                                        register M2C_UNK *outer_format asm("$5");
+block_95:
+                                                        outer_output = &D_800EC100;
+                                                        __asm__ volatile ("" : "+r" (outer_output));
+block_96:
+                                                        outer_mode = temp_t0 >> 0x1A;
+block_97:
+                                                        outer_mode &= 3;
+                                                        __asm__ volatile ("lui %0,0x800c" : "=r" (outer_format));
+                                                        outer_base = D_800B0588;
+                                                        outer_format += 0x487C;
+                                                        func_8008AFB0(outer_output, outer_format, var_s3,
+                                                                      D_800B07C0[temp_t0 >> 0x1C].name,
+                                                                      outer_mode,
+                                                                      outer_base[var_a2].name);
+                                                    }
+                                                    goto block_188;
+late_search_setup:
+                                                    __asm__ volatile (
+                                                        "lui $2,0x1ff\n\t"
+                                                        "ori $2,$2,0xffff\n\t"
+                                                        "and %0,$8,$2"
+                                                        : "=r" (late_opcode)
+                                                        :
+                                                        : "$2");
+                                                    __asm__ volatile (
+                                                        "lui %0,0x800b\n\t"
+                                                        "addiu %0,%0,1600\n\t"
+                                                        "addiu %1,%0,376"
+                                                        : "=r" (late_base), "=r" (late_ptr));
+loop_99:
+                                                    __asm__ volatile ("" : "+r" (late_ptr));
+                                                    loaded_opcode = late_ptr->opcode;
+                                                    if (late_opcode != loaded_opcode) {
+                                                        var_a2 -= 1;
+                                                        late_ptr -= 1;
+                                                        if (var_a2 >= 0) {
+                                                            goto loop_99;
+                                                        }
+                                                    }
+                                                    if (var_a2 < 0) {
+                                                        var_a2 = 0;
+                                                    }
+                                                    temp_v1_5 = temp_t0 & 0x01FFFFFF;
+                                                    }
+                                                    switch (temp_v1_5) {
+                                                    case 0x486012:
+                                                    case 0x48E012:
+                                                    case 0x496012:
+                                                    case 0x49E012:
+                                                    case 0x41E012:
+                                                    case 0x480012:
+                                                    case 0x488012:
+                                                    case 0x490012:
+                                                    case 0x498012:
+                                                    case 0x482012:
+                                                    case 0x48A012:
+                                                    case 0x492012:
+                                                    case 0x49A012:
+                                                    case 0x4A6412:
+                                                    case 0x4A6012:
+                                                    case 0x4AE012:
+                                                    case 0x4B6012:
+                                                    case 0x4BE012:
+                                                    case 0x4A0012:
+                                                    case 0x4A8012:
+                                                    case 0x4B0012:
+                                                    case 0x4B8012:
+                                                    case 0x4A2012:
+                                                    case 0x4AA012:
+                                                    case 0x4B2012:
+                                                    case 0x4BA012:
+                                                    case 0x4DA412:
+                                                    case 0x4C6012:
+                                                    case 0x4CE012:
+                                                    case 0x4D6012:
+                                                    case 0x4DE012:
+                                                    case 0x4C0012:
+                                                    case 0x4C8012:
+                                                    case 0x4D0012:
+                                                    case 0x4D8012:
+                                                    case 0x4C2012:
+                                                    case 0x4CA012:
+                                                    case 0x4D2012:
+                                                    case 0x4DA012:
+                                                    case 0xA80428:
+                                                    case 0xA00428:
+                                                    case 0x78000C:
+                                                    case 0x70000C:
+                                                    case 0x98003D:
+                                                    case 0x90003D:
+                                                    case 0xA8003E:
+                                                    case 0xA0003E:
+                                                        func_8008AFB0(&D_800EC100, &D_800C487C, var_s3,
+                                                                      D_800B07C0[temp_t0 >> 0x1C].name,
+                                                                      (temp_t0 >> 0x1A) & 3,
+                                                                      D_800B0640[var_a2].name);
+                                                        break;
+                                                    default:
+                                                        func_8008AFB0(&D_800EC100, &D_800C488C, var_s3,
+                                                                      D_800B07C0[temp_t0 >> 0x1C].name,
+                                                                      (temp_t0 >> 0x1A) & 3,
+                                                                      temp_t0 & 0x01FFFFFF);
+                                                        break;
+                                                    }
+                                                    goto block_188;
+                                        }
+                                    } else {
+                                        goto block_184;
+block_183:
+                                        func_8008AFB0(&D_800EC100, &D_800C489C, var_s3, D_800B07C0[temp_t0 >> 0x1C].name, (temp_t0 >> 0x1A) & 3, D_800B0588[var_a2].name, (temp_t0 >> 0x18) & 1, (temp_t0 >> 0x16) & 3, (temp_t0 >> 0x14) & 3, (temp_t0 >> 0x12) & 3, (temp_t0 >> 0x11) & 1);
+                                        goto block_188;
+                                    }
+                                } else {
+                                    var_a0_3 = &D_800EC100;
+                                    goto block_95;
+block_184:
+                                    var_a0_4 = &D_800EC100;
+block_185_high:
+                                    __asm__ volatile ("");
+block_185:
+                                    func_8008AFB0(var_a0_4, &D_800C48C0, var_s3, D_800B07C0[temp_t0 >> 0x1C].name, (temp_t0 >> 0x1A) & 3, D_800B0588[var_a2].name, (temp_t0 >> 0x18) & 1);
+                                    break;
+                                }
+                            } else {
+                                goto block_95;
+                            }
+                        } else {
+                            func_8008AFB0(&D_800EC100, &D_800C48D4, var_s3,
+                                          D_800B07C0[temp_t0 >> 0x1C].name,
+                                          (temp_t0 >> 0x1A) & 3);
+                            break;
+                        }
+                    } else {
+                        var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
+                        func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                                      D_800B07C0[1].fields[1],
+                                      (temp_t0 >> 0x1A) & 3,
+                                      (&D_800B0A14)[var_s0_4],
+                                      (&D_800B0A14)[0x40 + ((temp_t0 >> 16) & 0x1F)]);
+                        var_s4 |= 1 << var_s0_4;
+                        break;
+                    }
+                } else {
+                    var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
+                    func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                                  D_800B07C0[1].name,
+                                  (temp_t0 >> 0x1A) & 3,
+                                  (&D_800B0A14)[var_s0_4],
+                                  (&D_800B0A14)[0x20 + ((temp_t0 >> 11) & 0x1F)]);
+                    var_s4 |= 1 << var_s0_4;
+                    break;
+                }
+            } else {
+                var_s0_4 = (temp_t0 >> 0xB) & 0x1F;
+                func_8008AFB0(&D_800EC100, &D_800C4868, var_s3,
+                              D_800B07C0[0].fields[1],
+                              (temp_t0 >> 0x1A) & 3,
+                              (&D_800B0A14)[var_s0_4],
+                              (&D_800B0A14)[0x40 + ((temp_t0 >> 16) & 0x1F)]);
+                var_s4 |= 1 << var_s0_4;
+                break;
+            }
+            break;
+        default:
+            func_8008AFB0(&D_800EC100, &D_800C48E8, var_s3);
+            break;
+        }
+        if (var_s3 == *(u32 **)((u8 *)spC0 + 0x88)) {
+            register ScreenPrimitive *primitive asm("$4");
+            register s32 primitive_size asm("$5");
+            register s32 primitive_color asm("$6");
+            __asm__ volatile (
+                "lui %2,0xff\n\t"
+                "ori %2,%2,0xffff\n\t"
+                "addiu %0,$sp,168\n\t"
+                "sll $3,%3,3\n\t"
+                "addiu $2,$3,32\n\t"
+                "li %1,512\n\t"
+                "lw $9,200($sp)\n\t"
+                "addiu $3,$3,40\n\t"
+                "sh $0,176($sp)\n\t"
+                "sh %1,180($sp)\n\t"
+                "sh $0,184($sp)\n\t"
+                "sh %1,188($sp)\n\t"
+                "addu $2,$9,$2\n\t"
+                "addu $3,$9,$3\n\t"
+                "sh $2,178($sp)\n\t"
+                "sh $2,182($sp)\n\t"
+                "li $2,128\n\t"
+                "sw $2,172($sp)\n\t"
+                "li $2,5\n\t"
+                "sh $3,186($sp)\n\t"
+                "sh $3,190($sp)\n\t"
+                "sb $2,171($sp)"
+                : "=r" (primitive), "=r" (primitive_size),
+                  "=r" (primitive_color)
+                : "r" (var_fp)
+                : "$2", "$3", "memory");
+            sp90.layout.primitive.ac.parts.byte = 0x28;
+            sp90.layout.primitive.a8.word |= primitive_color;
+            func_8007FE4C(&primitive->a8.word, primitive_size, primitive_color);
+        }
+        {
+            register s32 line_zero asm("$4");
+            register s32 line_base asm("$5");
+            register s32 line_y asm("$6");
+            line_zero = 0;
+            __asm__ volatile ("" : "+r" (line_zero));
+            line_base = 0x20;
+            line_y = var_fp * 8;
+            line_y += line_base;
+            line_y = spC8 + line_y;
+            func_80091D4C(line_zero, line_base, line_y, 0xFFFFFF, 1, &D_800EC100);
+        }
+        var_s3 += 1;
+        var_fp += 1;
+    } while (++spC4 < 0x14);
+    {
+        register s32 final_index asm("$30");
+        register s32 final_one asm("$21");
+        register u32 **final_names asm("$18");
+        register void *final_record asm("$17");
+        register s32 final_y asm("$16");
+        register M2C_UNK *final_output asm("$19");
+        register void *final_address asm("$2");
+        register M2C_UNK *final_call_output asm("$4");
+        register M2C_UNK *final_format asm("$5");
+
+        var_s4 &= ~1;
+        final_index = 0;
+        final_one = 1;
+        __asm__ volatile ("lui %0,0x800f" : "=r" (final_address));
+        final_output = (M2C_UNK *)final_address - 0x3F00;
+        __asm__ volatile ("lui %0,0x800b" : "=r" (final_address));
+        final_names = (u32 **)((u8 *)final_address + 0xA14);
+        final_record = spC0;
+        final_y = 0x20;
+        do {
+            if (var_s4 & (final_one << final_index)) {
+                final_call_output = final_output;
+                __asm__ volatile ("lui %0,0x800c"
+                                  : "=r" (final_format));
+                final_format += 0x4904;
+                func_8008AFB0(final_call_output, final_format, *final_names,
+                              *(void **)((u8 *)final_record + 8));
+                func_80091D4C(0, 0x16A, spC8 + final_y, 0xFFFFFF,
+                              final_one, final_output);
+                final_y += 8;
+            }
+            final_names += 1;
+            final_index += 1;
+            final_record += 4;
+        } while (final_index < 0x20);
+    }
+    return 0;
+}
