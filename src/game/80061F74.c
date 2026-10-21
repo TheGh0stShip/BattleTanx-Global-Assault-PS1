@@ -1,35 +1,80 @@
-asm(".text\n\t.globl func_80061F74\nfunc_80061F74:\n\t"
-    ".word 0x27BDFFD0,0x00803021,0x3C03FFFF,0x3C05800B\n\t"
-    ".word 0x3C02800E,0x8CA4BA64,0x8C4247F4,0x34636000\n\t"
-    ".word 0xAFBF0028,0xAFB30024,0xAFB20020,0xAFB1001C\n\t"
-    ".word 0xAFB00018,0x00822023,0x0083182A,0x10600005\n\t"
-    ".word 0xACA4BA64,0x3C020001,0x34424000,0x00821021\n\t"
-    ".word 0xACA2BA64,0x3C02800A,0x8043606C,0x24020001\n\t"
-    ".word 0x10620007,0x24020002,0x14620005,0x3C02800B\n\t"
-    ".word 0x2442B2B8,0x00C21026,0x080187FE,0x0002102B\n\t"
-    ".word 0x00001021,0x3043FFFF,0x3C02800B,0x2442BA60\n\t"
-    ".word 0x00621021,0x90420000,0x00000000,0x10400057\n\t"
-    ".word 0x00000000,0x10400055,0x00008821,0x3C02800E\n\t"
-    ".word 0x24534D70,0x00608021,0x3C02800B,0x2452BA6C\n\t"
-    ".word 0x322200FF,0x000210C0,0x00101880,0x00701821\n\t"
-    ".word 0x00031880,0x00701821,0x00031900,0x00431021\n\t"
-    ".word 0x00532821,0x94A30004,0x00000000,0x30620100\n\t"
-    ".word 0x10400005,0x3C02800B,0x8C42BA64,0x00000000\n\t"
-    ".word 0x1C400035,0x00000000,0x3063000F,0x00031040\n\t"
-    ".word 0x00431021,0x00521021,0x90420000,0x00000000\n\t"
-    ".word 0xA3A20010,0x94A30004,0x00000000,0x3063000F\n\t"
-    ".word 0x00031040,0x00431021,0x00521021,0x90420001\n\t"
-    ".word 0x00000000,0xA3A20011,0x94A30004,0x00000000\n\t"
-    ".word 0x3063000F,0x00031040,0x00431021,0x00521021\n\t"
-    ".word 0x90430002,0x240200FE,0xA3A20013,0xA3A30012\n\t"
-    ".word 0x94A20004,0x00000000,0x304300F0,0x24020010\n\t"
-    ".word 0x10620011,0x28620011,0x10400005,0x24020020\n\t"
-    ".word 0x10600007,0x00000000,0x08018854,0x26310001\n\t"
-    ".word 0x10620009,0x00000000,0x08018854,0x26310001\n\t"
-    ".word 0x84A40000,0x84A50002,0x0C01543D,0x27A60010\n\t"
-    ".word 0x08018854,0x26310001,0x84A40000,0x84A50002\n\t"
-    ".word 0x0C0154A9,0x27A60010,0x26310001,0x3C02800B\n\t"
-    ".word 0x2442BA60,0x02021021,0x90430000,0x322200FF\n\t"
-    ".word 0x0043102B,0x1440FFB3,0x322200FF,0x8FBF0028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct Color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+} Color;
+
+typedef struct Rgb {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} Rgb;
+
+typedef struct Blip {
+    short x;
+    short y;
+    unsigned short flags;
+    short pad;
+} Blip;
+
+typedef struct BlipList {
+    Blip blips[42];
+} BlipList;
+
+extern int D_800ABA64;
+extern int D_800E47F4;
+extern signed char D_800A606C;
+extern char D_800AB2B8[];
+extern unsigned char D_800ABA60[];
+extern BlipList D_800E4D70[];
+extern Rgb D_800ABA6C[];
+extern void func_800550F4(int, int, Color *);
+extern void func_800552A4(int, int, Color *);
+
+static inline unsigned short screen_player(char *menu) {
+    if (D_800A606C == 1) {
+        return 0;
+    }
+    if (D_800A606C == 2) {
+        return menu != D_800AB2B8;
+    }
+    return 0;
+}
+
+void func_80061F74(char *menu) {
+    int player;
+    int p;
+    unsigned char i;
+    Color color;
+    Blip *blip;
+
+    D_800ABA64 -= D_800E47F4;
+    if (D_800ABA64 < -0xA000) {
+        D_800ABA64 += 0x14000;
+    }
+    p = screen_player(menu);
+    if (D_800ABA60[p] != 0) {
+        player = p;
+        for (i = 0; i < D_800ABA60[player]; i++) {
+            blip = (Blip *)((char *)D_800E4D70 + (i * 8 + player * 336));
+            __asm__("" : "=r"(player) : "0"(player));
+            if ((blip->flags & 0x100) && D_800ABA64 > 0) {
+                continue;
+            }
+            color.r = D_800ABA6C[blip->flags & 0xF].r;
+            color.g = D_800ABA6C[blip->flags & 0xF].g;
+            color.b = D_800ABA6C[blip->flags & 0xF].b;
+            color.a = 254;
+            switch (blip->flags & 0xF0) {
+            case 0:
+                func_800550F4(blip->x, blip->y, &color);
+                break;
+            case 16:
+            case 32:
+                func_800552A4(blip->x, blip->y, &color);
+                break;
+            }
+        }
+    }
+}

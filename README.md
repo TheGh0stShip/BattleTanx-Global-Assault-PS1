@@ -11,7 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic decompilation: 89.59%](https://img.shields.io/badge/semantic_source-89.59%25-yellow)
+![Semantic decompilation: 92.03%](https://img.shields.io/badge/semantic_source-92.03%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -27,15 +27,15 @@ executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching source | 528,408 code bytes | 61,428 code bytes | 89.59% |
-| Semantic functions | 1,697 functions | 74 raw instruction units | 95.82% by provisional function count |
+| Semantic matching source | 542,816 code bytes | 47,020 code bytes | 92.03% |
+| Semantic functions | 1,735 functions | 59 raw instruction units | 96.71% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed source-unit boundaries | 1,875 | semantic naming and consolidation | byte coverage complete |
-| Source units matched | 1,875 | 0 provisional candidates | all provisional starts represented |
+| Reviewed source-unit boundaries | 1,898 | semantic naming and consolidation | byte coverage complete |
+| Source units matched | 1,898 | 0 provisional candidates | all provisional starts represented |
 | Classified data units | 38 ranges / 140,796 bytes | semantic field recovery | exact bytes verified |
 | Classified zero padding | 66 ranges / 16,888 bytes | 0 bytes | 100% |
 
@@ -62,7 +62,7 @@ game executable container, boot configuration, both text files, and raw licence
 sectors. “Structural” means the format tiles the file exactly; it does not mean
 every field's gameplay meaning or encoded media sample is known.
 
-One thousand eight hundred seventy-five source units compile and link into all
+One thousand eight hundred ninety-eight source units compile and link into all
 747,520 retail payload bytes. The reconstructed header and linked payload form
 a complete executable matching both supported hashes. Semantic naming,
 consolidation, and compiler corroboration remain active decompilation work;

@@ -1,37 +1,128 @@
-asm(".text\n\t.globl func_80084298\nfunc_80084298:\n\t"
-    ".word 0x27BDFFD8,0x3C02800F,0xAFB40020,0x2454DF78\n\t"
-    ".word 0xAFBF0024,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x8E920058,0x00808821,0x8E420010\n\t"
-    ".word 0x3223FFFF,0x02428021,0x3402FFFE,0x96040000\n\t"
-    ".word 0x00431023,0x0082102A,0x14400010,0x02009821\n\t"
-    ".word 0x02402021,0x0C021025,0x02002821,0x00409821\n\t"
-    ".word 0x8E830054,0x24020001,0x1462000B,0x3C02800F\n\t"
-    ".word 0x02602021,0x02002821,0x8E46001C,0x0C0229EF\n\t"
-    ".word 0x02608021,0x080210CB,0xA6110000,0x00911021\n\t"
-    ".word 0xA6020000,0x3C02800F,0x8C42DFCC,0x24070001\n\t"
-    ".word 0x1447005C,0x00004021,0x26050002,0x3C02800F\n\t"
-    ".word 0x2446E028,0x02404821,0x10E00045,0x24020001\n\t"
-    ".word 0x8E430014,0x01021004,0x00621824,0x1060003C\n\t"
-    ".word 0x00000000,0x94A30000,0x94C20004,0x00000000\n\t"
-    ".word 0x14620035,0x24A50002,0x8D230020,0x00000000\n\t"
-    ".word 0x2462FFFE,0x2C420003,0x10400015,0x00A02021\n\t"
-    ".word 0x24A50004,0x80830000,0x80C20010,0x00000000\n\t"
-    ".word 0x14620029,0x24840001,0x80830000,0x80C20011\n\t"
-    ".word 0x00000000,0x14620024,0x24840001,0x80830000\n\t"
-    ".word 0x80C20019,0x00000000,0x1462001F,0x24840001\n\t"
-    ".word 0x80830000,0x80C2001A,0x08021112,0x00000000\n\t"
-    ".word 0x24020006,0x14620019,0x00000000,0x24A50002\n\t"
-    ".word 0x80830000,0x80C20022,0x00000000,0x14620006\n\t"
-    ".word 0x24840001,0x80830000,0x80C20023,0x00000000\n\t"
-    ".word 0x10620002,0x00000000,0x00003821,0x94A30000\n\t"
-    ".word 0x84C20024,0x00000000,0x10620002,0x24A50002\n\t"
-    ".word 0x00003821,0x94A30000,0x84C20026,0x24A50002\n\t"
-    ".word 0x10620002,0x00000000,0x00003821,0x25290004\n\t"
-    ".word 0x25080001,0x2D020008,0x1440FFBB,0x24C6008C\n\t"
-    ".word 0x3C02800F,0x2450DF78,0x8E110054,0x24020001\n\t"
-    ".word 0x1622000C,0x00000000,0x14E0000A,0x02402021\n\t"
-    ".word 0x0C021025,0x02602821,0x8E030054,0x00000000\n\t"
-    ".word 0x14710004,0x00408021,0x02402021,0x0C02106E\n\t"
-    ".word 0x02002821,0x8FBF0024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct Stream {
+    int single;
+    int wrapped;
+    unsigned int size;
+    unsigned int mark;
+    unsigned int pos;
+    unsigned int mask;
+    int header_words;
+    int step;
+    int type[8];
+} Stream;
+
+typedef struct StreamState {
+    char pad00[0x54];
+    int mode;
+    Stream *stream;
+} StreamState;
+
+typedef struct PadInput {
+    char pad00[4];
+    unsigned short buttons;
+    char pad06[0xA];
+    signed char x1;
+    signed char y1;
+    char pad12[7];
+    signed char x2;
+    signed char y2;
+    char pad1B[7];
+    signed char b0;
+    signed char b1;
+    short a0;
+    short a1;
+    char pad28[0x64];
+} PadInput;
+
+extern StreamState D_800EDF78;
+extern int D_800EDFCC;
+extern PadInput D_800EE028[8];
+extern unsigned short *func_80084094(Stream *, unsigned short *);
+extern void func_800841B8(Stream *, unsigned short *);
+extern void func_8008A7BC(void *, void *, int);
+
+void func_80084298(int frames) {
+    Stream *st = D_800EDF78.stream;
+    unsigned short *p = (unsigned short *)((char *)st + st->pos);
+    unsigned short *next = p;
+    int same;
+    unsigned int i;
+    char *q;
+    signed char *b;
+    unsigned short w;
+    int aw;
+    PadInput *pad;
+    Stream *t;
+    unsigned int type;
+    unsigned short *us;
+
+    if (*p >= 0xFFFE - (frames & 0xFFFF)) {
+        next = func_80084094(st, p);
+        if (D_800EDF78.mode == 1) {
+            func_8008A7BC(next, p, st->step);
+            p = next;
+            *p = frames;
+        }
+    } else {
+        *p += frames;
+    }
+    same = 1;
+    if (D_800EDFCC == same) {
+        q = (char *)(p + 1);
+        for (i = 0, t = st; i < 8; i++) {
+            if (same == 0) {
+                break;
+            }
+            if (st->mask & (1 << i)) {
+                w = *(unsigned short *)q;
+                q += 2;
+                if (w != D_800EE028[i].buttons) {
+                    goto mismatch;
+                }
+                type = t->type[0];
+                if (type - 2 < 3) {
+                    b = (signed char *)q;
+                    q += 4;
+                    if (*b++ != D_800EE028[i].x1) {
+                        goto mismatch;
+                    }
+                    if (*b++ != D_800EE028[i].y1) {
+                        goto mismatch;
+                    }
+                    if (*b++ != D_800EE028[i].x2) {
+                        goto mismatch;
+                    }
+                    if (*b != D_800EE028[i].y2) {
+                        same = 0;
+                    }
+                } else if (type == 6) {
+                    b = (signed char *)q;
+                    q += 2;
+                    if (*b++ != D_800EE028[i].b0 || *b != D_800EE028[i].b1) {
+                        same = 0;
+                    }
+                    aw = *(unsigned short *)q;
+                    q += 2;
+                    if (aw != D_800EE028[i].a0) {
+                        same = 0;
+                    }
+                    aw = *(unsigned short *)q;
+                    q += 2;
+                    if (aw != D_800EE028[i].a1) {
+                        same = 0;
+                    }
+                }
+                goto next;
+            mismatch:
+                same = 0;
+            next:
+                t = (Stream *)((char *)t + 4);
+            }
+        }
+        if (D_800EDF78.mode == 1 && same == 0) {
+            p = func_80084094(st, next);
+            if (D_800EDF78.mode == 1) {
+                func_800841B8(st, p);
+            }
+        }
+    }
+}

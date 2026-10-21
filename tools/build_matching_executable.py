@@ -15,14 +15,16 @@ from pathlib import Path
 try:
     from .verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        apply_assembly_profile, prepare_assembly, rewrite_move_pseudos,
-        validate_units,
+        apply_assembly_profile, check_small_data_sections, expand_absolute_la,
+        prepare_assembly, rewrite_move_pseudos, small_data, unit_assembler_flags,
+        unit_link_command, validate_units,
     )
 except ImportError:
     from verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        apply_assembly_profile, prepare_assembly, rewrite_move_pseudos,
-        validate_units,
+        apply_assembly_profile, check_small_data_sections, expand_absolute_la,
+        prepare_assembly, rewrite_move_pseudos, small_data, unit_assembler_flags,
+        unit_link_command, validate_units,
     )
 
 
@@ -78,22 +80,16 @@ def compile_object(item, config, prefix, work_root):
         rewrite_move_pseudos(processed)
     if unit.get("assembly_profile"):
         apply_assembly_profile(processed, unit["assembly_profile"])
-    run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
+    if small_data(unit) is not None:
+        expand_absolute_la(processed)
+    run([assembler, "-EL", "-march=r3000", "-mabi=32", *unit_assembler_flags(unit),
          "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:
         alignment += ["--set-section-alignment", ".rodata=4"]
     run([objcopy, *alignment, str(obj), str(aligned)])
-    address = parse_int(unit["address"])
-    link = [
-        linker, "-EL", "-m", "elf32ltsmip", "-Ttext", "0x%08X" % address,
-        "-e", unit["name"], "-o", str(resolved), str(aligned),
-    ]
-    if "rodata_address" in unit:
-        link.append("--section-start=.rodata=0x%08X" % parse_int(unit["rodata_address"]))
-    for name, value in sorted(unit.get("symbols", {}).items()):
-        link.extend(("--defsym", "%s=0x%08X" % (name, parse_int(value))))
-    run(link)
+    run(unit_link_command(unit, linker, resolved, aligned, work))
+    check_small_data_sections(unit, resolved, prefix)
     run([objcopy, "-O", "binary", "--only-section=.text", str(resolved), str(binary)])
     actual = binary.read_bytes()
     expected_size = parse_int(unit["size"])

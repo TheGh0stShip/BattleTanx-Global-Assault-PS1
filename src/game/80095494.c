@@ -1,32 +1,42 @@
-asm(".text\n\t.globl func_80095494\nfunc_80095494:\n\t"
-    ".word 0x27BDFFE8,0x3C07800F,0x24E7F0A4,0xAFBF0010\n\t"
-    ".word 0x8CE20000,0x00000000,0x04410004,0x00804021\n\t"
-    ".word 0x3C04800C,0x08025547,0x248452E8,0x8CE2FFF0\n\t"
-    ".word 0x00000000,0x10400004,0x24E3FFF0,0x3C04800C\n\t"
-    ".word 0x08025547,0x24845218,0x30C2007F,0x1440000C\n\t"
-    ".word 0x24020005,0x3C048009,0x24845538,0xACE2FFF0\n\t"
-    ".word 0xAC600004,0xAC600008,0xAC650014,0xAC68001C\n\t"
-    ".word 0x0C027D6B,0xAC660018,0x0802554A,0x24020001\n\t"
-    ".word 0x3C04800C,0x2484530C,0x0C0250EC,0x00000000\n\t"
-    ".word 0x00001021,0x8FBF0010,0x27BD0018,0x03E00008\n\t"
-    ".word 0x00000000,0x27BDFFE0,0xAFB10014,0x00808821\n\t"
-    ".word 0xAFBF0018,0xAFB00010,0x8E230000,0x2410000A\n\t"
-    ".word 0x10700010,0x2862000B,0x10400005,0x24020014\n\t"
-    ".word 0x10600009,0x00001021,0x0802559C,0x00000000\n\t"
-    ".word 0x10620014,0x2402001E,0x1062001F,0x00001021\n\t"
-    ".word 0x0802559C,0x00000000,0x3C01800B,0xAC206C20\n\t"
-    ".word 0xAE300000,0x3C10800F,0x2610F0A4,0x8E040000\n\t"
-    ".word 0x8E050004,0x0C027DCB,0x00003021,0x8E030004\n\t"
-    ".word 0x00000000,0x1443FFF9,0x24020014,0x0802559B\n\t"
-    ".word 0xAE220000,0x0C025ABC,0x00000000,0x3C10800F\n\t"
-    ".word 0x2610F0A4,0x8E040000,0x8E05000C,0x8E060008\n\t"
-    ".word 0x0C027DCF,0x00000000,0x1440FFFA,0x2402001E\n\t"
-    ".word 0x0802559B,0xAE220000,0x0C025B6A,0x00000000\n\t"
-    ".word 0x1040001A,0x00001021,0x0C025AFE,0x00000000\n\t"
-    ".word 0x00402021,0x24020001,0x1482000C,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C426C20,0x00000000,0x24420001\n\t"
-    ".word 0x3C01800B,0xAC226C20,0x28420010,0x10400003\n\t"
-    ".word 0x00000000,0x0802559B,0xAE300000,0x0C02598F\n\t"
-    ".word 0x00000000,0x3C03800F,0x2463F094,0xAC620004\n\t"
-    ".word 0x0802559C,0x24020001,0x00001021,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int state;
+    int unk4;
+    int unk8;
+    int unkC;
+    int handle;
+    int buf;
+    int size;
+    int port;
+} CardState;
+
+extern CardState D_800EF094;
+extern char D_800C52E8[];
+extern char D_800C5218[];
+extern char D_800C530C[];
+void func_800943B0(const char *, ...);
+void func_8009F5AC(int (*)(int *));
+int func_80095538(int *);
+
+int func_80095494(int port, int buf, int size)
+{
+    char *msg;
+
+    if (D_800EF094.handle < 0) {
+        msg = D_800C52E8;
+    } else if (D_800EF094.state != 0) {
+        msg = D_800C5218;
+    } else if ((size & 0x7F) == 0) {
+        D_800EF094.state = 5;
+        D_800EF094.unk4 = 0;
+        D_800EF094.unk8 = 0;
+        D_800EF094.buf = buf;
+        D_800EF094.port = port;
+        D_800EF094.size = size;
+        func_8009F5AC(func_80095538);
+        return 1;
+    } else {
+        msg = D_800C530C;
+    }
+    func_800943B0(msg);
+    return 0;
+}

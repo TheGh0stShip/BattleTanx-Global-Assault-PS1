@@ -1,8 +1,36 @@
-asm(".text\n\t.globl func_8009F39C\nfunc_8009F39C:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x3C02800C,0x8C428C90,0xAFBF0018,0x0040F809\n\t"
-    ".word 0x00A08821,0x1440000B,0x00001021,0x24020001\n\t"
-    ".word 0x24030001,0xA2030046,0x3C03800A,0x2463F404\n\t"
-    ".word 0xAE030014,0x3C03800A,0x2463F420,0xAE110020\n\t"
-    ".word 0xAE030018,0x8FBF0018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct PadPort {
+    int unk00;
+    unsigned char *config;
+    char pad08[0xC];
+    void *on_start;
+    void *on_data;
+    char pad1C[4];
+    unsigned char *map;
+    char pad24[8];
+    unsigned char *out;
+    char pad30[5];
+    unsigned char cmd_len;
+    unsigned char cmd;
+    char pad37[0xF];
+    unsigned char state;
+} PadPort;
+
+extern int (*D_800B8C90)(PadPort *);
+void func_8009F404(PadPort *p);
+int func_8009F420(PadPort *p);
+
+int func_8009F39C(PadPort *p, unsigned char *map)
+{
+    if (D_800B8C90(p) != 0) {
+        return 0;
+    }
+    p->state = 1;
+    p->on_start = func_8009F404;
+    p->map = map;
+    p->on_data = func_8009F420;
+    {
+        int result = 1;
+        __asm__("" : "+r"(result));
+        return result;
+    }
+}

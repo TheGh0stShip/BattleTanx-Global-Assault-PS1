@@ -1,4 +1,9 @@
-asm(".text\n\t.globl func_8009B01C\nfunc_8009B01C:\n\t"
-    ".word 0x8F820014,0x27BDFFE8,0x14400005,0xAFBF0010\n\t"
-    ".word 0x24020001,0xAF820014,0x0C028BE4,0x00000000\n\t"
-    ".word 0x8FBF0010,0x00000000,0x03E00008,0x27BD0018\n");
+extern int D_800C6088;
+void func_800A2F90(void);
+
+void func_8009B01C(void) {
+    if (D_800C6088 == 0) {
+        D_800C6088 = 1;
+        func_800A2F90();
+    }
+}

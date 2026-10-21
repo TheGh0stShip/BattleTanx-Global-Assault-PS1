@@ -128,6 +128,7 @@ def validate_units(config):
                 "unsupported source language for %s: %s"
                 % (unit.get("name"), unit["language"])
             )
+        small_data(unit)
     for key in ("name", "address", "source"):
         seen = set()
         for unit in units:
@@ -162,6 +163,120 @@ def rewrite_move_pseudos(path):
     path.write_text(source)
 
 
+SMALL_DATA_KEYS = ("gp_value", "small_data_threshold")
+SMALL_DATA_ALLOWED_SECTIONS = (".text", ".rodata", ".reginfo", ".MIPS.abiflags")
+
+
+def small_data(unit):
+    """Return the opt-in (gp, -G threshold), or None for the legacy pipeline."""
+    present = [key for key in SMALL_DATA_KEYS if key in unit]
+    if not present:
+        return None
+    if len(present) != len(SMALL_DATA_KEYS):
+        raise ValueError(
+            "%s: gp_value and small_data_threshold must be given together"
+            % unit.get("name")
+        )
+    gp = parse_int(unit["gp_value"])
+    threshold = parse_int(unit["small_data_threshold"])
+    if not 0 <= gp <= 0xFFFFFFFF or gp % 4:
+        raise ValueError("%s: invalid gp_value" % unit.get("name"))
+    if not 1 <= threshold <= 0x7FFF:
+        raise ValueError("%s: invalid small_data_threshold" % unit.get("name"))
+    return gp, threshold
+
+
+def unit_compiler_flags(unit, config):
+    extra = unit.get("compiler_flags_extra", [])
+    selected = small_data(unit)
+    if selected is None:
+        return config["compiler_flags"] + extra
+    if any(flag.startswith("-G") for flag in extra):
+        raise ValueError("%s: -G belongs in small_data_threshold" % unit.get("name"))
+    flags = list(config["compiler_flags"])
+    if flags.count("-G0") != 1:
+        raise ValueError("manifest compiler_flags must contain exactly one -G0")
+    flags[flags.index("-G0")] = "-G%d" % selected[1]
+    return flags + extra
+
+
+def unit_maspsx_flags(unit, config):
+    extra = unit.get("maspsx_flags_extra", [])
+    selected = small_data(unit)
+    if selected is None:
+        return config["maspsx_flags"] + extra
+    if any(flag.startswith("-G") for flag in extra):
+        raise ValueError("%s: -G belongs in small_data_threshold" % unit.get("name"))
+    return config["maspsx_flags"] + extra + ["-G%d" % selected[1]]
+
+
+def unit_assembler_flags(unit):
+    selected = small_data(unit)
+    return ["-G0"] if selected is None else ["-G%d" % selected[1]]
+
+
+def expand_absolute_la(path):
+    """Keep absolute addresses absolute when GNU as is running with -G enabled."""
+    source = path.read_text()
+    source = re.sub(
+        r"(?m)^(\s*)la\s+(\$[A-Za-z0-9]+)\s*,\s*"
+        r"([A-Za-z_.$][A-Za-z0-9_.$]*(?:[+-](?:0x[0-9A-Fa-f]+|[0-9]+))?)(\s*(?:#.*)?)$",
+        r"\1lui\t\2,%hi(\3)\n\1addiu\t\2,\2,%lo(\3)\4",
+        source,
+    )
+    path.write_text(source)
+
+
+def small_data_script(unit, path):
+    gp, unused = small_data(unit)
+    lines = [
+        "SECTIONS", "{",
+        "  .text 0x%08X : { *(.text) }" % parse_int(unit["address"]),
+    ]
+    if "rodata_address" in unit:
+        lines.append(
+            "  .rodata 0x%08X : { *(.rodata) }" % parse_int(unit["rodata_address"])
+        )
+    lines.extend(("  _gp = 0x%08X;" % gp, "}"))
+    path.write_text("\n".join(lines) + "\n")
+
+
+def unit_link_command(unit, linker, elf, obj, work):
+    link = [linker, "-EL", "-m", "elf32ltsmip"]
+    if small_data(unit) is None:
+        link.extend(("-Ttext", "0x%08X" % parse_int(unit["address"])))
+    else:
+        script = work / "unit-small-data.ld"
+        small_data_script(unit, script)
+        link.extend(("-T", str(script)))
+    link.extend(("-e", unit["name"], "-o", str(elf), str(obj)))
+    if small_data(unit) is None and "rodata_address" in unit:
+        link.append("--section-start=.rodata=0x%08X" % parse_int(unit["rodata_address"]))
+    for name, value in sorted(unit.get("symbols", {}).items()):
+        link.extend(("--defsym", "%s=0x%08X" % (name, parse_int(value))))
+    return link
+
+
+def check_small_data_sections(unit, elf, prefix):
+    if small_data(unit) is None:
+        return
+    headers = subprocess.run(
+        [command("objdump", prefix), "-h", str(elf)],
+        check=True, stdout=subprocess.PIPE, universal_newlines=True,
+    ).stdout.splitlines()
+    for index, line in enumerate(headers):
+        fields = line.split()
+        if len(fields) < 3 or not fields[0].isdigit():
+            continue
+        name, size = fields[1], int(fields[2], 16)
+        flags = headers[index + 1] if index + 1 < len(headers) else ""
+        if size and "ALLOC" in flags and name not in SMALL_DATA_ALLOWED_SECTIONS:
+            raise SystemExit(
+                "%s allocates %s; small data must be referenced as external symbols"
+                % (unit["name"], name)
+            )
+
+
 def prepare_assembly(unit, config, source, assembly, processed):
     """Produce assembler input from either reconstructed C or semantic assembly."""
     language = unit.get("language", "c")
@@ -169,15 +284,14 @@ def prepare_assembly(unit, config, source, assembly, processed):
         shutil.copyfile(source, processed)
         return
 
-    compiler_flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
+    compiler_flags = unit_compiler_flags(unit, config)
     run_compiler(unit, config, source, assembly, compiler_flags)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
     if not maspsx.is_file():
         raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
     with processed.open("wb") as output:
         run_checked(
-            [sys.executable, str(maspsx), *config["maspsx_flags"],
-             *unit.get("maspsx_flags_extra", []), str(assembly)],
+            [sys.executable, str(maspsx), *unit_maspsx_flags(unit, config), str(assembly)],
             stdout=output,
         )
 
@@ -1278,6 +1392,127 @@ $L3:
         source = source[:tail_start] + retail_tail + source[tail_end:]
         path.write_text(source)
         return
+    if profile == "stream_pad_base_schedule":
+        source = path.read_text()
+        old = """addu\t$5,$16,2
+addu\t$9,$18,$zero
+lui\t$2,%hi(D_800EE028) # high
+addiu\t$6,$2,%lo(D_800EE028) # low
+"""
+        new = """addu\t$5,$16,2
+lui\t$2,%hi(D_800EE028) # high
+addiu\t$6,$2,%lo(D_800EE028) # low
+addu\t$9,$18,$zero
+"""
+        if source.count(old) != 1:
+            raise ValueError("stream_pad_base_schedule loop preheader changed")
+        path.write_text(source.replace(old, new))
+        return
+    if profile == "ra_only_27_epilogue":
+        source = path.read_text()
+        old = """lw\t$31,16($sp)
+#nop
+.set\tnoreorder
+.set\tnomacro
+j\t$31
+addu\t$sp,$sp,24
+"""
+        new = """lw\t$31,16($sp)
+addu\t$sp,$sp,24
+.set\tnoreorder
+.set\tnomacro
+j\t$31
+nop
+"""
+        if source.count(old) != 1:
+            raise ValueError("ra_only_27_epilogue return shape changed")
+        path.write_text(source.replace(old, new))
+        return
+    if profile == "blip_player_schedule":
+        source = path.read_text()
+        old = """beq\t$2,$0,$L9
+addu\t$16,$3,$zero
+
+beq\t$2,$0,$L9
+addu\t$17,$0,$zero
+
+lui\t$2,%hi(D_800E4D70) # high
+addiu\t$19,$2,%lo(D_800E4D70) # low
+lui\t$2,%hi(D_800ABA6C) # high
+addiu\t$18,$2,%lo(D_800ABA6C) # low
+andi\t$2,$17,0x00ff
+"""
+        new = """beq\t$2,$0,$L9
+nop
+
+beq\t$2,$0,$L9
+addu\t$17,$0,$zero
+
+lui\t$2,%hi(D_800E4D70) # high
+addiu\t$19,$2,%lo(D_800E4D70) # low
+addu\t$16,$3,$zero
+lui\t$2,%hi(D_800ABA6C) # high
+addiu\t$18,$2,%lo(D_800ABA6C) # low
+andi\t$2,$17,0x00ff
+"""
+        if source.count(old) != 1:
+            raise ValueError("blip_player_schedule loop setup shape changed")
+        path.write_text(source.replace(old, new))
+        return
+    if profile == "mask_copy_schedule":
+        source = path.read_text()
+        old = """addu\t$19,$16,$zero
+lui\t$3,%hi(D_800AEC48) # high
+"""
+        new = """lui\t$3,%hi(D_800AEC48) # high
+addu\t$19,$16,$zero
+"""
+        if source.count(old) != 1:
+            raise ValueError("mask_copy_schedule setup shape changed")
+        path.write_text(source.replace(old, new))
+        return
+    if profile == "particle_step_reload":
+        source = path.read_text()
+        old = """$L54:
+lhu\t$2,32($sp)
+#nop # DEBUG: 'addu\t$20,$20,-1' does not load from $2
+addu\t$20,$20,-1
+bgtz\t$20,$L55
+addu\t$19,$19,$2
+"""
+        new = """$L54:
+lhu\t$11,32($sp)
+#nop # DEBUG: 'addu\t$20,$20,-1' does not load from $11
+addu\t$20,$20,-1
+bgtz\t$20,$L55
+addu\t$19,$19,$11
+"""
+        if source.count(old) != 1:
+            raise ValueError("particle_step_reload loop tail shape changed")
+        path.write_text(source.replace(old, new))
+        return
+    if profile == "local_matrix_base":
+        source = path.read_text()
+        source, count = re.subn(
+            r"(?m)^sw\t\$3,64\(\$sp\)$", "sw\\t$3,0($17)", source
+        )
+        if count != 1:
+            raise ValueError(
+                "local_matrix_base expected one folded frame store, found %d" % count
+            )
+        path.write_text(source)
+        return
+    if profile == "pio_bound_literal":
+        source = path.read_text()
+        source, count = re.subn(
+            r"(?m)^addu\t\$3,\$2,\$zero$", "li\\t$3,-1", source
+        )
+        if count != 1:
+            raise ValueError(
+                "pio_bound_literal expected one copied loop bound, found %d" % count
+            )
+        path.write_text(source)
+        return
     if profile == "offset_first_pointer_add":
         source = path.read_text()
         source, count = re.subn(
@@ -1573,22 +1808,16 @@ def compile_unit(unit, config, prefix, work):
         rewrite_move_pseudos(processed)
     if unit.get("assembly_profile"):
         apply_assembly_profile(processed, unit["assembly_profile"])
-    run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
+    if small_data(unit) is not None:
+        expand_absolute_la(processed)
+    run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", *unit_assembler_flags(unit),
                  "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:
         alignment += ["--set-section-alignment", ".rodata=4"]
     run_checked([objcopy, *alignment, str(obj), str(aligned_obj)])
-    address = parse_int(unit["address"])
-    link = [
-        linker, "-EL", "-m", "elf32ltsmip", "-Ttext", "0x%08X" % address,
-        "-e", unit["name"], "-o", str(elf), str(aligned_obj),
-    ]
-    if "rodata_address" in unit:
-        link.append("--section-start=.rodata=0x%08X" % parse_int(unit["rodata_address"]))
-    for name, value in sorted(unit.get("symbols", {}).items()):
-        link.extend(("--defsym", "%s=0x%08X" % (name, parse_int(value))))
-    run_checked(link)
+    run_checked(unit_link_command(unit, linker, elf, aligned_obj, work))
+    check_small_data_sections(unit, elf, prefix)
     run_checked([objcopy, "-O", "binary", "--only-section=.text", str(elf), str(binary)])
     if "rodata_address" in unit:
         rodata = work / "unit.rodata.bin"

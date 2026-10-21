@@ -1,61 +1,66 @@
-asm(".text\n\t.globl func_800945E4\nfunc_800945E4:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x3C11800B,0x26315A78\n\t"
-    ".word 0xAFBF0024,0xAFB40020,0xAFB3001C,0xAFB20018\n\t"
-    ".word 0xAFB00010,0x96220000,0x00000000,0x1440000A\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C426B04,0x00000000\n\t"
-    ".word 0x94450000,0x3C04800C,0x0C0250EC,0x248451BC\n\t"
-    ".word 0x0C027696,0x00000000,0x3C04800B,0x8C846B04\n\t"
-    ".word 0x96230030,0x24020001,0xA6220002,0x3C02800B\n\t"
-    ".word 0x8C426B08,0x94840000,0x94420000,0x00641824\n\t"
-    ".word 0x00431024,0x10400026,0x00408021,0x24130001\n\t"
-    ".word 0x26340004,0x12000016,0x00008821,0x02809021\n\t"
-    ".word 0x2A22000B,0x10400012,0x32020001,0x1040000B\n\t"
-    ".word 0x02331004,0x3C03800B,0x8C636B04,0x00021027\n\t"
-    ".word 0xA4620000,0x8E420000,0x00000000,0x10400003\n\t"
-    ".word 0x00000000,0x0040F809,0x00000000,0x26520004\n\t"
-    ".word 0x00108042,0x3202FFFF,0x1440FFED,0x26310001\n\t"
-    ".word 0x3C04800B,0x8C846B04,0x3C03800B,0x94635AA8\n\t"
-    ".word 0x3C02800B,0x8C426B08,0x94840000,0x94420000\n\t"
-    ".word 0x00641824,0x00431024,0x1440FFDE,0x00408021\n\t"
-    ".word 0x3C05800B,0x8CA56B04,0x3C06800B,0x8CC66B08\n\t"
-    ".word 0x94A20000,0x94C30000,0x00000000,0x00431024\n\t"
-    ".word 0x10400016,0x00000000,0x3C02800B,0x24426B10\n\t"
-    ".word 0x8C430000,0x00000000,0x00602021,0x24630001\n\t"
-    ".word 0x28840801,0x1480000F,0xAC430000,0x3C04800C\n\t"
-    ".word 0x248451D8,0x94A50000,0x94C60000,0x0C0250EC\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C426B04,0x3C01800B\n\t"
-    ".word 0xAC206B10,0x080251E2,0xA4400000,0x3C01800B\n\t"
-    ".word 0xAC206B10,0x3C01800B,0x0C027696,0xA4205A7A\n\t"
-    ".word 0x8FBF0024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFB20018\n\t"
-    ".word 0x00A09021,0x3C05800B,0x24A55A7C,0x00111080\n\t"
-    ".word 0x00452021,0xAFBF0024,0xAFB40020,0xAFB3001C\n\t"
-    ".word 0xAFB00010,0x8C940000,0x00000000,0x1254003A\n\t"
-    ".word 0x02801021,0x94A2FFFC,0x00000000,0x10400035\n\t"
-    ".word 0x24A6FFFC,0x3C02800B,0x8C426B08,0x00000000\n\t"
-    ".word 0x94430000,0xA4400000,0x12400009,0x3073FFFF\n\t"
-    ".word 0x24030001,0x02231804,0xAC920000,0x94C20030\n\t"
-    ".word 0x02639825,0x00431025,0x08025219,0xA4C20030\n\t"
-    ".word 0x24020001,0x02221004,0x00021027,0xAC800000\n\t"
-    ".word 0x94A3002C,0x02629824,0x00621824,0xA4A3002C\n\t"
-    ".word 0x16200008,0x24020004,0x2E500001,0x0C025BFF\n\t"
-    ".word 0x02002021,0x24040003,0x0C025C03,0x02002821\n\t"
-    ".word 0x24020004,0x16220005,0x24020005,0x00002021\n\t"
-    ".word 0x0C025C03,0x2E450001,0x24020005,0x16220005\n\t"
-    ".word 0x24020006,0x24040001,0x0C025C03,0x2E450001\n\t"
-    ".word 0x24020006,0x16220003,0x24040002,0x0C025C03\n\t"
-    ".word 0x2E450001,0x3C02800B,0x8C426B08,0x00000000\n\t"
-    ".word 0xA4530000,0x02801021,0x8FBF0024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028,0x27BDFFE8,0xAFB00010\n\t"
-    ".word 0x3C10800B,0x26105A78,0xAFBF0014,0x96020000\n\t"
-    ".word 0x00000000,0x1040001C,0x00001021,0x0C025066\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C426B08,0x3C04800B\n\t"
-    ".word 0x8C846B0C,0x94430000,0x00000000,0xA6030032\n\t"
-    ".word 0x8C830000,0x3C04800B,0x8C846B04,0xAE030034\n\t"
-    ".word 0xA4400000,0x94420000,0x00000000,0xA4820000\n\t"
-    ".word 0x3C04800B,0x8C846B0C,0x3C037777,0x8C820000\n\t"
-    ".word 0x34637777,0x00431024,0x0C02769A,0xAC820000\n\t"
-    ".word 0x02001021,0xA4400000,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct IntrEnv {
+    unsigned short enabled;
+    unsigned short in_intr;
+    void (*handler[11])(void);
+    unsigned short mask;
+} IntrEnv;
+
+extern IntrEnv D_800B5A78;
+extern volatile unsigned short *D_800B6B04;
+extern volatile unsigned short *D_800B6B08;
+extern int D_800B6B10;
+extern char D_800C51BC[];
+extern char D_800C51D8[];
+extern int func_800943B0(char *fmt, ...);
+extern void func_8009DA58(void);
+
+void func_800945E4(void) {
+    IntrEnv *env = &D_800B5A78;
+    unsigned short st;
+    int i;
+    int bit;
+    void (**tbl)(void);
+
+    __asm__("" : "=r"(env) : "0"(env));
+    if (env->enabled == 0) {
+        func_800943B0(D_800C51BC, *D_800B6B04);
+        func_8009DA58();
+    }
+    env->in_intr = 1;
+    if ((st = (env->mask & *D_800B6B04) & *D_800B6B08) != 0) {
+        bit = 1;
+        tbl = env->handler;
+        do {
+            for (i = 0; st != 0 && i < 11; i++, st >>= 1) {
+                if (st & 1) {
+                    *D_800B6B04 = ~(bit << i);
+                    if (tbl[i] != 0) {
+                        tbl[i]();
+                    }
+                }
+            }
+        } while ((st = (D_800B5A78.mask & *D_800B6B04) & *D_800B6B08) != 0);
+    }
+    {
+        register unsigned short stat asm("$2") = *D_800B6B04;
+        register unsigned short mask asm("$3") = *D_800B6B08;
+
+        if (stat & mask) {
+            int *cnt = &D_800B6B10;
+            int v = *cnt;
+            int old = v;
+
+            v++;
+            *cnt = v;
+            if (old > 2048) {
+                func_800943B0(D_800C51D8, *D_800B6B04, *D_800B6B08);
+                D_800B6B10 = 0;
+                *D_800B6B04 = 0;
+            }
+        } else {
+            D_800B6B10 = 0;
+        }
+    }
+    D_800B5A78.in_intr = 0;
+    func_8009DA58();
+}

@@ -1,88 +1,262 @@
-asm(".text\n\t.globl func_8006C67C\nfunc_8006C67C:\n\t"
-    ".word 0x27BDFFB0,0xAFB20030,0x00809021,0xAFB70044\n\t"
-    ".word 0x00A0B821,0x3C02800A,0x8043606C,0x24020001\n\t"
-    ".word 0xAFBF004C,0xAFBE0048,0xAFB60040,0xAFB5003C\n\t"
-    ".word 0xAFB40038,0xAFB30034,0xAFB1002C,0x14620005\n\t"
-    ".word 0xAFB00028,0x0C01A87B,0x00002021,0x1040013A\n\t"
-    ".word 0x00000000,0x3C02800E,0x8E440024,0x8C43E30C\n\t"
-    ".word 0x8E480028,0x0064102A,0x1040000B,0x00000000\n\t"
-    ".word 0x8E4B0020,0x00000000,0x006B0018,0x00001012\n\t"
-    ".word 0x00005010,0x00021302,0x000A5500,0x004A1025\n\t"
-    ".word 0x0801B1CE,0x01021021,0x8E4A0020,0x00000000\n\t"
-    ".word 0x008A0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x01021021,0xAE420028\n\t"
-    ".word 0x8E440028,0x00081303,0x00041B03,0x0062A023\n\t"
-    ".word 0x1A800119,0x00881823,0x14600002,0x3C028000\n\t"
-    ".word 0x24030002,0x00624824,0x24051000,0x04610002\n\t"
-    ".word 0x00603021,0x00063023,0x4885F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20018,0xE85F0000,0x8FA40018\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x3C030100\n\t"
-    ".word 0x00851804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2001C,0xE85F0000,0x8FA5001C,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0801B1F9,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0801B20E\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0801B210,0x00602021,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00602021,0x11200002,0x00000000,0x00042023\n\t"
-    ".word 0xA7A40020,0x25031000,0x2402F000,0x00621824\n\t"
-    ".word 0x00681823,0x00041400,0x00021403,0x00430018\n\t"
-    ".word 0x00005012,0x00005810,0x000A5302,0x000B5D00\n\t"
-    ".word 0x014B5025,0x01401021,0x1A8000CB,0x2453F000\n\t"
-    ".word 0x3C15800F,0x3C1E800F,0x3C16800F,0x8EA2AC10\n\t"
-    ".word 0x00000000,0x1440003B,0x00000000,0x8FC3AC14\n\t"
-    ".word 0x00000000,0x10600034,0x00000000,0x10720032\n\t"
-    ".word 0x00000000,0x8C62000C,0x00000000,0x1040002D\n\t"
-    ".word 0x00402821,0x00A02021,0x2466000C,0x8CA20000\n\t"
-    ".word 0x00000000,0x10400007,0x26A7AC10,0x8C840000\n\t"
-    ".word 0x00000000,0x8C820000,0x00000000,0x1440FFFB\n\t"
-    ".word 0x00000000,0xACC00000,0x8CE20000,0x00000000\n\t"
-    ".word 0xAC820000,0x8C640038,0xACE50000,0x14800004\n\t"
-    ".word 0xAC600024,0x8C62003C,0x0801B24E,0xAFC2AC14\n\t"
-    ".word 0x8C62003C,0x00000000,0xAC82003C,0x8C64003C\n\t"
-    ".word 0x00000000,0x14800004,0x00000000,0x8C620038\n\t"
-    ".word 0x0801B258,0xAEC2AC18,0x8C620038,0x00000000\n\t"
-    ".word 0xAC820038,0x8EC2AC18,0xAC60003C,0x10400003\n\t"
-    ".word 0xAC620038,0x0801B25F,0xAC43003C,0xAFC3AC14\n\t"
-    ".word 0xAEC3AC18,0x8EA2AC10,0x00000000,0x10400086\n\t"
-    ".word 0x00000000,0x24020001,0x16820002,0x00000000\n\t"
-    ".word 0x00009821,0x8EB0AC10,0x00000000,0x8E020000\n\t"
-    ".word 0x00000000,0xAEA2AC10,0x8E42000C,0x00000000\n\t"
-    ".word 0xAE020000,0xAE50000C,0x8EE30000,0x8E420010\n\t"
-    ".word 0x00000000,0x00621823,0x00131400,0x00028C03\n\t"
-    ".word 0x02230018,0x00001012,0x00005010,0x00021302\n\t"
-    ".word 0x000A5500,0x004A1025,0x00021303,0xA7A20010\n\t"
-    ".word 0x8EE20004,0x8E430014,0x00000000,0x00431023\n\t"
-    ".word 0x02220018,0x00005812,0x00001810,0x000B5B02\n\t"
-    ".word 0x00031D00,0x01635825,0x01601021,0x00021303\n\t"
-    ".word 0xA7A20012,0x8EE20008,0x8E430018,0x00000000\n\t"
-    ".word 0x00431023,0x02220018,0x00005012,0x00001810\n\t"
-    ".word 0x000A5302,0x00031D00,0x01435025,0x01401021\n\t"
-    ".word 0x00021303,0x0C021B21,0xA7A20014,0x8643002C\n\t"
-    ".word 0x00021402,0x00031840,0x24630001,0x00430018\n\t"
-    ".word 0x9644002C,0x97A20010,0x00005012,0x000A1C03\n\t"
-    ".word 0x00641823,0x00431021,0x0C021B21,0xA7A20010\n\t"
-    ".word 0x8643002E,0x00021402,0x00031840,0x24630001\n\t"
-    ".word 0x00430018,0x9644002E,0x97A20012,0x00005012\n\t"
-    ".word 0x000A1C03,0x00641823,0x00431021,0x0C021B21\n\t"
-    ".word 0xA7A20012,0x86430030,0x00021402,0x00031840\n\t"
-    ".word 0x24630001,0x00430018,0x02402021,0x3C0B800B\n\t"
-    ".word 0x256BDF64,0x96450030,0x97A20014,0x00005012\n\t"
-    ".word 0x000A1C03,0x00651823,0x00431021,0xA7A20014\n\t"
-    ".word 0x92430007,0x27A60010,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x004B1021,0x8C420000,0x00000000\n\t"
-    ".word 0x0040F809,0x02002821,0x92030027,0x240200FF\n\t"
-    ".word 0x1062000B,0x3C03800B,0x92020027,0x2463DF48\n\t"
-    ".word 0xA2000028,0x00021080,0x00431021,0x8C420000\n\t"
-    ".word 0x00000000,0x90420003,0x00000000,0xA2020029\n\t"
-    ".word 0x02002021,0x3C05800B,0x24A5E138,0x3C0A800B\n\t"
-    ".word 0x92430007,0x254ADF64,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x004A1021,0x8C420004,0x00000000\n\t"
-    ".word 0x0040F809,0x00113023,0x97AB0020,0x2694FFFF\n\t"
-    ".word 0x1E80FF3A,0x026B9821,0x8FBF004C,0x8FBE0048\n\t"
-    ".word 0x8FB70044,0x8FB60040,0x8FB5003C,0x8FB40038\n\t"
-    ".word 0x8FB30034,0x8FB20030,0x8FB1002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0050\n");
+
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = numerator;
+    if (n < 0) {
+        n = -n;
+    }
+    d = abs(denominator);
+    __asm__("" : : "r"(negative), "r"(denominator));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    n_zeros = quotient;
+    if (negative) {
+        n_zeros = -n_zeros;
+    }
+    return n_zeros;
+}
+
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    short id;
+    short pad2;
+    short type;
+} Source;
+
+typedef struct Particle {
+    struct Particle *next;
+    int pad4;
+    int count;
+    char padC[39 - 12];
+    unsigned char anim;
+    unsigned char frame;
+    unsigned char timer;
+} Particle;
+
+typedef struct Effect {
+    short id;
+    char pad2[5];
+    unsigned char kind;
+    Source *src;
+    Particle *particles;
+    Vector pos;
+    int alpha;
+    int life;
+    int fade;
+    int scale;
+    short dir[3];
+    short angle[3];
+    struct Effect *prev;
+    struct Effect *next;
+} Effect;
+
+typedef struct {
+    int pad;
+    void (*fn)(Source *src, Effect *e, int what, int arg, void *out);
+    int pad2;
+} Handler;
+
+typedef struct {
+    void (*init)(Effect *e, Particle *p, SVector *v);
+    void (*update)(Particle *p, Vector *delta, int dt);
+    int pad8;
+    int fade_time;
+    char pad10[36 - 16];
+} EffectKind;
+
+typedef struct {
+    short cmd;
+    unsigned char arg;
+    unsigned char value;
+} AnimStep;
+
+extern Effect *D_800EAC14;
+extern Effect *D_800EAC18;
+extern Particle *D_800EAC10;
+extern int D_800DE30C;
+extern signed char D_800A606C;
+extern EffectKind D_800ADF64[];
+extern AnimStep *D_800ADF48[];
+extern Vector D_800AE138;
+extern int func_8006A1EC(int a, Vector *pos);
+extern unsigned int func_80086C84(void);
+
+static inline void free_chain(Particle **list, Particle **pool) {
+    Particle *first = *list;
+    Particle *last = first;
+
+    while (last->next != 0) {
+        last = last->next;
+    }
+    *list = 0;
+    last->next = *pool;
+    *pool = first;
+}
+
+static inline void link_particle(Particle **list, Particle *p) {
+    p->next = *list;
+    *list = p;
+}
+
+void func_8006C67C(Effect *e, Vector *pos) {
+    SVector sv;
+    unsigned short step;
+    int old;
+    int count;
+    int t;
+    int d;
+    Effect *victim;
+    Particle *p;
+    Particle *last;
+
+    if (D_800A606C == 1 && func_8006A1EC(0, pos) == 0) {
+        return;
+    }
+    old = e->scale;
+    if (e->fade > D_800DE30C) {
+        e->scale = old + fixed_mul(D_800DE30C, e->life);
+    } else {
+        e->scale = old + fixed_mul(e->fade, e->life);
+    }
+    count = (e->scale >> 12) - (old >> 12);
+    if (count <= 0) {
+        return;
+    }
+    d = e->scale - old;
+    if (d == 0) {
+        d = 2;
+    }
+    step = fixed_div(4096, d);
+    {
+        int frac = ((old + 4096) & ~4095) - old;
+        t = fixed_mul((short)step, frac) - 4096;
+    }
+    for (; count > 0; count--, t += step) {
+        if (D_800EAC10 == 0) {
+            victim = D_800EAC14;
+            if (victim != 0 && victim != e && victim->particles != 0) {
+                free_chain(&victim->particles, &D_800EAC10);
+                victim->fade = 0;
+                if (victim->prev == 0) {
+                    D_800EAC14 = victim->next;
+                } else {
+                    victim->prev->next = victim->next;
+                }
+                if (victim->next == 0) {
+                    D_800EAC18 = victim->prev;
+                } else {
+                    victim->next->prev = victim->prev;
+                }
+                victim->next = 0;
+                victim->prev = D_800EAC18;
+                if (D_800EAC18 != 0) {
+                    D_800EAC18->next = victim;
+                    D_800EAC18 = victim;
+                } else {
+                    D_800EAC14 = victim;
+                    D_800EAC18 = victim;
+                }
+            }
+        }
+        if (D_800EAC10 == 0) {
+            continue;
+        }
+        if (count == 1) {
+            t = 0;
+        }
+        p = D_800EAC10;
+        D_800EAC10 = p->next;
+        link_particle(&e->particles, p);
+        d = pos->x - e->pos.x;
+        sv.x = fixed_mul((short)t, d) >> 12;
+        sv.y = fixed_mul((short)t, pos->y - e->pos.y) >> 12;
+        sv.z = fixed_mul((short)t, pos->z - e->pos.z) >> 12;
+        sv.x += ((int)((func_80086C84() >> 16) * (e->dir[0] * 2 + 1)) >> 16) - e->dir[0];
+        sv.y += ((int)((func_80086C84() >> 16) * (e->dir[1] * 2 + 1)) >> 16) - e->dir[1];
+        sv.z += ((int)((func_80086C84() >> 16) * (e->dir[2] * 2 + 1)) >> 16) - e->dir[2];
+        D_800ADF64[e->kind].init(e, p, &sv);
+        if (p->anim != 255) {
+            p->frame = 0;
+            p->timer = D_800ADF48[p->anim]->value;
+        }
+        D_800ADF64[e->kind].update(p, &D_800AE138, -(short)t);
+    }
+}

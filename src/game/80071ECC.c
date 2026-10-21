@@ -1,57 +1,160 @@
-asm(".text\n\t.globl func_80071ECC\nfunc_80071ECC:\n\t"
-    ".word 0x27BDFF50,0xAFB300A4,0x00809821,0x3C06800D\n\t"
-    ".word 0x3C03800B,0x2463E184,0x24C62E14,0xAFBF00AC\n\t"
-    ".word 0xAFB400A8,0xAFB200A0,0xAFB1009C,0xAFB00098\n\t"
-    ".word 0x8E640008,0x00000000,0x000410C0,0x00441023\n\t"
-    ".word 0x00021080,0x00431021,0x3C04800D,0x24843034\n\t"
-    ".word 0x84450018,0x90830001,0x24840004,0x00052880\n\t"
-    ".word 0x00A62821,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00431023,0x00021080,0x00443021,0x8CA30000\n\t"
-    ".word 0x8E640014,0x8CC20008,0x8C630000,0x00822023\n\t"
-    ".word 0x8C740008,0x04800006,0x26670014,0x24820800\n\t"
-    ".word 0x04410006,0x00000000,0x0801C7E6,0x00021023\n\t"
-    ".word 0x2482F800,0x04400003,0x00000000,0x0801C7E8\n\t"
-    ".word 0x00021303,0x24020800,0x00441023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20080,0x8CE30004,0x8CC2000C\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801C7FA,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801C7FC\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20084,0x8CE30008,0x8CC20010\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801C80E,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801C810\n\t"
-    ".word 0x00022B03,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00022823,0x27B10040,0xAFA50088,0x86630006\n\t"
-    ".word 0x86620030,0xAE230000,0xAE200004,0xAE220008\n\t"
-    ".word 0xAE20000C,0xAE230010,0xAE200014,0xAE200018\n\t"
-    ".word 0xAE20001C,0x8FA40080,0x00052823,0x0C022B8C\n\t"
-    ".word 0x00042023,0x0C021B21,0x00408021,0x02202021\n\t"
-    ".word 0x00108100,0x00021402,0x00021B40,0x00621821\n\t"
-    ".word 0x00031C03,0x3402F000,0x00621821,0x02038021\n\t"
-    ".word 0x0C02292E,0x3205FFFF,0x8FA50080,0x8FA60084\n\t"
-    ".word 0x8FA70088,0x0C02298B,0x02202021,0x02202821\n\t"
-    ".word 0x3C03800D,0x24633034,0x27B00060,0x02003021\n\t"
-    ".word 0x90620001,0x24630054,0x00022080,0x00822021\n\t"
-    ".word 0x000420C0,0x00822023,0x00042080,0x0C00F839\n\t"
-    ".word 0x00832021,0x0C01A89B,0x001420C0,0x02002021\n\t"
-    ".word 0x00409021,0x3C11800D,0x3C10800B,0x8E630008\n\t"
-    ".word 0x2610E184,0x000310C0,0x00431023,0x00021080\n\t"
-    ".word 0x00501021,0x84420018,0x26312E14,0x00021080\n\t"
-    ".word 0x00511021,0x8C420000,0x02403021,0x8C450000\n\t"
-    ".word 0x02803821,0x0C01F95C,0x24A50018,0x92640039\n\t"
-    ".word 0x92620038,0x92630037,0x00042400,0x00021200\n\t"
-    ".word 0x00822021,0x0C00EF1A,0x00832025,0x0C022F0A\n\t"
-    ".word 0x24040001,0x3C02800A,0x02402821,0x3C06800D\n\t"
-    ".word 0x24C65B94,0x3C08800A,0x8C4248B4,0x8E630008\n\t"
-    ".word 0x8D084CCC,0x000222C0,0x00822021,0x000420C0\n\t"
-    ".word 0x000310C0,0x00431023,0x00021080,0x00501021\n\t"
-    ".word 0x00863021,0x3C03800A,0x3C04800A,0x84420018\n\t"
-    ".word 0x8C634CC4,0x00021080,0x00511021,0x8C4A0000\n\t"
-    ".word 0x8C844CC8,0x8D470004,0x27A20090,0xAFA2001C\n\t"
-    ".word 0x3C02800A,0x8C494CC0,0x24020900,0xAFA00010\n\t"
-    ".word 0xAFA00014,0xAFA00018,0xAFA00020,0xAFA00024\n\t"
-    ".word 0xAFA20028,0xAFA30030,0xAFA40034,0xAFA80038\n\t"
-    ".word 0xAFA9002C,0x8D440000,0x0C01F560,0x24E70008\n\t"
-    ".word 0x8FBF00AC,0x8FB400A8,0x8FB300A4,0x8FB200A0\n\t"
-    ".word 0x8FB1009C,0x8FB00098,0x03E00008,0x27BD00B0\n");
+typedef struct Vec {
+    int x;
+    int y;
+    int z;
+} Vec;
+
+typedef struct Mat {
+    int m[8];
+} Mat;
+
+typedef struct Camera {
+    int pad0[2];
+    Vec pos;
+    int pad14[15];
+    Mat view;
+    int pad70[11];
+} Camera;
+
+typedef struct View {
+    unsigned char pad0;
+    unsigned char current;
+    short pad2;
+    Camera cameras[1];
+} View;
+
+typedef struct ModelData {
+    int pad0[2];
+    int count;
+    int pad0C[3];
+    int verts;
+} ModelData;
+
+typedef struct Model {
+    ModelData *data;
+    char *prims;
+} Model;
+
+typedef struct LightDef {
+    int life;
+    short radius;
+    unsigned short intensity;
+    short grow;
+    unsigned char color_min[3];
+    unsigned char color_max[3];
+    short shrink;
+    short lerp_color;
+    short fixed_scale;
+    short pad16;
+    short model;
+    short pad1A;
+} LightDef;
+
+typedef struct SVec {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVec;
+
+typedef struct Light {
+    int pad0;
+    short pad4;
+    short radius;
+    int type;
+    int life;
+    int timer;
+    Vec pos;
+    SVec dir;
+    SVec axis;
+    short intensity;
+    short grow;
+    unsigned char color[3];
+    unsigned char color_start[3];
+    unsigned char attached;
+} Light;
+
+typedef struct Work {
+    char data[16392];
+} Work;
+
+extern LightDef D_800AE184[];
+extern Model *D_800D2E14[];
+extern View D_800D3034;
+extern Work D_800D5B94[];
+extern int D_800A48B4;
+extern int D_800A4CC0;
+extern int D_800A4CC4;
+extern int D_800A4CC8;
+extern int D_800A4CCC;
+extern int func_8008AE30(int, int);
+extern unsigned int func_80086C84(void);
+extern void func_8008A4B8(Mat *, int);
+extern void func_8008A62C(Mat *, int, int, int);
+extern void func_8003E0E4(Mat *, Mat *, Mat *);
+extern void *func_8006A26C(int);
+extern void func_8007E570(Mat *, int *, void *, int);
+extern void func_8003BC68(int);
+extern void func_8008BC28(int);
+extern void func_8007D580(ModelData *, void *, Work *, char *, int, int, int, int *, int, int, int, int, int, int, int);
+
+static inline int shr12(int v) {
+    return v < 0 ? -(-v >> 12) : v >> 12;
+}
+
+static inline int round12(int v) {
+    return v >= 0 ? shr12(v + 2048) : shr12(v - 2048);
+}
+
+static inline void set_scale(Mat *m, int sx, int sy) {
+    m->m[0] = sx;
+    m->m[1] = 0;
+    m->m[2] = sy;
+    m->m[3] = 0;
+    m->m[4] = sx;
+    m->m[5] = 0;
+    m->m[6] = 0;
+    m->m[7] = 0;
+}
+
+void func_80071ECC(Light *light) {
+    Mat local;
+    Mat world;
+    Vec d;
+    int tmp[2];
+    Camera *cam;
+    Vec *pos;
+    int count;
+    int angle;
+    int jitter;
+    unsigned int rnd;
+    Work *work;
+    Model *model;
+    void *buf;
+
+    count = D_800D2E14[D_800AE184[light->type].model]->data->count;
+    cam = &D_800D3034.cameras[D_800D3034.current];
+    pos = &light->pos;
+    d.x = ((pos->x - cam->pos.x) >= 0 ? (((pos->x - cam->pos.x) + 2048) >= 0 ? (((pos->x - cam->pos.x) + 2048)) >> 12 : -(-(((pos->x - cam->pos.x) + 2048)) >> 12)) : (((pos->x - cam->pos.x) - 2048) >= 0 ? (((pos->x - cam->pos.x) - 2048)) >> 12 : -(-(((pos->x - cam->pos.x) - 2048)) >> 12)));
+    d.y = ((pos->y - cam->pos.y) >= 0 ? (((pos->y - cam->pos.y) + 2048) >= 0 ? (((pos->y - cam->pos.y) + 2048)) >> 12 : -(-(((pos->y - cam->pos.y) + 2048)) >> 12)) : (((pos->y - cam->pos.y) - 2048) >= 0 ? (((pos->y - cam->pos.y) - 2048)) >> 12 : -(-(((pos->y - cam->pos.y) - 2048)) >> 12)));
+    do {
+        d.z = ((pos->z - cam->pos.z) >= 0 ? (((pos->z - cam->pos.z) + 2048) >= 0 ? (((pos->z - cam->pos.z) + 2048)) >> 12 : -(-(((pos->z - cam->pos.z) + 2048)) >> 12)) : (((pos->z - cam->pos.z) - 2048) >= 0 ? (((pos->z - cam->pos.z) - 2048)) >> 12 : -(-(((pos->z - cam->pos.z) - 2048)) >> 12)));
+        __asm__("" : : "r"(&local));
+        set_scale(&local, light->radius, light->intensity);
+        angle = func_8008AE30(-d.x, -d.z);
+        rnd = func_80086C84();
+        angle *= 16;
+        jitter = ((int)((rnd >> 16) * 8193) >> 16) + 0xF000;
+        func_8008A4B8(&local, (angle + jitter) & 0xFFFF);
+        func_8008A62C(&local, d.x, d.y, d.z);
+        func_8003E0E4(&D_800D3034.cameras[D_800D3034.current].view, &local, &world);
+        buf = func_8006A26C(count << 3);
+        func_8007E570(&world, &D_800D2E14[D_800AE184[light->type].model]->data->verts, buf, count);
+        func_8003BC68((light->color_start[2] << 16) + (light->color_start[1] << 8) | light->color_start[0]);
+        func_8008BC28(1);
+        work = &D_800D5B94[D_800A48B4];
+        func_8007D580(D_800D2E14[D_800AE184[light->type].model]->data, buf, work,
+                      D_800D2E14[D_800AE184[light->type].model]->prims + 8, 0, 0, 0, tmp, 0, 0, 2304,
+                      D_800A4CC0, D_800A4CC4, D_800A4CC8, D_800A4CCC);
+    } while (0);
+}

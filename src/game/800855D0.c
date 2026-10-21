@@ -1,7 +1,20 @@
-asm(".text\n\t.globl func_800855D0\nfunc_800855D0:\n\t"
-    ".word 0x8f820000,0x27bdffe8,0xafbf0014,0x1440000e\n\t"
-    ".word 0xafb00010,0x3c028008,0x24506058,0x3c04800c\n\t"
-    ".word 0x24846074,0x8e050030,0x8e060034,0x0c02153b\n\t"
-    ".word 0x00003821,0x10400004,0x00000000,0x8e020034\n\t"
-    ".word 0x00000000,0xae020030,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x3c02800c,0x24426074,0x03e00008,0x27bd0018\n\t");
+typedef struct Pair {
+    char pad[0x30];
+    int current;
+    int pending;
+} Pair;
+
+extern int D_800C6074;
+extern Pair D_80086058;
+int func_800854EC(int *, int, int, int);
+
+int *func_800855D0(void) {
+    if (D_800C6074 == 0) {
+        Pair *pair = &D_80086058;
+
+        if (func_800854EC(&D_800C6074, pair->current, pair->pending, 0)) {
+            pair->current = pair->pending;
+        }
+    }
+    return &D_800C6074;
+}
