@@ -5,16 +5,24 @@ typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
 typedef signed int M2C_UNK;
-
-static __inline__ s32 mult_hi(s32 left, s32 right) {
-    s32 result;
-    __asm__ volatile(
-        "mult %1,%2\n\t"
-        "mfhi %0"
-        : "=r" (result)
-        : "r" (left), "r" (right));
-    return result;
-}
+static __inline__ s32 gte_cfc2_0(void) { s32 value; __asm__ volatile("cfc2 %0,$0" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_1(void) { s32 value; __asm__ volatile("cfc2 %0,$1" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_2(void) { s32 value; __asm__ volatile("cfc2 %0,$2" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_3(void) { s32 value; __asm__ volatile("cfc2 %0,$3" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_4(void) { s32 value; __asm__ volatile("cfc2 %0,$4" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_5(void) { s32 value; __asm__ volatile("cfc2 %0,$5" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_6(void) { s32 value; __asm__ volatile("cfc2 %0,$6" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_7(void) { s32 value; __asm__ volatile("cfc2 %0,$7" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_31(void) { s32 value; __asm__ volatile("cfc2 %0,$31" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_9(void) { s32 value; __asm__ volatile("mfc2 %0,$9" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_10(void) { s32 value; __asm__ volatile("mfc2 %0,$10" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_11(void) { s32 value; __asm__ volatile("mfc2 %0,$11" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_14(void) { s32 value; __asm__ volatile("mfc2 %0,$14" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_25(void) { s32 value; __asm__ volatile("mfc2 %0,$25" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_26(void) { s32 value; __asm__ volatile("mfc2 %0,$26" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_27(void) { s32 value; __asm__ volatile("mfc2 %0,$27" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_31(void) { s32 value; __asm__ volatile("mfc2 %0,$31" : "=r" (value)); return value; }
+static __inline__ s32 mult_hi(s32 left, s32 right) { s32 value; __asm__ volatile("mult %1,%2\n\tmfhi %0" : "=r" (value) : "r" (left), "r" (right)); return value; }
 M2C_UNK func_80065710(M2C_UNK *, void *, s32 *);
 s32 func_80068720(void *, void *, s32, M2C_UNK);
 M2C_UNK func_800687CC(M2C_UNK *, M2C_UNK *, s16);
@@ -233,58 +241,58 @@ void func_80065920(void *arg0, s32 arg1) {
     spF0 = 0;
     spF8 = ((void *)0);
     spD8 = 0;
-    (*(s32 *)((u8 *)(&D_800AD9EC) + (8))) = func_8007F7D8();
+    (*(s32 *)((u8 *)(&D_800AD9EC)+(8))) = func_8007F7D8();
     temp_v0 = func_8006A26C(4);
     D_800E53EC = temp_v0;
     D_800E53E8 = temp_v0;
     D_800E53B8 = -0xA;
-    (*(s32 *)((u8 *)(&D_800E53C8) + (0))) = (s32) (0x1000 & 0xFFFF);
-    (*(s32 *)((u8 *)(&D_800E53C8) + (4))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8) + (8))) = (s32) (0xA00 & 0xFFFF);
-    (*(s32 *)((u8 *)(&D_800E53C8) + (0xC))) = 0;
-    (*(s16 *)((u8 *)(&D_800E53C8) + (0x10))) = 0x1000;
-    (*(s32 *)((u8 *)(&D_800E53C8) + (0x14))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8) + (0x18))) = 0;
-    (*(s32 *)((u8 *)(&D_800E53C8) + (0x1C))) = 0;
-    (*(s32 *)((u8 *)(&sp38) + (0))) = 0x1000;
-    (*(s32 *)((u8 *)(&sp38) + (4))) = 0;
-    (*(s32 *)((u8 *)(&sp38) + (8))) = 0x1000;
-    (*(s32 *)((u8 *)(&sp38) + (0xC))) = 0;
-    (*(s16 *)((u8 *)(&sp38) + (0x10))) = 0x1000;
-    (*(s32 *)((u8 *)(&sp38) + (0x14))) = 0;
-    (*(s32 *)((u8 *)(&sp38) + (0x18))) = 0;
-    (*(s32 *)((u8 *)(&sp38) + (0x1C))) = 0;
+    (*(s32 *)((u8 *)(&D_800E53C8)+(0))) = (s32) (0x1000 & 0xFFFF);
+    (*(s32 *)((u8 *)(&D_800E53C8)+(4))) = 0;
+    (*(s32 *)((u8 *)(&D_800E53C8)+(8))) = (s32) (0xA00 & 0xFFFF);
+    (*(s32 *)((u8 *)(&D_800E53C8)+(0xC))) = 0;
+    (*(s16 *)((u8 *)(&D_800E53C8)+(0x10))) = 0x1000;
+    (*(s32 *)((u8 *)(&D_800E53C8)+(0x14))) = 0;
+    (*(s32 *)((u8 *)(&D_800E53C8)+(0x18))) = 0;
+    (*(s32 *)((u8 *)(&D_800E53C8)+(0x1C))) = 0;
+    (*(s32 *)((u8 *)(&sp38)+(0))) = 0x1000;
+    (*(s32 *)((u8 *)(&sp38)+(4))) = 0;
+    (*(s32 *)((u8 *)(&sp38)+(8))) = 0x1000;
+    (*(s32 *)((u8 *)(&sp38)+(0xC))) = 0;
+    (*(s16 *)((u8 *)(&sp38)+(0x10))) = 0x1000;
+    (*(s32 *)((u8 *)(&sp38)+(0x14))) = 0;
+    (*(s32 *)((u8 *)(&sp38)+(0x18))) = 0;
+    (*(s32 *)((u8 *)(&sp38)+(0x1C))) = 0;
     D_800E5374 = &sp38;
     temp_v1 = (arg1 * 0x9C) + &D_800D3034;
-    sp20 = (s32) (*(s32 *)((u8 *)(temp_v1) + (0xC))) >> 0xC;
-    sp24 = (s32) (*(s32 *)((u8 *)(temp_v1) + (0x10))) >> 0xC;
-    sp28 = (s32) (*(s32 *)((u8 *)(temp_v1) + (0x14))) >> 0xC;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (4))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (8))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0xC))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0x10))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0x14))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0x18))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E5398) + (0x1C))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E53AC) + (0))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E53AC) + (4))) = (s32) 0;
-    (*(s32 *)((u8 *)(&D_800E53AC) + (8))) = (s32) 0;
+    sp20 = (s32) (*(s32 *)((u8 *)(temp_v1)+(0xC))) >> 0xC;
+    sp24 = (s32) (*(s32 *)((u8 *)(temp_v1)+(0x10))) >> 0xC;
+    sp28 = (s32) (*(s32 *)((u8 *)(temp_v1)+(0x14))) >> 0xC;
+    (*(s32 *)((u8 *)(&D_800E5398)+(0))) = (s32) gte_cfc2_0();
+    (*(s32 *)((u8 *)(&D_800E5398)+(4))) = (s32) gte_cfc2_1();
+    (*(s32 *)((u8 *)(&D_800E5398)+(8))) = (s32) gte_cfc2_2();
+    (*(s32 *)((u8 *)(&D_800E5398)+(0xC))) = (s32) gte_cfc2_3();
+    (*(s32 *)((u8 *)(&D_800E5398)+(0x10))) = (s32) gte_cfc2_4();
+    (*(s32 *)((u8 *)(&D_800E5398)+(0x14))) = (s32) gte_cfc2_5();
+    (*(s32 *)((u8 *)(&D_800E5398)+(0x18))) = (s32) gte_cfc2_6();
+    (*(s32 *)((u8 *)(&D_800E5398)+(0x1C))) = (s32) gte_cfc2_7();
+    (*(s32 *)((u8 *)(&D_800E53AC)+(0))) = (s32) gte_cfc2_5();
+    (*(s32 *)((u8 *)(&D_800E53AC)+(4))) = (s32) gte_cfc2_6();
+    (*(s32 *)((u8 *)(&D_800E53AC)+(8))) = (s32) gte_cfc2_7();
     var_s5 = 0;
     sp98 = func_800924F0();
     sp9A = func_80092500();
     spA0 = func_800924F0();
     spA2 = func_80092500();
-    var_s1 = (*(void **)((u8 *)(&D_800AD9EC) + (0)));
-    if (var_s1 != (*(s32 *)((u8 *)(&D_800AD9EC) + (4)))) {
+    var_s1 = (*(void **)((u8 *)(&D_800AD9EC)+(0)));
+    if (var_s1 != (*(s32 *)((u8 *)(&D_800AD9EC)+(4)))) {
         sp110 = &spA8;
         var_v0 = 0 < 0x200;
 loop_2:
         if (var_v0 != 0) {
-            if ((u8) (*(u8 *)((u8 *)(var_s1) + (7))) < 0xECU) {
+            if ((u8) (*(u8 *)((u8 *)(var_s1)+(7))) < 0xECU) {
                 func_80065710(&sp10, var_s1 + 8, &sp20);
             }
-            temp_v1_2 = (*(u8 *)((u8 *)(var_s1) + (1))) & 0xF0;
+            temp_v1_2 = (*(u8 *)((u8 *)(var_s1)+(1))) & 0xF0;
             if (temp_v1_2 != 0x10) {
                 var_v0_2 = func_80068940;
                 if (temp_v1_2 >= 0x11) {
@@ -305,29 +313,29 @@ block_9:
                 var_v0_3 = func_800687CC;
             }
             D_800E53BC = var_v0_3;
-            if ((*(u8 *)((u8 *)(var_s1) + (2))) == 0) {
-                temp_v1_3 = (*(u8 *)((u8 *)(var_s1) + (7))) & 0xFC;
+            if ((*(u8 *)((u8 *)(var_s1)+(2))) == 0) {
+                temp_v1_3 = (*(u8 *)((u8 *)(var_s1)+(7))) & 0xFC;
                 switch (temp_v1_3) {
                 case 0x40:
                 case 0x50:
                     temp_v0_2 = var_s5 << 5;
                     var_s5 += 1;
                     temp_v0_3 = temp_v0_2 + D_800E53E8;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (8))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0xC))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0x10))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0x18))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0x1C))) = (s32) 0;
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0))) = (s32) gte_cfc2_0();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(4))) = (s32) gte_cfc2_1();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(8))) = (s32) gte_cfc2_2();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0xC))) = (s32) gte_cfc2_3();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0x10))) = (s32) gte_cfc2_4();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0x18))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0x1C))) = (s32) gte_cfc2_7();
                     temp_v0_4 = temp_v0_3 + 0x14;
-                    (*(s32 *)((u8 *)(temp_v0_3) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_4) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_4) + (8))) = (s32) 0;
+                    (*(s32 *)((u8 *)(temp_v0_3)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_4)+(4))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_4)+(8))) = (s32) gte_cfc2_7();
                     if (var_s5 < 0x1FF) {
 block_51:
-                        var_a2 = (*(s16 *)((u8 *)(var_s1) + (0x16)));
+                        var_a2 = (*(s16 *)((u8 *)(var_s1)+(0x16)));
 block_52:
                         D_800E53BC(&sp68, &D_800E53C8, var_a2);
                     case 0xE8:
@@ -337,23 +345,23 @@ block_52:
                         temp_v0_5 = var_s5 << 5;
                         var_s5 += 1;
                         temp_v0_6 = temp_v0_5 + D_800E53E8;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (4))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (8))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0xC))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0x10))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0x14))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0x18))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0x1C))) = (s32) 0;
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0))) = (s32) gte_cfc2_0();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(4))) = (s32) gte_cfc2_1();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(8))) = (s32) gte_cfc2_2();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0xC))) = (s32) gte_cfc2_3();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0x10))) = (s32) gte_cfc2_4();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0x14))) = (s32) gte_cfc2_5();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0x18))) = (s32) gte_cfc2_6();
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0x1C))) = (s32) gte_cfc2_7();
                         temp_v0_7 = temp_v0_6 + 0x14;
-                        (*(s32 *)((u8 *)(temp_v0_6) + (0x14))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_7) + (4))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_7) + (8))) = (s32) 0;
-                        0;
-                        0;
-                        0;
-                        0;
-                        0;
+                        (*(s32 *)((u8 *)(temp_v0_6)+(0x14))) = (s32) gte_cfc2_5();
+                        (*(s32 *)((u8 *)(temp_v0_7)+(4))) = (s32) gte_cfc2_6();
+                        (*(s32 *)((u8 *)(temp_v0_7)+(8))) = (s32) gte_cfc2_7();
+                        __asm__ volatile("ctc2 $t4, $0");
+                        __asm__ volatile("ctc2 $t5, $1");
+                        __asm__ volatile("ctc2 $t4, $2");
+                        __asm__ volatile("ctc2 $t5, $3");
+                        __asm__ volatile("ctc2 $t6, $4");
                     }
                     goto block_106;
                 case 0x10:
@@ -369,160 +377,160 @@ block_52:
                 case 0x28:
                     goto block_51;
                 case 0xEC:
-                    (*(s32 *)((u8 *)(&D_800E5358) + (0))) = (s32) -(*(s16 *)((u8 *)(var_s1) + (8)));
-                    (*(s32 *)((u8 *)(&D_800E5358) + (4))) = (s32) -(*(s16 *)((u8 *)(var_s1) + (0xA)));
-                    (*(s32 *)((u8 *)(&D_800E5358) + (8))) = (s32) -(*(s16 *)((u8 *)(var_s1) + (0xC)));
-                    (*(s32 *)((u8 *)(&D_800E5368) + (0))) = (s32) (*(s16 *)((u8 *)(var_s1) + (0x10)));
-                    (*(s32 *)((u8 *)(&D_800E5368) + (4))) = (s32) (*(s16 *)((u8 *)(var_s1) + (0x12)));
-                    (*(s32 *)((u8 *)(&D_800E5368) + (8))) = (s32) (*(s16 *)((u8 *)(var_s1) + (0x14)));
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    temp_v0_8 = 0 & ~1;
+                    (*(s32 *)((u8 *)(&D_800E5358)+(0))) = (s32) -(*(s16 *)((u8 *)(var_s1)+(8)));
+                    (*(s32 *)((u8 *)(&D_800E5358)+(4))) = (s32) -(*(s16 *)((u8 *)(var_s1)+(0xA)));
+                    (*(s32 *)((u8 *)(&D_800E5358)+(8))) = (s32) -(*(s16 *)((u8 *)(var_s1)+(0xC)));
+                    (*(s32 *)((u8 *)(&D_800E5368)+(0))) = (s32) (*(s16 *)((u8 *)(var_s1)+(0x10)));
+                    (*(s32 *)((u8 *)(&D_800E5368)+(4))) = (s32) (*(s16 *)((u8 *)(var_s1)+(0x12)));
+                    (*(s32 *)((u8 *)(&D_800E5368)+(8))) = (s32) (*(s16 *)((u8 *)(var_s1)+(0x14)));
+                    __asm__ volatile("mtc2 $s0, $9");
+                    __asm__ volatile("mtc2 $t0, $10");
+                    __asm__ volatile("mtc2 $t1, $11");
+                    __asm__ volatile(".word 0x4AA00428");
+                    gte_mfc2_25();
+                    gte_mfc2_26();
+                    gte_mfc2_27();
+                    __asm__ volatile("mtc2 $a1, $30");
+                    temp_v0_8 = gte_mfc2_31() & ~1;
                     temp_a2 = (s32) (0x1F - temp_v0_8) >> 1;
                     if ((temp_v0_8 - 0x18) < 0) {
                     }
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(s32 *)((u8 *)(&spC8) + (0))) = (s32) ((s32) 0 >> temp_a2);
-                    (*(s32 *)((u8 *)(&spC8) + (4))) = (s32) ((s32) 0 >> temp_a2);
-                    (*(s32 *)((u8 *)(&spC8) + (8))) = (s32) ((s32) 0 >> temp_a2);
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    temp_v0_9 = 0 & ~1;
+                    __asm__ volatile("mtc2 $v0, $8");
+                    __asm__ volatile("mtc2 $s0, $9");
+                    __asm__ volatile("mtc2 $t0, $10");
+                    __asm__ volatile("mtc2 $t1, $11");
+                    __asm__ volatile(".word 0x4B90003D");
+                    (*(s32 *)((u8 *)(&spC8)+(0))) = (s32) ((s32) gte_mfc2_25() >> temp_a2);
+                    (*(s32 *)((u8 *)(&spC8)+(4))) = (s32) ((s32) gte_mfc2_26() >> temp_a2);
+                    (*(s32 *)((u8 *)(&spC8)+(8))) = (s32) ((s32) gte_mfc2_27() >> temp_a2);
+                    __asm__ volatile("ctc2 $t4, $0");
+                    __asm__ volatile("ctc2 $t5, $2");
+                    __asm__ volatile("ctc2 $t6, $4");
+                    __asm__ volatile("lwc2 $11, 0x8($v0)");
+                    __asm__ volatile("lwc2 $9, ($v0)");
+                    __asm__ volatile("lwc2 $10, 0x4($v0)");
+                    __asm__ volatile(".word 0x4B78000C");
+                    __asm__ volatile("swc2 $25, ($s6)");
+                    __asm__ volatile("swc2 $26, 0x4($s6)");
+                    __asm__ volatile("swc2 $27, 0x8($s6)");
+                    __asm__ volatile("mtc2 $s0, $9");
+                    __asm__ volatile("mtc2 $t0, $10");
+                    __asm__ volatile("mtc2 $t1, $11");
+                    __asm__ volatile(".word 0x4AA00428");
+                    gte_mfc2_25();
+                    gte_mfc2_26();
+                    gte_mfc2_27();
+                    __asm__ volatile("mtc2 $a1, $30");
+                    temp_v0_9 = gte_mfc2_31() & ~1;
                     temp_a2_2 = (s32) (0x1F - temp_v0_9) >> 1;
                     if ((temp_v0_9 - 0x18) < 0) {
                     }
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(s32 *)((u8 *)(sp110) + (0))) = (s32) ((s32) 0 >> temp_a2_2);
-                    (*(s32 *)((u8 *)(sp110) + (4))) = (s32) ((s32) 0 >> temp_a2_2);
-                    (*(s32 *)((u8 *)(sp110) + (8))) = (s32) ((s32) 0 >> temp_a2_2);
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0))) = (s32) (((*(s32 *)((u8 *)(&spB8) + (0))) << 0x10) | ((*(s32 *)((u8 *)(sp110) + (0))) & 0xFFFF));
-                    (*(s32 *)((u8 *)(&D_800E5378) + (8))) = (s32) (((*(s32 *)((u8 *)(&spC8) + (4))) << 0x10) | ((*(s32 *)((u8 *)(&spB8) + (4))) & 0xFFFF));
-                    (*(s16 *)((u8 *)(&D_800E5378) + (0x10))) = (s16) (*(s32 *)((u8 *)(&spC8) + (8)));
-                    (*(s32 *)((u8 *)(&D_800E5378) + (4))) = (s32) (((*(s32 *)((u8 *)(sp110) + (4))) << 0x10) | ((*(s32 *)((u8 *)(&spC8) + (0))) & 0xFFFF));
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0xC))) = (s32) (((*(s32 *)((u8 *)(&spB8) + (8))) << 0x10) | ((*(s32 *)((u8 *)(sp110) + (8))) & 0xFFFF));
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0))) = (s16) 0;
-                    (*(u16 *)((u8 *)(&D_800E5378) + (6))) = (u16) 0;
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0xC))) = (s16) 0;
-                    0;
-                    0;
-                    0;
-                    0;
+                    __asm__ volatile("mtc2 $v0, $8");
+                    __asm__ volatile("mtc2 $s0, $9");
+                    __asm__ volatile("mtc2 $t0, $10");
+                    __asm__ volatile("mtc2 $t1, $11");
+                    __asm__ volatile(".word 0x4B90003D");
+                    (*(s32 *)((u8 *)(sp110)+(0))) = (s32) ((s32) gte_mfc2_25() >> temp_a2_2);
+                    (*(s32 *)((u8 *)(sp110)+(4))) = (s32) ((s32) gte_mfc2_26() >> temp_a2_2);
+                    (*(s32 *)((u8 *)(sp110)+(8))) = (s32) ((s32) gte_mfc2_27() >> temp_a2_2);
+                    __asm__ volatile("ctc2 $t4, $0");
+                    __asm__ volatile("ctc2 $t5, $2");
+                    __asm__ volatile("ctc2 $t6, $4");
+                    __asm__ volatile("lwc2 $11, 0x8($t9)");
+                    __asm__ volatile("lwc2 $9, ($t9)");
+                    __asm__ volatile("lwc2 $10, 0x4($t9)");
+                    __asm__ volatile(".word 0x4B78000C");
+                    __asm__ volatile("swc2 $25, ($v0)");
+                    __asm__ volatile("swc2 $26, 0x4($v0)");
+                    __asm__ volatile("swc2 $27, 0x8($v0)");
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0))) = (s32) (((*(s32 *)((u8 *)(&spB8)+(0))) << 0x10) | ((*(s32 *)((u8 *)(sp110)+(0))) & 0xFFFF));
+                    (*(s32 *)((u8 *)(&D_800E5378)+(8))) = (s32) (((*(s32 *)((u8 *)(&spC8)+(4))) << 0x10) | ((*(s32 *)((u8 *)(&spB8)+(4))) & 0xFFFF));
+                    (*(s16 *)((u8 *)(&D_800E5378)+(0x10))) = (s16) (*(s32 *)((u8 *)(&spC8)+(8)));
+                    (*(s32 *)((u8 *)(&D_800E5378)+(4))) = (s32) (((*(s32 *)((u8 *)(sp110)+(4))) << 0x10) | ((*(s32 *)((u8 *)(&spC8)+(0))) & 0xFFFF));
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s32) (((*(s32 *)((u8 *)(&spB8)+(8))) << 0x10) | ((*(s32 *)((u8 *)(sp110)+(8))) & 0xFFFF));
+                    __asm__ volatile("ctc2 $t4, $0");
+                    __asm__ volatile("ctc2 $t5, $1");
+                    __asm__ volatile("ctc2 $t4, $2");
+                    __asm__ volatile("ctc2 $t5, $3");
+                    __asm__ volatile("ctc2 $t6, $4");
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
+                    (*(u16 *)((u8 *)(&D_800E5378)+(6))) = (u16) gte_mfc2_10();
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
                     temp_a3 = &D_800E5378 + 2;
-                    (*(u16 *)((u8 *)(&D_800E5378) + (2))) = (u16) 0;
-                    (*(s16 *)((u8 *)(temp_a3) + (6))) = (s16) 0;
-                    (*(s16 *)((u8 *)(temp_a3) + (0xC))) = (s16) 0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (0))) = (u16) 0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (6))) = (u16) 0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (0xC))) = (u16) 0;
+                    (*(u16 *)((u8 *)(&D_800E5378)+(2))) = (u16) gte_mfc2_9();
+                    (*(s16 *)((u8 *)(temp_a3)+(6))) = (s16) gte_mfc2_10();
+                    (*(s16 *)((u8 *)(temp_a3)+(0xC))) = (s16) gte_mfc2_11();
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
+                    (*(u16 *)((u8 *)(&D_800E537C)+(0))) = (u16) gte_mfc2_9();
+                    (*(u16 *)((u8 *)(&D_800E537C)+(6))) = (u16) gte_mfc2_10();
+                    (*(u16 *)((u8 *)(&D_800E537C)+(0xC))) = (u16) gte_mfc2_11();
                     D_800E5374 = &D_800E5378;
                     goto block_105;
                 case 0xF4:
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0))) = (s16) 0;
-                    (*(u16 *)((u8 *)(&D_800E5378) + (6))) = (u16) 0;
-                    (*(s32 *)((u8 *)(&D_800E5378) + (0xC))) = (s16) 0;
-                    0;
-                    0;
-                    0;
-                    0;
+                    __asm__ volatile("ctc2 $t4, $0");
+                    __asm__ volatile("ctc2 $t5, $1");
+                    __asm__ volatile("ctc2 $t4, $2");
+                    __asm__ volatile("ctc2 $t5, $3");
+                    __asm__ volatile("ctc2 $t6, $4");
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
+                    (*(u16 *)((u8 *)(&D_800E5378)+(6))) = (u16) gte_mfc2_10();
+                    (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
                     temp_t8 = &D_800E5378 + 2;
-                    (*(u16 *)((u8 *)(&D_800E5378) + (2))) = (u16) 0;
-                    (*(s16 *)((u8 *)(temp_t8) + (6))) = (s16) 0;
-                    (*(s16 *)((u8 *)(temp_t8) + (0xC))) = (s16) 0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (0))) = (u16) 0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (6))) = (u16) 0;
-                    (*(u16 *)((u8 *)(&D_800E537C) + (0xC))) = (u16) 0;
+                    (*(u16 *)((u8 *)(&D_800E5378)+(2))) = (u16) gte_mfc2_9();
+                    (*(s16 *)((u8 *)(temp_t8)+(6))) = (s16) gte_mfc2_10();
+                    (*(s16 *)((u8 *)(temp_t8)+(0xC))) = (s16) gte_mfc2_11();
+                    __asm__ volatile("mtc2 $t4, $9");
+                    __asm__ volatile("mtc2 $t5, $10");
+                    __asm__ volatile("mtc2 $t6, $11");
+                    __asm__ volatile(".word 0x4A49E012");
+                    (*(u16 *)((u8 *)(&D_800E537C)+(0))) = (u16) gte_mfc2_9();
+                    (*(u16 *)((u8 *)(&D_800E537C)+(6))) = (u16) gte_mfc2_10();
+                    (*(u16 *)((u8 *)(&D_800E537C)+(0xC))) = (u16) gte_mfc2_11();
                     D_800E5374 = &D_800E5378;
                     goto block_105;
                 case 0xF8:
-                    temp_v1_4 = (s32) (*(s16 *)((u8 *)(var_s1) + (0xC)));
+                    temp_v1_4 = (s32) (*(s16 *)((u8 *)(var_s1)+(0xC)));
                     if (temp_v1_4 & 0x11) {
-                        (*(s16 *)((u8 *)(var_s1) + (0xC))) = (s32) (temp_v1_4 & ~0x10);
-                        var_s3 = func_80068EE8(((*(u8 *)((u8 *)(var_s1) + (0))) - 4) * 4);
+                        (*(s16 *)((u8 *)(var_s1)+(0xC))) = (s32) (temp_v1_4 & ~0x10);
+                        var_s3 = func_80068EE8(((*(u8 *)((u8 *)(var_s1)+(0))) - 4) * 4);
                         if (var_s3 != ((void *)0)) {
                             spE0 = var_s1 + 0x10;
                             var_a2_2 = 4;
                             var_v1 = var_s3 + 0x10;
-                            if ((s32) (*(u8 *)((u8 *)(var_s1) + (0))) > 4) {
+                            if ((s32) (*(u8 *)((u8 *)(var_s1)+(0))) > 4) {
                                 var_a0 = var_s1 + 0x20;
                                 do {
-                                    temp_v0_10 = (*(s32 *)((u8 *)(var_a0) + (-0x10)));
+                                    temp_v0_10 = (*(s32 *)((u8 *)(var_a0)+(-0x10)));
                                     var_a0 += 4;
                                     var_a2_2 += 1;
-                                    (*(s32 *)((u8 *)(var_v1) + (-0x10))) = temp_v0_10;
+                                    (*(s32 *)((u8 *)(var_v1)+(-0x10))) = temp_v0_10;
                                     var_v1 += 4;
-                                } while (var_a2_2 < (s32) (*(u8 *)((u8 *)(var_s1) + (0))));
+                                } while (var_a2_2 < (s32) (*(u8 *)((u8 *)(var_s1)+(0))));
                             }
-                            temp_v1_5 = (s32) (*(s16 *)((u8 *)(var_s1) + (8)));
+                            temp_v1_5 = (s32) (*(s16 *)((u8 *)(var_s1)+(8)));
                             spD8 = temp_v1_5;
                             if (temp_v1_5 == -1) {
-                                *var_s3 = (*var_s3 & 0xFF000000) | ((*(s32 *)((u8 *)(arg0) + (4))) & 0xFFFFFF);
-                                (*(s32 *)((u8 *)(arg0) + (4))) = (s32) (((*(s32 *)((u8 *)(arg0) + (4))) & 0xFF000000) | ((s32) var_s3 & 0xFFFFFF));
+                                *var_s3 = (*var_s3 & 0xFF000000) | ((*(s32 *)((u8 *)(arg0)+(4))) & 0xFFFFFF);
+                                (*(s32 *)((u8 *)(arg0)+(4))) = (s32) (((*(s32 *)((u8 *)(arg0)+(4))) & 0xFF000000) | ((s32) var_s3 & 0xFFFFFF));
                                 goto block_105;
                             }
                             if (temp_v1_5 <= 0) {
@@ -534,11 +542,11 @@ block_52:
 block_72:
                                 spD8 = var_v0_4;
                             }
-                            if ((s32) (*(s16 *)((u8 *)(var_s1) + (0xC))) & 0x20) {
+                            if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x20) {
                                 var_s3 = func_80068EE8(0xC);
                                 if (var_s3 != ((void *)0)) {
                                     *(s8 *)3 = 2;
-                                    *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&spA0) + (2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&spA0) + (0))) & 0x7FF));
+                                    *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&spA0)+(0))) & 0x7FF));
                                     *(s8 *)8 = 0;
                                     temp_a0 = (spD8 * 4) + arg0;
                                     *((s32 *)0) = (s32) ((*((s32 *)0) & 0xFF000000) | (*temp_a0 & 0xFFFFFF));
@@ -550,11 +558,11 @@ block_76:
                                 temp_a0_2 = (spD8 * 4) + arg0;
                                 *var_s3 = (*var_s3 & 0xFF000000) | (*temp_a0_2 & 0xFFFFFF);
                                 *temp_a0_2 = (*temp_a0_2 & 0xFF000000) | ((s32) var_s3 & 0xFFFFFF);
-                                if ((s32) (*(s16 *)((u8 *)(var_s1) + (0xC))) & 0x40) {
+                                if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x40) {
                                     var_s3 = func_80068EE8(0xC);
                                     if (var_s3 != ((void *)0)) {
                                         *(s8 *)3 = 2;
-                                        *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&sp98) + (2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&sp98) + (0))) & 0x7FF));
+                                        *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&sp98)+(0))) & 0x7FF));
                                         *(s8 *)8 = 0;
                                         temp_a0_3 = (spD8 * 4) + arg0;
                                         *((s32 *)0) = (s32) ((*((s32 *)0) & 0xFF000000) | (*temp_a0_3 & 0xFFFFFF));
@@ -572,7 +580,7 @@ block_76:
                     break;
                 }
             } else {
-                temp_v1_6 = (*(u8 *)((u8 *)(var_s1) + (7))) & 0xFC;
+                temp_v1_6 = (*(u8 *)((u8 *)(var_s1)+(7))) & 0xFC;
                 switch (temp_v1_6) {
                 case 0x50:
                     var_s0 = var_s1 + 0x24;
@@ -580,37 +588,37 @@ block_93:
                     temp_v0_11 = var_s5 << 5;
                     var_s5 += 1;
                     temp_v0_12 = temp_v0_11 + D_800E53E8;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (8))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0xC))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0x10))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0x18))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0x1C))) = (s32) 0;
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0))) = (s32) gte_cfc2_0();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(4))) = (s32) gte_cfc2_1();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(8))) = (s32) gte_cfc2_2();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0xC))) = (s32) gte_cfc2_3();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0x10))) = (s32) gte_cfc2_4();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0x18))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0x1C))) = (s32) gte_cfc2_7();
                     temp_v0_13 = temp_v0_12 + 0x14;
-                    (*(s32 *)((u8 *)(temp_v0_12) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_13) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_13) + (8))) = (s32) 0;
-                    var_s4 = (*(u8 *)((u8 *)(var_s1) + (2)));
+                    (*(s32 *)((u8 *)(temp_v0_12)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_13)+(4))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_13)+(8))) = (s32) gte_cfc2_7();
+                    var_s4 = (*(u8 *)((u8 *)(var_s1)+(2)));
 loop_94:
                     if (((s32) var_s4 > 0) && (var_s5 < 0x200)) {
                         func_80065710(&sp10, var_s0 + 8, &sp20);
                         temp_v0_14 = var_s5 << 5;
                         var_s5 += 1;
                         temp_v0_15 = temp_v0_14 + D_800E53E8;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (4))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (8))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0xC))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0x10))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0x14))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0x18))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0x1C))) = (s32) 0;
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0))) = (s32) gte_cfc2_0();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(4))) = (s32) gte_cfc2_1();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(8))) = (s32) gte_cfc2_2();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0xC))) = (s32) gte_cfc2_3();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0x10))) = (s32) gte_cfc2_4();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0x14))) = (s32) gte_cfc2_5();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0x18))) = (s32) gte_cfc2_6();
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0x1C))) = (s32) gte_cfc2_7();
                         temp_v0_16 = temp_v0_15 + 0x14;
-                        (*(s32 *)((u8 *)(temp_v0_15) + (0x14))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_16) + (4))) = (s32) 0;
-                        (*(s32 *)((u8 *)(temp_v0_16) + (8))) = (s32) 0;
+                        (*(s32 *)((u8 *)(temp_v0_15)+(0x14))) = (s32) gte_cfc2_5();
+                        (*(s32 *)((u8 *)(temp_v0_16)+(4))) = (s32) gte_cfc2_6();
+                        (*(s32 *)((u8 *)(temp_v0_16)+(8))) = (s32) gte_cfc2_7();
                         var_s0 += *var_s0 * 4;
                         var_s4 -= 1;
                         goto loop_94;
@@ -622,55 +630,55 @@ loop_94:
                 case 0x3C:
                     var_s0_2 = var_s1 + 0x2C;
 block_101:
-                    D_800E53BC(&sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s1) + (0x16))));
+                    D_800E53BC(&sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s1)+(0x16))));
                     temp_v0_17 = var_s5 << 5;
                     var_s5 += 1;
                     temp_v0_18 = temp_v0_17 + D_800E53E8;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (8))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0xC))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0x10))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0x18))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0x1C))) = (s32) 0;
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0))) = (s32) gte_cfc2_0();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(4))) = (s32) gte_cfc2_1();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(8))) = (s32) gte_cfc2_2();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0xC))) = (s32) gte_cfc2_3();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0x10))) = (s32) gte_cfc2_4();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0x18))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0x1C))) = (s32) gte_cfc2_7();
                     temp_v0_19 = temp_v0_18 + 0x14;
-                    (*(s32 *)((u8 *)(temp_v0_18) + (0x14))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_19) + (4))) = (s32) 0;
-                    (*(s32 *)((u8 *)(temp_v0_19) + (8))) = (s32) 0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    0;
-                    var_s4_2 = (*(u8 *)((u8 *)(var_s1) + (2)));
+                    (*(s32 *)((u8 *)(temp_v0_18)+(0x14))) = (s32) gte_cfc2_5();
+                    (*(s32 *)((u8 *)(temp_v0_19)+(4))) = (s32) gte_cfc2_6();
+                    (*(s32 *)((u8 *)(temp_v0_19)+(8))) = (s32) gte_cfc2_7();
+                    __asm__ volatile("ctc2 $t4, $0");
+                    __asm__ volatile("ctc2 $t5, $1");
+                    __asm__ volatile("ctc2 $t4, $2");
+                    __asm__ volatile("ctc2 $t5, $3");
+                    __asm__ volatile("ctc2 $t6, $4");
+                    var_s4_2 = (*(u8 *)((u8 *)(var_s1)+(2)));
                     if ((s32) var_s4_2 > 0) {
                         var_v0_5 = var_s5 < 0x200;
 loop_103:
                         if (var_v0_5 != 0) {
                             func_80065710(&sp10, var_s0_2 + 8, &sp20);
-                            D_800E53BC(&sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s0_2) + (0x16))));
+                            D_800E53BC(&sp68, &D_800E53C8, (*(s16 *)((u8 *)(var_s0_2)+(0x16))));
                             temp_v0_20 = var_s5 << 5;
                             var_s5 += 1;
                             temp_v0_21 = temp_v0_20 + D_800E53E8;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (4))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (8))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0xC))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0x10))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0x14))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0x18))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0x1C))) = (s32) 0;
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0))) = (s32) gte_cfc2_0();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(4))) = (s32) gte_cfc2_1();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(8))) = (s32) gte_cfc2_2();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0xC))) = (s32) gte_cfc2_3();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0x10))) = (s32) gte_cfc2_4();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0x14))) = (s32) gte_cfc2_5();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0x18))) = (s32) gte_cfc2_6();
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0x1C))) = (s32) gte_cfc2_7();
                             temp_v0_22 = temp_v0_21 + 0x14;
-                            (*(s32 *)((u8 *)(temp_v0_21) + (0x14))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_22) + (4))) = (s32) 0;
-                            (*(s32 *)((u8 *)(temp_v0_22) + (8))) = (s32) 0;
-                            var_s0_2 += (*(u8 *)((u8 *)(var_s0_2) + (0))) * 4;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            (*(s32 *)((u8 *)(temp_v0_21)+(0x14))) = (s32) gte_cfc2_5();
+                            (*(s32 *)((u8 *)(temp_v0_22)+(4))) = (s32) gte_cfc2_6();
+                            (*(s32 *)((u8 *)(temp_v0_22)+(8))) = (s32) gte_cfc2_7();
+                            var_s0_2 += (*(u8 *)((u8 *)(var_s0_2)+(0))) * 4;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
                             var_s4_2 -= 1;
                             var_v0_5 = var_s5 < 0x200;
                             if ((s32) var_s4_2 > 0) {
@@ -691,7 +699,7 @@ block_105:
                     goto block_101;
                 }
 block_106:
-                var_s1 += (*(u8 *)((u8 *)(var_s1) + (0))) * 4;
+                var_s1 += (*(u8 *)((u8 *)(var_s1)+(0))) * 4;
                 var_v0 = var_s5 < 0x200;
                 if (var_s1 == D_800AD9F0) {
                     goto block_107;
@@ -705,27 +713,27 @@ block_106:
 block_107:
         spFC = var_s5;
         var_s5_2 = 0;
-        var_s1_2 = (*(void **)((u8 *)(&D_800AD9EC) + (0)));
+        var_s1_2 = (*(void **)((u8 *)(&D_800AD9EC)+(0)));
         D_800E5374 = &sp38;
-        if (var_s1_2 != (*(s32 *)((u8 *)(&D_800AD9EC) + (4)))) {
+        if (var_s1_2 != (*(s32 *)((u8 *)(&D_800AD9EC)+(4)))) {
             sp100 = &sp58;
 loop_109:
             if (var_s5_2 < spFC) {
-                if ((*(u8 *)((u8 *)(var_s1_2) + (2))) == 0) {
-                    if ((u8) (*(u8 *)((u8 *)(var_s1_2) + (7))) < 0xECU) {
-                        temp_v0_23 = ((*(u8 *)((u8 *)(var_s1_2) + (3))) + 1) * 4;
+                if ((*(u8 *)((u8 *)(var_s1_2)+(2))) == 0) {
+                    if ((u8) (*(u8 *)((u8 *)(var_s1_2)+(7))) < 0xECU) {
+                        temp_v0_23 = ((*(u8 *)((u8 *)(var_s1_2)+(3))) + 1) * 4;
                         spE4 = temp_v0_23;
                         var_s3 = func_80068EE8(temp_v0_23);
                         if (var_s3 != ((void *)0)) {
-                            temp_s2 = (*(u16 *)((u8 *)(var_s1_2) + (0x14))) & 0x60;
+                            temp_s2 = (*(u16 *)((u8 *)(var_s1_2)+(0x14))) & 0x60;
                             spF0 = temp_s2;
-                            if ((*(u8 *)((u8 *)(var_s1_2) + (7))) & 4) {
-                                temp_v0_24 = (*(void **)((u8 *)(var_s1_2) + (0x1C)));
+                            if ((*(u8 *)((u8 *)(var_s1_2)+(7))) & 4) {
+                                temp_v0_24 = (*(void **)((u8 *)(var_s1_2)+(0x1C)));
                                 spE0 = var_s3;
-                                (*(u16 *)((u8 *)(var_s3) + (0xE))) = (u16) (*(u16 *)((u8 *)(temp_v0_24) + (2)));
-                                spF0 = temp_s2 | ((*(u16 *)((u8 *)(temp_v0_24) + (0))) & 0xFF9F);
-                                (*(u8 *)((u8 *)(var_s3) + (3))) = (u8) (*(u8 *)((u8 *)(var_s1_2) + (3)));
-                                spF8 = (*(void **)((u8 *)(var_s1_2) + (0x1C)));
+                                (*(u16 *)((u8 *)(var_s3)+(0xE))) = (u16) (*(u16 *)((u8 *)(temp_v0_24)+(2)));
+                                spF0 = temp_s2 | ((*(u16 *)((u8 *)(temp_v0_24)+(0))) & 0xFF9F);
+                                (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_2)+(3)));
+                                spF8 = (*(void **)((u8 *)(var_s1_2)+(0x1C)));
                                 goto block_118;
                             }
                             temp_s0 = var_s3;
@@ -733,22 +741,22 @@ loop_109:
                             var_s3 += 8;
                             spE4 += 8;
                             if (func_80068EE8(8) != ((void *)0)) {
-                                (*(u8 *)((u8 *)(var_s3) + (3))) = (u8) (*(u8 *)((u8 *)(var_s1_2) + (3)));
-                                (*(u8 *)((u8 *)(temp_s0) + (3))) = 1U;
-                                (*(s32 *)((u8 *)(temp_s0) + (4))) = (s32) (temp_s2 | 0xE1000200);
-                                temp_t3 = (*(u8 *)((u8 *)(var_s3) + (3))) + (*(u8 *)((u8 *)(temp_s0) + (3))) + 1;
+                                (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_2)+(3)));
+                                (*(u8 *)((u8 *)(temp_s0)+(3))) = 1U;
+                                (*(s32 *)((u8 *)(temp_s0)+(4))) = (s32) (temp_s2 | 0xE1000200);
+                                temp_t3 = (*(u8 *)((u8 *)(var_s3)+(3))) + (*(u8 *)((u8 *)(temp_s0)+(3))) + 1;
                                 if (temp_t3 < 0xB) {
-                                    (*(u8 *)((u8 *)(temp_s0) + (3))) = (u8) temp_t3;
-                                    (*(s32 *)((u8 *)(var_s3) + (0))) = 0;
+                                    (*(u8 *)((u8 *)(temp_s0)+(3))) = (u8) temp_t3;
+                                    (*(s32 *)((u8 *)(var_s3)+(0))) = 0;
                                 }
 block_118:
-                                (*(s32 *)((u8 *)(var_s3) + (4))) = (s32) (*(s32 *)((u8 *)(var_s1_2) + (4)));
+                                (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (*(s32 *)((u8 *)(var_s1_2)+(4)));
                                 goto block_119;
                             }
                         }
                     } else {
 block_119:
-                        temp_v1_7 = (*(u8 *)((u8 *)(var_s1_2) + (1))) & 0xF0;
+                        temp_v1_7 = (*(u8 *)((u8 *)(var_s1_2)+(1))) & 0xF0;
                         if (temp_v1_7 != 0x10) {
                             var_t2 = 0;
                             if (temp_v1_7 >= 0x11) {
@@ -773,40 +781,40 @@ block_126:
                         }
                         spD8 = 0;
                         sp110 = (M2C_UNK *)3;
-                        temp_t3_2 = (((*(u8 *)((u8 *)(var_s1_2) + (1))) & 0xF) << 5) + &D_800ADA08;
-                        temp_v1_8 = (*(u8 *)((u8 *)(var_s1_2) + (7))) & ~3;
+                        temp_t3_2 = (((*(u8 *)((u8 *)(var_s1_2)+(1))) & 0xF) << 5) + &D_800ADA08;
+                        temp_v1_8 = (*(u8 *)((u8 *)(var_s1_2)+(7))) & ~3;
                         switch (temp_v1_8) {
                         case 0x50:
                             sp110 = (M2C_UNK *)4;
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x20)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
                         case 0x40:
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
+                            __asm__ volatile("mtc2 $zero, $0");
+                            __asm__ volatile("mtc2 $zero, $1");
+                            __asm__ volatile(".word 0x4A180001");
+                            __asm__ volatile("swc2 $14, ($v0)");
+                            __asm__ volatile("swc2 $19, ($t9)");
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 = var_s5_2 + 1 + 1;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("lwc2 $0, ($v0)");
+                            __asm__ volatile("lwc2 $1, 0x4($v0)");
+                            __asm__ volatile(".word 0x4A180001");
+                            __asm__ volatile("swc2 $14, ($v0)");
+                            __asm__ volatile("swc2 $19, ($v0)");
 block_150:
                             spD8 = (s32) (sp58 + sp5C) >> 1;
                             break;
@@ -814,251 +822,251 @@ block_150:
                         case 0x4C:
                         case 0x58:
                         case 0x5C:
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (void *)0x55555555;
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (void *)0x55555555;
                             break;
                         case 0x34:
-                            (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x20)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x24)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x18))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x1A))) = spF0;
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
+                            (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x24)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x18))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x1A))) = spF0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
 block_135:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (u16) (*(u16 *)((u8 *)(spF8) + (4)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(spF8)+(4)));
                         case 0x20:
 block_136:
                             var_a2_3 = 0;
                             var_a1 = &D_800ADB58;
                             var_a0_2 = temp_t3_2;
                             do {
-                                temp_v1_9 = (*(s16 *)((u8 *)(var_a0_2) + (0)));
-                                temp_v0_25 = (*(s16 *)((u8 *)(var_s1_2) + (0x18)));
+                                temp_v1_9 = (*(s16 *)((u8 *)(var_a0_2)+(0)));
+                                temp_v0_25 = (*(s16 *)((u8 *)(var_s1_2)+(0x18)));
                                 sp88[0] = (mult_hi(temp_v1_9, temp_v0_25) << 0x14) | ((u32) (temp_v1_9 * temp_v0_25) >> 0xC);
-                                temp_v1_10 = (*(s16 *)((u8 *)(var_a0_2) + (2)));
-                                temp_v0_26 = (*(s16 *)((u8 *)(var_s1_2) + (0x1A)));
+                                temp_v1_10 = (*(s16 *)((u8 *)(var_a0_2)+(2)));
+                                temp_v0_26 = (*(s16 *)((u8 *)(var_s1_2)+(0x1A)));
                                 sp8C = (mult_hi(temp_v1_10, temp_v0_26) << 0x14) | ((u32) (temp_v1_10 * temp_v0_26) >> 0xC);
-                                sp90 = (s32) (*(s16 *)((u8 *)(var_a0_2) + (4)));
-                                (*(u16 *)((u8 *)(var_a1) + (0))) = (u16) (&sp88[0])[var_t2];
-                                (*(u16 *)((u8 *)(var_a1) + (2))) = (u16) (&sp88[0])[var_fp];
-                                (*(u16 *)((u8 *)(var_a1) + (4))) = (u16) (&sp88[0])[var_s7];
+                                sp90 = (s32) (*(s16 *)((u8 *)(var_a0_2)+(4)));
+                                (*(u16 *)((u8 *)(var_a1)+(0))) = (u16) (&sp88[0])[var_t2];
+                                (*(u16 *)((u8 *)(var_a1)+(2))) = (u16) (&sp88[0])[var_fp];
+                                (*(u16 *)((u8 *)(var_a1)+(4))) = (u16) (&sp88[0])[var_s7];
                                 var_a1 += 8;
                                 var_a2_3 += 1;
                                 var_a0_2 += 8;
                             } while (var_a2_3 < 3);
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 += 1;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            temp_v1_11 = (*(u8 *)((u8 *)(var_s1_2) + (7))) & ~3;
+                            __asm__ volatile("lwc2 $0, ($t8)");
+                            __asm__ volatile("lwc2 $1, 0x4($t8)");
+                            __asm__ volatile("lwc2 $2, 0x8($t8)");
+                            __asm__ volatile("lwc2 $3, 0xc($t8)");
+                            __asm__ volatile("lwc2 $4, 0x10($t8)");
+                            __asm__ volatile("lwc2 $5, 0x14($t8)");
+                            __asm__ volatile(".word 0x4A280030");
+                            __asm__ volatile("swc2 $12, 0x8($s3)");
+                            temp_v1_11 = (*(u8 *)((u8 *)(var_s1_2)+(7))) & ~3;
                             switch (temp_v1_11) {
                             case 0x20:
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $13, 0xc($s3)");
+                                __asm__ volatile("swc2 $14, 0x10($s3)");
                                 break;
                             case 0x30:
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $13, 0x10($s3)");
+                                __asm__ volatile("swc2 $14, 0x18($s3)");
                                 break;
                             case 0x24:
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $13, 0x10($s3)");
+                                __asm__ volatile("swc2 $14, 0x18($s3)");
                                 break;
                             case 0x34:
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $13, 0x14($s3)");
+                                __asm__ volatile("swc2 $14, 0x20($s3)");
                                 break;
                             }
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("swc2 $17, ($a3)");
+                            __asm__ volatile("swc2 $18, 0x4($a3)");
+                            __asm__ volatile("swc2 $19, 0x8($a3)");
                             goto block_150;
                         case 0x30:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x1C)));
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x20)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x1C)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
                             goto block_136;
                         case 0x24:
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x16))) = spF0;
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x16))) = spF0;
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
                             goto block_135;
                         case 0x38:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x1C)));
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x20)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x24)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x1C)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x24)));
                         case 0x28:
 block_155:
                             var_a2_4 = 0;
                             var_a1_2 = &D_800ADB58;
                             var_a0_3 = temp_t3_2;
                             do {
-                                temp_v1_12 = (*(s16 *)((u8 *)(var_a0_3) + (0)));
-                                temp_v0_27 = (*(s16 *)((u8 *)(var_s1_2) + (0x18)));
+                                temp_v1_12 = (*(s16 *)((u8 *)(var_a0_3)+(0)));
+                                temp_v0_27 = (*(s16 *)((u8 *)(var_s1_2)+(0x18)));
                                 sp88[0] = (mult_hi(temp_v1_12, temp_v0_27) << 0x14) | ((u32) (temp_v1_12 * temp_v0_27) >> 0xC);
-                                temp_v1_13 = (*(s16 *)((u8 *)(var_a0_3) + (2)));
-                                temp_v0_28 = (*(s16 *)((u8 *)(var_s1_2) + (0x1A)));
+                                temp_v1_13 = (*(s16 *)((u8 *)(var_a0_3)+(2)));
+                                temp_v0_28 = (*(s16 *)((u8 *)(var_s1_2)+(0x1A)));
                                 sp8C = (mult_hi(temp_v1_13, temp_v0_28) << 0x14) | ((u32) (temp_v1_13 * temp_v0_28) >> 0xC);
-                                sp90 = (s32) (*(s16 *)((u8 *)(var_a0_3) + (4)));
-                                (*(u16 *)((u8 *)(var_a1_2) + (0))) = (u16) (&sp88[0])[var_t2];
-                                (*(u16 *)((u8 *)(var_a1_2) + (2))) = (u16) (&sp88[0])[var_fp];
-                                (*(u16 *)((u8 *)(var_a1_2) + (4))) = (u16) (&sp88[0])[var_s7];
+                                sp90 = (s32) (*(s16 *)((u8 *)(var_a0_3)+(4)));
+                                (*(u16 *)((u8 *)(var_a1_2)+(0))) = (u16) (&sp88[0])[var_t2];
+                                (*(u16 *)((u8 *)(var_a1_2)+(2))) = (u16) (&sp88[0])[var_fp];
+                                (*(u16 *)((u8 *)(var_a1_2)+(4))) = (u16) (&sp88[0])[var_s7];
                                 var_a1_2 += 8;
                                 var_a2_4 += 1;
                                 var_a0_3 += 8;
                             } while (var_a2_4 < 4);
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 += 1;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            temp_v1_14 = (*(u8 *)((u8 *)(var_s1_2) + (7))) & ~3;
+                            __asm__ volatile("lwc2 $0, 0x8($t8)");
+                            __asm__ volatile("lwc2 $1, 0xc($t8)");
+                            __asm__ volatile("lwc2 $2, 0x10($t8)");
+                            __asm__ volatile("lwc2 $3, 0x14($t8)");
+                            __asm__ volatile("lwc2 $4, 0x18($t8)");
+                            __asm__ volatile("lwc2 $5, 0x1c($t8)");
+                            __asm__ volatile(".word 0x4A280030");
+                            temp_v1_14 = (*(u8 *)((u8 *)(var_s1_2)+(7))) & ~3;
                             switch (temp_v1_14) {
                             case 0x28:
-                                0;
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $12, 0xc($s3)");
+                                __asm__ volatile("swc2 $13, 0x10($s3)");
+                                __asm__ volatile("swc2 $14, 0x14($s3)");
                                 break;
                             case 0x38:
                             case 0x2C:
-                                0;
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $12, 0x10($s3)");
+                                __asm__ volatile("swc2 $13, 0x18($s3)");
+                                __asm__ volatile("swc2 $14, 0x20($s3)");
                                 break;
                             case 0x3C:
-                                0;
-                                0;
-                                0;
+                                __asm__ volatile("swc2 $12, 0x14($s3)");
+                                __asm__ volatile("swc2 $13, 0x20($s3)");
+                                __asm__ volatile("swc2 $14, 0x2c($s3)");
                                 break;
                             }
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("swc2 $17, 0x4($a3)");
+                            __asm__ volatile("swc2 $18, 0x8($a3)");
+                            __asm__ volatile("swc2 $19, 0xc($a3)");
+                            __asm__ volatile("lwc2 $0, ($s6)");
+                            __asm__ volatile("lwc2 $1, 0x4($s6)");
+                            __asm__ volatile(".word 0x4A180001");
+                            __asm__ volatile("swc2 $14, ($v0)");
+                            __asm__ volatile("swc2 $19, ($a3)");
                             spD8 = (s32) (sp58 + sp5C + sp60 + sp64) >> 2;
                             break;
                         case 0x3C:
-                            (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x20)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x24)));
-                            (*(void **)((u8 *)(var_s3) + (0x28))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x28)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x18))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x1A))) = spF0;
-                            (*(u16 *)((u8 *)(var_s3) + (0x30))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                            (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x24)));
+                            (*(void **)((u8 *)(var_s3)+(0x28))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x28)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x18))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x1A))) = spF0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x30))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
 block_154:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (u16) (*(u16 *)((u8 *)(spF8) + (4)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(spF8)+(4)));
                             goto block_155;
                         case 0x2C:
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x16))) = spF0;
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x16))) = spF0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
                             goto block_154;
                         case 0xE8:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x28)));
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x2C)));
-                            (*(s8 *)((u8 *)(var_s3) + (7))) = 0x38;
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x30)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x28)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x2C)));
+                            (*(s8 *)((u8 *)(var_s3)+(7))) = 0x38;
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x30)));
 block_173:
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 += 1;
-                            0;
-                            0;
-                            0;
-                            temp_v1_15 = (*(u8 *)((u8 *)(var_s1_2) + (7))) & ~3;
+                            __asm__ volatile("mtc2 $zero, $0");
+                            __asm__ volatile("mtc2 $zero, $1");
+                            __asm__ volatile(".word 0x4A180001");
+                            temp_v1_15 = (*(u8 *)((u8 *)(var_s1_2)+(7))) & ~3;
                             switch (temp_v1_15) {
                             case 0xE0:
-                                temp_t0 = 0;
+                                temp_t0 = gte_mfc2_14();
                                 temp_t1 = temp_t0 >> 0x10;
-                                (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x1C))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x1E))) + temp_t1) << 0x10));
-                                (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x20))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x22))) + temp_t1) << 0x10));
-                                (*(void **)((u8 *)(var_s3) + (0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x24))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x26))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x1C))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1) << 0x10));
                                 break;
                             case 0xE8:
-                                temp_t0_2 = 0;
+                                temp_t0_2 = gte_mfc2_14();
                                 temp_t1_2 = temp_t0_2 >> 0x10;
-                                (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x1C))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x1E))) + temp_t1_2) << 0x10));
-                                (*(u16 *)((u8 *)(var_s3) + (0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x22))) + temp_t1_2) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3) + (0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x24))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x26))) + temp_t1_2) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x1C))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1_2) << 0x10));
+                                (*(u16 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_2) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_2) << 0x10));
                                 break;
                             case 0xA4:
-                                temp_t0_3 = 0;
+                                temp_t0_3 = gte_mfc2_14();
                                 temp_t1_3 = temp_t0_3 >> 0x10;
-                                (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x20))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x22))) + temp_t1_3) << 0x10));
-                                (*(u16 *)((u8 *)(var_s3) + (0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x26))) + temp_t1_3) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3) + (0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x28))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x2A))) + temp_t1_3) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_3) << 0x10));
+                                (*(u16 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_3) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x28))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_3) << 0x10));
                                 break;
                             case 0xB4:
-                                temp_t0_4 = 0;
+                                temp_t0_4 = gte_mfc2_14();
                                 temp_t1_4 = temp_t0_4 >> 0x10;
-                                (*(void **)((u8 *)(var_s3) + (0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x20))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x22))) + temp_t1_4) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3) + (0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x24))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x26))) + temp_t1_4) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3) + (0x2C))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2) + (0x28))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x2A))) + temp_t1_4) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_4) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_4) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x2C))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x28))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_4) << 0x10));
                                 break;
                             }
-                            temp_t0_5 = 0;
-                            0;
-                            (*(s32 *)((u8 *)(var_s3) + (8))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2) + (0x18))) + temp_t0_5) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2) + (0x1A))) + (temp_t0_5 >> 0x10)) << 0x10));
+                            temp_t0_5 = gte_mfc2_14();
+                            __asm__ volatile("swc2 $19, ($v0)");
+                            (*(s32 *)((u8 *)(var_s3)+(8))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x18))) + temp_t0_5) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1A))) + (temp_t0_5 >> 0x10)) << 0x10));
                             break;
                         case 0xB4:
-                            (*(void **)((u8 *)(var_s3) + (0x10))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x28)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x2C)));
-                            (*(void **)((u8 *)(var_s3) + (0x28))) = (void *) (*(void **)((u8 *)(var_s1_2) + (0x30)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x18))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
-                            (*(s8 *)((u8 *)(var_s3) + (7))) = 0x3C;
-                            (*(u16 *)((u8 *)(var_s3) + (0x1A))) = spF0;
-                            (*(u16 *)((u8 *)(var_s3) + (0x30))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                            (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x28)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x2C)));
+                            (*(void **)((u8 *)(var_s3)+(0x28))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x30)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x18))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
+                            (*(s8 *)((u8 *)(var_s3)+(7))) = 0x3C;
+                            (*(u16 *)((u8 *)(var_s3)+(0x1A))) = spF0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x30))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
 block_171:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (u16) (*(u16 *)((u8 *)(spF8) + (4)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(spF8)+(4)));
                             goto block_173;
                         case 0xA4:
-                            (*(void **)((u8 *)(var_s3) + (0x14))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(void **)((u8 *)(var_s3) + (0x1C))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
-                            (*(s8 *)((u8 *)(var_s3) + (7))) = 0x2C;
-                            (*(u16 *)((u8 *)(var_s3) + (0x16))) = spF0;
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
+                            (*(s8 *)((u8 *)(var_s3)+(7))) = 0x2C;
+                            (*(u16 *)((u8 *)(var_s3)+(0x16))) = spF0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
                             goto block_171;
                         case 0xE0:
-                            (*(s8 *)((u8 *)(var_s3) + (7))) = 0x28;
+                            (*(s8 *)((u8 *)(var_s3)+(7))) = 0x28;
                             goto block_173;
                         case 0x10:
                             var_s5_2 = func_80068720(var_s1_2 + 0x14, var_s1_2 + 0x1C, var_s5_2, 3);
                             break;
                         case 0xF0:
-                            D_800E53B8 = (*(s32 *)((u8 *)(var_s1_2) + (8)));
+                            D_800E53B8 = (*(s32 *)((u8 *)(var_s1_2)+(8)));
                             break;
                         }
                         if (spD8 != 0) {
@@ -1075,7 +1083,7 @@ block_171:
 block_192:
                                 spD8 = var_v0_6;
                             }
-                            spDC = 0;
+                            spDC = gte_cfc2_31();
                             if (spDC >= 0) {
                                 temp_a0_4 = (spD8 * 4) + arg0;
                                 *spE0 = (*spE0 & 0xFF000000) | (*temp_a0_4 & 0xFFFFFF);
@@ -1085,7 +1093,7 @@ block_192:
                         goto block_199;
                     }
                 } else {
-                    temp_v0_29 = (*(u8 *)((u8 *)(var_s1_2) + (7))) & ~3;
+                    temp_v0_29 = (*(u8 *)((u8 *)(var_s1_2)+(7))) & ~3;
                     switch (temp_v0_29) {
                     case 0x28:
                     case 0x2C:
@@ -1093,11 +1101,11 @@ block_192:
                     case 0x3C:
                     case 0x40:
                     case 0x50:
-                        var_s5_2 = var_s5_2 + 1 + (*(u8 *)((u8 *)(var_s1_2) + (2)));
+                        var_s5_2 = var_s5_2 + 1 + (*(u8 *)((u8 *)(var_s1_2)+(2)));
                         break;
                     }
 block_199:
-                    var_s1_2 += (*(u8 *)((u8 *)(var_s1_2) + (0))) * 4;
+                    var_s1_2 += (*(u8 *)((u8 *)(var_s1_2)+(0))) * 4;
                     if (var_s1_2 == D_800AD9F0) {
                         goto block_200;
                     }
@@ -1111,14 +1119,14 @@ block_200:
         } else {
 block_201:
             D_800E5374 = &sp38;
-            var_s1_3 = (*(void **)((u8 *)(&D_800AD9EC) + (0)));
+            var_s1_3 = (*(void **)((u8 *)(&D_800AD9EC)+(0)));
             D_800E53B8 = -0xA;
-            if (var_s1_3 != (*(s32 *)((u8 *)(&D_800AD9EC) + (4)))) {
+            if (var_s1_3 != (*(s32 *)((u8 *)(&D_800AD9EC)+(4)))) {
                 sp104 = 0xFFFFFF;
 loop_203:
                 if (var_s5_2 < spFC) {
-                    if ((*(u8 *)((u8 *)(var_s1_3) + (2))) == 0) {
-                        temp_v1_18 = (*(u8 *)((u8 *)(var_s1_3) + (7))) & 0xFC;
+                    if ((*(u8 *)((u8 *)(var_s1_3)+(2))) == 0) {
+                        temp_v1_18 = (*(u8 *)((u8 *)(var_s1_3)+(7))) & 0xFC;
                         if (temp_v1_18 != 0x40) {
                             if (temp_v1_18 < 0x41) {
                                 if (temp_v1_18 != 0x2C) {
@@ -1176,7 +1184,7 @@ loop_203:
                                 } else if (temp_v1_18 != 0xF0) {
                                     var_t9 = &D_800AD9EC;
                                 } else {
-                                    D_800E53B8 = (*(s32 *)((u8 *)(var_s1_3) + (8)));
+                                    D_800E53B8 = (*(s32 *)((u8 *)(var_s1_3)+(8)));
                                     goto block_334;
                                 }
                             } else {
@@ -1191,20 +1199,20 @@ block_235:
                         }
                         goto block_336;
                     }
-                    if ((u8) (*(u8 *)((u8 *)(var_s1_3) + (7))) < 0xECU) {
-                        temp_v0_30 = ((*(u8 *)((u8 *)(var_s1_3) + (3))) + 1) * 4;
+                    if ((u8) (*(u8 *)((u8 *)(var_s1_3)+(7))) < 0xECU) {
+                        temp_v0_30 = ((*(u8 *)((u8 *)(var_s1_3)+(3))) + 1) * 4;
                         spE4 = temp_v0_30;
                         var_s3 = func_80068EE8(temp_v0_30);
                         if (var_s3 != ((void *)0)) {
-                            temp_s2_2 = (*(u16 *)((u8 *)(var_s1_3) + (0x14))) & 0x60;
+                            temp_s2_2 = (*(u16 *)((u8 *)(var_s1_3)+(0x14))) & 0x60;
                             spF0 = temp_s2_2;
-                            if ((*(u8 *)((u8 *)(var_s1_3) + (7))) & 4) {
-                                temp_v0_31 = (*(void **)((u8 *)(var_s1_3) + (0x1C)));
+                            if ((*(u8 *)((u8 *)(var_s1_3)+(7))) & 4) {
+                                temp_v0_31 = (*(void **)((u8 *)(var_s1_3)+(0x1C)));
                                 spE0 = var_s3;
-                                (*(u16 *)((u8 *)(var_s3) + (0xE))) = (u16) (*(u16 *)((u8 *)(temp_v0_31) + (2)));
-                                spF0 = temp_s2_2 | ((*(u16 *)((u8 *)(temp_v0_31) + (0))) & 0xFF9F);
-                                (*(u8 *)((u8 *)(var_s3) + (3))) = (u8) (*(u8 *)((u8 *)(var_s1_3) + (3)));
-                                spF8 = (*(void **)((u8 *)(var_s1_3) + (0x1C)));
+                                (*(u16 *)((u8 *)(var_s3)+(0xE))) = (u16) (*(u16 *)((u8 *)(temp_v0_31)+(2)));
+                                spF0 = temp_s2_2 | ((*(u16 *)((u8 *)(temp_v0_31)+(0))) & 0xFF9F);
+                                (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_3)+(3)));
+                                spF8 = (*(void **)((u8 *)(var_s1_3)+(0x1C)));
                                 goto block_244;
                             }
                             temp_s0_2 = var_s3;
@@ -1212,22 +1220,22 @@ block_235:
                             var_s3 += 8;
                             spE4 += 8;
                             if (func_80068EE8(8) != ((void *)0)) {
-                                (*(u8 *)((u8 *)(var_s3) + (3))) = (u8) (*(u8 *)((u8 *)(var_s1_3) + (3)));
-                                (*(u8 *)((u8 *)(temp_s0_2) + (3))) = 1U;
-                                (*(s32 *)((u8 *)(temp_s0_2) + (4))) = (s32) (temp_s2_2 | 0xE1000200);
-                                temp_t3_3 = (*(u8 *)((u8 *)(var_s3) + (3))) + (*(u8 *)((u8 *)(temp_s0_2) + (3))) + 1;
+                                (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_3)+(3)));
+                                (*(u8 *)((u8 *)(temp_s0_2)+(3))) = 1U;
+                                (*(s32 *)((u8 *)(temp_s0_2)+(4))) = (s32) (temp_s2_2 | 0xE1000200);
+                                temp_t3_3 = (*(u8 *)((u8 *)(var_s3)+(3))) + (*(u8 *)((u8 *)(temp_s0_2)+(3))) + 1;
                                 if (temp_t3_3 < 0xB) {
-                                    (*(u8 *)((u8 *)(temp_s0_2) + (3))) = (u8) temp_t3_3;
-                                    (*(s32 *)((u8 *)(var_s3) + (0))) = 0;
+                                    (*(u8 *)((u8 *)(temp_s0_2)+(3))) = (u8) temp_t3_3;
+                                    (*(s32 *)((u8 *)(var_s3)+(0))) = 0;
                                 }
 block_244:
-                                (*(s32 *)((u8 *)(var_s3) + (4))) = (s32) (*(s32 *)((u8 *)(var_s1_3) + (4)));
+                                (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (*(s32 *)((u8 *)(var_s1_3)+(4)));
                                 goto block_245;
                             }
                         }
                     } else {
 block_245:
-                        temp_v1_19 = (*(u8 *)((u8 *)(var_s1_3) + (1))) & 0xF0;
+                        temp_v1_19 = (*(u8 *)((u8 *)(var_s1_3)+(1))) & 0xF0;
                         if (temp_v1_19 != 0x10) {
                             var_t2_2 = 0;
                             if (temp_v1_19 >= 0x11) {
@@ -1252,8 +1260,8 @@ block_252:
                         }
                         spD8 = 0;
                         sp110 = (M2C_UNK *)3;
-                        var_t3 = (((*(u8 *)((u8 *)(var_s1_3) + (1))) & 0xF) * 0x10) + &D_800ADB28;
-                        temp_v0_32 = (*(u8 *)((u8 *)(var_s1_3) + (7)));
+                        var_t3 = (((*(u8 *)((u8 *)(var_s1_3)+(1))) & 0xF) * 0x10) + &D_800ADB28;
+                        temp_v0_32 = (*(u8 *)((u8 *)(var_s1_3)+(7)));
                         temp_v1_20 = temp_v0_32 & 0xFF & 0xFC;
                         spE8 = temp_v0_32 & 0x10;
                         if (temp_v1_20 != 0x3C) {
@@ -1272,17 +1280,17 @@ block_252:
                                         goto block_336;
                                     }
                                     var_s0_3 = var_s1_3 + 0x28;
-                                    (*(void **)((u8 *)(var_s3) + (0xC))) = (void *) (*(void **)((u8 *)(var_s1_3) + (0x1C)));
-                                    0;
+                                    (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_3)+(0x1C)));
+                                    __asm__ volatile("lwc2 $21, 0x1c($s0)");
                                     sp110 = (M2C_UNK *)4;
                                     goto block_294;
                                 }
-                                (*(u16 *)((u8 *)(var_s3) + (0x14))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
+                                (*(u16 *)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
                                 var_s0_3 = var_s1_3 + 0x20;
-                                (*(u16 *)((u8 *)(var_s3) + (0x1C))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
+                                (*(u16 *)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
                                 sp110 = (M2C_UNK *)4;
-                                (*(u16 *)((u8 *)(var_s3) + (0x16))) = spF0;
-                                (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                                (*(u16 *)((u8 *)(var_s3)+(0x16))) = spF0;
+                                (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
                                 goto block_292;
                             }
                             if (temp_v1_20 != 0x50) {
@@ -1299,44 +1307,44 @@ block_252:
                                 goto block_335;
                             }
                             sp110 = (M2C_UNK *)4;
-                            0;
+                            __asm__ volatile("lwc2 $6, 0x4($s0)");
 block_269:
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 += 1;
-                            0;
-                            0;
-                            0;
-                            0;
-                            var_s4_3 = (*(u8 *)((u8 *)(var_s1_3) + (2)));
+                            __asm__ volatile("mtc2 $zero, $0");
+                            __asm__ volatile("mtc2 $zero, $1");
+                            __asm__ volatile(".word 0x4A180001");
+                            __asm__ volatile("swc2 $14, ($v0)");
+                            var_s4_3 = (*(u8 *)((u8 *)(var_s1_3)+(2)));
                             if ((s32) var_s4_3 > 0) {
 loop_271:
                                 if (var_s5_2 < spFC) {
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
+                                    __asm__ volatile("swc2 $19, ($v0)");
+                                    __asm__ volatile("ctc2 $t4, $0");
+                                    __asm__ volatile("ctc2 $t5, $1");
+                                    __asm__ volatile("ctc2 $t4, $2");
+                                    __asm__ volatile("ctc2 $t5, $3");
+                                    __asm__ volatile("ctc2 $t6, $4");
+                                    __asm__ volatile("ctc2 $t4, $5");
+                                    __asm__ volatile("ctc2 $t5, $6");
+                                    __asm__ volatile("ctc2 $t6, $7");
                                     var_s5_2 += 1;
-                                    0;
-                                    0;
-                                    0;
+                                    __asm__ volatile("mtc2 $zero, $0");
+                                    __asm__ volatile("mtc2 $zero, $1");
+                                    __asm__ volatile(".word 0x4A180001");
                                     temp_v0_33 = func_80068EE8(spE4);
                                     if (temp_v0_33 != ((void *)0)) {
                                         if (spE8 != 0) {
-                                            0;
+                                            __asm__ volatile("swc2 $6, 0xc($s3)");
                                         }
-                                        0;
+                                        __asm__ volatile("swc2 $19, ($v0)");
                                         spD8 = (s32) (sp58 + sp5C) >> 1;
                                         temp_v1_21 = (s32) (spD8 - func_8008B984()) >> 3;
                                         spD8 = temp_v1_21;
@@ -1351,13 +1359,13 @@ loop_271:
 block_279:
                                             spD8 = var_v0_7;
                                         }
-                                        spDC = 0;
+                                        spDC = gte_cfc2_31();
                                         if (spDC >= 0) {
                                             temp_a0_5 = (spD8 * 4) + arg0;
                                             *spE0 = (*spE0 & 0xFF000000) | (*temp_a0_5 & sp104);
                                             *temp_a0_5 = (*temp_a0_5 & 0xFF000000) | ((s32) spE0 & sp104);
                                         }
-                                        0;
+                                        __asm__ volatile("swc2 $14, ($v0)");
                                         var_a2_5 = ((s32) (temp_v0_33 - spE0) >> 2) - 1;
                                         if (var_a2_5 >= 0) {
                                             var_a0_4 = &temp_v0_33[var_a2_5];
@@ -1373,10 +1381,10 @@ block_279:
                                         var_s3 = temp_v0_33 + (var_s3 - spE0);
                                         spE0 = temp_v0_33;
                                         sp58 = sp5C;
-                                        0;
+                                        __asm__ volatile("swc2 $14, ($v0)");
                                         if (spE8 != 0) {
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $6, 0x4($s3)");
+                                            __asm__ volatile("lwc2 $6, 0x4($s0)");
                                         }
                                         var_s4_3 -= 1;
                                         if ((s32) var_s4_3 > 0) {
@@ -1391,118 +1399,118 @@ block_279:
                                 goto block_335;
                             }
                         } else {
-                            (*(u16 *)((u8 *)(var_s3) + (0x18))) = (u16) (*(u16 *)((u8 *)(spF8) + (6)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x24))) = (u16) (*(u16 *)((u8 *)(spF8) + (8)));
-                            (*(u16 *)((u8 *)(var_s3) + (0x30))) = (u16) (*(u16 *)((u8 *)(spF8) + (0xA)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x18))) = (u16) (*(u16 *)((u8 *)(spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x30))) = (u16) (*(u16 *)((u8 *)(spF8)+(0xA)));
                             var_s0_3 = var_s1_3 + 0x2C;
-                            (*(u16 *)((u8 *)(var_s3) + (0x1A))) = spF0;
-                            (*(s32 *)((u8 *)(var_s3) + (0x10))) = (s32) (*(s32 *)((u8 *)(var_s1_3) + (0x20)));
-                            0;
+                            (*(u16 *)((u8 *)(var_s3)+(0x1A))) = spF0;
+                            (*(s32 *)((u8 *)(var_s3)+(0x10))) = (s32) (*(s32 *)((u8 *)(var_s1_3)+(0x20)));
+                            __asm__ volatile("lwc2 $21, 0x1c($s0)");
                             sp110 = (M2C_UNK *)5;
 block_292:
-                            (*(void **)((u8 *)(var_s3) + (0xC))) = (u16) (*(u16 *)((u8 *)(spF8) + (4)));
+                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(spF8)+(4)));
 block_294:
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
+                            __asm__ volatile("ctc2 $t4, $0");
+                            __asm__ volatile("ctc2 $t5, $1");
+                            __asm__ volatile("ctc2 $t4, $2");
+                            __asm__ volatile("ctc2 $t5, $3");
+                            __asm__ volatile("ctc2 $t6, $4");
+                            __asm__ volatile("ctc2 $t4, $5");
+                            __asm__ volatile("ctc2 $t5, $6");
+                            __asm__ volatile("ctc2 $t6, $7");
                             var_s5_2 += 1;
-                            0;
+                            __asm__ volatile("lwc2 $20, 0x4($s0)");
                             var_a2_6 = 0;
                             var_a0_5 = &D_800ADB58;
                             var_a1_3 = var_t3;
                             do {
-                                temp_v1_23 = (*(s16 *)((u8 *)(var_a1_3) + (0)));
-                                temp_v0_35 = (*(s16 *)((u8 *)(var_s1_3) + (0x18)));
+                                temp_v1_23 = (*(s16 *)((u8 *)(var_a1_3)+(0)));
+                                temp_v0_35 = (*(s16 *)((u8 *)(var_s1_3)+(0x18)));
                                 sp88[0] = (mult_hi(temp_v1_23, temp_v0_35) << 0x14) | ((u32) (temp_v1_23 * temp_v0_35) >> 0xC);
-                                temp_v1_24 = (*(s16 *)((u8 *)(var_a1_3) + (2)));
-                                temp_v0_36 = (*(s16 *)((u8 *)(var_s1_3) + (0x1A)));
+                                temp_v1_24 = (*(s16 *)((u8 *)(var_a1_3)+(2)));
+                                temp_v0_36 = (*(s16 *)((u8 *)(var_s1_3)+(0x1A)));
                                 sp8C = (mult_hi(temp_v1_24, temp_v0_36) << 0x14) | ((u32) (temp_v1_24 * temp_v0_36) >> 0xC);
-                                sp90 = (s32) (*(s16 *)((u8 *)(var_a1_3) + (4)));
-                                (*(u16 *)((u8 *)(var_a0_5) + (0))) = (u16) (&sp88[0])[var_t2_2];
-                                (*(u16 *)((u8 *)(var_a0_5) + (2))) = (u16) (&sp88[0])[var_fp_2];
-                                (*(u16 *)((u8 *)(var_a0_5) + (4))) = (u16) (&sp88[0])[var_s7_2];
+                                sp90 = (s32) (*(s16 *)((u8 *)(var_a1_3)+(4)));
+                                (*(u16 *)((u8 *)(var_a0_5)+(0))) = (u16) (&sp88[0])[var_t2_2];
+                                (*(u16 *)((u8 *)(var_a0_5)+(2))) = (u16) (&sp88[0])[var_fp_2];
+                                (*(u16 *)((u8 *)(var_a0_5)+(4))) = (u16) (&sp88[0])[var_s7_2];
                                 var_a0_5 += 8;
                                 var_a2_6 += 1;
                                 var_a1_3 += 8;
                             } while (var_a2_6 < 2);
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            0;
-                            var_s4_4 = (*(u8 *)((u8 *)(var_s1_3) + (2)));
+                            __asm__ volatile("lwc2 $0, ($s6)");
+                            __asm__ volatile("lwc2 $1, 0x4($s6)");
+                            __asm__ volatile("lwc2 $2, 0x8($s6)");
+                            __asm__ volatile("lwc2 $3, 0xc($s6)");
+                            __asm__ volatile(".word 0x4A280030");
+                            __asm__ volatile("swc2 $12, 0x8($s3)");
+                            __asm__ volatile("swc2 $13, ($v0)");
+                            var_s4_4 = (*(u8 *)((u8 *)(var_s1_3)+(2)));
                             if ((s32) var_s4_4 > 0) {
 loop_297:
                                 if (var_s5_2 < spFC) {
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
+                                    __asm__ volatile("swc2 $17, ($v0)");
+                                    __asm__ volatile("swc2 $18, 0x4($v0)");
+                                    __asm__ volatile("ctc2 $t4, $0");
+                                    __asm__ volatile("ctc2 $t5, $1");
+                                    __asm__ volatile("ctc2 $t4, $2");
+                                    __asm__ volatile("ctc2 $t5, $3");
+                                    __asm__ volatile("ctc2 $t6, $4");
+                                    __asm__ volatile("ctc2 $t4, $5");
+                                    __asm__ volatile("ctc2 $t5, $6");
+                                    __asm__ volatile("ctc2 $t6, $7");
                                     var_s5_2 += 1;
                                     var_a2_7 = 0;
                                     var_a0_6 = &D_800ADB58;
                                     var_a1_4 = var_t3;
                                     do {
-                                        temp_v1_25 = (*(s16 *)((u8 *)(var_a1_4) + (0)));
-                                        temp_v0_37 = (*(s16 *)((u8 *)(var_s0_3) + (0x18)));
+                                        temp_v1_25 = (*(s16 *)((u8 *)(var_a1_4)+(0)));
+                                        temp_v0_37 = (*(s16 *)((u8 *)(var_s0_3)+(0x18)));
                                         sp88[0] = (mult_hi(temp_v1_25, temp_v0_37) << 0x14) | ((u32) (temp_v1_25 * temp_v0_37) >> 0xC);
-                                        temp_v1_26 = (*(s16 *)((u8 *)(var_a1_4) + (2)));
-                                        temp_v0_38 = (*(s16 *)((u8 *)(var_s0_3) + (0x1A)));
+                                        temp_v1_26 = (*(s16 *)((u8 *)(var_a1_4)+(2)));
+                                        temp_v0_38 = (*(s16 *)((u8 *)(var_s0_3)+(0x1A)));
                                         temp_a3_2 = (u32) (temp_v1_26 * temp_v0_38) >> 0xC;
                                         sp8C = (mult_hi(temp_v1_26, temp_v0_38) << 0x14) | temp_a3_2;
-                                        sp90 = (s32) (*(s16 *)((u8 *)(var_a1_4) + (4)));
-                                        (*(u16 *)((u8 *)(var_a0_6) + (0))) = (u16) (&sp88[0])[var_t2_2];
-                                        (*(u16 *)((u8 *)(var_a0_6) + (2))) = (u16) (&sp88[0])[var_fp_2];
-                                        (*(u16 *)((u8 *)(var_a0_6) + (4))) = (u16) (&sp88[0])[var_s7_2];
+                                        sp90 = (s32) (*(s16 *)((u8 *)(var_a1_4)+(4)));
+                                        (*(u16 *)((u8 *)(var_a0_6)+(0))) = (u16) (&sp88[0])[var_t2_2];
+                                        (*(u16 *)((u8 *)(var_a0_6)+(2))) = (u16) (&sp88[0])[var_fp_2];
+                                        (*(u16 *)((u8 *)(var_a0_6)+(4))) = (u16) (&sp88[0])[var_s7_2];
                                         var_a0_6 += 8;
                                         var_a2_7 += 1;
                                         var_a1_4 += 8;
                                     } while (var_a2_7 < 2);
-                                    0;
-                                    0;
-                                    0;
-                                    0;
-                                    0;
+                                    __asm__ volatile("lwc2 $0, ($s6)");
+                                    __asm__ volatile("lwc2 $1, 0x4($s6)");
+                                    __asm__ volatile("lwc2 $2, 0x8($s6)");
+                                    __asm__ volatile("lwc2 $3, 0xc($s6)");
+                                    __asm__ volatile(".word 0x4A280030");
                                     sp108 = var_t2_2;
                                     sp10C = var_t3;
-                                    var_s0_3 += (*(u8 *)((u8 *)(var_s0_3) + (0))) * 4;
+                                    var_s0_3 += (*(u8 *)((u8 *)(var_s0_3)+(0))) * 4;
                                     temp_v0_39 = func_80068EE8(spE4, var_a1_4, var_a2_7, temp_a3_2);
                                     if (temp_v0_39 != ((void *)0)) {
-                                        temp_v1_27 = (*(u8 *)((u8 *)(var_s1_3) + (7))) & 0xFC;
+                                        temp_v1_27 = (*(u8 *)((u8 *)(var_s1_3)+(7))) & 0xFC;
                                         switch (temp_v1_27) {
                                         case 0x28:
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $12, 0x10($s3)");
+                                            __asm__ volatile("swc2 $13, 0x14($s3)");
                                             break;
                                         case 0x38:
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $20, 0x14($s3)");
+                                            __asm__ volatile("swc2 $21, 0x1c($s3)");
                                         case 0x2C:
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $12, 0x18($s3)");
+                                            __asm__ volatile("swc2 $13, 0x20($s3)");
                                             break;
                                         case 0x3C:
-                                            0;
-                                            0;
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $12, 0x20($s3)");
+                                            __asm__ volatile("swc2 $13, 0x2c($s3)");
+                                            __asm__ volatile("swc2 $20, 0x1c($s3)");
+                                            __asm__ volatile("swc2 $21, 0x28($s3)");
                                             break;
                                         }
-                                        0;
-                                        0;
+                                        __asm__ volatile("swc2 $17, 0x8($v0)");
+                                        __asm__ volatile("swc2 $18, 0xc($v0)");
                                         sp108 = var_t2_2;
                                         sp10C = var_t3;
                                         spD8 = (s32) (sp58 + sp5C + sp60 + sp64) >> 2;
@@ -1519,7 +1527,7 @@ loop_297:
 block_316:
                                             spD8 = var_v0_8;
                                         }
-                                        spDC = 0;
+                                        spDC = gte_cfc2_31();
                                         if (spDC >= 0) {
                                             temp_a0_6 = (spD8 * 4) + arg0;
                                             *spE0 = (*spE0 & 0xFF000000) | (*temp_a0_6 & sp104);
@@ -1541,10 +1549,10 @@ block_316:
                                         spE0 = temp_v0_39;
                                         sp5C = sp64;
                                         sp58 = sp60;
-                                        0;
-                                        0;
-                                        0;
-                                        temp_v1_30 = (*(u8 *)((u8 *)(var_s1_3) + (7))) & 0xFC;
+                                        __asm__ volatile("swc2 $12, 0x8($s3)");
+                                        __asm__ volatile("swc2 $20, 0x4($s3)");
+                                        __asm__ volatile("lwc2 $20, 0x4($s0)");
+                                        temp_v1_30 = (*(u8 *)((u8 *)(var_s1_3)+(7))) & 0xFC;
                                         if (temp_v1_30 != 0x38) {
                                             if (temp_v1_30 < 0x39) {
                                                 if (temp_v1_30 != 0x28) {
@@ -1554,22 +1562,22 @@ block_316:
                                                         goto block_331;
                                                     }
                                                 } else {
-                                                    0;
+                                                    __asm__ volatile("swc2 $13, 0xc($s3)");
                                                     var_s4_4 -= 1;
                                                 }
                                             } else if (temp_v1_30 != 0x3C) {
                                                 var_s4_4 -= 1;
                                             } else {
-                                                0;
-                                                0;
-                                                0;
+                                                __asm__ volatile("swc2 $13, 0x14($s3)");
+                                                __asm__ volatile("swc2 $21, 0x10($s3)");
+                                                __asm__ volatile("lwc2 $21, 0x1c($s0)");
                                                 var_s4_4 -= 1;
                                             }
                                         } else {
-                                            0;
-                                            0;
+                                            __asm__ volatile("swc2 $21, 0xc($s3)");
+                                            __asm__ volatile("lwc2 $21, 0x1c($s0)");
 block_331:
-                                            0;
+                                            __asm__ volatile("swc2 $13, 0x10($s3)");
                                             var_s4_4 -= 1;
                                         }
                                         if ((s32) var_s4_4 <= 0) {
@@ -1585,8 +1593,8 @@ block_334:
 block_335:
                                 var_t9 = &D_800AD9EC;
 block_336:
-                                var_s1_3 += (*(u8 *)((u8 *)(var_s1_3) + (0))) * 4;
-                                if (var_s1_3 == (*(s32 *)((u8 *)(var_t9) + (4)))) {
+                                var_s1_3 += (*(u8 *)((u8 *)(var_s1_3)+(0))) * 4;
+                                if (var_s1_3 == (*(s32 *)((u8 *)(var_t9)+(4)))) {
                                     goto block_337;
                                 }
                                 goto loop_203;
@@ -1598,14 +1606,14 @@ block_336:
                 }
             } else {
 block_337:
-                0;
-                0;
-                0;
-                0;
-                0;
-                0;
-                0;
-                0;
+                __asm__ volatile("ctc2 $t4, $0");
+                __asm__ volatile("ctc2 $t5, $1");
+                __asm__ volatile("ctc2 $t4, $2");
+                __asm__ volatile("ctc2 $t5, $3");
+                __asm__ volatile("ctc2 $t6, $4");
+                __asm__ volatile("ctc2 $t4, $5");
+                __asm__ volatile("ctc2 $t5, $6");
+                __asm__ volatile("ctc2 $t6, $7");
             }
         }
     }

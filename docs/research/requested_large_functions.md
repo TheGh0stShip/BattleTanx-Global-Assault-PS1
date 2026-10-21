@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,024 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 6,928-byte draft and both recovered jump tables; GTE lowering remains |
+| `func_80065920` | 11,168 | Compiler-valid 9,184-byte draft with both jump tables and 298 recovered hardware operations |
 | `func_8007AE20` | 4,788 | Complete compiling crash-screen disassembler draft and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,176-byte renderer with recovered scratchpad state and complete COP2 stream |
 
