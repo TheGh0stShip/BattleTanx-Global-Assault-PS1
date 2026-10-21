@@ -4,7 +4,7 @@ VENV_PYTHON := $(VENV)/bin/python
 VENV_STAMP := $(VENV)/.installed
 EXE := baseroms/us/SLUS_010.44
 
-.PHONY: all setup toolchain verify split function-inventory psyq-report verify-matching verify-linked verify-large-candidates progress-report inventory test check clean-generated
+.PHONY: all setup toolchain verify split function-inventory psyq-report verify-matching verify-linked verify-large-candidates verify-research-candidates progress-report inventory test check clean-generated
 
 all: split
 
@@ -43,6 +43,9 @@ verify-matching: verify toolchain
 
 verify-large-candidates: verify toolchain
 	$(PYTHON) tools/verify_large_candidates.py
+
+verify-research-candidates: verify toolchain
+	$(PYTHON) tools/verify_research_candidates.py
 
 verify-linked: verify toolchain
 	$(PYTHON) tools/build_matching_executable.py
