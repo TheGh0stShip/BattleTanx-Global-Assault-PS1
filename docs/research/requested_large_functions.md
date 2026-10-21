@@ -6,7 +6,7 @@ compiler matching continues:
 
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
-| `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,024 bytes with `--expand-div` |
+| `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
 | `func_80065920` | 11,168 | Compiler-valid 9,184-byte draft with both jump tables and 298 recovered hardware operations |
 | `func_8007AE20` | 4,788 | Complete compiling crash-screen disassembler draft and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
@@ -18,7 +18,10 @@ including GTE `LZCS`/`LZCR` normalization.  Its candidate intentionally uses
 small inline helpers for those two compiler-lowered arithmetic idioms.
 The frame-step scalar is now constrained to the retail `$s6` allocation,
 removing repeated stack reloads throughout the 7 KB body and increasing direct
-retail agreement from 1,570 to 2,052 bytes.
+retail agreement from 1,570 to 2,052 bytes.  The first paired steering
+normalizers now keep the fixed `0x58000` denominator and its leading-sign count
+in the retail `$a2`/`$a1` registers.  That closes the candidate-size gap from
+28 to 12 bytes and raises direct agreement to 2,287 bytes.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
@@ -29,6 +32,11 @@ registers 0 through 7.  Keeping the loads and `ctc2` operations in one inline
 helper preserves their dependency and prevents a superficially plausible but
 incorrect reconstruction that writes stale `$t1`/`$t2` values.  This recovery
 accounts for the complete 16-instruction matrix setup at `0x8008BFB0`.
+Its retail use of trapping `add`/`addi`, `$gp` as an ordinary working register,
+two `$ra` saves, and a manually nested call frame identifies the renderer as
+hand-written assembly rather than compiler-emitted C; its semantic C candidate
+is therefore retained as documentation instead of being claimed as an exact C
+match.
 
 These candidates are research inputs and are not listed as matching units until
 they reproduce their target byte ranges exactly.  The raw wrappers remain the

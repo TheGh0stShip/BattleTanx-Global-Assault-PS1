@@ -504,11 +504,16 @@ block_63:
                             temp_a3_2 = sp3C - 0xC;
                             if (temp_a3_2 < 0) {
                                 temp_v1_12 = temp_v1_11 << sp3C;
-                                store_leading_sign_count(0x58000, &sp40);
-                                temp_a2 = sp40;
-                                temp_a0_3 = sp40 - sp3C;
+                                {
+                                register s32 lzc_denominator asm("$5");
+                                register s32 denominator asm("$6") = 0x58000;
+                                store_leading_sign_count(denominator, &sp40);
+                                lzc_denominator = sp40;
+                                __asm__ volatile("" : "+r" (lzc_denominator), "+r" (denominator));
+                                temp_a2 = lzc_denominator;
+                                temp_a0_3 = lzc_denominator - sp3C;
                                 if (temp_a0_3 >= 0) {
-                                    temp_v0_7 = 0xC - sp40;
+                                    temp_v0_7 = 0xC - lzc_denominator;
                                     if (temp_v0_7 >= 0) {
                                         var_v0_6 = temp_a2 >> temp_v0_7;
                                     } else {
@@ -518,6 +523,7 @@ block_63:
                                     goto block_94;
                                 }
                                 var_v0_7 = temp_v1_12 / (u32) (temp_a2 >> -temp_a3_2);
+                                }
                             } else {
                                 var_v1_3 = (u32) (temp_v1_11 << 0xC) / (u32)temp_a2;
 block_94:
@@ -542,11 +548,16 @@ block_94:
                             temp_a3_3 = sp44 - 0xC;
                             if (temp_a3_3 < 0) {
                                 temp_v1_14 = temp_v1_13 << sp44;
-                                store_leading_sign_count(0x58000, &sp48);
-                                temp_a2_2 = sp48;
-                                temp_a0_4 = sp48 - sp44;
+                                {
+                                register s32 lzc_denominator asm("$5");
+                                register s32 denominator asm("$6") = 0x58000;
+                                store_leading_sign_count(denominator, &sp48);
+                                lzc_denominator = sp48;
+                                __asm__ volatile("" : "+r" (lzc_denominator), "+r" (denominator));
+                                temp_a2_2 = lzc_denominator;
+                                temp_a0_4 = lzc_denominator - sp44;
                                 if (temp_a0_4 >= 0) {
-                                    temp_v0_9 = 0xC - sp48;
+                                    temp_v0_9 = 0xC - lzc_denominator;
                                     if (temp_v0_9 >= 0) {
                                         var_v0_9 = temp_a2_2 >> temp_v0_9;
                                     } else {
@@ -556,6 +567,7 @@ block_94:
                                     goto block_112;
                                 }
                                 var_v0_10 = temp_v1_14 / (u32) (temp_a2_2 >> -temp_a3_3);
+                                }
                             } else {
                                 var_v1_4 = (u32) (temp_v1_13 << 0xC) / (u32)temp_a2_2;
 block_112:
