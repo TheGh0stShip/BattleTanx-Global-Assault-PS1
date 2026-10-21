@@ -572,12 +572,12 @@ block_72:
                             if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x20) {
                                 var_s3 = func_80068EE8(0xC);
                                 if (var_s3 != ((void *)0)) {
-                                    *(s8 *)3 = 2;
-                                    *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.spA0)+(0))) & 0x7FF));
-                                    *(s8 *)8 = 0;
+                                    (*(u8 *)((u8 *)(var_s3)+(3))) = 2;
+                                    (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.spA0)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.spA0)+(0))) & 0x7FF));
+                                    (*(s32 *)((u8 *)(var_s3)+(8))) = 0;
                                     temp_a0 = (stack.spD8 * 4) + arg0;
-                                    *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0 & (u32)state_or_mask));
-                                    *temp_a0 = (*temp_a0 & high_mask) | (0 & (u32)state_or_mask);
+                                    *var_s3 = (*var_s3 & high_mask) | (*temp_a0 & (u32)state_or_mask);
+                                    *temp_a0 = (*temp_a0 & high_mask) | ((s32)var_s3 & (u32)state_or_mask);
                                     goto block_76;
                                 }
                             } else {
@@ -588,12 +588,12 @@ block_76:
                                 if ((s32) (*(s16 *)((u8 *)(var_s1)+(0xC))) & 0x40) {
                                     var_s3 = func_80068EE8(0xC);
                                     if (var_s3 != ((void *)0)) {
-                                        *(s8 *)3 = 2;
-                                        *(s8 *)4 = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.sp98)+(0))) & 0x7FF));
-                                        *(s8 *)8 = 0;
+                                        (*(u8 *)((u8 *)(var_s3)+(3))) = 2;
+                                        (*(s32 *)((u8 *)(var_s3)+(4))) = (s32) (0xE5000000 | (((*(s16 *)((u8 *)(&stack.sp98)+(2))) & 0x7FF) << 0xB) | ((*(s16 *)((u8 *)(&stack.sp98)+(0))) & 0x7FF));
+                                        (*(s32 *)((u8 *)(var_s3)+(8))) = 0;
                                         temp_a0_3 = (stack.spD8 * 4) + arg0;
-                                        *((s32 *)0) = (s32) ((*((s32 *)0) & high_mask) | (*temp_a0_3 & (u32)state_or_mask));
-                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | (0 & (u32)state_or_mask);
+                                        *var_s3 = (*var_s3 & high_mask) | (*temp_a0_3 & (u32)state_or_mask);
+                                        *temp_a0_3 = (*temp_a0_3 & high_mask) | ((s32)var_s3 & (u32)state_or_mask);
                                         goto block_105;
                                     }
                                 } else {
@@ -858,7 +858,7 @@ block_150:
                             (*(u16 *)((u8 *)(var_s3)+(0x1A))) = stack.spF0;
                             (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
 block_135:
-                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
+                            (*(u16 *)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
                         case 0x20:
 block_136:
                             var_a2_3 = 0;
@@ -924,9 +924,9 @@ block_136:
                             (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
                             goto block_136;
                         case 0x24:
-                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
                             (*(u16 *)((u8 *)(var_s3)+(0x16))) = stack.spF0;
-                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
                             goto block_135;
                         case 0x38:
                             (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x1C)));
@@ -1006,11 +1006,11 @@ block_155:
                             (*(u16 *)((u8 *)(var_s3)+(0x1A))) = stack.spF0;
                             (*(u16 *)((u8 *)(var_s3)+(0x30))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(0xA)));
 block_154:
-                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
+                            (*(u16 *)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
                             goto block_155;
                         case 0x2C:
-                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
-                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
                             (*(u16 *)((u8 *)(var_s3)+(0x16))) = stack.spF0;
                             (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(0xA)));
                             goto block_154;
@@ -1077,11 +1077,11 @@ block_173:
                             (*(u16 *)((u8 *)(var_s3)+(0x1A))) = stack.spF0;
                             (*(u16 *)((u8 *)(var_s3)+(0x30))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(0xA)));
 block_171:
-                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
+                            (*(u16 *)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
                             goto block_173;
                         case 0xA4:
-                            (*(void **)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
-                            (*(void **)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x14))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(6)));
+                            (*(u16 *)((u8 *)(var_s3)+(0x1C))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(8)));
                             (*(s8 *)((u8 *)(var_s3)+(7))) = 0x2C;
                             (*(u16 *)((u8 *)(var_s3)+(0x16))) = stack.spF0;
                             (*(u16 *)((u8 *)(var_s3)+(0x24))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(0xA)));
@@ -1435,7 +1435,7 @@ block_279:
                             __asm__ volatile("lwc2 $21, 0x1c($s0)");
                             stack.sp110 = (M2C_UNK *)5;
 block_292:
-                            (*(void **)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
+                            (*(u16 *)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
 block_294:
                             __asm__ volatile("ctc2 $t4, $0");
                             __asm__ volatile("ctc2 $t5, $1");
