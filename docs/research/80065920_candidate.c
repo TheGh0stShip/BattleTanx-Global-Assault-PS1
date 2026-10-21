@@ -228,7 +228,7 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     s32 temp_t1_4;
     s32 temp_t3;
     s32 temp_t3_3;
-    s32 temp_v0;
+    register s32 temp_v0 __asm__("$2");
     s32 temp_v0_10;
     s32 temp_v0_11;
     s32 temp_v0_14;
@@ -274,6 +274,7 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     s32 var_fp;
     s32 var_fp_2;
     register s32 matrix_count __asm__("$19");
+    register s32 allocation_kind __asm__("$4");
     register s32 var_s5 __asm__("$21");
     s32 var_s5_2;
     s32 var_s7;
@@ -332,9 +333,11 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     stack.spF8 = ((void *)0);
     stack.spD8 = 0;
     temp_v0 = func_8007F7D8();
+    allocation_kind = 4;
+    __asm__ volatile("" : "+r" (allocation_kind));
     state_or_mask = &D_800AD9EC;
     (*(s32 *)((u8 *)(state_or_mask)+(8))) = temp_v0;
-    temp_v0 = func_8006A26C(4);
+    temp_v0 = func_8006A26C(allocation_kind);
     D_800E53EC = temp_v0;
     D_800E53E8 = temp_v0;
     D_800E53B8 = -0xA;

@@ -37,6 +37,9 @@ then becomes the `0x00FFFFFF` packet-link mask.  The first rendering pass now
 tests the recovered matrix count against 512 instead of folding that guard to
 an unconditional true value, and later passes reload the display-state global
 instead of incorrectly extending the original `$s2` pointer lifetime.
+The allocation kind is now established in retail `$a0` before display-state
+address setup, while both initialization call results remain in `$v0`.  This
+makes the prologue agree through byte `0x68` instead of diverging at `0x50`.
 The two optional 12-byte packet paths preserve the retail null-base writes at
 addresses `0`, `3`, `4`, and `8`, including the original byte/word access
 widths.  Recovered 16-bit packet fields use halfword stores instead of
