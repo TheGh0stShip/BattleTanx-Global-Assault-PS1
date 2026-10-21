@@ -3904,50 +3904,57 @@
       "name": "func_800940B4",
       "address": "0x800940B4",
       "size": "0x10",
-      "source": "src/game/800940B4.c",
-      "symbols": {}
+      "source": "src/game/800940B4.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80094158",
       "address": "0x80094158",
       "size": "0x0C",
-      "source": "src/game/80094158.c",
-      "symbols": {}
+      "source": "src/game/80094158.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80094188",
       "address": "0x80094188",
       "size": "0x0C",
-      "source": "src/game/80094188.c",
-      "symbols": {}
+      "source": "src/game/80094188.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80094A38",
       "address": "0x80094A38",
       "size": "0x10",
-      "source": "src/game/80094A38.c",
-      "symbols": {}
+      "source": "src/game/80094A38.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80096E6C",
       "address": "0x80096E6C",
       "size": "0x10",
-      "source": "src/game/80096E6C.c",
-      "symbols": {}
+      "source": "src/game/80096E6C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80096FFC",
       "address": "0x80096FFC",
       "size": "0x10",
-      "source": "src/game/80096FFC.c",
-      "symbols": {}
+      "source": "src/game/80096FFC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009700C",
       "address": "0x8009700C",
       "size": "0x10",
-      "source": "src/game/8009700C.c",
-      "symbols": {}
+      "source": "src/game/8009700C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80098D10",
@@ -3988,148 +3995,169 @@
       "name": "func_8009D788",
       "address": "0x8009D788",
       "size": "0x10",
-      "source": "src/game/8009D788.c",
-      "symbols": {}
+      "source": "src/game/8009D788.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009DA40",
       "address": "0x8009DA40",
       "size": "0x10",
-      "source": "src/game/8009DA40.c",
-      "symbols": {}
+      "source": "src/game/8009DA40.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009DA58",
       "address": "0x8009DA58",
       "size": "0x10",
-      "source": "src/game/8009DA58.c",
-      "symbols": {}
+      "source": "src/game/8009DA58.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009DA68",
       "address": "0x8009DA68",
       "size": "0x10",
-      "source": "src/game/8009DA68.c",
-      "symbols": {}
+      "source": "src/game/8009DA68.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F6AC",
       "address": "0x8009F6AC",
       "size": "0x10",
-      "source": "src/game/8009F6AC.c",
-      "symbols": {}
+      "source": "src/game/8009F6AC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F6FC",
       "address": "0x8009F6FC",
       "size": "0x10",
-      "source": "src/game/8009F6FC.c",
-      "symbols": {}
+      "source": "src/game/8009F6FC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F70C",
       "address": "0x8009F70C",
       "size": "0x10",
-      "source": "src/game/8009F70C.c",
-      "symbols": {}
+      "source": "src/game/8009F70C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F71C",
       "address": "0x8009F71C",
       "size": "0x10",
-      "source": "src/game/8009F71C.c",
-      "symbols": {}
+      "source": "src/game/8009F71C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F72C",
       "address": "0x8009F72C",
       "size": "0x10",
-      "source": "src/game/8009F72C.c",
-      "symbols": {}
+      "source": "src/game/8009F72C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F73C",
       "address": "0x8009F73C",
       "size": "0x10",
-      "source": "src/game/8009F73C.c",
-      "symbols": {}
+      "source": "src/game/8009F73C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F74C",
       "address": "0x8009F74C",
       "size": "0x10",
-      "source": "src/game/8009F74C.c",
-      "symbols": {}
+      "source": "src/game/8009F74C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F75C",
       "address": "0x8009F75C",
       "size": "0x10",
-      "source": "src/game/8009F75C.c",
-      "symbols": {}
+      "source": "src/game/8009F75C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F76C",
       "address": "0x8009F76C",
       "size": "0x10",
-      "source": "src/game/8009F76C.c",
-      "symbols": {}
+      "source": "src/game/8009F76C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F77C",
       "address": "0x8009F77C",
       "size": "0x10",
-      "source": "src/game/8009F77C.c",
-      "symbols": {}
+      "source": "src/game/8009F77C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F78C",
       "address": "0x8009F78C",
       "size": "0x10",
-      "source": "src/game/8009F78C.c",
-      "symbols": {}
+      "source": "src/game/8009F78C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F79C",
       "address": "0x8009F79C",
       "size": "0x10",
-      "source": "src/game/8009F79C.c",
-      "symbols": {}
+      "source": "src/game/8009F79C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F7AC",
       "address": "0x8009F7AC",
       "size": "0x10",
-      "source": "src/game/8009F7AC.c",
-      "symbols": {}
+      "source": "src/game/8009F7AC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8009F88C",
       "address": "0x8009F88C",
       "size": "0x10",
-      "source": "src/game/8009F88C.c",
-      "symbols": {}
+      "source": "src/game/8009F88C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800A1910",
       "address": "0x800A1910",
       "size": "0x10",
-      "source": "src/game/800A1910.c",
-      "symbols": {}
+      "source": "src/game/800A1910.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800A3A04",
       "address": "0x800A3A04",
       "size": "0x10",
-      "source": "src/game/800A3A04.c",
-      "symbols": {}
+      "source": "src/game/800A3A04.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800A3A14",
       "address": "0x800A3A14",
       "size": "0x10",
-      "source": "src/game/800A3A14.c",
-      "symbols": {}
+      "source": "src/game/800A3A14.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80015090",
@@ -4172,15 +4200,17 @@
       "name": "func_8009AED4",
       "address": "0x8009AED4",
       "size": "0x10",
-      "source": "src/game/8009AED4.c",
-      "symbols": {}
+      "source": "src/game/8009AED4.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800A42B4",
       "address": "0x800A42B4",
       "size": "0x10",
-      "source": "src/game/800A42B4.c",
-      "symbols": {}
+      "source": "src/game/800A42B4.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80026300",
@@ -4689,8 +4719,9 @@
       "name": "func_800A42C4",
       "address": "0x800A42C4",
       "size": "0xC",
-      "source": "src/game/800A42C4.c",
-      "symbols": {}
+      "source": "src/game/800A42C4.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008D028",
@@ -6169,8 +6200,9 @@
       "name": "func_80094AFC",
       "address": "0x80094AFC",
       "size": "0xC",
-      "source": "src/game/80094AFC.c",
-      "symbols": {}
+      "source": "src/game/80094AFC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80094B08",
@@ -20787,8 +20819,13 @@
       "name": "entrypoint",
       "address": "0x800860B0",
       "size": "0x100",
-      "source": "src/game/entrypoint.c",
-      "symbols": {}
+      "source": "src/game/entrypoint.s",
+      "symbols": {
+        "func_80014454": "0x80014454",
+        "func_800861B8": "0x800861B8",
+        "func_800861DC": "0x800861DC"
+      },
+      "language": "assembly"
     },
     {
       "name": "data_80010000",
@@ -21688,8 +21725,20 @@
       "name": "func_8007D580",
       "address": "0x8007D580",
       "size": "0x66C",
-      "source": "src/game/8007D580.c",
-      "symbols": {}
+      "source": "src/game/8007D580.s",
+      "symbols": {
+        "L_EXT_8007E500": "0x8007E500",
+        "func_8003BD84": "0x8003BD84",
+        "func_8003BD94": "0x8003BD94",
+        "func_8003BDA4": "0x8003BDA4",
+        "func_8007DBEC": "0x8007DBEC",
+        "func_8007F7D8": "0x8007F7D8",
+        "func_8007F7F4": "0x8007F7F4",
+        "func_8008DC24": "0x8008DC24",
+        "func_8008DC40": "0x8008DC40",
+        "func_8008DC68": "0x8008DC68"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8008DAA8",
@@ -21703,8 +21752,9 @@
       "name": "func_8008DC84",
       "address": "0x8008DC84",
       "size": "0x10",
-      "source": "src/game/8008DC84.c",
-      "symbols": {}
+      "source": "src/game/8008DC84.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80092510",
