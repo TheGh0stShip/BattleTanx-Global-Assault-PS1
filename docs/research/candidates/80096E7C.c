@@ -2,7 +2,6 @@ typedef void (*Callback)(void);
 
 extern Callback D_800B6C54[8];
 extern int D_800B6C74;
-extern int D_800B6C74_write asm("D_800B6C74");
 extern int *D_800B6C78;
 extern void func_80096F6C(Callback *, int);
 extern void func_80094420(int, void *);
@@ -17,11 +16,9 @@ void *func_80096E7C(void) {
     register int *status asm("$3");
 
     asm volatile("" : "+r"(callbacks));
-    status = D_800B6C78;
-    asm volatile("" : "+r"(status));
+    asm("lw %0,D_800B6C78" : "=r"(status));
     *status = 0x107;
-    D_800B6C74 = 0;
-    asm volatile("" ::: "memory");
+    asm volatile("sw $0,D_800B6C74" ::: "memory");
     func_80096F6C(callbacks, 8);
     hook = D_80096ED4;
     asm volatile("" : "+r"(hook));
@@ -33,16 +30,20 @@ void *func_80096E7C(void) {
 
 void D_80096ED4(void) {
     int index;
-    int count;
+    int count = D_800B6C74;
+    register Callback *current asm("$16");
 
-    count = D_800B6C74;
+    asm volatile("" : "+r"(count));
     index = 0;
-    D_800B6C74_write = count + 1;
+    current = D_800B6C54;
+    count++;
+    asm volatile("sw %0,D_800B6C74" : : "r"(count) : "memory");
     do {
-        if (D_800B6C54[index] != 0) {
-            D_800B6C54[index]();
+        if (*current != 0) {
+            (*current)();
         }
         index++;
+        current++;
     } while (index < 8);
 }
 

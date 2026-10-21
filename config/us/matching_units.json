@@ -8677,7 +8677,12 @@
       "address": "0x8009C7F8",
       "size": "0x94",
       "source": "src/game/8009C7F8.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8BA0": "0x800B8BA0",
+        "D_800C5AA4": "0x800C5AA4",
+        "func_8009C938": "0x8009C938"
+      },
+      "compiler": "gcc-2.7.2-psx"
     },
     {
       "name": "func_800A2B78",

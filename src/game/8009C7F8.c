@@ -1,11 +1,39 @@
-asm(".text\n\t.globl func_8009C7F8\nfunc_8009C7F8:\n\t"
-    ".word 0x27bdffe0,0x3c03800c,0x8c638ba0,0x3c020010\n\t"
-    ".word 0xafbf0018,0xafa20010,0x8c620000,0x3c032000\n\t"
-    ".word 0x00431024,0x10400017,0x00001021,0x2404ffff\n\t"
-    ".word 0x8fa20010,0x00000000,0x2442ffff,0xafa20010\n\t"
-    ".word 0x8fa20010,0x00000000,0x14440006,0x00000000\n\t"
-    ".word 0x3c04800c,0x0c02724e,0x24845aa4,0x0802721f\n\t"
-    ".word 0x2402ffff,0x3c02800c,0x8c428ba0,0x00000000\n\t"
-    ".word 0x8c420000,0x00000000,0x00431024,0x1440ffec\n\t"
-    ".word 0x00001021,0x8fbf0018,0x27bd0020,0x03e00008\n\t"
-    ".word 0x00000000\n\t");
+typedef signed int s32;
+typedef unsigned int u32;
+
+extern volatile u32 *volatile D_800B8BA0;
+extern char D_800C5AA4;
+extern void func_8009C938(void *);
+
+static __inline__ u32 read_status_loop(void) {
+    register volatile u32 *status asm("$2");
+    asm volatile("lw %0,D_800B8BA0" : "=r"(status));
+    return *status;
+}
+
+s32 func_8009C7F8(void) {
+    volatile s32 timeout;
+    s32 remaining;
+    register volatile u32 *status asm("$3");
+    register s32 initial_timeout asm("$2");
+
+    asm("lw %0,D_800B8BA0" : "=r"(status));
+    asm("lui %0,0x10" : "=r"(initial_timeout) : "r"(status));
+    timeout = initial_timeout;
+    if (*status & 0x20000000) {
+        register s32 expired asm("$4") = -1;
+        do {
+            remaining = timeout - 1;
+            timeout = remaining;
+            remaining = timeout;
+            if (remaining == expired) {
+                register char *context asm("$4");
+                asm("lui %0,0x800C" : "=r"(context));
+                context += 0x5AA4;
+                func_8009C938(context);
+                return -1;
+            }
+        } while (read_status_loop() & 0x20000000);
+    }
+    return 0;
+}
