@@ -266,7 +266,7 @@ void func_80044C38(void *arg0) {
     u16 var_v0_14;
     u16 var_v0_21;
     u32 temp_a0_14;
-    u32 temp_s6;
+    register u32 temp_s6 asm("$22");
     u32 temp_v1_12;
     u32 temp_v1_14;
     u32 temp_v1_16;
@@ -309,7 +309,7 @@ void func_80044C38(void *arg0) {
     var_s5 = 0;
     temp_s6 = (u32) D_800C60E8 >> 4;
     var_v1 = (u8 *)&D_800EE028;
-    if ((*(u8 *)((u8 *)(&D_800D2FE4)+(8))) != 0) {
+    if ((*(u8 *)((u8 *)(&D_800D2FE4) + 8)) != 0) {
         var_a2 = &D_800D2FE4;
         var_a0 = &D_800A4D30;
         do {
@@ -319,7 +319,7 @@ void func_80044C38(void *arg0) {
             var_a0 += 1;
             var_a1 += 1;
             var_v1 += 0x8C;
-        } while (var_a1 < (s32) (*(u8 *)((u8 *)(&D_800D2FE4)+(8))));
+        } while (var_a1 < (s32) (*(u8 *)((u8 *)(&D_800D2FE4) + 8)));
     }
     if ((*(s32 *)((u8 *)(arg0)+(0x218))) & 1) {
         temp_v1 = (*(s32 *)((u8 *)(arg0)+(0x58C)));

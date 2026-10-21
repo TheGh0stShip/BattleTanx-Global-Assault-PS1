@@ -16,6 +16,9 @@ compiler matching continues:
 normalization, and suspension calculations with 20.12 fixed-point operations,
 including GTE `LZCS`/`LZCR` normalization.  Its candidate intentionally uses
 small inline helpers for those two compiler-lowered arithmetic idioms.
+The frame-step scalar is now constrained to the retail `$s6` allocation,
+removing repeated stack reloads throughout the 7 KB body and increasing direct
+retail agreement from 1,570 to 2,052 bytes.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
