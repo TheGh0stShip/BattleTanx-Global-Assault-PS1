@@ -6164,7 +6164,10 @@
       "address": "0x800940C4",
       "size": "0x94",
       "source": "src/game/800940C4.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B59E0": "0x800B59E0",
+        "D_800B59E8": "0x800B59E8"
+      }
     },
     {
       "name": "func_800941A8",

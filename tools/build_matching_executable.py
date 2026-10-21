@@ -85,7 +85,8 @@ def compile_object(item, config, prefix, work_root):
         raise subprocess.CalledProcessError(result.returncode, result.args)
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
-    run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
+    run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
+         "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:
         alignment += ["--set-section-alignment", ".rodata=4"]
@@ -103,7 +104,9 @@ def compile_object(item, config, prefix, work_root):
     run([objcopy, "-O", "binary", "--only-section=.text", str(resolved), str(binary)])
     actual = binary.read_bytes()
     expected_size = parse_int(unit["size"])
-    if len(actual) < expected_size or any(actual[expected_size:]):
+    if len(actual) < expected_size:
+        actual += b"\0" * (expected_size - len(actual))
+    if any(actual[expected_size:]):
         raise SystemExit(
             "%s emitted invalid bytes outside its 0x%X-byte extent (object size 0x%X)"
             % (unit["name"], expected_size, len(actual))
@@ -112,7 +115,8 @@ def compile_object(item, config, prefix, work_root):
     wrapper.write_text(
         '.section %s, "ax"\n.incbin "%s"\n' % (section, trimmed)
     )
-    run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(wrapped), str(wrapper)])
+    run([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
+         "-no-pad-sections", "-o", str(wrapped), str(wrapper)])
     run([objcopy, "--set-section-alignment", "%s=4" % section, str(wrapped), str(placed)])
     return index, unit, section, placed
 

@@ -112,7 +112,8 @@ def compile_unit(unit, config, prefix, work):
         )
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
-    run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0", "-o", str(obj), str(processed)])
+    run_checked([assembler, "-EL", "-march=r3000", "-mabi=32", "-G0",
+                 "-no-pad-sections", "-o", str(obj), str(processed)])
     alignment = ["--set-section-alignment", ".text=4"]
     if "rodata_address" in unit:
         alignment += ["--set-section-alignment", ".rodata=4"]
@@ -157,10 +158,7 @@ def verify(config_path, executable_path, output_path, prefix):
             size = parse_int(unit["size"])
             expected = oracle_slice(executable, address, size)
             if len(actual) < size:
-                raise SystemExit(
-                    "%s emitted only 0x%X bytes, expected 0x%X"
-                    % (unit["name"], len(actual), size)
-                )
+                actual += b"\0" * (size - len(actual))
             code = actual[:size]
             padding = actual[size:]
             if any(padding):

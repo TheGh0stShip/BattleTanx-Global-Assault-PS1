@@ -17,7 +17,6 @@ CANDIDATES = {
     "func_80065920": "docs/research/80065920_candidate.c",
     "func_8007AE20": "docs/research/8007AE20_candidate.c",
     "func_8008BF7C": "docs/research/8008BF7C_candidate.c",
-    "func_800940C4": "docs/research/800940C4_candidate.c",
 }
 
 
