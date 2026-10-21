@@ -4738,8 +4738,11 @@
       "name": "func_8008B894",
       "address": "0x8008B894",
       "size": "0x80",
-      "source": "src/game/8008B894.c",
-      "symbols": {}
+      "source": "src/game/8008B894.s",
+      "symbols": {
+        "func_80098C30": "0x80098C30"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_800861B8",
@@ -4755,8 +4758,9 @@
       "name": "func_8008AA48",
       "address": "0x8008AA48",
       "size": "0x88",
-      "source": "src/game/8008AA48.c",
-      "symbols": {}
+      "source": "src/game/8008AA48.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008AAD0",
@@ -4786,15 +4790,17 @@
       "name": "func_8008AB30",
       "address": "0x8008AB30",
       "size": "0xC0",
-      "source": "src/game/8008AB30.c",
-      "symbols": {}
+      "source": "src/game/8008AB30.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008ABF0",
       "address": "0x8008ABF0",
       "size": "0x94",
-      "source": "src/game/8008ABF0.c",
-      "symbols": {}
+      "source": "src/game/8008ABF0.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008ACC0",
@@ -4975,29 +4981,35 @@
       "name": "func_8008A7BC",
       "address": "0x8008A7BC",
       "size": "0xC8",
-      "source": "src/game/8008A7BC.c",
-      "symbols": {}
+      "source": "src/game/8008A7BC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008A884",
       "address": "0x8008A884",
       "size": "0xF0",
-      "source": "src/game/8008A884.c",
-      "symbols": {}
+      "source": "src/game/8008A884.s",
+      "symbols": {
+        "func_8008A7BC": "0x8008A7BC"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8008A974",
       "address": "0x8008A974",
       "size": "0xD4",
-      "source": "src/game/8008A974.c",
-      "symbols": {}
+      "source": "src/game/8008A974.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008A65C",
       "address": "0x8008A65C",
       "size": "0x160",
-      "source": "src/game/8008A65C.c",
-      "symbols": {}
+      "source": "src/game/8008A65C.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_80098A10",
@@ -5017,15 +5029,25 @@
       "name": "func_80098C30",
       "address": "0x80098C30",
       "size": "0xDC",
-      "source": "src/game/80098C30.c",
-      "symbols": {}
+      "source": "src/game/80098C30.s",
+      "symbols": {
+        "func_80094168": "0x80094168",
+        "func_80094198": "0x80094198",
+        "func_800A1910": "0x800A1910"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8008BCD4",
       "address": "0x8008BCD4",
       "size": "0x11C",
-      "source": "src/game/8008BCD4.c",
-      "symbols": {}
+      "source": "src/game/8008BCD4.s",
+      "symbols": {
+        "func_8003BD84": "0x8003BD84",
+        "func_8003BD94": "0x8003BD94",
+        "func_8003BDA4": "0x8003BDA4"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8005F8EC",
@@ -7652,8 +7674,12 @@
       "name": "func_800A4210",
       "address": "0x800A4210",
       "size": "0x70",
-      "source": "src/game/800A4210.c",
-      "symbols": {}
+      "source": "src/game/800A4210.s",
+      "symbols": {
+        "func_80094198": "0x80094198",
+        "func_800A1910": "0x800A1910"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8008272C",
@@ -8729,8 +8755,12 @@
       "name": "func_800A417C",
       "address": "0x800A417C",
       "size": "0x94",
-      "source": "src/game/800A417C.c",
-      "symbols": {}
+      "source": "src/game/800A417C.s",
+      "symbols": {
+        "func_80094198": "0x80094198",
+        "func_800A1910": "0x800A1910"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8001B094",
@@ -9420,8 +9450,9 @@
       "name": "func_800A40D4",
       "address": "0x800A40D4",
       "size": "0xA4",
-      "source": "src/game/800A40D4.c",
-      "symbols": {}
+      "source": "src/game/800A40D4.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8001EEE4",
@@ -10286,8 +10317,9 @@
       "name": "func_8007E810",
       "address": "0x8007E810",
       "size": "0xCC",
-      "source": "src/game/8007E810.c",
-      "symbols": {}
+      "source": "src/game/8007E810.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8007ECA0",
@@ -14255,8 +14287,13 @@
       "name": "func_8008BDF0",
       "address": "0x8008BDF0",
       "size": "0x18C",
-      "source": "src/game/8008BDF0.c",
-      "symbols": {}
+      "source": "src/game/8008BDF0.s",
+      "symbols": {
+        "func_8003BD84": "0x8003BD84",
+        "func_8003BD94": "0x8003BD94",
+        "func_8003BDA4": "0x8003BDA4"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_800952D0",
@@ -17152,15 +17189,23 @@
       "name": "func_8007C68C",
       "address": "0x8007C68C",
       "size": "0x290",
-      "source": "src/game/8007C68C.c",
-      "symbols": {}
+      "source": "src/game/8007C68C.s",
+      "symbols": {
+        "L_EXT_8007C2D8": "0x8007C2D8",
+        "L_EXT_8007D510": "0x8007D510"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8007E570",
       "address": "0x8007E570",
       "size": "0x2A0",
-      "source": "src/game/8007E570.c",
-      "symbols": {}
+      "source": "src/game/8007E570.s",
+      "symbols": {
+        "func_8007E810": "0x8007E810",
+        "func_8008B994": "0x8008B994"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_80080638",
@@ -18777,8 +18822,9 @@
       "name": "func_8009CAEC",
       "address": "0x8009CAEC",
       "size": "0x360",
-      "source": "src/game/8009CAEC.c",
-      "symbols": {}
+      "source": "src/game/8009CAEC.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800149B8",
@@ -19827,8 +19873,13 @@
       "name": "func_8008AFB0",
       "address": "0x8008AFB0",
       "size": "0x880",
-      "source": "src/game/8008AFB0.c",
-      "symbols": {}
+      "source": "src/game/8008AFB0.s",
+      "symbols": {
+        "func_8008A884": "0x8008A884",
+        "func_8008A974": "0x8008A974",
+        "func_80090184": "0x80090184"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_80095684",
@@ -20355,15 +20406,27 @@
       "name": "func_8007C91C",
       "address": "0x8007C91C",
       "size": "0xC64",
-      "source": "src/game/8007C91C.c",
-      "symbols": {}
+      "source": "src/game/8007C91C.s",
+      "symbols": {
+        "L_EXT_8007C2D8": "0x8007C2D8",
+        "func_8007F7E8": "0x8007F7E8",
+        "func_8008DC34": "0x8008DC34",
+        "func_8008DC50": "0x8008DC50"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_8007DBEC",
       "address": "0x8007DBEC",
       "size": "0x984",
-      "source": "src/game/8007DBEC.c",
-      "symbols": {}
+      "source": "src/game/8007DBEC.s",
+      "symbols": {
+        "L_EXT_8007D76C": "0x8007D76C",
+        "func_8007F7E8": "0x8007F7E8",
+        "func_8008DC34": "0x8008DC34",
+        "func_8008DC50": "0x8008DC50"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_80084898",
@@ -20688,8 +20751,9 @@
       "name": "func_8008AE30",
       "address": "0x8008AE30",
       "size": "0x174",
-      "source": "src/game/8008AE30.c",
-      "symbols": {}
+      "source": "src/game/8008AE30.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_800988D0",
@@ -20702,8 +20766,22 @@
       "name": "func_8007C0D4",
       "address": "0x8007C0D4",
       "size": "0x5B8",
-      "source": "src/game/8007C0D4.c",
-      "symbols": {}
+      "source": "src/game/8007C0D4.s",
+      "symbols": {
+        "L_EXT_8007C728": "0x8007C728",
+        "L_EXT_8007D510": "0x8007D510",
+        "func_8003BD84": "0x8003BD84",
+        "func_8003BD94": "0x8003BD94",
+        "func_8003BDA4": "0x8003BDA4",
+        "func_8007C68C": "0x8007C68C",
+        "func_8007C91C": "0x8007C91C",
+        "func_8007F7D8": "0x8007F7D8",
+        "func_8007F7F4": "0x8007F7F4",
+        "func_8008DC24": "0x8008DC24",
+        "func_8008DC40": "0x8008DC40",
+        "func_8008DC68": "0x8008DC68"
+      },
+      "language": "assembly"
     },
     {
       "name": "entrypoint",
@@ -21617,8 +21695,9 @@
       "name": "func_8008DAA8",
       "address": "0x8008DAA8",
       "size": "0x140",
-      "source": "src/game/8008DAA8.c",
-      "symbols": {}
+      "source": "src/game/8008DAA8.s",
+      "symbols": {},
+      "language": "assembly"
     },
     {
       "name": "func_8008DC84",
@@ -21631,8 +21710,12 @@
       "name": "func_80092510",
       "address": "0x80092510",
       "size": "0x250",
-      "source": "src/game/80092510.c",
-      "symbols": {}
+      "source": "src/game/80092510.s",
+      "symbols": {
+        "func_8008B984": "0x8008B984",
+        "func_8008B994": "0x8008B994"
+      },
+      "language": "assembly"
     },
     {
       "name": "func_800945E4",
