@@ -1,8 +1,9 @@
 # BattleTanx: Global Assault (PlayStation)
 
 Reverse-engineering and decompilation project for the US PlayStation release
-(`SLUS-01044`). The current milestone provides an exact reproducible executable
-build, bounds-checked decoders for the game's proprietary asset formats, and a
+(`SLUS-01044`). The project reproduces the retail executable exactly while
+replacing encoded instructions with matching C and readable assembly. It also
+includes bounds-checked decoders for the game's proprietary asset formats and a
 deterministic corpus inventory tool.
 
 No game image, executable, extracted asset, disassembly, or generated preview is
@@ -10,6 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 
 ## Progress
 
+[![Verify](https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PS1/actions/workflows/verify.yml/badge.svg)](https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PS1/actions/workflows/verify.yml)
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
 ![Semantic decompilation: 93.36%](https://img.shields.io/badge/semantic_source-93.36%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
@@ -29,7 +31,6 @@ executable measurement.
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
 | Semantic matching source | 550,688 code bytes | 39,148 code bytes | 93.36% |
 | Semantic functions | 1,745 functions | 49 raw instruction units | 97.27% by provisional function count |
-| Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |
@@ -68,16 +69,23 @@ a complete executable matching both supported hashes. Semantic naming,
 consolidation, and compiler corroboration remain active decompilation work;
 ignored reports are generated directly by the exact-byte verifiers.
 CI also publishes an objdiff-compatible `SLUS_01044_report` artifact. It awards
-matched-code credit only to semantic C while retaining exact totals for every code
-and data unit.
+matched-code credit only to semantic source while retaining exact totals for every
+code and data unit.
+
+For the current unit-by-unit status, use the live
+[ByteMatch report](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1).
+The checked-in totals are pinned by tests and updated with matching-source
+milestones.
 
 ## Requirements
 
 - Python 3.9 or newer
-- No runtime dependencies outside the Python standard library
+- GNU Make
+- A legally obtained copy of the supported US executable
 
-Executable splitting uses the pinned development dependencies in
-`requirements.txt`.
+The inventory library has no runtime dependencies outside the Python standard
+library. Executable splitting and decompilation use the pinned development
+dependencies in `requirements.txt`; `make setup` installs the project toolchain.
 
 ## Executable setup
 
@@ -165,3 +173,6 @@ Technical format notes and executable evidence are recorded in
 Keep original media and derived copyrighted data out of version control. Commit
 only reconstruction source, tools, tests, documentation, and small synthetic
 fixtures. Host-side success does not establish behavior on original hardware.
+
+Contributions are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before
+submitting source, tooling, documentation, or format research.
