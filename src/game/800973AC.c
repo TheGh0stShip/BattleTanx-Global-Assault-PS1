@@ -1,22 +1,46 @@
-asm(".text\n\t.globl func_800973AC\nfunc_800973AC:\n\t"
-    ".word 0x27BDFFC8,0xAFB10014,0x00A08821,0xAFB20018\n\t"
-    ".word 0x00C09021,0xAFB40020,0x0080A021,0xAFB00010\n\t"
-    ".word 0x24100003,0xAFBE0030,0x241E0001,0xAFB3001C\n\t"
-    ".word 0x329300FF,0x3C03800B,0x24636C94,0xAFB50024\n\t"
-    ".word 0x3C15800C,0x8EB58D24,0x00131080,0xAFB60028\n\t"
-    ".word 0x0043B021,0xAFB7002C,0x2417FFFF,0xAFBF0034\n\t"
-    ".word 0x3C01800C,0x127E000B,0xAC208D24,0x3C02800C\n\t"
-    ".word 0x90428D34,0x00000000,0x30420010,0x10400005\n\t"
-    ".word 0x24040001,0x00002821,0x00003021,0x0C02811E\n\t"
-    ".word 0x00003821,0x1220000B,0x00000000,0x8EC20000\n\t"
-    ".word 0x00000000,0x10400007,0x24040002,0x02202821\n\t"
-    ".word 0x02403021,0x0C02811E,0x00003821,0x1440000A\n\t"
-    ".word 0x00000000,0x3C01800C,0xAC358D24,0x328400FF\n\t"
-    ".word 0x02202821,0x02403021,0x0C02811E,0x00003821\n\t"
-    ".word 0x10400006,0x00001021,0x2610FFFF,0x1617FFDC\n\t"
-    ".word 0x2402FFFF,0x3C01800C,0xAC358D24,0x14400006\n\t"
-    ".word 0x00002021,0x0C027FCC,0x02402821,0x38420002\n\t"
-    ".word 0x08025D32,0x2C420001,0x00001021,0x8FBF0034\n\t"
-    ".word 0x8FBE0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0038\n");
+typedef void (*CdlCB)(unsigned char, unsigned char *);
+
+extern CdlCB D_800B8D24;
+extern unsigned char D_800B8D34;
+extern int D_800B6C94[];
+extern int func_800A0478(unsigned char com, unsigned char *param, unsigned char *result, int arg3);
+extern int func_8009FF30(int mode, unsigned char *result);
+
+static inline char CdStatus(void)
+{
+    return D_800B8D34;
+}
+
+static inline int cd_cw(unsigned char com, unsigned char *param, unsigned char *result, int arg3)
+{
+    CdlCB old = D_800B8D24;
+    int count = 3;
+    int stop;
+    int nop;
+
+    do {
+        nop = 1;
+        D_800B8D24 = 0;
+        if (com != nop && (CdStatus() & 0x10)) {
+            func_800A0478(1, 0, 0, 0);
+        }
+        if (param == 0 || D_800B6C94[com] == 0 || !func_800A0478(2, param, result, 0)) {
+            D_800B8D24 = old;
+            if (!func_800A0478(com, param, result, arg3)) {
+                return 0;
+            }
+        }
+        stop = -1;
+    } while (--count != stop);
+
+    D_800B8D24 = old;
+    return -1;
+}
+
+int func_800973AC(unsigned char com, unsigned char *param, unsigned char *result)
+{
+    if (cd_cw(com, param, result, 0) != 0) {
+        return 0;
+    }
+    return func_8009FF30(0, result) == 2;
+}

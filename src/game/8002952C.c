@@ -1,58 +1,184 @@
-asm(".text\n\t.globl func_8002952C\nfunc_8002952C:\n\t"
-    ".word 0x27BDFF80,0xAFB00068,0xAFB20070,0x00C09021\n\t"
-    ".word 0xAFBF0078,0xAFB30074,0xAFB1006C,0x8E430010\n\t"
-    ".word 0x24020001,0x1462009A,0x00808021,0x8E02003C\n\t"
-    ".word 0x00000000,0x1040002E,0x27B10020,0x27A70038\n\t"
-    ".word 0x24081000,0xACE80000,0xACE00004,0xACE80008\n\t"
-    ".word 0xACE0000C,0xACE80010,0xACE00014,0xACE00018\n\t"
-    ".word 0xACE0001C,0xAFA00030,0xAFA00034,0xA3A00058\n\t"
-    ".word 0x8E02003C,0x3C03800D,0x84440004,0x246332F4\n\t"
-    ".word 0x00041040,0x00441021,0x00021080,0x00431821\n\t"
-    ".word 0x8C620004,0x00000000,0x1040000A,0x2402FFFF\n\t"
-    ".word 0x10820008,0x02002821,0x24060001,0xAFA70010\n\t"
-    ".word 0x8E04003C,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x27A70030,0x27A40038,0x26050008,0x0C022997\n\t"
-    ".word 0x02203021,0x96040024,0x86250000,0x86260008\n\t"
-    ".word 0x0C0057D9,0x00000000,0x0800A58D,0x00000000\n\t"
-    ".word 0x8E090008,0x8E0A000C,0x8E0B0010,0xAFA90020\n\t"
-    ".word 0xAFAA0024,0xAFAB0028,0x8E430000,0x8FA20020\n\t"
-    ".word 0x00000000,0x00621023,0x04400003,0x00401821\n\t"
-    ".word 0x0800A598,0x00022303,0x00031023,0x00021303\n\t"
-    ".word 0x00022023,0x8E430004,0x8FA20028,0x00000000\n\t"
-    ".word 0x00621023,0x04400003,0x00401821,0x0800A5A3\n\t"
-    ".word 0x00021303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00840018,0x00001812,0x00000000,0x00000000\n\t"
-    ".word 0x00420018,0x27B30020,0x2404007F,0xAFA00060\n\t"
-    ".word 0x8E51000C,0x8E470008,0x9202001D,0x00006812\n\t"
-    ".word 0x1044001E,0x006D3021,0x14440003,0x00401821\n\t"
-    ".word 0x0800A5BD,0x00002021,0x00031100,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00432021,0x2402007F,0x16220003\n\t"
-    ".word 0x00111100,0x0800A5C9,0x00001021,0x00511021\n\t"
-    ".word 0x00021080,0x00511021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431021,0x8C83000C,0x8C42000C\n\t"
-    ".word 0x00000000,0x10620058,0x00000000,0x3C02800D\n\t"
-    ".word 0x8C423024,0x00000000,0x90440062,0x90450063\n\t"
-    ".word 0x27A20060,0x0C011E13,0xAFA20010,0x10400005\n\t"
-    ".word 0x3C030001,0xA211001D,0xAE000034,0x0800A625\n\t"
-    ".word 0xA2000019,0x8E620000,0x00000000,0xAFA20030\n\t"
-    ".word 0x8E620004,0x3463E000,0x00431021,0xAFA20034\n\t"
-    ".word 0x8E620008,0x00000000,0xAFA20038,0x24020003\n\t"
-    ".word 0xA2020019,0x3C02800D,0x8C422FE0,0x8FA30060\n\t"
-    ".word 0xAE000034,0x00431021,0x0800A625,0xAE020028\n\t"
-    ".word 0x9202001C,0x00000000,0x10400033,0x00000000\n\t"
-    ".word 0x8E440014,0x8E450008,0x0C009045,0x00000000\n\t"
-    ".word 0x00402821,0x18A0002C,0x3C02800D,0x90422FEC\n\t"
-    ".word 0x8E43000C,0x00000000,0x0062102A,0x1040000B\n\t"
-    ".word 0x2402007F,0x10620009,0x00031100,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x0800A60B,0x00433021,0x00003021\n\t"
-    ".word 0x0C00A4C2,0x02002021,0x8E020038,0x00000000\n\t"
-    ".word 0x1C400015,0x00000000,0x8E420000,0x8E040010\n\t"
-    ".word 0x8E050008,0x00442023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x26050008,0x3C02800D,0x8C442F50,0x96060014\n\t"
-    ".word 0x00003821,0xAFA00010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0x0C00D652,0xAFA0001C,0x92020006,0x00000000\n\t"
-    ".word 0x34420002,0xA2020006,0x8FBF0078,0x8FB30074\n\t"
-    ".word 0x8FB20070,0x8FB1006C,0x8FB00068,0x03E00008\n\t"
-    ".word 0x27BD0080\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    Matrix m;
+    unsigned char hit;
+} TouchInfo;
+
+typedef struct Node {
+    short id;
+    short next;
+    short kind;
+} Node;
+
+typedef struct NodeClass {
+    void (*update)();
+    void (*touch)();
+    void (*draw)();
+} NodeClass;
+
+typedef struct {
+    char pad0[0xC];
+    int team;
+    char pad10[0x114 - 0x10];
+} Waypoint;
+
+typedef struct {
+    char pad0[0x62];
+    unsigned char sx;
+    unsigned char sz;
+} Map;
+
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7;
+    Vector pos;
+    unsigned short angle;
+    char pad16[3];
+    unsigned char state;
+    char pad1A[2];
+    unsigned char armed;
+    unsigned char owner;
+    char pad1E[2];
+    char pad20[4];
+    unsigned short cell;
+    char pad26[2];
+    int timer;
+    char pad2C[8];
+    int t34;
+    int health;
+    Node *node;
+} Turret;
+
+typedef struct {
+    int x;
+    int z;
+    int range;
+    int team;
+    int kind;
+    int power;
+} Blast;
+
+extern NodeClass D_800D32F4[];
+extern Waypoint D_800E3E68[];
+extern Map *D_800D3024;
+extern unsigned char D_800D2FEC;
+extern int D_800D2FE0;
+extern int D_800D2F50;
+extern void func_8008A65C(Matrix *, Vector *, Vector *);
+extern void func_80015F64(int, int, int);
+extern int func_8004784C(int, int, int, int, int *);
+extern int func_80024114(int, int);
+extern void func_80029308(Turret *, int, Waypoint *);
+extern int func_8008AE30(int, int);
+extern void func_80035948(int, Vector *, int, int, int, int, int, int);
+
+static inline void matrix_identity(Matrix *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\tsw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     : : "r"(m) : "$8", "memory");
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline void turret_capture(Turret *t, Vector *src, int dist, int team, int range) {
+    int delay;
+
+    delay = 0;
+    if (t->owner != 127 && waypoint_get(t->owner)->team == waypoint_get(team)->team) {
+        return;
+    }
+    if (func_8004784C(D_800D3024->sx, D_800D3024->sz, dist, range, &delay)) {
+        t->owner = team;
+        t->t34 = 0;
+        t->state = 0;
+    } else {
+        Vector aim;
+
+        aim.x = src->x;
+        aim.y = src->y + 0x1E000;
+        aim.z = src->z;
+        t->state = 3;
+        t->t34 = 0;
+        t->timer = D_800D2FE0 + delay;
+    }
+}
+
+void func_8002952C(Turret *t, void *msg, Blast *b) {
+    Vector pos;
+    int dx;
+    int dz;
+    int dist;
+    int damage;
+    Waypoint *w;
+
+    if (b->kind == 1) {
+        if (t->node != 0) {
+            {
+                int pair[2];
+                TouchInfo info;
+                TouchInfo *ip;
+                NodeClass *cls;
+                Vector *out;
+
+                out = &pos;
+
+                ip = &info;
+                matrix_identity(&ip->m);
+                pair[0] = 0;
+                pair[1] = 0;
+                info.hit = 0;
+                cls = D_800D32F4;
+                cls += t->node->kind;
+                if (cls->touch != 0 && t->node->kind != -1) {
+                    cls->touch(t->node, t, 1, pair, ip);
+                }
+                func_8008A65C(&info.m, &t->pos, out);
+                func_80015F64(t->cell, (short)out->x, (short)out->z);
+            }
+        } else {
+            pos = t->pos;
+        }
+        dx = fixed_to_int(b->x - pos.x);
+        dz = fixed_to_int(b->z - pos.z);
+        dist = dx * dx + dz * dz;
+        turret_capture(t, &pos, dist, b->team, b->range);
+    } else if (t->armed != 0) {
+        damage = func_80024114(b->power, b->range);
+        if (damage > 0) {
+            if (b->team < D_800D2FEC && b->team != 127) {
+                w = &D_800E3E68[b->team];
+            } else {
+                w = 0;
+            }
+            func_80029308(t, damage, w);
+            if (t->health <= 0) {
+                func_8008AE30(b->x - t->pos.z, b->x - t->pos.x);
+                func_80035948(D_800D2F50, &t->pos, t->angle, 0, 0, 0, 0, 0);
+                t->flags |= 2;
+            }
+        }
+    }
+}

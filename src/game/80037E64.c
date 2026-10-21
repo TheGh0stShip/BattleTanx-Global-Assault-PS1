@@ -1,115 +1,353 @@
-asm(".text\n\t.globl func_80037E64\nfunc_80037E64:\n\t"
-    ".word 0x27BDFFE0,0x00804021,0x24050002,0x00004821\n\t"
-    ".word 0x00A03821,0x9103002A,0x00000000,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20018,0xE85F0000\n\t"
-    ".word 0x8FA40018,0x00000000,0x2486FFF4,0x04C10023\n\t"
-    ".word 0x00000000,0x00831804,0x4887F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A2001C,0xE85F0000,0x8FA5001C\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x0800DFBC\n\t"
-    ".word 0x00471007,0x00021023,0x00471004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800DFD2,0x00831804,0x00061023,0x00471007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0800DFD4,0x00601021,0x00031B00\n\t"
-    ".word 0x0065001B,0x14A00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00601021,0x11200002\n\t"
-    ".word 0x00000000,0x00021023,0x24421000,0x00021FC2\n\t"
-    ".word 0x00431021,0x8D030008,0x00000000,0x04600006\n\t"
-    ".word 0x00023843,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800DFEA,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800DFEC,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20000\n\t"
-    ".word 0x8D03000C,0x00000000,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0800DFFC,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800DFFE\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20004,0x8D030010,0x00000000\n\t"
-    ".word 0x04600005,0x24620800,0x0441000A,0x00023303\n\t"
-    ".word 0x0800E00C,0x00021023,0x2462F800,0x04410005\n\t"
-    ".word 0x00023303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00023023,0x00072840,0xAFA60008,0x8D0B0014\n\t"
-    ".word 0x00000000,0x00AB0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x04610002\n\t"
-    ".word 0x00000000,0x24630FFF,0x00031B03,0x8FA20000\n\t"
-    ".word 0x8FA40004,0x00431023,0xAFA2000C,0xAFA40010\n\t"
-    ".word 0x8D0C0018,0x00000000,0x00AC0018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x04610002,0x00002021,0x24630FFF,0x00031303\n\t"
-    ".word 0x3C03800B,0x2465D9EC,0x8CA30010,0x00C21023\n\t"
-    ".word 0x2463FFE0,0x1860000B,0xAFA20014,0x8CA40004\n\t"
-    ".word 0x8CA20014,0xACA30010,0x24420001,0x24830020\n\t"
-    ".word 0xACA20014,0x24020008,0xACA30004,0xA0820000\n\t"
-    ".word 0xA0800002,0x1080002E,0x240200C0,0x8FAD0000\n\t"
-    ".word 0x8FAE0004,0x8FAB0008,0xAC8D0008,0xAC8E000C\n\t"
-    ".word 0xAC8B0010,0xA0820004,0x24020080,0xA0820005\n\t"
-    ".word 0x24020040,0xA0820006,0x24020009,0xA0820003\n\t"
-    ".word 0x2402002C,0xA0820007,0x3C02800B,0xA0800001\n\t"
-    ".word 0x8C43DA04,0x24020200,0x240D0014,0xA4800014\n\t"
-    ".word 0xA4800016,0xA0800001,0xA4820016,0x246300FC\n\t"
-    ".word 0xAC83001C,0x00ED0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4820018\n\t"
-    ".word 0x00ED0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0xA482001A,0x90820007\n\t"
-    ".word 0x24030020,0xA4830014,0x34420002,0xA0820007\n\t"
-    ".word 0x8502002E,0x00000000,0x104000EF,0x00000000\n\t"
-    ".word 0x8CA20010,0x00000000,0x2443FFD8,0x1860000B\n\t"
-    ".word 0x00002021,0x8CA40004,0x8CA20014,0xACA30010\n\t"
-    ".word 0x24420001,0x24830028,0xACA20014,0x2402000A\n\t"
-    ".word 0xACA30004,0xA0820000,0xA0800002,0x00803021\n\t"
-    ".word 0x10C00065,0x24030080,0x8FAE0000,0x8FAB0004\n\t"
-    ".word 0x8FAC0008,0xACCE0008,0xACCB000C,0xACCC0010\n\t"
-    ".word 0x24020028,0x24080008,0x24090038,0xA0C20005\n\t"
-    ".word 0xA0C2001D,0x24020020,0x240E000C,0xA0C30004\n\t"
-    ".word 0xA0C00006,0xA0C3001C,0xA0C0001E,0xA0C80003\n\t"
-    ".word 0xA0C90007,0xA4C00014,0xA0C00001,0xA4C00016\n\t"
-    ".word 0xA0C20001,0x00EE0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4C20018\n\t"
-    ".word 0x00EE0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0xA4C2001A,0x01201021\n\t"
-    ".word 0x24030020,0x34420002,0xA4C00016,0xA4C30014\n\t"
-    ".word 0xA0C20007,0x8CA20010,0x00000000,0x2442FFE0\n\t"
-    ".word 0x1840000A,0x00002021,0x8CA40004,0x8CA30014\n\t"
-    ".word 0xACA20010,0x24630001,0x24820020,0xACA20004\n\t"
-    ".word 0xACA30014,0xA0880000,0xA0800002,0x00802821\n\t"
-    ".word 0x10A00029,0x24020010,0x8FAB000C,0x8FAC0010\n\t"
-    ".word 0x8FAD0014,0xACAB0008,0xACAC000C,0xACAD0010\n\t"
-    ".word 0x240B000C,0xA0A20004,0xA0A00005,0xA0A00006\n\t"
-    ".word 0xA0A2001C,0xA0A0001D,0xA0A0001E,0x00EB0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0xA4A20018,0x00EB0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA4A2001A,0xA0A90007,0xA4A00016,0x90C20000\n\t"
-    ".word 0x90A40000,0x90C30002,0x00441021,0x24630001\n\t"
-    ".word 0xA0C20000,0xA0C30002,0x90A20007,0xA4A00016\n\t"
-    ".word 0x34420002,0xA0A20007,0x3C02800B,0x2445D9EC\n\t"
-    ".word 0x8CA20010,0x00000000,0x2443FFD8,0x1860000B\n\t"
-    ".word 0x00002021,0x8CA40004,0x8CA20014,0xACA30010\n\t"
-    ".word 0x24420001,0x24830028,0xACA20014,0x2402000A\n\t"
-    ".word 0xACA30004,0xA0820000,0xA0800002,0x00803021\n\t"
-    ".word 0x10C00065,0x24030080,0x8FAC0000,0x8FAD0004\n\t"
-    ".word 0x8FAE0008,0xACCC0008,0xACCD000C,0xACCE0010\n\t"
-    ".word 0x24020028,0x24090008,0x240A0038,0x24080010\n\t"
-    ".word 0x240C000C,0xA0C30004,0xA0C20005,0xA0C00006\n\t"
-    ".word 0xA0C3001C,0xA0C2001D,0xA0C0001E,0xA0C90003\n\t"
-    ".word 0xA0CA0007,0xA4C00014,0xA0C00001,0xA4C00016\n\t"
-    ".word 0xA0C80001,0x00EC0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4C20018\n\t"
-    ".word 0x00EC0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0xA4C2001A,0x01401021\n\t"
-    ".word 0x24030020,0x34420002,0xA4C00016,0xA4C30014\n\t"
-    ".word 0xA0C20007,0x8CA20010,0x00000000,0x2442FFE0\n\t"
-    ".word 0x1840000A,0x00002021,0x8CA40004,0x8CA30014\n\t"
-    ".word 0xACA20010,0x24630001,0x24820020,0xACA20004\n\t"
-    ".word 0xACA30014,0xA0890000,0xA0800002,0x00802821\n\t"
-    ".word 0x10A00029,0x00000000,0x8FAD000C,0x8FAE0010\n\t"
-    ".word 0x8FAB0014,0xACAD0008,0xACAE000C,0xACAB0010\n\t"
-    ".word 0xA0A80004,0x240D000C,0xA0A00005,0xA0A00006\n\t"
-    ".word 0xA0A8001C,0xA0A0001D,0xA0A0001E,0x00ED0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0xA4A20018,0x00ED0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA4A2001A,0xA0AA0007,0xA4A00016,0x90C20000\n\t"
-    ".word 0x90A40000,0x90C30002,0x00441021,0x24630001\n\t"
-    ".word 0xA0C20000,0xA0C30002,0x90A20007,0xA4A00016\n\t"
-    ".word 0x34420002,0xA0A20007,0x03E00008,0x27BD0020\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct {
+    unsigned char type;
+    unsigned char b1;
+    unsigned char count;
+    unsigned char b3;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char flags;
+} CmdHeader;
+typedef struct {
+    CmdHeader h;
+    Vector pos;
+    short u;
+    short v;
+    short w;
+    short h2;
+    int texture;
+} CmdSprite;
+typedef struct {
+    CmdHeader h;
+    Vector pos;
+    short u;
+    short v;
+    short w;
+    short h2;
+    unsigned char r2;
+    unsigned char g2;
+    unsigned char b2;
+    unsigned char pad;
+    int extra[2];
+} CmdQuad;
+typedef struct {
+    char pad0[4];
+    char *ptr;
+    char pad8[8];
+    int remaining;
+    int count;
+    int texture;
+} CmdPool;
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    int dx;
+    int dz;
+    char pad1C[0x2A - 0x1C];
+    unsigned char size;
+    char pad2B[0x2E - 0x2B];
+    short glow;
+} Flare;
+extern CmdPool D_800AD9EC;
+extern int D_800ADA04;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(unsigned int numerator, int denom) {
+    register int denominator asm("$5") = denom;
+    int negative;
+    register int n asm("$3");
+    int sign;
+    register int d asm("$7");
+    register int n_zeros asm("$4");
+    int d_zeros;
+    register int excess asm("$6");
+    int scale;
+    unsigned int quotient;
+    register int divisor asm("$2");
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    d = abs(denominator);
+    __asm__("" : : "r"(negative));
+    n = numerator;
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                divisor = d >> scale;
+            } else {
+                divisor = d << -scale;
+            }
+            quotient = (unsigned int)n / divisor;
+            quotient <<= n_zeros;
+        } else {
+            divisor = d >> -excess;
+            quotient = (unsigned int)n / divisor;
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        return -result;
+    }
+    return result;
+}
+
+static inline int fixed_round(int value) {
+    int result;
+
+    if (value >= 0) {
+        result = value + 2048 >= 0 ? (value + 2048) >> 12 : -(-(value + 2048) >> 12);
+    } else {
+        result = value - 2048 >= 0 ? (value - 2048) >> 12 : -(-(value - 2048) >> 12);
+    }
+    return result;
+}
+
+static inline void *cmd_alloc(CmdPool *pool, int size, unsigned char type) {
+    register CmdHeader *cmd asm("$4");
+    int rem;
+    int left;
+
+    cmd = 0;
+    rem = pool->remaining;
+    left = rem - size;
+    if (left > 0) {
+        cmd = (CmdHeader *)pool->ptr;
+        pool->remaining = left;
+        {
+            register int c asm("$2") = pool->count + 1;
+            pool->ptr += size;
+            pool->count = c;
+        }
+        cmd->type = type;
+        cmd->count = 0;
+    }
+    return cmd;
+}
+
+static inline void *tail_alloc(CmdPool *pool, int size, unsigned char type) {
+    register CmdHeader *cmd asm("$4");
+    int rem;
+    int left;
+
+    cmd = 0;
+    rem = pool->remaining;
+    left = rem - size;
+    if (left > 0) {
+        cmd = (CmdHeader *)pool->ptr;
+        pool->remaining = left;
+        {
+            register int c asm("$3") = pool->count + 1;
+            pool->ptr += size;
+            pool->count = c;
+        }
+        cmd->type = type;
+        cmd->count = 0;
+    }
+    return cmd;
+}
+
+static inline void *sprite_alloc(CmdPool *pool, int size, int type) {
+    register CmdHeader *cmd asm("$4");
+    int rem;
+    int left;
+
+    cmd = 0;
+    rem = pool->remaining;
+    left = rem - size;
+    if (left > 0) {
+        cmd = (CmdHeader *)pool->ptr;
+        pool->remaining = left;
+        {
+            register int c asm("$2") = pool->count + 1;
+            pool->ptr += size;
+            pool->count = c;
+        }
+        cmd->type = size / 4;
+        cmd->count = 0;
+    }
+    return cmd;
+}
+
+static inline void glow_pair_hot(Vector *pos, Vector *tail, int scale) {
+    CmdQuad *q;
+    CmdSprite *s;
+
+    q = cmd_alloc(&D_800AD9EC, 40, 10);
+    if (q == 0) {
+        return;
+    }
+    {
+        int c = 128;
+
+        q->pos = *pos;
+        __asm__("");
+        q->h.r = c;
+        q->h.g = 40;
+        q->h.b = 0;
+        q->r2 = c;
+    }
+    q->g2 = 40;
+    q->b2 = 0;
+    q->h.b3 = 8;
+    q->h.flags = 56;
+    q->u = 0;
+    q->h.b1 = 0;
+    q->v = 0;
+    q->h.b1 = 32;
+    q->w = fixed_mul(scale, 12);
+    q->h2 = fixed_mul(scale, 12);
+    q->v = 0;
+    q->u = 32;
+    q->h.flags |= 2;
+    s = tail_alloc(&D_800AD9EC, 32, 8);
+    if (s == 0) {
+        return;
+    }
+    s->pos = *tail;
+    ((CmdQuad *)s)->h.r = 16;
+    ((CmdQuad *)s)->h.g = 0;
+    ((CmdQuad *)s)->h.b = 0;
+    ((CmdQuad *)s)->r2 = 16;
+    ((CmdQuad *)s)->g2 = 0;
+    ((CmdQuad *)s)->b2 = 0;
+    s->w = fixed_mul(scale, 12);
+    s->h2 = fixed_mul(scale, 12);
+    s->h.flags = 56;
+    s->v = 0;
+    ((unsigned char *)q)[0] += ((unsigned char *)s)[0];
+    ((unsigned char *)q)[2]++;
+    s->v = 0;
+    s->h.flags |= 2;
+}
+
+static inline void glow_pair_cool(Vector *pos, Vector *tail, int scale) {
+    CmdQuad *q;
+    CmdSprite *s;
+
+    q = cmd_alloc(&D_800AD9EC, 40, 10);
+    if (q == 0) {
+        return;
+    }
+    {
+        int c = 128;
+
+        q->pos = *pos;
+        __asm__("");
+        q->h.r = c;
+        q->h.g = 40;
+        q->h.b = 0;
+        q->r2 = c;
+    }
+    q->g2 = 40;
+    q->b2 = 0;
+    q->h.b3 = 8;
+    q->h.flags = 56;
+    q->u = 0;
+    q->h.b1 = 0;
+    q->v = 0;
+    q->h.b1 = 16;
+    q->w = fixed_mul(scale, 12);
+    q->h2 = fixed_mul(scale, 12);
+    q->v = 0;
+    q->u = 32;
+    q->h.flags |= 2;
+    s = tail_alloc(&D_800AD9EC, 32, 8);
+    if (s == 0) {
+        return;
+    }
+    s->pos = *tail;
+    ((CmdQuad *)s)->h.r = 16;
+    __asm__("");
+    ((CmdQuad *)s)->h.g = 0;
+    ((CmdQuad *)s)->h.b = 0;
+    ((CmdQuad *)s)->r2 = 16;
+    ((CmdQuad *)s)->g2 = 0;
+    ((CmdQuad *)s)->b2 = 0;
+    s->w = fixed_mul(scale, 12);
+    s->h2 = fixed_mul(scale, 12);
+    s->h.flags = 56;
+    s->v = 0;
+    ((unsigned char *)q)[0] += ((unsigned char *)s)[0];
+    ((unsigned char *)q)[2]++;
+    s->v = 0;
+    s->h.flags |= 2;
+}
+
+void func_80037E64(Flare *flare)
+{
+    register Flare *f asm("$8") = flare;
+    Vector pts[2];
+    CmdSprite *s;
+    int scale;
+    int scale2;
+
+    scale = (fixed_div(f->size, 2) + 4096) / 2;
+    pts[0].x = fixed_round(f->pos.x);
+    pts[0].y = fixed_round(f->pos.y);
+    pts[0].z = fixed_round(f->pos.z);
+    pts[1].x = pts[0].x - fixed_mul(scale * 2, f->dx) / 4096;
+    pts[1].y = pts[0].y;
+    pts[1].z = pts[0].z - fixed_mul(scale * 2, f->dz) / 4096;
+    s = sprite_alloc(&D_800AD9EC, 32, 8);
+    if (s != 0) {
+        s->pos = pts[0];
+        s->h.r = 192;
+        s->h.g = 128;
+        s->h.b = 64;
+        s->h.b3 = 9;
+        s->h.flags = 44;
+        s->h.b1 = 0;
+        s->texture = D_800ADA04 + 252;
+        s->u = 0;
+        s->v = 0;
+        s->h.b1 = 0;
+        s->v = 512;
+        s->w = fixed_mul(scale, 20);
+        s->h2 = fixed_mul(scale, 20);
+        s->u = 32;
+        s->h.flags |= 2;
+    }
+    if (f->glow == 0) {
+        return;
+    }
+    glow_pair_hot(&pts[0], &pts[1], scale);
+    glow_pair_cool(&pts[0], &pts[1], scale);
+}

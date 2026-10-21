@@ -1,47 +1,87 @@
-asm(".text\n\t.globl func_80090984\nfunc_80090984:\n\t"
-    ".word 0x3C02800B,0x8C427768,0x27BDFFD8,0xAFB10014\n\t"
-    ".word 0x00808821,0xAFB00010,0x00008021,0xAFB20018\n\t"
-    ".word 0x2412FFFF,0xAFBF0020,0x14400003,0xAFB3001C\n\t"
-    ".word 0x08024276,0x00009821,0x3C020001,0x3C03800B\n\t"
-    ".word 0x8C63776C,0x3C04800B,0x8C847718,0x00431023\n\t"
-    ".word 0x00829804,0x3C03800B,0x8C637720,0x00000000\n\t"
-    ".word 0x00031027,0x02221024,0x10400002,0x00000000\n\t"
-    ".word 0x02238821,0x3C02800B,0x8C427718,0x3C03800B\n\t"
-    ".word 0x8C637BD8,0x00518807,0x00518804,0x8C620000\n\t"
-    ".word 0x3C034000,0x00431024,0x10400003,0x00000000\n\t"
-    ".word 0x080242AC,0x00009021,0x0C026AF5,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C637BD0,0x00000000,0x0203102A\n\t"
-    ".word 0x1040001A,0x001010C0,0x3C074000,0x3C068000\n\t"
-    ".word 0x00602821,0x3C03800B,0x8C637BD8,0x00000000\n\t"
-    ".word 0x00432021,0x8C830000,0x00000000,0x00671024\n\t"
-    ".word 0x14400008,0x00661024,0x10400008,0x00000000\n\t"
-    ".word 0x8C820004,0x00000000,0x0051102B,0x14400003\n\t"
-    ".word 0x00000000,0x080242AC,0x02009021,0x26100001\n\t"
-    ".word 0x0205102A,0x1440FFEF,0x24840008,0x2402FFFF\n\t"
-    ".word 0x1242005D,0x001280C0,0x3C07800B,0x8CE77BD8\n\t"
-    ".word 0x00000000,0x02073021,0x8CC30000,0x3C084000\n\t"
-    ".word 0x00681024,0x10400029,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C427BD0,0x00000000,0x0242102A,0x1040004E\n\t"
-    ".word 0x2402FFFF,0x8CC20004,0x00000000,0x00531023\n\t"
-    ".word 0x0051102B,0x14400048,0x2402FFFF,0x3C050FFF\n\t"
-    ".word 0x34A5FFFF,0x26440001,0x000418C0,0x8CC20000\n\t"
-    ".word 0x00671821,0x00451024,0x00511021,0x00481025\n\t"
-    ".word 0xAC620000,0x8CC20004,0x00000000,0x00511023\n\t"
-    ".word 0xAC620004,0x8CC20000,0x3C01800B,0xAC247BD4\n\t"
-    ".word 0xACD10004,0x00451024,0x0C026AF5,0xACC20000\n\t"
-    ".word 0x3C02800B,0x8C427BD8,0x00000000,0x02021021\n\t"
-    ".word 0x8C420000,0x0802430B,0x00000000,0x8CC80004\n\t"
-    ".word 0x00000000,0x0228102B,0x10400018,0x3C040FFF\n\t"
-    ".word 0x3C06800B,0x8CC67BD4,0x3C02800B,0x8C427BD0\n\t"
-    ".word 0x00000000,0x00C2102A,0x10400010,0x00711821\n\t"
-    ".word 0x000610C0,0x00471021,0x3C048000,0x00641825\n\t"
-    ".word 0x8C450000,0x8C440004,0xAC430000,0x01111823\n\t"
-    ".word 0xAC430004,0x24C30001,0x3C01800B,0xAC237BD4\n\t"
-    ".word 0xAC450008,0xAC44000C,0x3C040FFF,0x3C03800B\n\t"
-    ".word 0x8C637BD8,0x001280C0,0x02031821,0x8C620000\n\t"
-    ".word 0x3484FFFF,0xAC710004,0x00441024,0x0C026AF5\n\t"
-    ".word 0xAC620000,0x3C02800B,0x8C427BD8,0x00000000\n\t"
-    ".word 0x02028021,0x8E020000,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n\t"
-);
+typedef struct {
+    unsigned long addr;
+    unsigned long size;
+} SpuMemList;
+
+extern long D_800B7768;
+extern long D_800B776C;
+extern long D_800B7718;
+extern long D_800B7720;
+extern SpuMemList *D_800B7BD8;
+extern long D_800B7BD0;
+extern long D_800B7BD4;
+extern void func_8009ABD4(void);
+
+long func_80090984(long size) {
+    long i = 0;
+    long found = -1;
+    long space;
+    long last;
+    long next;
+    unsigned long tsize;
+    unsigned long a1;
+    unsigned long a0;
+    SpuMemList *p;
+
+    if (D_800B7768 == 0) {
+        space = 0;
+    } else {
+        space = (0x10000 - D_800B776C) << D_800B7718;
+    }
+    if (size & ~D_800B7720) {
+        size += D_800B7720;
+    }
+    size >>= D_800B7718;
+    size <<= D_800B7718;
+    if (D_800B7BD8[0].addr & 0x40000000) {
+        found = 0;
+    } else {
+        func_8009ABD4();
+        for (; i < D_800B7BD0; i++) {
+            if ((D_800B7BD8[i].addr & 0x40000000)
+                || ((D_800B7BD8[i].addr & 0x80000000) && !(D_800B7BD8[i].size < (unsigned long)size))) {
+                found = i;
+                break;
+            }
+        }
+    }
+    if (found == -1) {
+        return -1;
+    }
+    p = (SpuMemList *)((found << 3) + (unsigned long)D_800B7BD8);
+    if (p->addr & 0x40000000) {
+        __asm__("" : "=r"(p) : "0"(p));
+        if (found >= D_800B7BD0) {
+            return -1;
+        }
+        if (p->size - space < (unsigned long)size) {
+            return -1;
+        }
+        next = found + 1;
+        D_800B7BD8[next].addr = ((p->addr & 0x0FFFFFFF) + size) | 0x40000000;
+        D_800B7BD8[next].size = p->size - size;
+        D_800B7BD4 = next;
+        p->size = size;
+        p->addr &= 0x0FFFFFFF;
+        func_8009ABD4();
+        return D_800B7BD8[found].addr;
+    }
+    tsize = D_800B7BD8[found].size;
+    if ((unsigned long)size < tsize) {
+        last = D_800B7BD4;
+        if (last < D_800B7BD0) {
+            unsigned long n = D_800B7BD8[found].addr + size;
+            a1 = D_800B7BD8[last].addr;
+            a0 = D_800B7BD8[last].size;
+            D_800B7BD8[last].addr = n | 0x80000000;
+            D_800B7BD8[last].size = tsize - size;
+            D_800B7BD4 = last + 1;
+            D_800B7BD8[last + 1].addr = a1;
+            D_800B7BD8[last + 1].size = a0;
+        }
+    }
+    D_800B7BD8[found].size = size;
+    D_800B7BD8[found].addr &= 0x0FFFFFFF;
+    func_8009ABD4();
+    return D_800B7BD8[found].addr;
+}

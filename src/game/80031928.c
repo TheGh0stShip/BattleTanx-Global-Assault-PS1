@@ -1,43 +1,72 @@
-asm(".text\n\t.globl func_80031928\nfunc_80031928:\n\t"
-    ".word 0x27BDFE48,0xAFB201A0,0x00809021,0xAFBF01B4\n\t"
-    ".word 0xAFB601B0,0xAFB501AC,0xAFB401A8,0xAFB301A4\n\t"
-    ".word 0xAFB1019C,0xAFB00198,0x96420006,0x8E440008\n\t"
-    ".word 0x00021880,0x00621821,0x000318C0,0x3C02800C\n\t"
-    ".word 0x244262B0,0x04800003,0x00624021,0x0800C662\n\t"
-    ".word 0x00041303,0x00041023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E430010,0x00000000,0x04600003\n\t"
-    ".word 0x00024C03,0x0800C66C,0x00031303,0x00031023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8E43000C\n\t"
-    ".word 0x00000000,0x04600003,0x00023403,0x0800C676\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x04A00003,0x00023C03,0x0800C67E\n\t"
-    ".word 0x00052B03,0x00051023,0x00021303,0x00022823\n\t"
-    ".word 0x85020016,0x9503001C,0xAFA20010,0x85020018\n\t"
-    ".word 0x00000000,0xAFA20014,0x00051380,0x00021403\n\t"
-    ".word 0x00621821,0x00031C00,0x8502001C,0x00031C03\n\t"
-    ".word 0xAFA3001C,0xAFA20018,0x8502001E,0x00000000\n\t"
-    ".word 0xAFA20020,0x85020020,0x00002021,0xAFA20024\n\t"
-    ".word 0x96420014,0x01202821,0xAFA0002C,0x0C006BB5\n\t"
-    ".word 0xAFA20028,0x3044FFFF,0x3C0500F4,0x34A5D50F\n\t"
-    ".word 0x27A60030,0x00003821,0x3C02800C,0xA440628C\n\t"
-    ".word 0x0C005EAB,0xAFA00010,0x3050FFFF,0x12000044\n\t"
-    ".word 0x0200A021,0x27A40150,0x0C022B24,0x24050024\n\t"
-    ".word 0x96420014,0x00008821,0x1200003D,0xA7A2015C\n\t"
-    ".word 0x3C16800C,0x27B30178,0x3C02800D,0x245532F4\n\t"
-    ".word 0x02208021,0x27A20030,0x00502021,0x8C820000\n\t"
-    ".word 0x00000000,0x1052002E,0x00000000,0x10400031\n\t"
-    ".word 0x00001021,0x26CDE24C,0x8DAA0000,0x8DAB0004\n\t"
-    ".word 0x8DAC0008,0xAFAA0178,0xAFAB017C,0xAFAC0180\n\t"
-    ".word 0x8DAA000C,0x8DAB0010,0x8DAC0014,0xAFAA0184\n\t"
-    ".word 0xAFAB0188,0xAFAC018C,0x8DAA0018,0x00000000\n\t"
-    ".word 0xAFAA0190,0x8C820000,0x00000000,0x84430004\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00553821,0x8CE20004,0x00000000,0x1040000A\n\t"
-    ".word 0x2402FFFF,0x10620008,0x02402821,0x00003021\n\t"
-    ".word 0xAFB30010,0x8C840000,0x8CE20004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70150,0x8FA30178,0x24020001\n\t"
-    ".word 0x14620004,0x26310001,0x0800C6E7,0x00001021\n\t"
-    ".word 0x26310001,0x0234102A,0x1440FFCA,0x26100024\n\t"
-    ".word 0x24020001,0x8FBF01B4,0x8FB601B0,0x8FB501AC\n\t"
-    ".word 0x8FB401A8,0x8FB301A4,0x8FB201A0,0x8FB1019C\n\t"
-    ".word 0x8FB00198,0x03E00008,0x27BD01B8\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[5]; short pad2; short x0; short x1; short pad3; short y0; short y1; short z0; short pad4; int pad5; } Cell;
+typedef struct { int pad; short type; } Entity;
+typedef struct { Entity *obj; int pad[8]; } Hit;
+typedef struct { int pad[3]; unsigned short id; char rest[22]; } Msg;
+typedef struct { int blocked; int pad[6]; } Result;
+typedef void (*Handler)(Entity *, void *, int, Msg *, Result *);
+typedef struct { int pad; Handler handler; int pad2; } TypeInfo;
+typedef struct { short pad[3]; unsigned short cell; Vector pos; unsigned short id; } Wall;
+extern Cell D_800C62B0[];
+extern short D_800C628C;
+extern TypeInfo D_800D32F4[];
+extern Result D_800BE24C;
+int func_8001AED4(int, int, int, int, int, int, int, int, int, int, int, int);
+int func_80017AAC(int, int, Hit *, int, int);
+void func_8008AC90(void *, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline short quarter(int v) {
+    return (to_int(v) << 14) >> 16;
+}
+
+int func_80031928(Wall *wall, int height) {
+    Wall *w = wall;
+    Hit hits[8];
+    Msg msg;
+    Result res;
+    Cell *cell;
+    register int n asm("$16");
+    int i;
+    Entity *e;
+    int h;
+    register int count asm("$20");
+
+    cell = &D_800C62B0[w->cell];
+    h = func_8001AED4(0, quarter(w->pos.x), quarter(w->pos.z), quarter(w->pos.y), cell->x0, cell->x1, cell->y0,
+                      (short)((unsigned short)cell->y0 + quarter(height)), cell->y1, cell->z0, w->id, 0);
+    D_800C628C = 0;
+    n = func_80017AAC(h & 0xFFFF, 0xF4D50F, hits, 0, 0) & 0xFFFF;
+    count = n;
+    do {
+        if (n != 0) {
+            func_8008AC90(&msg, 36);
+            msg.id = w->id;
+            i = 0;
+            if ((unsigned int)i < (unsigned int)n) do {
+                if (hits[i].obj == (Entity *)w) {
+                    continue;
+                }
+                if (hits[i].obj == 0) {
+                    return 0;
+                }
+                res = D_800BE24C;
+                if (D_800D32F4[hits[i].obj->type].handler != 0 && hits[i].obj->type != -1) {
+                    do {
+                        D_800D32F4[hits[i].obj->type].handler(hits[i].obj, w, 0, &msg, &res);
+                    } while (0);
+                }
+                if (res.blocked == 1) {
+                    return 0;
+                }
+            } while (++i < count);
+        }
+        return 1;
+    } while (0);
+}

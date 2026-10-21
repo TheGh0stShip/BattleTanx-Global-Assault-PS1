@@ -1,45 +1,135 @@
-asm(".text\n\t.globl func_800A3698\nfunc_800A3698:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFBF0020\n\t"
-    ".word 0xAFB3001C,0xAFB20018,0xAFB00010,0x8E22003C\n\t"
-    ".word 0x00000000,0x90420000,0x00000000,0x00029902\n\t"
-    ".word 0x922200E8,0x24040008,0x10440010,0x00000000\n\t"
-    ".word 0x1664000C,0x00000000,0x8E230030,0x240200FF\n\t"
-    ".word 0xA23300E8,0xA0620000,0x8E230030,0x24020080\n\t"
-    ".word 0xA0620001,0x24020002,0xA2220044,0x922200E8\n\t"
-    ".word 0x00000000,0x1444000B,0x00000000,0x8E30000C\n\t"
-    ".word 0x00009021,0x02002021,0x261000F0,0x0C028DA6\n\t"
-    ".word 0x2405FFFF,0x26520001,0x2A420004,0x1440FFFA\n\t"
-    ".word 0x02002021,0x8E220010,0x8E23000C,0x8C50000C\n\t"
-    ".word 0x1060001A,0x00000000,0x92220036,0x00000000\n\t"
-    ".word 0x14400011,0x00000000,0x92020037,0x00000000\n\t"
-    ".word 0x1440002C,0x261000F0,0x92020037,0x00000000\n\t"
-    ".word 0x14400028,0x261000F0,0x92020037,0x00000000\n\t"
-    ".word 0x14400024,0x261000F0,0x92020037,0x00000000\n\t"
-    ".word 0x14400020,0x00000000,0x8E220010,0x8E23000C\n\t"
-    ".word 0x8C50000C,0x14600021,0x00000000,0x92220037\n\t"
-    ".word 0x00000000,0x1440001D,0x00000000,0x8E220010\n\t"
-    ".word 0x00000000,0x90420036,0x00000000,0x14400011\n\t"
-    ".word 0x00000000,0x92020037,0x00000000,0x1440000D\n\t"
-    ".word 0x261000F0,0x92020037,0x00000000,0x14400009\n\t"
-    ".word 0x261000F0,0x92020037,0x00000000,0x14400005\n\t"
-    ".word 0x261000F0,0x92020037,0x00000000,0x10400007\n\t"
-    ".word 0x00000000,0x9222004A,0x00000000,0x14400044\n\t"
-    ".word 0x24020001,0x08028E4E,0xA222004A,0x8E22004C\n\t"
-    ".word 0x92230046,0x24420001,0x1060001D,0xAE22004C\n\t"
-    ".word 0x24020001,0x14620013,0x00000000,0x9224004A\n\t"
-    ".word 0x00000000,0x2C820002,0x1040000A,0x24020002\n\t"
-    ".word 0x8E220010,0x00000000,0x904300E8,0x24020008\n\t"
-    ".word 0x10620003,0x24820001,0x08028E4E,0xA222004A\n\t"
-    ".word 0x24020002,0xA2220049,0x240200FF,0x08028E4E\n\t"
-    ".word 0xA2220046,0x9223004A,0x00000000,0x2C620004\n\t"
-    ".word 0x10400003,0x24620001,0x08028E4E,0xA222004A\n\t"
-    ".word 0x92220049,0x00000000,0x1040000E,0x240200FF\n\t"
-    ".word 0x8E230030,0x00000000,0xA0620000,0x8E220030\n\t"
-    ".word 0x00000000,0xA0400001,0xA22000E8,0xA2200044\n\t"
-    ".word 0x3C02800C,0x8C428C78,0x00000000,0x0040F809\n\t"
-    ".word 0x02202021,0x16600005,0x24020008,0x8E220030\n\t"
-    ".word 0xA22000E8,0xA0400001,0x24020008,0x16620008\n\t"
-    ".word 0x00000000,0x8E22000C,0x00000000,0x10400004\n\t"
-    ".word 0x24020080,0x8E230030,0xA23300E8,0xA0620001\n\t"
-    ".word 0x8FBF0020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct PadPort PadPort;
+struct PadPort {
+    char pad00[12];
+    PadPort *children;
+    PadPort *volatile parent;
+    char pad14[28];
+    unsigned char *out;
+    char pad34[2];
+    unsigned char locked;
+    volatile unsigned char busy;
+    char pad38[4];
+    unsigned char *in;
+    char pad40[4];
+    unsigned char mode;
+    char pad45[1];
+    unsigned char state;
+    char pad47[2];
+    unsigned char failed;
+    unsigned char retry;
+    char pad4B[1];
+    int frames;
+    char pad50[152];
+    unsigned char kind;
+    char padE9[7];
+};
+
+extern void (*D_800B8C78)(PadPort *);
+
+void func_800A3698(PadPort *self, int arg)
+{
+    PadPort *port = self;
+    int kind;
+    int i;
+    PadPort *child;
+
+    kind = port->in[0] >> 4;
+    if (port->kind != 8) {
+        if (kind == 8) {
+            port->kind = kind;
+            port->out[0] = 0xFF;
+            port->out[1] = 0x80;
+            port->mode = 2;
+        }
+    }
+    if (port->kind == 8) {
+        child = port->children;
+        for (i = 0; i < 4; i++) {
+            func_800A3698(child++, -1);
+        }
+    }
+    child = port->parent->children;
+    if (port->children == 0) {
+        goto idle;
+    }
+    if (port->locked == 0) {
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+            goto busy;
+        }
+    }
+    child = port->parent->children;
+    if (((volatile PadPort *)port)->children == 0) {
+    idle:
+        if (port->busy != 0) {
+            goto ready;
+        }
+        if (port->parent->locked != 0) {
+            goto busy;
+        }
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+            goto busy;
+        }
+        child++;
+        if (child->busy != 0) {
+        busy:
+            if (port->retry == 0) {
+                port->retry = 1;
+            }
+            return;
+        }
+    }
+ready:
+    port->frames++;
+    if (port->state != 0) {
+        if (port->state == 1) {
+            if (port->retry < 2) {
+                if (port->parent->kind != 8) {
+                    port->retry++;
+                    return;
+                }
+            }
+            port->failed = 2;
+            port->state = 0xFF;
+            return;
+        }
+        if (port->retry < 4) {
+            port->retry++;
+            return;
+        }
+    }
+    if (port->failed != 0) {
+        port->out[0] = 0xFF;
+        port->out[1] = 0;
+        port->kind = 0;
+        port->mode = 0;
+        D_800B8C78(port);
+    }
+    if (kind == 0) {
+        port->kind = 0;
+        port->out[1] = 0;
+    }
+    if (kind == 8 && port->children != 0) {
+        port->kind = kind;
+        port->out[1] = 0x80;
+    }
+}

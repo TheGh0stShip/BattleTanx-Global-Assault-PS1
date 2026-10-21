@@ -1,59 +1,94 @@
-asm(".text\n\t.globl func_8001C13C\nfunc_8001C13C:\n\t"
-    ".word 0x27BDFF88,0xAFB60070,0x00A0B021,0xAFB40068\n\t"
-    ".word 0x00C0A021,0x32C2FFFF,0x00022080,0x00822021\n\t"
-    ".word 0x000420C0,0x3C05800C,0x24A562B0,0x00852021\n\t"
-    ".word 0x3283FFFF,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00451021,0xAFBF0074,0xAFB5006C,0xAFB30064\n\t"
-    ".word 0xAFB20060,0xAFB1005C,0xAFB00058,0x84830022\n\t"
-    ".word 0x84420022,0x8FB50088,0x00621821,0x00031C80\n\t"
-    ".word 0x8CE20000,0x00031883,0x00021023,0x00430018\n\t"
-    ".word 0x00004012,0x00004810,0x00084302,0x00094D00\n\t"
-    ".word 0x01094025,0xAFA80018,0x8CE20004,0x00000000\n\t"
-    ".word 0x00021023,0x00430018,0x00004012,0x00004810\n\t"
-    ".word 0x00084302,0x00094D00,0x01094025,0x00009821\n\t"
-    ".word 0x27A50038,0x0C005BFD,0xAFA8001C,0x27B00038\n\t"
-    ".word 0x27A20058,0x0202102B,0x1040004B,0x2412F000\n\t"
-    ".word 0x27B1003C,0x27A40020,0x02002821,0x8E020000\n\t"
-    ".word 0x8FA30018,0x3286FFFF,0x00431023,0xAFA20020\n\t"
-    ".word 0x8E220000,0x8FA3001C,0x27A70028,0x00431023\n\t"
-    ".word 0xAFA20024,0x27A20030,0x0C005FB9,0xAFA20010\n\t"
-    ".word 0x3042FFFF,0x10400033,0x00000000,0x8E050000\n\t"
-    ".word 0x8FA30028,0x8E240000,0x8FA2002C,0x00A32823\n\t"
-    ".word 0x00822023,0x00A50018,0x00001012,0x00001810\n\t"
-    ".word 0x18600003,0x00721024,0x14400006,0x3C057FFF\n\t"
-    ".word 0x04610006,0x00031023,0x00521024,0x10400003\n\t"
-    ".word 0x3C057FFF,0x080070B1,0x34A5FFFF,0x00052B02\n\t"
-    ".word 0x00031D00,0x00A32825,0x00840018,0x00001012\n\t"
-    ".word 0x00001810,0x18600003,0x00721024,0x14400006\n\t"
-    ".word 0x3C027FFF,0x04610006,0x00031023,0x00521024\n\t"
-    ".word 0x10400003,0x3C027FFF,0x080070C2,0x3442FFFF\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x00A21821\n\t"
-    ".word 0x0263102A,0x10400007,0x00000000,0x8E020000\n\t"
-    ".word 0x00000000,0xAEA20000,0x8E220000,0x00609821\n\t"
-    ".word 0xAEA20004,0x26100008,0x27A20058,0x0202102B\n\t"
-    ".word 0x1440FFB8,0x26310008,0x3283FFFF,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x3C04800C,0x248462B0\n\t"
-    ".word 0x00442021,0x0C005BFD,0x27A50038,0x27B00038\n\t"
-    ".word 0x27A20058,0x0202102B,0x1040004B,0x2412F000\n\t"
-    ".word 0x27B1003C,0x27A40020,0x02002821,0x8E020000\n\t"
-    ".word 0x8FA30018,0x32C6FFFF,0x00431021,0xAFA20020\n\t"
-    ".word 0x8E220000,0x8FA3001C,0x27A70028,0x00431021\n\t"
-    ".word 0xAFA20024,0x27A20030,0x0C005FB9,0xAFA20010\n\t"
-    ".word 0x3042FFFF,0x10400033,0x00000000,0x8E050000\n\t"
-    ".word 0x8FA30028,0x8E240000,0x8FA2002C,0x00A32823\n\t"
-    ".word 0x00822023,0x00A50018,0x00001012,0x00001810\n\t"
-    ".word 0x18600003,0x00721024,0x14400006,0x3C057FFF\n\t"
-    ".word 0x04610006,0x00031023,0x00521024,0x10400003\n\t"
-    ".word 0x3C057FFF,0x08007109,0x34A5FFFF,0x00052B02\n\t"
-    ".word 0x00031D00,0x00A32825,0x00840018,0x00001012\n\t"
-    ".word 0x00001810,0x18600003,0x00721024,0x14400006\n\t"
-    ".word 0x3C027FFF,0x04610006,0x00031023,0x00521024\n\t"
-    ".word 0x10400003,0x3C027FFF,0x0800711A,0x3442FFFF\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x00A21821\n\t"
-    ".word 0x0263102A,0x10400007,0x00000000,0x8E020000\n\t"
-    ".word 0x00000000,0xAEA20000,0x8E220000,0x00609821\n\t"
-    ".word 0xAEA20004,0x26100008,0x27A20058,0x0202102B\n\t"
-    ".word 0x1440FFB8,0x26310008,0x02601021,0x8FBF0074\n\t"
-    ".word 0x8FB60070,0x8FB5006C,0x8FB40068,0x8FB30064\n\t"
-    ".word 0x8FB20060,0x8FB1005C,0x8FB00058,0x03E00008\n\t"
-    ".word 0x27BD0078\n");
+typedef struct { int x; int y; } Point;
+typedef struct { char pad[34]; short angle; char pad2[4]; } Cell;
+
+extern Cell D_800C62B0[];
+extern void func_80016FF4(Cell *, Point *);
+extern unsigned short func_80017EE4(Point *, Point *, int, Point *, Point *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int sat_square(int x, int mask) {
+    int result;
+
+    __asm__ volatile(".set\tnoreorder\n\tmult %1, %1\n\tmflo $2\n\tmfhi $3\n\tblez $3, 1f\n\tand $2, $3, %2\n\tbnez $2, 2f\n\tlui %0, 0x7fff\n"
+                     "1:\tbgez $3, 3f\n\tnegu $2, $3\n\tand $2, $2, %2\n\tbeqz $2, 3f\n\tlui %0, 0x7fff\n"
+                     "2:\tj 4f\n\tori %0, %0, 0xffff\n"
+                     "3:\tsrl %0, %0, 12\n\tsll $3, $3, 20\n\tor %0, %0, $3\n4:\n\t.set\treorder"
+                     : "=r"(result)
+                     : "r"(x), "r"(mask)
+                     : "$3", "memory");
+    return result;
+}
+
+static inline void get_corners(int idx, Point *c) {
+    func_80016FF4(&D_800C62B0[idx], c);
+}
+
+int func_8001C13C(int unused, unsigned short a, unsigned short b, Point *dir, Point *out) {
+    Point offset;
+    Point probe;
+    Point hit;
+    Point normal;
+    Point corners[4];
+    Point *p;
+    int scale;
+    int best;
+    register int d asm("$3");
+    int dx;
+    int dy;
+    int sq_x;
+    register int sq_y asm("$2");
+    int mask;
+
+    {
+        Cell *za = &D_800C62B0[a];
+        Cell *zb = &D_800C62B0[b];
+        scale = (za->angle + zb->angle) << 18 >> 2;
+    }
+    offset.x = fixed_mul(-dir->x, scale);
+    offset.y = fixed_mul(-dir->y, scale);
+    best = 0;
+    get_corners(a, corners);
+    for (p = corners, mask = -4096; p < &corners[4]; p++) {
+        probe.x = p->x - offset.x;
+        probe.y = p->y - offset.y;
+        if (func_80017EE4(&probe, p, b, &hit, &normal)) {
+            dx = p->x - hit.x;
+            dy = p->y - hit.y;
+            sq_x = sat_square(dx, mask);
+            sq_y = sat_square(dy, mask);
+            d = sq_x + sq_y;
+            if (best < d) {
+                out->x = p->x;
+                out->y = p->y;
+                best = d;
+            }
+        }
+    }
+    get_corners(b, corners);
+    for (p = corners, mask = -4096; p < &corners[4]; p++) {
+        probe.x = p->x + offset.x;
+        probe.y = p->y + offset.y;
+        if (func_80017EE4(&probe, p, a, &hit, &normal)) {
+            dx = p->x - hit.x;
+            dy = p->y - hit.y;
+            sq_x = sat_square(dx, mask);
+            sq_y = sat_square(dy, mask);
+            d = sq_x + sq_y;
+            if (best < d) {
+                out->x = p->x;
+                out->y = p->y;
+                best = d;
+            }
+        }
+    }
+    return best;
+}

@@ -1,42 +1,134 @@
-asm(".text\n\t.globl func_8006E8C4\nfunc_8006E8C4:\n\t"
-    ".word 0x27BDFFF0,0x00804021,0x3C02800B,0x2445D9EC\n\t"
-    ".word 0x8CA20010,0x00000000,0x2443FFF4,0x1860000B\n\t"
-    ".word 0x00002021,0x8CA40004,0x8CA20014,0xACA30010\n\t"
-    ".word 0x24420001,0x2483000C,0xACA20014,0x24020003\n\t"
-    ".word 0xACA30004,0xA0820000,0xA0800002,0x10800004\n\t"
-    ".word 0x240200F0,0xA0820007,0x2402FFE8,0xAC820008\n\t"
-    ".word 0x8D06000C,0x00000000,0x10C00085,0x3C02800B\n\t"
-    ".word 0x00A03821,0x24090800,0x3C0B800B,0x244ADF48\n\t"
-    ".word 0x8CE20010,0x00000000,0x2443FFE0,0x1860000B\n\t"
-    ".word 0x00002021,0x8CE40004,0x8CE20014,0xACE30010\n\t"
-    ".word 0x24420001,0x24830020,0xACE20014,0x24020008\n\t"
-    ".word 0xACE30004,0xA0820000,0xA0800002,0x00802821\n\t"
-    ".word 0x10A0006B,0x00000000,0x8D020010,0x00000000\n\t"
-    ".word 0x04400006,0x2443F800,0x24420800,0x04410008\n\t"
-    ".word 0x00021B03,0x0801BA6F,0x00021023,0x04610004\n\t"
-    ".word 0x00031B03,0x01221023,0x00021303,0x00021823\n\t"
-    ".word 0x84C2000C,0x00000000,0x00621021,0xAFA20000\n\t"
-    ".word 0x8D020014,0x00000000,0x04400006,0x2443F800\n\t"
-    ".word 0x24420800,0x04410008,0x00021B03,0x0801BA81\n\t"
-    ".word 0x00021023,0x04610004,0x00031B03,0x01221023\n\t"
-    ".word 0x00021303,0x00021823,0x84C2000E,0x00000000\n\t"
-    ".word 0x00621021,0xAFA20004,0x8D020018,0x00000000\n\t"
-    ".word 0x04400006,0x2443F800,0x24420800,0x04410008\n\t"
-    ".word 0x00021B03,0x0801BA93,0x00021023,0x04610004\n\t"
-    ".word 0x00031B03,0x01221023,0x00021303,0x00021823\n\t"
-    ".word 0x84C20010,0x00000000,0x00621021,0xAFA20008\n\t"
-    ".word 0x8FAC0000,0x8FAD0004,0x8FAE0008,0xACAC0008\n\t"
-    ".word 0xACAD000C,0xACAE0010,0x90C20024,0x00000000\n\t"
-    ".word 0xA0A20004,0x90C20025,0x00000000,0xA0A20005\n\t"
-    ".word 0x90C30026,0x24020009,0xA0A20003,0x2402002C\n\t"
-    ".word 0xA0A20007,0xA4A00014,0xA0A00001,0xA4A00016\n\t"
-    ".word 0xA0A30006,0x90C20027,0x90C30028,0x00021080\n\t"
-    ".word 0x004A1021,0x8C420000,0x00031880,0x00621821\n\t"
-    ".word 0x90640002,0x8D63DA04,0xA0A00001,0x00041040\n\t"
-    ".word 0x00441021,0x00021080,0x00621821,0xACA3001C\n\t"
-    ".word 0x94C20014,0x00000000,0xA4A20016,0x94C20020\n\t"
-    ".word 0x00000000,0xA4A20018,0x90A20007,0x94C30020\n\t"
-    ".word 0x34420002,0xA0A20007,0xA4A3001A,0x90C2001F\n\t"
-    ".word 0x00000000,0x30420003,0x00021140,0xA4A20014\n\t"
-    ".word 0x8CC60000,0x00000000,0x14C0FF81,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0010\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct Part Part;
+struct Part {
+    Part *next;
+    int pad4;
+    int pad8;
+    short dx, dy, dz;
+    char pad12[2];
+    unsigned short attr;
+    char pad16[0x1F - 0x16];
+    unsigned char flags;
+    unsigned short size;
+    char pad22[2];
+    unsigned char r, g, b;
+    unsigned char tex;
+    unsigned char frame;
+};
+
+typedef struct {
+    int pad0;
+    int pad4;
+    int pad8;
+    Part *parts;
+    int x, y, z;
+} Model;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+typedef struct {
+    short cmd;
+    unsigned char arg;
+    unsigned char value;
+} AnimStep;
+
+extern AnimStep *D_800ADF48[];
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline PacketList *packets(void) {
+    return &D_800AD9EC;
+}
+
+static inline unsigned char *alloc_packet(PacketList *list, int size) {
+    register unsigned char *p asm("$4") = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = list->free;
+    left = rem - size;
+    if (left > 0) {
+        p = list->cur;
+        list->free = left;
+        {
+            register int c asm("$2") = list->count + 1;
+            list->cur = p + size;
+            list->count = c;
+        }
+        p[0] = size / 4;
+        p[2] = 0;
+    }
+    return p;
+}
+
+static inline int *tex_base(void) {
+    return &D_800ADA04;
+}
+
+static inline void set_len(unsigned char *p, int n) {
+    p[3] = n;
+}
+
+void func_8006E8C4(Model *model) {
+    register Model *m asm("$8") = model;
+    Vector v;
+    register unsigned char *p asm("$5");
+    register Part *e asm("$6");
+
+    __asm__("");
+
+    {
+        unsigned char *t = alloc_packet(packets(), 12);
+
+        if (t != 0) {
+            t[7] = 0xF0;
+            *(int *)(t + 8) = -24;
+        }
+    }
+    for (e = m->parts; e != 0; e = e->next) {
+        p = alloc_packet(packets(), 32);
+        if (p == 0) {
+            continue;
+        }
+        v.x = round_shift(m->x) + e->dx;
+        v.y = round_shift(m->y) + e->dy;
+        v.z = round_shift(m->z) + e->dz;
+        *(Vector *)(p + 8) = v;
+        p[4] = e->r;
+        p[5] = e->g;
+        p[6] = e->b;
+        set_len(p, 9);
+        p[7] = 0x2C;
+        *(short *)(p + 20) = 0;
+        p[1] = 0;
+        *(short *)(p + 22) = 0;
+        {
+            int *tp = tex_base();
+            int f = D_800ADF48[e->tex][e->frame].arg;
+            int t = *tp;
+
+            p[1] = 0;
+            *(int *)(p + 28) = t + f * 12;
+        }
+        *(short *)(p + 22) = e->attr;
+        *(short *)(p + 24) = e->size;
+        *(short *)(p + 26) = e->size;
+        p[7] |= 2;
+        *(short *)(p + 20) = (e->flags & 3) << 5;
+    }
+}

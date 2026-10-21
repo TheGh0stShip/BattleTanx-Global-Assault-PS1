@@ -1,107 +1,195 @@
-asm(".text\n\t.globl func_8007224C\nfunc_8007224C:\n\t"
-    ".word 0x00804021,0x8D030014,0x00000000,0x04600006\n\t"
-    ".word 0x27BDFFF0,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0801C8A4,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801C8A6,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20000\n\t"
-    ".word 0x8D030018,0x00000000,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801C8B6,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801C8B8\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20004,0x8D03001C,0x00000000\n\t"
-    ".word 0x04600005,0x24620800,0x0441000C,0x00021B03\n\t"
-    ".word 0x0801C8C8,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801C8CA,0x00021B03,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021823,0x3C02800B\n\t"
-    ".word 0x2447D9EC,0x8CE20010,0xAFA30008,0x2443FFE8\n\t"
-    ".word 0x1860000B,0x00002021,0x8CE40004,0x8CE20014\n\t"
-    ".word 0xACE30010,0x24420001,0x24830018,0xACE20014\n\t"
-    ".word 0x24020006,0xACE30004,0xA0820000,0xA0800002\n\t"
-    ".word 0x1080015C,0x240200EC,0xA0820007,0x95020020\n\t"
-    ".word 0x00000000,0xA4820008,0x95020022,0x00000000\n\t"
-    ".word 0xA482000A,0x95020024,0x00000000,0xA482000C\n\t"
-    ".word 0x95020028,0x00000000,0xA4820010,0x9502002A\n\t"
-    ".word 0x00000000,0xA4820012,0x9502002C,0x00000000\n\t"
-    ".word 0xA4820014,0x8CE20010,0x00000000,0x2443FFF4\n\t"
-    ".word 0x1860000B,0x00002021,0x8CE40004,0x8CE20014\n\t"
-    ".word 0xACE30010,0x24420001,0x2483000C,0xACE20014\n\t"
-    ".word 0x24020003,0xACE30004,0xA0820000,0xA0800002\n\t"
-    ".word 0x10800004,0x240200F0,0xA0820007,0x2402FFE0\n\t"
-    ".word 0xAC820008,0x8CE20010,0x00000000,0x2443FFE0\n\t"
-    ".word 0x1860000B,0x00002021,0x8CE40004,0x8CE20014\n\t"
-    ".word 0xACE30010,0x24420001,0x24830020,0xACE20014\n\t"
-    ".word 0x24020008,0xACE30004,0xA0820000,0xA0800002\n\t"
-    ".word 0x00803021,0x10C0003D,0x3C05800B,0x8FA90000\n\t"
-    ".word 0x8FAA0004,0x8FAB0008,0xACC90008,0xACCA000C\n\t"
-    ".word 0xACCB0010,0x91020037,0x00000000,0xA0C20004\n\t"
-    ".word 0x91020038,0x00000000,0xA0C20005,0x91020039\n\t"
-    ".word 0x00000000,0xA0C20006,0x95020006,0x00000000\n\t"
-    ".word 0x00021400,0x00021C03,0x000217C2,0x00621821\n\t"
-    ".word 0x00031843,0xA4C30018,0x95020006,0x00000000\n\t"
-    ".word 0x00021400,0x00021C03,0x000217C2,0x00621821\n\t"
-    ".word 0x00031843,0xA4C3001A,0x3C03800B,0x8D040008\n\t"
-    ".word 0x2463E184,0x000410C0,0x00441023,0x00021080\n\t"
-    ".word 0x00431021,0x84430018,0x8CA4DA04,0x24020009\n\t"
-    ".word 0xA0C20003,0x2402002C,0xA0C20007,0x24020044\n\t"
-    ".word 0xA0C00001,0xA0C20001,0x24020020,0xA4C00014\n\t"
-    ".word 0xA4C00016,0xA4C00016,0xA4C20014,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x90C30007,0x00822021\n\t"
-    ".word 0xACC4001C,0x34630002,0xA0C30007,0x8CE20010\n\t"
-    ".word 0x00000000,0x2443FFE0,0x1860000B,0x00002021\n\t"
-    ".word 0x8CE40004,0x8CE20014,0xACE30010,0x24420001\n\t"
-    ".word 0x24830020,0xACE20014,0x24020008,0xACE30004\n\t"
-    ".word 0xA0820000,0xA0800002,0x00803021,0x10C0003C\n\t"
-    ".word 0x3C05800B,0x8FA90000,0x8FAA0004,0x8FAB0008\n\t"
-    ".word 0xACC90008,0xACCA000C,0xACCB0010,0x91020037\n\t"
-    ".word 0x00000000,0xA0C20004,0x91020038,0x00000000\n\t"
-    ".word 0xA0C20005,0x91020039,0x00000000,0xA0C20006\n\t"
-    ".word 0x85020006,0x00000000,0x00021023,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0xA4C20018,0x95020006\n\t"
-    ".word 0x00000000,0x00021400,0x00021C03,0x000217C2\n\t"
-    ".word 0x00621821,0x00031843,0xA4C3001A,0x3C03800B\n\t"
-    ".word 0x8D040008,0x2463E184,0x000410C0,0x00441023\n\t"
-    ".word 0x00021080,0x00431021,0x84430018,0x8CA4DA04\n\t"
-    ".word 0x24020009,0xA0C20003,0x2402002C,0xA0C20007\n\t"
-    ".word 0x24020044,0xA0C00001,0xA0C20001,0x24020020\n\t"
-    ".word 0xA4C00014,0xA4C00016,0xA4C00016,0xA4C20014\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x90C30007\n\t"
-    ".word 0x00822021,0xACC4001C,0x34630002,0xA0C30007\n\t"
-    ".word 0x8CE20010,0x00000000,0x2443FFE0,0x1860000B\n\t"
-    ".word 0x00002021,0x8CE40004,0x8CE20014,0xACE30010\n\t"
-    ".word 0x24420001,0x24830020,0xACE20014,0x24020008\n\t"
-    ".word 0xACE30004,0xA0820000,0xA0800002,0x00803021\n\t"
-    ".word 0x10C0003C,0x3C05800B,0x8FA90000,0x8FAA0004\n\t"
-    ".word 0x8FAB0008,0xACC90008,0xACCA000C,0xACCB0010\n\t"
-    ".word 0x91020037,0x00000000,0xA0C20004,0x91020038\n\t"
-    ".word 0x00000000,0xA0C20005,0x91020039,0x00000000\n\t"
-    ".word 0xA0C20006,0x95020006,0x00000000,0x00021400\n\t"
-    ".word 0x00021C03,0x000217C2,0x00621821,0x00031843\n\t"
-    ".word 0xA4C30018,0x85020006,0x00000000,0x00021023\n\t"
-    ".word 0x00021FC2,0x00431021,0x00021043,0x3C03800B\n\t"
-    ".word 0xA4C2001A,0x8D040008,0x2463E184,0x000410C0\n\t"
-    ".word 0x00441023,0x00021080,0x00431021,0x84430018\n\t"
-    ".word 0x8CA4DA04,0x24020009,0xA0C20003,0x2402002C\n\t"
-    ".word 0xA0C20007,0x24020044,0xA0C00001,0xA0C20001\n\t"
-    ".word 0x24020020,0xA4C00014,0xA4C00016,0xA4C00016\n\t"
-    ".word 0xA4C20014,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x90C30007,0x00822021,0xACC4001C,0x34630002\n\t"
-    ".word 0xA0C30007,0x8CE20010,0x00000000,0x2443FFE0\n\t"
-    ".word 0x1860000B,0x00002021,0x8CE40004,0x8CE20014\n\t"
-    ".word 0xACE30010,0x24420001,0x24830020,0xACE20014\n\t"
-    ".word 0x24020008,0xACE30004,0xA0820000,0xA0800002\n\t"
-    ".word 0x00803021,0x10C0003B,0x3C05800B,0x8FA90000\n\t"
-    ".word 0x8FAA0004,0x8FAB0008,0xACC90008,0xACCA000C\n\t"
-    ".word 0xACCB0010,0x91020037,0x00000000,0xA0C20004\n\t"
-    ".word 0x91020038,0x00000000,0xA0C20005,0x91020039\n\t"
-    ".word 0x00000000,0xA0C20006,0x85020006,0x00000000\n\t"
-    ".word 0x00021023,0x00021FC2,0x00431021,0x00021043\n\t"
-    ".word 0xA4C20018,0x85020006,0x00000000,0x00021023\n\t"
-    ".word 0x00021FC2,0x00431021,0x00021043,0x3C03800B\n\t"
-    ".word 0xA4C2001A,0x8D040008,0x2463E184,0x000410C0\n\t"
-    ".word 0x00441023,0x00021080,0x00431021,0x84430018\n\t"
-    ".word 0x8CA4DA04,0x24020009,0xA0C20003,0x2402002C\n\t"
-    ".word 0xA0C20007,0x24020044,0xA0C00001,0xA0C20001\n\t"
-    ".word 0x24020020,0xA4C00014,0xA4C00016,0xA4C00016\n\t"
-    ".word 0xA4C20014,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x90C30007,0x00822021,0xACC4001C,0x34630002\n\t"
-    ".word 0xA0C30007,0x03E00008,0x27BD0010\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    char pad00[6];
+    short size;
+    int texture;
+    char pad0C[8];
+    Vector pos;
+    short rx, ry, rz;
+    short pad26;
+    short tx, ty, tz;
+    short pad2E;
+    char pad30[7];
+    unsigned char r, g, b;
+} Sprite;
+
+typedef struct {
+    char pad00[24];
+    short index;
+    char pad1A[2];
+} TexInfo;
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+extern TexInfo D_800AE184[];
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline PacketList *packets(void) {
+    return &D_800AD9EC;
+}
+
+static inline int *tex_base(void) {
+    return &D_800ADA04;
+}
+
+static inline void prim_clear(unsigned char *q) {
+    q[1] = 0;
+    *(short *)(q + 20) = 0;
+    *(short *)(q + 22) = 0;
+}
+
+static inline unsigned char *alloc_packet(PacketList *list, int size) {
+    register unsigned char *p asm("$4") = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = list->free;
+    left = rem - size;
+    if (left > 0) {
+        p = list->cur;
+        list->free = left;
+        {
+            register int c asm("$2") = list->count + 1;
+            list->cur = p + size;
+            list->count = c;
+        }
+        p[0] = size / 4;
+        p[2] = 0;
+    }
+    return p;
+}
+
+void func_8007224C(Sprite *sprite) {
+    register Sprite *s asm("$8") = sprite;
+    Vector pos;
+    register unsigned char *m asm("$4");
+    unsigned char *p;
+
+    pos.x = round_shift(s->pos.x);
+    pos.y = round_shift(s->pos.y);
+    pos.z = round_shift(s->pos.z);
+    m = alloc_packet(packets(), 24);
+    if (m == 0) {
+        return;
+    }
+    m[7] = 0xEC;
+    *(short *)(m + 8) = s->rx;
+    *(short *)(m + 10) = s->ry;
+    *(short *)(m + 12) = s->rz;
+    *(short *)(m + 16) = s->tx;
+    *(short *)(m + 18) = s->ty;
+    *(short *)(m + 20) = s->tz;
+    m = alloc_packet(packets(), 12);
+    if (m != 0) {
+        m[7] = 0xF0;
+        *(int *)(m + 8) = -32;
+    }
+    p = alloc_packet(packets(), 32);
+    if (p != 0) {
+        int *tp = tex_base();
+        int idx;
+        int base;
+
+        *(Vector *)(p + 8) = pos;
+        p[4] = s->r;
+        p[5] = s->g;
+        p[6] = s->b;
+        *(short *)(p + 24) = s->size / 2;
+        *(short *)(p + 26) = s->size / 2;
+        idx = D_800AE184[s->texture].index;
+        base = *tp;
+        p[3] = 9;
+        p[7] = 0x2C;
+        prim_clear(p);
+        p[1] = 0x44;
+        *(short *)(p + 22) = 0;
+        *(short *)(p + 20) = 32;
+        *(int *)(p + 28) = base + idx * 12;
+        p[7] |= 2;
+    }
+    p = alloc_packet(packets(), 32);
+    if (p != 0) {
+        int *tp = tex_base();
+        int idx;
+        int base;
+
+        *(Vector *)(p + 8) = pos;
+        p[4] = s->r;
+        p[5] = s->g;
+        p[6] = s->b;
+        *(short *)(p + 24) = -s->size / 2;
+        *(short *)(p + 26) = s->size / 2;
+        idx = D_800AE184[s->texture].index;
+        base = *tp;
+        p[3] = 9;
+        p[7] = 0x2C;
+        prim_clear(p);
+        p[1] = 0x44;
+        *(short *)(p + 22) = 0;
+        *(short *)(p + 20) = 32;
+        *(int *)(p + 28) = base + idx * 12;
+        p[7] |= 2;
+    }
+    p = alloc_packet(packets(), 32);
+    if (p != 0) {
+        int *tp = tex_base();
+        int idx;
+        int base;
+
+        *(Vector *)(p + 8) = pos;
+        p[4] = s->r;
+        p[5] = s->g;
+        p[6] = s->b;
+        *(short *)(p + 24) = s->size / 2;
+        *(short *)(p + 26) = -s->size / 2;
+        idx = D_800AE184[s->texture].index;
+        base = *tp;
+        p[3] = 9;
+        p[7] = 0x2C;
+        prim_clear(p);
+        p[1] = 0x44;
+        *(short *)(p + 22) = 0;
+        *(short *)(p + 20) = 32;
+        *(int *)(p + 28) = base + idx * 12;
+        p[7] |= 2;
+    }
+    p = alloc_packet(packets(), 32);
+    if (p != 0) {
+        int *tp = tex_base();
+        int idx;
+        int base;
+
+        *(Vector *)(p + 8) = pos;
+        p[4] = s->r;
+        p[5] = s->g;
+        p[6] = s->b;
+        *(short *)(p + 24) = -s->size / 2;
+        *(short *)(p + 26) = -s->size / 2;
+        idx = D_800AE184[s->texture].index;
+        base = *tp;
+        p[3] = 9;
+        p[7] = 0x2C;
+        prim_clear(p);
+        p[1] = 0x44;
+        *(short *)(p + 22) = 0;
+        *(short *)(p + 20) = 32;
+        *(int *)(p + 28) = base + idx * 12;
+        p[7] |= 2;
+    }
+}

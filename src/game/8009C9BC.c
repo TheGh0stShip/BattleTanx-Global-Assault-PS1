@@ -8,8 +8,6 @@ extern volatile int func_800B8D48;
 extern unsigned char * volatile D_800B8BAC;
 extern unsigned char * volatile D_800B8BB8;
 
-void func_8009C9BC(void) __attribute__((noreturn));
-
 void func_8009C9BC(void) {
     register int mode asm("$3");
 
@@ -28,21 +26,8 @@ void func_8009C9BC(void) {
     *D_800B8BAC = 0;
     {
         register unsigned char *value asm("$2") = D_800B8BB8;
-        asm volatile("nop" : "+r"(value));
+        asm volatile("nop" : "=r"(value) : "0"(value));
         *value = 0;
     }
     func_80094168();
-    asm volatile("lw $31,16($29)\n\t"
-                 "addiu $29,$29,24\n\t"
-                 "jr $31\n\t"
-                 "nop\n\t"
-                 ".macro lw args:vararg\n\t"
-                 ".word 0\n\t"
-                 ".endm\n\t"
-                 ".macro j args:vararg\n\t"
-                 ".word 0\n\t"
-                 ".endm\n\t"
-                 ".macro addu args:vararg\n\t"
-                 ".word 0\n\t"
-                 ".endm");
 }

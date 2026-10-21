@@ -1,41 +1,151 @@
-asm(".text\n\t.globl func_80058B9C\nfunc_80058B9C:\n\t"
-    ".word 0x8C8A0010,0x27BDFFF8,0x8D430004,0x8D480008\n\t"
-    ".word 0x2462F000,0x1C400017,0xAD420004,0x95430000\n\t"
-    ".word 0x24020003,0x10620008,0x28620004,0x14400009\n\t"
-    ".word 0x00000000,0x24020004,0x10620009,0x00000000\n\t"
-    ".word 0x080162FC,0x00000000,0x95020004,0x08016302\n\t"
-    ".word 0xA4820002,0x95020004,0x00000000,0xA4820002\n\t"
-    ".word 0x95020006,0x00000000,0xA4820004,0x08016384\n\t"
-    ".word 0x24020001,0x14600002,0x3C028000,0x24030002\n\t"
-    ".word 0x00625824,0x24021000,0x04610002,0x00603821\n\t"
-    ".word 0x00073823,0x4882F000,0x00000000,0x00000000\n\t"
-    ".word 0xEBBF0000,0x8FA50000,0x00000000,0x24A9FFF4\n\t"
-    ".word 0x05210023,0x3C030100,0x00A21804,0x4887F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20004,0xE85F0000\n\t"
-    ".word 0x8FA60004,0x00000000,0x00C52823,0x04A0000F\n\t"
-    ".word 0x2402000C,0x00461023,0x04400003,0x00000000\n\t"
-    ".word 0x08016327,0x00471007,0x00021023,0x00471004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0801633C,0x00A31804,0x00091023\n\t"
-    ".word 0x00471007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0801633E,0x00602821\n\t"
-    ".word 0x0067001B,0x14E00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00602821,0x11600002\n\t"
-    ".word 0x00000000,0x00052823,0x95430000,0x24020003\n\t"
-    ".word 0x10620007,0x28620004,0x1440001F,0x24020004\n\t"
-    ".word 0x10620013,0x00000000,0x08016365,0x00000000\n\t"
-    ".word 0x85020004,0x84830002,0x00000000,0x00431023\n\t"
-    ".word 0x00A20018,0x00001012,0x04410004,0x00021B03\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x94820002\n\t"
-    ".word 0x00000000,0x00431021,0x08016383,0xA4820002\n\t"
-    ".word 0x85020006,0x84830004,0x00000000,0x00431023\n\t"
-    ".word 0x00A20018,0x00001012,0x0441001D,0x00021B03\n\t"
-    ".word 0x0801637D,0x00021023,0x85020004,0x84830002\n\t"
-    ".word 0x00000000,0x00431023,0x00A20018,0x00001012\n\t"
-    ".word 0x04410004,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x94820002,0x00000000,0x00431021\n\t"
-    ".word 0xA4820002,0x85020006,0x84830004,0x00000000\n\t"
-    ".word 0x00431023,0x00A20018,0x00001012,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x94820004,0x00000000,0x00431021,0xA4820004\n\t"
-    ".word 0x00001021,0x03E00008,0x27BD0008\n");
+typedef struct {
+    char pad0[4];
+    short x;
+    short y;
+} Target;
+typedef struct {
+    unsigned short type;
+    short pad2;
+    int value;
+    Target *data;
+} Widget;
+typedef struct {
+    char pad0[2];
+    short x;
+    short y;
+    char pad6[0x10 - 6];
+    Widget *widget;
+} Item;
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+extern int abs(int);
+
+static inline int abs_max(int a, int b) {
+    int r = abs(a);
+
+    b = abs(b);
+    if (r < b) {
+        r = b;
+    }
+    return r;
+}
+
+static inline int fixed_to_int(int value) {
+    int r;
+    int t = value;
+
+    if (t >= 0) {
+        r = t >> 12;
+    } else {
+        r = -(-t >> 12);
+    }
+    return r;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = numerator;
+    if (n < 0) {
+        n = -n;
+    }
+    d = abs(denominator);
+    __asm__("" : : "r"(negative), "r"(denominator));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    n_zeros = quotient;
+    if (negative) {
+        n_zeros = -n_zeros;
+    }
+    return n_zeros;
+}
+
+int func_80058B9C(Item *item) {
+    Widget *w = item->widget;
+    Target *t = w->data;
+    int old = w->value;
+    int frac;
+
+    w->value = old - 4096;
+    if (w->value <= 0) {
+        switch (w->type) {
+        case 3:
+            item->x = t->x;
+            break;
+        case 4:
+            item->y = t->y;
+            break;
+        case 2:
+        default:
+            item->x = t->x;
+            item->y = t->y;
+            break;
+        }
+        return 1;
+    }
+    if (old == 0) {
+        old = 2;
+    }
+    frac = fixed_div(4096, old);
+    switch (w->type) {
+    case 3:
+        item->x += fixed_to_int(frac * (t->x - item->x));
+        break;
+    case 4:
+        item->y += fixed_to_int(frac * (t->y - item->y));
+        break;
+    case 2:
+    default:
+        item->x += fixed_to_int(frac * (t->x - item->x));
+        item->y += fixed_to_int(frac * (t->y - item->y));
+        break;
+    }
+    return 0;
+}

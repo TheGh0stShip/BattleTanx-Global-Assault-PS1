@@ -25,7 +25,7 @@ u32 func_8009A8C0(s32 index, u32 value) {
             "divu $0,%1,%2\n\t"
             "bnez %2,1f\n\t"
             "nop\n\t"
-            ".word 0x0007000D\n"
+            "break 7\n"
             "1:\n\t"
             "mfhi %0\n\t"
             ".set reorder"

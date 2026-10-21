@@ -1,149 +1,378 @@
-asm(".text\n\t.globl func_8003EEF8\nfunc_8003EEF8:\n\t"
-    ".word 0x27BDFFB0,0xAFB20040,0x00809021,0xAFB1003C\n\t"
-    ".word 0x00008821,0xAFBF0048,0xAFB30044,0xAFB00038\n\t"
-    ".word 0x8243000E,0x2402007F,0x14620005,0x00602021\n\t"
-    ".word 0x0800FBD6,0x02208021,0x0800FBE1,0x00608821\n\t"
-    ".word 0x00041100,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00438021\n\t"
-    ".word 0x00002021,0x3C02800E,0x2443E33C,0x8C620218\n\t"
-    ".word 0x00000000,0x30420001,0x1040FFEF,0x24840001\n\t"
-    ".word 0x28820010,0x1440FFF9,0x24630598,0x12200006\n\t"
-    ".word 0x24040004,0x0C008E03,0x2405000C,0x00409821\n\t"
-    ".word 0x16600003,0x26230008,0x0800FE04,0x00001021\n\t"
-    ".word 0xAE710008,0xAE330000,0x8E420000,0x00000000\n\t"
-    ".word 0xAE220008,0x8E420004,0x00000000,0xAC620004\n\t"
-    ".word 0x8E420008,0x00000000,0xAC620008,0x8E420000\n\t"
-    ".word 0x00000000,0xAE220014,0x8E420004,0x26230014\n\t"
-    ".word 0xAC620004,0x8E420008,0x00000000,0xAC620008\n\t"
-    ".word 0xAE200028,0xAE200024,0xAE200020,0x9642000C\n\t"
-    ".word 0xA6200030,0xA622002C,0x8242000E,0x00000000\n\t"
-    ".word 0xAE220098,0x8E420010,0x00000000,0xAE22009C\n\t"
-    ".word 0x8E420014,0x3C04800A,0xAE2200A0,0x8E430010\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x94420030\n\t"
-    ".word 0x8E0A008C,0x00021300,0x01420018,0x00001812\n\t"
-    ".word 0x00004810,0x00031B02,0x00094D00,0x00691825\n\t"
-    ".word 0x04610004,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x3C03800E,0xAE22020C,0x8E420020\n\t"
-    ".word 0x8E24020C,0x34420001,0xAE220218,0x9462E338\n\t"
-    ".word 0xAE200210,0xAE240210,0x24420001,0xA462E338\n\t"
-    ".word 0x00041843,0x00801021,0x0003182A,0x00021043\n\t"
-    ".word 0x0082202A,0x10640033,0x00000000,0x10800015\n\t"
-    ".word 0x3C04800A,0x8E23009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420040,0x00000000,0xAE220300\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C42003C,0x0800FC5F\n\t"
-    ".word 0xAE220304,0x8E23009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420038,0x00000000,0xAE220300\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C420034,0x00000000\n\t"
-    ".word 0xAE220304,0x8E250300,0x0C01E8D1,0x26240308\n\t"
-    ".word 0x8E250304,0x0C01E8D1,0x262403E8,0x0C01E877\n\t"
-    ".word 0x02202021,0x8E230098,0x2402007F,0x14620003\n\t"
-    ".word 0x00031100,0x0800FC74,0x00001821,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431821,0x8E2200A0,0xAE230208\n\t"
-    ".word 0x00021080,0x02021021,0x8C430078,0x8E2200A0\n\t"
-    ".word 0x00000000,0x00021080,0x02021021,0xAE230004\n\t"
-    ".word 0xAC510078,0x8E2300A0,0x00000000,0x02031821\n\t"
-    ".word 0x90620084,0x3C06800A,0x24420001,0xA0620084\n\t"
-    ".word 0x8E23009C,0x24C64EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00461021\n\t"
-    ".word 0x8C420038,0x26240034,0xAE220300,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00461021,0x8C430034,0x8E22009C,0x24C60014\n\t"
-    ".word 0x00022840,0x00A22821,0x00052880,0x00A22821\n\t"
-    ".word 0x00052900,0x8E220208,0x00A62821,0xAE230304\n\t"
-    ".word 0x904300A4,0x24020064,0xA620027E,0xAE200280\n\t"
-    ".word 0xAE200284,0xAE200288,0xA2220290,0xA2220291\n\t"
-    ".word 0xA2220292,0x0C007BB9,0xA22302FC,0x8E100090\n\t"
-    ".word 0x8E2A0040,0x00000000,0x020A0018,0x00004812\n\t"
-    ".word 0x00001010,0x00094B02,0x00021500,0x01224825\n\t"
-    ".word 0x8E220008,0x00000000,0x04400003,0xAE290040\n\t"
-    ".word 0x0800FCBF,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E260010,0x00000000\n\t"
-    ".word 0x04C00003,0x00022C03,0x0800FCC9,0x00063303\n\t"
-    ".word 0x00061023,0x00021303,0x00023023,0x3C10800A\n\t"
-    ".word 0x8E23009C,0x26104EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00501021\n\t"
-    ".word 0x84420004,0x00000000,0xAFA20010,0x8E23009C\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00501021,0x84420006\n\t"
-    ".word 0x00000000,0xAFA20014,0x8E23009C,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00501021,0x84420008,0x00000000\n\t"
-    ".word 0xAFA20018,0x8E23009C,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00501021,0x8442000A,0x00000000,0xAFA2001C\n\t"
-    ".word 0x8E23009C,0x02602021,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00501021\n\t"
-    ".word 0x8442000C,0x00063380,0xAFA20020,0x8E23009C\n\t"
-    ".word 0x00063403,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00501021,0x8442000E\n\t"
-    ".word 0x00003821,0xAFA20024,0x9623002C,0x24020008\n\t"
-    ".word 0xAFA2002C,0x0C0058BC,0xAFA30028,0x2624022C\n\t"
-    ".word 0x24050022,0x0C022B24,0xA62202B8,0x8E23009C\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00501021,0x9442004C\n\t"
-    ".word 0x8E2300A0,0x24100001,0xAE300250,0xAE200254\n\t"
-    ".word 0xAE200258,0xAE20025C,0xA622022E,0x24020002\n\t"
-    ".word 0x1462001C,0x26240034,0x8E220008,0x00000000\n\t"
-    ".word 0xAFA20030,0x8E220010,0x3C07800D,0xAFA20034\n\t"
-    ".word 0x8E220098,0x24E32FE4,0x00431021,0x90420039\n\t"
-    ".word 0x27A60030,0x00022880,0x00A22821,0x00052880\n\t"
-    ".word 0x8CE22FE4,0x24A50150,0x0C007BE5,0x00452821\n\t"
-    ".word 0xA622002C,0x8FA20030,0x00000000,0xAE220008\n\t"
-    ".word 0x9622002C,0x8FA30034,0x24424000,0xA622002C\n\t"
-    ".word 0xAE230010,0x8E220218,0xAE2000A4,0x8E43002C\n\t"
-    ".word 0x30420040,0x10400007,0xAE2302A4,0x3C03800D\n\t"
-    ".word 0x24632FE4,0x8C620010,0x00000000,0x24420001\n\t"
-    ".word 0xAC620010,0x8E2200A0,0x00000000,0x1440000F\n\t"
-    ".word 0x3C02800B,0x8E220208,0x00000000,0x90420006\n\t"
-    ".word 0x00000000,0x30420008,0x10400008,0x3C02800B\n\t"
-    ".word 0x8E220254,0x00000000,0x14400003,0xA630024C\n\t"
-    ".word 0x24020010,0xAE220254,0x3C02800B,0x9043ED49\n\t"
-    ".word 0x2402FC18,0xAE220294,0xAE2202B4,0x30630001\n\t"
-    ".word 0x1060003F,0xAE200264,0x3C02800B,0x9042ED4A\n\t"
-    ".word 0x00000000,0x30420001,0x14400016,0x24020063\n\t"
-    ".word 0x2403000A,0x2402000F,0x24050001,0x24040014\n\t"
-    ".word 0xA622023E,0x240203E8,0xA6220244,0x24020005\n\t"
-    ".word 0xA623023C,0xA6230230,0xA6230234,0xA6230232\n\t"
-    ".word 0xA6230240,0xA625023A,0xA6230246,0xA6240238\n\t"
-    ".word 0xA6240248,0xA6230242,0xA622024A,0x0800FD93\n\t"
-    ".word 0xA625024C,0x240303E8,0xA622023C,0xA6220230\n\t"
-    ".word 0xA622023E,0xA6220234,0xA6220232,0xA6220240\n\t"
-    ".word 0xA622023A,0xA6220246,0xA6220238,0xA6220248\n\t"
-    ".word 0xA6220242,0xA622024A,0x24020001,0xA6230244\n\t"
-    ".word 0xA622024C,0x8E220218,0x24030004,0x30420002\n\t"
-    ".word 0x1040000F,0xAE230254,0x96230098,0x00000000\n\t"
-    ".word 0x2C620002,0x10400006,0x3C02800B,0x2442BA68\n\t"
-    ".word 0x00031840,0x00621821,0x24020001,0xA4620000\n\t"
-    ".word 0x8E220218,0x00000000,0x34421000,0xAE220218\n\t"
-    ".word 0x0C008A05,0xAE200214,0x14400008,0x02202021\n\t"
-    ".word 0x8E450024,0x0C010188,0x00003021,0x02202021\n\t"
-    ".word 0x8E450028,0x0C010188,0x00003021,0x8E220218\n\t"
-    ".word 0x00000000,0x30420002,0x10400027,0x00000000\n\t"
-    ".word 0x96250098,0x8E240250,0x8E26009C,0x00042040\n\t"
-    ".word 0x2484022C,0x0C018EFE,0x02242021,0x8E220254\n\t"
-    ".word 0x00000000,0x10400004,0x00021040,0x2442022C\n\t"
-    ".word 0x0800FDC5,0x02222021,0x00002021,0x96250098\n\t"
-    ".word 0x8E260254,0x0C018F1A,0x00000000,0x2624020C\n\t"
-    ".word 0x96260098,0x0C018F63,0x26250210,0x3C02800B\n\t"
-    ".word 0x9042ED49,0x00000000,0x30420001,0x1440000B\n\t"
-    ".word 0x02202021,0x96240098,0x00000000,0x2C820002\n\t"
-    ".word 0x10400005,0x3C03800B,0x2463BA68,0x00041040\n\t"
-    ".word 0x00431021,0xA4400000,0x02202021,0x00002821\n\t"
-    ".word 0x0C011EEE,0x02403021,0x262202DC,0x24081000\n\t"
-    ".word 0xAC480000,0xAC400004,0xAC480008,0xAC40000C\n\t"
-    ".word 0xAC480010,0xAC400014,0xAC400018,0xAC40001C\n\t"
-    ".word 0x0C008A05,0xAE200584,0x14400013,0x3C02800D\n\t"
-    ".word 0x8E2200A0,0x00000000,0x1440000F,0x3C02800D\n\t"
-    ".word 0x8C422FE0,0x00000000,0x1040000A,0x3C030005\n\t"
-    ".word 0x24020001,0xAE220584,0x8E220218,0x3463A000\n\t"
-    ".word 0xAE23057C,0x2403FC18,0xAE230588,0x34420080\n\t"
-    ".word 0xAE220218,0x3C02800D,0x8C432FE0,0x02201021\n\t"
-    ".word 0xAC40058C,0xAC430594,0x8FBF0048,0x8FB30044\n\t"
-    ".word 0x8FB20040,0x8FB1003C,0x8FB00038,0x03E00008\n\t"
-    ".word 0x27BD0050\n");
+typedef struct { int x, y, z; } Vector;
+
+typedef struct {
+    char pad0[4];
+    short model_a;
+    short model_b;
+    short model_c;
+    short model_d;
+    short model_e;
+    short model_f;
+    char pad10[0x14 - 0x10];
+    char physics[0x30 - 0x14];
+    unsigned short health;
+    char pad32[0x34 - 0x32];
+    int ammo_a;
+    int ammo_b;
+    int low_a;
+    int low_b;
+    char pad44[0x4C - 0x44];
+    unsigned short shells;
+    char pad4E[0xD0 - 0x4E];
+} Vehicle;
+
+typedef struct Tank Tank;
+
+typedef struct Team {
+    char pad0[6];
+    unsigned char options;
+    char pad7[0x78 - 7];
+    Tank *list[3];
+    unsigned char count[8];
+    int health_scale;
+    int mass_scale;
+    char pad94[0xA4 - 0x94];
+    unsigned char color;
+    char padA5[0x114 - 0xA5];
+} Team;
+
+typedef struct {
+    Vector pos;
+    unsigned short heading;
+    signed char team;
+    char padF;
+    int type;
+    int kind;
+    char pad18[0x20 - 0x18];
+    int flags;
+    int pickup_a;
+    int pickup_b;
+    int script;
+} SpawnInfo;
+
+typedef struct {
+    char pad0[8];
+    Tank *tank;
+} Shadow;
+
+typedef struct {
+    int m[8];
+} Mat;
+
+struct Tank {
+    Shadow *shadow;
+    Tank *next;
+    Vector pos;
+    Vector last;
+    Vector vel;
+    unsigned short heading;
+    unsigned short pad2E;
+    unsigned short turret;
+    unsigned short pad32;
+    char body[0x40 - 0x34];
+    int mass;
+    char pad44[0x98 - 0x44];
+    int team;
+    int type;
+    int kind;
+    int fA4;
+    char padA8[0x208 - 0xA8];
+    Team *owner;
+    int max_health;
+    int health;
+    int f214;
+    int status;
+    char pad21C[0x22C - 0x21C];
+    unsigned short ammo[17];
+    unsigned short pad24E;
+    int weapon[2];
+    int last_fire[2];
+    int f260;
+    int f264;
+    char pad268[0x27E - 0x268];
+    short f27E;
+    int f280;
+    int f284;
+    int f288;
+    char pad28C[0x290 - 0x28C];
+    unsigned char tint[3];
+    char pad293;
+    int f294;
+    char pad298[0x2A4 - 0x298];
+    int script;
+    char pad2A8[0x2B4 - 0x2A8];
+    int f2B4;
+    short model;
+    char pad2BA[0x2DC - 0x2BA];
+    Mat rot;
+    unsigned char color;
+    char pad2FD[0x300 - 0x2FD];
+    int ammo_a;
+    int ammo_b;
+    char counter_a[0x3E8 - 0x308];
+    char counter_b[0x57C - 0x3E8];
+    int f57C;
+    int shake;
+    int shake_state;
+    int shake_time;
+    int f58C;
+    int f590;
+    int f594;
+};
+
+typedef struct {
+    char data[20];
+} Cell;
+
+typedef struct {
+    char pad0[336];
+    Cell cells[1];
+} Arena;
+
+typedef struct {
+    Arena *arena;
+    char pad4[0x10 - 4];
+    int count;
+    char pad14[0x39 - 0x14];
+    unsigned char slot[4];
+} World;
+
+extern Team D_800E3E68[];
+extern Tank D_800DE33C[];
+extern unsigned short D_800DE338;
+extern Vehicle D_800A4EF4[];
+extern World D_800D2FE4;
+extern int D_800D2FE0;
+extern unsigned char D_800AED49;
+extern unsigned char D_800AED4A;
+extern short D_800ABA68[];
+extern Shadow *func_8002380C(int, int);
+extern void func_8007A344(void *, int);
+extern void func_8007A1DC(Tank *);
+extern void func_8001EEE4(void *, void *);
+extern short func_800162F0(Shadow *, int, int, int, int, int, int, int, int, int, int, int);
+extern void func_8008AC90(void *, int);
+extern int func_8001EF94(void *, void *, int *);
+extern int func_80022814(void);
+extern void func_80040620(Tank *, int, int);
+extern void func_80063BF8(void *, int, int);
+extern void func_80063C68(void *, int, int);
+extern void func_80063D8C(int *, int *, int);
+extern void func_80047BB8(Tank *, int, SpawnInfo *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v) {
+    if (v >= 0)
+        return v >> 12;
+    return -(-v >> 12);
+}
+
+static inline Vehicle *vehicle_info(int type) {
+    return &D_800A4EF4[type];
+}
+
+static inline void copy_vector(Vector *dst, Vector *src) {
+    dst->x = src->x;
+    dst->y = src->y;
+    dst->z = src->z;
+}
+
+static inline void set_health(Tank *t, int health) {
+    int was_low;
+    int is_low;
+
+    was_low = t->health < t->max_health >> 1;
+    t->health = health;
+    is_low = health < t->max_health >> 1;
+    if (was_low != is_low) {
+        if (is_low) {
+            t->ammo_a = vehicle_info(t->type)->low_b;
+            t->ammo_b = vehicle_info(t->type)->low_a;
+        } else {
+            t->ammo_a = vehicle_info(t->type)->ammo_b;
+            t->ammo_b = vehicle_info(t->type)->ammo_a;
+        }
+        func_8007A344(t->counter_a, t->ammo_a);
+        func_8007A344(t->counter_b, t->ammo_b);
+        func_8007A1DC(t);
+    }
+}
+
+static inline Team *team_ptr(int team) {
+    if (team == 127)
+        return 0;
+    return &D_800E3E68[team];
+}
+
+static inline void set_player_flag(unsigned int player, short value) {
+    if (player < 2) {
+        D_800ABA68[player] = value;
+    }
+}
+
+static inline void init_matrix(Mat *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\tsw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     :
+                     : "r"(m)
+                     : "$8", "memory");
+}
+
+Tank *func_8003EEF8(SpawnInfo *info) {
+    Tank *tank;
+    Team *team;
+    Shadow *shadow;
+    int i;
+    int tmp[2];
+
+    tank = 0;
+    team = team_ptr(info->team);
+    for (i = 0; i < 16; i++) {
+        if (!(D_800DE33C[i].status & 1)) {
+            tank = &D_800DE33C[i];
+            break;
+        }
+    }
+    if (tank == 0) {
+        return 0;
+    }
+    shadow = func_8002380C(4, 12);
+    if (shadow == 0) {
+        return 0;
+    }
+    shadow->tank = tank;
+    tank->shadow = shadow;
+    copy_vector(&tank->pos, &info->pos);
+    copy_vector(&tank->last, &info->pos);
+    tank->vel.x = tank->vel.y = tank->vel.z = 0;
+    tank->heading = info->heading;
+    tank->turret = 0;
+    tank->team = info->team;
+    tank->type = info->type;
+    tank->kind = info->kind;
+    tank->max_health = to_int(fixed_mul(team->health_scale, D_800A4EF4[info->type].health << 12));
+    tank->status = info->flags | 1;
+    D_800DE338++;
+    tank->health = 0;
+    set_health(tank, tank->max_health);
+    tank->owner = team_ptr(tank->team);
+    tank->next = team->list[tank->kind];
+    team->list[tank->kind] = tank;
+    team->count[tank->kind]++;
+    tank->ammo_a = D_800A4EF4[tank->type].ammo_b;
+    tank->ammo_b = D_800A4EF4[tank->type].ammo_a;
+    tank->color = tank->owner->color;
+    tank->f27E = 0;
+    tank->f280 = 0;
+    tank->f284 = 0;
+    tank->f288 = 0;
+    tank->tint[0] = 100;
+    tank->tint[1] = 100;
+    tank->tint[2] = 100;
+    func_8001EEE4(tank->body, D_800A4EF4[((volatile Tank *)tank)->type].physics);
+    tank->mass = fixed_mul(team->mass_scale, tank->mass);
+    tank->model = func_800162F0(shadow, (short)(to_int(tank->pos.x) >> 2), (short)(to_int(tank->pos.z) >> 2), 0,
+                                D_800A4EF4[tank->type].model_a, D_800A4EF4[tank->type].model_b,
+                                D_800A4EF4[tank->type].model_c, D_800A4EF4[tank->type].model_d,
+                                D_800A4EF4[tank->type].model_e, D_800A4EF4[tank->type].model_f,
+                                tank->heading, 8);
+    func_8008AC90(tank->ammo, 34);
+    tank->ammo[1] = D_800A4EF4[tank->type].shells;
+    tank->weapon[0] = 1;
+    tank->weapon[1] = 0;
+    tank->last_fire[0] = 0;
+    tank->last_fire[1] = 0;
+    if (tank->kind == 2) {
+        tmp[0] = tank->pos.x;
+        tmp[1] = tank->pos.z;
+        tank->heading = func_8001EF94(tank->body, &D_800D2FE4.arena->cells[D_800D2FE4.slot[tank->team]], tmp);
+        tank->pos.x = tmp[0];
+        tank->pos.z = tmp[1];
+        tank->heading += 0x4000;
+    }
+    tank->fA4 = 0;
+    tank->script = info->script;
+    if (tank->status & 0x40) {
+        D_800D2FE4.count++;
+    }
+    if (tank->kind == 0 && (tank->owner->options & 8)) {
+        tank->ammo[16] = 1;
+        if (tank->weapon[1] == 0) {
+            tank->weapon[1] = 16;
+        }
+    }
+    tank->f294 = -1000;
+    tank->f2B4 = -1000;
+    tank->f264 = 0;
+    if (D_800AED49 & 1) {
+        if (!(D_800AED4A & 1)) {
+            tank->ammo[8] = 10;
+            tank->ammo[2] = 10;
+            tank->ammo[9] = 15;
+            tank->ammo[4] = 10;
+            tank->ammo[3] = 10;
+            tank->ammo[10] = 10;
+            tank->ammo[7] = 1;
+            tank->ammo[13] = 10;
+            tank->ammo[6] = 20;
+            tank->ammo[12] = 1000;
+            tank->ammo[14] = 20;
+            tank->ammo[11] = 10;
+            tank->ammo[15] = 5;
+            tank->ammo[16] = 1;
+        } else {
+            tank->ammo[8] = 99;
+            tank->ammo[12] = 1000;
+            tank->ammo[2] = 99;
+            tank->ammo[9] = 99;
+            tank->ammo[4] = 99;
+            tank->ammo[3] = 99;
+            tank->ammo[10] = 99;
+            tank->ammo[7] = 99;
+            tank->ammo[13] = 99;
+            tank->ammo[6] = 99;
+            tank->ammo[14] = 99;
+            tank->ammo[11] = 99;
+            tank->ammo[15] = 99;
+            tank->ammo[16] = 1;
+        }
+        tank->weapon[1] = 4;
+        if (tank->status & 2) {
+            set_player_flag((unsigned short)tank->team, 1);
+            tank->status |= 0x1000;
+        }
+    }
+    tank->f214 = 0;
+    if (!func_80022814()) {
+        func_80040620(tank, info->pickup_a, 0);
+        func_80040620(tank, info->pickup_b, 0);
+    }
+    if (tank->status & 2) {
+        func_80063BF8(&tank->ammo[tank->weapon[0]], (unsigned short)tank->team, tank->type);
+        func_80063C68(tank->weapon[1] ? &tank->ammo[tank->weapon[1]] : 0, (unsigned short)tank->team, tank->weapon[1]);
+        func_80063D8C(&tank->max_health, &tank->health, (unsigned short)tank->team);
+        if (!(D_800AED49 & 1)) {
+            set_player_flag((unsigned short)tank->team, 0);
+        }
+    }
+    func_80047BB8(tank, 0, info);
+    init_matrix(&tank->rot);
+    tank->shake_state = 0;
+    if (!func_80022814() && tank->kind == 0 && D_800D2FE0 != 0) {
+        tank->shake_state = 1;
+        tank->f57C = 0x5A000;
+        tank->shake_time = -1000;
+        tank->status |= 0x80;
+    }
+    tank->f58C = 0;
+    tank->f594 = D_800D2FE0;
+    return tank;
+}

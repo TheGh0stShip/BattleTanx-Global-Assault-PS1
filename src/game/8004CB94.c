@@ -1,23 +1,107 @@
-asm(".text\n\t.globl func_8004CB94\nfunc_8004CB94:\n\t"
-    ".word 0x27BDFFA0,0xAFB1004C,0x00808821,0xAFB20050\n\t"
-    ".word 0x00009021,0xAFBF005C,0xAFB40058,0xAFB30054\n\t"
-    ".word 0xAFB00048,0x8E220208,0x00000000,0x8C530010\n\t"
-    ".word 0x0C0133ED,0x263400F8,0x00408021,0x16000008\n\t"
-    ".word 0x02202021,0x96230148,0x962200FC,0x00000000\n\t"
-    ".word 0x14620038,0x02401021,0x08013331,0x0243902B\n\t"
-    ".word 0x0C012558,0x24050001,0x3C06002C,0x34C6700F\n\t"
-    ".word 0x26240008,0x02002821,0x3C03800C,0xA460628C\n\t"
-    ".word 0x27A30018,0x8E270000,0x02663021,0xAFA30014\n\t"
-    ".word 0xAFA70010,0x0C006760,0x3047FFFF,0x3042FFFF\n\t"
-    ".word 0x1040000D,0x00000000,0x8E83003C,0x00000000\n\t"
-    ".word 0x1060000B,0x00000000,0x8FA20018,0x00000000\n\t"
-    ".word 0x10400007,0x00000000,0x84420000,0x00000000\n\t"
-    ".word 0x14620003,0x00000000,0x08013331,0x24120001\n\t"
-    ".word 0x97A40038,0x0C0124DD,0x00000000,0x10400011\n\t"
-    ".word 0x02401021,0x8FA20018,0x00000000,0x1040000C\n\t"
-    ".word 0x00000000,0x84430004,0x24020004,0x14620008\n\t"
-    ".word 0x27B00040,0x02002021,0x0C0124E1,0x27A50018\n\t"
-    ".word 0x02202021,0x0C01325C,0x02002821,0x00409021\n\t"
-    ".word 0x02401021,0x8FBF005C,0x8FB40058,0x8FB30054\n\t"
-    ".word 0x8FB20050,0x8FB1004C,0x8FB00048,0x03E00008\n\t"
-    ".word 0x27BD0060\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct HitObject {
+    short id;
+    short pad02;
+    short kind;
+} HitObject;
+
+typedef struct Hit {
+    HitObject *object;
+    u8 pad04[0x20 - 4];
+    u16 value;
+    u8 pad22[0x28 - 0x22];
+} Hit;
+
+typedef struct SmallState {
+    int value;
+    u16 index;
+    u8 mode;
+} SmallState;
+
+typedef struct Owner {
+    u8 pad00[0x10];
+    int probe_mask;
+} Owner;
+
+typedef struct Tank {
+    int id;
+    u8 pad04[4];
+    Vector position;
+    u8 pad14[0xFC - 0x14];
+    u16 route;
+    u8 padFE[0x134 - 0xFE];
+    int target_id;
+    u8 pad138[0x148 - 0x138];
+    u16 route_seen;
+    u8 pad14A[0x208 - 0x14A];
+    Owner *owner;
+} Tank;
+
+extern short D_800C628C;
+extern Vector *func_8004CFB4(Tank *tank);
+extern u16 func_80049560(Tank *tank, int primary);
+extern u16 func_80019D80(Vector *from, Vector *to, int mask, u16 reach,
+                         int ignore, Hit *hit);
+extern int func_80049374(u16 value);
+extern void func_80049384(SmallState *state, Hit *hit);
+extern int func_8004C970(Tank *tank, SmallState *state);
+
+static inline short hit_kind(HitObject **object)
+{
+    return (*object)->kind;
+}
+
+int func_8004CB94(Tank *tank)
+{
+    Hit hit;
+    SmallState state;
+    register int result asm("$18") = 0;
+    register int probe_mask asm("$19") = tank->owner->probe_mask;
+    register u8 *route asm("$20") = (u8 *)tank + 0xF8;
+    register Vector *goal asm("$16");
+
+    goal = func_8004CFB4(tank);
+    if (goal == 0) {
+        register unsigned int seen asm("$3") = tank->route_seen;
+        if (seen == tank->route) {
+            result = (unsigned int)result < seen;
+        }
+        goto done;
+    }
+
+    {
+        u16 reach = func_80049560(tank, 1);
+        D_800C628C = 0;
+        if (func_80019D80(&tank->position, goal,
+                          probe_mask + 0x2C700F, reach,
+                          tank->id, &hit) == 0) {
+            result = 1;
+            goto done;
+        }
+    }
+
+    if (*(int *)(route + 0x3C) != 0) {
+        if (hit.object != 0 && hit.object->id == *(int *)(route + 0x3C)) {
+            result = 1;
+            goto done;
+        }
+    }
+    if (func_80049374(hit.value) != 0) {
+        if (hit.object != 0 && hit_kind(&hit.object) == 4) {
+            register SmallState *point asm("$16") = &state;
+            __asm__("" : "+r"(point));
+            func_80049384(point, &hit);
+            result = func_8004C970(tank, point);
+        }
+    }
+done:
+    return result;
+}

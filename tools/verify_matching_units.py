@@ -1278,6 +1278,188 @@ $L3:
         source = source[:tail_start] + retail_tail + source[tail_end:]
         path.write_text(source)
         return
+    if profile == "offset_first_pointer_add":
+        source = path.read_text()
+        source, count = re.subn(
+            r"(?m)^addu\t\$2,\$2,\$10$", "addu\\t$2,$10,$2", source
+        )
+        if count != 1:
+            raise ValueError(
+                "offset_first_pointer_add expected one pointer addition, found %d"
+                % count
+            )
+        path.write_text(source)
+        return
+    if profile == "swap_t0_t1":
+        source = path.read_text()
+        source = source.replace("$8", "$__swap_t0__")
+        source = source.replace("$9", "$8")
+        source = source.replace("$__swap_t0__", "$9")
+        path.write_text(source)
+        return
+    if profile == "event_callback_psyq":
+        source = path.read_text()
+        prologue = """addu\t$8,$6,$zero
+addu\t$6,$7,$zero
+sw\t$17,28($sp)
+li\t$17,1\t\t\t# 0x00000001
+lui\t$2,%hi(D_800EEC34) # high
+lw\t$7,56($sp)
+#nop # DEBUG: 'lw\t$3,%lo(D_800EEC34)($2)' does not load from $7
+lw\t$3,%lo(D_800EEC34)($2) # DEBUG: leaving for assembler to expand
+#nop # DEBUG: 'li\t$9,-3\t\t\t# 0xfffffffd' does not load from $3
+li\t$9,-3\t\t\t# 0xfffffffd
+sw\t$18,32($sp)
+addu\t$18,$4,$zero
+sw\t$31,36($sp)
+sw\t$16,24($sp)
+and\t$3,$3,$9
+sw\t$3,%lo(D_800EEC34)($2)
+"""
+        retail_prologue = """sw\t$18,32($sp)
+addu\t$18,$4,$zero
+addu\t$8,$6,$zero
+addu\t$6,$7,$zero
+sw\t$17,28($sp)
+li\t$17,1\t\t\t# 0x00000001
+lui\t$4,%hi(D_800EEC34) # high
+lw\t$2,%lo(D_800EEC34)($4) # DEBUG: leaving for assembler to expand
+lw\t$7,56($sp)
+li\t$3,-3\t\t\t# 0xfffffffd
+sw\t$31,36($sp)
+sw\t$16,24($sp)
+and\t$2,$2,$3
+sw\t$2,%lo(D_800EEC34)($4)
+"""
+        if source.count(prologue) != 1:
+            raise ValueError("event_callback_psyq prologue shape changed")
+        source = source.replace(prologue, retail_prologue)
+
+        state_base = """lui\t$16,%hi(D_800EEC34) # high
+addiu\t$16,$16,%lo(D_800EEC34) # low
+"""
+        retail_state_base = """lui\t$2,%hi(D_800EEC34) # high
+addiu\t$16,$2,%lo(D_800EEC34) # low
+"""
+        if source.count(state_base) != 1:
+            raise ValueError("event_callback_psyq state-base shape changed")
+        source = source.replace(state_base, retail_state_base)
+
+        sum_instruction = """lw\t$3,416($16)
+nop # DEBUG: Reuse of '$3'. 'addu\t$2,$3,$2' does not use $at
+addu\t$2,$3,$2
+"""
+        retail_sum_instruction = """lw\t$3,416($16)
+nop # DEBUG: Reuse of '$3'. 'addu\t$2,$3,$2' does not use $at
+addu\t$2,$2,$3
+"""
+        if source.count(sum_instruction) != 1:
+            raise ValueError("event_callback_psyq buffer-end shape changed")
+        source = source.replace(sum_instruction, retail_sum_instruction)
+
+        callback_setup = """addu\t$7,$2,1
+lui\t$2,%hi(func_8008E860) # high
+addiu\t$2,$2,%lo(func_8008E860) # low
+addu\t$4,$18,$zero
+lw\t$6,412($16)
+#nop # DEBUG: 'li\t$5,6\t\t\t# 0x00000006' does not load from $6
+li\t$5,6\t\t\t# 0x00000006
+"""
+        retail_callback_setup = """addu\t$4,$18,$zero
+li\t$5,6\t\t\t# 0x00000006
+addu\t$7,$2,1
+lui\t$2,%hi(func_8008E860) # high
+lw\t$6,412($16)
+addiu\t$2,$2,%lo(func_8008E860) # low
+"""
+        if source.count(callback_setup) != 1:
+            raise ValueError("event_callback_psyq callback setup shape changed")
+        source = source.replace(callback_setup, retail_callback_setup)
+        path.write_text(source)
+        return
+    if profile == "route_probe_psyq":
+        source = path.read_text()
+        object_compare = """bne\t$2,$3,$L7
+nop  # DEBUG: branch/jump
+"""
+        retail_object_compare = """bne\t$3,$2,$L7
+nop  # DEBUG: branch/jump
+"""
+        if source.count(object_compare) != 1:
+            raise ValueError("route_probe_psyq object comparison shape changed")
+        source = source.replace(object_compare, retail_object_compare)
+
+        state_call = """bne\t$3,$2,$L5
+addu\t$5,$sp,24
+
+addu\t$16,$sp,64
+jal\tfunc_80049384
+addu\t$4,$16,$zero
+"""
+        retail_state_call = """bne\t$3,$2,$L5
+addu\t$16,$sp,64
+
+addu\t$4,$16,$zero
+jal\tfunc_80049384
+addu\t$5,$sp,24
+"""
+        if source.count(state_call) != 1:
+            raise ValueError("route_probe_psyq state call shape changed")
+        source = source.replace(state_call, retail_state_call)
+        path.write_text(source)
+        return
+    if profile == "wall_trigger_psyq":
+        source = path.read_text()
+        start = source.index("mult\t$2,$2\n", source.index("$L7:"))
+        end = source.index("lw\t$4,20($6)\n", start)
+        retail_range_test = """mult\t$2,$2
+lhu\t$3,6($16)
+nop
+sll\t$2,$3,2
+addu\t$2,$2,$3
+sll\t$2,$2,3
+lui\t$3,%hi(D_800C62B0) # high
+addiu\t$3,$3,%lo(D_800C62B0) # low
+addu\t$2,$2,$3
+mflo\t$4
+lh\t$2,34($2)
+nop
+mult\t$2,$2
+lw\t$5,8($6)
+addu\t$3,$7,$4
+mflo\t$9
+addu\t$2,$5,$9
+slt\t$2,$2,$3
+bne\t$2,$0,$L3
+nop
+"""
+        source = source[:start] + retail_range_test + source[end:]
+
+        waypoint_start = source.index("lbu\t$4,22($16)\n")
+        waypoint_end = source.index("addu\t$2,$2,$4\n", waypoint_start)
+        waypoint_prefix = source[waypoint_start:waypoint_end]
+        labels = re.search(
+            r"bne\t\$4,\$2,(\$L\d+).*?j\t(\$L\d+).*?\n(\$L\d+):\n",
+            waypoint_prefix,
+            re.S,
+        )
+        if labels is None or labels.group(1) != labels.group(3):
+            raise ValueError("wall_trigger_psyq waypoint labels changed")
+        non_null, joined = labels.group(1), labels.group(2)
+        retail_waypoint = """lbu\t$3,22($16)
+li\t$2,127
+bne\t$3,$2,%s
+addu\t$4,$3,$zero
+
+j\t%s
+addu\t$4,$0,$zero
+
+%s:
+sll\t$2,$4,4
+""" % (non_null, joined, non_null)
+        source = source[:waypoint_start] + retail_waypoint + source[waypoint_end:]
+        path.write_text(source)
+        return
     if profile != "gte_decoder_psyq":
         raise ValueError("unknown assembly profile %r" % profile)
 

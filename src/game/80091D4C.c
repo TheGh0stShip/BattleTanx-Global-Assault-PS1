@@ -1,98 +1,216 @@
-asm(".text\n\t.globl func_80091D4C\nfunc_80091D4C:\n\t"
-    ".word 0x27BDFF40,0xAFBE00B8,0x8FBE00D4,0xAFB1009C\n\t"
-    ".word 0x8FB100D0,0xAFB700B4,0x00A0B821,0xAFBF00BC\n\t"
-    ".word 0xAFB600B0,0xAFB500AC,0xAFB400A8,0xAFB300A4\n\t"
-    ".word 0xAFB200A0,0xAFB00098,0xAFA400C0,0xAFA600C8\n\t"
-    ".word 0x13C00164,0xAFA700CC,0x93C20000,0x00000000\n\t"
-    ".word 0x10400160,0x2403FFFF,0x16E30002,0x3C02800F\n\t"
-    ".word 0x8C57EE64,0x8FAB00C8,0x00000000,0x15630005\n\t"
-    ".word 0x27A40058,0x3C02800F,0x8C42EE68,0x00000000\n\t"
-    ".word 0xAFA200C8,0x0C020103,0xAFB70070,0x87AB005C\n\t"
-    ".word 0x00000000,0xAFAB0078,0x87AB005E,0x00000000\n\t"
-    ".word 0xAFAB007C,0x8FAB00C0,0x00000000,0x15600004\n\t"
-    ".word 0x24070048,0x27B00010,0x0802478A,0xAFA00074\n\t"
-    ".word 0x0C01FDF6,0x00000000,0x0C01FDFD,0x00408021\n\t"
-    ".word 0x00403821,0x240B0001,0xAFAB0074,0x00073883\n\t"
-    ".word 0x28E20002,0x1440013B,0xAFB00080,0x0200B021\n\t"
-    ".word 0x26C60004,0x00004821,0x1220005B,0x24E7FFFE\n\t"
-    ".word 0x01202021,0x01202821,0x01204021,0x93C20000\n\t"
-    ".word 0x00000000,0x10400012,0x03C01821,0x240A000A\n\t"
-    ".word 0x90620000,0x00000000,0x144A0007,0x0085102A\n\t"
-    ".word 0x10400002,0x00000000,0x00A02021,0x25080001\n\t"
-    ".word 0x080247A6,0x00002821,0x24A50001,0x24630001\n\t"
-    ".word 0x90620000,0x00000000,0x1440FFF1,0x00000000\n\t"
-    ".word 0x15000002,0x0085102A,0x24080001,0x10400002\n\t"
-    ".word 0x3C0B800C,0x00A02021,0x256B55C0,0x8D620008\n\t"
-    ".word 0x8FAB0078,0x00000000,0x004B0018,0x00001812\n\t"
-    ".word 0x3C02CCCC,0x3442CCCD,0x00620019,0x3C0B800C\n\t"
-    ".word 0x256B55C0,0x8D62000C,0x00001810,0x8FAB007C\n\t"
-    ".word 0x00000000,0x004B0018,0x00005012,0x3C028888\n\t"
-    ".word 0x34428889,0x01420019,0x00005010,0x00031202\n\t"
-    ".word 0x00000000,0x00820018,0x00002812,0x000A11C2\n\t"
-    ".word 0x00000000,0x01020018,0x28E20006,0x00004012\n\t"
-    ".word 0x1440001D,0x3C02E100,0x34420100,0xACC20000\n\t"
-    ".word 0x24C60004,0x3C022A00,0xACC20000,0x24C60004\n\t"
-    ".word 0x02E52821,0x24E7FFFA,0x8FAB00C8,0x25290006\n\t"
-    ".word 0x2563FFFF,0x00032400,0x2482FFFF,0x00571021\n\t"
-    ".word 0xACC20000,0x24C60004,0x00852021,0xACC40000\n\t"
-    ".word 0x24C60004,0x00681821,0x00031C00,0x2462FFFF\n\t"
-    ".word 0x00571021,0xACC20000,0x24C60004,0x00651821\n\t"
-    ".word 0xACC30000,0x24C60004,0x93C20000,0x00000000\n\t"
-    ".word 0x104000B1,0x27DE0001,0x240AFFFF,0x3C0B00FF\n\t"
-    ".word 0x356BFFFF,0xAFAB0084,0x3C0B6666,0x356B6667\n\t"
-    ".word 0xAFAB0088,0x3C0B8888,0x356B8889,0xAFAB008C\n\t"
-    ".word 0x304300FF,0x2402000A,0x14620011,0x3C0B800C\n\t"
-    ".word 0x256B55C0,0x8D62000C,0x8FAB007C,0x00000000\n\t"
-    ".word 0x004B0018,0x00001812,0x3C028888,0x34428889\n\t"
-    ".word 0x00620019,0x8FB70070,0x8FAB00C8,0x00001810\n\t"
-    ".word 0x000311C2,0x01625821,0x0802489D,0xAFAB00C8\n\t"
-    ".word 0x256B55C0,0x8D640000,0x00000000,0x0064102B\n\t"
-    ".word 0x1440007C,0x00000000,0x8D620004,0x00000000\n\t"
-    ".word 0x0043102B,0x14400078,0x3C0B800C,0x00641023\n\t"
-    ".word 0x00021040,0x256B55C0,0x01621021,0x3C0B800C\n\t"
-    ".word 0x256B55C0,0x94430014,0x8D620010,0x00000000\n\t"
-    ".word 0x00438821,0x92340000,0x26310001,0x2694FFFF\n\t"
-    ".word 0x128A0068,0x24020001,0x92300000,0x00000000\n\t"
-    ".word 0x16020005,0x26310001,0x24120002,0x3C136800\n\t"
-    ".word 0x0802483B,0x0000A821,0x24020002,0x16020005\n\t"
-    ".word 0x26120002,0x24120003,0x3C134000,0x0802483B\n\t"
-    ".word 0x0000A821,0x3C134800,0x3C155555,0x36B55555\n\t"
-    ".word 0x24020010,0x00491023,0x0052102B,0x1040001D\n\t"
-    ".word 0x00091600,0x8FAB0084,0x00000000,0x00CB1824\n\t"
-    ".word 0x00431021,0xAEC20000,0x8FAB0074,0x00000000\n\t"
-    ".word 0x11600008,0x00002021,0x10E00013,0x00F2102B\n\t"
-    ".word 0x00C0B021,0x26C60004,0x24E7FFFF,0x0802485C\n\t"
-    ".word 0x00004821,0x8FAB0084,0x00000000,0xACCB0000\n\t"
-    ".word 0x0C01FE9D,0xAFAA0090,0x0C01FF93,0x27A40010\n\t"
-    ".word 0x27B60010,0x27A60014,0x24070010,0x00004821\n\t"
-    ".word 0x8FAA0090,0x00F2102B,0x1440FFC8,0x2610FFFF\n\t"
-    ".word 0x8FAB00CC,0x00000000,0x026B1021,0xACC20000\n\t"
-    ".word 0x120A0025,0x24C60004,0x2408FFFF,0x92230000\n\t"
-    ".word 0x8FAB0078,0x00031102,0x004B0018,0x00001012\n\t"
-    ".word 0x8FAB007C,0x3063000F,0x006B0018,0x00001812\n\t"
-    ".word 0x8FAB0088,0x00000000,0x004B0018,0x00006010\n\t"
-    ".word 0x8FAB008C,0x00000000,0x006B0018,0x26310001\n\t"
-    ".word 0x2610FFFF,0x000217C3,0x000C21C3,0x00822023\n\t"
-    ".word 0x02E42021,0x3084FFFF,0x8FAB00C8,0x00002810\n\t"
-    ".word 0x00A31021,0x000211C3,0x00031FC3,0x00431023\n\t"
-    ".word 0x01621021,0x00021400,0x00441021,0xACC20000\n\t"
-    ".word 0x1608FFDE,0x24C60004,0x12A00003,0x00000000\n\t"
-    ".word 0xACD50000,0x24C60004,0x00F23823,0x08024826\n\t"
-    ".word 0x01324821,0x3C0B800C,0x256B55C0,0x8D620008\n\t"
-    ".word 0x8FAB0078,0x00000000,0x004B0018,0x00001812\n\t"
-    ".word 0x3C02CCCC,0x3442CCCD,0x00620019,0x00001810\n\t"
-    ".word 0x00031202,0x02E2B821,0x93C20000,0x00000000\n\t"
-    ".word 0x1440FF5B,0x27DE0001,0x3C0700FF,0x34E7FFFF\n\t"
-    ".word 0x00091600,0x00C71824,0x00431021,0xAEC20000\n\t"
-    ".word 0xACC70000,0x8FAB0074,0x00000000,0x15600007\n\t"
-    ".word 0x3C05FF00,0x0C01FE9D,0x00002021,0x0C01FF93\n\t"
-    ".word 0x27A40010,0x080248C2,0x0000B021,0x00C02021\n\t"
-    ".word 0x8FAB00C0,0x8EC30000,0x8D620000,0x00651824\n\t"
-    ".word 0x00471024,0x00621825,0xAEC30000,0x8D620000\n\t"
-    ".word 0x8FAB0080,0x00451024,0x01671824,0x8FAB00C0\n\t"
-    ".word 0x00431025,0x0C01FDFA,0xAD620000,0x3C02800F\n\t"
-    ".word 0x2443EE64,0xAC760008,0x8FAB00C8,0xAC57EE64\n\t"
-    ".word 0xAC6B0004,0x8FBF00BC,0x8FBE00B8,0x8FB700B4\n\t"
-    ".word 0x8FB600B0,0x8FB500AC,0x8FB400A8,0x8FB300A4\n\t"
-    ".word 0x8FB200A0,0x8FB1009C,0x8FB00098,0x03E00008\n\t"
-    ".word 0x27BD00C0\n");
+typedef struct DispRect {
+    short x;
+    short y;
+    short w;
+    short h;
+} DispRect;
+
+typedef struct DispEnv {
+    DispRect disp;
+    DispRect screen;
+    unsigned char isinter;
+    unsigned char isrgb24;
+    unsigned char pad0;
+    unsigned char pad1;
+} DispEnv;
+
+typedef struct StrokeFont {
+    unsigned int first;
+    unsigned int last;
+    int width;
+    int height;
+    unsigned char *data;
+    unsigned short offsets[1];
+} StrokeFont;
+
+typedef struct TextCursor {
+    int x;
+    int y;
+    unsigned int *tag;
+} TextCursor;
+
+extern TextCursor D_800EEE64;
+extern StrokeFont D_800C55C0;
+extern DispEnv *func_8008040C(DispEnv *env);
+extern unsigned int *func_8007F7D8(void);
+extern int func_8007F7F4(void);
+extern void func_8007F7E8(void *next);
+extern void func_8007FA74(int mode);
+extern void func_8007FE4C(unsigned int *packet);
+
+void func_80091D4C(unsigned int *ot, int x, int y, int color, int box, unsigned char *str) {
+    unsigned int buf[18];
+    DispEnv env;
+    int start_x;
+    int use_ot;
+    int screen_w;
+    int screen_h;
+    unsigned int *base;
+    unsigned int *start;
+    unsigned int *tag;
+    unsigned int *p;
+    int count;
+    int words;
+    unsigned char c;
+    unsigned char *glyph;
+    int strokes;
+    int points;
+    int size;
+    unsigned int code;
+    unsigned int term;
+    int width;
+    int lines;
+    int len;
+    int top;
+    unsigned char *s;
+    StrokeFont *font;
+    unsigned int b;
+    int px;
+    int py;
+
+    font = &D_800C55C0;
+    if (str == 0 || *str == 0) {
+        return;
+    }
+    if (x == -1) {
+        x = D_800EEE64.x;
+    }
+    if (y == -1) {
+        y = D_800EEE64.y;
+    }
+    start_x = x;
+    func_8008040C(&env);
+    screen_w = env.disp.w;
+    screen_h = env.disp.h;
+    if (ot == 0) {
+        words = sizeof(buf);
+        start = buf;
+        use_ot = 0;
+    } else {
+        start = func_8007F7D8();
+        words = func_8007F7F4();
+        use_ot = 1;
+    }
+    base = start;
+    words >>= 2;
+    if (words < 2) {
+        return;
+    }
+    tag = start;
+    p = tag + 1;
+    count = 0;
+    words -= 2;
+    if (box != 0) {
+        width = count;
+        len = count;
+        lines = count;
+        for (s = str; *s != 0; s++) {
+            if (*s == '\n') {
+                if (width < len) {
+                    width = len;
+                }
+                lines++;
+                len = 0;
+            } else {
+                len++;
+            }
+        }
+        if (lines == 0) {
+            lines = 1;
+        }
+        if (width < len) {
+            width = len;
+        }
+        len = width * ((unsigned int)(font->width * screen_w) / 320);
+        lines *= (unsigned int)(font->height * screen_h) / 240;
+        if (words >= 6) {
+            *p++ = 0xE1000100;
+            *p++ = 0x2A000000;
+            len = x - -len;
+            words -= 6;
+            count += 6;
+            top = y - 1;
+            *p++ = (top << 16) + (x - 1);
+            *p++ = (top << 16) + len;
+            top += lines;
+            *p++ = (top << 16) + (x - 1);
+            *p++ = (top << 16) + len;
+        }
+    }
+    while ((c = *str++) != 0) {
+        if (c == '\n') {
+            x = start_x;
+            y += (unsigned int)(font->height * screen_h) / 240;
+            continue;
+        }
+        if (c >= font->first && c <= font->last) {
+            glyph = font->data + font->offsets[c - font->first];
+            strokes = *glyph++;
+            while (--strokes != -1) {
+                points = *glyph++;
+                if (points == 1) {
+                    size = 2;
+                    code = 0x68000000;
+                    term = 0;
+                } else if (points == 2) {
+                    size = 3;
+                    code = 0x40000000;
+                    term = 0;
+                } else {
+                    size = points + 2;
+                    code = 0x48000000;
+                    term = 0x55555555;
+                }
+                if ((unsigned int)(16 - count) < size) {
+                    *tag = (count << 24) + ((unsigned int)p & 0xFFFFFF);
+                    if (use_ot) {
+                        if (words != 0) {
+                            tag = p;
+                            p = tag + 1;
+                            words--;
+                            count = 0;
+                        }
+                    } else {
+                        *p = 0xFFFFFF;
+                        func_8007FA74(0);
+                        func_8007FE4C(buf);
+                        tag = buf;
+                        p = buf + 1;
+                        words = 16;
+                        count = 0;
+                    }
+                }
+                if ((unsigned int)words < size) {
+                    continue;
+                }
+                *p++ = code + color;
+                while (points-- != 0) {
+                    b = *glyph++;
+                    px = (int)((b >> 4) * screen_w) / 320;
+                    py = (int)((b & 0xF) * screen_h) / 240;
+                    *p++ = ((y + py) << 16) + ((x + px) & 0xFFFF);
+                }
+                if (term != 0) {
+                    *p++ = term;
+                }
+                words -= size;
+                count += size;
+            }
+        }
+        x += (unsigned int)(font->width * screen_w) / 320;
+    }
+    *tag = (count << 24) + ((unsigned int)p & 0xFFFFFF);
+    *p = 0xFFFFFF;
+    if (!use_ot) {
+        func_8007FA74(0);
+        func_8007FE4C(buf);
+        tag = 0;
+    } else {
+        *tag = (*tag & 0xFF000000) | (*ot & 0xFFFFFF);
+        *ot = (*ot & 0xFF000000) | ((unsigned int)base & 0xFFFFFF);
+        func_8007F7E8(p);
+    }
+    D_800EEE64.tag = tag;
+    D_800EEE64.x = x;
+    D_800EEE64.y = y;
+}

@@ -1,37 +1,80 @@
-asm(".text\n\t.globl func_80080DBC\nfunc_80080DBC:\n\t"
-    ".word 0x27BDFFD0,0xAFB10014,0x00808821,0xAFB20018\n\t"
-    ".word 0x00A09021,0xAFBF0028,0xAFB50024,0xAFB40020\n\t"
-    ".word 0xAFB3001C,0x0C0206CA,0xAFB00010,0x86250004\n\t"
-    ".word 0x96230004,0x04A0000B,0x0000A821,0x00602021\n\t"
-    ".word 0x3C02800B,0x84420C64,0x3C03800B,0x94630C64\n\t"
-    ".word 0x0045102A,0x10400004,0x00000000,0x08020389\n\t"
-    ".word 0x00602021,0x00002021,0x86250006,0x96230006\n\t"
-    ".word 0x04A0000B,0xA6240004,0x00602021,0x3C02800B\n\t"
-    ".word 0x84420C66,0x3C03800B,0x94630C66,0x0045102A\n\t"
-    ".word 0x10400005,0x00041400,0x08020398,0x00602021\n\t"
-    ".word 0x00002021,0x00041400,0x86230004,0x00021403\n\t"
-    ".word 0x00620018,0xA6240006,0x00003012,0x24C30001\n\t"
-    ".word 0x000317C2,0x00621821,0x00032043,0x1C800003\n\t"
-    ".word 0x00038143,0x080203F5,0x2402FFFF,0x02001821\n\t"
-    ".word 0x00031100,0x00828023,0x3C02800B,0x8C420D38\n\t"
-    ".word 0x0060A021,0x8C420000,0x3C030400,0x00431024\n\t"
-    ".word 0x1440000E,0x3C04A000,0x3C130400,0x0C0206D7\n\t"
-    ".word 0x00000000,0x14400040,0x2402FFFF,0x3C02800B\n\t"
-    ".word 0x8C420D38,0x00000000,0x8C420000,0x00000000\n\t"
-    ".word 0x00531024,0x1040FFF5,0x3C04A000,0x3C03800B\n\t"
-    ".word 0x8C630D38,0x3C020400,0xAC620000,0x3C03800B\n\t"
-    ".word 0x8C630D34,0x3C020100,0xAC620000,0x3C02800B\n\t"
-    ".word 0x8C420D34,0x12A00002,0x00000000,0x3C04B000\n\t"
-    ".word 0xAC440000,0x3C03800B,0x8C630D34,0x8E220000\n\t"
-    ".word 0x00000000,0xAC620000,0x3C03800B,0x8C630D34\n\t"
-    ".word 0x8E220004,0x2610FFFF,0xAC620000,0x2402FFFF\n\t"
-    ".word 0x12020009,0x00000000,0x2404FFFF,0x8E430000\n\t"
-    ".word 0x26520004,0x3C02800B,0x8C420D34,0x2610FFFF\n\t"
-    ".word 0x1604FFFA,0xAC430000,0x12800012,0x3C030400\n\t"
-    ".word 0x3C02800B,0x8C420D38,0x34630002,0xAC430000\n\t"
-    ".word 0x3C02800B,0x8C420D3C,0x3C040100,0xAC520000\n\t"
-    ".word 0x00141400,0x3C03800B,0x8C630D40,0x34420010\n\t"
-    ".word 0xAC620000,0x3C02800B,0x8C420D44,0x34840201\n\t"
-    ".word 0xAC440000,0x00001021,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+
+typedef struct {
+    short w;
+    short h;
+} Size;
+
+extern Size D_800B0C64;
+extern unsigned long *D_800B0D34;
+extern unsigned long *D_800B0D38;
+extern unsigned long *D_800B0D3C;
+extern unsigned long *D_800B0D40;
+extern unsigned long *D_800B0D44;
+extern void func_80081B28(void);
+extern int func_80081B5C(void);
+
+int func_80080DBC(RECT *r, unsigned long *q) {
+    register unsigned long *p asm("$18");
+    register RECT *rect asm("$17");
+    int size;
+    int n;
+    int d;
+    int mode;
+    unsigned long cmd;
+
+    rect = r;
+    __asm__("" : "+r"(rect));
+    p = q;
+    func_80081B28();
+    mode = 0;
+    rect->w = rect->w < 0 ? 0 : (D_800B0C64.w < rect->w ? D_800B0C64.w : rect->w);
+    rect->h = rect->h < 0 ? 0 : (D_800B0C64.h < rect->h ? D_800B0C64.h : rect->h);
+    size = (rect->w * rect->h + 1) / 2;
+    if (size <= 0) {
+        return -1;
+    }
+    d = size % 16;
+    n = size / 16;
+    if ((*D_800B0D38 & 0x04000000) == 0) {
+        __asm__ volatile("" : : : "$3");
+        do {
+            if (func_80081B5C() != 0) {
+                return -1;
+            }
+        } while ((*D_800B0D38 & 0x04000000) == 0);
+    }
+    cmd = 0xA0000000;
+    __asm__("" : "+r"(cmd));
+    *D_800B0D38 = 0x04000000;
+    *D_800B0D34 = 0x01000000;
+    {
+        unsigned long *port = D_800B0D34;
+        if (mode) {
+            cmd = 0xB0000000;
+        }
+        *port = cmd;
+    }
+    *D_800B0D34 = ((unsigned long *)rect)[0];
+    *D_800B0D34 = ((unsigned long *)rect)[1];
+    d--;
+    if (d != -1) {
+        __asm__ volatile("" : : : "$2");
+        do {
+            *D_800B0D34 = *p++;
+            d--;
+        } while (d != -1);
+    }
+    if (n != 0) {
+        *D_800B0D38 = 0x04000002;
+        *D_800B0D3C = (unsigned long)p;
+        *D_800B0D40 = (n << 16) | 0x10;
+        *D_800B0D44 = 0x01000201;
+    }
+    return 0;
+}

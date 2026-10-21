@@ -1,57 +1,181 @@
-asm(".text\n\t.globl func_80047258\nfunc_80047258:\n\t"
-    ".word 0x27BDFFD0,0xAFB10024,0x00E08821,0xAFBF002C\n\t"
-    ".word 0xAFB20028,0xAFB00020,0x8C900008,0x8FA70040\n\t"
-    ".word 0x120000CF,0x00000000,0x8E020218,0x00000000\n\t"
-    ".word 0x30420001,0x104000CA,0x2CC20008,0x104000C8\n\t"
-    ".word 0x3C02800C,0x2442F390,0x00061880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x02002021,0x0C011B76,0x02203021,0x08011D6E\n\t"
-    ".word 0x00000000,0x24020001,0xA0E20000,0x8E020008\n\t"
-    ".word 0x00000000,0xACE20004,0x8E020010,0x08011D6E\n\t"
-    ".word 0xACE20008,0x8E230010,0x24020001,0x1462005F\n\t"
-    ".word 0x02202821,0x8E030008,0x8E220000,0x00E09021\n\t"
-    ".word 0x00621023,0x04400003,0x00401821,0x08011CCA\n\t"
-    ".word 0x00022303,0x00031023,0x00021303,0x00022023\n\t"
-    ".word 0x8E030010,0x8CA20004,0x00000000,0x00621023\n\t"
-    ".word 0x04400003,0x00401821,0x08011CD5,0x00021303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00840018\n\t"
-    ".word 0x00001812,0x00000000,0x00000000,0x00420018\n\t"
-    ".word 0x8CA70008,0x00006012,0x006C3021,0x8CA3000C\n\t"
-    ".word 0x2402007F,0x14620003,0x00031100,0x08011CEA\n\t"
-    ".word 0x00008821,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00438821\n\t"
-    ".word 0x8E020208,0x8E23000C,0x8C42000C,0x00000000\n\t"
-    ".word 0x1062002B,0xAFA00018,0x8E020218,0x00000000\n\t"
-    ".word 0x30420002,0x14400027,0x24020001,0x3C02800D\n\t"
-    ".word 0x8C423024,0x00000000,0x90440060,0x90450061\n\t"
-    ".word 0x27A20018,0x0C011E13,0xAFA20010,0x10400009\n\t"
-    ".word 0x2403000B,0x8E020094,0x00000000,0x14400005\n\t"
-    ".word 0x02002021,0x0C011C1F,0x02202821,0x08011D1B\n\t"
-    ".word 0x24020001,0x8E02009C,0x8FA50018,0x14430006\n\t"
-    ".word 0x00000000,0x8E020180,0x00000000,0x34420010\n\t"
-    ".word 0x08011D1A,0xAE020180,0x8E020094,0x00000000\n\t"
-    ".word 0x10400002,0x24070006,0x8E07017C,0x2402001B\n\t"
-    ".word 0xAE02017C,0x02002021,0x0C014176,0x00003021\n\t"
-    ".word 0x24020001,0x08011D6E,0xA2420000,0x960302B8\n\t"
-    ".word 0x3402FFFF,0x1062004E,0x00000000,0x8E240014\n\t"
-    ".word 0x8E250008,0x0C009045,0x00000000,0x00402821\n\t"
-    ".word 0x18A00047,0x2402007F,0x8E26000C,0x00000000\n\t"
-    ".word 0x14C20003,0x00061100,0x08011D35,0x00003021\n\t"
-    ".word 0x00461021,0x00021080,0x00461021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00433021,0x08011D47\n\t"
-    ".word 0x02002021,0x02203821,0x8CE30014,0x2402007F\n\t"
-    ".word 0x14620003,0x00031100,0x08011D45,0x00003021\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00433021,0x02002021\n\t"
-    ".word 0x8CE5000C,0x0C00FEDA,0x00003821,0x08011D6E\n\t"
-    ".word 0x00000000,0x8E080008,0x8E09000C,0x8E0A0010\n\t"
-    ".word 0xACE80000,0xACE90004,0xACEA0008,0x8E080020\n\t"
-    ".word 0x8E090024,0x8E0A0028,0xACE8000C,0xACE90010\n\t"
-    ".word 0xACEA0014,0x08011D6E,0x00000000,0x8E0802BC\n\t"
-    ".word 0x8E0902C0,0x8E0A02C4,0x8E0B02C8,0xACE80000\n\t"
-    ".word 0xACE90004,0xACEA0008,0xACEB000C,0x8E0802CC\n\t"
-    ".word 0x8E0902D0,0x8E0A02D4,0x8E0B02D8,0xACE80010\n\t"
-    ".word 0xACE90014,0xACEA0018,0xACEB001C,0x08011D6E\n\t"
-    ".word 0x00000000,0x8C840008,0x0C014F85,0x00000000\n\t"
-    ".word 0x8FBF002C,0x8FB20028,0x8FB10024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int m[8];
+} Matrix;
+typedef struct {
+    char pad0[0xC];
+    int team;
+    char pad10[0x114 - 0x10];
+} RuntimeObject;
+typedef struct {
+    int x;
+    int z;
+    int power;
+    int object;
+    int kind;
+    int source;
+} Message;
+typedef struct {
+    unsigned char hit;
+    char pad1[3];
+    int x;
+    int z;
+} PosReply;
+typedef struct {
+    Vector position;
+    Vector velocity;
+} StateReply;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+typedef struct {
+    char pad0[0x60];
+    unsigned char a;
+    unsigned char b;
+} View;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0x20 - 0x14];
+    Vector velocity;
+    char pad2C[0x94 - 0x2C];
+    void *reference;
+    char pad98[0x9C - 0x98];
+    int type;
+    char padA0[0x17C - 0xA0];
+    int state;
+    int flags;
+    char pad184[0x208 - 0x184];
+    Owner *owner;
+    char pad20C[0x218 - 0x20C];
+    int status;
+    char pad21C[0x2B8 - 0x21C];
+    unsigned short emitter;
+    char pad2BA[2];
+    Matrix matrix;
+} Tank;
+typedef struct {
+    char pad0[8];
+    Tank *tank;
+} Entity;
+extern RuntimeObject D_800E3E68[];
+extern View *D_800D3024;
+extern void func_80046DD8(Tank *, void *, void *, void *);
+extern void func_80053E14(Tank *);
+extern void func_8003FB68(Tank *, int, RuntimeObject *, int);
+extern int func_8004784C(int, int, int, int, int *);
+extern void func_8004707C(Tank *, RuntimeObject *);
+extern void func_800505D8(Tank *, int, int, int);
+extern int func_80024114(int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline RuntimeObject *runtime_object(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline void handle_capture(Tank *tank, Message *data, PosReply *reply) {
+    RuntimeObject *ro;
+    int dx;
+    int dz;
+    int dist;
+    int power;
+    int result;
+    int state;
+
+    dx = fixed_to_int(tank->position.x - data->x);
+    dz = fixed_to_int(tank->position.z - data->z);
+    dist = dx * dx + dz * dz;
+    power = data->power;
+    ro = runtime_object(data->object);
+    result = 0;
+    if (ro->team != tank->owner->team) {
+        if (tank->status & 2) {
+            goto done;
+        }
+        if (func_8004784C(D_800D3024->a, D_800D3024->b, dist, power, &result) != 0 && tank->reference == 0) {
+            func_8004707C(tank, ro);
+            goto done;
+        }
+        state = result;
+        if (tank->type == 11) {
+            tank->flags |= 0x10;
+        } else {
+            power = 6;
+            if (tank->reference != 0) {
+                power = tank->state;
+            }
+            tank->state = 27;
+            func_800505D8(tank, state, 0, power);
+        }
+    }
+done:
+    reply->hit = 1;
+    reply = 0;
+}
+
+static inline void handle_hit(Tank *tank, Message *data) {
+    func_8003FB68(tank, data->object, runtime_object(data->source), 0);
+    data = 0;
+}
+
+static inline void handle_blast(Tank *tank, Message *data, PosReply *reply) {
+    int power;
+
+    if (data->kind == 1) {
+        handle_capture(tank, data, reply);
+    } else if (tank->emitter != 0xFFFF) {
+        power = func_80024114(data->source, data->power);
+        if (power > 0) {
+            func_8003FB68(tank, power, runtime_object(data->object), 0);
+        }
+    }
+    data = 0;
+}
+
+void func_80047258(Entity *entity, void *other, unsigned int msg, Message *data, void *out) {
+    Tank *tank = entity->tank;
+
+    if (tank == 0 || !(tank->status & 1)) {
+        return;
+    }
+    switch (msg) {
+    case 0:
+        func_80046DD8(tank, other, data, out);
+        break;
+    case 5:
+        ((PosReply *)out)->hit = 1;
+        ((PosReply *)out)->x = tank->position.x;
+        ((PosReply *)out)->z = tank->position.z;
+        break;
+    case 6:
+        handle_blast(tank, data, out);
+        break;
+    case 3:
+        handle_hit(tank, data);
+        break;
+    case 7:
+        ((StateReply *)out)->position = tank->position;
+        ((StateReply *)out)->velocity = tank->velocity;
+        break;
+    case 1:
+        *(Matrix *)out = tank->matrix;
+        break;
+    case 2:
+        func_80053E14(entity->tank);
+        break;
+    }
+}

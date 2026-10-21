@@ -1,9 +1,31 @@
-asm(".text\n\t.globl func_8009499C\nfunc_8009499C:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x3C10800B,0x26105A78\n\t"
-    ".word 0xAFBF0014,0x96020000,0x00000000,0x14400011\n\t"
-    ".word 0x00000000,0x0C0275E2,0x26040038,0x3C04800B\n\t"
-    ".word 0x8C846B08,0x96030032,0x24020001,0xA6020000\n\t"
-    ".word 0xA4830000,0x3C03800B,0x8C636B0C,0x8E020034\n\t"
-    ".word 0x00000000,0x0C02505A,0xAC620000,0x08025281\n\t"
-    ".word 0x02001021,0x00001021,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct {
+    unsigned short active;
+    char pad2[0x32 - 2];
+    unsigned short mode;
+    int value;
+    char handler[4];
+} Voice;
+extern Voice D_800B5A78;
+extern unsigned short *D_800B6B08;
+extern int *D_800B6B0C;
+extern void func_8009D788(void *);
+extern void func_80094168(void);
+
+Voice *func_8009499C(void) {
+    Voice *v = &D_800B5A78;
+    Voice *ret;
+
+    __asm__("" : "=r"(v) : "0"(v));
+
+    if (v->active == 0) {
+        func_8009D788(v->handler);
+        v->active = 1;
+        *D_800B6B08 = v->mode;
+        *D_800B6B0C = v->value;
+        func_80094168();
+        ret = v;
+    } else {
+        ret = 0;
+    }
+    return ret;
+}

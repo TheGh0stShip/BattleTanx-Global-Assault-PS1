@@ -1,32 +1,112 @@
-asm(".text\n\t.globl func_80058E18\nfunc_80058E18:\n\t"
-    ".word 0x27BDFFD8,0xAFB20018,0x00A09021,0xAFBF0024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB10014,0xAFB00010\n\t"
-    ".word 0x8E420010,0x0080A021,0x94430000,0x00000000\n\t"
-    ".word 0x2C62000A,0x1040005B,0x00002021,0x3C02800C\n\t"
-    ".word 0x2442FAA0,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x8E430010\n\t"
-    ".word 0x00000000,0x8C620004,0x00000000,0x14400003\n\t"
-    ".word 0x2442F000,0x080163EF,0x00002021,0x18400021\n\t"
-    ".word 0xAC620004,0x080163EF,0x00002021,0x0C0162E7\n\t"
-    ".word 0x02402021,0x080163EF,0x00402021,0x8E450010\n\t"
-    ".word 0x00000000,0x8CA20004,0x8CA40008,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x96420004,0x00000000,0x00431021,0xA6420004\n\t"
-    ".word 0x96420002,0x94830008,0x00000000,0x00431021\n\t"
-    ".word 0xA6420002,0x86420004,0x8483000A,0x00000000\n\t"
-    ".word 0x0043102A,0x9483000A,0x14400004,0x00000000\n\t"
-    ".word 0xA6430004,0x080163EF,0x24040001,0x8CA20004\n\t"
-    ".word 0x8C830000,0x00002021,0x00431021,0x080163EF\n\t"
-    ".word 0xACA20004,0x8E530008,0x8E500010,0x00000000\n\t"
-    ".word 0x8E110008,0x0C015A7B,0x02602021,0x3042FFFF\n\t"
-    ".word 0x1040FFCC,0x00000000,0x96220000,0x00000000\n\t"
-    ".word 0x10400006,0x00000000,0x8E020004,0x00000000\n\t"
-    ".word 0x2442F000,0x1840FFE7,0xAE020004,0x080163A3\n\t"
-    ".word 0xA6600004,0x8E420010,0x02802021,0x8C420008\n\t"
-    ".word 0x00000000,0x0040F809,0x02402821,0x080163EF\n\t"
-    ".word 0x00402021,0x080163F9,0x24020001,0x080163F9\n\t"
-    ".word 0x24020003,0x00041400,0x10400007,0x02802021\n\t"
-    ".word 0x8E420010,0x00000000,0x8C42000C,0x02402821\n\t"
-    ".word 0x0C016A59,0xACA20010,0x00001021,0x8FBF0024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct Widget Widget;
+typedef struct Item Item;
+typedef struct {
+    int speed;
+    char pad4[4];
+    unsigned short step;
+    short limit;
+} Slide;
+typedef struct {
+    unsigned short wait;
+} Blink;
+typedef struct {
+    char pad0[4];
+    short phase;
+} Cursor;
+struct Widget {
+    unsigned short type;
+    short pad2;
+    int value;
+    void *data;
+    Widget *next;
+};
+struct Item {
+    char pad0[2];
+    unsigned short pos;
+    short offset;
+    char pad6[2];
+    Cursor *cursor;
+    char padC[4];
+    Widget *widget;
+};
+extern short func_80058B9C(Item *);
+extern unsigned short func_800569EC(Cursor *);
+extern void func_8005A964(void *, Item *);
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+int func_80058E18(void *menu, Item *item) {
+    short done = 0;
+
+    switch (item->widget->type) {
+    case 0:
+    case 1: {
+        Widget *w = item->widget;
+
+        if (w->value == 0) {
+        idle:
+            __asm__("");
+            done = 0;
+            break;
+        }
+        w->value -= 4096;
+        if (w->value <= 0) {
+            goto finished;
+        }
+        done = 0;
+        break;
+    }
+    case 2:
+    case 3:
+    case 4:
+        done = func_80058B9C(item);
+        break;
+    case 5: {
+        Widget *w = item->widget;
+        Slide *s = w->data;
+
+        item->offset += to_int(w->value);
+        item->pos += s->step;
+        if (item->offset >= s->limit) {
+            item->offset = s->limit;
+        finished:
+            done = 1;
+        } else {
+            w->value += s->speed;
+            done = 0;
+        }
+        break;
+    }
+    case 6: {
+        Cursor *cur = item->cursor;
+        Widget *w = item->widget;
+        Blink *b = w->data;
+
+        if (func_800569EC(cur) == 0) {
+            goto idle;
+        }
+        if (b->wait != 0) {
+            w->value -= 4096;
+            if (w->value <= 0) {
+                goto finished;
+            }
+        }
+        cur->phase = 0;
+        goto idle;
+    }
+    case 7:
+        done = ((short (*)(void *, Item *))item->widget->data)(menu, item);
+        break;
+    case 8:
+        return 1;
+    case 9:
+        return 3;
+    }
+    if (done) {
+        item->widget = item->widget->next;
+        func_8005A964(menu, item);
+    }
+    return 0;
+}

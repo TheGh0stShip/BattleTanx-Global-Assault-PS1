@@ -1,54 +1,158 @@
-asm(".text\n\t.globl func_8006488C\nfunc_8006488C:\n\t"
-    ".word 0x27BDFFB8,0xAFB3002C,0x00009821,0xAFB20028\n\t"
-    ".word 0x02609021,0xAFB00020,0x02608021,0xAFB10024\n\t"
-    ".word 0x00008821,0xAFB40030,0x0220A021,0x3C02800C\n\t"
-    ".word 0xAFBF0040,0xAFB7003C,0xAFB60038,0xAFB50034\n\t"
-    ".word 0x2459FEF0,0x8F350000,0x8F360004,0x8F370008\n\t"
-    ".word 0xAFB50010,0xAFB60014,0xAFB70018,0x8F35000C\n\t"
-    ".word 0x00000000,0xAFB5001C,0x3C02800B,0x0C016A22\n\t"
-    ".word 0xAC40BA84,0x3C02800D,0x90432FED,0x24020003\n\t"
-    ".word 0x10620013,0x28620004,0x10400005,0x24020002\n\t"
-    ".word 0x10620008,0x3C02800D,0x08019265,0x00000000\n\t"
-    ".word 0x24020004,0x10620011,0x3C02800D,0x08019265\n\t"
-    ".word 0x00000000,0x3C02800B,0x2451C480,0x3C02800B\n\t"
-    ".word 0x2454C884,0x24020001,0x08019264,0xA22203E0\n\t"
-    ".word 0x3C02800B,0x2451D080,0x3C02800B,0x2454D664\n\t"
-    ".word 0x24020001,0x08019264,0xA22205C0,0x3C02800B\n\t"
-    ".word 0x2451C8A0,0x3C02800B,0x2454D064,0x24020001\n\t"
-    ".word 0xA22207A0,0x3C02800D,0x90432FEC,0x24020001\n\t"
-    ".word 0x14620003,0x3C02800F,0x0801926D,0x2442AF2C\n\t"
-    ".word 0x3C02800F,0x2442ADC4,0xAE220168,0x00004821\n\t"
-    ".word 0x3C04800E,0x3C02800D,0x90432FED,0x24020001\n\t"
-    ".word 0x10600065,0xA48252CC,0x3C02800E,0x24583E68\n\t"
-    ".word 0x240F0001,0x3C02800B,0x2445BA6C,0x3C02800E\n\t"
-    ".word 0x244E5344,0x3C02800E,0x244D52F8,0x01205021\n\t"
-    ".word 0x3C02800B,0x2448BB20,0x3C02800B,0x2447BB00\n\t"
-    ".word 0x3C02800A,0x244C6084,0x01205821,0x2402007F\n\t"
-    ".word 0x11220002,0x00003021,0x01783021,0x8D830000\n\t"
-    ".word 0x24020002,0x10620012,0x2C620003,0x10400005\n\t"
-    ".word 0x24020003,0x106F0009,0x00000000,0x080192AD\n\t"
-    ".word 0xA0F30004,0x1062000F,0x24020004,0x10620012\n\t"
-    ".word 0x00000000,0x080192AD,0xA0F30004,0x90B3000F\n\t"
-    ".word 0x90B20010,0x90B00011,0x080192AD,0xA0F30004\n\t"
-    ".word 0x90B30009,0x90B2000A,0x90B0000B,0x080192AD\n\t"
-    ".word 0xA0F30004,0x90B30003,0x90B20004,0x90B00005\n\t"
-    ".word 0x080192AD,0xA0F30004,0x90B3000C,0x90B2000D\n\t"
-    ".word 0x90B0000E,0xA0F30004,0xA0F20005,0xA0F00006\n\t"
-    ".word 0xA1130004,0xA1120005,0xA1100006,0x8CC20058\n\t"
-    ".word 0x00000000,0x144F0008,0x03AA1021,0x8C430010\n\t"
-    ".word 0x3C02800F,0x2442ADA4,0x00031940,0x00711821\n\t"
-    ".word 0x080192C2,0xAC620008,0x8C420010,0x00000000\n\t"
-    ".word 0x00021140,0x00511021,0xAC400008,0x254A0004\n\t"
-    ".word 0x25080008,0x24E70008,0x258C0004,0x256B0114\n\t"
-    ".word 0x00092040,0x8CC20070,0x25290001,0xADA20000\n\t"
-    ".word 0x94C200D0,0x25AD0004,0xA5C20000,0x3C02800E\n\t"
-    ".word 0x24425318,0x00822021,0x94C300D2,0x3C02800D\n\t"
-    ".word 0xA4830000,0x90422FED,0x00000000,0x0122102A\n\t"
-    ".word 0x1440FFAE,0x25CE0002,0x3C02800D,0x90432FEC\n\t"
-    ".word 0x24020001,0x1462000C,0x02802021,0x3C02800E\n\t"
-    ".word 0x8C423EC0,0x00000000,0x14430003,0x24040002\n\t"
-    ".word 0x080192E6,0x24050004,0x24050003,0x0C01AB94\n\t"
-    ".word 0x00003021,0x02802021,0x00002821,0x0C016554\n\t"
-    ".word 0x24060001,0x8FBF0040,0x8FB7003C,0x8FB60038\n\t"
-    ".word 0x8FB50034,0x8FB40030,0x8FB3002C,0x8FB20028\n\t"
-    ".word 0x8FB10024,0x8FB00020,0x03E00008,0x27BD0048\n");
+typedef struct Rgb {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} Rgb;
+
+typedef struct Row {
+    int pad[2];
+    int *style;
+    int pad2[5];
+} Row;
+
+typedef struct Dialog {
+    Row rows[1];
+} Dialog;
+
+typedef struct Object {
+    char pad0[0x58];
+    int human;
+    char pad1[0x70 - 0x5C];
+    int score;
+    char pad2[0xD0 - 0x74];
+    unsigned short kills;
+    unsigned short deaths;
+    char pad3[0x114 - 0xD4];
+} Object;
+
+typedef struct Swatch {
+    int pad;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    char pad2;
+} Swatch;
+
+typedef struct Rows4 {
+    int index[4];
+} Rows4;
+
+extern Rows4 D_800BFEF0;
+extern int D_800ABA84;
+extern unsigned char D_800D2FEC;
+extern unsigned char D_800D2FED;
+extern char D_800AC480[];
+extern char D_800AC884[];
+extern char D_800AD080[];
+extern char D_800AD664[];
+extern char D_800AC8A0[];
+extern char D_800AD064[];
+extern int D_800EAF2C;
+extern int D_800EADC4;
+extern int D_800EADA4;
+extern short D_800E52CC;
+extern Object D_800E3E68[];
+extern unsigned int D_800A6084[];
+extern Rgb D_800ABA6C[];
+extern Swatch D_800ABB00[];
+extern Swatch D_800ABB20[];
+extern int D_800E52F8[];
+extern unsigned short D_800E5344[];
+extern unsigned short D_800E5318[];
+extern void func_8005A888(void);
+extern void func_8006AE50(int, int, int);
+extern void func_80059550(void *, void *, int);
+
+void func_8006488C(void) {
+    Rows4 rows;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    char *dialog;
+    char *group;
+    int i;
+    Object *object;
+
+    rows = D_800BFEF0;
+    r = 0;
+    g = r;
+    b = r;
+    dialog = 0;
+    group = 0;
+    D_800ABA84 = 0;
+    func_8005A888();
+    switch (D_800D2FED) {
+    case 2:
+        dialog = D_800AC480;
+        group = D_800AC884;
+        dialog[0x3E0] = 1;
+        break;
+    case 3:
+        dialog = D_800AD080;
+        group = D_800AD664;
+        dialog[0x5C0] = 1;
+        break;
+    case 4:
+        dialog = D_800AC8A0;
+        group = D_800AD064;
+        dialog[0x7A0] = 1;
+        break;
+    }
+    if (D_800D2FEC == 1) {
+        *(int **)(dialog + 0x168) = &D_800EAF2C;
+    } else {
+        *(int **)(dialog + 0x168) = &D_800EADC4;
+    }
+    D_800E52CC = 1;
+    for (i = 0; i < D_800D2FED; i++) {
+        if (i == 127) {
+            object = 0;
+        } else {
+            object = &D_800E3E68[i];
+        }
+        switch (D_800A6084[i]) {
+        case 1:
+            r = D_800ABA6C[5].r;
+            g = D_800ABA6C[5].g;
+            b = D_800ABA6C[5].b;
+            break;
+        case 2:
+            r = D_800ABA6C[3].r;
+            g = D_800ABA6C[3].g;
+            b = D_800ABA6C[3].b;
+            break;
+        case 3:
+            r = D_800ABA6C[1].r;
+            g = D_800ABA6C[1].g;
+            b = D_800ABA6C[1].b;
+            break;
+        case 4:
+            r = D_800ABA6C[4].r;
+            g = D_800ABA6C[4].g;
+            b = D_800ABA6C[4].b;
+            break;
+        }
+        D_800ABB00[i].r = r;
+        D_800ABB00[i].g = g;
+        D_800ABB00[i].b = b;
+        D_800ABB20[i].r = r;
+        D_800ABB20[i].g = g;
+        D_800ABB20[i].b = b;
+        if (object->human == 1) {
+            ((Row *)(dialog + rows.index[i] * 32))->style = &D_800EADA4;
+        } else {
+            ((Row *)(dialog + rows.index[i] * 32))->style = 0;
+        }
+        D_800E52F8[i] = object->score;
+        D_800E5344[i] = object->kills;
+        {
+            unsigned short *d = &D_800E5318[i];
+
+            *d = object->deaths;
+        }
+    }
+    if (D_800D2FEC == 1) {
+        if (D_800E3E68[0].human == 1) func_8006AE50(2, 4, 0); else func_8006AE50(2, 3, 0);
+    }
+    func_80059550(group, 0, 1);
+}

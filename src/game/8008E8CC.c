@@ -1,21 +1,81 @@
-asm(".text\n\t.globl func_8008E8CC\nfunc_8008E8CC:\n\t"
-    ".word 0x27BDFFD8,0xAFB20020,0x00809021,0x00C04021\n\t"
-    ".word 0x00E03021,0xAFB1001C,0x24110001,0x3C04800F\n\t"
-    ".word 0x8C82EC34,0x8FA70038,0x2403FFFD,0xAFBF0024\n\t"
-    ".word 0xAFB00018,0x00431024,0xAC82EC34,0x10E00033\n\t"
-    ".word 0x24A3FFFA,0x2C62000C,0x10400030,0x3C02800C\n\t"
-    ".word 0x24425030,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x3C02800F\n\t"
-    ".word 0x2450EC34,0x8E0301A4,0x00000000,0x00C3102B\n\t"
-    ".word 0x14400002,0x00000000,0x00603021,0x8E0401A0\n\t"
-    ".word 0x0C0229EF,0x01002821,0x8E0201A4,0x8E0301A0\n\t"
-    ".word 0x00000000,0x00431021,0xA040FFFF,0x8E04019C\n\t"
-    ".word 0x0C024061,0x00008821,0x02402021,0x24050006\n\t"
-    ".word 0x24470001,0x3C028009,0x8E06019C,0x2442E860\n\t"
-    ".word 0x0C026503,0xAFA20010,0x08023A76,0x00000000\n\t"
-    ".word 0x3C02800F,0x8C42EC3C,0x08023A71,0x00000000\n\t"
-    ".word 0x3C02800F,0x8C42EC40,0x00000000,0x10400003\n\t"
-    ".word 0x00A02021,0x0040F809,0x01002821,0x12200003\n\t"
-    ".word 0x00000000,0x0C023A80,0x00000000,0x8FBF0024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef unsigned int u32;
+
+extern u32 D_800EEC34;
+extern void (*D_800EEC3C)(int, void *);
+extern void (*D_800EEC40)(int, void *);
+extern void func_8008A7BC(void *destination, const void *source, u32 size);
+extern int func_80090184(const char *text);
+extern void func_8009940C(void *owner, int event, void *data, int size,
+                          void (*callback)(void));
+extern void func_8008E860(void);
+extern void func_8008EA00(void);
+
+void func_8008E8CC(void *owner, int event, void *data, u32 size, void *active)
+{
+    register void *saved_owner asm("$18") = owner;
+    register int saved_event asm("$5") = event;
+    register void *saved_data asm("$8") = data;
+    register u32 saved_size asm("$6") = size;
+    register void *saved_active asm("$7") = active;
+    register int cleanup asm("$17") = 1;
+    register u32 *flags asm("$4") = &D_800EEC34;
+
+    *flags &= ~2U;
+    asm volatile("" : : : "memory");
+    if (saved_active != 0) {
+        switch (saved_event) {
+        case 6: {
+            register unsigned char *state asm("$16") = (unsigned char *)&D_800EEC34;
+            u32 maximum = *(u32 *)(state + 0x1a4);
+            if (saved_size >= maximum) {
+                saved_size = maximum;
+            }
+            func_8008A7BC(*(void **)(state + 0x1a0), saved_data, saved_size);
+            {
+                register u32 end asm("$2") = *(u32 *)(state + 0x1a4);
+                register u32 start asm("$3") = *(u32 *)(state + 0x1a0);
+                *(unsigned char *)(start + end - 1) = 0;
+            }
+            cleanup = 0;
+            {
+                register int length asm("$7") =
+                    func_80090184(*(char **)(state + 0x19c)) + 1;
+                register void *payload asm("$6") = *(void **)(state + 0x19c);
+                register void (*callback)(void) asm("$2") = func_8008E860;
+                asm("" : "+r"(length));
+                func_8009940C(saved_owner, 6, payload, length, callback);
+            }
+            break;
+        }
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+            break;
+        case 15: {
+            void (*callback)(int, void *) = D_800EEC3C;
+            if (callback != 0) {
+                callback(saved_event, saved_data);
+            }
+            break;
+        }
+        case 16: {
+            void (*callback)(int, void *) = D_800EEC40;
+            if (callback != 0) {
+                callback(saved_event, saved_data);
+            }
+            break;
+        }
+        case 17:
+            break;
+        }
+    }
+    if (cleanup != 0) {
+        asm volatile("");
+        func_8008EA00();
+    }
+}

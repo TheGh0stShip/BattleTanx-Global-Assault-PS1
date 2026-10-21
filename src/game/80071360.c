@@ -1,75 +1,133 @@
-asm(".text\n\t.globl func_80071360\nfunc_80071360:\n\t"
-    ".word 0x27BDFFE8,0x00805821,0x00A06021,0x85620000\n\t"
-    ".word 0x85860000,0x85630002,0x85840002,0x85670004\n\t"
-    ".word 0x85850004,0x00C20018,0x00006812,0x00004010\n\t"
-    ".word 0x000D6B02,0x00084500,0x01A86825,0x01A01021\n\t"
-    ".word 0x00830018,0x00006812,0x00004010,0x000D6B02\n\t"
-    ".word 0x00084500,0x01A86825,0x01A01821,0x00431021\n\t"
-    ".word 0x00A70018,0x00001812,0x00006810,0x00031B02\n\t"
-    ".word 0x000D6D00,0x006D1825,0x00434821,0x00C60018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x00840018,0x00001812,0x00006810\n\t"
-    ".word 0x00031B02,0x000D6D00,0x006D1825,0x00431021\n\t"
-    ".word 0x00A50018,0x00001812,0x00002010,0x00031B02\n\t"
-    ".word 0x00042500,0x00641825,0x00435021,0x15400002\n\t"
-    ".word 0x01402021,0x24040002,0x3C028000,0x01221824\n\t"
-    ".word 0x00821024,0x00621826,0x05210002,0x01201021\n\t"
-    ".word 0x00021023,0x04810002,0x00803821,0x00073823\n\t"
-    ".word 0x4882F000,0x00000000,0x00000000,0xEBBF0000\n\t"
-    ".word 0x8FA50000,0x00000000,0x24A8FFF4,0x05010023\n\t"
-    ".word 0x00022300,0x00A22004,0x4887F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20004,0xE85F0000,0x8FA60004\n\t"
-    ".word 0x00000000,0x00C52823,0x04A0000F,0x2402000C\n\t"
-    ".word 0x00461023,0x04400003,0x00000000,0x0801C533\n\t"
-    ".word 0x00471007,0x00021023,0x00471004,0x0082001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00002012\n\t"
-    ".word 0x0801C548,0x00A42004,0x00081023,0x00471007\n\t"
-    ".word 0x0082001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00002012,0x0801C54A,0x00801021,0x0087001B\n\t"
-    ".word 0x14E00002,0x00000000,0x0007000D,0x00002012\n\t"
-    ".word 0x00000000,0x00801021,0x10600002,0x00000000\n\t"
-    ".word 0x00021023,0x00021400,0x85830000,0x00021403\n\t"
-    ".word 0x00430018,0x00001012,0x04410004,0x00021B02\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x95620000\n\t"
-    ".word 0x01402021,0x00431023,0x15400002,0xA5620000\n\t"
-    ".word 0x24040002,0x3C028000,0x01221824,0x00821024\n\t"
-    ".word 0x00621826,0x05210002,0x01203021,0x00063023\n\t"
-    ".word 0x04810002,0x00803821,0x00073823,0x4886F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20008,0xE85F0000\n\t"
-    ".word 0x8FA50008,0x00000000,0x24A8FFF4,0x05010023\n\t"
-    ".word 0x00062300,0x00A62004,0x4887F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A2000C,0xE85F0000,0x8FA6000C\n\t"
-    ".word 0x00000000,0x00C52823,0x04A0000F,0x2402000C\n\t"
-    ".word 0x00461023,0x04400003,0x00000000,0x0801C583\n\t"
-    ".word 0x00471007,0x00021023,0x00471004,0x0082001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00002012\n\t"
-    ".word 0x0801C598,0x00A42004,0x00081023,0x00471007\n\t"
-    ".word 0x0082001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00002012,0x0801C59A,0x00801021,0x0087001B\n\t"
-    ".word 0x14E00002,0x00000000,0x0007000D,0x00002012\n\t"
-    ".word 0x00000000,0x00801021,0x10600002,0x00000000\n\t"
-    ".word 0x00021023,0x00021400,0x85830002,0x00021403\n\t"
-    ".word 0x00430018,0x00001012,0x04410004,0x00021B02\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x95620002\n\t"
-    ".word 0x01402021,0x00431023,0x14800002,0xA5620002\n\t"
-    ".word 0x24040002,0x3C028000,0x01221824,0x00821024\n\t"
-    ".word 0x00624026,0x05210002,0x01201821,0x00031823\n\t"
-    ".word 0x04810002,0x00803021,0x00063023,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20010,0xE85F0000\n\t"
-    ".word 0x8FA40010,0x00000000,0x2487FFF4,0x04E10023\n\t"
-    ".word 0x00000000,0x00831804,0x4886F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20014,0xE85F0000,0x8FA50014\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x0801C5D3\n\t"
-    ".word 0x00461007,0x00021023,0x00461004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0801C5E9,0x00831804,0x00071023,0x00461007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0801C5EB,0x00601021,0x00031B00\n\t"
-    ".word 0x0066001B,0x14C00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00601021,0x11000002\n\t"
-    ".word 0x00000000,0x00021023,0x00021400,0x85830004\n\t"
-    ".word 0x00021403,0x00430018,0x00001012,0x04410004\n\t"
-    ".word 0x00021B02,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x95620004,0x00000000,0x00431023,0xA5620004\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    register int divisor asm("$2");
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    __asm__("" : : "r"(negative));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                divisor = d >> scale;
+            } else {
+                divisor = d << -scale;
+            }
+            quotient = (unsigned int)shifted / divisor;
+            quotient <<= n_zeros;
+        } else {
+            divisor = d >> -excess;
+            quotient = (unsigned int)shifted / divisor;
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    result = quotient;
+    if (negative) {
+        return -result;
+    }
+    return result;
+}
+
+typedef struct {
+    short x;
+    short y;
+    short z;
+} SVector;
+
+static inline int scale_down(int f, int c) {
+    int m = f * c;
+
+    if (m >= 0) {
+        return (unsigned int)m >> 12;
+    }
+    return -(-m >> 12);
+}
+
+void func_80071360(SVector *v_arg, SVector *n_arg) {
+    register SVector *v asm("$11") = v_arg;
+    register SVector *n asm("$12") = n_arg;
+    int vx, vy, vz;
+    int nx, ny, nz;
+    int dot;
+    int len;
+    short f;
+
+    vx = v->x;
+    nx = n->x;
+    vy = v->y;
+    ny = n->y;
+    vz = v->z;
+    nz = n->z;
+    {
+        int a = fixed_mul(nx, vx);
+        int b = fixed_mul(ny, vy);
+        int c;
+
+        a = a + b;
+        c = fixed_mul(nz, vz);
+        dot = a + c;
+    }
+    {
+        int a = fixed_mul(nx, nx);
+        int b = fixed_mul(ny, ny);
+        int c;
+
+        a = a + b;
+        c = fixed_mul(nz, nz);
+        len = a + c;
+    }
+    f = fixed_div(dot, len ? len : 2);
+    v->x -= scale_down(f, n->x);
+    f = fixed_div(dot, len ? len : 2);
+    v->y -= scale_down(f, n->y);
+    f = fixed_div(dot, len ? len : 2);
+    v->z -= scale_down(f, n->z);
+}

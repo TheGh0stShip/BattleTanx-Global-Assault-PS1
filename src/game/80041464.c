@@ -1,374 +1,639 @@
-asm(".text\n\t.globl func_80041464\nfunc_80041464:\n\t"
-    ".word 0x27BDFEC8,0xAFBE0130,0x0080F021,0xAFB00110\n\t"
-    ".word 0x00A08021,0xAFBF0134,0xAFB7012C,0xAFB60128\n\t"
-    ".word 0xAFB50124,0xAFB40120,0xAFB3011C,0xAFB20118\n\t"
-    ".word 0xAFB10114,0x8FC20218,0x00000000,0x30420002\n\t"
-    ".word 0x10400005,0x00008821,0x3C02800B,0x9042ED52\n\t"
-    ".word 0x00000000,0x30510001,0x3C04800A,0x8FC3009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8C4B0068\n\t"
-    ".word 0x8C4C006C,0x8C4D0070,0xAFAB0038,0xAFAC003C\n\t"
-    ".word 0xAFAD0040,0x8FC3009C,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420010,0x00000000,0x30420002\n\t"
-    ".word 0x1040000A,0x27A40048,0x8FC20218,0x00000000\n\t"
-    ".word 0x30420004,0x10400005,0x00000000,0x8FA20038\n\t"
-    ".word 0x00000000,0x00021023,0xAFA20038,0x97CB0030\n\t"
-    ".word 0x24081000,0xAC880008,0xA4800002,0xA4800006\n\t"
-    ".word 0xA480000E,0xAC800014,0xAC800018,0xAC80001C\n\t"
-    ".word 0x31684000,0x31693FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31688000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA48A0004,0x000A5022,0xA48A000C,0x256A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA48A0000,0xA48A0010,0x27A50038,0x0C022997\n\t"
-    ".word 0x00A03021,0x3C07800A,0x8FC3009C,0x24E74EF4\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00471021,0x8FA30038,0x8C420080\n\t"
-    ".word 0x00000000,0x00621821,0xAFA30038,0x8FC3009C\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00471021,0x8FA3003C\n\t"
-    ".word 0x8C420084,0x00000000,0x00621821,0xAFA3003C\n\t"
-    ".word 0x8FC3009C,0x27A40028,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00471021\n\t"
-    ".word 0x8FA30040,0x8C420088,0x03C02821,0x00621821\n\t"
-    ".word 0xAFA30040,0x8FC2009C,0x24E70068,0x00023040\n\t"
-    ".word 0x00C23021,0x00063080,0x00C23021,0x00063100\n\t"
-    ".word 0x0C0103BA,0x00C73021,0x8FC20218,0x2603FFFF\n\t"
-    ".word 0x38420004,0xAFC20218,0x2C620010,0x10400521\n\t"
-    ".word 0x3C02800C,0x2442F148,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8FC3009C,0x00000000,0x2C62000F,0x10400515\n\t"
-    ".word 0x3C02800C,0x2442F188,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x8FC2058C,0x00000000,0x1C40000B,0x27D00008\n\t"
-    ".word 0x02002021,0x240600AF,0x240209C4,0xAFA00010\n\t"
-    ".word 0xAFA20014,0x8FC50098,0x0C008EE3,0x24070061\n\t"
-    ".word 0x080105E8,0x2404000C,0x02002021,0x240600FF\n\t"
-    ".word 0x24022328,0xAFA00010,0xAFA20014,0x8FC50098\n\t"
-    ".word 0x0C008EE3,0x24070061,0x2404000A,0x02002821\n\t"
-    ".word 0x00003021,0x0C01BF6C,0x00403821,0x08010ADF\n\t"
-    ".word 0x00001021,0x8FC20208,0x00000000,0x8C430088\n\t"
-    ".word 0x24020023,0x00620018,0x8FC2058C,0x27A40028\n\t"
-    ".word 0x0002102A,0x00001812,0x04600003,0x00402821\n\t"
-    ".word 0x080105FE,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00403821,0x30A200FF,0x10400002\n\t"
-    ".word 0x3C050007,0x00073840,0x34A58000,0x30E700FF\n\t"
-    ".word 0x97C6002C,0x97C30030,0x93C20098,0x00C33021\n\t"
-    ".word 0xAFA20010,0x8FC20000,0x30C6FFFF,0xAFA00018\n\t"
-    ".word 0x0C00B161,0xAFA20014,0x10400016,0x03C02021\n\t"
-    ".word 0x0C01537E,0x2405001B,0x08010627,0x24050009\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x24060003,0xAFC20294\n\t"
-    ".word 0x8FC2058C,0x00000000,0x18400002,0x27A40028\n\t"
-    ".word 0x24060006,0x97C5002C,0x97C30030,0x8FC20000\n\t"
-    ".word 0x00A32821,0xAFA20010,0x8FC70098,0x0C01CD72\n\t"
-    ".word 0x30A5FFFF,0x24050009,0x27A60038,0x24024000\n\t"
-    ".word 0xAFA20014,0x24021000,0xAFA20018,0x24020100\n\t"
-    ".word 0xAFA00010,0xAFA2001C,0x8FC40000,0x0C01B0CD\n\t"
-    ".word 0x00C03821,0x08010ADF,0x00001021,0x97C3002C\n\t"
-    ".word 0x97C20030,0x00000000,0x00629821,0x3C02800A\n\t"
-    ".word 0x8FC3009C,0x24504EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00501021\n\t"
-    ".word 0x8C430054,0x32684000,0x32693FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x32688000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x00430018,0x00005812,0x00006010\n\t"
-    ".word 0x000B5B02,0x000C6500,0x016C5825,0xAFAB0068\n\t"
-    ".word 0x266A4000,0x31484000,0x31493FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x31488000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x00430018,0x00006812,0x00007010\n\t"
-    ".word 0x000D6B02,0x000E7500,0x01AE6825,0xAFAD006C\n\t"
-    ".word 0xAFA00074,0xAFA00070,0x8FC3009C,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00502021,0x8C830064,0x2402FFFF\n\t"
-    ".word 0x10620004,0x00000000,0x90850064,0x0C01537E\n\t"
-    ".word 0x03C02021,0x8FC20218,0x00000000,0x30420002\n\t"
-    ".word 0x10400005,0x3C05800A,0x8FC40098,0x24A54D1C\n\t"
-    ".word 0x0C0218D3,0x00003021,0x8FC3009C,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00501021,0x8FC30208,0x8C420060\n\t"
-    ".word 0x8C630088,0x00000000,0x00620018,0x00001012\n\t"
-    ".word 0x04400003,0x00000000,0x080106A0,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x8FC4058C\n\t"
-    ".word 0x00000000,0x18800002,0x02221804,0x00031840\n\t"
-    ".word 0x3C02800B,0x9042ED54,0x00000000,0x30420001\n\t"
-    ".word 0x10400048,0x307200FF,0x8FC20218,0x00000000\n\t"
-    ".word 0x30420002,0x10400043,0x00000000,0x1C800003\n\t"
-    ".word 0x00002821,0x12200002,0x00000000,0x24050001\n\t"
-    ".word 0x97C3002C,0x97C20030,0x27A40028,0x00621821\n\t"
-    ".word 0x30684000,0x30693FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x30688000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00091040,0x00021103\n\t"
-    ".word 0xAFA20078,0x246A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x24080032,0x00021103,0xAFA20080\n\t"
-    ".word 0x30A200FF,0x10400002,0xAFA0007C,0x24080064\n\t"
-    ".word 0x93C70098,0x27A50078,0xAFA80010,0x8FC20000\n\t"
-    ".word 0x3066FFFF,0xAFA20014,0x93C20218,0x24030003\n\t"
-    ".word 0xAFA3001C,0x30420002,0x0C00DA24,0xAFA20018\n\t"
-    ".word 0x03C02021,0x0C01537E,0x24050019,0x08010742\n\t"
-    ".word 0x3C056666,0x3C02800A,0x24544EF4,0x27A40028\n\t"
-    ".word 0xAFB20010,0x8FC3009C,0x27B10068,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00541021,0x8C420050,0x02202821,0xAFA20014\n\t"
-    ".word 0x8FC20000,0x27B00070,0xAFA20018,0x93C20218\n\t"
-    ".word 0x02003021,0x30420002,0xAFA2001C,0x8FC20208\n\t"
-    ".word 0x3267FFFF,0x0C00E36C,0xAFA20020,0x3C02800B\n\t"
-    ".word 0x9042ED59,0x00000000,0x30420001,0x10400031\n\t"
-    ".word 0x3C056666,0x8FC20218,0x00000000,0x30420002\n\t"
-    ".word 0x1040002C,0x240CF000,0x8FAD0068,0x00000000\n\t"
-    ".word 0x018D0018,0x00005812,0x00001010,0x000B5B02\n\t"
-    ".word 0x00021500,0x01625825,0xAFAB0068,0x8FAB006C\n\t"
-    ".word 0x00000000,0x018B0018,0x00007012,0x00001010\n\t"
-    ".word 0x000E7302,0x00021500,0x01C27025,0x27A40028\n\t"
-    ".word 0xAFAE006C,0xAFB20010,0x8FC3009C,0x02202821\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00541021,0x8C420050,0x02003021\n\t"
-    ".word 0xAFA20014,0x8FC20000,0x34078000,0xAFA20018\n\t"
-    ".word 0x93C20218,0x02673821,0x30420002,0xAFA2001C\n\t"
-    ".word 0x8FC20208,0x30E7FFFF,0x0C00E36C,0xAFA20020\n\t"
-    ".word 0x3C056666,0x3C04800A,0x8FC3009C,0x24844EF4\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C430060,0x34A56667\n\t"
-    ".word 0x00031AC0,0x00650018,0x97D0002C,0x97C20030\n\t"
-    ".word 0x00000000,0x02028021,0x24028000,0x02028021\n\t"
-    ".word 0x00031FC3,0x00005810,0x000B8903,0x0C021B21\n\t"
-    ".word 0x02238823,0x00021402,0x00022040,0x00822021\n\t"
-    ".word 0x00042080,0x00822021,0x00041980,0x00641823\n\t"
-    ".word 0x00031880,0x00621821,0x00031C02,0x24630666\n\t"
-    ".word 0x00710018,0x00006012,0x00001010,0x000C6302\n\t"
-    ".word 0x00021500,0x01826025,0x01808821,0x3210FFFF\n\t"
-    ".word 0x00108102,0x0C022B30,0x02002021,0x00510018\n\t"
-    ".word 0x00001812,0x00006810,0x00031B02,0x000D6D00\n\t"
-    ".word 0x006D1825,0x8FC20220,0x02002021,0x00431021\n\t"
-    ".word 0x0C022B58,0xAFC20220,0x00510018,0x00001812\n\t"
-    ".word 0x00007010,0x00031B02,0x000E7500,0x006E1825\n\t"
-    ".word 0x24050009,0x8FC20228,0x27A60038,0x00431023\n\t"
-    ".word 0x08010628,0xAFC20228,0x8FC20208,0x00000000\n\t"
-    ".word 0x8C430088,0x2402003C,0x00620018,0x00001012\n\t"
-    ".word 0x04410004,0x00023303,0x00021023,0x00021303\n\t"
-    ".word 0x00023023,0x8FC2058C,0x00000000,0x18400002\n\t"
-    ".word 0x27A40028,0x00063040,0x24070001,0x97C5002C\n\t"
-    ".word 0x97C80030,0x8FC30000,0x00E01021,0xAFA20014\n\t"
-    ".word 0x00A82821,0xAFA30010,0x8FC20208,0x30A5FFFF\n\t"
-    ".word 0x0C00AD32,0xAFA20018,0x08010627,0x24050009\n\t"
-    ".word 0x8FC50218,0x00000000,0x30A20008,0x14400336\n\t"
-    ".word 0x2402FFFF,0x03C02021,0x3C02800D,0x8C432FE0\n\t"
-    ".word 0x34A20008,0xAFC20218,0xAFC00270,0x0C014F85\n\t"
-    ".word 0xAFC3026C,0x97C402B8,0x0C006C25,0x00000000\n\t"
-    ".word 0x24040002,0x03C02821,0x24A602DC,0x3402FFFF\n\t"
-    ".word 0x0C01D2C9,0xA4A202B8,0x08010ADF,0x00001021\n\t"
-    ".word 0x8FC20208,0x00000000,0x8C430088,0x2402001E\n\t"
-    ".word 0x00620018,0x00001012,0x04410004,0x00021B03\n\t"
-    ".word 0x00021023,0x00021303,0x00021823,0x97D1002C\n\t"
-    ".word 0x97C20030,0x00609821,0x02228821,0x3231FFFF\n\t"
-    ".word 0x00118102,0x0C022B58,0x02002021,0x3C0D0011\n\t"
-    ".word 0x35AD8000,0x01A20018,0x00005812,0x00006010\n\t"
-    ".word 0x000B5B02,0x000C6500,0x016C5825,0x02002021\n\t"
-    ".word 0x0C022B30,0xAFAB0080,0x3C0B0011,0x356B8000\n\t"
-    ".word 0x01620018,0x00001812,0x00007010,0x00031B02\n\t"
-    ".word 0x000E7500,0x006E1825,0x27A40028,0x27B40080\n\t"
-    ".word 0x02802821,0x27B70078,0x02E03021,0x02203821\n\t"
-    ".word 0x327300FF,0x8FA20080,0x24150002,0xAFA30084\n\t"
-    ".word 0xAFA30088,0xAFA00078,0xAFA0007C,0x00021023\n\t"
-    ".word 0xAFA2008C,0xAFB30010,0xAFB50014,0x8FC20000\n\t"
-    ".word 0x24160001,0xAFB6001C,0xAFA20018,0x8FC20208\n\t"
-    ".word 0x3C106666,0x0C00E36C,0xAFA20020,0x8FA60088\n\t"
-    ".word 0x36106667,0x00D00018,0x00001810,0x8FA7008C\n\t"
-    ".word 0x00000000,0x00F00018,0x3C1251EB,0x00004810\n\t"
-    ".word 0x3652851F,0x00064023,0x01120018,0x27A40028\n\t"
-    ".word 0x02802821,0x000637C3,0x02A31007,0x00461023\n\t"
-    ".word 0x00073023,0x8FA30080,0x00005010,0x00621821\n\t"
-    ".word 0x8FA20084,0x00D20018,0x00073FC3,0xAFA30080\n\t"
-    ".word 0x02A91807,0x00671823,0x00431021,0x000847C3\n\t"
-    ".word 0xAFA20084,0x000A1183,0x00481023,0x000637C3\n\t"
-    ".word 0xAFA20078,0x00007810,0x000F1183,0x00461023\n\t"
-    ".word 0xAFA2007C,0xAFB30010,0xAFB50014,0x8FC20000\n\t"
-    ".word 0x02203821,0xAFB6001C,0xAFA20018,0x8FC20208\n\t"
-    ".word 0x02E03021,0x0C00E36C,0xAFA20020,0x8FA60088\n\t"
-    ".word 0x00000000,0x00D00018,0x00001810,0x8FA7008C\n\t"
-    ".word 0x00000000,0x00F00018,0x00004010,0x00000000\n\t"
-    ".word 0x00000000,0x00D20018,0x27A40028,0x02802821\n\t"
-    ".word 0x8FA20080,0x02C31807,0x00004810,0x000637C3\n\t"
-    ".word 0x00661823,0x00F20018,0x00431023,0x02C81807\n\t"
-    ".word 0xAFA20080,0x8FA20084,0x00073FC3,0x00671823\n\t"
-    ".word 0x00431023,0xAFA20084,0x00091183,0x00461023\n\t"
-    ".word 0xAFA20078,0x00007810,0x000F1183,0x00471023\n\t"
-    ".word 0xAFA2007C,0xAFB30010,0xAFB50014,0x8FC20000\n\t"
-    ".word 0x02E03021,0xAFB6001C,0xAFA20018,0x8FC20208\n\t"
-    ".word 0x02203821,0x0C00E36C,0xAFA20020,0x03C02021\n\t"
-    ".word 0x0C01537E,0x2405001B,0x97D0002C,0x97C20030\n\t"
-    ".word 0x00000000,0x02028021,0x24028000,0x0C021B21\n\t"
-    ".word 0x02028021,0x00021402,0x02C22004,0x00822021\n\t"
-    ".word 0x02A42004,0x00822021,0x00041980,0x00641823\n\t"
-    ".word 0x02A31804,0x00621821,0x00031C02,0x24630666\n\t"
-    ".word 0x240B0800,0x006B0018,0x00008812,0x00001010\n\t"
-    ".word 0x00118B02,0x00021500,0x02228825,0x3210FFFF\n\t"
-    ".word 0x00108102,0x0C022B30,0x02002021,0x00510018\n\t"
-    ".word 0x00001812,0x00006010,0x00031B02,0x000C6500\n\t"
-    ".word 0x006C1825,0x8FC20220,0x02002021,0x00431021\n\t"
-    ".word 0x0C022B58,0xAFC20220,0x00510018,0x00001812\n\t"
-    ".word 0x00006810,0x00031B02,0x000D6D00,0x006D1825\n\t"
-    ".word 0x24050009,0x8FC20228,0x27A60038,0x00431023\n\t"
-    ".word 0x08010628,0xAFC20228,0x8FC20208,0x00000000\n\t"
-    ".word 0x8C430088,0x2402001E,0x00620018,0x97C3002C\n\t"
-    ".word 0x97C20030,0x00008812,0x06200003,0x00621821\n\t"
-    ".word 0x0801089E,0x00111303,0x00111023,0x00021303\n\t"
-    ".word 0x00021023,0x3072FFFF,0x00128102,0x02002021\n\t"
-    ".word 0x0C022B58,0x00408821,0x3C0D0011,0x35AD8000\n\t"
-    ".word 0x004D0018,0x00005812,0x00006010,0x000B5B02\n\t"
-    ".word 0x000C6500,0x016C5825,0x02002021,0x0C022B30\n\t"
-    ".word 0xAFAB0090,0x3C0C0011,0x358C8000,0x004C0018\n\t"
-    ".word 0x00007012,0x00005810,0x000E7302,0x000B5D00\n\t"
-    ".word 0x01CB7025,0x27A40028,0x27B00090,0x02002821\n\t"
-    ".word 0x24130001,0x02403021,0xAFAE0098,0xAFA00094\n\t"
-    ".word 0xAFB30010,0x8FC20000,0x323100FF,0xAFA20014\n\t"
-    ".word 0x8FC20208,0x02203821,0x0C00B81E,0xAFA20018\n\t"
-    ".word 0x27A40028,0x02002821,0xAFB30010,0x8FC20000\n\t"
-    ".word 0x02403021,0xAFA20014,0x8FC20208,0x02203821\n\t"
-    ".word 0x0C00B81E,0xAFA20018,0x27A40028,0x02002821\n\t"
-    ".word 0xAFB30010,0x8FC20000,0x02403021,0xAFA20014\n\t"
-    ".word 0x8FC20208,0x02203821,0x0C00B81E,0xAFA20018\n\t"
-    ".word 0x03C02021,0x0C01537E,0x24050020,0x8FC2058C\n\t"
-    ".word 0x00000000,0x1840FD47,0x27A40028,0x02002821\n\t"
-    ".word 0xAFB30010,0x8FC20000,0x02403021,0xAFA20014\n\t"
-    ".word 0x8FC20208,0x02203821,0x0C00B81E,0xAFA20018\n\t"
-    ".word 0x27A40028,0x02002821,0xAFB30010,0x8FC20000\n\t"
-    ".word 0x02403021,0xAFA20014,0x8FC20208,0x02203821\n\t"
-    ".word 0x0C00B81E,0xAFA20018,0x08010627,0x24050009\n\t"
-    ".word 0x8FC20208,0x00000000,0x8C430088,0x24020064\n\t"
-    ".word 0x00620018,0x8FC2058C,0x27A40028,0x0002102A\n\t"
-    ".word 0x00001812,0x04600003,0x00402821,0x08010905\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00401821,0x30A200FF,0x10400002,0x3C050007\n\t"
-    ".word 0x00031840,0x34A58000,0x97C6002C,0x97C20030\n\t"
-    ".word 0x306700FF,0x00C23021,0x93C20098,0x30C6FFFF\n\t"
-    ".word 0xAFA20010,0x8FC30000,0x24020001,0xAFA20018\n\t"
-    ".word 0x0C00B161,0xAFA30014,0x1040FD0E,0x03C02021\n\t"
-    ".word 0x0C01537E,0x2405001B,0x08010627,0x24050009\n\t"
-    ".word 0x97C4002C,0x97C20030,0x8FC3058C,0x00823021\n\t"
-    ".word 0x0003182A,0x27A40028,0x30C84000,0x30C93FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x30C88000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x00021103,0xAFA200A0,0x24CA4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00091040,0x24080032\n\t"
-    ".word 0x00021103,0x306300FF,0xAFA200A8,0x10600002\n\t"
-    ".word 0xAFA000A4,0x24080064,0x93C70098,0x27A500A0\n\t"
-    ".word 0xAFA80010,0x8FC20000,0x30C6FFFF,0xAFA20014\n\t"
-    ".word 0x93C20218,0x24030003,0xAFA3001C,0x30420002\n\t"
-    ".word 0x0C00DA24,0xAFA20018,0x03C02021,0x0C01537E\n\t"
-    ".word 0x24050019,0x08010627,0x24050009,0x8FC20208\n\t"
-    ".word 0x00000000,0x8C430088,0x240200FA,0x00620018\n\t"
-    ".word 0x00001012,0x04410004,0x00023303,0x00021023\n\t"
-    ".word 0x00021303,0x00023023,0x27A40028,0x24070003\n\t"
-    ".word 0x97C5002C,0x97C80030,0x8FC30000,0x24020001\n\t"
-    ".word 0xAFA20014,0x00A82821,0xAFA30010,0x8FC20208\n\t"
-    ".word 0x30A5FFFF,0x0C00AD32,0xAFA20018,0x08010627\n\t"
-    ".word 0x24050009,0x8FC20208,0x00000000,0x8C430088\n\t"
-    ".word 0x24020028,0x00620018,0x00001012,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8FC2058C,0x00000000,0x1C400008,0x00603021\n\t"
-    ".word 0x27A40028,0x00003821,0x97C5002C,0x97C80030\n\t"
-    ".word 0x8FC30000,0x08010993,0x24020001,0x27A40028\n\t"
-    ".word 0x00033040,0x24070001,0x97C5002C,0x97C80030\n\t"
-    ".word 0x8FC30000,0x00E01021,0xAFA20014,0x00A82821\n\t"
-    ".word 0xAFA30010,0x8FC20208,0x30A5FFFF,0x0C00AD32\n\t"
-    ".word 0xAFA20018,0x08010627,0x24050009,0x8FC20264\n\t"
-    ".word 0x00000000,0x10400003,0x3C02800D,0x08010ADF\n\t"
-    ".word 0x2402FFFF,0x8C422FE0,0x8FC3009C,0x244200B4\n\t"
-    ".word 0xAFC20264,0x3C02800A,0x24444EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C4200A4,0x00000000,0x8C420000\n\t"
-    ".word 0x00000000,0x1840012B,0x00008021,0x00808821\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00511021,0x8C4200A4,0x3C070005\n\t"
-    ".word 0x8C460004,0x34E7A000,0xAFA00010,0x8FC3009C\n\t"
-    ".word 0x2405000B,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00511021,0x8C4200A4\n\t"
-    ".word 0x00102100,0x8C420004,0x00C43021,0x00822021\n\t"
-    ".word 0x8C83000C,0x24021000,0xAFA20018,0xAFA7001C\n\t"
-    ".word 0xAFA30014,0x8FC40000,0x0C01B0CD,0x00C03821\n\t"
-    ".word 0x8FC3009C,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00511021\n\t"
-    ".word 0x8C4200A4,0x00000000,0x8C420000,0x26100001\n\t"
-    ".word 0x0202102A,0x1440FFD3,0x00031040,0x08010ADF\n\t"
-    ".word 0x00001021,0x8FC50210,0x8FC3020C,0x00000000\n\t"
-    ".word 0x00A3102A,0x1040FFB5,0x24A4001E,0x00031843\n\t"
-    ".word 0x8FC2020C,0x00A3182A,0xAFC40210,0x00021043\n\t"
-    ".word 0x0082202A,0x10640033,0x00000000,0x10800015\n\t"
-    ".word 0x3C04800A,0x8FC3009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420040,0x00000000,0xAFC20300\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C42003C,0x08010A1E\n\t"
-    ".word 0xAFC20304,0x8FC3009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C420038,0x00000000,0xAFC20300\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x00441021,0x8C420034,0x00000000\n\t"
-    ".word 0xAFC20304,0x8FC50300,0x0C01E8D1,0x27C40308\n\t"
-    ".word 0x8FC50304,0x0C01E8D1,0x27C403E8,0x0C01E877\n\t"
-    ".word 0x03C02021,0x8FC20210,0x8FC3020C,0x00000000\n\t"
-    ".word 0x0062102A,0x10400002,0x03C02021,0xAFC30210\n\t"
-    ".word 0x0C01537E,0x24050017,0x08010ADF,0x00001021\n\t"
-    ".word 0x8FC20584,0x00000000,0x14400015,0x2C420004\n\t"
-    ".word 0x3C030002,0x34638000,0x03C02021,0x24050006\n\t"
-    ".word 0x24020002,0xAFC20584,0x0C01537E,0xAFC30580\n\t"
-    ".word 0x3C03001C,0x34632000,0x00002021,0x03C02821\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x24A602DC,0xACA3057C\n\t"
-    ".word 0x0C01D2C9,0xACA20588,0x08010ADF,0x00001021\n\t"
-    ".word 0x10400094,0x3C03001C,0x8FC2057C,0x34632000\n\t"
-    ".word 0x00431021,0x08010ADE,0xAFC2057C,0x27A500B0\n\t"
-    ".word 0x3C04800C,0x97C302B8,0x248462B0,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x0C005BFD,0x00442021\n\t"
-    ".word 0x27A40088,0x8FA200C8,0x8FA300B0,0x8FA500B4\n\t"
-    ".word 0x00431021,0x8FA300CC,0x00021043,0xAFA200A0\n\t"
-    ".word 0xAFA20088,0x00651821,0x00031843,0xAFA300A8\n\t"
-    ".word 0x0C007A8F,0xAFA3008C,0x8FA500A0,0x8FA600A8\n\t"
-    ".word 0x2404001A,0x0C014DE4,0xAFA200A4,0x27A400A0\n\t"
-    ".word 0x8FC60098,0x0C009FCE,0x00002821,0x08010ADF\n\t"
-    ".word 0x00001021,0x27A500E0,0x3C04800C,0x248462B0\n\t"
-    ".word 0x97D0002C,0x97C20030,0x97C302B8,0x02028021\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x0C005BFD\n\t"
-    ".word 0x00442021,0x3210FFFF,0x00108102,0x0C022B58\n\t"
-    ".word 0x02002021,0x3C0CFFE0,0x358CC000,0x01820018\n\t"
-    ".word 0x00002812,0x00005810,0x00052B02,0x000B5D00\n\t"
-    ".word 0x00AB2825,0x8FA200F8,0x8FA300E0,0x02002021\n\t"
-    ".word 0x00431021,0x00021043,0x00451021,0x0C022B30\n\t"
-    ".word 0xAFA200D0,0x3C0EFFE0,0x35CEC000,0x01C20018\n\t"
-    ".word 0x00002012,0x00006810,0x00042302,0x000D6D00\n\t"
-    ".word 0x008D2025,0x8FA200FC,0x8FA300E4,0x27A500D0\n\t"
-    ".word 0x00431021,0x00021043,0x00441021,0xAFA200D8\n\t"
-    ".word 0x8FC2000C,0x00002021,0xAFA200D4,0x97C6002C\n\t"
-    ".word 0x93C70098,0x34028000,0xAFA00010,0x00C23021\n\t"
-    ".word 0x0C00A1C8,0x30C6FFFF,0x03C02021,0x0C01537E\n\t"
-    ".word 0x24050021,0x08010ADF,0x00001021,0x27A40028\n\t"
-    ".word 0x3C02800D,0x24060003,0x8C432FE0,0x97C5002C\n\t"
-    ".word 0x97C80030,0x8FC20000,0x00A82821,0x08010622\n\t"
-    ".word 0xAFC30294,0x3C03000C,0x34638000,0x8FC20008\n\t"
-    ".word 0x27B00100,0xAFA20100,0x8FC2000C,0x02002021\n\t"
-    ".word 0x00431021,0xAFA20104,0x8FC20010,0x24060064\n\t"
-    ".word 0xAFA20108,0x24020001,0xAFA20010,0x24021388\n\t"
-    ".word 0xAFA20014,0x8FC50098,0x0C008EE3,0x24070003\n\t"
-    ".word 0x2404000E,0x02002821,0x00003021,0x0C01BF6C\n\t"
-    ".word 0x00403821,0x8FC30208,0x03C02021,0x90620006\n\t"
-    ".word 0x24050008,0x304200F7,0x0C01537E,0xA0620006\n\t"
-    ".word 0x3C02800B,0x97C40098,0x8C45E954,0x0C018C06\n\t"
-    ".word 0x2406002D,0x00001021,0x8FBF0134,0x8FBE0130\n\t"
-    ".word 0x8FB7012C,0x8FB60128,0x8FB50124,0x8FB40120\n\t"
-    ".word 0x8FB3011C,0x8FB20118,0x8FB10114,0x8FB00110\n\t"
-    ".word 0x03E00008,0x27BD0138\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct Point2 {
+    int x;
+    int z;
+} Point2;
+
+typedef struct Quad {
+    Point2 p[4];
+} Quad;
+
+typedef struct Emitter {
+    Vector pos;
+    int size;
+} Emitter;
+
+typedef struct Zone {
+    Quad bounds;
+    int pad[2];
+} Zone;
+
+typedef struct EmitterList {
+    int count;
+    Emitter *items;
+} EmitterList;
+
+typedef struct Owner {
+    char pad0[0x6];
+    unsigned char flags;
+    char pad7[0x81];
+    int scale;
+} Owner;
+
+typedef struct VehicleInfo {
+    char pad0[0x10];
+    unsigned int flags;
+    char pad14[0x20];
+    int turret_full;
+    int hull_full;
+    int turret_damaged;
+    int hull_damaged;
+    char pad44[0xC];
+    int shot_kind;
+    int shot_speed;
+    char pad58[0x8];
+    int shot_damage;
+    int shot_sound;
+    Vector muzzle;
+    char pad74[0xC];
+    Vector pivot;
+    char pad8C[0x18];
+    EmitterList *emitters;
+    char padA8[0x28];
+} VehicleInfo;
+
+typedef struct Tank {
+    int id;
+    char pad4[0x4];
+    Vector pos;
+    char pad14[0x18];
+    unsigned short heading;
+    char pad2E[0x2];
+    unsigned short turret;
+    char pad32[0x66];
+    int player;
+    int type;
+    char padA0[0x168];
+    Owner *owner;
+    int armor_max;
+    int armor;
+    char pad214[0x4];
+    unsigned int flags;
+    char pad21C[0x4];
+    int push_x;
+    char pad224[0x4];
+    int push_z;
+    char pad22C[0x38];
+    int boost_timer;
+    char pad268[0x4];
+    int drop_time;
+    int drop_count;
+    char pad274[0x20];
+    int fire_time;
+    char pad298[0x20];
+    unsigned short slot;
+    char pad2BA[0x22];
+    char link[0x24];
+    int hull_model;
+    int turret_model;
+    char hull[0xE0];
+    char turret_obj[0x194];
+    int shield_level;
+    int shield_rate;
+    unsigned int shield_state;
+    int shield_time;
+    int power;
+} Tank;
+
+extern VehicleInfo D_800A4EF4[];
+extern unsigned char D_800AED52;
+extern unsigned char D_800AED54;
+extern unsigned char D_800AED59;
+extern char D_800A4D1C[];
+extern int D_800AE954;
+extern int D_800D2FE0;
+extern Zone D_800C62B0[];
+
+void func_8008A65C(Matrix *, Vector *, Vector *);
+void func_80040EE8(Vector *, Tank *, Vector *);
+int func_80023B8C(Vector *, int, int, int, int, int);
+void func_8006FDB0(int, Vector *, int, int);
+int func_8002C584(Vector *, int, int, int, int, int, int);
+void func_80054DF8(Tank *, int);
+void func_800735C8(Vector *, int, int, int, int);
+void func_8006C334(int, int, Vector *, Vector *, int, int, int, int);
+void func_8008634C(int, char *, int);
+void func_80036890(Vector *, Vector *, int, int, int, int, int, int);
+void func_80038DB0(Vector *, int *, int *, int, int, int, int, int, Owner *);
+unsigned int func_80086C84(void);
+int func_8008ACC0(int);
+int func_8008AD60(int);
+void func_8002B4C8(Vector *, int, int, int, int, int, Owner *);
+void func_80053E14(Tank *);
+void func_8001B094(int);
+void func_80074B24(int, Tank *, void *);
+void func_8002E078(Vector *, Vector *, int, int, int, int, Owner *);
+void func_8007A344(void *, int);
+void func_8007A1DC(Tank *);
+void func_80016FF4(Zone *, Quad *);
+int func_8001EA3C(Point2 *);
+void func_80053790(int, int, int);
+void func_80027F38(Vector *, int, int);
+void func_80028720(int, Vector *, int, int, int);
+void func_80063018(int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int sine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+static inline void matrix_identity_y(Matrix *m, unsigned short *angle) {
+    __asm__ volatile("lhu $11, %1\n\tli $8, 4096\n\tsw $8, 8(%0)\n\tsh $0, 2(%0)\n\tsh $0, 6(%0)\n\tsh $0, 14(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     :
+                     : "r"(m), "m"(*angle)
+                     : "$8", "memory");
+}
+
+static inline void matrix_rot_y_sin(Matrix *m) {
+    __asm__ volatile("andi $8, $11, 0x4000\n\tandi $9, $11, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $11, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll $10, $9, 1\n\tsra $10, $10, 4\n\tsh $10, 4(%0)\n\tneg $10, $10\n\tsh $10, 12(%0)"
+                     :
+                     : "r"(m)
+                     : "$8", "$9", "$10", "memory");
+}
+
+static inline void matrix_rot_y_cos(Matrix *m) {
+    __asm__ volatile("addiu $10, $11, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll $10, $9, 1\n\tsra $10, $10, 4\n\tsh $10, 0(%0)\n\tsh $10, 16(%0)"
+                     :
+                     : "r"(m)
+                     : "$8", "$9", "$10", "memory");
+}
+
+static inline int fixed_int(int x) {
+    if (x >= 0) {
+        return x >> 12;
+    }
+    return -(-x >> 12);
+}
+
+static inline int Tank_Scale(Tank *t, int k) {
+    return t->owner->scale * k;
+}
+
+static inline int Tank_Damage(Tank *t, int k) {
+    return fixed_int(t->owner->scale * k);
+}
+
+static inline unsigned char Tank_Powered(Tank *t) {
+    return t->power > 0;
+}
+
+static inline void Tank_Recoil(Tank *t, int k) {
+    unsigned short angle;
+    int r;
+
+    angle = t->heading + t->turret - 0x8000;
+    r = (((func_80086C84() >> 16) * 3277) >> 16) + 1638;
+    k = fixed_mul(r, k);
+    t->push_x += fixed_mul(func_8008ACC0(angle >> 4), k);
+    t->push_z -= fixed_mul(func_8008AD60(angle >> 4), k);
+}
+
+static inline void Tank_SetArmorModels(Tank *t, int damaged) {
+    if (damaged) {
+        t->hull_model = D_800A4EF4[t->type].hull_damaged;
+        t->turret_model = D_800A4EF4[t->type].turret_damaged;
+    } else {
+        t->hull_model = D_800A4EF4[t->type].hull_full;
+        t->turret_model = D_800A4EF4[t->type].turret_full;
+    }
+    func_8007A344(t->hull, t->hull_model);
+    func_8007A344(t->turret_obj, t->turret_model);
+    func_8007A1DC(t);
+}
+
+static inline void Tank_AddArmor(Tank *t, int add) {
+    int old;
+    int was;
+    int now;
+
+    old = t->armor;
+    was = old < t->armor_max >> 1;
+    now = old + add;
+    t->armor = now;
+    now = now < t->armor_max >> 1;
+    if (was != now) {
+        Tank_SetArmorModels(t, now);
+    }
+}
+
+static inline void Tank_FireShell(Tank *t, Vector *pos, unsigned char big) {
+    Vector dir;
+    int a;
+    int size;
+
+    a = t->heading + t->turret;
+    dir.x = sine_lookup(a) >> 4;
+    dir.z = cosine_lookup(a) >> 4;
+    dir.y = 0;
+    size = 50;
+    if (big) {
+        size = 100;
+    }
+    func_80036890(pos, &dir, (unsigned short)a, (unsigned char)t->player, size, t->id, (unsigned char)t->flags & 2, 3);
+    func_80054DF8(t, 25);
+}
+
+static inline void Tank_FireShellAt(Tank *t, int a, int big, Vector *pos) {
+    Vector dir;
+    int size;
+
+    dir.x = sine_lookup(a) >> 4;
+    dir.z = cosine_lookup(a) >> 4;
+    dir.y = 0;
+    size = 50;
+    if ((unsigned char)big) {
+        size = 100;
+    }
+    func_80036890(pos, &dir, (unsigned short)a, (unsigned char)t->player, size, t->id, (unsigned char)t->flags & 2, 3);
+    func_80054DF8(t, 25);
+}
+
+static inline void Tank_FireLaser(Tank *t, Vector *pos, int k, int mode) {
+    unsigned char big;
+    int dmg;
+
+    big = Tank_Powered(t);
+    dmg = Tank_Damage(t, k);
+    if (big) {
+        dmg <<= 1;
+    }
+    if (func_8002C584(pos, 0x78000, (unsigned short)(t->heading + t->turret), (unsigned char)dmg,
+                      (unsigned char)t->player, t->id, mode)) {
+        func_80054DF8(t, 27);
+    }
+}
+
+static inline void Tank_LaserShot(Tank *t, Vector *pos, unsigned char dmg, int mode) {
+    if (func_8002C584(pos, 0x78000, (unsigned short)(t->heading + t->turret), dmg,
+                      (unsigned char)t->player, t->id, mode)) {
+        func_80054DF8(t, 27);
+    }
+}
+
+static inline void Tank_FireMissile(Tank *t, Vector *pos) {
+    int kind;
+
+    t->fire_time = D_800D2FE0;
+    kind = 3;
+    if (t->power > 0) {
+        kind = 6;
+    }
+    func_800735C8(pos, (unsigned short)(t->heading + t->turret), kind, t->player, t->id);
+}
+
+int func_80041464(Tank *t, int weapon)
+{
+    Vector pos;
+    Vector flash;
+    Matrix m;
+    int vel[2];
+    int acc[2];
+    int boost;
+
+    boost = 0;
+    if (t->flags & 2) {
+        boost = D_800AED52 & 1;
+    }
+    flash = D_800A4EF4[t->type].muzzle;
+    if ((D_800A4EF4[t->type].flags & 2) && (t->flags & 4)) {
+        flash.x = -flash.x;
+    }
+    matrix_identity_y(&m, &t->turret);
+    matrix_rot_y_sin(&m);
+    matrix_rot_y_cos(&m);
+    func_8008A65C(&m, &flash, &flash);
+    flash.x += D_800A4EF4[t->type].pivot.x;
+    flash.y += D_800A4EF4[t->type].pivot.y;
+    flash.z += D_800A4EF4[t->type].pivot.z;
+    func_80040EE8(&pos, t, &D_800A4EF4[t->type].muzzle);
+    t->flags ^= 4;
+
+    switch (weapon) {
+    case 1:
+        switch (t->type) {
+        case 12:
+            if (t->power <= 0) {
+                func_8006FDB0(12, &t->pos, 0, func_80023B8C(&t->pos, t->player, 175, 97, 0, 2500));
+            } else {
+                func_8006FDB0(10, &t->pos, 0, func_80023B8C(&t->pos, t->player, 255, 97, 0, 9000));
+            }
+            return 0;
+        case 10:
+        case 11:
+            Tank_FireLaser(t, &pos, 35, 0);
+            break;
+        case 8:
+            Tank_FireMissile(t, &pos);
+            func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+            return 0;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 9:
+        case 14: {
+            int angle;
+            int speed;
+            unsigned char dmg;
+            int d;
+
+            angle = t->heading + t->turret;
+            speed = D_800A4EF4[t->type].shot_speed;
+            vel[0] = fixed_mul(sine_lookup(angle) >> 4, speed);
+            vel[1] = fixed_mul(cosine_lookup(angle) >> 4, speed);
+            acc[1] = 0;
+            acc[0] = 0;
+            if (D_800A4EF4[t->type].shot_sound != -1) {
+                func_80054DF8(t, (unsigned char)D_800A4EF4[t->type].shot_sound);
+            }
+            if (t->flags & 2) {
+                func_8008634C(t->player, D_800A4D1C, 0);
+            }
+            d = fixed_int(t->owner->scale * D_800A4EF4[t->type].shot_damage) << boost;
+            if (t->power > 0) {
+                d <<= 1;
+            }
+            dmg = d;
+            if ((D_800AED54 & 1) && (t->flags & 2)) {
+                unsigned char big;
+
+                big = 0;
+                if (t->power > 0 || boost) {
+                    big = 1;
+                }
+                Tank_FireShell(t, &pos, big);
+            } else {
+                func_80038DB0(&pos, vel, acc, (unsigned short)angle, dmg, D_800A4EF4[t->type].shot_kind, t->id,
+                              (unsigned char)t->flags & 2, t->owner);
+                if ((D_800AED59 & 1) && (t->flags & 2)) {
+                    vel[0] = fixed_mul(-4096, vel[0]);
+                    vel[1] = fixed_mul(-4096, vel[1]);
+                    func_80038DB0(&pos, vel, acc, (angle + 0x8000) & 0xFFFF, dmg,
+                                  D_800A4EF4[t->type].shot_kind, t->id, (unsigned char)t->flags & 2, t->owner);
+                }
+            }
+            Tank_Recoil(t, (D_800A4EF4[t->type].shot_damage << 11) / 40);
+            func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+            return 0;
+        }
+        case 13: {
+            int dmg;
+
+            dmg = Tank_Damage(t, 60);
+            if (t->power > 0) {
+                dmg <<= 1;
+            }
+            func_8002B4C8(&pos, (unsigned short)(t->heading + t->turret), dmg, 1, t->id, 1, t->owner);
+            func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+            return 0;
+        }
+        default:
+            return 0;
+        }
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    case 8: {
+        unsigned int flags;
+
+        flags = t->flags;
+        if (flags & 8) {
+            return -1;
+        }
+        t->flags = flags | 8;
+        t->drop_count = 0;
+        t->drop_time = D_800D2FE0;
+        func_80053E14(t);
+        func_8001B094(t->slot);
+        t->slot = 0xFFFF;
+        func_80074B24(2, t, t->link);
+        return 0;
+    }
+    case 2: {
+        int acc[2];
+        int vel[2];
+        int side[2];
+        unsigned char power;
+        unsigned short angle;
+        int a;
+
+        power = Tank_Damage(t, 30);
+        angle = (unsigned short)(t->heading + t->turret);
+        a = angle >> 4;
+        vel[0] = fixed_mul(0x118000, func_8008AD60(a));
+        vel[1] = fixed_mul(0x118000, func_8008ACC0(a));
+        side[0] = vel[1];
+        side[1] = -vel[0];
+        acc[0] = 0;
+        acc[1] = 0;
+        func_80038DB0(&pos, vel, acc, angle, power, 2, t->id, 1, t->owner);
+        vel[0] += side[0] / 10;
+        vel[1] += side[1] / 10;
+        acc[0] = -side[0] / 200;
+        acc[1] = -side[1] / 200;
+        func_80038DB0(&pos, vel, acc, angle, power, 2, t->id, 1, t->owner);
+        vel[0] -= side[0] / 5;
+        vel[1] -= side[1] / 5;
+        acc[0] = side[0] / 200;
+        acc[1] = side[1] / 200;
+        func_80038DB0(&pos, vel, acc, angle, power, 2, t->id, 1, t->owner);
+        func_80054DF8(t, 27);
+        Tank_Recoil(t, 2048);
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    }
+    case 9: {
+        Vector vel;
+        int dmg;
+        unsigned char power;
+        unsigned short angle;
+        int a;
+
+        dmg = Tank_Scale(t, 30);
+        angle = (unsigned short)(t->heading + t->turret);
+        power = fixed_int(dmg);
+        a = angle >> 4;
+        vel.x = fixed_mul(func_8008AD60(a), 0x118000);
+        vel.z = fixed_mul(func_8008ACC0(a), 0x118000);
+        vel.y = 0;
+        func_8002E078(&pos, &vel, angle, power, 1, t->id, t->owner);
+        func_8002E078(&pos, &vel, angle, power, 1, t->id, t->owner);
+        func_8002E078(&pos, &vel, angle, power, 1, t->id, t->owner);
+        func_80054DF8(t, 32);
+        if (t->power > 0) {
+            func_8002E078(&pos, &vel, angle, power, 1, t->id, t->owner);
+            func_8002E078(&pos, &vel, angle, power, 1, t->id, t->owner);
+        }
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    }
+    case 4: {
+        Vector *p;
+        unsigned char big;
+        int dmg;
+
+        p = &pos;
+        big = Tank_Powered(t);
+        dmg = Tank_Damage(t, 100);
+        if (big) {
+            dmg <<= 1;
+        }
+        Tank_LaserShot(t, p, dmg, 1);
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    }
+    case 3: {
+        int angle;
+
+        angle = t->heading + t->turret;
+        Tank_FireShellAt(t, angle, Tank_Powered(t), &pos);
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    }
+    case 7:
+        func_8002B4C8(&pos, (unsigned short)(t->heading + t->turret), Tank_Damage(t, 250), 3, t->id, 1,
+                      t->owner);
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    case 14: {
+        int dmg;
+
+        dmg = Tank_Damage(t, 40);
+        if (t->power <= 0) {
+            func_8002B4C8(&pos, (unsigned short)(t->heading + t->turret), dmg, 0, t->id, 1, t->owner);
+        } else {
+            dmg <<= 1;
+            func_8002B4C8(&pos, (unsigned short)(t->heading + t->turret), dmg, 1, t->id, 1, t->owner);
+        }
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    }
+    case 10: {
+        int i;
+
+        if (t->boost_timer != 0) {
+            return -1;
+        }
+        t->boost_timer = D_800D2FE0 + 180;
+        for (i = 0; i < D_800A4EF4[t->type].emitters->count; i++) {
+            func_8006C334(t->id, 11, &D_800A4EF4[t->type].emitters->items[i].pos,
+                          &D_800A4EF4[t->type].emitters->items[i].pos, 0,
+                          D_800A4EF4[t->type].emitters->items[i].size, 0x1000, 0x5A000);
+        }
+        return 0;
+    }
+    case 11:
+        if (t->armor >= t->armor_max) {
+            return -1;
+        }
+        Tank_AddArmor(t, 30);
+        if (t->armor > t->armor_max) {
+            t->armor = t->armor_max;
+        }
+        func_80054DF8(t, 23);
+        return 0;
+    case 13: {
+        unsigned int state;
+
+        state = t->shield_state;
+        if (state == 0) {
+            t->shield_state = 2;
+            t->shield_rate = 0x28000;
+            func_80054DF8(t, 6);
+            t->shield_level = 0x1C2000;
+            t->shield_time = D_800D2FE0;
+            func_80074B24(0, t, t->link);
+            return 0;
+        }
+        if (state < 4) {
+            t->shield_level += 0x1C2000;
+        }
+        break;
+    }
+    case 6: {
+        Quad q;
+        Point2 c;
+        Vector p;
+
+        func_80016FF4(&D_800C62B0[t->slot], &q);
+        c.x = p.x = (q.p[3].x + q.p[0].x) >> 1;
+        c.z = p.z = (q.p[3].z + q.p[0].z) >> 1;
+        p.y = func_8001EA3C(&c);
+        func_80053790(26, p.x, p.z);
+        func_80027F38(&p, 0, t->player);
+        return 0;
+    }
+    case 15: {
+        Vector p;
+        Quad q;
+        unsigned short a;
+
+        a = t->heading + t->turret;
+        func_80016FF4(&D_800C62B0[t->slot], &q);
+        a = (unsigned short)a >> 4;
+        p.x = ((q.p[3].x + q.p[0].x) >> 1) + fixed_mul(-0x1F4000, func_8008AD60(a));
+        p.z = ((q.p[3].z + q.p[0].z) >> 1) + fixed_mul(-0x1F4000, func_8008ACC0(a));
+        p.y = t->pos.y;
+        func_80028720(0, &p, (unsigned short)(t->heading + 0x8000), (unsigned char)t->player, 0);
+        func_80054DF8(t, 33);
+        return 0;
+    }
+    case 12:
+        t->fire_time = D_800D2FE0;
+        func_800735C8(&pos, (unsigned short)(t->heading + t->turret), 3, t->player, t->id);
+        func_8006C334(t->id, 9, &flash, &flash, 0, 0x4000, 0x1000, 0x100);
+        return 0;
+    case 16: {
+        Vector p;
+
+        p.x = t->pos.x;
+        p.y = t->pos.y + 0xC8000;
+        p.z = t->pos.z;
+        func_8006FDB0(14, &p, 0, func_80023B8C(&p, t->player, 100, 3, 1, 5000));
+        t->owner->flags &= ~8;
+        func_80054DF8(t, 8);
+        func_80063018((unsigned short)t->player, D_800AE954, 45);
+        break;
+    }
+    }
+    return 0;
+}

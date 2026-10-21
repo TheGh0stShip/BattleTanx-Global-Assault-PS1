@@ -1,50 +1,131 @@
-asm(".text\n\t.globl func_800629A0\nfunc_800629A0:\n\t"
-    ".word 0x3C02800C,0x8C4360D0,0x27BDFFB8,0xAFB5003C\n\t"
-    ".word 0x0080A821,0xAFB20030,0x00009021,0xAFB30034\n\t"
-    ".word 0x00A09821,0xAFBF0040,0xAFB40038,0xAFB1002C\n\t"
-    ".word 0x2C62000A,0x1040000A,0xAFB00028,0x2C620007\n\t"
-    ".word 0x14400008,0x00002021,0x3C03800B,0x2463BA60\n\t"
-    ".word 0x3262FFFF,0x00431021,0x08018B23,0xA0400000\n\t"
-    ".word 0x00002021,0x0C008E1C,0x24050004,0x00408821\n\t"
-    ".word 0x1220002B,0x00002021,0x3C140011,0x36948000\n\t"
-    ".word 0x8E300008,0x00000000,0x12000020,0x02202021\n\t"
-    ".word 0x1215001E,0x00000000,0x0C011DA2,0x02002021\n\t"
-    ".word 0x1040001A,0x02202021,0x8E020008,0x00000000\n\t"
-    ".word 0xAFA20018,0x8E02000C,0x00000000,0x00541021\n\t"
-    ".word 0xAFA2001C,0x8E020010,0x00000000,0xAFA20020\n\t"
-    ".word 0x8E0200A4,0x00000000,0x10400002,0x00001821\n\t"
-    ".word 0x24030120,0x27A40018,0x3265FFFF,0x96060098\n\t"
-    ".word 0x3247FFFF,0x0C0188E1,0xAFA30010,0x3042FFFF\n\t"
-    ".word 0x10400002,0x02202021,0x26520001,0x0C008E1C\n\t"
-    ".word 0x24050004,0x00408821,0x1620FFD9,0x00002021\n\t"
-    ".word 0x0C008E1C,0x24050015,0x00408021,0x1200001A\n\t"
-    ".word 0x00002021,0x3C110011,0x36318000,0x8E02000C\n\t"
-    ".word 0x27A40018,0xAFA20018,0x8E020010,0x3265FFFF\n\t"
-    ".word 0x00511021,0xAFA2001C,0x8E020014,0x3247FFFF\n\t"
-    ".word 0xAFA20020,0x92060018,0x24020010,0x0C0188E1\n\t"
-    ".word 0xAFA20010,0x3042FFFF,0x10400002,0x02002021\n\t"
-    ".word 0x26520001,0x0C008E1C,0x24050015,0x00408021\n\t"
-    ".word 0x1600FFEA,0x00002021,0x0C008E1C,0x24050008\n\t"
-    ".word 0x00408021,0x1200001F,0x3C02800D,0x3C110011\n\t"
-    ".word 0x36318000,0x8E03000C,0x24020002,0x10620013\n\t"
-    ".word 0x27A40018,0x8E020020,0x00000000,0xAFA20018\n\t"
-    ".word 0x8E020024,0x3265FFFF,0x00511021,0xAFA2001C\n\t"
-    ".word 0x8E020028,0x3247FFFF,0xAFA20020,0x92060030\n\t"
-    ".word 0x24020020,0x0C0188E1,0xAFA20010,0x3042FFFF\n\t"
-    ".word 0x10400003,0x02002021,0x26520001,0x02002021\n\t"
-    ".word 0x0C008E1C,0x24050008,0x00408021,0x1600FFE5\n\t"
-    ".word 0x3C02800D,0x24432FE4,0x8C640004,0x24020007\n\t"
-    ".word 0x14820009,0x2402000E,0x3C02800E,0x8C423E74\n\t"
-    ".word 0x8C630010,0x94420004,0x00000000,0x0043102A\n\t"
-    ".word 0x10400003,0x2402000E,0x14820020,0x3C03800B\n\t"
-    ".word 0x00002021,0x0C008E1C,0x24050014,0x00408021\n\t"
-    ".word 0x12000019,0x3C110011,0x36318000,0x27A40018\n\t"
-    ".word 0x8E02000C,0x3265FFFF,0xAFA20018,0x8E020010\n\t"
-    ".word 0x00003021,0x00511021,0xAFA2001C,0x8E020014\n\t"
-    ".word 0x3247FFFF,0xAFA20020,0x24020010,0x0C0188E1\n\t"
-    ".word 0xAFA20010,0x3042FFFF,0x10400002,0x02002021\n\t"
-    ".word 0x26520001,0x0C008E1C,0x24050014,0x00408021\n\t"
-    ".word 0x1600FFEB,0x27A40018,0x3C03800B,0x2463BA60\n\t"
-    ".word 0x3262FFFF,0x00431021,0xA0520000,0x8FBF0040\n\t"
-    ".word 0x8FB5003C,0x8FB40038,0x8FB30034,0x8FB20030\n\t"
-    ".word 0x8FB1002C,0x8FB00028,0x03E00008,0x27BD0048\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Tank {
+    char pad0[8];
+    Vector pos;
+    char pad1[0x98 - 0x14];
+    unsigned short kind;
+    char pad2[0xA4 - 0x9A];
+    int active;
+} Tank;
+
+typedef struct Holder {
+    int pad[2];
+    Tank *tank;
+} Holder;
+
+typedef struct Pickup {
+    int pad[3];
+    Vector pos;
+    unsigned char kind;
+} Pickup;
+
+typedef struct Shot {
+    int pad[3];
+    int state;
+    int pad2[4];
+    Vector pos;
+    int pad3;
+    unsigned char kind;
+} Shot;
+
+typedef struct Game {
+    int pad;
+    int state;
+    int pad2[2];
+    int time;
+} Game;
+
+typedef struct Timer {
+    int pad;
+    unsigned short limit;
+} Timer;
+
+extern unsigned int D_800C60D0;
+extern unsigned char D_800ABA60[];
+extern Game D_800D2FE4;
+extern Timer *D_800E3E74;
+extern void *func_80023870(void *, int);
+extern int func_80047688(Tank *);
+extern unsigned short func_80062384(Vector *, unsigned short, unsigned short, unsigned short, int);
+
+static inline unsigned short show_plain(Vector *v, int player, int count) {
+    return func_80062384(v, player, 0, count, 16);
+}
+
+void func_800629A0(Tank *self, int player_arg) {
+    int count;
+    int player;
+    Holder *holder;
+    Tank *tank;
+    Pickup *pickup;
+    Shot *shot;
+    Vector pos;
+    int flag;
+
+    count = 0;
+    player = player_arg;
+    if (D_800C60D0 < 10) {
+        if (D_800C60D0 >= 7) {
+            D_800ABA60[(unsigned short)player] = 0;
+            return;
+        }
+    }
+    for (holder = func_80023870(0, 4); holder != 0; holder = func_80023870(holder, 4)) {
+        int lift = 0x118000;
+
+        tank = holder->tank;
+        if (tank != 0 && tank != self && func_80047688(tank)) {
+            pos.x = tank->pos.x;
+            pos.y = tank->pos.y + lift;
+            pos.z = tank->pos.z;
+            flag = 0;
+            if (tank->active != 0) {
+                flag = 288;
+            }
+            if (func_80062384(&pos, player, tank->kind, count, flag)) {
+                count++;
+            }
+        }
+    }
+    for (pickup = func_80023870(0, 21); pickup != 0; pickup = func_80023870(pickup, 21)) {
+        int lift = 0x118000;
+
+        pos.x = pickup->pos.x;
+        pos.y = pickup->pos.y + lift;
+        pos.z = pickup->pos.z;
+        if (func_80062384(&pos, player, pickup->kind, count, 16)) {
+            count++;
+        }
+    }
+    for (shot = func_80023870(0, 8); shot != 0; shot = func_80023870(shot, 8)) {
+        int lift = 0x118000;
+
+        if (shot->state != 2) {
+            pos.x = shot->pos.x;
+            pos.y = shot->pos.y + lift;
+            pos.z = shot->pos.z;
+            if (func_80062384(&pos, player, shot->kind, count, 32)) {
+                count++;
+            }
+        }
+        __asm__("" : "=r"(shot) : "0"(shot));
+    }
+    if ((D_800D2FE4.state == 7 && D_800D2FE4.time <= D_800E3E74->limit) || D_800D2FE4.state == 14) {
+        for (pickup = func_80023870(0, 20); pickup != 0; pickup = func_80023870(pickup, 20)) {
+            int lift = 0x118000;
+
+            pos.x = pickup->pos.x;
+            pos.y = pickup->pos.y + lift;
+            pos.z = pickup->pos.z;
+            if (show_plain(&pos, player, count)) {
+                count++;
+            }
+        }
+    }
+    D_800ABA60[(unsigned short)player] = count;
+}

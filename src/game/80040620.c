@@ -1,142 +1,223 @@
-asm(".text\n\t.globl func_80040620\nfunc_80040620:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB10014\n\t"
-    ".word 0x00008821,0xAFB20018,0x00C09021,0x24A3FFFF\n\t"
-    ".word 0x2C620014,0x1040021A,0xAFBF001C,0x3C02800C\n\t"
-    ".word 0x2442F0F8,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x26020004\n\t"
-    ".word 0x9443022C,0x00000000,0x24630005,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x1440000B,0x3C02800F\n\t"
-    ".word 0x8E020218,0x24030002,0x00431024,0x10400005\n\t"
-    ".word 0xAE030254,0x26040230,0x96050098,0x0C018F1A\n\t"
-    ".word 0x00603021,0x3C02800F,0x8C51AD4C,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x26020006,0x9443022C,0x00000000\n\t"
-    ".word 0x24630005,0xA443022C,0x8E020254,0x00000000\n\t"
-    ".word 0x1440000B,0x3C02800F,0x8E020218,0x24030003\n\t"
-    ".word 0x30420002,0x10400005,0xAE030254,0x26040232\n\t"
-    ".word 0x96050098,0x0C018F1A,0x00603021,0x3C02800F\n\t"
-    ".word 0x8C51AE50,0x080103AD,0x3242FFFF,0x26020008\n\t"
-    ".word 0x9443022C,0x00000000,0x24630005,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x1440000B,0x3C02800F\n\t"
-    ".word 0x8E020218,0x24030004,0x30420002,0x10400005\n\t"
-    ".word 0xAE030254,0x26040234,0x96050098,0x0C018F1A\n\t"
-    ".word 0x00603021,0x3C02800F,0x8C51AD78,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x2602000E,0x9443022C,0x00000000\n\t"
-    ".word 0x24630001,0xA443022C,0x8E020254,0x00000000\n\t"
-    ".word 0x1440000B,0x3C02800F,0x8E020218,0x24030007\n\t"
-    ".word 0x30420002,0x10400005,0xAE030254,0x2604023A\n\t"
-    ".word 0x96050098,0x0C018F1A,0x00603021,0x3C02800F\n\t"
-    ".word 0x8C51AF24,0x080103AD,0x3242FFFF,0x2602000C\n\t"
-    ".word 0x9443022C,0x00000000,0x24630005,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x1440000B,0x3C02800F\n\t"
-    ".word 0x8E020218,0x24030006,0x30420002,0x10400005\n\t"
-    ".word 0xAE030254,0x26040238,0x96050098,0x0C018F1A\n\t"
-    ".word 0x00603021,0x3C02800F,0x8C51AD60,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x26020014,0x9443022C,0x00000000\n\t"
-    ".word 0x24630005,0xA443022C,0x8E020254,0x00000000\n\t"
-    ".word 0x1440000B,0x3C02800F,0x8E020218,0x2403000A\n\t"
-    ".word 0x30420002,0x10400005,0xAE030254,0x26040240\n\t"
-    ".word 0x96050098,0x0C018F1A,0x00603021,0x3C02800F\n\t"
-    ".word 0x8C51AD7C,0x080103AD,0x3242FFFF,0x2602001E\n\t"
-    ".word 0x9443022C,0x00000000,0x24630002,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x1440000B,0x3C02800F\n\t"
-    ".word 0x8E020218,0x2403000F,0x30420002,0x10400005\n\t"
-    ".word 0xAE030254,0x2604024A,0x96050098,0x0C018F1A\n\t"
-    ".word 0x00603021,0x3C02800F,0x8C51AC44,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x26020018,0x9443022C,0x00000000\n\t"
-    ".word 0x24630064,0xA443022C,0x8E020254,0x00000000\n\t"
-    ".word 0x1440000B,0x3C02800F,0x8E020218,0x2403000C\n\t"
-    ".word 0x30420002,0x10400005,0xAE030254,0x26040244\n\t"
-    ".word 0x96050098,0x0C018F1A,0x00603021,0x3C02800F\n\t"
-    ".word 0x8C51AEF0,0x080103AD,0x3242FFFF,0x2602001A\n\t"
-    ".word 0x9443022C,0x00000000,0x24630002,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x1440000B,0x3C02800F\n\t"
-    ".word 0x8E020218,0x2403000D,0x30420002,0x10400005\n\t"
-    ".word 0xAE030254,0x26040246,0x96050098,0x0C018F1A\n\t"
-    ".word 0x00603021,0x3C02800F,0x8C51AE60,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x2602001C,0x9443022C,0x00000000\n\t"
-    ".word 0x24630005,0xA443022C,0x8E020254,0x00000000\n\t"
-    ".word 0x1440000B,0x3C02800F,0x8E020218,0x2403000E\n\t"
-    ".word 0x30420002,0x10400005,0xAE030254,0x26040248\n\t"
-    ".word 0x96050098,0x0C018F1A,0x00603021,0x3C02800F\n\t"
-    ".word 0x8C51AC2C,0x080103AD,0x3242FFFF,0x8E020208\n\t"
-    ".word 0x00000000,0x8C43000C,0x00000000,0x8C62000C\n\t"
-    ".word 0x00000000,0x24420005,0xAC62000C,0x8E040208\n\t"
-    ".word 0x3C03800F,0x94820074,0x8C71AD40,0x24420005\n\t"
-    ".word 0x080103AC,0xA4820074,0x8E020218,0x00000000\n\t"
-    ".word 0x30420002,0x14400005,0x00000000,0x8E0200A0\n\t"
-    ".word 0x00000000,0x14400010,0x3C02800F,0x96030098\n\t"
-    ".word 0x00000000,0x2C620002,0x10400006,0x3C02800B\n\t"
-    ".word 0x2442BA68,0x00031840,0x00621821,0x24020001\n\t"
-    ".word 0xA4620000,0x8E020218,0x00000000,0x34421000\n\t"
-    ".word 0xAE020218,0x3C02800F,0x8C51AD70,0x080103AD\n\t"
-    ".word 0x3242FFFF,0x3C02800F,0x8E050210,0x8E06020C\n\t"
-    ".word 0x8C51AE30,0x14A60011,0x24020002,0x26020016\n\t"
-    ".word 0x9443022C,0x00000000,0x24630001,0xA443022C\n\t"
-    ".word 0x8E020254,0x00000000,0x144000FE,0x3242FFFF\n\t"
-    ".word 0x8E020218,0x2403000B,0x30420002,0x104000F8\n\t"
-    ".word 0xAE030254,0x08010321,0x26040242,0x8E03009C\n\t"
-    ".word 0x00000000,0x14620002,0x2404001E,0x24040032\n\t"
-    ".word 0x00A42021,0x00061843,0x8E02020C,0x00A3182A\n\t"
-    ".word 0xAE040210,0x00021043,0x0082202A,0x10640033\n\t"
-    ".word 0x00000000,0x10800015,0x3C04800A,0x8E03009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8C420040\n\t"
-    ".word 0x00000000,0xAE020300,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C42003C,0x080102EF,0xAE020304,0x8E03009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8C420038\n\t"
-    ".word 0x00000000,0xAE020300,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C420034,0x00000000,0xAE020304,0x8E050300\n\t"
-    ".word 0x0C01E8D1,0x26040308,0x8E050304,0x0C01E8D1\n\t"
-    ".word 0x260403E8,0x0C01E877,0x02002021,0x8E020210\n\t"
-    ".word 0x8E03020C,0x00000000,0x0062102A,0x10400002\n\t"
-    ".word 0x02002021,0xAE030210,0x0C01537E,0x24050017\n\t"
-    ".word 0x080103AD,0x3242FFFF,0x26030010,0x9462022C\n\t"
-    ".word 0x3C04800F,0x24420005,0xA462022C,0x8E020254\n\t"
-    ".word 0x8C91ADE8,0x144000A3,0x3242FFFF,0x8E020218\n\t"
-    ".word 0x24030008,0x30420002,0x1040009D,0xAE030254\n\t"
-    ".word 0x08010321,0x2604023C,0x26030012,0x9462022C\n\t"
-    ".word 0x3C04800F,0x24420005,0xA462022C,0x8E020254\n\t"
-    ".word 0x8C91AF28,0x14400093,0x3242FFFF,0x8E020218\n\t"
-    ".word 0x24030009,0x30420002,0x1040008D,0xAE030254\n\t"
-    ".word 0x2604023E,0x96050098,0x0C018F1A,0x00603021\n\t"
-    ".word 0x080103AD,0x3242FFFF,0x3C02800F,0x8C51AC84\n\t"
-    ".word 0x24020064,0x080103AC,0xAE020214,0x3C055555\n\t"
-    ".word 0x3C04800A,0x8E03009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x8C43004C,0x34A55556,0x00650018\n\t"
-    ".word 0x3C02800F,0x8C51AF20,0x9602022E,0x00031FC3\n\t"
-    ".word 0x00003810,0x00E31823,0x00431021,0x080103AC\n\t"
-    ".word 0xA602022E,0x3C042AAA,0x3C02800A,0x8E03009C\n\t"
-    ".word 0x24464EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00461021,0x8C43004C\n\t"
-    ".word 0x3484AAAB,0x00640018,0x3C02800F,0x8C51AF34\n\t"
-    ".word 0x9602022E,0x00031FC3,0x00003810,0x00E31823\n\t"
-    ".word 0x00431021,0x8E03009C,0xA602022E,0x24020002\n\t"
-    ".word 0x14620002,0x2405000F,0x24050019,0x8E040210\n\t"
-    ".word 0x8E03020C,0x8E02020C,0x00852821,0x00031843\n\t"
-    ".word 0x0083202A,0x00021043,0xAE050210,0x00A2282A\n\t"
-    ".word 0x10850034,0x02002021,0x10A00015,0x00000000\n\t"
-    ".word 0x8E03009C,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00461021\n\t"
-    ".word 0x8C420040,0x00000000,0xAE020300,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00461021,0x8C42003C,0x08010390,0xAE020304\n\t"
-    ".word 0x8E03009C,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00461021\n\t"
-    ".word 0x8C420038,0x00000000,0xAE020300,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00461021,0x8C420034,0x00000000,0xAE020304\n\t"
-    ".word 0x8E050300,0x0C01E8D1,0x26040308,0x8E050304\n\t"
-    ".word 0x0C01E8D1,0x260403E8,0x0C01E877,0x02002021\n\t"
-    ".word 0x02002021,0x0C01537E,0x24050017,0x8E020210\n\t"
-    ".word 0x8E03020C,0x00000000,0x0062102A,0x1040000D\n\t"
-    ".word 0x3242FFFF,0x080103AD,0xAE030210,0x3C02800F\n\t"
-    ".word 0x8C51AE58,0x3C0202A3,0x080103AC,0xAE02058C\n\t"
-    ".word 0x0C010120,0x02002021,0x3C02800F,0x8C51AC98\n\t"
-    ".word 0x3242FFFF,0x10400006,0x00000000,0x12200004\n\t"
-    ".word 0x02202821,0x96040098,0x0C018C06,0x2406002D\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct Team {
+    char pad0[0xC];
+    int score;
+} Team;
+
+typedef struct Owner {
+    char pad0[0xC];
+    Team *team;
+    char pad10[0x64];
+    unsigned short kills;
+} Owner;
+
+typedef struct VehicleInfo {
+    char pad0[0x34];
+    int turret_full;
+    int hull_full;
+    int turret_damaged;
+    int hull_damaged;
+    char pad44[0x8];
+    int ammo;
+    char pad50[0x80];
+} VehicleInfo;
+
+typedef struct Tank {
+    char pad0[0x98];
+    unsigned short player;
+    char pad9A[0x2];
+    int type;
+    int unkA0;
+    char padA4[0x164];
+    Owner *owner;
+    int armor_max;
+    int armor;
+    int unk214;
+    unsigned int flags;
+    char pad21C[0x10];
+    unsigned short counts[20];
+    int selected;
+    char pad258[0xA8];
+    int hull_model;
+    int turret_model;
+    char hull[0xE0];
+    char turret[0x1A4];
+    int unk58C;
+} Tank;
+
+extern VehicleInfo D_800A4EF4[];
+extern short D_800ABA68[];
+extern int D_800EAD4C, D_800EAE50, D_800EAD78, D_800EAF24, D_800EAD60, D_800EAD7C;
+extern int D_800EAC44, D_800EAEF0, D_800EAE60, D_800EAC2C, D_800EAD40, D_800EAD70;
+extern int D_800EAE30, D_800EADE8, D_800EAF28, D_800EAC84, D_800EAF20, D_800EAF34;
+extern int D_800EAE58, D_800EAC98;
+void func_80063C68(unsigned short *, unsigned short, int);
+void func_80063018(unsigned short, int, int);
+void func_8007A344(void *, int);
+void func_8007A1DC(Tank *);
+void func_80054DF8(Tank *, int);
+void func_80040480(Tank *);
+
+static inline void Tank_AddItem(Tank *t, int idx, int n)
+{
+    t->counts[idx] += n;
+    if (t->selected == 0) {
+        t->selected = idx;
+        if (t->flags & 2) {
+            func_80063C68(&t->counts[idx], t->player, idx);
+        }
+    }
+}
+
+static inline void Tank_SetArmorModels(Tank *t, int damaged)
+{
+    if (damaged) {
+        t->hull_model = D_800A4EF4[t->type].hull_damaged;
+        t->turret_model = D_800A4EF4[t->type].turret_damaged;
+    } else {
+        t->hull_model = D_800A4EF4[t->type].hull_full;
+        t->turret_model = D_800A4EF4[t->type].turret_full;
+    }
+    func_8007A344(t->hull, t->hull_model);
+    func_8007A344(t->turret, t->turret_model);
+    func_8007A1DC(t);
+}
+
+static inline void Tank_AddArmor(Tank *t, int add)
+{
+    int old;
+    int was;
+    int now;
+
+    old = t->armor;
+    was = old < t->armor_max >> 1;
+    now = old + add;
+    t->armor = now;
+    now = now < t->armor_max >> 1;
+    if (was != now) {
+        Tank_SetArmorModels(t, now);
+    }
+}
+
+void func_80040620(Tank *t, int kind, unsigned short show)
+{
+    int msg;
+    int add;
+    unsigned short player;
+
+    msg = 0;
+    switch (kind) {
+    case 1:
+        Tank_AddItem(t, 2, 5);
+        msg = D_800EAD4C;
+        break;
+    case 2:
+        Tank_AddItem(t, 3, 5);
+        msg = D_800EAE50;
+        break;
+    case 3:
+        Tank_AddItem(t, 4, 5);
+        msg = D_800EAD78;
+        break;
+    case 5:
+        Tank_AddItem(t, 7, 1);
+        msg = D_800EAF24;
+        break;
+    case 6:
+        Tank_AddItem(t, 6, 5);
+        msg = D_800EAD60;
+        break;
+    case 12:
+        Tank_AddItem(t, 10, 5);
+        msg = D_800EAD7C;
+        break;
+    case 4:
+        Tank_AddItem(t, 15, 2);
+        msg = D_800EAC44;
+        break;
+    case 14:
+        Tank_AddItem(t, 12, 100);
+        msg = D_800EAEF0;
+        break;
+    case 15:
+        Tank_AddItem(t, 13, 2);
+        msg = D_800EAE60;
+        break;
+    case 16:
+        Tank_AddItem(t, 14, 5);
+        msg = D_800EAC2C;
+        break;
+    case 17:
+        t->owner->team->score += 5;
+        msg = D_800EAD40;
+        t->owner->kills += 5;
+        break;
+    case 18:
+        if ((t->flags & 2) || t->unkA0 == 0) {
+            player = t->player;
+            if (player < 2) {
+                D_800ABA68[player] = 1;
+            }
+            t->flags |= 0x1000;
+        }
+        msg = D_800EAD70;
+        break;
+    case 7:
+        msg = D_800EAE30;
+        if (t->armor == t->armor_max) {
+            Tank_AddItem(t, 11, 1);
+        } else {
+            int repair;
+
+            repair = 30;
+            if (t->type == 2) {
+                repair = 50;
+            }
+            Tank_AddArmor(t, repair);
+            if (t->armor > t->armor_max) {
+                t->armor = t->armor_max;
+            }
+            func_80054DF8(t, 23);
+        }
+        break;
+    case 9:
+        msg = D_800EADE8;
+        Tank_AddItem(t, 8, 5);
+        break;
+    case 10:
+        msg = D_800EAF28;
+        Tank_AddItem(t, 9, 5);
+        break;
+    case 13:
+        msg = D_800EAC84;
+        t->unk214 = 100;
+        break;
+    case 11:
+        msg = D_800EAF20;
+        t->counts[1] += D_800A4EF4[t->type].ammo / 3;
+        break;
+    case 8:
+        msg = D_800EAF34;
+        t->counts[1] += D_800A4EF4[t->type].ammo / 6;
+        add = 15;
+        if (t->type == 2) {
+            add = 25;
+        }
+        Tank_AddArmor(t, add);
+        func_80054DF8(t, 23);
+        if (t->armor > t->armor_max) {
+            t->armor = t->armor_max;
+        }
+        break;
+    case 19:
+        msg = D_800EAE58;
+        t->unk58C = 0x2A30000;
+        break;
+    case 20:
+        func_80040480(t);
+        msg = D_800EAC98;
+        break;
+    }
+    if (show && msg) {
+        func_80063018(t->player, msg, 45);
+    }
+}

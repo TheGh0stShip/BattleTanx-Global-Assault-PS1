@@ -11,7 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic decompilation: 75.85%](https://img.shields.io/badge/semantic_source-75.85%25-yellow)
+![Semantic decompilation: 89.59%](https://img.shields.io/badge/semantic_source-89.59%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -27,8 +27,8 @@ executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching source | 447,384 code bytes | 142,452 code bytes | 75.85% |
-| Semantic functions | 1,630 functions | 141 raw instruction units | 92.04% by provisional function count |
+| Semantic matching source | 528,408 code bytes | 61,428 code bytes | 89.59% |
+| Semantic functions | 1,697 functions | 74 raw instruction units | 95.82% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
@@ -62,7 +62,7 @@ game executable container, boot configuration, both text files, and raw licence
 sectors. “Structural” means the format tiles the file exactly; it does not mean
 every field's gameplay meaning or encoded media sample is known.
 
-One thousand eight hundred sixty-nine source units compile and link into all
+One thousand eight hundred seventy-five source units compile and link into all
 747,520 retail payload bytes. The reconstructed header and linked payload form
 a complete executable matching both supported hashes. Semantic naming,
 consolidation, and compiler corroboration remain active decompilation work;

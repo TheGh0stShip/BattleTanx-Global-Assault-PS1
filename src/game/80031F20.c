@@ -1,25 +1,94 @@
-asm(".text\n\t.globl func_80031F20\nfunc_80031F20:\n\t"
-    ".word 0x27BDFFD0,0xAFB00020,0x00808021,0xAFBF0028\n\t"
-    ".word 0xAFB10024,0x8E030008,0x8CC20000,0x00E08821\n\t"
-    ".word 0x00621023,0x04400003,0x00401821,0x0800C7D8\n\t"
-    ".word 0x00022303,0x00031023,0x00021303,0x00022023\n\t"
-    ".word 0x8E030010,0x8CC20004,0x00000000,0x00621023\n\t"
-    ".word 0x04400003,0x00401821,0x0800C7E3,0x00021303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00840018\n\t"
-    ".word 0x00003812,0x00000000,0x00000000,0x00420018\n\t"
-    ".word 0x96030006,0x00000000,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x3C03800C,0x246362B0,0x00431021\n\t"
-    ".word 0x00002012,0x84420022,0x00000000,0x00420018\n\t"
-    ".word 0x8CC50008,0x00E41821,0x00004812,0x00A91021\n\t"
-    ".word 0x0043102A,0x14400029,0x00000000,0x8CC40014\n\t"
-    ".word 0x0C009045,0x00000000,0x00402021,0x18800023\n\t"
-    ".word 0x00000000,0x86020018,0x96030018,0x1840000D\n\t"
-    ".word 0x00641023,0xA6020018,0x00021400,0x1C400009\n\t"
-    ".word 0x26050008,0x96060014,0xAFA00010,0xAFA00014\n\t"
-    ".word 0xAFA00018,0xAFA0001C,0x8E040020,0x0C00D652\n\t"
-    ".word 0x00003821,0x92030016,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x0800C81F,0x00002021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00432021,0x0C014C75\n\t"
-    ".word 0x2405000A,0x24020001,0xA2220000,0x8FBF0028\n\t"
-    ".word 0x8FB10024,0x8FB00020,0x03E00008,0x27BD0030\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Wall {
+    u8 pad00[6];
+    u16 cell;
+    Vector position;
+    u16 angle;
+    u8 waypoint;
+    u8 pad17;
+    short health;
+    u8 pad1A[6];
+    int model;
+} Wall;
+
+typedef struct Trigger {
+    int x;
+    int z;
+    int scale;
+    u8 pad0C[8];
+    int damage;
+} Trigger;
+
+typedef struct Cell {
+    u8 pad00[0x22];
+    short radius;
+    u8 pad24[4];
+} Cell;
+
+typedef struct Waypoint {
+    u8 data[0x114];
+} Waypoint;
+
+extern Cell D_800C62B0[];
+extern Waypoint D_800E3E68[];
+extern int func_80024114(int value);
+extern void func_80035948(int model, Vector *position, u16 angle,
+                          int, int, int, int, int);
+extern void func_800531D4(Waypoint *waypoint, int index);
+
+static inline int fixed_to_int(int value)
+{
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+void func_80031F20(Wall *wall, int elapsed, Trigger *trigger, u8 *handled)
+{
+    register int dx asm("$4") = fixed_to_int(wall->position.x - trigger->x);
+    int dz = fixed_to_int(wall->position.z - trigger->z);
+    register int dx_squared asm("$7") = dx * dx;
+    register int dz_squared asm("$4") = dz * dz;
+    int radius = D_800C62B0[wall->cell].radius;
+    int range = trigger->scale;
+    register int distance_squared asm("$3") = dx_squared + dz_squared;
+
+    if (range + radius * radius < distance_squared) {
+        return;
+    }
+
+    {
+        int damage = func_80024114(trigger->damage);
+        if (damage <= 0) {
+            return;
+        }
+        if (wall->health > 0) {
+            wall->health -= damage;
+            if (wall->health <= 0) {
+                func_80035948(wall->model, &wall->position, wall->angle,
+                              0, 0, 0, 0, 0);
+            }
+        }
+    }
+
+    {
+        int index = wall->waypoint;
+        Waypoint *waypoint;
+        if (index == 127) {
+            waypoint = 0;
+        } else {
+            waypoint = &D_800E3E68[index];
+        }
+        func_800531D4(waypoint, 10);
+    }
+    *handled = 1;
+}

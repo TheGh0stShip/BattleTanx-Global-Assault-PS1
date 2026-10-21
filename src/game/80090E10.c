@@ -1,98 +1,240 @@
-asm(".text\n\t.globl func_80090E10\nfunc_80090E10:\n\t"
-    ".word 0x27BDFFC8,0xAFB00018,0x00808021,0xAFB40028\n\t"
-    ".word 0x0000A021,0xAFBF0030,0xAFB5002C,0xAFB30024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0x8E110004,0x3C15800B\n\t"
-    ".word 0x26B5778C,0x2E320001,0x24020001,0x8E030000\n\t"
-    ".word 0x02821004,0x00621824,0x1060014A,0x00000000\n\t"
-    ".word 0x16400004,0x001498C0,0x32220010,0x10400007\n\t"
-    ".word 0x00000000,0x00141100,0x3C03800B,0x8C6376F0\n\t"
-    ".word 0x96040014,0x00431021,0xA4440004,0x16400003\n\t"
-    ".word 0x32220040,0x10400004,0x00000000,0x96020018\n\t"
-    ".word 0x00000000,0xA6A20000,0x16400003,0x32220020\n\t"
-    ".word 0x1040000D,0x00000000,0x96A50000,0x96070016\n\t"
-    ".word 0x00052202,0x30A500FF,0x00073202,0x0C026BB9\n\t"
-    ".word 0x30E700FF,0x3C04800B,0x8C8476F0,0x00131840\n\t"
-    ".word 0x00641821,0xA4620004,0x16400003,0x32220001\n\t"
-    ".word 0x10400035,0x00000000,0x96020008,0x00002021\n\t"
-    ".word 0x16400004,0x30457FFF,0x32220004,0x1040001C\n\t"
-    ".word 0x00000000,0x9602000C,0x00000000,0x2442FFFF\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620007,0x10400014\n\t"
-    ".word 0x00031080,0x3C01800C,0x00220821,0x8C225128\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x080243E0\n\t"
-    ".word 0x34048000,0x080243E0,0x34049000,0x080243E0\n\t"
-    ".word 0x3404A000,0x080243E0,0x3404B000,0x080243E0\n\t"
-    ".word 0x3404C000,0x080243E0,0x3404D000,0x3404E000\n\t"
-    ".word 0x1080000B,0x00000000,0x86030008,0x00000000\n\t"
-    ".word 0x28620080,0x14400003,0x00000000,0x080243EC\n\t"
-    ".word 0x2405007F,0x04610002,0x00000000,0x00002821\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00131840,0x00621821\n\t"
-    ".word 0x00A41025,0xA4620000,0x16400003,0x32220002\n\t"
-    ".word 0x10400035,0x00000000,0x9602000A,0x00002021\n\t"
-    ".word 0x16400004,0x30457FFF,0x32220008,0x1040001C\n\t"
-    ".word 0x00000000,0x9602000E,0x00000000,0x2442FFFF\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620007,0x10400014\n\t"
-    ".word 0x00031080,0x3C01800C,0x00220821,0x8C225148\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x08024418\n\t"
-    ".word 0x34048000,0x08024418,0x34049000,0x08024418\n\t"
-    ".word 0x3404A000,0x08024418,0x3404B000,0x08024418\n\t"
-    ".word 0x3404C000,0x08024418,0x3404D000,0x3404E000\n\t"
-    ".word 0x1080000B,0x00000000,0x8603000A,0x00000000\n\t"
-    ".word 0x28620080,0x14400003,0x00000000,0x08024424\n\t"
-    ".word 0x2405007F,0x04610002,0x00000000,0x00002821\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00131840,0x00621821\n\t"
-    ".word 0x00A41025,0xA4620002,0x16400003,0x32220080\n\t"
-    ".word 0x10400004,0x00000000,0x8E05001C,0x0C026A30\n\t"
-    ".word 0x36640003,0x16400004,0x3C020001,0x02221024\n\t"
-    ".word 0x10400004,0x00000000,0x8E050020,0x0C026A30\n\t"
-    ".word 0x36640007,0x16400005,0x00131040,0x3C020002\n\t"
-    ".word 0x02221024,0x10400006,0x00131040,0x3C03800B\n\t"
-    ".word 0x8C6376F0,0x9604003A,0x00431021,0xA4440008\n\t"
-    ".word 0x16400005,0x00131040,0x3C020004,0x02221024\n\t"
-    ".word 0x10400006,0x00131040,0x3C03800B,0x8C6376F0\n\t"
-    ".word 0x9604003C,0x00431021,0xA444000A,0x16400003\n\t"
-    ".word 0x32220800,0x1040001C,0x00000000,0x96050030\n\t"
-    ".word 0x00000000,0x2CA20080,0x14400002,0x00000000\n\t"
-    ".word 0x2405007F,0x16400004,0x00003021,0x32220100\n\t"
-    ".word 0x10400006,0x00000000,0x8E030024,0x24020005\n\t"
-    ".word 0x14620002,0x00000000,0x24060080,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x00132040,0x00822021,0x94820008\n\t"
-    ".word 0x00000000,0x304300FF,0x00A61025,0x00021200\n\t"
-    ".word 0x00621825,0xA4830008,0x16400003,0x32221000\n\t"
-    ".word 0x10400010,0x00000000,0x96050032,0x00000000\n\t"
-    ".word 0x2CA20010,0x14400002,0x00000000,0x2405000F\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00132040,0x00822021\n\t"
-    ".word 0x94820008,0x00051900,0x3042FF0F,0x00431025\n\t"
-    ".word 0xA4820008,0x16400003,0x32222000,0x1040002B\n\t"
-    ".word 0x00000000,0x96050034,0x00000000,0x2CA20080\n\t"
-    ".word 0x14400002,0x00000000,0x2405007F,0x16400004\n\t"
-    ".word 0x24060100,0x32220200,0x10400015,0x00000000\n\t"
-    ".word 0x8E030028,0x24020005,0x1062000E,0x28620006\n\t"
-    ".word 0x10400005,0x24020001,0x10620008,0x00000000\n\t"
-    ".word 0x080244A4,0x00000000,0x24020007,0x10620007\n\t"
-    ".word 0x00000000,0x080244A4,0x00000000,0x080244A4\n\t"
-    ".word 0x00003021,0x080244A4,0x24060200,0x24060300\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00132040,0x00822021\n\t"
-    ".word 0x9482000A,0x00000000,0x3043003F,0x00A61025\n\t"
-    ".word 0x00021180,0x00621825,0xA483000A,0x16400003\n\t"
-    ".word 0x32224000,0x1040001C,0x00000000,0x96050036\n\t"
-    ".word 0x00000000,0x2CA20020,0x14400002,0x00000000\n\t"
-    ".word 0x2405001F,0x16400004,0x00003021,0x32220400\n\t"
-    ".word 0x10400008,0x00000000,0x8E03002C,0x24020003\n\t"
-    ".word 0x10620004,0x24020007,0x14620002,0x00000000\n\t"
-    ".word 0x24060020,0x3C02800B,0x8C4276F0,0x00132040\n\t"
-    ".word 0x00822021,0x9482000A,0x00A61825,0x3042FFC0\n\t"
-    ".word 0x00431025,0xA482000A,0x16400003,0x32228000\n\t"
-    ".word 0x10400010,0x00000000,0x96050038,0x00000000\n\t"
-    ".word 0x2CA20010,0x14400002,0x00000000,0x2405000F\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00131840,0x00621821\n\t"
-    ".word 0x94620008,0x00000000,0x3042FFF0,0x00451025\n\t"
-    ".word 0xA4620008,0x26940001,0x2A820018,0x1440FEAE\n\t"
-    ".word 0x26B50002,0x24020001,0xAFA20014,0x080244F4\n\t"
-    ".word 0xAFA00010,0x8FA30014,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0xAFA20014\n\t"
-    ".word 0x8FA20010,0x00000000,0x24420001,0xAFA20010\n\t"
-    ".word 0x8FA20010,0x00000000,0x28420002,0x1440FFF1\n\t"
-    ".word 0x00000000,0x8FBF0030,0x8FB5002C,0x8FB40028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0038\n\t"
-);
+typedef struct SpuVolume {
+    short left;
+    short right;
+} SpuVolume;
+
+typedef struct SpuVoiceAttr {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+
+extern volatile unsigned short *D_800B76F0;
+extern unsigned short D_800B778C[];
+extern unsigned short func_8009AEE4(int, int, int, int);
+extern void func_8009A8C0(int, unsigned long);
+
+void func_80090E10(SpuVoiceAttr *attr) {
+    volatile int count;
+    volatile int value;
+    int all;
+    unsigned long mask;
+    int voice;
+    int pos;
+    unsigned short volmode;
+    unsigned short vol;
+    unsigned short center;
+    unsigned short note;
+    unsigned int rate;
+    int mode;
+    int adsr;
+    volatile unsigned short *p;
+    unsigned short *centers;
+
+    voice = 0;
+    mask = attr->mask;
+    all = mask == 0;
+    centers = D_800B778C;
+    for (; voice < 24; voice++, centers++) {
+        if ((attr->voice & (1 << voice)) == 0) {
+            continue;
+        }
+        pos = voice * 8;
+        if (all || (mask & 0x10)) {
+            D_800B76F0[pos + 2] = attr->pitch;
+        }
+        if (all || (mask & 0x40)) {
+            *centers = attr->sample_note;
+        }
+        if (all || (mask & 0x20)) {
+            center = *centers;
+            note = attr->note;
+            D_800B76F0[pos + 2] = func_8009AEE4(center >> 8, center & 0xFF, note >> 8, note & 0xFF);
+        }
+        if (all || (mask & 0x1)) {
+            volmode = 0;
+            vol = attr->volume.left & 0x7FFF;
+            if (all || (mask & 0x4)) {
+                switch (attr->volmode.left) {
+                case 1:
+                    volmode = 0x8000;
+                    break;
+                case 2:
+                    volmode = 0x9000;
+                    break;
+                case 3:
+                    volmode = 0xA000;
+                    break;
+                case 4:
+                    volmode = 0xB000;
+                    break;
+                case 5:
+                    volmode = 0xC000;
+                    break;
+                case 6:
+                    volmode = 0xD000;
+                    break;
+                case 7:
+                    volmode = 0xE000;
+                    break;
+                }
+            }
+            if (volmode != 0) {
+                if (attr->volume.left >= 0x80) {
+                    vol = 0x7F;
+                } else if (attr->volume.left < 0) {
+                    vol = 0;
+                }
+            }
+            D_800B76F0[pos] = vol | volmode;
+        }
+        if (all || (mask & 0x2)) {
+            volmode = 0;
+            vol = attr->volume.right & 0x7FFF;
+            if (all || (mask & 0x8)) {
+                switch (attr->volmode.right) {
+                case 1:
+                    volmode = 0x8000;
+                    break;
+                case 2:
+                    volmode = 0x9000;
+                    break;
+                case 3:
+                    volmode = 0xA000;
+                    break;
+                case 4:
+                    volmode = 0xB000;
+                    break;
+                case 5:
+                    volmode = 0xC000;
+                    break;
+                case 6:
+                    volmode = 0xD000;
+                    break;
+                case 7:
+                    volmode = 0xE000;
+                    break;
+                }
+            }
+            if (volmode != 0) {
+                if (attr->volume.right >= 0x80) {
+                    vol = 0x7F;
+                } else if (attr->volume.right < 0) {
+                    vol = 0;
+                }
+            }
+            D_800B76F0[pos + 1] = vol | volmode;
+        }
+        if (all || (mask & 0x80)) {
+            func_8009A8C0(pos | 3, attr->addr);
+        }
+        if (all || (mask & 0x10000)) {
+            func_8009A8C0(pos | 7, attr->loop_addr);
+        }
+        if (all || (mask & 0x20000)) {
+            D_800B76F0[pos + 4] = attr->adsr1;
+        }
+        if (all || (mask & 0x40000)) {
+            D_800B76F0[pos + 5] = attr->adsr2;
+        }
+        if (all || (mask & 0x800)) {
+            rate = attr->ar;
+            if (rate >= 0x80) {
+                rate = 0x7F;
+            }
+            mode = 0;
+            if (all || (mask & 0x100)) {
+                if (attr->a_mode == 5) {
+                    mode = 0x80;
+                }
+            }
+            p = (volatile unsigned short *)(pos * 2);
+            p = (volatile unsigned short *)((int)p + (int)D_800B76F0);
+            adsr = p[4];
+            adsr &= 0xFF;
+            adsr |= (rate | mode) << 8;
+            p[4] = adsr;
+        }
+        if (all || (mask & 0x1000)) {
+            rate = attr->dr;
+            if (rate >= 0x10) {
+                rate = 0xF;
+            }
+            D_800B76F0[pos + 4] = (D_800B76F0[pos + 4] & 0xFF0F) | (rate << 4);
+        }
+        if (all || (mask & 0x2000)) {
+            rate = attr->sr;
+            if (rate >= 0x80) {
+                rate = 0x7F;
+            }
+            mode = 0x100;
+            if (all || (mask & 0x200)) {
+                switch (attr->s_mode) {
+                case 1:
+                    mode = 0;
+                    break;
+                case 5:
+                    mode = 0x200;
+                    break;
+                case 7:
+                    mode = 0x300;
+                    break;
+                }
+            }
+            p = (volatile unsigned short *)(pos * 2);
+            p = (volatile unsigned short *)((int)p + (int)D_800B76F0);
+            adsr = p[5];
+            adsr &= 0x3F;
+            adsr |= (rate | mode) << 6;
+            p[5] = adsr;
+        }
+        if (all || (mask & 0x4000)) {
+            rate = attr->rr;
+            if (rate >= 0x20) {
+                rate = 0x1F;
+            }
+            mode = 0;
+            if (all || (mask & 0x400)) {
+                switch (attr->r_mode) {
+                case 3:
+                    break;
+                case 7:
+                    mode = 0x20;
+                    break;
+                }
+            }
+            D_800B76F0[pos + 5] = (D_800B76F0[pos + 5] & 0xFFC0) | (rate | mode);
+        }
+        if (all || (mask & 0x8000)) {
+            rate = attr->sl;
+            if (rate >= 0x10) {
+                rate = 0xF;
+            }
+            D_800B76F0[pos + 4] = (D_800B76F0[pos + 4] & ~0xF) | rate;
+        }
+    }
+    value = 1;
+    count = 0;
+    while (count < 2) {
+        value = value * 13;
+        count = count + 1;
+    }
+}

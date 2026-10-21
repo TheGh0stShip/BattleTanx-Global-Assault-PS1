@@ -1,219 +1,490 @@
-asm(".text\n\t.globl func_8001CAC8\nfunc_8001CAC8:\n\t"
-    ".word 0x27BDFDF8,0xAFBE0200,0x97BE021C,0x8FA90220\n\t"
-    ".word 0x8FAA0224,0xAFB601F8,0x0080B021,0xAFBF0204\n\t"
-    ".word 0xAFB701FC,0xAFB501F4,0xAFB401F0,0xAFB301EC\n\t"
-    ".word 0xAFB201E8,0xAFB101E4,0xAFB001E0,0xA7A601D4\n\t"
-    ".word 0x85290000,0x00E0B821,0x11400002,0xAFA901D8\n\t"
-    ".word 0xA5400000,0x3C02800A,0x9442437A,0x00000000\n\t"
-    ".word 0x14400006,0x00000000,0x92C2005C,0x00000000\n\t"
-    ".word 0x3042000F,0x10400016,0x00000000,0x8EC40008\n\t"
-    ".word 0x00000000,0x1880000F,0x3C02800E,0x8C49E30C\n\t"
-    ".word 0x8ECA0014,0x00000000,0x012A0018,0x00001812\n\t"
-    ".word 0x00005810,0x00031B02,0x000B5D00,0x006B1825\n\t"
-    ".word 0x18600004,0x00831023,0x04410002,0xAEC20008\n\t"
-    ".word 0xAEC00008,0x97A601D4,0x0C006E14,0x02C02021\n\t"
-    ".word 0x8EE20000,0x02C02021,0xAFA20028,0x8EE20004\n\t"
-    ".word 0x27A50028,0x0C006ED6,0xAFA2002C,0x8EC20060\n\t"
-    ".word 0x00000000,0x14400316,0x27A601C0,0x8FAB0218\n\t"
-    ".word 0x00000000,0x8D620000,0x00000000,0xAFA20030\n\t"
-    ".word 0x8D620004,0x00000000,0xAFA20034,0x33C2FFFF\n\t"
-    ".word 0x00021880,0x00621821,0x000318C0,0x3C02800C\n\t"
-    ".word 0x244262B0,0x00622821,0x84A20018,0x84A30016\n\t"
-    ".word 0x94A40018,0x00431023,0x94A30016,0x04400003\n\t"
-    ".word 0x27A701C2,0x0800730A,0x00831023,0x00641023\n\t"
-    ".word 0xA4C20000,0x84A2001C,0x84A3001A,0x94A4001C\n\t"
-    ".word 0x00431023,0x94A3001A,0x04410002,0x00831023\n\t"
-    ".word 0x00641023,0xA4E20000,0x87A301C2,0x87A201C0\n\t"
-    ".word 0x97A601C2,0x0043102A,0x97A301C0,0x10400002\n\t"
-    ".word 0x00000000,0x00603021,0x8FA30028,0x8FA20030\n\t"
-    ".word 0x8FA5002C,0x8FA40034,0x00621823,0x00A42823\n\t"
-    ".word 0x00061400,0x00021443,0x00021380,0x2452F000\n\t"
-    ".word 0xAFA30038,0x14600005,0xAFA5003C,0x14A00004\n\t"
-    ".word 0x00003021,0x08007351,0x00009821,0x00003021\n\t"
-    ".word 0x8FA40038,0x8FA5003C,0x0C007B84,0x00C03821\n\t"
-    ".word 0x00409821,0x27B00038,0x0C007B97,0x02002021\n\t"
-    ".word 0x00402021,0x10800007,0x00000000,0x8FA20038\n\t"
-    ".word 0x8FA3003C,0xAFA001B4,0x00821007,0x08007342\n\t"
-    ".word 0x00831807,0x8FA20038,0x8FA3003C,0xAFA001B4\n\t"
-    ".word 0xAFA201B0,0xAFA301B8,0x27A401B0,0x0C022AB4\n\t"
-    ".word 0x00802821,0x8FA201B0,0x8FA301B8,0x00002021\n\t"
-    ".word 0xAFA20038,0x14400002,0xAFA3003C,0x2C640001\n\t"
-    ".word 0x10800002,0x24021000,0xAE020004,0x8FAA0038\n\t"
-    ".word 0x00000000,0x024A0018,0x00004812,0x00001010\n\t"
-    ".word 0x00094B02,0x00021500,0x01224825,0xAFA90038\n\t"
-    ".word 0x8FA9003C,0x00000000,0x02490018,0x00005812\n\t"
-    ".word 0x00001010,0x000B5B02,0x00021500,0x01625825\n\t"
-    ".word 0x00008821,0x33D0FFFF,0x00101080,0x00501021\n\t"
-    ".word 0x0002A0C0,0xAFAB003C,0x02328821,0x0233102A\n\t"
-    ".word 0x10400008,0x00000000,0x8FA20030,0x8FA40038\n\t"
-    ".word 0x8FA30034,0x8FA5003C,0x00441021,0x08007375\n\t"
-    ".word 0x00651821,0x8FA20028,0x8FA3002C,0xAFA20030\n\t"
-    ".word 0xAFA30034,0x8FA20030,0x00000000,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8FA20034,0x00000000,0x04400003,0x00032882\n\t"
-    ".word 0x08007387,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x00023403,0x3402FFFF\n\t"
-    ".word 0x12020009,0x3C02800C,0x244262B0,0x02821021\n\t"
-    ".word 0x02002021,0x00052C00,0x97AA01D4,0x00052C03\n\t"
-    ".word 0x0C0057D9,0xA44A0024,0x02002021,0x3C0500E4\n\t"
-    ".word 0x34A55C0F,0x27A60090,0x00003821,0x3C02800C\n\t"
-    ".word 0x24030001,0xA443628C,0x0C005EAB,0xAFA00010\n\t"
-    ".word 0x3043FFFF,0x0233102A,0x10400004,0x0060A821\n\t"
-    ".word 0x1060FFC6,0x02328821,0x02328823,0x10600260\n\t"
-    ".word 0x00000000,0x8FAB0224,0x00000000,0x11600002\n\t"
-    ".word 0x24020010,0xA5620000,0x0000A021,0x27B20090\n\t"
-    ".word 0x10600028,0x02809821,0x27B100B0,0x3C09800C\n\t"
-    ".word 0x9623FFE4,0x252962B0,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00491021,0x8C430000,0x3C020020\n\t"
-    ".word 0x14620016,0x00000000,0x8E420000,0x00000000\n\t"
-    ".word 0x8C500008,0x0C00C4DD,0x02002021,0x8E430000\n\t"
-    ".word 0x00000000,0x1443000D,0x00000000,0x8E02003C\n\t"
-    ".word 0x00000000,0x04410004,0x24020001,0x96230000\n\t"
-    ".word 0x080073CD,0x24020002,0x96230000,0x00000000\n\t"
-    ".word 0x14620002,0x00000000,0x24140001,0x26310024\n\t"
-    ".word 0x26730001,0x3262FFFF,0x0055102B,0x1440FFDB\n\t"
-    ".word 0x26520024,0x3282FFFF,0x10400006,0x02C02021\n\t"
-    ".word 0x8FAA0220,0x00000000,0x8D440008,0x080074A8\n\t"
-    ".word 0x00000000,0x33C5FFFF,0x27A60030,0x8FA70218\n\t"
-    ".word 0x27A20090,0xAFA20010,0x27A201C4,0xAFA20018\n\t"
-    ".word 0x27A20040,0xAFA2001C,0x27A201C8,0xAFB50014\n\t"
-    ".word 0xAFA20020,0x0C007134,0xAFA00024,0x3042FFFF\n\t"
-    ".word 0x10400009,0x00000000,0x8FAB0218,0x00000000\n\t"
-    ".word 0x8D620000,0x00000000,0xAEE20000,0x8D630004\n\t"
-    ".word 0x0800760B,0x24020001,0x8FA20030,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x08007401,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8FA60034,0x00000000,0x04C00003,0x00022C03\n\t"
-    ".word 0x0800740B,0x00061303,0x00061023,0x00021303\n\t"
-    ".word 0x00021023,0x33D0FFFF,0x02002021,0x00023380\n\t"
-    ".word 0x0C0057D9,0x00063403,0x02002021,0x3C0500E4\n\t"
-    ".word 0x34A55C0F,0x27A60090,0x00003821,0x3C03800C\n\t"
-    ".word 0x24020001,0xA462628C,0x0C005EAB,0xAFA00010\n\t"
-    ".word 0x3042FFFF,0x10400113,0x0040A821,0x0000A021\n\t"
-    ".word 0x27B20090,0x10400028,0x02809821,0x27B100B0\n\t"
-    ".word 0x3C09800C,0x9623FFE4,0x252962B0,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00491021,0x8C430000\n\t"
-    ".word 0x3C020020,0x14620016,0x00000000,0x8E420000\n\t"
-    ".word 0x00000000,0x8C500008,0x0C00C4DD,0x02002021\n\t"
-    ".word 0x8E430000,0x00000000,0x1443000D,0x00000000\n\t"
-    ".word 0x8E02003C,0x00000000,0x04410004,0x24020001\n\t"
-    ".word 0x96230000,0x0800743E,0x24020002,0x96230000\n\t"
-    ".word 0x00000000,0x14620002,0x00000000,0x24140001\n\t"
-    ".word 0x26310024,0x26730001,0x3262FFFF,0x0055102B\n\t"
-    ".word 0x1440FFDB,0x26520024,0x3282FFFF,0x10400006\n\t"
-    ".word 0x00000000,0x8FAA0220,0x00000000,0x8D440008\n\t"
-    ".word 0x080074A8,0x00000000,0x8EE30000,0x00000000\n\t"
-    ".word 0xAFA30030,0x8EE20004,0x04600003,0xAFA20034\n\t"
-    ".word 0x0800745B,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8FA60034,0x00000000\n\t"
-    ".word 0x04C00003,0x00022C03,0x08007465,0x00061303\n\t"
-    ".word 0x00061023,0x00021303,0x00021023,0x33D0FFFF\n\t"
-    ".word 0x02002021,0x00023380,0x0C0057D9,0x00063403\n\t"
-    ".word 0x02002021,0x3C0500E4,0x34A55C0F,0x27A60090\n\t"
-    ".word 0x00003821,0x3C03800C,0x24020001,0xA462628C\n\t"
-    ".word 0x0C005EAB,0xAFA00010,0x3042FFFF,0x104000B9\n\t"
-    ".word 0x0040A821,0x0000A021,0x27B20090,0x10400028\n\t"
-    ".word 0x02809821,0x27B100B0,0x3C0B800C,0x9623FFE4\n\t"
-    ".word 0x256B62B0,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x004B1021,0x8C430000,0x3C020020,0x14620016\n\t"
-    ".word 0x00000000,0x8E420000,0x00000000,0x8C500008\n\t"
-    ".word 0x0C00C4DD,0x02002021,0x8E430000,0x00000000\n\t"
-    ".word 0x1443000D,0x00000000,0x8E02003C,0x00000000\n\t"
-    ".word 0x04410004,0x24020001,0x96230000,0x08007498\n\t"
-    ".word 0x24020002,0x96230000,0x00000000,0x14620002\n\t"
-    ".word 0x00000000,0x24140001,0x26310024,0x26730001\n\t"
-    ".word 0x3262FFFF,0x0055102B,0x1440FFDB,0x26520024\n\t"
-    ".word 0x3282FFFF,0x1040000C,0x02C02021,0x8FA90220\n\t"
-    ".word 0x00000000,0x8D240008,0x00000000,0x10800004\n\t"
-    ".word 0x24057530,0x00003021,0x0C00FEDA,0x24070001\n\t"
-    ".word 0x0800760C,0x24020001,0x33C5FFFF,0x27A60030\n\t"
-    ".word 0x8FA70218,0x27A20090,0xAFA20010,0x27A201C4\n\t"
-    ".word 0xAFA20018,0x27A20040,0xAFA2001C,0x27A201C8\n\t"
-    ".word 0xAFA20020,0x24020001,0xAFB50014,0x0C007134\n\t"
-    ".word 0xAFA20024,0x3042FFFF,0x10400009,0x00000000\n\t"
-    ".word 0x8FAA0218,0x00000000,0x8D420000,0x00000000\n\t"
-    ".word 0xAEE20000,0x8D430004,0x0800760B,0x24020001\n\t"
-    ".word 0x8FA20030,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x080074D3,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8FA60034,0x00000000\n\t"
-    ".word 0x04C00003,0x00022C03,0x080074DD,0x00061303\n\t"
-    ".word 0x00061023,0x00021303,0x00021023,0x33D0FFFF\n\t"
-    ".word 0x02002021,0x00023380,0x0C0057D9,0x00063403\n\t"
-    ".word 0x02002021,0x3C0500E4,0x34A55C0F,0x27A60090\n\t"
-    ".word 0x00003821,0x3C03800C,0x24020001,0xA462628C\n\t"
-    ".word 0x0C005EAB,0xAFA00010,0x3042FFFF,0x10400041\n\t"
-    ".word 0x0040A821,0x0000A021,0x27B20090,0x10400029\n\t"
-    ".word 0x02809821,0x3C02800C,0x245662B0,0x27B100B0\n\t"
-    ".word 0x9623FFE4,0x00000000,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00561021,0x8C430000,0x3C020020\n\t"
-    ".word 0x14620016,0x00000000,0x8E420000,0x00000000\n\t"
-    ".word 0x8C500008,0x0C00C4DD,0x02002021,0x8E430000\n\t"
-    ".word 0x00000000,0x1443000D,0x00000000,0x8E02003C\n\t"
-    ".word 0x00000000,0x04410004,0x24020001,0x96230000\n\t"
-    ".word 0x08007511,0x24020002,0x96230000,0x00000000\n\t"
-    ".word 0x14620002,0x00000000,0x24140001,0x26310024\n\t"
-    ".word 0x26730001,0x3262FFFF,0x0055102B,0x1440FFDC\n\t"
-    ".word 0x26520024,0x3282FFFF,0x1040000A,0x00000000\n\t"
-    ".word 0x8FAB0220,0x00000000,0x8D640008,0x00000000\n\t"
-    ".word 0x10800004,0x24057530,0x00003021,0x0C00FEDA\n\t"
-    ".word 0x24070001,0x8FA90218,0x00000000,0x8D220000\n\t"
-    ".word 0x00000000,0xAEE20000,0x8D230004,0x0800760B\n\t"
-    ".word 0x24020001,0x8FA20030,0x00000000,0xAEE20000\n\t"
-    ".word 0x8FA20034,0x8FA301C4,0x00000000,0x10600039\n\t"
-    ".word 0xAEE20004,0x8FAA0220,0x00000000,0x8D460008\n\t"
-    ".word 0x8FA30040,0x8FA40044,0x97A501C8,0x97AB01D4\n\t"
-    ".word 0x24020002,0xAFA20070,0xAFA0004C,0xAFB60068\n\t"
-    ".word 0xAFA00058,0xA7AB0054,0xAFA30048,0xAFA40050\n\t"
-    ".word 0x10C00009,0xA7A50064,0x8CC20208,0x00000000\n\t"
-    ".word 0xAFA2005C,0x8CC20218,0x00000000,0x30420002\n\t"
-    ".word 0x08007552,0xAFA20060,0xAFA0005C,0xAFA00060\n\t"
-    ".word 0x8FA401C4,0x3C02800D,0x84850004,0x244232F4\n\t"
-    ".word 0x00051840,0x00651821,0x00031880,0x00621821\n\t"
-    ".word 0x8C620004,0x00000000,0x1040000A,0x2402FFFF\n\t"
-    ".word 0x10A20008,0x00003021,0x8FA50220,0x27A20070\n\t"
-    ".word 0xAFA20010,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x27A70048,0x8FA90220,0x00000000,0x8D260008\n\t"
-    ".word 0x00000000,0x10C0000C,0x00C02021,0x08007576\n\t"
-    ".word 0x00000000,0x8FAA0220,0x24020008,0xAFA20070\n\t"
-    ".word 0x8D440008,0x00000000,0x10800003,0x00000000\n\t"
-    ".word 0x0C010F4C,0x27A50070,0x8FAB0220,0x8FA901D8\n\t"
-    ".word 0x85620000,0x00000000,0x1522004E,0x240AF571\n\t"
-    ".word 0x8D620008,0x00000000,0x1040004A,0x00000000\n\t"
-    ".word 0x8EC4000C,0x8EC50008,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A201CC,0xE85F0000,0x8FA401CC\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A201D0,0xE85F0000,0x8FA501D0,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x080075AC,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00002812,0x080075C2\n\t"
-    ".word 0x00852804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00002812\n\t"
-    ".word 0x080075C2,0x00000000,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00002812\n\t"
-    ".word 0x11000002,0x00000000,0x00052823,0x8FA90220\n\t"
-    ".word 0x8FA601C4,0x8D240008,0x0C011E8D,0x00000000\n\t"
-    ".word 0x240AF571,0x8ECB0008,0x00000000,0x014B0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x0441000A,0xAEC20008,0x8EC20000\n\t"
-    ".word 0x8EC30008,0x00021023,0xAEC20000,0x8EC20004\n\t"
-    ".word 0x00031823,0xAEC30008,0x00021023,0xAEC20004\n\t"
-    ".word 0x8FA90218,0x8EE40000,0x8D230000,0x00000000\n\t"
-    ".word 0x00831023,0x04400005,0x28424000,0x14400007\n\t"
-    ".word 0x00001021,0x0800760C,0x00000000,0x00641023\n\t"
-    ".word 0x28424000,0x10400020,0x00001021,0x8FAA0218\n\t"
-    ".word 0x8EE40004,0x8D430004,0x00000000,0x00831023\n\t"
-    ".word 0x04400005,0x28424000,0x14400007,0x00000000\n\t"
-    ".word 0x0800760C,0x00001021,0x00641023,0x28424000\n\t"
-    ".word 0x10400009,0x00000000,0x8FAB0218,0x00000000\n\t"
-    ".word 0x8D620000,0x00000000,0xAEE20000,0x8D620004\n\t"
-    ".word 0x00000000,0xAEE20004,0x0800760C,0x00001021\n\t"
-    ".word 0x8FA20028,0x00000000,0xAEE20000,0x8FA3002C\n\t"
-    ".word 0x00001021,0xAEE30004,0x8FBF0204,0x8FBE0200\n\t"
-    ".word 0x8FB701FC,0x8FB601F8,0x8FB501F4,0x8FB401F0\n\t"
-    ".word 0x8FB301EC,0x8FB201E8,0x8FB101E4,0x8FB001E0\n\t"
-    ".word 0x03E00008,0x27BD0208\n");
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+typedef struct Vec3 {
+    int x;
+    int y;
+    int z;
+} Vec3;
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    short x;
+    short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short y_low;
+    short y_high;
+    short radius;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Node {
+    short id;
+    short next;
+    short kind;
+    short pad06;
+    void *object;
+} Node;
+typedef struct Hit {
+    Node *owner;
+    unsigned short id;
+    char pad06[0x20 - 6];
+    unsigned short part;
+    char pad22[0x24 - 0x22];
+} Hit;
+typedef struct Body {
+    char pad00[0x208];
+    void *owner;
+    char pad20C[0x218 - 0x20C];
+    int status;
+} Body;
+typedef struct Driver {
+    short id;
+    char pad02[6];
+    Body *body;
+} Driver;
+typedef struct Mover {
+    int dx;
+    int dz;
+    int speed;
+    int length;
+    char pad10[0x14 - 0x10];
+    int drag;
+    char pad18[0x5C - 0x18];
+    unsigned char flags;
+    char pad5D[0x60 - 0x5D];
+    void *dir;
+} Mover;
+typedef struct Owned {
+    char pad00[8];
+    Node *node;
+    char pad0C[0x3C - 0x0C];
+    int side;
+} Owned;
+typedef struct Impact {
+    Vec3 pos;
+    unsigned short heading;
+    short pad;
+    int source;
+    void *owner;
+    int status;
+    unsigned short part;
+    short pad2;
+    Mover *mover;
+} Impact;
+typedef struct Reply {
+    int kind;
+    char pad[0x1C - 4];
+} Reply;
+typedef struct NodeClass {
+    void (*update)();
+    void (*query)(Node *, Driver *, int, Impact *, Reply *);
+    void (*draw)();
+} NodeClass;
+extern unsigned short D_800A437A;
+extern int D_800DE30C;
+extern Cell D_800C62B0[];
+extern short D_800C628C;
+extern NodeClass D_800D32F4[];
+void func_8001B850(Mover *, int, unsigned short);
+void func_8001BB58(Mover *, Pos2 *);
+int func_8001EE10(int, int, int, int);
+int func_8001EE5C(Pos2 *);
+void func_8008AAD0(Vec3 *, Vec3 *);
+void func_80015F64(unsigned short, short, short);
+unsigned short func_80017AAC(unsigned short, int, Hit *, int, int);
+Node *func_80031374(Owned *);
+void func_8003FB68(Body *, int, int, int);
+unsigned short func_8001C4D0(Mover *, unsigned short, Pos2 *, Pos2 *, Hit *, unsigned short, Node **, Pos2 *,
+                             unsigned short *, short);
+void func_80043D30(Body *, Reply *);
+void func_80047A34(Body *, int, Node *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int safe_div(int num, int den) {
+    if (den == 0) {
+        den = 2;
+    }
+    return fixed_div(num, den);
+}
+
+static inline void normalize2(Pos2 *v, Vec3 *tp) {
+    int shift;
+    int zero;
+
+    shift = func_8001EE5C(v);
+    if (shift != 0) {
+        tp->x = v->x >> shift;
+        tp->y = 0;
+        tp->z = v->z >> shift;
+    } else {
+        tp->x = v->x;
+        tp->y = 0;
+        tp->z = v->z;
+    }
+    func_8008AAD0(tp, tp);
+    v->x = tp->x;
+    v->z = tp->z;
+    zero = v->x == 0 && v->z == 0;
+    if (zero) {
+        v->z = 4096;
+    }
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline int to_int_n(int v) {
+    return v < 0 ? -(-v >> 12) : v >> 12;
+}
+
+static inline void span(unsigned short *out, short lo, short hi) {
+    if (hi - lo < 0) {
+        *out = lo - hi;
+    } else {
+        *out = hi - lo;
+    }
+}
+
+static inline unsigned short hits_owned(Hit *hits, unsigned short count) {
+    unsigned short found = 0;
+    unsigned short k;
+    Hit *hit = hits;
+
+    for (k = 0; k < count; hit++, k++) {
+        if (D_800C62B0[hit->id].flags == 0x200000) {
+            Owned *o = hit->owner->object;
+
+            if (func_80031374(o) == hit->owner) {
+                if (o->side < 0) {
+                    if (hit->part == 2) {
+                        found = 1;
+                    }
+                } else if (hit->part == 1) {
+                    found = 1;
+                }
+            }
+        }
+    }
+    return found;
+}
+
+static inline void span_ge(unsigned short *out, short lo, short hi) {
+    unsigned short d;
+
+    if (hi - lo >= 0) {
+        d = hi - lo;
+    } else {
+        d = lo - hi;
+    }
+    *out = d;
+}
+
+static inline void place(unsigned short id, unsigned short angle, short x, short z) {
+    if (id != 0xFFFF) {
+        int off = id * sizeof(Cell);
+
+        ((Cell *)((char *)D_800C62B0 + off))->angle = angle;
+        func_80015F64(id, x, z);
+    }
+}
+
+static inline unsigned short probe(unsigned short id, Hit *hits) {
+    D_800C628C = 1;
+    return func_80017AAC(id, 0xE45C0F, hits, 0, 0);
+}
+
+int func_8001CAC8(Mover *m, int arg1, unsigned short angle, Pos2 *pos, Pos2 *prev, unsigned short id,
+                  Driver *drv, short *flag) {
+    Pos2 cur;
+    Pos2 p;
+    Pos2 step;
+    Pos2 normal;
+    Impact imp;
+    Reply reply;
+    Hit hits[8];
+    Vec3 t;
+    unsigned short ex;
+    unsigned short ez;
+    Node *owner;
+    unsigned short part;
+    int drv_id = drv->id;
+    int dist;
+    int stepping;
+    int travel;
+    unsigned short n;
+    unsigned short w;
+
+    if (flag != 0) {
+        *flag = 0;
+    }
+    if (D_800A437A != 0 || (m->flags & 0xF)) {
+        if (m->speed > 0) {
+            int dec = fixed_mul(D_800DE30C, m->drag);
+
+            if (dec > 0) {
+                m->speed -= dec;
+                if (m->speed < 0) {
+                    m->speed = 0;
+                }
+            }
+        }
+        func_8001B850(m, arg1, angle);
+    }
+    cur.x = pos->x;
+    cur.z = pos->z;
+    func_8001BB58(m, &cur);
+    if (m->dir != 0) {
+        goto done;
+    }
+    p.x = prev->x;
+    p.z = prev->z;
+    {
+        Cell *c = &D_800C62B0[id];
+
+        unsigned short *e0 = &ex;
+        unsigned short *e1 = &ez;
+        span_ge(e0, c->min_x, c->max_x);
+        span(e1, c->min_z, c->max_z);
+    }
+    w = ez;
+    if ((short)ez > (short)ex) {
+        w = ex;
+    }
+    stepping = ((short)w >> 1 << 14) - 4096;
+    step.x = cur.x - p.x;
+    step.z = cur.z - p.z;
+    if (step.x == 0 && step.z == 0) {
+        dist = 0;
+    } else {
+        dist = func_8001EE10(step.x, step.z, 0, 0);
+        normalize2(&step, &t);
+    }
+    step.x = fixed_mul(stepping, step.x);
+    step.z = fixed_mul(stepping, step.z);
+    travel = 0;
+    do {
+        travel += stepping;
+        if (travel < dist) {
+            p.x += step.x;
+            p.z += step.z;
+        } else {
+            p.x = cur.x;
+            p.z = cur.z;
+        }
+        {
+            short gx = to_int_n(p.x) >> 2;
+            int gz = (short)(to_int(p.z) >> 2);
+
+            place(id, angle, gx, gz);
+        }
+        n = probe(id, hits);
+    } while (travel < dist && n == 0);
+    if (n == 0) {
+        goto done;
+    }
+    if (flag != 0) {
+        *flag = 16;
+    }
+    if (hits_owned(hits, n)) {
+        if (drv->body != 0) {
+            func_8003FB68(drv->body, 30000, 0, 1);
+        }
+        return 1;
+    }
+    if (func_8001C4D0(m, id, &p, prev, hits, n, &owner, &normal, &part, 0)) {
+        pos->x = prev->x;
+        pos->z = prev->z;
+        return 1;
+    }
+    func_80015F64(id, (short)(to_int(p.x) >> 2), (short)(to_int(p.z) >> 2));
+    n = probe(id, hits);
+    if (n != 0) {
+        if (hits_owned(hits, n)) {
+            if (drv->body != 0) {
+                func_8003FB68(drv->body, 30000, 0, 1);
+            }
+            return 1;
+        }
+        p.x = pos->x;
+        p.z = pos->z;
+        func_80015F64(id, (short)(to_int(p.x) >> 2), (short)(to_int(p.z) >> 2));
+        n = probe(id, hits);
+        if (n != 0) {
+            if (hits_owned(hits, n)) {
+                if (drv->body != 0) {
+                    func_8003FB68(drv->body, 30000, 0, 1);
+                }
+                return 1;
+            }
+            if (func_8001C4D0(m, id, &p, prev, hits, n, &owner, &normal, &part, 1)) {
+                pos->x = prev->x;
+                pos->z = prev->z;
+                return 1;
+            }
+            func_80015F64(id, (short)(to_int(p.x) >> 2), (short)(to_int(p.z) >> 2));
+            n = probe(id, hits);
+            if (n != 0) {
+                if (hits_owned(hits, n)) {
+                    if (drv->body != 0) {
+                        func_8003FB68(drv->body, 30000, 0, 1);
+                    }
+                }
+                pos->x = prev->x;
+                pos->z = prev->z;
+                return 1;
+            }
+        }
+    }
+    pos->x = p.x;
+    pos->z = p.z;
+    if (owner != 0) {
+        Body *b = drv->body;
+
+        reply.kind = 2;
+        imp.pos.x = normal.x;
+        imp.pos.y = 0;
+        imp.pos.z = normal.z;
+        imp.heading = angle;
+        imp.mover = m;
+        imp.source = 0;
+        imp.part = part;
+        if (b != 0) {
+            imp.owner = b->owner;
+            imp.status = b->status & 2;
+        } else {
+            imp.owner = 0;
+            imp.status = 0;
+        }
+        if (D_800D32F4[owner->kind].query != 0 && owner->kind != -1) {
+            D_800D32F4[owner->kind].query(owner, drv, 0, &imp, &reply);
+        }
+        b = drv->body;
+        if (b != 0) {
+            func_80043D30(b, &reply);
+        }
+    } else {
+        reply.kind = 8;
+        if (drv->body != 0) {
+            func_80043D30(drv->body, &reply);
+        }
+    }
+    if (drv_id == drv->id && drv->body != 0) {
+        func_80047A34(drv->body, safe_div(m->speed, m->length), owner);
+    }
+    m->speed = fixed_mul(-2703, m->speed);
+    if (m->speed < 0) {
+        int t = -m->dx;
+
+        m->dx = t;
+        m->dz = -m->dz;
+        m->speed = -m->speed;
+    }
+    if (pos->x - prev->x >= 0) {
+        if (pos->x - prev->x < 16384) {
+            goto okx;
+        }
+        goto out;
+    }
+    if (prev->x - pos->x >= 16384) {
+        goto out;
+    }
+okx:
+    if (pos->z - prev->z >= 0) {
+        if (pos->z - prev->z < 16384) {
+            goto okz;
+        }
+        goto out;
+    }
+    if (prev->z - pos->z >= 16384) {
+        goto out;
+    }
+okz:
+    pos->x = prev->x;
+    pos->z = prev->z;
+out:
+    return 0;
+done:
+    pos->x = cur.x;
+    pos->z = cur.z;
+    return 0;
+}

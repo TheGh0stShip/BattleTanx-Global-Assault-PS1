@@ -1,17 +1,70 @@
-asm(".text\n\t.globl func_800A1710\nfunc_800A1710:\n\t"
-    ".word 0x27bdffe8,0x00803821,0x3c04800c,0x248490bc\n\t"
-    ".word 0xafbf0014,0xafb00010,0xac86000c,0x8c82000c\n\t"
-    ".word 0x00000000,0x30430030,0x10600005,0x24020020\n\t"
-    ".word 0x10620006,0x24020246,0x080285da,0x00000000\n\t"
-    ".word 0x24020200,0x080285dd,0xac820010,0x24020249\n\t"
-    ".word 0x080285dd,0xac820010,0x3c03800c,0x246390bc\n\t"
-    ".word 0xac620010,0x3c10800c,0x261090bc,0x8e02000c\n\t"
-    ".word 0x00002021,0x34420020,0xae02000c,0xae050004\n\t"
-    ".word 0x0c025c45,0xae070000,0x00002021,0x0c025c4a\n\t"
-    ".word 0xae020024,0xae020028,0x8e020030,0x00000000\n\t"
-    ".word 0x30420001,0x10400004,0x00000000,0x0c025d56\n\t"
-    ".word 0x00002021,0xae02002c,0x0c02221c,0x2404ffff\n\t"
-    ".word 0xae02001c,0x0c025c07,0x00000000,0x304200e0\n\t"
-    ".word 0x10400004,0x24040009,0x00002821,0x0c025ceb\n\t"
-    ".word 0x00003021,0x0c028548,0x00002021,0x0002102a\n\t"
-    ".word 0x8fbf0014,0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct CdReadState {
+    int sectors;
+    unsigned int *volatile buf;
+    int pad08;
+    volatile int mode;
+    int size;
+    int pad14;
+    int pad18;
+    int start_time;
+    int pad20;
+    int read_cb;
+    volatile int sync_cb;
+    int ready_cb;
+    volatile int flags;
+} CdReadState;
+
+extern CdReadState D_800B90BC;
+extern int func_80097114(int);
+extern int func_80097128(int);
+extern int func_80097558(int);
+extern int func_80088870(int);
+extern int func_8009701C(void);
+extern int func_800973AC(int, unsigned char *, unsigned char *);
+extern int func_800A1520(int);
+
+int func_800A1710(int sectors, unsigned int *buf, int mode) {
+    register CdReadState *p asm("$4");
+    CdReadState *q;
+    CdReadState *r;
+    register int v asm("$2");
+    register int z asm("$4");
+
+    p = &D_800B90BC;
+    p->mode = mode;
+    switch (p->mode & 0x30) {
+    case 0:
+        p->size = 512;
+        break;
+    case 0x20:
+        p->size = 585;
+        break;
+    default:
+        v = 582;
+        q = &D_800B90BC;
+        __asm__ volatile("" : "=r"(q) : "0"(q));
+        q->size = v;
+        break;
+    }
+    r = &D_800B90BC;
+    z = 0;
+    r->mode |= 0x20;
+    r->buf = buf;
+    __asm__ volatile("" : "=r"(sectors) : "0"(sectors));
+    r->sectors = sectors;
+    r->read_cb = func_80097114(z);
+    r->sync_cb = func_80097128(0);
+    if (r->flags & 1) {
+        r->ready_cb = func_80097558(0);
+    }
+    r->start_time = func_80088870(-1);
+    __asm__ volatile("" : "=r"(r) : "0"(r));
+    if (func_8009701C() & 0xE0) {
+        { unsigned char *none = 0; __asm__("" : "+r"(none)); func_800973AC(9, none, 0); }
+    }
+    {
+        int ok = func_800A1520(0) > 0;
+        __asm__("" : "+r"(ok));
+        return ok;
+    }
+}

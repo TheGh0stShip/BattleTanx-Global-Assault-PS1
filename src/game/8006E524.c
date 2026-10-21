@@ -1,59 +1,123 @@
-asm(".text\n\t.globl func_8006E524\nfunc_8006E524:\n\t"
-    ".word 0x27BDFFD8,0xAFB00020,0x00808021,0x00002021\n\t"
-    ".word 0xAFBF0024,0x0C01A87B,0x26050010,0x104000DC\n\t"
-    ".word 0x3C03800B,0x92040007,0x2463DF64,0x000410C0\n\t"
-    ".word 0x00441021,0x00021080,0x00431021,0x8C420010\n\t"
-    ".word 0x00000000,0x104000C9,0x3C03800B,0x8E020024\n\t"
-    ".word 0x00000000,0x184000C5,0x3C02800B,0x2445D9EC\n\t"
-    ".word 0x8CA20010,0x00000000,0x2443FFF4,0x1860000B\n\t"
-    ".word 0x00002021,0x8CA40004,0x8CA20014,0xACA30010\n\t"
-    ".word 0x24420001,0x2483000C,0xACA20014,0x24020003\n\t"
-    ".word 0xACA30004,0xA0820000,0xA0800002,0x10800004\n\t"
-    ".word 0x240200F0,0xA0820007,0x2402FFE8,0xAC820008\n\t"
-    ".word 0x8CA20010,0x00000000,0x2443FFE0,0x1860000B\n\t"
-    ".word 0x00002021,0x8CA40004,0x8CA20014,0xACA30010\n\t"
-    ".word 0x24420001,0x24830020,0xACA20014,0x24020008\n\t"
-    ".word 0xACA30004,0xA0820000,0xA0800002,0x00803021\n\t"
-    ".word 0x10C0009D,0x3C03800B,0x8E030010,0x00000000\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0801B996,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801B998,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20010\n\t"
-    ".word 0x8E030014,0x00000000,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801B9A8,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801B9AA\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20014,0x8E030018,0x00000000\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0801B9BA,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801B9BC,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20018\n\t"
-    ".word 0x8FA80010,0x8FA90014,0x8FAA0018,0xACC80008\n\t"
-    ".word 0xACC9000C,0xACCA0010,0x3C02800B,0x92030007\n\t"
-    ".word 0x2447DF64,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x00471021,0x90420020,0x00000000,0xA0C20004\n\t"
-    ".word 0x92030007,0x00000000,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x00471021,0x90420021,0x00000000\n\t"
-    ".word 0xA0C20005,0x92030007,0x00000000,0x000310C0\n\t"
-    ".word 0x00431021,0x00021080,0x00471021,0x90430022\n\t"
-    ".word 0x24020009,0xA0C20003,0x2402002C,0xA0C20007\n\t"
-    ".word 0xA4C00014,0xA0C00001,0xA4C00016,0xA0C30006\n\t"
-    ".word 0x92030007,0x3C05800B,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x00471021,0x8C44001C,0x8CA3DA04\n\t"
-    ".word 0xA0C00001,0xA4C00016,0x00041040,0x00441021\n\t"
-    ".word 0x00021080,0x00621821,0xACC3001C,0x92030007\n\t"
-    ".word 0x00000000,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x00471021,0x8C430014,0x8E02001C,0x00000000\n\t"
-    ".word 0x00620018,0x00001012,0x04410002,0x00000000\n\t"
-    ".word 0x24420FFF,0x00021303,0xA4C20018,0x92030007\n\t"
-    ".word 0x00000000,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x00471021,0x8C430018,0x8E02001C,0x00000000\n\t"
-    ".word 0x00620018,0x00001812,0x04610002,0x00000000\n\t"
-    ".word 0x24630FFF,0x90C20007,0x00031B03,0xA4C3001A\n\t"
-    ".word 0x34420002,0xA0C20007,0x92030007,0x00000000\n\t"
-    ".word 0x000310C0,0x00431021,0x00021080,0x00471021\n\t"
-    ".word 0x90420023,0x00000000,0x30420003,0x00021140\n\t"
-    ".word 0xA4C20014,0x3C03800B,0x92040007,0x2463DF64\n\t"
-    ".word 0x000410C0,0x00441021,0x00021080,0x00431021\n\t"
-    ".word 0x8C420008,0x00000000,0x0040F809,0x02002021\n\t"
-    ".word 0x8FBF0024,0x8FB00020,0x03E00008,0x27BD0028\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct Object Object;
+
+typedef struct {
+    int pad0;
+    int pad4;
+    void (*draw)(Object *);
+    int pad0C;
+    int visible;
+    int width;
+    int height;
+    int frame;
+    unsigned char r, g, b;
+    unsigned char flags;
+} ObjectType;
+
+struct Object {
+    char pad0[7];
+    unsigned char type;
+    char pad8[8];
+    Vector pos;
+    int scale;
+    char pad20[4];
+    int alpha;
+};
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+extern ObjectType D_800ADF64[];
+extern int func_8006A1EC(int, Vector *);
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline unsigned char *packet_alloc(int bytes, int words) {
+    PacketList *list = &D_800AD9EC;
+    register unsigned char *p asm("$4") = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = list->free;
+    left = rem - bytes;
+    if (left > 0) {
+        p = list->cur;
+        list->free = left;
+        {
+            register int c asm("$2") = list->count + 1;
+            list->cur = p + bytes;
+            list->count = c;
+        }
+        p[0] = words;
+        p[2] = 0;
+    }
+    return p;
+}
+
+static inline int *tex_base(void) {
+    return &D_800ADA04;
+}
+
+static inline void add_marker(void) {
+    unsigned char *p = packet_alloc(12, 3);
+
+    if (p != 0) {
+        p[7] = 0xF0;
+        *(int *)(p + 8) = -24;
+    }
+}
+
+void func_8006E524(Object *obj) {
+    Vector v;
+    register unsigned char *p asm("$6");
+
+    if (func_8006A1EC(0, &obj->pos) == 0) {
+        return;
+    }
+    if (D_800ADF64[obj->type].visible != 0 && obj->alpha > 0) {
+        add_marker();
+        p = packet_alloc(32, 8);
+        if (p != 0) {
+            v.x = round_shift(obj->pos.x);
+            v.y = round_shift(obj->pos.y);
+            v.z = round_shift(obj->pos.z);
+            *(Vector *)(p + 8) = v;
+            __asm__("");
+            p[4] = D_800ADF64[obj->type].r;
+            p[5] = D_800ADF64[obj->type].g;
+            p[6] = D_800ADF64[obj->type].b;
+            p[3] = 9;
+            p[7] = 0x2C;
+            *(short *)(p + 20) = 0;
+            p[1] = 0;
+            *(short *)(p + 22) = 0;
+            {
+                int *tp = tex_base();
+                int f = D_800ADF64[obj->type].frame;
+                int t = *tp;
+                p[1] = 0;
+                *(short *)(p + 22) = 0;
+                *(int *)(p + 28) = t + f * 12;
+            }
+            *(short *)(p + 24) = D_800ADF64[obj->type].width * obj->scale / 4096;
+            *(short *)(p + 26) = D_800ADF64[obj->type].height * obj->scale / 4096;
+            p[7] |= 2;
+            *(short *)(p + 20) = (D_800ADF64[obj->type].flags & 3) << 5;
+        }
+    }
+    D_800ADF64[obj->type].draw(obj);
+}

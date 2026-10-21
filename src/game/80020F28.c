@@ -1,170 +1,294 @@
-asm(".text\n\t.globl func_80020F28\nfunc_80020F28:\n\t"
-    ".word 0x3C02800D,0x8C432FE8,0x27BDFFD0,0xAFB3001C\n\t"
-    ".word 0x00009821,0xAFBF002C,0xAFB60028,0xAFB50024\n\t"
-    ".word 0xAFB40020,0xAFB20018,0xAFB10014,0x2C62000F\n\t"
-    ".word 0x10400289,0xAFB00010,0x3C02800C,0x2442D57C\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800D,0x3C03800D\n\t"
-    ".word 0x24632FE4,0x8C452FE0,0x8C640010,0x00000000\n\t"
-    ".word 0x0085102A,0x1040005F,0x240CFFFF,0x9064000A\n\t"
-    ".word 0x00000000,0x10800024,0x00008821,0x90630009\n\t"
-    ".word 0x240B007F,0x3C02800E,0x244A3E68,0x00806821\n\t"
-    ".word 0x3C02800E,0x24483DB4,0x00003021,0x10600012\n\t"
-    ".word 0x00C03821,0x3C02800D,0x90492FED,0x00C02821\n\t"
-    ".word 0x10CB0002,0x00002021,0x00AA2021,0x8C82000C\n\t"
-    ".word 0x00000000,0x14480004,0x00000000,0x8C820070\n\t"
-    ".word 0x00000000,0x00E23821,0x24C60001,0x00C9102A\n\t"
-    ".word 0x1440FFF3,0x24A50114,0x0187102A,0x10400002\n\t"
-    ".word 0x00000000,0x00E06021,0x26310001,0x022D102A\n\t"
-    ".word 0x1440FFE5,0x25080024,0x3C02800D,0x24432FE4\n\t"
-    ".word 0x90620009,0x00000000,0x104001F5,0x00008821\n\t"
-    ".word 0x240B007F,0x3C02800E,0x244A3E68,0x00606821\n\t"
-    ".word 0x02203821,0x122B0002,0x00001821,0x00EA1821\n\t"
-    ".word 0x00002821,0x91A20009,0x8C69000C,0x10400012\n\t"
-    ".word 0x00A03021,0x3C02800D,0x90482FED,0x00A02021\n\t"
-    ".word 0x10AB0002,0x00001821,0x008A1821,0x8C62000C\n\t"
-    ".word 0x00000000,0x14490004,0x00000000,0x8C620070\n\t"
-    ".word 0x00000000,0x00C23021,0x24A50001,0x00A8102A\n\t"
-    ".word 0x1440FFF3,0x24840114,0x14CC0006,0x00000000\n\t"
-    ".word 0x122B0002,0x00001821,0x00EA1821,0x0800843F\n\t"
-    ".word 0x24020001,0x122B0002,0x00001821,0x00EA1821\n\t"
-    ".word 0x24020002,0xAC620058,0x91A20009,0x26310001\n\t"
-    ".word 0x0222102A,0x1440FFD7,0x24E70114,0x08008661\n\t"
-    ".word 0x24020001,0x00A09021,0x00921023,0x28420258\n\t"
-    ".word 0x1040001C,0x3C02800D,0x8C422FC4,0x00000000\n\t"
-    ".word 0x00821023,0x28420258,0x14400017,0x3C02800D\n\t"
-    ".word 0x90620008,0x00000000,0x10400033,0x00008021\n\t"
-    ".word 0x2415007F,0x3C02800E,0x24543E68,0x00609821\n\t"
-    ".word 0x02008821,0x12150002,0x00002021,0x02342021\n\t"
-    ".word 0x0C014C75,0x24050003,0x92620008,0x26100001\n\t"
-    ".word 0x0202102A,0x1440FFF7,0x26310114,0x08008489\n\t"
-    ".word 0x3C02800D,0x3C02800D,0x24442FE4,0x8C830010\n\t"
-    ".word 0x00000000,0x00721023,0x28420708,0x1040001A\n\t"
-    ".word 0x3C02800D,0x8C422FC4,0x00000000,0x00621023\n\t"
-    ".word 0x28420708,0x14400015,0x3C02800D,0x90820008\n\t"
-    ".word 0x00000000,0x10400010,0x00008021,0x2415007F\n\t"
-    ".word 0x3C02800E,0x24543E68,0x00809821,0x02008821\n\t"
-    ".word 0x12150002,0x00002021,0x02342021,0x0C014C75\n\t"
-    ".word 0x24050002,0x92620008,0x26100001,0x0202102A\n\t"
-    ".word 0x1440FFF7,0x26310114,0x3C02800D,0x08008660\n\t"
-    ".word 0xAC522FC4,0x3C02800D,0x24422FE4,0x9043000A\n\t"
-    ".word 0x00000000,0x106001D0,0x00008821,0x8C450010\n\t"
-    ".word 0x00602021,0x3C02800E,0x24433DB4,0x94620000\n\t"
-    ".word 0x00000000,0x0045102A,0x104000A7,0x26310001\n\t"
-    ".word 0x0224102A,0x1440FFF9,0x24630024,0x08008661\n\t"
-    ".word 0x00001021,0x3C02800D,0x24422FE4,0x9043000A\n\t"
-    ".word 0x00000000,0x10600016,0x00008821,0x00403021\n\t"
-    ".word 0x00602821,0x3C02800E,0x24443DB4,0x8C820008\n\t"
-    ".word 0x00000000,0x04410004,0x00021B03,0x00021023\n\t"
-    ".word 0x00021303,0x00021823,0x8CC20010,0x00000000\n\t"
-    ".word 0x0062102A,0x14400002,0x00000000,0x24130001\n\t"
-    ".word 0x26310001,0x0225102A,0x1440FFF0,0x24840024\n\t"
-    ".word 0x126001A5,0x3C02800D,0x24432FE4,0x90620009\n\t"
-    ".word 0x00000000,0x1040014A,0x00008821,0x2409007F\n\t"
-    ".word 0x3C02800E,0x24483E68,0x00602821,0x24070001\n\t"
-    ".word 0x24060002,0x02202021,0x12290002,0x00008021\n\t"
-    ".word 0x00888021,0x8E02000C,0x00000000,0x8C420008\n\t"
-    ".word 0x00000000,0x04410004,0x00021B03,0x00021023\n\t"
-    ".word 0x00021303,0x00021823,0x8CA20010,0x00000000\n\t"
-    ".word 0x0062102A,0x14400003,0x00000000,0x080084DC\n\t"
-    ".word 0xAE070058,0xAE060058,0x90A20009,0x26310001\n\t"
-    ".word 0x0222102A,0x1440FFE8,0x24840114,0x08008661\n\t"
-    ".word 0x24020001,0x3C02800D,0x24422FE4,0x9043000A\n\t"
-    ".word 0x00000000,0x1060000F,0x00008821,0x8C450010\n\t"
-    ".word 0x00602021,0x3C02800E,0x24433DB4,0x94620004\n\t"
-    ".word 0x00000000,0x0045102A,0x14400002,0x00000000\n\t"
-    ".word 0x24130001,0x26310001,0x0224102A,0x1440FFF7\n\t"
-    ".word 0x24630024,0x12600021,0x3C02800D,0x24432FE4\n\t"
-    ".word 0x90620009,0x00000000,0x1040010D,0x00008821\n\t"
-    ".word 0x2409007F,0x3C02800E,0x24483E68,0x00602821\n\t"
-    ".word 0x24070001,0x24060002,0x02202021,0x12290002\n\t"
-    ".word 0x00008021,0x00888021,0x8E02000C,0x8CA30010\n\t"
-    ".word 0x94420004,0x00000000,0x0043102A,0x14400003\n\t"
-    ".word 0x00000000,0x08008512,0xAE070058,0xAE060058\n\t"
-    ".word 0x90A20009,0x26310001,0x0222102A,0x1440FFEF\n\t"
-    ".word 0x24840114,0x08008661,0x24020001,0x24442FE4\n\t"
-    ".word 0x8C830004,0x2402000B,0x10620003,0x2402000D\n\t"
-    ".word 0x14620142,0x00001021,0x24130001,0x90820009\n\t"
-    ".word 0x00000000,0x1040001A,0x00008821,0x2416007F\n\t"
-    ".word 0x3C02800E,0x24553E68,0x0080A021,0x02209021\n\t"
-    ".word 0x12360002,0x00008021,0x02558021,0x92020006\n\t"
-    ".word 0x00000000,0x30420002,0x10400008,0x00000000\n\t"
-    ".word 0x0C014B6D,0x02002021,0x8E030058,0x24020002\n\t"
-    ".word 0x10620002,0x00000000,0x00009821,0x92820009\n\t"
-    ".word 0x26310001,0x0222102A,0x1440FFED,0x26520114\n\t"
-    ".word 0x12600122,0x00001021,0x08008661,0x24020002\n\t"
-    ".word 0x3C02800D,0x24432FE4,0x8C640014,0x00000000\n\t"
-    ".word 0x1080000B,0x3C02800D,0x8C630040,0x8C422FE0\n\t"
-    ".word 0x8C630068,0x00441023,0x0062182A,0x1060000C\n\t"
-    ".word 0x3C03800E,0x24020001,0x0800855A,0xAC623EC0\n\t"
-    ".word 0x8C620010,0x00000000,0x14400006,0x3C02800E\n\t"
-    ".word 0x3C02800D,0x8C422FE0,0x00000000,0xAC620014\n\t"
-    ".word 0x3C02800E,0x24453E68,0x8CA30058,0x24020001\n\t"
-    ".word 0x1462001F,0x24020002,0x3C02800D,0x24432FE4\n\t"
-    ".word 0x90620009,0x00000000,0x104000A5,0x00008821\n\t"
-    ".word 0x240A007F,0x00A04821,0x24080001,0x24070002\n\t"
-    ".word 0x00603021,0x02202021,0x122A0002,0x00008021\n\t"
-    ".word 0x00898021,0x8E03000C,0x8CA2000C,0x00000000\n\t"
-    ".word 0x14620003,0x00000000,0x08008577,0xAE080058\n\t"
-    ".word 0xAE070058,0x90C20009,0x26310001,0x0222102A\n\t"
-    ".word 0x1440FFF1,0x24840114,0x08008661,0x24020001\n\t"
-    ".word 0x1462001F,0x3C02800C,0x3C02800D,0x24432FE4\n\t"
-    ".word 0x90620009,0x00000000,0x10400085,0x00008821\n\t"
-    ".word 0x240A007F,0x00A04821,0x24080002,0x24070001\n\t"
-    ".word 0x00603021,0x02202021,0x122A0002,0x00008021\n\t"
-    ".word 0x00898021,0x8E03000C,0x8CA2000C,0x00000000\n\t"
-    ".word 0x14620003,0x00000000,0x08008597,0xAE080058\n\t"
-    ".word 0xAE070058,0x90C20009,0x26310001,0x0222102A\n\t"
-    ".word 0x1440FFF1,0x24840114,0x08008661,0x24020001\n\t"
-    ".word 0x8C4260D8,0x00000000,0x28420078,0x144000BE\n\t"
-    ".word 0x00009821,0x3C02800D,0x24432FE4,0x90620009\n\t"
-    ".word 0x00000000,0x0262102A,0x10400019,0x00008821\n\t"
-    ".word 0x2416007F,0x00A0A821,0x0060A021,0x02209021\n\t"
-    ".word 0x12360002,0x00008021,0x02558021,0x0C014B6D\n\t"
-    ".word 0x02002021,0x8E030058,0x24020002,0x10620007\n\t"
-    ".word 0x00000000,0x92020006,0x00000000,0x30420002\n\t"
-    ".word 0x10400002,0x00000000,0x26730001,0x92820009\n\t"
-    ".word 0x26310001,0x0222102A,0x1440FFED,0x26520114\n\t"
-    ".word 0x2E620001,0x08008661,0x00021040,0x3C03800D\n\t"
-    ".word 0x3C02800D,0x24442FE4,0x8C622FE0,0x8C830010\n\t"
-    ".word 0x00000000,0x0043102A,0x1440001E,0x3C02800E\n\t"
-    ".word 0x24453E68,0x90820009,0x00000000,0x10400038\n\t"
-    ".word 0x00008821,0x240A007F,0x00A04821,0x24080001\n\t"
-    ".word 0x24070002,0x00803021,0x02202021,0x122A0002\n\t"
-    ".word 0x00008021,0x00898021,0x8E03000C,0x8CA2000C\n\t"
-    ".word 0x00000000,0x14620003,0x00000000,0x080085E4\n\t"
-    ".word 0xAE080058,0xAE070058,0x90C20009,0x26310001\n\t"
-    ".word 0x0222102A,0x1440FFF1,0x24840114,0x08008661\n\t"
-    ".word 0x24020001,0x24453E68,0x8CA30058,0x24020002\n\t"
-    ".word 0x1462001D,0x0000A021,0x90820009,0x00000000\n\t"
-    ".word 0x10400017,0x00008821,0x240A007F,0x00A04821\n\t"
-    ".word 0x24080002,0x24070001,0x00803021,0x02202021\n\t"
-    ".word 0x122A0002,0x00008021,0x00898021,0x8E03000C\n\t"
-    ".word 0x8CA2000C,0x00000000,0x14620003,0x00000000\n\t"
-    ".word 0x08008605,0xAE080058,0xAE070058,0x90C20009\n\t"
-    ".word 0x26310001,0x0222102A,0x1440FFF1,0x24840114\n\t"
-    ".word 0x08008661,0x24020001,0x3C02800C,0x8C4260D8\n\t"
-    ".word 0x00000000,0x28420078,0x1440004F,0x02809821\n\t"
-    ".word 0x90820009,0x00000000,0x0262102A,0x10400046\n\t"
-    ".word 0x00008821,0x00A0B021,0x0080A821,0x02209021\n\t"
-    ".word 0x2402007F,0x12220002,0x00008021,0x02568021\n\t"
-    ".word 0x0C014B6D,0x02002021,0x8E030058,0x24020002\n\t"
-    ".word 0x10620009,0x00000000,0x92020006,0x00000000\n\t"
-    ".word 0x30420002,0x10400003,0x00000000,0x0800862C\n\t"
-    ".word 0x26940001,0x26730001,0x92A20009,0x26310001\n\t"
-    ".word 0x0222102A,0x1440FFEA,0x26520114,0x0800865C\n\t"
-    ".word 0x00000000,0x0000A021,0x3C02800C,0x8C4260D8\n\t"
-    ".word 0x00000000,0x28420078,0x14400027,0x02809821\n\t"
-    ".word 0x3C02800D,0x24432FE4,0x90620009,0x00000000\n\t"
-    ".word 0x0262102A,0x1040001C,0x00008821,0x3C02800E\n\t"
-    ".word 0x24563E68,0x0060A821,0x02209021,0x2402007F\n\t"
-    ".word 0x12220002,0x00008021,0x02568021,0x0C014B6D\n\t"
-    ".word 0x02002021,0x8E030058,0x24020002,0x10620009\n\t"
-    ".word 0x00000000,0x92020006,0x00000000,0x30420002\n\t"
-    ".word 0x10400003,0x00000000,0x08008657,0x26940001\n\t"
-    ".word 0x26730001,0x92A20009,0x26310001,0x0222102A\n\t"
-    ".word 0x1440FFEA,0x26520114,0x12800004,0x24020002\n\t"
-    ".word 0x12600002,0x00000000,0x00001021,0x8FBF002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct {
+    unsigned short score;
+    char pad2[2];
+    unsigned short kills;
+    char pad6[2];
+    int value;
+    char padC[0x24 - 0xC];
+} Team;
+
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    char pad7[0xC - 7];
+    Team *team;
+    char pad10[0x58 - 0x10];
+    int result;
+    char pad5C[0x70 - 0x5C];
+    int score;
+    char pad74[0x114 - 0x74];
+} Waypoint;
+
+typedef struct {
+    char pad0[0x68];
+    int limit;
+} Level;
+
+typedef struct {
+    void *screen;
+    int mode;
+    unsigned char players;
+    unsigned char count;
+    unsigned char teams;
+    char padB[5];
+    int timer;
+    int timer2;
+    char pad18[0x40 - 0x18];
+    Level *level;
+} Globals;
+
+extern Globals D_800D2FE4;
+extern int D_800D2FE0;
+extern int D_800D2FC4;
+extern int D_800C60D8;
+extern Team D_800E3DB4[];
+extern Waypoint D_800E3E68[];
+extern void func_800531D4(Waypoint *, int);
+extern void func_80052DB4(Waypoint *);
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline void notify_all(int msg) {
+    int i;
+
+    for (i = 0; i < D_800D2FE4.players; i++) {
+        func_800531D4(waypoint_get(i), msg);
+    }
+}
+
+static inline int team_total(Team *team) {
+    int sum = 0;
+    int j;
+    Waypoint *v;
+
+    for (j = 0; j < D_800D2FE4.count; j++) {
+        v = waypoint_get(j);
+        if (v->team == team) {
+            sum += v->score;
+        }
+    }
+    return sum;
+}
+
+static inline int check_alive(void) {
+    int alive = 0;
+    int i;
+    Waypoint *w;
+
+    if (D_800C60D8 < 120) {
+        return 0;
+    }
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        w = waypoint_get(i);
+        func_80052DB4(w);
+        if (w->result != 2 && (w->flags & 2)) {
+            alive++;
+        }
+    }
+    return (alive == 0) * 2;
+}
+
+static inline int check_survivors(void) {
+    int others = 0;
+    int done = 0;
+    int i;
+    Waypoint *w;
+
+    if (D_800C60D8 < 120) {
+        return 0;
+    }
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        w = waypoint_get(i);
+        func_80052DB4(w);
+        if (w->result != 2) {
+            if (w->flags & 2) {
+                others++;
+            } else {
+                done++;
+            }
+        }
+    }
+    if (others == 0 || done == 0) {
+        return 2;
+    }
+    return 0;
+}
+
+int func_80020F28(void) {
+    int done = 0;
+    int i;
+    int best;
+    int sum;
+    int now;
+    Waypoint *w;
+    Waypoint *leader;
+
+    switch (D_800D2FE4.mode) {
+    case 5:
+        if (D_800D2FE0 > D_800D2FE4.timer) {
+            best = -1;
+            for (i = 0; i < D_800D2FE4.teams; i++) {
+                int total = team_total(&D_800E3DB4[i]);
+                if (best < total) {
+                    best = total;
+                }
+            }
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                sum = team_total(waypoint_get(i)->team);
+                if (sum == best) {
+                    waypoint_get(i)->result = 1;
+                } else {
+                    waypoint_get(i)->result = 2;
+                }
+            }
+            return 1;
+        }
+        now = D_800D2FE0;
+        if (D_800D2FE4.timer - now < 600 && D_800D2FE4.timer - D_800D2FC4 >= 600) {
+            notify_all(3);
+        } else if (D_800D2FE4.timer - now < 1800 && D_800D2FE4.timer - D_800D2FC4 >= 1800) {
+            notify_all(2);
+        }
+        D_800D2FC4 = now;
+        break;
+    case 0:
+    case 6:
+        for (i = 0; i < D_800D2FE4.teams; i++) {
+            if (D_800E3DB4[i].score >= D_800D2FE4.timer) {
+                return 2;
+            }
+        }
+        break;
+    case 3:
+        for (i = 0; i < D_800D2FE4.teams; i++) {
+            if (fixed_to_int(D_800E3DB4[i].value) >= D_800D2FE4.timer) {
+                done = 1;
+            }
+        }
+        if (done) {
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (fixed_to_int(w->team->value) >= D_800D2FE4.timer) {
+                    w->result = 1;
+                } else {
+                    w->result = 2;
+                }
+            }
+            return 1;
+        }
+        break;
+    case 1:
+    case 2:
+    case 11:
+    case 13:
+        for (i = 0; i < D_800D2FE4.teams; i++) {
+            if (D_800E3DB4[i].kills >= D_800D2FE4.timer) {
+                done = 1;
+            }
+        }
+        if (done) {
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->team->kills >= D_800D2FE4.timer) {
+                    w->result = 1;
+                } else {
+                    w->result = 2;
+                }
+            }
+            return 1;
+        }
+        if (D_800D2FE4.mode == 11 || D_800D2FE4.mode == 13) {
+            done = 1;
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->flags & 2) {
+                    func_80052DB4(w);
+                    if (w->result != 2) {
+                        done = 0;
+                    }
+                }
+            }
+            if (done) {
+                return 2;
+            }
+            break;
+        }
+        break;
+    case 12:
+        if (D_800D2FE4.timer2 != 0) {
+            if (D_800D2FE4.level->limit < D_800D2FE0 - D_800D2FE4.timer2) {
+                D_800E3E68[0].result = 1;
+            }
+        } else if (D_800D2FE4.timer == 0) {
+            D_800D2FE4.timer2 = D_800D2FE0;
+        }
+    case 7:
+    case 10:
+    case 14:
+        leader = D_800E3E68;
+        if (leader->result == 1) {
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->team == leader->team) {
+                    w->result = 1;
+                } else {
+                    w->result = 2;
+                }
+            }
+            return 1;
+        }
+        if (leader->result == 2) {
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->team == leader->team) {
+                    w->result = 2;
+                } else {
+                    w->result = 1;
+                }
+            }
+            return 1;
+        }
+        return check_alive();
+    case 9:
+        if (D_800D2FE0 >= D_800D2FE4.timer) {
+            leader = D_800E3E68;
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->team == leader->team) {
+                    w->result = 1;
+                } else {
+                    w->result = 2;
+                }
+            }
+            return 1;
+        }
+        leader = D_800E3E68;
+        if (leader->result == 2) {
+            for (i = 0; i < D_800D2FE4.count; i++) {
+                w = waypoint_get(i);
+                if (w->team == leader->team) {
+                    w->result = 2;
+                } else {
+                    w->result = 1;
+                }
+            }
+            return 1;
+        }
+        return check_survivors();
+    case 8:
+        return check_survivors();
+    }
+    return 0;
+}

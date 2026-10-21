@@ -1,146 +1,286 @@
-asm(".text\n\t.globl func_80035F80\nfunc_80035F80:\n\t"
-    ".word 0x27BDFFC0,0x24060032,0x3C038000,0xAFBF003C\n\t"
-    ".word 0xAFB20038,0xAFB10034,0xAFB00030,0x8C82002C\n\t"
-    ".word 0x00C04021,0x00434824,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20028,0xE85F0000,0x8FA50028,0x00000000\n\t"
-    ".word 0x24A7FFF4,0x04E10023,0x00000000,0x00A31804\n\t"
-    ".word 0x4888F000,0x00000000,0x00000000,0x27A2002C\n\t"
-    ".word 0xE85F0000,0x8FA6002C,0x00000000,0x00C52823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00461023,0x04400003\n\t"
-    ".word 0x00000000,0x0800D809,0x00481007,0x00021023\n\t"
-    ".word 0x00481004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0800D81F,0x00A31804\n\t"
-    ".word 0x00071023,0x00481007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800D821\n\t"
-    ".word 0x00601021,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00601021,0x11200002,0x00000000,0x00021023\n\t"
-    ".word 0x24421000,0x00021FC2,0x00431021,0x8C830008\n\t"
-    ".word 0x00000000,0x04600006,0x00029043,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0800D837,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800D839\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20010,0x8C83000C,0x00000000\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0800D849,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0800D84B,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20014\n\t"
-    ".word 0x8C830010,0x00000000,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0800D85B,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800D85D\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20018,0x8C8A0020,0x8C8B0014\n\t"
-    ".word 0x00000000,0x014B0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8C820008\n\t"
-    ".word 0x00000000,0x00431821,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0800D877,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800D879\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA2001C,0x8C8C0020,0x8C8D0018\n\t"
-    ".word 0x00000000,0x018D0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8C82000C\n\t"
-    ".word 0x00000000,0x00431821,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0800D893,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800D895\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20020,0x8C8A0020,0x8C8B001C\n\t"
-    ".word 0x00000000,0x014B0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x8C820010\n\t"
-    ".word 0x00000000,0x00431821,0x04600005,0x24620800\n\t"
-    ".word 0x0441000C,0x00021B03,0x0800D8AF,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0800D8B1\n\t"
-    ".word 0x00021B03,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021823,0x3C02800B,0x2451D9EC,0x8E220010\n\t"
-    ".word 0xAFA30024,0x2443FFE0,0x1860000B,0x00002021\n\t"
-    ".word 0x8E240004,0x8E220014,0xAE230010,0x24420001\n\t"
-    ".word 0x24830020,0xAE220014,0x24020008,0xAE230004\n\t"
-    ".word 0xA0820000,0xA0800002,0x00808021,0x1200002E\n\t"
-    ".word 0x24020020,0x8FAC0010,0x8FAD0014,0x8FAA0018\n\t"
-    ".word 0xAE0C0008,0xAE0D000C,0xAE0A0010,0xA2000004\n\t"
-    ".word 0xA2020005,0x24020080,0xA2020006,0x24020009\n\t"
-    ".word 0xA2020003,0x2402002C,0xA2020007,0x3C02800B\n\t"
-    ".word 0xA2000001,0x8C42DA04,0xA6000014,0xA6000016\n\t"
-    ".word 0xA2000001,0x244200FC,0x0C021B21,0xAE02001C\n\t"
-    ".word 0x00021402,0x240C0018,0xA6020016,0x024C0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0xA6020018,0x024C0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA602001A,0x92020007,0x24030020,0xA6030014\n\t"
-    ".word 0x34420002,0xA2020007,0x8E220010,0x00000000\n\t"
-    ".word 0x2443FFE0,0x1860000B,0x00002021,0x8E240004\n\t"
-    ".word 0x8E220014,0xAE230010,0x24420001,0x24830020\n\t"
-    ".word 0xAE220014,0x24020008,0xAE230004,0xA0820000\n\t"
-    ".word 0xA0800002,0x00808021,0x1200002E,0x24020020\n\t"
-    ".word 0x8FAD001C,0x8FAA0020,0x8FAB0024,0xAE0D0008\n\t"
-    ".word 0xAE0A000C,0xAE0B0010,0xA2000004,0xA2020005\n\t"
-    ".word 0x24020080,0xA2020006,0x24020009,0xA2020003\n\t"
-    ".word 0x2402002C,0xA2020007,0x3C02800B,0xA2000001\n\t"
-    ".word 0x8C42DA04,0xA6000014,0xA6000016,0xA2000001\n\t"
-    ".word 0x244200FC,0x0C021B21,0xAE02001C,0x00021402\n\t"
-    ".word 0x240D0018,0xA6020016,0x024D0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA6020018,0x024D0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA602001A\n\t"
-    ".word 0x92020007,0x24030020,0xA6030014,0x34420002\n\t"
-    ".word 0xA2020007,0x8E220010,0x00000000,0x2443FFE0\n\t"
-    ".word 0x1860000B,0x00002021,0x8E240004,0x8E220014\n\t"
-    ".word 0xAE230010,0x24420001,0x24830020,0xAE220014\n\t"
-    ".word 0x24020008,0xAE230004,0xA0820000,0xA0800002\n\t"
-    ".word 0x00803021,0x10C0002C,0x24030020,0x8FAA0010\n\t"
-    ".word 0x8FAB0014,0x8FAC0018,0xACCA0008,0xACCB000C\n\t"
-    ".word 0xACCC0010,0xA0C00004,0x24020080,0xA0C20006\n\t"
-    ".word 0x24020009,0xA0C20003,0x2402002C,0xA0C20007\n\t"
-    ".word 0x3C02800B,0xA0C30005,0xA0C00001,0x8C42DA04\n\t"
-    ".word 0x240A0018,0xA4C00014,0xA4C00016,0xA0C30001\n\t"
-    ".word 0x244200D8,0xACC2001C,0x024A0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA4C20018,0x024A0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4C2001A\n\t"
-    ".word 0x90C20007,0x24030020,0xA4C00016,0xA4C30014\n\t"
-    ".word 0x34420002,0xA0C20007,0x8E220010,0x00000000\n\t"
-    ".word 0x2443FFE4,0x1860000B,0x00002021,0x8E240004\n\t"
-    ".word 0x8E220014,0xAE230010,0x24420001,0x2483001C\n\t"
-    ".word 0xAE220014,0x24020007,0xAE230004,0xA0820000\n\t"
-    ".word 0xA0800002,0x00802821,0x10A00028,0x24020020\n\t"
-    ".word 0x8FAB001C,0x8FAC0020,0x8FAD0024,0xACAB0008\n\t"
-    ".word 0xACAC000C,0xACAD0010,0xA0A00004,0xA0A20005\n\t"
-    ".word 0x24020080,0x240B0018,0xA0A20006,0x024B0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0xA4A20018,0x024B0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA4A2001A,0x2402002C,0xA0A20007,0xA4A00016\n\t"
-    ".word 0x90C20000,0x90A40000,0x90C30002,0x00441021\n\t"
-    ".word 0x24630001,0xA0C20000,0xA0C30002,0x90A20007\n\t"
-    ".word 0xA4A00016,0x34420002,0xA0A20007,0x8E220010\n\t"
-    ".word 0x00000000,0x2443FFE0,0x1860000B,0x00002021\n\t"
-    ".word 0x8E240004,0x8E220014,0xAE230010,0x24420001\n\t"
-    ".word 0x24830020,0xAE220014,0x24020008,0xAE230004\n\t"
-    ".word 0xA0820000,0xA0800002,0x00803021,0x10C0002D\n\t"
-    ".word 0x24020020,0x8FAC0010,0x8FAD0014,0x8FAA0018\n\t"
-    ".word 0xACCC0008,0xACCD000C,0xACCA0010,0xA0C00004\n\t"
-    ".word 0xA0C20005,0x24020080,0xA0C20006,0x24020009\n\t"
-    ".word 0xA0C20003,0x2402002C,0xA0C20007,0x3C02800B\n\t"
-    ".word 0x24030010,0xA0C00001,0x8C42DA04,0x240C0018\n\t"
-    ".word 0xA4C00014,0xA4C00016,0xA0C30001,0x244200D8\n\t"
-    ".word 0xACC2001C,0x024C0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4C20018\n\t"
-    ".word 0x024C0018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0xA4C2001A,0x90C20007\n\t"
-    ".word 0x24030020,0xA4C00016,0xA4C30014,0x34420002\n\t"
-    ".word 0xA0C20007,0x8E220010,0x00000000,0x2443FFE4\n\t"
-    ".word 0x1860000B,0x00002021,0x8E240004,0x8E220014\n\t"
-    ".word 0xAE230010,0x24420001,0x2483001C,0xAE220014\n\t"
-    ".word 0x24020007,0xAE230004,0xA0820000,0xA0800002\n\t"
-    ".word 0x00802821,0x10A00028,0x24020020,0x8FAD001C\n\t"
-    ".word 0x8FAA0020,0x8FAB0024,0xACAD0008,0xACAA000C\n\t"
-    ".word 0xACAB0010,0xA0A00004,0xA0A20005,0x24020080\n\t"
-    ".word 0x240D0018,0xA0A20006,0x024D0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0xA4A20018,0x024D0018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0xA4A2001A\n\t"
-    ".word 0x2402002C,0xA0A20007,0xA4A00016,0x90C20000\n\t"
-    ".word 0x90A40000,0x90C30002,0x00441021,0x24630001\n\t"
-    ".word 0xA0C20000,0xA0C30002,0x90A20007,0xA4A00016\n\t"
-    ".word 0x34420002,0xA0A20007,0x8FBF003C,0x8FB20038\n\t"
-    ".word 0x8FB10034,0x8FB00030,0x03E00008,0x27BD0040\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    volatile unsigned char type;
+    volatile unsigned char b1;
+    volatile unsigned char b2;
+    volatile unsigned char b3;
+    volatile unsigned char r;
+    volatile unsigned char g;
+    volatile unsigned char b;
+    volatile unsigned char flags;
+} CmdHeader;
+typedef struct {
+    CmdHeader h;
+    Vector position;
+    short u;
+    short v;
+    short w;
+    short h2;
+    int texture;
+} CmdSprite;
+typedef struct {
+    CmdHeader h;
+    Vector position;
+    short u;
+    short v;
+    short w;
+    short h2;
+} CmdQuad;
+typedef struct {
+    char pad0[4];
+    char *ptr;
+    char pad8[8];
+    int remaining;
+    int count;
+    int texture;
+} CmdPool;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    Vector direction;
+    int length;
+    char pad24[8];
+    int size;
+} Beam;
+extern CmdPool D_800AD9EC;
+extern int D_800ADA04;
+unsigned int func_80086C84(void);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denom) {
+    register int denominator asm("$6") = denom;
+    int negative;
+    int n;
+    int sign;
+    register int d asm("$8");
+    int n_zeros;
+    int d_zeros;
+    register int excess asm("$7");
+    int scale;
+    unsigned int quotient;
+    register int divisor asm("$2");
+    int result;
+
+    sign = numerator & 0x80000000;
+    d = abs(denominator);
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                divisor = d >> scale;
+            } else {
+                divisor = d << -scale;
+            }
+            quotient = (unsigned int)n / divisor;
+            quotient <<= n_zeros;
+        } else {
+            divisor = d >> -excess;
+            quotient = (unsigned int)n / divisor;
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        return -result;
+    }
+    return result;
+}
+
+static inline int fixed_round(int value) {
+    int result;
+
+    if (value >= 0) {
+        result = value + 2048 >= 0 ? (value + 2048) >> 12 : -(-(value + 2048) >> 12);
+    } else {
+        result = value - 2048 >= 0 ? (value - 2048) >> 12 : -(-(value - 2048) >> 12);
+    }
+    return result;
+}
+
+static inline void *cmd_alloc(CmdPool *pool, int size, int type) {
+    CmdHeader *cmd = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = pool->remaining;
+    left = rem - size;
+    if (left > 0) {
+        cmd = (CmdHeader *)pool->ptr;
+        pool->remaining = left;
+        {
+            register int c asm("$2") = pool->count + 1;
+            pool->ptr += size;
+            pool->count = c;
+        }
+        cmd->type = size >> 2;
+        cmd->b2 = 0;
+    }
+    return cmd;
+}
+
+void func_80035F80(Beam *beam) {
+    Vector ends[2];
+    int scale;
+    CmdSprite *sprite;
+    CmdSprite *glow;
+    CmdQuad *quad;
+
+    scale = (fixed_div(beam->size, 50) + 4096) / 2;
+    ends[0].x = fixed_round(beam->position.x);
+    ends[0].y = fixed_round(beam->position.y);
+    ends[0].z = fixed_round(beam->position.z);
+    ends[1].x = fixed_round(beam->position.x + fixed_mul(beam->length, beam->direction.x));
+    ends[1].y = fixed_round(beam->position.y + fixed_mul(beam->length, beam->direction.y));
+    ends[1].z = fixed_round(beam->position.z + fixed_mul(beam->length, beam->direction.z));
+
+    sprite = cmd_alloc(&D_800AD9EC, 32, 8);
+    if (sprite != 0) {
+        sprite->position = ends[0];
+        sprite->h.r = 0;
+        sprite->h.g = 32;
+        sprite->h.b = 128;
+        sprite->h.b3 = 9;
+        sprite->h.flags = 44;
+        sprite->h.b1 = 0;
+        sprite->u = 0;
+        sprite->v = 0;
+        sprite->texture = D_800ADA04 + 252;
+        sprite->h.b1 = 0;
+        sprite->v = func_80086C84() >> 16;
+        sprite->w = fixed_mul(scale, 24);
+        sprite->h2 = fixed_mul(scale, 24);
+        sprite->u = 32;
+        sprite->h.flags |= 2;
+    }
+    sprite = cmd_alloc(&D_800AD9EC, 32, 8);
+    if (sprite != 0) {
+        sprite->position = ends[1];
+        sprite->h.r = 0;
+        sprite->h.g = 32;
+        sprite->h.b = 128;
+        sprite->h.b3 = 9;
+        sprite->h.flags = 44;
+        sprite->h.b1 = 0;
+        sprite->u = 0;
+        sprite->v = 0;
+        sprite->texture = D_800ADA04 + 252;
+        sprite->h.b1 = 0;
+        sprite->v = func_80086C84() >> 16;
+        sprite->w = fixed_mul(scale, 24);
+        sprite->h2 = fixed_mul(scale, 24);
+        sprite->u = 32;
+        sprite->h.flags |= 2;
+    }
+    glow = cmd_alloc(&D_800AD9EC, 32, 8);
+    if (glow != 0) {
+        int g = 32;
+        __asm__("" : "=r"(g) : "0"(g));
+        glow->position = ends[0];
+        glow->h.r = 0;
+        __asm__ volatile("");
+        glow->h.b = 128;
+        glow->h.b3 = 9;
+        glow->h.flags = 44;
+        glow->h.g = g;
+        glow->h.b1 = 0;
+        glow->u = 0;
+        glow->v = 0;
+        glow->texture = D_800ADA04 + 216;
+        glow->h.b1 = g;
+        glow->w = fixed_mul(scale, 24);
+        glow->h2 = fixed_mul(scale, 24);
+        glow->v = 0;
+        glow->u = 32;
+        glow->h.flags |= 2;
+    }
+    quad = cmd_alloc(&D_800AD9EC, 28, 7);
+    if (quad != 0) {
+        quad->position = ends[1];
+        quad->h.r = 0;
+        quad->h.g = 32;
+        quad->h.b = 128;
+        quad->w = fixed_mul(scale, 24);
+        quad->h2 = fixed_mul(scale, 24);
+        quad->h.flags = 44;
+        quad->v = 0;
+        ((unsigned char *)glow)[0] += ((unsigned char *)quad)[0];
+        ((unsigned char *)glow)[2]++;
+        quad->v = 0;
+        quad->h.flags |= 2;
+    }
+    glow = cmd_alloc(&D_800AD9EC, 32, 8);
+    if (glow != 0) {
+        glow->position = ends[0];
+        glow->h.r = 0;
+        glow->h.g = 32;
+        glow->h.b = 128;
+        glow->h.b3 = 9;
+        glow->h.flags = 44;
+        glow->h.b1 = 0;
+        glow->u = 0;
+        glow->v = 0;
+        glow->texture = D_800ADA04 + 216;
+        glow->h.b1 = 16;
+        glow->w = fixed_mul(scale, 24);
+        glow->h2 = fixed_mul(scale, 24);
+        glow->v = 0;
+        glow->u = 32;
+        glow->h.flags |= 2;
+    }
+    quad = cmd_alloc(&D_800AD9EC, 28, 7);
+    if (quad != 0) {
+        quad->position = ends[1];
+        quad->h.r = 0;
+        quad->h.g = 32;
+        quad->h.b = 128;
+        quad->w = fixed_mul(scale, 24);
+        quad->h2 = fixed_mul(scale, 24);
+        quad->h.flags = 44;
+        quad->v = 0;
+        ((unsigned char *)glow)[0] += ((unsigned char *)quad)[0];
+        ((unsigned char *)glow)[2]++;
+        quad->v = 0;
+        quad->h.flags |= 2;
+    }
+}

@@ -1,198 +1,403 @@
-asm(".text\n\t.globl func_80057E40\nfunc_80057E40:\n\t"
-    ".word 0x27BDFFA8,0xAFB20038,0x00809021,0xAFBF0054\n\t"
-    ".word 0xAFBE0050,0xAFB7004C,0xAFB60048,0xAFB50044\n\t"
-    ".word 0xAFB40040,0xAFB3003C,0xAFB10034,0xAFB00030\n\t"
-    ".word 0x8E420000,0x00000000,0x10400005,0x00000000\n\t"
-    ".word 0x94420000,0x00000000,0x144002F4,0x00000000\n\t"
-    ".word 0x240200FF,0x3C05800E,0x3C06800E,0xA3A2002B\n\t"
-    ".word 0xA3A2002A,0xA3A20029,0xA3A20028,0x24021000\n\t"
-    ".word 0x3C04800E,0x8E570004,0x3C03800E,0xACC247F0\n\t"
-    ".word 0xAC8247EC,0x3402FFFF,0xA4A04748,0xA46247FC\n\t"
-    ".word 0x92E20000,0x00000000,0x104002E0,0x341EFFFF\n\t"
-    ".word 0x00A0B021,0x00809821,0x00C0A821,0x27B40028\n\t"
-    ".word 0x26F00008,0x9202FFF9,0x00000000,0x10400090\n\t"
-    ".word 0x00000000,0x105E008E,0x00401821,0x24020003\n\t"
-    ".word 0x10620062,0x28620004,0x10400007,0x24020001\n\t"
-    ".word 0x10620036,0x24020002,0x10620048,0x00000000\n\t"
-    ".word 0x0801603B,0x00000000,0x24020010,0x10620007\n\t"
-    ".word 0x28620011,0x14400069,0x24020090,0x10620017\n\t"
-    ".word 0x00000000,0x0801603B,0x00000000,0x8E420008\n\t"
-    ".word 0x00000000,0x90420000,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x90420001,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x90420002\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x90420003,0x0801604F,0xA3A2002B,0x8E420008\n\t"
-    ".word 0x00000000,0x90420004,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x90420005,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x90420006\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x90420007,0x0801604F,0xA3A2002B,0x8E420008\n\t"
-    ".word 0x00000000,0x90420008,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x90420009,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x9042000A\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x9042000B,0x0801604F,0xA3A2002B,0x8E420008\n\t"
-    ".word 0x00000000,0x9042000C,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x9042000D,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x9042000E\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x9042000F,0x0801604F,0xA3A2002B,0x8E420008\n\t"
-    ".word 0x00000000,0x90420010,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x90420011,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x90420012\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x90420013,0x0801604F,0xA3A2002B,0x8E420008\n\t"
-    ".word 0x00000000,0x90420014,0x00000000,0xA3A20028\n\t"
-    ".word 0x8E420008,0x00000000,0x90420015,0x00000000\n\t"
-    ".word 0xA3A20029,0x8E420008,0x00000000,0x90420016\n\t"
-    ".word 0x00000000,0xA3A2002A,0x8E420008,0x00000000\n\t"
-    ".word 0x90420017,0x00000000,0xA3A2002B,0x921EFFF9\n\t"
-    ".word 0x92E20000,0x00000000,0x2443FFFF,0x2C620019\n\t"
-    ".word 0x1040023D,0x3C02800C,0x2442FA38,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x8E040000,0x00000000,0x84820000\n\t"
-    ".word 0x94830000,0x04410007,0x3C02800A,0x00031027\n\t"
-    ".word 0x3C03800A,0xA6C24748,0x24020001,0x0801606B\n\t"
-    ".word 0xA4625FEC,0xA6C34748,0xA4405FEC,0x8C820004\n\t"
-    ".word 0x8C830008,0xAE6247EC,0x08016292,0xAEA347F0\n\t"
-    ".word 0x96430016,0x9602FFFA,0x96440018,0x8E080000\n\t"
-    ".word 0x00623021,0x9602FFFC,0x91030007,0x00000000\n\t"
-    ".word 0x1060000A,0x00822821,0x00062400,0x00042403\n\t"
-    ".word 0x00052C00,0x00052C03,0x95060000,0x95070002\n\t"
-    ".word 0x25020004,0x0C0153E3,0xAFA20010,0x08016292\n\t"
-    ".word 0x341EFFFF,0x8E020000,0x00000000,0x1040020A\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0x8C440000\n\t"
-    ".word 0x00000000,0x10800204,0x00000000,0x96460016\n\t"
-    ".word 0x9602FFFA,0x96470018,0x9603FFFC,0x96C54748\n\t"
-    ".word 0x080160EB,0xAFB40018,0x8E040000,0x00000000\n\t"
-    ".word 0x108001F9,0x00000000,0x96460016,0x9602FFFA\n\t"
-    ".word 0x96470018,0x9603FFFC,0x96C54748,0x080160EB\n\t"
-    ".word 0xAFB40018,0x8E020000,0x00000000,0x104001EE\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0x8C440000\n\t"
-    ".word 0x00000000,0x108001E8,0x00000000,0x96C54748\n\t"
-    ".word 0x8E6647EC,0x9611FFFA,0x0C015D08,0x00000000\n\t"
-    ".word 0x080160C4,0x02221023,0x8E020000,0x00000000\n\t"
-    ".word 0x104001DD,0x00000000,0x8C420000,0x00000000\n\t"
-    ".word 0x8C440000,0x00000000,0x108001D7,0x00000000\n\t"
-    ".word 0x96C54748,0x8E6647EC,0x9611FFFA,0x0C015D08\n\t"
-    ".word 0x00000000,0x00021400,0x00021443,0x02221023\n\t"
-    ".word 0x96C54748,0x96460016,0x96470018,0x8E030000\n\t"
-    ".word 0x00C23021,0x00063400,0x9602FFFC,0x00063403\n\t"
-    ".word 0x00E23821,0x00073C00,0x8C620000,0x8EA347F0\n\t"
-    ".word 0x8C440000,0x8E6247EC,0x00073C03,0xAFA30014\n\t"
-    ".word 0xAFB40018,0x0C015F0C,0xAFA20010,0x08016293\n\t"
-    ".word 0x26F70020,0x8E040000,0x00000000,0x108001B6\n\t"
-    ".word 0x00000000,0x96C54748,0x8E6647EC,0x9611FFFA\n\t"
-    ".word 0x0C015D08,0x00000000,0x00021400,0x00021443\n\t"
-    ".word 0x96460016,0x96470018,0x9603FFFC,0x8E040000\n\t"
-    ".word 0x96C54748,0x02221023,0xAFB40018,0x00C23021\n\t"
-    ".word 0x00063400,0x00063403,0x00E33821,0x00073C00\n\t"
-    ".word 0x8E6247EC,0x8EA347F0,0x00073C03,0xAFA20010\n\t"
-    ".word 0x0C015F0C,0xAFA30014,0x08016293,0x26F70020\n\t"
-    ".word 0x8E080000,0x00000000,0x11000197,0x27A90028\n\t"
-    ".word 0x96450016,0x96440018,0x9602FFFC,0x9603FFFA\n\t"
-    ".word 0x00823821,0x8D040000,0x00000000,0x1080018E\n\t"
-    ".word 0x00A32821,0x95020004,0x00000000,0x304300F0\n\t"
-    ".word 0x24020020,0x1062001A,0x28620021,0x10400005\n\t"
-    ".word 0x24020040,0x10600010,0x00000000,0x0801612D\n\t"
-    ".word 0x00000000,0x10620018,0x28620041,0x10400005\n\t"
-    ".word 0x24020030,0x1062000B,0x00000000,0x0801612D\n\t"
-    ".word 0x00000000,0x24020050,0x1062000C,0x00000000\n\t"
-    ".word 0x0801612D,0x00000000,0x8C840000,0x08016131\n\t"
-    ".word 0x00053400,0x94840000,0x08016131,0x00053400\n\t"
-    ".word 0x84840000,0x08016131,0x00053400,0x90840000\n\t"
-    ".word 0x08016131,0x00053400,0x80840000,0x08016131\n\t"
-    ".word 0x00053400,0x8D020000,0x00000000,0x8C440000\n\t"
-    ".word 0x00053400,0x00063403,0x8E6247EC,0x8EA347F0\n\t"
-    ".word 0x96C54748,0x00073C00,0xAFA20010,0xAFA30014\n\t"
-    ".word 0x95020004,0x00073C03,0xAFA9001C,0x30420003\n\t"
-    ".word 0x0C015E83,0xAFA20018,0x08016293,0x26F70020\n\t"
-    ".word 0x8E080000,0x00000000,0x1100014F,0x27A90028\n\t"
-    ".word 0x96450016,0x96440018,0x9602FFFC,0x9603FFFA\n\t"
-    ".word 0x00822021,0x8D020000,0x00000000,0x10400146\n\t"
-    ".word 0x00A32821,0x00053400,0x8E6247EC,0x8EA347F0\n\t"
-    ".word 0x96C54748,0x00063403,0xAFA20010,0xAFA30014\n\t"
-    ".word 0x95020004,0x00043C00,0xAFA20018,0x95030006\n\t"
-    ".word 0x2402FFFF,0xAFA20020,0xAFA90024,0xAFA3001C\n\t"
-    ".word 0x8D040000,0x0C015B92,0x00073C03,0x08016293\n\t"
-    ".word 0x26F70020,0x8E040000,0x00000000,0x1080012E\n\t"
-    ".word 0x00000000,0x8E6747EC,0x96450016,0x9602FFFA\n\t"
-    ".word 0x96460018,0x9603FFFC,0xAFB40014,0x00A22821\n\t"
-    ".word 0x00052C00,0x00052C03,0x00C33021,0x00063400\n\t"
-    ".word 0x8EA247F0,0x0801622C,0x00063403,0x8E040000\n\t"
-    ".word 0x00000000,0x1080011C,0x2402009F,0x96450016\n\t"
-    ".word 0x9603FFFA,0x96460018,0x9608FFFC,0xAFA20014\n\t"
-    ".word 0x2402006E,0xAFA20018,0x8E6247EC,0x00003821\n\t"
-    ".word 0xAFA00010,0xAFB40024,0x00A32821,0x00052C00\n\t"
-    ".word 0x00052C03,0x00C83021,0x00063400,0x8EA347F0\n\t"
-    ".word 0x00063403,0xAFA2001C,0x0C015954,0xAFA30020\n\t"
-    ".word 0x08016293,0x26F70020,0x8E020000,0x00000000\n\t"
-    ".word 0x10400101,0x24020096,0x8E6747EC,0xA3A2002B\n\t"
-    ".word 0x96450016,0x9602FFFA,0x96460018,0x9603FFFC\n\t"
-    ".word 0x8E040000,0xAFB40014,0x00A22821,0x00052C00\n\t"
-    ".word 0x00052C03,0x00C33021,0x00063400,0x8EA247F0\n\t"
-    ".word 0x0801622C,0x00063403,0x8E040000,0x00000000\n\t"
-    ".word 0x108000ED,0x00000000,0x8C840000,0x00000000\n\t"
-    ".word 0x108000E9,0x00000000,0x8E6747EC,0x96450016\n\t"
-    ".word 0x9602FFFA,0x96460018,0x9603FFFC,0xAFB40014\n\t"
-    ".word 0x00A22821,0x00052C00,0x00052C03,0x00C33021\n\t"
-    ".word 0x00063400,0x8EA247F0,0x0801622C,0x00063403\n\t"
-    ".word 0x8E020000,0x00000000,0x104000D7,0x240B1999\n\t"
-    ".word 0x8C420000,0x00000000,0x90420006,0x9611FFFA\n\t"
-    ".word 0x00021300,0x01620018,0x00001812,0x00005010\n\t"
-    ".word 0x00031B02,0x000A5500,0x006A1825,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x080161D4\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x080161D6,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0x8E6347EC,0x3042FFFF\n\t"
-    ".word 0x00620018,0x00001012,0x04400003,0x00000000\n\t"
-    ".word 0x080161E1,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021043,0x8E6747EC,0x96450016\n\t"
-    ".word 0x96460018,0x9603FFFC,0x8E040000,0x02221023\n\t"
-    ".word 0xAFB40014,0x00A22821,0x00052C00,0x00052C03\n\t"
-    ".word 0x00C33021,0x00063400,0x8EA247F0,0x0801622C\n\t"
-    ".word 0x00063403,0x8E020000,0x00000000,0x1040009E\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0x1040009A\n\t"
-    ".word 0x240B1999,0x90420006,0x9611FFFA,0x00021300\n\t"
-    ".word 0x01620018,0x00001812,0x00005010,0x00031B02\n\t"
-    ".word 0x000A5500,0x006A1825,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801620F,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x08016211\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0x8E6347EC,0x3042FFFF,0x00620018\n\t"
-    ".word 0x00001012,0x04400003,0x00000000,0x0801621C\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021043,0x02221023,0x8E6747EC,0x96450016\n\t"
-    ".word 0x96460018,0x00A22821,0x00052C00,0x9602FFFC\n\t"
-    ".word 0x00052C03,0x00C23021,0x8E020000,0x00063400\n\t"
-    ".word 0x8C440000,0x8EA247F0,0x00063403,0xAFB40014\n\t"
-    ".word 0x0C015858,0xAFA20010,0x08016293,0x26F70020\n\t"
-    ".word 0x8E020000,0x00000000,0x1040005F,0x00000000\n\t"
-    ".word 0x8C420000,0x00000000,0x1040005B,0x00000000\n\t"
-    ".word 0x90430006,0x8E6247EC,0x00000000,0x00430018\n\t"
-    ".word 0x9611FFFA,0x00001012,0x04400003,0x00000000\n\t"
-    ".word 0x08016245,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021043,0x02221023,0x8E6747EC\n\t"
-    ".word 0x96450016,0x96460018,0x00A22821,0x00052C00\n\t"
-    ".word 0x9602FFFC,0x00052C03,0x00C23021,0x8E020000\n\t"
-    ".word 0x00063400,0x8C440000,0x8EA247F0,0x00063403\n\t"
-    ".word 0xAFB40014,0x0C0157A8,0xAFA20010,0x08016293\n\t"
-    ".word 0x26F70020,0x8E080000,0x00000000,0x11000036\n\t"
-    ".word 0x00000000,0x85030006,0x96450016,0x9602FFFA\n\t"
-    ".word 0x96460018,0x9604FFFC,0x85070004,0x00A22821\n\t"
-    ".word 0x00052C00,0x00052C03,0xAFA30010,0x85020008\n\t"
-    ".word 0x8EA347F0,0x00C43021,0xAFA20014,0x8504000A\n\t"
-    ".word 0x8E6247EC,0x00063400,0xAFA30020,0xAFB40024\n\t"
-    ".word 0xAFA2001C,0xAFA40018,0x8D040000,0x0C015954\n\t"
-    ".word 0x00063403,0x08016293,0x26F70020,0x8E040000\n\t"
-    ".word 0x00000000,0x10800018,0x00000000,0x8E6747EC\n\t"
-    ".word 0x96450016,0x9602FFFA,0x96460018,0x9603FFFC\n\t"
-    ".word 0xAFB40014,0x00A22821,0x00052C00,0x00052C03\n\t"
-    ".word 0x00C33021,0x00063400,0x8EA247F0,0x00063403\n\t"
-    ".word 0x0C015A45,0xAFA20010,0x08016293,0x26F70020\n\t"
-    ".word 0x8E020000,0x00000000,0x10400003,0x02402021\n\t"
-    ".word 0x0040F809,0x02E02821,0x26F70020,0x92E20000\n\t"
-    ".word 0x00000000,0x1440FD27,0x26100020,0x8FBF0054\n\t"
-    ".word 0x8FBE0050,0x8FB7004C,0x8FB60048,0x8FB50044\n\t"
-    ".word 0x8FB40040,0x8FB3003C,0x8FB20038,0x8FB10034\n\t"
-    ".word 0x8FB00030,0x03E00008,0x27BD0058\n");
+typedef struct {
+    unsigned short tpage;
+    unsigned short clut;
+    unsigned char u;
+    unsigned char v;
+    unsigned char w;
+    unsigned char h;
+} Image;
+typedef struct {
+    unsigned char type;
+    unsigned char color;
+    unsigned short x;
+    unsigned short y;
+    short pad6;
+    void *data;
+    char padC[0x20 - 0xC];
+} MenuItem;
+typedef struct {
+    unsigned short *lock;
+    MenuItem *items;
+    unsigned char *palette;
+    char padC[0x16 - 0xC];
+    unsigned short x;
+    unsigned short y;
+} Menu;
+typedef struct {
+    short font;
+    short pad2;
+    int scale_x;
+    int scale_y;
+} FontSelect;
+typedef struct {
+    unsigned short w;
+    unsigned short h;
+    char data[3];
+    unsigned char enabled;
+} Panel;
+typedef struct {
+    void *value;
+    unsigned short format;
+} NumberField;
+typedef struct {
+    unsigned char *text;
+    unsigned short width;
+    unsigned short align;
+} TextBox;
+typedef struct {
+    void *image;
+    short left;
+    short top;
+    short right;
+    short bottom;
+} Clip;
+extern unsigned short D_800E4748;
+extern unsigned short D_800A5FEC;
+extern int D_800E47EC;
+extern int D_800E47F0;
+extern unsigned short D_800E47FC;
+extern short func_80057420(unsigned char *, unsigned short, int);
+extern void func_80057C30(unsigned char *, unsigned short, short, short, int, int, unsigned char *);
+extern void func_80057A0C(int, unsigned short, short, short, int, int, int, unsigned char *);
+extern int func_80056E48(unsigned char *, unsigned short, short, short, int, int, unsigned short, unsigned short, short, unsigned char *);
+extern void func_80054F8C(short, short, unsigned short, unsigned short, void *);
+extern void func_80056160(void *, short, short, int, int, unsigned char *);
+extern void func_80055EA0(void *, short, short, int, int, unsigned char *);
+extern void func_80056550(void *, short, short, short, short, short, short, int, int, unsigned char *);
+extern void func_80056914(void *, short, short, int, int, unsigned char *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+static inline void draw_text(unsigned char *text, short x, short y, unsigned char *color) {
+    func_80057C30(text, D_800E4748, x, y, D_800E47EC, D_800E47F0, color);
+}
+
+static inline void draw_sprite(void *image, short x, short y, unsigned char *color) {
+    func_80056160(image, x, y, D_800E47EC, D_800E47F0, color);
+}
+
+static inline void draw_panel(Panel *panel, int x, int y) {
+    if (panel->enabled != 0) {
+        func_80054F8C(x, y, panel->w, panel->h, panel->data);
+    }
+}
+
+static inline void draw_number(NumberField *field, int x, int y, unsigned char *color) {
+    int value;
+    void *p;
+
+    if (field->value == 0) {
+        return;
+    }
+    p = field->value;
+    switch (field->format & 0xF0) {
+    case 0:
+        value = *(int *)p;
+        break;
+    case 48:
+        value = *(unsigned short *)p;
+        break;
+    case 32:
+        value = *(short *)p;
+        break;
+    case 80:
+        value = *(unsigned char *)p;
+        break;
+    case 64:
+        value = *(signed char *)p;
+        break;
+    case 16:
+    default:
+        value = *(int *)field->value;
+        break;
+    }
+    func_80057A0C(value, D_800E4748, x, y, D_800E47EC, D_800E47F0, field->format & 3, color);
+}
+
+static inline void draw_textbox(TextBox *box, int x, int y, unsigned char *color) {
+    if (box->text == 0) {
+        return;
+    }
+    func_80056E48(box->text, D_800E4748, x, y, D_800E47EC, D_800E47F0, box->width, box->align, -1, color);
+}
+
+void func_80057E40(Menu *menu) {
+    unsigned char color[4];
+    MenuItem *item;
+    unsigned short prev;
+    unsigned short w;
+    short ix;
+
+    if (menu->lock != 0 && *menu->lock != 0) {
+        return;
+    }
+    color[3] = 255;
+    color[2] = 255;
+    color[1] = 255;
+    color[0] = 255;
+    D_800E4748 = 0;
+    D_800E47F0 = 4096;
+    D_800E47EC = 4096;
+    D_800E47FC = 0xFFFF;
+    prev = 0xFFFF;
+    for (item = menu->items; item->type != 0; item++) {
+        if (item->color != 0 && item->color != prev) {
+            switch (item->color) {
+            case 16:
+                color[0] = menu->palette[0];
+                color[1] = menu->palette[1];
+                color[2] = menu->palette[2];
+                color[3] = menu->palette[3];
+                break;
+            case 144:
+                color[0] = menu->palette[4];
+                color[1] = menu->palette[5];
+                color[2] = menu->palette[6];
+                color[3] = menu->palette[7];
+                break;
+            case 1:
+                color[0] = menu->palette[8];
+                color[1] = menu->palette[9];
+                color[2] = menu->palette[10];
+                color[3] = menu->palette[11];
+                break;
+            case 2:
+                color[0] = menu->palette[12];
+                color[1] = menu->palette[13];
+                color[2] = menu->palette[14];
+                color[3] = menu->palette[15];
+                break;
+            case 3:
+                color[0] = menu->palette[16];
+                color[1] = menu->palette[17];
+                color[2] = menu->palette[18];
+                color[3] = menu->palette[19];
+                break;
+            case 4:
+            default:
+                color[0] = menu->palette[20];
+                color[1] = menu->palette[21];
+                color[2] = menu->palette[22];
+                color[3] = menu->palette[23];
+                break;
+            }
+            prev = item->color;
+        }
+        switch (item->type) {
+        case 1:
+            break;
+        case 2: {
+            FontSelect *sel = item->data;
+
+            if (sel->font < 0) {
+                D_800E4748 = ~sel->font;
+                D_800A5FEC = 1;
+            } else {
+                D_800E4748 = sel->font;
+                D_800A5FEC = 0;
+            }
+            D_800E47EC = sel->scale_x;
+            D_800E47F0 = sel->scale_y;
+            break;
+        }
+        case 3:
+            draw_panel(item->data, menu->x + item->x, menu->y + item->y);
+            prev = 0xFFFF;
+            break;
+        case 4: {
+            unsigned char *text;
+
+            if (item->data == 0) {
+                break;
+            }
+            text = **(unsigned char ***)item->data;
+            if (text == 0) {
+                break;
+            }
+            draw_text(text, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 24: {
+            unsigned char *text = item->data;
+
+            if (text == 0) {
+                break;
+            }
+            draw_text(text, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 5: {
+            short px;
+            unsigned char *text;
+
+            if (item->data == 0 || **(unsigned char ***)item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            px = ix - func_80057420(**(unsigned char ***)item->data, D_800E4748, D_800E47EC);
+            text = **(unsigned char ***)item->data;
+            draw_text(text, menu->x + px, menu->y + item->y, color);
+            break;
+        }
+        case 6: {
+            short px;
+            unsigned char *text;
+
+            if (item->data == 0 || **(unsigned char ***)item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            px = ix - (func_80057420(**(unsigned char ***)item->data, D_800E4748, D_800E47EC) >> 1);
+            text = **(unsigned char ***)item->data;
+            draw_text(text, menu->x + px, menu->y + item->y, color);
+            break;
+        }
+        case 23: {
+            short px;
+            unsigned char *text;
+
+            if (item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            px = ix - (func_80057420(item->data, D_800E4748, D_800E47EC) >> 1);
+            draw_text(item->data, menu->x + px, menu->y + item->y, color);
+            break;
+        }
+        case 7: {
+            NumberField *field = item->data;
+
+            if (field == 0) {
+                break;
+            }
+            draw_number(field, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 8:
+            if (item->data == 0) {
+                break;
+            }
+            draw_textbox(item->data, menu->x + item->x, menu->y + item->y, color);
+            break;
+        case 9: {
+            void *img = item->data;
+
+            if (img == 0) {
+                break;
+            }
+            draw_sprite(img, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 25: {
+            void *img = item->data;
+
+            if (img == 0) {
+                break;
+            }
+            func_80056550(img, menu->x + item->x, menu->y + item->y, 0, 0, 159, 110, D_800E47EC,
+                          D_800E47F0, color);
+            break;
+        }
+        case 13: {
+            void *img;
+
+            if (item->data == 0) {
+                break;
+            }
+            color[3] = 150;
+            draw_sprite(item->data, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 11: {
+            void *img;
+
+            if (item->data == 0 || (img = *(void **)item->data) == 0) {
+                break;
+            }
+            draw_sprite(img, menu->x + item->x, menu->y + item->y, color);
+            break;
+        }
+        case 10: {
+            short px;
+            void *img;
+
+            if (item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            w = round_fixed(fixed_mul(6553, (*(Image **)item->data)->w << 12));
+            px = ix - (to_int(D_800E47EC * w) >> 1);
+            draw_sprite(item->data, menu->x + px, menu->y + item->y, color);
+            break;
+        }
+        case 12: {
+            short px;
+            void *img;
+
+            if (item->data == 0 || *(Image **)item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            w = round_fixed(fixed_mul(6553, (*(Image **)item->data)->w << 12));
+            px = ix - (to_int(D_800E47EC * w) >> 1);
+            img = *(Image **)item->data;
+            draw_sprite(img, menu->x + px, menu->y + item->y, color);
+            break;
+        }
+        case 22: {
+            short px;
+            void *img;
+
+            if (item->data == 0 || *(Image **)item->data == 0) {
+                break;
+            }
+            ix = item->x;
+            px = ix - (to_int(D_800E47EC * (*(Image **)item->data)->w) >> 1);
+            img = *(Image **)item->data;
+            func_80055EA0(img, menu->x + px, menu->y + item->y, D_800E47EC, D_800E47F0, color);
+            break;
+        }
+        case 14: {
+            Clip *clip = item->data;
+
+            if (clip == 0) {
+                break;
+            }
+            func_80056550(clip->image, menu->x + item->x, menu->y + item->y, clip->left, clip->top, clip->right,
+                          clip->bottom, D_800E47EC, D_800E47F0, color);
+            break;
+        }
+        case 16: {
+            void *img = item->data;
+
+            if (img == 0) {
+                break;
+            }
+            func_80056914(img, menu->x + item->x, menu->y + item->y, D_800E47EC, D_800E47F0, color);
+            break;
+        }
+        case 21:
+            if (item->data != 0) {
+                ((void (*)(Menu *, MenuItem *))item->data)(menu, item);
+            }
+            break;
+        }
+    }
+}

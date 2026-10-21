@@ -1,274 +1,362 @@
-asm(".text\n\t.globl func_80025094\nfunc_80025094:\n\t"
-    ".word 0x27BDFFA0,0xAFB3004C,0x00A09821,0xAFB20048\n\t"
-    ".word 0x00C09021,0xAFB10044,0x00808821,0xAFBF0058\n\t"
-    ".word 0xAFB50054,0xAFB40050,0xAFB00040,0x92230000\n\t"
-    ".word 0x00000000,0x2C62002C,0x10400426,0x00E0A021\n\t"
-    ".word 0x3C02800C,0x2442D6A4,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x3402FFFF,0x96240002,0x8E630000,0x10820009\n\t"
-    ".word 0x00002821,0x8C62001C,0x00000000,0x00441021\n\t"
-    ".word 0x00021840,0x00621821,0x8E620014,0x00031880\n\t"
-    ".word 0x00432821,0x8E620004,0x8E640010,0x000218C0\n\t"
-    ".word 0x00621821,0x24420001,0x8C840020,0x000318C0\n\t"
-    ".word 0xAE620004,0x8E420000,0x00838021,0xAE020020\n\t"
-    ".word 0x8E420004,0x00000000,0xAE020024,0x8E420008\n\t"
-    ".word 0xAE05003C,0x10A00036,0xAE020028,0x8CA20008\n\t"
-    ".word 0x00000000,0x9442000C,0x00000000,0xA7A20034\n\t"
-    ".word 0x8E02003C,0x00000000,0x8C420008,0x00000000\n\t"
-    ".word 0x94420004,0x00000000,0xA7A20030,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420010\n\t"
-    ".word 0x27A40030,0xA7A20036,0x8E02003C,0x27A50038\n\t"
-    ".word 0x8C420008,0x3286FFFF,0x94420008,0x02003821\n\t"
-    ".word 0x0C009268,0xA7A20032,0x87A2003C,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE020034,0x87A20038\n\t"
-    ".word 0x8E430000,0x00021380,0x00431021,0xAE02002C\n\t"
-    ".word 0x87A2003E,0x8E430008,0x00021380,0x00431021\n\t"
-    ".word 0xAE020038,0x87A3003A,0x8E440008,0x24020001\n\t"
-    ".word 0xA2020045,0x240200F0,0xAE000040,0xA2020044\n\t"
-    ".word 0x00031B80,0x00641821,0x0800985A,0xAE030030\n\t"
-    ".word 0x02002021,0x00002821,0x0C022A92,0x24060048\n\t"
-    ".word 0x0800985A,0x00000000,0x0220A821,0x3402FFFF\n\t"
-    ".word 0x96A40002,0x8E630000,0x10820009,0x00002821\n\t"
-    ".word 0x8C62001C,0x00000000,0x00441021,0x00021840\n\t"
-    ".word 0x00621821,0x8E620014,0x00031880,0x00432821\n\t"
-    ".word 0x8E620004,0x8E640010,0x000218C0,0x00621821\n\t"
-    ".word 0x24420001,0x8C840020,0x000318C0,0xAE620004\n\t"
-    ".word 0x8E420000,0x00838021,0xAE020020,0x8E420004\n\t"
-    ".word 0x00000000,0xAE020024,0x8E420008,0x24110001\n\t"
-    ".word 0xAE05003C,0x10A00035,0xAE020028,0x8CA20008\n\t"
-    ".word 0x00000000,0x9442000C,0x00000000,0xA7A20034\n\t"
-    ".word 0x8E02003C,0x00000000,0x8C420008,0x00000000\n\t"
-    ".word 0x94420004,0x00000000,0xA7A20030,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420010\n\t"
-    ".word 0x27A40030,0xA7A20036,0x8E02003C,0x27A50038\n\t"
-    ".word 0x8C420008,0x3286FFFF,0x94420008,0x02003821\n\t"
-    ".word 0x0C009268,0xA7A20032,0x87A2003C,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE020034,0x87A20038\n\t"
-    ".word 0x8E430000,0x00021380,0x00431021,0xAE02002C\n\t"
-    ".word 0x87A2003E,0x8E430008,0x00021380,0x00431021\n\t"
-    ".word 0xAE020038,0x87A3003A,0x8E440008,0x240200F0\n\t"
-    ".word 0xA2110045,0xAE110040,0xA2020044,0x00031B80\n\t"
-    ".word 0x00641821,0x080094F0,0xAE030030,0x02002021\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060048,0x02602021\n\t"
-    ".word 0x02402821,0x3286FFFF,0x96A70002,0x08009857\n\t"
-    ".word 0x24020080,0x0220A821,0x3402FFFF,0x96A40002\n\t"
-    ".word 0x8E630000,0x10820009,0x00002821,0x8C62001C\n\t"
-    ".word 0x00000000,0x00441021,0x00021840,0x00621821\n\t"
-    ".word 0x8E620014,0x00031880,0x00432821,0x8E620004\n\t"
-    ".word 0x8E640010,0x000218C0,0x00621821,0x24420001\n\t"
-    ".word 0x8C840020,0x000318C0,0xAE620004,0x8E420000\n\t"
-    ".word 0x00838021,0xAE020020,0x8E420004,0x00000000\n\t"
-    ".word 0xAE020024,0x8E420008,0x24110001,0xAE05003C\n\t"
-    ".word 0x10A00035,0xAE020028,0x8CA20008,0x00000000\n\t"
-    ".word 0x9442000C,0x00000000,0xA7A20034,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420004\n\t"
-    ".word 0x00000000,0xA7A20030,0x8E02003C,0x00000000\n\t"
-    ".word 0x8C420008,0x00000000,0x94420010,0x27A40030\n\t"
-    ".word 0xA7A20036,0x8E02003C,0x27A50038,0x8C420008\n\t"
-    ".word 0x3286FFFF,0x94420008,0x02003821,0x0C009268\n\t"
-    ".word 0xA7A20032,0x87A2003C,0x8E430000,0x00021380\n\t"
-    ".word 0x00431021,0xAE020034,0x87A20038,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE02002C,0x87A2003E\n\t"
-    ".word 0x8E430008,0x00021380,0x00431021,0xAE020038\n\t"
-    ".word 0x87A3003A,0x8E440008,0x240200F0,0xA2110045\n\t"
-    ".word 0xAE110040,0xA2020044,0x00031B80,0x00641821\n\t"
-    ".word 0x0800954F,0xAE030030,0x02002021,0x00002821\n\t"
-    ".word 0x0C022A92,0x24060048,0x02602021,0x02402821\n\t"
-    ".word 0x3286FFFF,0x96A70002,0x08009857,0x24020040\n\t"
-    ".word 0x3402FFFF,0x96240002,0x8E630000,0x10820009\n\t"
-    ".word 0x0000A821,0x8C62001C,0x00000000,0x00441021\n\t"
-    ".word 0x00021840,0x00621821,0x8E620014,0x00031880\n\t"
-    ".word 0x0043A821,0x8E620004,0x8E640010,0x000218C0\n\t"
-    ".word 0x00621821,0x24420001,0x8C840020,0x000318C0\n\t"
-    ".word 0xAE620004,0x8E420000,0x00838021,0xAE020020\n\t"
-    ".word 0x8E420004,0x00000000,0xAE020024,0x8E420008\n\t"
-    ".word 0xAE15003C,0x12A00037,0xAE020028,0x8EA20008\n\t"
-    ".word 0x00000000,0x9442000C,0x00000000,0xA7A20034\n\t"
-    ".word 0x8E02003C,0x00000000,0x8C420008,0x00000000\n\t"
-    ".word 0x94420004,0x00000000,0xA7A20030,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420010\n\t"
-    ".word 0x27A40030,0xA7A20036,0x8E02003C,0x27A50038\n\t"
-    ".word 0x8C420008,0x3286FFFF,0x94420008,0x02003821\n\t"
-    ".word 0x0C009268,0xA7A20032,0x87A2003C,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE020034,0x87A20038\n\t"
-    ".word 0x8E430000,0x00021380,0x00431021,0xAE02002C\n\t"
-    ".word 0x87A2003E,0x8E430008,0x00021380,0x00431021\n\t"
-    ".word 0xAE020038,0x87A3003A,0x8E440008,0x24020001\n\t"
-    ".word 0xA2020045,0x24020002,0xAE020040,0x240200F0\n\t"
-    ".word 0xA2020044,0x00031B80,0x00641821,0x080095AE\n\t"
-    ".word 0xAE030030,0x02002021,0x00002821,0x0C022A92\n\t"
-    ".word 0x24060048,0x92230000,0x2402000E,0x14620003\n\t"
-    ".word 0x3286FFFF,0x080095B5,0x24024000,0x24020001\n\t"
-    ".word 0xAFA20010,0xAFA00014,0x02602021,0x02402821\n\t"
-    ".word 0x0C00930E,0x02A03821,0x0800985A,0x00000000\n\t"
-    ".word 0x02202021,0x02402821,0x0C0091C8,0x3286FFFF\n\t"
-    ".word 0x0800985A,0x00000000,0x02202021,0x02602821\n\t"
-    ".word 0x02403021,0x0C00B5A8,0x3287FFFF,0x0800985A\n\t"
-    ".word 0x00000000,0x02202021,0x02602821,0x02403021\n\t"
-    ".word 0x0C00AA45,0x3287FFFF,0x0800985A,0x00000000\n\t"
-    ".word 0x02402021,0x00003021,0x92250001,0x92220002\n\t"
-    ".word 0x00C03821,0x0C00A6FC,0xAFA20010,0x0800985A\n\t"
-    ".word 0x00000000,0x96270004,0x3402FFFF,0x10E20054\n\t"
-    ".word 0x02402821,0x8E620004,0x8E640000,0x8E650010\n\t"
-    ".word 0x8E660014,0x000218C0,0x00621821,0x24420001\n\t"
-    ".word 0x8C84001C,0x8CA50020,0x000318C0,0xAE620004\n\t"
-    ".word 0x8E420000,0x00A38021,0xAE020020,0x8E420004\n\t"
-    ".word 0x00872021,0xAE020024,0x00041040,0x00441021\n\t"
-    ".word 0x00021080,0x8E430008,0x00C23021,0xAE06003C\n\t"
-    ".word 0x10C00036,0xAE030028,0x8CC20008,0x00000000\n\t"
-    ".word 0x9442000C,0x00000000,0xA7A20034,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420004\n\t"
-    ".word 0x00000000,0xA7A20030,0x8E02003C,0x00000000\n\t"
-    ".word 0x8C420008,0x00000000,0x94420010,0x27A40030\n\t"
-    ".word 0xA7A20036,0x8E02003C,0x27A50038,0x8C420008\n\t"
-    ".word 0x3286FFFF,0x94420008,0x02003821,0x0C009268\n\t"
-    ".word 0xA7A20032,0x87A2003C,0x8E430000,0x00021380\n\t"
-    ".word 0x00431021,0xAE020034,0x87A20038,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE02002C,0x87A2003E\n\t"
-    ".word 0x8E430008,0x00021380,0x00431021,0xAE020038\n\t"
-    ".word 0x87A3003A,0x8E440008,0x24020001,0xA2020045\n\t"
-    ".word 0x240200F0,0xAE000040,0xA2020044,0x00031B80\n\t"
-    ".word 0x00641821,0x08009630,0xAE030030,0x02002021\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060048,0x02402821\n\t"
-    ".word 0x3C02800D,0x24422FE4,0x92230002,0x92240001\n\t"
-    ".word 0x00621821,0x90670034,0x3286FFFF,0x0C00A1C8\n\t"
-    ".word 0xAFA00010,0x0800985A,0x00000000,0x02202021\n\t"
-    ".word 0x02602821,0x02403021,0x0C0098FC,0x3287FFFF\n\t"
-    ".word 0x0800985A,0x00000000,0x02202021,0x02602821\n\t"
-    ".word 0x02403021,0x0C00DCE0,0x3287FFFF,0x0800985A\n\t"
-    ".word 0x00000000,0x3C02800D,0x24422FE4,0x92230003\n\t"
-    ".word 0x96270004,0x00621821,0x96220006,0x90660034\n\t"
-    ".word 0xAFA20010,0x8E220008,0x00000000,0xAFA20014\n\t"
-    ".word 0x92220001,0x00000000,0xAFA20018,0x92220002\n\t"
-    ".word 0x02402021,0xAFA00020,0xAFA00024,0xAFA00028\n\t"
-    ".word 0xAFA2001C,0x9222000E,0x3285FFFF,0x0C00D335\n\t"
-    ".word 0xAFA2002C,0x0800985A,0x00000000,0x3290FFFF\n\t"
-    ".word 0x8E420000,0x00108102,0xAFA20030,0x8E420008\n\t"
-    ".word 0x02002021,0x0C022B58,0xAFA20034,0x02002021\n\t"
-    ".word 0x0C022B30,0xAFA20038,0xAFA2003C,0x92230001\n\t"
-    ".word 0x3C05800D,0x00031080,0x00431021,0x8CA32FE4\n\t"
-    ".word 0x00021080,0x00621821,0x8FAD0030,0x8FAE0034\n\t"
-    ".word 0xAC6D0150,0xAC6E0154,0x92230001,0x3C04B60B\n\t"
-    ".word 0x00031080,0x00431021,0x8CA32FE4,0x00021080\n\t"
-    ".word 0x00621821,0x8FAD0038,0x8FAE003C,0xAC6D0158\n\t"
-    ".word 0xAC6E015C,0x96230002,0x348460B7,0x00031080\n\t"
-    ".word 0x00431021,0x000211C0,0x00440018,0x92230001\n\t"
-    ".word 0x00006810,0x01A22021,0x00042243,0x000217C3\n\t"
-    ".word 0x00822023,0x00042380,0x00031080,0x00431021\n\t"
-    ".word 0x8CA32FE4,0x00021080,0x00621821,0x0800985A\n\t"
-    ".word 0xAC640160,0x02202021,0x02602821,0x02403021\n\t"
-    ".word 0x0C00CF7F,0x3287FFFF,0x0800985A,0x00000000\n\t"
-    ".word 0x02202021,0x02602821,0x02403021,0x0C00CECA\n\t"
-    ".word 0x3287FFFF,0x0800985A,0x00000000,0x02202021\n\t"
-    ".word 0x02602821,0x02403021,0x0C00B95A,0x3287FFFF\n\t"
-    ".word 0x0800985A,0x00000000,0x02202021,0x02602821\n\t"
-    ".word 0x02403021,0x0C00B3CF,0x3287FFFF,0x0800985A\n\t"
-    ".word 0x00000000,0x02202021,0x02602821,0x02403021\n\t"
-    ".word 0x0C00CA9A,0x3287FFFF,0x0800985A,0x00000000\n\t"
-    ".word 0x02202021,0x02602821,0x02403021,0x0C00D398\n\t"
-    ".word 0x3287FFFF,0x0800985A,0x00000000,0x02202021\n\t"
-    ".word 0x02602821,0x02403021,0x0C00C369,0x3287FFFF\n\t"
-    ".word 0x0800985A,0x00000000,0x02202021,0x02602821\n\t"
-    ".word 0x02403021,0x0C00D76E,0x3287FFFF,0x0800985A\n\t"
-    ".word 0x00000000,0x02202021,0x02602821,0x02403021\n\t"
-    ".word 0x0C00DC7F,0x3287FFFF,0x0800985A,0x00000000\n\t"
-    ".word 0x02202021,0x02602821,0x02403021,0x0C00B9D5\n\t"
-    ".word 0x3287FFFF,0x0800985A,0x00000000,0x02202021\n\t"
-    ".word 0x02602821,0x02403021,0x0C00C567,0x3287FFFF\n\t"
-    ".word 0x0800985A,0x00000000,0x02402021,0x00002821\n\t"
-    ".word 0x0C009FCE,0x2406007F,0x0800985A,0x00000000\n\t"
-    ".word 0x02202021,0x02602821,0x02403021,0x0C00D094\n\t"
-    ".word 0x3287FFFF,0x0800985A,0x00000000,0x3C0238E3\n\t"
-    ".word 0x86250002,0x34428E39,0x00052980,0x00A20018\n\t"
-    ".word 0x86230006,0x00006010,0x00031980,0x00000000\n\t"
-    ".word 0x00620018,0x86240008,0x00004810,0x00042180\n\t"
-    ".word 0x00000000,0x00820018,0x8626000C,0x00005010\n\t"
-    ".word 0x02204021,0x00063180,0x00C20018,0x00052FC3\n\t"
-    ".word 0x00031FC3,0x000427C3,0x000C1103,0x00453823\n\t"
-    ".word 0x00091103,0x00436023,0x000A1103,0x00444823\n\t"
-    ".word 0x000637C3,0x91030001,0x00005810,0x000B1103\n\t"
-    ".word 0x00465023,0x2C620005,0x10400142,0x3C02800C\n\t"
-    ".word 0x2442D754,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x8E420000\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08009729\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x00021403,0x3C03800D,0x8C632FE4\n\t"
-    ".word 0x00471021,0xA4620014,0x8E420000,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x08009738,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x00021403,0x3C03800D,0x8C632FE4,0x00491021\n\t"
-    ".word 0xA4620018,0x8E420008,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x08009747,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x00021403\n\t"
-    ".word 0x3C03800D,0x8C632FE4,0x004C1021,0xA4620016\n\t"
-    ".word 0x8E420008,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x08009756,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x00021403,0x3C03800D\n\t"
-    ".word 0x8C632FE4,0x004A1021,0x0800985A,0xA462001A\n\t"
-    ".word 0x8E420000,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x08009766,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E430008,0x00000000\n\t"
-    ".word 0x04600003,0x00022C03,0x08009770,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E430004,0x00000000,0x04600003,0x00023403\n\t"
-    ".word 0x0800977A,0x00031B03,0x00031023,0x00021303\n\t"
-    ".word 0x00021823,0x00002021,0x00071400,0x00021403\n\t"
-    ".word 0xAFA20010,0x00091400,0x00021403,0xAFA20014\n\t"
-    ".word 0x000C1400,0x00021403,0xAFA20018,0x000A1400\n\t"
-    ".word 0x00021403,0x00033B80,0xAFA2001C,0x85020004\n\t"
-    ".word 0x00073C03,0xAFA20020,0x8503000A,0x3282FFFF\n\t"
-    ".word 0xAFA20028,0x080097C2,0x3C020100,0x8E420000\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08009799\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E430008,0x00000000,0x04600003\n\t"
-    ".word 0x00022C03,0x080097A3,0x00031303,0x00031023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8E430004\n\t"
-    ".word 0x00000000,0x04600003,0x00023403,0x080097AD\n\t"
-    ".word 0x00031B03,0x00031023,0x00021303,0x00021823\n\t"
-    ".word 0x00002021,0x00071400,0x00021403,0xAFA20010\n\t"
-    ".word 0x00091400,0x00021403,0xAFA20014,0x000C1400\n\t"
-    ".word 0x00021403,0xAFA20018,0x000A1400,0x00021403\n\t"
-    ".word 0x00033B80,0xAFA2001C,0x85020004,0x00073C03\n\t"
-    ".word 0xAFA20020,0x8503000A,0x3282FFFF,0xAFA20028\n\t"
-    ".word 0x3C020008,0xAFA2002C,0x0C0058BC,0xAFA30024\n\t"
-    ".word 0x0800985A,0x00000000,0x00091400,0x00021403\n\t"
-    ".word 0xAFA20010,0x85020004,0x00000000,0xAFA20014\n\t"
-    ".word 0x000C1400,0x8503000A,0x00021403,0xAFA2001C\n\t"
-    ".word 0x000A1400,0x00021403,0xAFA20020,0x3282FFFF\n\t"
-    ".word 0xAFA20024,0xAFA30018,0x91020001,0x00073C00\n\t"
-    ".word 0x38420004,0x2C420001,0xAFA20028,0x8E440000\n\t"
-    ".word 0x8E450004,0x8E460008,0x0C00D096,0x00073C03\n\t"
-    ".word 0x0800985A,0x00000000,0x0C0091F7,0x02202021\n\t"
-    ".word 0x0C009228,0x02202021,0x0800985A,0x00000000\n\t"
-    ".word 0x3402FFFF,0x96240002,0x8E630000,0x10820009\n\t"
-    ".word 0x00002821,0x8C62001C,0x00000000,0x00441021\n\t"
-    ".word 0x00021840,0x00621821,0x8E620014,0x00031880\n\t"
-    ".word 0x00432821,0x8E620004,0x8E640010,0x000218C0\n\t"
-    ".word 0x00621821,0x24420001,0x8C840020,0x000318C0\n\t"
-    ".word 0xAE620004,0x8E420000,0x00838021,0xAE020020\n\t"
-    ".word 0x8E420004,0x00000000,0xAE020024,0x8E420008\n\t"
-    ".word 0xAE05003C,0x10A00035,0xAE020028,0x8CA20008\n\t"
-    ".word 0x00000000,0x9442000C,0x00000000,0xA7A20034\n\t"
-    ".word 0x8E02003C,0x00000000,0x8C420008,0x00000000\n\t"
-    ".word 0x94420004,0x00000000,0xA7A20030,0x8E02003C\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x94420010\n\t"
-    ".word 0x27A40030,0xA7A20036,0x8E02003C,0x27A50038\n\t"
-    ".word 0x8C420008,0x3286FFFF,0x94420008,0x02003821\n\t"
-    ".word 0x0C009268,0xA7A20032,0x87A2003C,0x8E430000\n\t"
-    ".word 0x00021380,0x00431021,0xAE020034,0x87A20038\n\t"
-    ".word 0x8E430000,0x00021380,0x00431021,0xAE02002C\n\t"
-    ".word 0x87A2003E,0x8E430008,0x00021380,0x00431021\n\t"
-    ".word 0xAE020038,0x87A3003A,0x8E440008,0x240200F0\n\t"
-    ".word 0xA2000045,0xAE000040,0xA2020044,0x00031B80\n\t"
-    ".word 0x00641821,0x08009840,0xAE030030,0x02002021\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060048,0x92220004\n\t"
-    ".word 0x00000000,0x14400006,0x02602021,0x02402821\n\t"
-    ".word 0x3286FFFF,0x96270002,0x0800984D,0x24024000\n\t"
-    ".word 0x02402821,0x3286FFFF,0x96270002,0x24020001\n\t"
-    ".word 0xAFA20010,0x0C0093C2,0xAFA00014,0x0800985A\n\t"
-    ".word 0x00000000,0x02602021,0x02402821,0x3286FFFF\n\t"
-    ".word 0x96270002,0x24020001,0xAFA20010,0x0C009360\n\t"
-    ".word 0xAFA00014,0x8FBF0058,0x8FB50054,0x8FB40050\n\t"
-    ".word 0x8FB3004C,0x8FB20048,0x8FB10044,0x8FB00040\n\t"
-    ".word 0x03E00008,0x27BD0060\n\t"
-);
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short y0;
+    short z0;
+    short pad0A;
+    short x1;
+    short y1;
+    short z1;
+} Box;
+
+typedef struct {
+    char pad0[8];
+    Box *box;
+    char padC[0xC - 0xC];
+} Shape;
+
+typedef struct {
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+} Rect;
+
+typedef struct {
+    char pad0[0x20];
+    Vector pos;
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+    Shape *shape;
+    int param;
+    unsigned char kind;
+    unsigned char sub;
+    char pad46[2];
+} Entry;
+
+typedef struct {
+    char pad0[0x20];
+    Entry *entries;
+} Pool;
+
+typedef struct {
+    char pad0[0x1C];
+    int base;
+} Header;
+
+typedef struct {
+    Header *header;
+    int count;
+    char pad08[8];
+    Pool *pool;
+    Shape *shapes;
+} Context;
+
+typedef struct {
+    unsigned char type;
+    unsigned char b1;
+    unsigned short ref;
+    unsigned short ref2;
+    unsigned short h6;
+    int i8;
+    char pad0C[2];
+    unsigned char b14;
+} Placement;
+
+typedef struct {
+    unsigned char type;
+    unsigned char b1;
+    unsigned char b2;
+    unsigned char b3;
+    unsigned char b4;
+} PlacementB;
+
+typedef struct {
+    unsigned char type;
+    unsigned char b1;
+    short x0;
+    short h4;
+    short z0;
+    short x1;
+    short h10;
+    short z1;
+} Area;
+
+typedef struct {
+    int x;
+    int z;
+} Point;
+
+typedef struct {
+    Point pos;
+    Point dir;
+    int range;
+} Spawn;
+
+typedef struct {
+    char pad0[0x14];
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+    char pad1C[0x150 - 0x1C];
+    Spawn spawns[1];
+} Screen;
+
+typedef struct {
+    Screen *screen;
+    char pad4[0x34 - 4];
+    unsigned char teams[5];
+} Globals;
+
+extern Globals D_800D2FE4;
+extern void func_800249A0(Rect *, Rect *, unsigned short, Entry *);
+extern void func_8008AA48(void *, int, int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+extern void func_80024D80(Context *, Vector *, unsigned short, unsigned short, int, int);
+extern void func_80024F08(Context *, Vector *, unsigned short, unsigned short, int, int);
+extern void func_80024C38(Context *, Vector *, unsigned short, Shape *, int, int);
+extern void func_80024720(Placement *, Vector *, unsigned short);
+extern void func_8002D6A0(Placement *, Context *, Vector *, unsigned short);
+extern void func_8002A914(Placement *, Context *, Vector *, unsigned short);
+extern void func_80029BF0(Vector *, int, int, int, int);
+extern void func_80028720(int, Vector *, unsigned short, int, int);
+extern void func_800263F0(Placement *, Context *, Vector *, unsigned short);
+extern void func_80037380(Placement *, Context *, Vector *, unsigned short);
+extern void func_80034CD4(Vector *, unsigned short, int, int, int, int, int, int, int, int, int, int);
+extern void func_80033DFC(Placement *, Context *, Vector *, unsigned short);
+extern void func_80033B28(Placement *, Context *, Vector *, unsigned short);
+extern void func_8002E568(Placement *, Context *, Vector *, unsigned short);
+extern void func_8002CF3C(Placement *, Context *, Vector *, unsigned short);
+extern void func_80032A68(Placement *, Context *, Vector *, unsigned short);
+extern void func_80034E60(Placement *, Context *, Vector *, unsigned short);
+extern void func_80030DA4(Placement *, Context *, Vector *, unsigned short);
+extern void func_80035DB8(Placement *, Context *, Vector *, unsigned short);
+extern void func_800371FC(Placement *, Context *, Vector *, unsigned short);
+extern void func_8002E754(Placement *, Context *, Vector *, unsigned short);
+extern void func_8003159C(Placement *, Context *, Vector *, unsigned short);
+extern void func_80034250(Placement *, Context *, Vector *, unsigned short);
+extern void func_80027F38(Vector *, int, int);
+extern void func_800162F0(int, int, int, int, int, int, int, int, int, int, int, int);
+extern void func_80034258(int, int, int, int, int, int, int, int, int, int, int);
+extern void func_800247DC(Placement *);
+extern void func_800248A0(Placement *);
+
+static inline Entry *make_entry(Context *ctx, Shape *shape, Vector *pos, int flags, int param,
+                                unsigned char kind, unsigned char sub) {
+    Entry *e = &ctx->pool->entries[ctx->count++];
+    Rect in;
+    Rect out;
+
+    e->pos.x = pos->x;
+    e->pos.y = pos->y;
+    e->pos.z = pos->z;
+    e->shape = shape;
+    if (shape != 0) {
+        in.x1 = e->shape->box->x1;
+        in.x0 = e->shape->box->x0;
+        in.z1 = e->shape->box->z1;
+        in.z0 = e->shape->box->z0;
+        func_800249A0(&in, &out, flags, e);
+        e->x1 = (out.x1 << 14) + pos->x;
+        e->x0 = (out.x0 << 14) + pos->x;
+        e->z1 = (out.z1 << 14) + pos->z;
+        e->z0 = (out.z0 << 14) + pos->z;
+        e->sub = sub;
+        e->param = param;
+        e->kind = kind;
+    } else {
+        func_8008AA48(e, 0, sizeof(Entry));
+    }
+    return e;
+}
+
+static inline Shape *shape_get(Context *ctx, unsigned short ref) {
+    Header *h = ctx->header;
+
+    if (ref == 0xFFFF) {
+        return 0;
+    }
+    return &ctx->shapes[h->base + ref];
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_map(int value) {
+    return fixed_to_int(value) << 14 >> 16;
+}
+
+void func_80025094(Placement *p_, Context *ctx, Vector *pos, int angle_) {
+    Placement *p = p_;
+    int angle = angle_;
+    Shape *shape;
+
+    switch (p->type) {
+    case 0:
+        make_entry(ctx, shape_get(ctx, p->ref), pos, angle, 0, 240, 1);
+        break;
+    case 22: {
+        Placement *q = p;
+
+        make_entry(ctx, shape_get(ctx, q->ref), pos, angle, 1, 240, 1);
+        func_80024D80(ctx, pos, angle, q->ref, 128, 0);
+        break;
+    }
+    case 11: {
+        Placement *q = p;
+
+        make_entry(ctx, shape_get(ctx, q->ref), pos, angle, 1, 240, 1);
+        func_80024D80(ctx, pos, angle, q->ref, 64, 0);
+        break;
+    }
+    case 1:
+    case 14:
+        shape = shape_get(ctx, p->ref);
+        make_entry(ctx, shape, pos, angle, 2, 240, 1);
+        func_80024C38(ctx, pos, angle, shape, p->type == 14 ? 16384 : 1, 0);
+        break;
+    case 6:
+        func_80024720(p, pos, angle);
+        break;
+    case 5:
+        func_8002D6A0(p, ctx, pos, angle);
+        break;
+    case 4:
+        func_8002A914(p, ctx, pos, angle);
+        break;
+    case 7:
+        func_80029BF0(pos, p->b1, 0, 0, ((PlacementB *)p)->b2);
+        break;
+    case 12:
+        if (p->ref2 != 0xFFFF) {
+            make_entry(ctx, shape_get(ctx, p->ref2), pos, angle, 0, 240, 1);
+        }
+        func_80028720(p->b1, pos, angle, D_800D2FE4.teams[((PlacementB *)p)->b2], 0);
+        break;
+    case 3:
+        func_800263F0(p, ctx, pos, angle);
+        break;
+    case 8:
+        func_80037380(p, ctx, pos, angle);
+        break;
+    case 13:
+        func_80034CD4(pos, angle, D_800D2FE4.teams[((PlacementB *)p)->b3], p->ref2, p->h6, p->i8, p->b1,
+                      ((PlacementB *)p)->b2, 0, 0, 0, p->b14);
+        break;
+    case 17: {
+        Point at;
+        Point dir;
+        int range;
+        int a = (unsigned)(angle & 0xFFFF) >> 4;
+
+        at.x = pos->x;
+        at.z = pos->z;
+        dir.x = func_8008AD60(a);
+        dir.z = func_8008ACC0(a);
+        D_800D2FE4.screen->spawns[p->b1].pos = at;
+        D_800D2FE4.screen->spawns[p->b1].dir = dir;
+        range = (p->ref * 640 / 720) << 14;
+        D_800D2FE4.screen->spawns[p->b1].range = range;
+        break;
+    }
+    case 31:
+        func_80033DFC(p, ctx, pos, angle);
+        break;
+    case 35:
+        func_80033B28(p, ctx, pos, angle);
+        break;
+    case 10:
+        func_8002E568(p, ctx, pos, angle);
+        break;
+    case 24:
+        func_8002CF3C(p, ctx, pos, angle);
+        break;
+    case 20:
+        func_80032A68(p, ctx, pos, angle);
+        break;
+    case 15:
+        func_80034E60(p, ctx, pos, angle);
+        break;
+    case 26:
+        func_80030DA4(p, ctx, pos, angle);
+        break;
+    case 28:
+        func_80035DB8(p, ctx, pos, angle);
+        break;
+    case 29:
+        func_800371FC(p, ctx, pos, angle);
+        break;
+    case 21:
+        func_8002E754(p, ctx, pos, angle);
+        break;
+    case 32:
+        func_8003159C(p, ctx, pos, angle);
+        break;
+    case 27:
+        func_80027F38(pos, 0, 127);
+        break;
+    case 16:
+        func_80034250(p, ctx, pos, angle);
+        break;
+    case 30: {
+        Area *r = (Area *)p;
+        int x0 = (r->x0 << 6) / 72;
+        int z0 = (r->z0 << 6) / 72;
+        int x1 = (r->x1 << 6) / 72;
+        int z1 = (r->z1 << 6) / 72;
+
+        switch (r->b1) {
+        case 0:
+            D_800D2FE4.screen->x0 = to_map(pos->x) + x0;
+            D_800D2FE4.screen->x1 = to_map(pos->x) + x1;
+            D_800D2FE4.screen->z0 = to_map(pos->z) + z0;
+            D_800D2FE4.screen->z1 = to_map(pos->z) + z1;
+            break;
+        case 1:
+            func_800162F0(0, to_map(pos->x), to_map(pos->z), to_map(pos->y), (short)x0, (short)x1, (short)z0,
+                          (short)z1, r->h4, r->h10, angle & 0xFFFF, 0x01000000);
+            break;
+        case 2:
+            func_800162F0(0, to_map(pos->x), to_map(pos->z), to_map(pos->y), (short)x0, (short)x1, (short)z0,
+                          (short)z1, r->h4, r->h10, angle & 0xFFFF, 0x80000);
+            break;
+        case 3:
+        case 4:
+            func_80034258(pos->x, pos->y, pos->z, (short)x0, (short)x1, r->h4, r->h10, (short)z0, (short)z1,
+                          angle & 0xFFFF, r->b1 == 4);
+            break;
+        }
+        break;
+    }
+    case 37:
+        func_800247DC(p);
+    case 38:
+        func_800248A0(p);
+        break;
+    case 43:
+        make_entry(ctx, shape_get(ctx, p->ref), pos, angle, 0, 240, 0);
+        if (((PlacementB *)p)->b4 == 0) {
+            func_80024F08(ctx, pos, angle, p->ref, 16384, 0);
+        } else {
+            func_80024F08(ctx, pos, angle, p->ref, 1, 0);
+        }
+        break;
+    case 42:
+        func_80024D80(ctx, pos, angle, p->ref, 1, 0);
+        break;
+    }
+}

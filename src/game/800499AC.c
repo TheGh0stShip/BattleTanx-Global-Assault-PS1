@@ -1,58 +1,129 @@
-asm(".text\n\t.globl func_800499AC\nfunc_800499AC:\n\t"
-    ".word 0x27BDFF98,0xAFB60058,0x0000B021,0xAFB40050\n\t"
-    ".word 0x02C0A021,0xAFBE0060,0x02C0F021,0xAFB50054\n\t"
-    ".word 0x3C15800E,0x3C02800E,0xAFB7005C,0x2457E33C\n\t"
-    ".word 0xAFBF0064,0xAFB3004C,0xAFB20048,0xAFB10044\n\t"
-    ".word 0xAFB00040,0x3282FFFF,0x2C42001E,0x104000C3\n\t"
-    ".word 0x00000000,0x96A23CBC,0x00000000,0x24420001\n\t"
-    ".word 0xA6A23CBC,0x3042FFFF,0x2C420078,0x14400002\n\t"
-    ".word 0x3C02800E,0xA6A03CBC,0x96A53CBC,0x24423CC4\n\t"
-    ".word 0x00052840,0x00A22821,0x90A40000,0x00000000\n\t"
-    ".word 0x00041840,0x00641821,0x00031100,0x00431023\n\t"
-    ".word 0x00021080,0x00441023,0x000210C0,0x90A40001\n\t"
-    ".word 0x00578021,0x00041840,0x00641821,0x00031100\n\t"
-    ".word 0x00431023,0x00021080,0x00441023,0x000210C0\n\t"
-    ".word 0x8E040218,0x00578821,0x30820001,0x10400006\n\t"
-    ".word 0x00000000,0x8E230218,0x00000000,0x30620001\n\t"
-    ".word 0x1440000D,0x30820002,0x8E2200A8,0x8E0300B0\n\t"
-    ".word 0x00021027,0x00621824,0x8E0200A8,0xAE0300B0\n\t"
-    ".word 0x8E2300B0,0x00021027,0x00621824,0x8E2200A8\n\t"
-    ".word 0x08012737,0xAE2300B0,0x10400005,0x30620002\n\t"
-    ".word 0x10400006,0x00000000,0x08012740,0x00000000\n\t"
-    ".word 0x14400002,0x00000000,0x24160001,0x8E020208\n\t"
-    ".word 0x8E230208,0x8C42000C,0x8C63000C,0x00000000\n\t"
-    ".word 0x00431026,0x2C530001,0x12600013,0x26040008\n\t"
-    ".word 0x0C012576,0x26250008,0x3C03003E,0x34638000\n\t"
-    ".word 0x0062182A,0x1060002D,0x00000000,0x8E2200A8\n\t"
-    ".word 0x8E0300B0,0x00021027,0x00621824,0x8E0200A8\n\t"
-    ".word 0xAE0300B0,0x8E2300B0,0x00021027,0x00621824\n\t"
-    ".word 0x08012740,0xAE2300B0,0x8E3201F0,0x8E0301F0\n\t"
-    ".word 0x00000000,0x0243102A,0x10400002,0x3C0200BB\n\t"
-    ".word 0x00609021,0x34427FFF,0x0052102A,0x14400012\n\t"
-    ".word 0x26040008,0x8E04017C,0x24030007,0x10830009\n\t"
-    ".word 0x00000000,0x8E22017C,0x00000000,0x10430005\n\t"
-    ".word 0x24030008,0x10830003,0x00000000,0x14430006\n\t"
-    ".word 0x26040008,0x12C00003,0x3C1201F4,0x3C1200BB\n\t"
-    ".word 0x36528000,0x26040008,0x0C012576,0x26250008\n\t"
-    ".word 0x0242102A,0x1440003D,0x00000000,0x1260000C\n\t"
-    ".word 0x26040170,0x8E0200B0,0x8E2300A8,0x00000000\n\t"
-    ".word 0x00431025,0xAE0200B0,0x8E2200B0,0x8E0300A8\n\t"
-    ".word 0x00000000,0x00431025,0x08012740,0xAE2200B0\n\t"
-    ".word 0x26250170,0x3C060024,0x34C6100B,0x3C02800C\n\t"
-    ".word 0xA440628C,0x27A20018,0x8E030000,0x00003821\n\t"
-    ".word 0xAFA20014,0x0C006760,0xAFA30010,0x3042FFFF\n\t"
-    ".word 0x10400006,0x00000000,0x8FA30018,0x8E220000\n\t"
-    ".word 0x00000000,0x1462001D,0x00000000,0x0C011DA2\n\t"
-    ".word 0x02202021,0x14400007,0x00000000,0x8E2200A8\n\t"
-    ".word 0x8E0300AC,0x00021027,0x00621824,0x08012729\n\t"
-    ".word 0xAE0300AC,0x8E0200AC,0x8E2300A8,0x00000000\n\t"
-    ".word 0x00431025,0xAE0200AC,0x0C011DA2,0x02002021\n\t"
-    ".word 0x14400004,0x00000000,0x8E0200A8,0x0801273C\n\t"
-    ".word 0x00000000,0x8E2200AC,0x8E0300A8,0x00000000\n\t"
-    ".word 0x00431025,0x08012740,0xAE2200AC,0x8E2200A8\n\t"
-    ".word 0x8E0300AC,0x00021027,0x00621824,0x8E0200A8\n\t"
-    ".word 0xAE0300AC,0x8E2300AC,0x00021027,0x00621824\n\t"
-    ".word 0xAE2300AC,0x13C0FF3B,0x26940001,0x8FBF0064\n\t"
-    ".word 0x8FBE0060,0x8FB7005C,0x8FB60058,0x8FB50054\n\t"
-    ".word 0x8FB40050,0x8FB3004C,0x8FB20048,0x8FB10044\n\t"
-    ".word 0x8FB00040,0x03E00008,0x27BD0068\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+typedef struct {
+    int id;
+    char pad4[0x8 - 0x4];
+    Vector position;
+    char pad14[0xA8 - 0x14];
+    int bit;
+    int visible;
+    int near;
+    char padB4[0x170 - 0xB4];
+    Vector eye;
+    int state;
+    char pad180[0x1F0 - 0x180];
+    int range;
+    char pad1F4[0x208 - 0x1F4];
+    Owner *owner;
+    char pad20C[0x218 - 0x20C];
+    int status;
+    char pad21C[0x598 - 0x21C];
+} Tank;
+typedef struct {
+    int id;
+    char pad4[36];
+} Hit;
+extern Tank D_800DE33C[];
+extern unsigned short D_800E3CBC;
+extern unsigned char D_800E3CC4[][2];
+extern short D_800C628C;
+extern int func_800495D8(Vector *, Vector *);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, Hit *);
+extern int func_80047688(Tank *);
+
+void func_800499AC(void) {
+    int close;
+    unsigned short i;
+    int done;
+    Tank *a;
+    Tank *b;
+    int same;
+    int range;
+    Hit hit;
+    unsigned char *pair;
+
+    close = 0;
+    i = 0;
+    done = close;
+    while (!done) {
+        if (i >= 30) {
+            break;
+        }
+        if (++D_800E3CBC >= 120) {
+            D_800E3CBC = 0;
+        }
+        pair = D_800E3CC4[D_800E3CBC];
+        a = &D_800DE33C[pair[0]];
+        b = &D_800DE33C[pair[1]];
+        if (!(a->status & 1) || !(b->status & 1)) {
+            a->near &= ~b->bit;
+            b->near &= ~a->bit;
+            a->visible &= ~b->bit;
+            b->visible &= ~a->bit;
+            goto next;
+        }
+        if (a->status & 2) {
+            if (b->status & 2) {
+                goto next;
+            }
+        } else if (!(b->status & 2)) {
+            close = 1;
+        }
+        same = a->owner->team == b->owner->team;
+        if (same) {
+            if (func_800495D8(&a->position, &b->position) > 0x3E8000) {
+                a->near &= ~b->bit;
+                b->near &= ~a->bit;
+                goto next;
+            }
+        } else {
+            range = b->range;
+            if (range < a->range) {
+                range = a->range;
+            }
+            if (range <= 0xBB7FFF) {
+                if (a->state == 7 || b->state == 7 || a->state == 8 || b->state == 8) {
+                    range = 0x1F40000;
+                    if (close) {
+                        range = 0xBB8000;
+                    }
+                }
+            }
+            if (func_800495D8(&a->position, &b->position) > range) {
+                goto hide;
+            }
+        }
+        if (same) {
+            a->near |= b->bit;
+            b->near |= a->bit;
+            goto next;
+        }
+        D_800C628C = 0;
+        if (func_80019D80(&a->eye, &b->eye, 0x24100B, 0, a->id, &hit) != 0 && hit.id != b->id) {
+            goto hide;
+        }
+        if (func_80047688(b) == 0) {
+            a->visible &= ~b->bit;
+        } else {
+            a->visible |= b->bit;
+        }
+        if (func_80047688(a) == 0) {
+            b->visible &= ~a->bit;
+        } else {
+            b->visible |= a->bit;
+        }
+        goto next;
+    hide:
+        a->visible &= ~b->bit;
+        b->visible &= ~a->bit;
+    next:
+        i++;
+    }
+}

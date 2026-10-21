@@ -1,167 +1,289 @@
-asm(".text\n\t.globl func_80026988\nfunc_80026988:\n\t"
-    ".word 0x27BDFF38,0xAFBE00C0,0x0080F021,0xAFBF00C4\n\t"
-    ".word 0xAFB700BC,0xAFB600B8,0xAFB500B4,0xAFB400B0\n\t"
-    ".word 0xAFB300AC,0xAFB200A8,0xAFB100A4,0xAFB000A0\n\t"
-    ".word 0xAFA500CC,0x93C30017,0x00000000,0x2C620007\n\t"
-    ".word 0x10400248,0x3C02800C,0x2442D768,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x83C20016,0x00000000,0x1C40023D\n\t"
-    ".word 0x3C02800F,0x8C42AC1C,0x00000000,0x14400006\n\t"
-    ".word 0x24020001,0x0C021B21,0x00000000,0x30420007\n\t"
-    ".word 0x10400003,0x24020001,0x08009CBB,0xA3C20017\n\t"
-    ".word 0x27D00008,0x97C60014,0x02002821,0xAFA00010\n\t"
-    ".word 0xAFA00014,0xAFA00018,0xAFA0001C,0x8FC4002C\n\t"
-    ".word 0x0C00D652,0x00003821,0x97C60014,0x02002821\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8FC40030,0x0C00D652,0x00003821,0x0C009973\n\t"
-    ".word 0x03C02021,0x27B10020,0x02202821,0x3C10800C\n\t"
-    ".word 0x97C20006,0x261062B0,0x00022080,0x00822021\n\t"
-    ".word 0x000420C0,0x0C005BFD,0x00902021,0x97C30006\n\t"
-    ".word 0x00003021,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00501021,0x94430020,0x94440014,0x3C020C35\n\t"
-    ".word 0xAFA20048,0xAFA20040,0x3C02F3CB,0xAFA20058\n\t"
-    ".word 0xAFA20050,0x00641821,0x00031C00,0x00031883\n\t"
-    ".word 0x8E240000,0x8FA20040,0x8E250004,0x0082102A\n\t"
-    ".word 0x10400002,0x00000000,0xAFA40040,0x8FA20050\n\t"
-    ".word 0x00000000,0x0044102A,0x10400002,0x00000000\n\t"
-    ".word 0xAFA40050,0x8FA20048,0x00000000,0x00A2102A\n\t"
-    ".word 0x10400002,0x00000000,0xAFA50048,0x8FA20058\n\t"
-    ".word 0x00000000,0x0045102A,0x10400002,0x00000000\n\t"
-    ".word 0xAFA50058,0x24C60001,0x28C20004,0x1440FFE4\n\t"
-    ".word 0x26310008,0x3C110001,0x36319000,0x00002021\n\t"
-    ".word 0x24050006,0x27B40040,0x02803021,0x27B70050\n\t"
-    ".word 0x02E03821,0x24022000,0x24100333,0xAFA00044\n\t"
-    ".word 0xAFA30054,0xAFA00010,0xAFA20014,0xAFB00018\n\t"
-    ".word 0x0C01B0CD,0xAFB1001C,0x00002021,0x24050006\n\t"
-    ".word 0x02803021,0x02E03821,0x24021000,0xAFA00010\n\t"
-    ".word 0xAFA20014,0xAFB00018,0x0C01B0CD,0xAFB1001C\n\t"
-    ".word 0x00002021,0x24050006,0x02803021,0x02E03821\n\t"
-    ".word 0x24021555,0xAFA00010,0xAFA20014,0xAFB00018\n\t"
-    ".word 0x0C01B0CD,0xAFB1001C,0x0C021B21,0x3C110006\n\t"
-    ".word 0x8FA30050,0x8FA40040,0x00000000,0x00641823\n\t"
-    ".word 0x0043001B,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001810,0x00000000,0x00832021,0x0C021B21\n\t"
-    ".word 0xAFA40060,0x8FA30058,0x8FA90048,0x00000000\n\t"
-    ".word 0x00691823,0x0043001B,0x14600002,0x00000000\n\t"
-    ".word 0x0007000D,0x00005010,0x00002021,0x24050003\n\t"
-    ".word 0x27B50070,0x02A03021,0x27B60080,0x02C03821\n\t"
-    ".word 0x3C0B0004,0x3C08FFFF,0x3C100001,0x24133000\n\t"
-    ".word 0x8FA30060,0x24120400,0xAFA00064,0xAFAB0074\n\t"
-    ".word 0xAFB10084,0x00681021,0x00701821,0xAFA20070\n\t"
-    ".word 0xAFA30080,0x012A4821,0x01284021,0xAFA90068\n\t"
-    ".word 0x01304821,0xAFA80078,0xAFA90088,0xAFA00010\n\t"
-    ".word 0xAFB30014,0xAFB20018,0x0C01B0CD,0xAFB1001C\n\t"
-    ".word 0x0C021B21,0x00000000,0x8FA30050,0x8FA40040\n\t"
-    ".word 0x00000000,0x00641823,0x0043001B,0x14600002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001810,0x00000000\n\t"
-    ".word 0x00832021,0x0C021B21,0xAFA40060,0x8FA30058\n\t"
-    ".word 0x8FA80048,0x00000000,0x00681823,0x0043001B\n\t"
-    ".word 0x14600002,0x00000000,0x0007000D,0x00004810\n\t"
-    ".word 0x00002021,0x24050003,0x02A03021,0x02C03821\n\t"
-    ".word 0x8FA30060,0x3C0B0004,0xAFA00064,0xAFAB0074\n\t"
-    ".word 0xAFB10084,0x00701023,0x00701821,0xAFA20070\n\t"
-    ".word 0xAFA30080,0x01094021,0x01101023,0xAFA80068\n\t"
-    ".word 0x01104021,0xAFA20078,0xAFA80088,0xAFA00010\n\t"
-    ".word 0xAFB30014,0xAFB20018,0x0C01B0CD,0xAFB1001C\n\t"
-    ".word 0x0C021B21,0x00000000,0x8FA30050,0x8FA40040\n\t"
-    ".word 0x00000000,0x00641823,0x0043001B,0x14600002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001810,0x00000000\n\t"
-    ".word 0x00832021,0x0C021B21,0xAFA40060,0x8FA30058\n\t"
-    ".word 0x8FA80048,0x00000000,0x00681823,0x0043001B\n\t"
-    ".word 0x14600002,0x00000000,0x0007000D,0x00004810\n\t"
-    ".word 0x00002021,0x24050003,0x02A03021,0x02C03821\n\t"
-    ".word 0x8FA30060,0x3C0B0004,0xAFA00064,0xAFAB0074\n\t"
-    ".word 0xAFB10084,0x00701023,0x00701821,0xAFA20070\n\t"
-    ".word 0xAFA30080,0x01094021,0x01101023,0xAFA80068\n\t"
-    ".word 0x01104021,0xAFA20078,0xAFA80088,0xAFA00010\n\t"
-    ".word 0xAFB30014,0xAFB20018,0x0C01B0CD,0xAFB1001C\n\t"
-    ".word 0x02802021,0x02E02821,0x24061800,0x3C07000A\n\t"
-    ".word 0x34E75000,0x3C020008,0xAFA20054,0xAFA20044\n\t"
-    ".word 0x8FA20040,0x8FA30048,0x00501023,0xAFA20040\n\t"
-    ".word 0x8FA20050,0x00701823,0xAFA30048,0x8FA30058\n\t"
-    ".word 0x00501021,0x00701821,0xAFA20050,0x0C01C357\n\t"
-    ".word 0xAFA30058,0x08009CB9,0x00000000,0x24020002\n\t"
-    ".word 0x08009CBB,0xA3C20017,0x24020003,0x08009CBB\n\t"
-    ".word 0xA3C20017,0x8FC50008,0x8FC60010,0x0C014DE4\n\t"
-    ".word 0x24040002,0x8FC30034,0x8FC20018,0x27C50008\n\t"
-    ".word 0xAC62003C,0x97C60014,0x24020004,0xA3C20017\n\t"
-    ".word 0xA7C00038,0xAFA00010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0xAFA0001C,0x8FC4002C,0x0C00D652,0x00003821\n\t"
-    ".word 0x0C009973,0x03C02021,0x8FC20008,0x27A50020\n\t"
-    ".word 0xAFA20040,0x8FC20010,0x3C10800C,0xAFA20044\n\t"
-    ".word 0x97C20006,0x261062B0,0x00022080,0x00822021\n\t"
-    ".word 0x000420C0,0x0C005BFD,0x00902021,0x97C30006\n\t"
-    ".word 0x00008821,0x00031080,0x00431021,0x000210C0\n\t"
-    ".word 0x00501021,0x94430020,0x94440014,0x8FC5001C\n\t"
-    ".word 0x00641821,0x8CA40008,0x00031C00,0x9484000E\n\t"
-    ".word 0x00038083,0xA4440020,0x001110C0,0x27A50020\n\t"
-    ".word 0x00A22821,0x8CA20000,0x8FA30040,0x240B0CCC\n\t"
-    ".word 0x00431023,0x01620018,0x00006012,0x00002010\n\t"
-    ".word 0x000C6302,0x00042500,0x01846025,0x01801021\n\t"
-    ".word 0x00431021,0xAFA20048,0x8CA20004,0x8FA30044\n\t"
-    ".word 0x00000000,0x00431023,0x01620018,0x00006012\n\t"
-    ".word 0x00002010,0x000C6302,0x00042500,0x01846025\n\t"
-    ".word 0x01801021,0x00431021,0x0C021B21,0xAFA20050\n\t"
-    ".word 0x240B0333,0x01700018,0x00001812,0x00002010\n\t"
-    ".word 0x00031B02,0x00042500,0x00641825,0x240C0999\n\t"
-    ".word 0x01900018,0x00004012,0x00002010,0x00084302\n\t"
-    ".word 0x00042500,0x01044025,0x0043001B,0x14600002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001810,0x24040004\n\t"
-    ".word 0x27A50048,0x00003021,0x00C03821,0x26310001\n\t"
-    ".word 0x00681821,0x0C01BF6C,0xAFA3004C,0x2A220004\n\t"
-    ".word 0x1440FFC6,0x001110C0,0x08009CBB,0x00000000\n\t"
-    ".word 0x97C20038,0x2403000C,0x24420001,0xA7C20038\n\t"
-    ".word 0x00021400,0x00021403,0x14430009,0x03C02021\n\t"
-    ".word 0x8FC2001C,0x24062000,0x8C420008,0x3C07000A\n\t"
-    ".word 0x8445000E,0x34E75000,0x0C0099AF,0x00052B80\n\t"
-    ".word 0x87C20038,0x00000000,0x28420010,0x14400089\n\t"
-    ".word 0x24020005,0x8FC40034,0x8FC3001C,0xA3C20017\n\t"
-    ".word 0x2402000F,0xA3C20016,0x08009CBB,0xAC83003C\n\t"
-    ".word 0x83C20016,0x00000000,0x1C40007E,0x3C03800D\n\t"
-    ".word 0x87C2003C,0x8C633258,0x00021180,0x00622021\n\t"
-    ".word 0x84830000,0x87C2003E,0x00000000,0x14620004\n\t"
-    ".word 0x27C50008,0x0C01C4C8,0x00000000,0x27C50008\n\t"
-    ".word 0x97C60014,0x24020006,0xA3C20017,0xA7C00038\n\t"
-    ".word 0xAFA00010,0xAFA00014,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x8FC40030,0x0C00D652,0x00003821,0x8FC50008\n\t"
-    ".word 0x8FC60010,0x0C014DE4,0x24040002,0x8FC20008\n\t"
-    ".word 0x27A50058,0xAFA20040,0x8FC20010,0x3C10800C\n\t"
-    ".word 0xAFA20044,0x97C20006,0x261062B0,0x00022080\n\t"
-    ".word 0x00822021,0x000420C0,0x0C005BFD,0x00902021\n\t"
-    ".word 0x97C30006,0x00000000,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00501021,0x94430020,0x94420014\n\t"
-    ".word 0x00008821,0x00621821,0x00031C00,0x00038083\n\t"
-    ".word 0x001110C0,0x27A50058,0x00A22821,0x8CA20000\n\t"
-    ".word 0x8FA30040,0x240C0CCC,0x00431023,0x01820018\n\t"
-    ".word 0x00005812,0x00002010,0x000B5B02,0x00042500\n\t"
-    ".word 0x01645825,0x01601021,0x00431021,0xAFA20090\n\t"
-    ".word 0x8CA20004,0x8FA30044,0x00000000,0x00431023\n\t"
-    ".word 0x01820018,0x00005812,0x00002010,0x000B5B02\n\t"
-    ".word 0x00042500,0x01645825,0x01601021,0x00431021\n\t"
-    ".word 0x0C021B21,0xAFA20098,0x240C0333,0x01900018\n\t"
-    ".word 0x00001812,0x00002010,0x00031B02,0x00042500\n\t"
-    ".word 0x00641825,0x240B0999,0x01700018,0x00004012\n\t"
-    ".word 0x00002010,0x00084302,0x00042500,0x01044025\n\t"
-    ".word 0x0043001B,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001810,0x24040004,0x27A50090,0x00003021\n\t"
-    ".word 0x00C03821,0x26310001,0x00681821,0x0C01BF6C\n\t"
-    ".word 0xAFA30094,0x2A220004,0x1440FFC6,0x001110C0\n\t"
-    ".word 0x08009CBB,0x00000000,0x97C20038,0x00000000\n\t"
-    ".word 0x24420001,0xA7C20038,0x00021400,0x00021403\n\t"
-    ".word 0x28420010,0x14400003,0x00000000,0x0C009A23\n\t"
-    ".word 0x03C02021,0x87C4003A,0x2402FFFF,0x10820026\n\t"
-    ".word 0x3C02800D,0x8C433258,0x00041180,0x00621821\n\t"
-    ".word 0x8C620008,0x00000000,0x10400002,0x24080002\n\t"
-    ".word 0x34088002,0x8C62000C,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x08009CD0,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021400,0x8C650014\n\t"
-    ".word 0x00000000,0x04A00003,0x00022403,0x08009CDA\n\t"
-    ".word 0x00051303,0x00051023,0x00021303,0x00021023\n\t"
-    ".word 0x00022C00,0x00052C03,0x90670018,0x00003021\n\t"
-    ".word 0x0C018730,0xAFA80010,0x87C3003A,0x2402FFFF\n\t"
-    ".word 0x14620008,0x00000000,0x93C30017,0x24020007\n\t"
-    ".word 0x14620004,0x24020001,0x8FAB00CC,0x00000000\n\t"
-    ".word 0xAD620000,0x8FBF00C4,0x8FBE00C0,0x8FB700BC\n\t"
-    ".word 0x8FB600B8,0x8FB500B4,0x8FB400B0,0x8FB300AC\n\t"
-    ".word 0x8FB200A8,0x8FB100A4,0x8FB000A0,0x03E00008\n\t"
-    ".word 0x27BD00C8\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    int x;
+    int z;
+} Point;
+
+typedef struct {
+    short id;
+    char pad2[6];
+    int flag;
+    int x;
+    char pad10[4];
+    int z;
+    unsigned char kind;
+    char pad19[0x40 - 0x19];
+} Node;
+
+typedef struct {
+    char pad0[0x14];
+    unsigned short base;
+    char pad16[0x20 - 0x16];
+    unsigned short height;
+    char pad22[0x28 - 0x22];
+} Sprite;
+
+typedef struct {
+    char pad0[0xE];
+    short frame;
+} Anim;
+
+typedef struct {
+    char pad0[8];
+    Anim *anim;
+} Model;
+
+typedef struct {
+    char pad0[0x3C];
+    int model;
+} Instance;
+
+typedef struct {
+    char pad0[6];
+    unsigned short sprite;
+    Vector pos;
+    unsigned short angle;
+    signed char timer;
+    unsigned char state;
+    int model_id;
+    Model *model;
+    char pad20[0x2C - 0x20];
+    int sound_a;
+    int sound_b;
+    Instance *instance;
+    short counter;
+    short link;
+    short node;
+    short node_id;
+} Building;
+
+extern Sprite D_800C62B0[];
+extern Node *D_800D3258;
+extern int D_800EAC1C;
+extern unsigned int func_80086C84(void);
+extern void func_80035948(int, Vector *, int, int, int, int, int, int);
+extern void func_800265CC(Building *);
+extern void func_80016FF4(Sprite *, Point *);
+extern void func_8006C334(int, int, Vector *, Vector *, int, int, int, int);
+extern void func_80070D5C(Vector *, Vector *, int, int);
+extern void func_80053790(int, int, int);
+extern void func_8006FDB0(int, Vector *, int, int);
+extern void func_800266BC(Building *, int, int, int);
+extern void func_80071320(Node *);
+extern void func_8002688C(Building *);
+extern void func_80061CC0(short, short, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+
+void func_80026988(Building *obj, int *done) {
+    switch (obj->state) {
+    case 0:
+        if (obj->timer > 0) {
+            break;
+        }
+        if (D_800EAC1C != 0 || (func_80086C84() & 7) != 0) {
+            obj->state = 1;
+            break;
+        }
+        {
+            int i;
+            int height;
+            Point *c;
+
+            {
+                Point corners[4];
+                Vector min;
+                Vector max;
+                Vector p;
+                Vector lo;
+                Vector hi;
+
+                func_80035948(obj->sound_a, &obj->pos, obj->angle, 0, 0, 0, 0, 0);
+                func_80035948(obj->sound_b, &obj->pos, obj->angle, 0, 0, 0, 0, 0);
+                func_800265CC(obj);
+                __asm__ ("");
+                c = corners;
+                func_80016FF4(&D_800C62B0[obj->sprite], c);
+                height = (short)(D_800C62B0[obj->sprite].height + D_800C62B0[obj->sprite].base) << 14;
+                min.x = min.z = 0x0C350000;
+                max.x = max.z = -0x0C350000;
+                for (i = 0; i < 4; i++, c++) {
+                    int x = c->x;
+                    int z = c->z;
+
+                    if (x < min.x) {
+                        min.x = x;
+                    }
+                    if (max.x < x) {
+                        max.x = x;
+                    }
+                    if (z < min.z) {
+                        min.z = z;
+                    }
+                    if (max.z < z) {
+                        max.z = z;
+                    }
+                }
+                min.y = 0;
+                max.y = height;
+                func_8006C334(0, 6, &min, &max, 0, 8192, 819, 0x19000);
+                func_8006C334(0, 6, &min, &max, 0, 4096, 819, 0x19000);
+                func_8006C334(0, 6, &min, &max, 0, 5461, 819, 0x19000);
+                p.x = min.x + func_80086C84() % (max.x - min.x);
+                p.z = min.z + func_80086C84() % (max.z - min.z);
+                p.y = 0;
+                lo.x = p.x - 0x10000;
+                lo.y = 0x40000;
+                lo.z = p.z - 0x10000;
+                hi.x = p.x + 0x10000;
+                hi.y = 0x60000;
+                hi.z = p.z + 0x10000;
+                func_8006C334(0, 3, &lo, &hi, 0, 12288, 1024, 0x60000);
+                p.x = min.x + func_80086C84() % (max.x - min.x);
+                p.z = min.z + func_80086C84() % (max.z - min.z);
+                p.y = 0;
+                lo.x = p.x - 0x10000;
+                lo.y = 0x40000;
+                lo.z = p.z - 0x10000;
+                hi.x = p.x + 0x10000;
+                hi.y = 0x60000;
+                hi.z = p.z + 0x10000;
+                func_8006C334(0, 3, &lo, &hi, 0, 12288, 1024, 0x60000);
+                p.x = min.x + func_80086C84() % (max.x - min.x);
+                p.z = min.z + func_80086C84() % (max.z - min.z);
+                p.y = 0;
+                lo.x = p.x - 0x10000;
+                lo.y = 0x40000;
+                lo.z = p.z - 0x10000;
+                hi.x = p.x + 0x10000;
+                hi.y = 0x60000;
+                hi.z = p.z + 0x10000;
+                func_8006C334(0, 3, &lo, &hi, 0, 12288, 1024, 0x60000);
+                min.y = max.y = 0x80000;
+                min.x -= 0x10000;
+                min.z -= 0x10000;
+                max.x += 0x10000;
+                max.z += 0x10000;
+                func_80070D5C(&min, &max, 6144, 0xA5000);
+            }
+        }
+        func_8002688C(obj);
+        break;
+    case 1:
+        obj->state = 2;
+        break;
+    case 2:
+        obj->state = 3;
+        break;
+    case 3:
+        func_80053790(2, obj->pos.x, obj->pos.z);
+        obj->instance->model = obj->model_id;
+        obj->state = 4;
+        obj->counter = 0;
+        func_80035948(obj->sound_a, &obj->pos, obj->angle, 0, 0, 0, 0, 0);
+        func_800265CC(obj);
+        {
+            Point corners[4];
+            int i;
+            int height;
+            Point center;
+            Vector q;
+
+            center.x = obj->pos.x;
+            center.z = obj->pos.z;
+            func_80016FF4(&D_800C62B0[obj->sprite], corners);
+            height = (short)(D_800C62B0[obj->sprite].height + D_800C62B0[obj->sprite].base) << 14;
+            D_800C62B0[obj->sprite].height = obj->model->anim->frame;
+            for (i = 0; i < 4; i++) {
+                q.x = fixed_mul(3276, corners[i].x - center.x) + center.x;
+                q.z = fixed_mul(3276, corners[i].z - center.z) + center.z;
+                q.y = func_80086C84() % fixed_mul(819, height) + fixed_mul(2457, height);
+                func_8006FDB0(4, &q, 0, 0);
+            }
+        }
+        break;
+    case 4:
+        if (++obj->counter == 12) {
+            func_800266BC(obj, obj->model->anim->frame << 14, 8192, 0xA5000);
+        }
+        if (obj->counter >= 16) {
+            obj->state = 5;
+            obj->timer = 15;
+            obj->instance->model = (int)obj->model;
+        }
+        break;
+    case 5:
+        if (obj->timer > 0) {
+            break;
+        }
+        {
+            Node *n = &D_800D3258[obj->node];
+
+            if (n->id == obj->node_id) {
+                func_80071320(n);
+            }
+        }
+        obj->state = 6;
+        obj->counter = 0;
+        func_80035948(obj->sound_b, &obj->pos, obj->angle, 0, 0, 0, 0, 0);
+        func_80053790(2, obj->pos.x, obj->pos.z);
+        {
+            Point corners[4];
+            int i;
+            int height;
+            Point center;
+            Vector q;
+
+            center.x = obj->pos.x;
+            center.z = obj->pos.z;
+            func_80016FF4(&D_800C62B0[obj->sprite], corners);
+            height = (short)(D_800C62B0[obj->sprite].height + D_800C62B0[obj->sprite].base) << 14;
+            for (i = 0; i < 4; i++) {
+                q.x = fixed_mul(3276, corners[i].x - center.x) + center.x;
+                q.z = fixed_mul(3276, corners[i].z - center.z) + center.z;
+                q.y = func_80086C84() % fixed_mul(819, height) + fixed_mul(2457, height);
+                func_8006FDB0(4, &q, 0, 0);
+            }
+        }
+        break;
+    case 6:
+        if (++obj->counter >= 16) {
+            func_8002688C(obj);
+        }
+        break;
+    }
+    if (obj->link != -1) {
+        Node *n = &D_800D3258[obj->link];
+        int mode;
+
+        mode = 2;
+        if (n->flag) {
+            mode = 0x8002;
+        }
+        func_80061CC0(fixed_to_int(n->x), fixed_to_int(n->z), 0, n->kind, mode);
+    }
+    if (obj->link == -1 && obj->state == 7) {
+        *done = 1;
+    }
+}

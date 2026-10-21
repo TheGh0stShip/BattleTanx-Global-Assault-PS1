@@ -1,94 +1,124 @@
-asm(".text\n\t.globl func_8003940C\nfunc_8003940C:\n\t"
-    ".word 0x27BDFFE8,0x24860C16,0x30C6FFFF,0x248FF3EA\n\t"
-    ".word 0x31EFFFFF,0x2407FFF7,0xAFB20010,0xAFB1000C\n\t"
-    ".word 0xAFB00008,0x94A30000,0x94A50004,0x00031C00\n\t"
-    ".word 0x00031E03,0x00052C00,0x00052E03,0x30884000\n\t"
-    ".word 0x30893FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x30888000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091040,0x00470018,0x00001012\n\t"
-    ".word 0x00021403,0x00626023,0x248A4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091040,0x00470018,0x00001012\n\t"
-    ".word 0x00021403,0x00A22821,0x30C84000,0x30C93FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x30C88000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00097040,0x01C05821,0x24CA4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00092040,0x2407000B,0x01670018\n\t"
-    ".word 0x00001012,0x00803021,0x00000000,0x00C70018\n\t"
-    ".word 0x3C03800D,0x24685B0C,0x00021403,0x01828823\n\t"
-    ".word 0x3C02800D,0x94425B88,0x2407002C,0xA4715B0C\n\t"
-    ".word 0x00021400,0x00026E03,0x01A7102A,0x00004812\n\t"
-    ".word 0x00091C03,0x00A38021,0x14400002,0xA5100002\n\t"
-    ".word 0x01A03821,0x00EB0018,0x00001012,0x00000000\n\t"
-    ".word 0x00000000,0x00E60018,0x00001812,0x24070028\n\t"
-    ".word 0x00000000,0x01670018,0x00004812,0x00000000\n\t"
-    ".word 0x00000000,0x00C70018,0x00021403,0x01821023\n\t"
-    ".word 0xA5020008,0x00031403,0x00A21021,0xA502000A\n\t"
-    ".word 0x24070054,0x00091403,0x01821023,0xA5020010\n\t"
-    ".word 0x00003012,0x00061403,0x00A21021,0xA5020012\n\t"
-    ".word 0x01A7102A,0x14400003,0x00EE0018,0x01A03821\n\t"
-    ".word 0x00EE0018,0x00001012,0x00000000,0x00000000\n\t"
-    ".word 0x00E40018,0x00001812,0x240700C8,0x00000000\n\t"
-    ".word 0x01C70018,0x00003012,0x00000000,0x00000000\n\t"
-    ".word 0x00870018,0x00021403,0x01821023,0xA5020018\n\t"
-    ".word 0x00031403,0x00A21021,0xA502001A,0x01E01021\n\t"
-    ".word 0x00061C03,0x01831823,0xA5030020,0x00002012\n\t"
-    ".word 0x00042403,0x00A42021,0xA5040022,0x30484000\n\t"
-    ".word 0x30493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x30488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00095840,0x244A4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00093040,0x2407000A,0x01670018\n\t"
-    ".word 0x00001012,0x00000000,0x00000000,0x00C70018\n\t"
-    ".word 0x00004012,0x2407002C,0x00000000,0x01670018\n\t"
-    ".word 0x00004812,0x00000000,0x00000000,0x00C70018\n\t"
-    ".word 0x00005012,0x24070028,0x00000000,0x01670018\n\t"
-    ".word 0x00007012,0x00000000,0x00000000,0x00C70018\n\t"
-    ".word 0x00007812,0x01A03821,0x00000000,0x00EB0018\n\t"
-    ".word 0x0000C012,0x00000000,0x00000000,0x00E60018\n\t"
-    ".word 0x02042023,0xA7A40002,0x00042400,0x00042403\n\t"
-    ".word 0x00021403,0x01821023,0x02236823,0x3C03800D\n\t"
-    ".word 0xA4625AA4,0x24635AA4,0x0000C812,0x00081403\n\t"
-    ".word 0x240700C8,0x01670018,0x00A21021,0xA7AD0000\n\t"
-    ".word 0xA4620002,0x00091403,0x01821023,0xA4620008\n\t"
-    ".word 0x000A1403,0x00A21021,0xA462000A,0x000E1403\n\t"
-    ".word 0x01821023,0x00004012,0xA4620010,0x000F1403\n\t"
-    ".word 0x00C70018,0x00A21021,0xA4620012,0x00181403\n\t"
-    ".word 0x01821023,0xA4620018,0x00191403,0x00A21021\n\t"
-    ".word 0xA462001A,0x00081403,0x01821023,0xA4620020\n\t"
-    ".word 0x00003012,0x00061403,0x00A21021,0x10800010\n\t"
-    ".word 0xA4620022,0x000D1400,0x0044001A,0x14800002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14810004\n\t"
-    ".word 0x3C018000,0x14410002,0x00000000,0x0006000D\n\t"
-    ".word 0x00001012,0x3C03800D,0x0800E625,0xAC625B80\n\t"
-    ".word 0x3C02800D,0xAC405B80,0x3C03800D,0x24625AA4\n\t"
-    ".word 0x94655AA4,0x94440020,0x94430002,0x94420022\n\t"
-    ".word 0x00A42823,0x00621823,0xA7A30002,0x00031C00\n\t"
-    ".word 0x00031C03,0x10600010,0xA7A50000,0x00051400\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001012,0x3C03800D\n\t"
-    ".word 0x0800E643,0xAC625B34,0x3C02800D,0xAC405B34\n\t"
-    ".word 0x3C03800D,0x24635B0C,0x3C02800D,0x24425AA4\n\t"
-    ".word 0x94650018,0x94440020,0x9463001A,0x94420022\n\t"
-    ".word 0x00A42823,0x00621823,0xA7A30002,0x00031C00\n\t"
-    ".word 0x00031C03,0x10600010,0xA7A50000,0x00051400\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001012,0x3C03800D\n\t"
-    ".word 0x0800E663,0xAC625B84,0x3C02800D,0xAC405B84\n\t"
-    ".word 0x3C02800D,0x3C03800D,0x3C04800D,0x8C455B84\n\t"
-    ".word 0x8C635B34,0x8C845B80,0x3C02800D,0xAC455B40\n\t"
-    ".word 0x24425B40,0xAC430004,0xAC450008,0xAC44000C\n\t"
-    ".word 0x8FB20010,0x8FB1000C,0x8FB00008,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct { int x; int z; } Pos2;
+typedef struct { short x; short z; int pad; } Corner;
+typedef struct { short x; short z; } Delta;
+typedef struct { int a; int b; int c; int d; } Slopes;
+extern Corner D_800D5B0C[5];
+extern Corner D_800D5AA4[5];
+extern int D_800D5B88;
+extern int D_800D5B80;
+extern int D_800D5B34;
+extern int D_800D5B84;
+extern Slopes D_800D5B40;
+
+static inline int sine_lookup(unsigned short angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(unsigned short angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+void func_8003940C(int angle, Pos2 *pos) {
+    short px;
+    short pz;
+    int left;
+    int right;
+    short cx;
+    short cz;
+    int s;
+    int c;
+    short far;
+    int k;
+    Delta delta;
+
+    left = angle + 3094;
+    left &= 0xffff;
+    right = angle - 3094;
+    right &= 0xffff;
+    k = -9;
+    px = (short)pos->x >> 8;
+    pz = (short)pos->z >> 8;
+    cx = px - ((sine_lookup(angle) * k) >> 16);
+    cz = pz + ((cosine_lookup(angle) * k) >> 16);
+
+    s = sine_lookup(left);
+    c = cosine_lookup(left);
+    k = 11;
+    D_800D5B0C[0].x = cx - ((s * k) >> 16);
+    D_800D5B0C[0].z = cz + ((c * k) >> 16);
+    far = (short)D_800D5B88 >> 8;
+    k = 44;
+    if (far >= k) {
+        k = far;
+    }
+    D_800D5B0C[1].x = cx - ((k * s) >> 16);
+    D_800D5B0C[1].z = cz + ((k * c) >> 16);
+    k = 40;
+    D_800D5B0C[2].x = cx - ((s * k) >> 16);
+    D_800D5B0C[2].z = cz + ((c * k) >> 16);
+    k = 84;
+    if (far >= k) {
+        k = far;
+    }
+    D_800D5B0C[3].x = cx - ((k * s) >> 16);
+    D_800D5B0C[3].z = cz + ((k * c) >> 16);
+    k = 200;
+    D_800D5B0C[4].x = cx - ((s * k) >> 16);
+    D_800D5B0C[4].z = cz + ((c * k) >> 16);
+
+    s = sine_lookup(right);
+    c = cosine_lookup(right);
+    k = 10;
+    D_800D5AA4[0].x = cx - ((s * k) >> 16);
+    D_800D5AA4[0].z = cz + ((c * k) >> 16);
+    k = 44;
+    D_800D5AA4[1].x = cx - ((s * k) >> 16);
+    D_800D5AA4[1].z = cz + ((c * k) >> 16);
+    k = 40;
+    D_800D5AA4[2].x = cx - ((s * k) >> 16);
+    D_800D5AA4[2].z = cz + ((c * k) >> 16);
+    k = far;
+    D_800D5AA4[3].x = cx - ((k * s) >> 16);
+    D_800D5AA4[3].z = cz + ((k * c) >> 16);
+    k = 200;
+    D_800D5AA4[4].x = cx - ((s * k) >> 16);
+    D_800D5AA4[4].z = cz + ((c * k) >> 16);
+
+    delta.x = D_800D5B0C[0].x - D_800D5B0C[4].x;
+    delta.z = D_800D5B0C[0].z - D_800D5B0C[4].z;
+    if (delta.z != 0) {
+        D_800D5B80 = (delta.x << 16) / delta.z;
+    } else {
+        D_800D5B80 = 0;
+    }
+    delta.x = D_800D5AA4[0].x - D_800D5AA4[4].x;
+    delta.z = D_800D5AA4[0].z - D_800D5AA4[4].z;
+    if (delta.z != 0) {
+        D_800D5B34 = (delta.x << 16) / delta.z;
+    } else {
+        D_800D5B34 = 0;
+    }
+    delta.x = D_800D5B0C[3].x - D_800D5AA4[4].x;
+    delta.z = D_800D5B0C[3].z - D_800D5AA4[4].z;
+    if (delta.z != 0) {
+        D_800D5B84 = (delta.x << 16) / delta.z;
+    } else {
+        D_800D5B84 = 0;
+    }
+    D_800D5B40.a = D_800D5B84;
+    D_800D5B40.b = D_800D5B34;
+    D_800D5B40.c = D_800D5B84;
+    D_800D5B40.d = D_800D5B80;
+}

@@ -1,34 +1,137 @@
-asm(".text\n\t.globl func_8001D860\nfunc_8001D860:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00808021,0xAFBF0020\n\t"
-    ".word 0x16000003,0xAFB1001C,0x08007697,0x00001021\n\t"
-    ".word 0x06010003,0x00008821,0x24110001,0x00108023\n\t"
-    ".word 0x02100018,0x00001012,0x00001810,0x18600004\n\t"
-    ".word 0x2402F000,0x00621024,0x14400007,0x3C047FFF\n\t"
-    ".word 0x04610007,0x00031023,0x2403F000,0x00431024\n\t"
-    ".word 0x10400003,0x3C047FFF,0x08007637,0x3484FFFF\n\t"
-    ".word 0x00042302,0x00031D00,0x00832025,0x00A50018\n\t"
-    ".word 0x00001012,0x00001810,0x18600004,0x2402F000\n\t"
-    ".word 0x00621024,0x14400007,0x3C027FFF,0x04610007\n\t"
-    ".word 0x00031023,0x2403F000,0x00431024,0x10400003\n\t"
-    ".word 0x3C027FFF,0x0800764A,0x3442FFFF,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x0C022AFC,0x00822021\n\t"
-    ".word 0x00402821,0x14A00002,0x3C028000,0x24050002\n\t"
-    ".word 0x02021824,0x00A21024,0x00624026,0x06010002\n\t"
-    ".word 0x02001821,0x00031823,0x04A10002,0x00A02021\n\t"
-    ".word 0x00042023,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20010,0xE85F0000,0x8FA50010,0x00000000\n\t"
-    ".word 0x24A7FFF4,0x04E10023,0x00000000,0x00A31804\n\t"
-    ".word 0x4884F000,0x00000000,0x00000000,0x27A20014\n\t"
-    ".word 0xE85F0000,0x8FA60014,0x00000000,0x00C52823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00461023,0x04400003\n\t"
-    ".word 0x00000000,0x08007675,0x00441007,0x00021023\n\t"
-    ".word 0x00441004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00002012,0x0800768B,0x00A42004\n\t"
-    ".word 0x00071023,0x00441007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00002012,0x0800768B\n\t"
-    ".word 0x00000000,0x00031B00,0x0064001B,0x14800002\n\t"
-    ".word 0x00000000,0x0007000D,0x00002012,0x11000002\n\t"
-    ".word 0x00000000,0x00042023,0x0C014CD5,0x00000000\n\t"
-    ".word 0x000210C0,0x30447FF8,0x3222FFFF,0x10400002\n\t"
-    ".word 0x00801821,0x00041823,0x3062FFFF,0x8FBF0020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0028\n");
+int func_8008ABF0(int);
+int func_80053354(int);
+
+static inline int sat_square(int x, int out) {
+    __asm__ volatile(".set\tnoreorder\n\tmult %1, %1\n\tmflo $2\n\tmfhi $3\n\tblez $3, 1f\n\tli $2, -4096\n\tand $2, $3, $2\n\tbnez $2, 2f\n\tlui %0, 0x7fff\n"
+                     "1:\tbgez $3, 3f\n\tnegu $2, $3\n\tli $3, -4096\n\tand $2, $2, $3\n\tbeqz $2, 3f\n\tlui %0, 0x7fff\n"
+                     "2:\tj 4f\n\tori %0, %0, 0xffff\n"
+                     "3:\tsrl %0, %0, 12\n\tsll $3, $3, 20\n\tor %0, %0, $3\n4:\n\t.set\treorder"
+                     : "+r"(out)
+                     : "r"(x)
+                     : "$2", "$3", "memory");
+    return out;
+}
+
+static inline int sat_square_lo(int x) {
+    register int out asm("$2");
+
+    __asm__ volatile(".set\tnoreorder\n\tmult %1, %1\n\tmflo $2\n\tmfhi $3\n\tblez $3, 1f\n\tli $2, -4096\n\tand $2, $3, $2\n\tbnez $2, 2f\n\tlui %0, 0x7fff\n"
+                     "1:\tbgez $3, 3f\n\tnegu $2, $3\n\tli $3, -4096\n\tand $2, $2, $3\n\tbeqz $2, 3f\n\tlui %0, 0x7fff\n"
+                     "2:\tj 4f\n\tori %0, %0, 0xffff\n"
+                     "3:\tsrl %0, %0, 12\n\tsll $3, $3, 20\n\tor %0, %0, $3\n4:\n\t.set\treorder"
+                     : "=r"(out)
+                     : "r"(x)
+                     : "$3", "memory");
+    return out;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    {
+        register int t asm("$4");
+
+        t = denominator;
+        if (denominator < 0) {
+            t = -t;
+        }
+        d = t;
+    }
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+
+static inline int safe_div(int num, int den) {
+    register int q asm("$5");
+
+    q = den;
+    if (q == 0) {
+        q = 2;
+    }
+    return fixed_div(num, q);
+}
+
+unsigned short func_8001D860(int dy, int x) {
+    int negative;
+    int y;
+    int a;
+    int b;
+    int hyp;
+    register int angle asm("$4");
+    int result;
+
+    y = dy;
+    if (y == 0) {
+        return 0;
+    }
+    negative = 0;
+    if (y < 0) {
+        negative = 1;
+        y = -y;
+    }
+    a = sat_square(y, dy);
+    b = sat_square_lo(x);
+    hyp = func_8008ABF0(a + b);
+    angle = (func_80053354(safe_div(y, hyp)) << 3) & 0x7FF8;
+    result = angle;
+    if ((unsigned short)negative) {
+        result = -angle;
+    }
+    return result;
+}

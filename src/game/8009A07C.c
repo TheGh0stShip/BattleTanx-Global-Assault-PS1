@@ -1,41 +1,148 @@
-asm(".text\n\t.globl func_8009A07C\nfunc_8009A07C:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0x3C04800B\n\t"
-    ".word 0x8C847700,0xAFBF0018,0xAFB10014,0x8C820000\n\t"
-    ".word 0x3C03000B,0x00431025,0xAC820000,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x3C01800B,0xAC20770C,0x3C01800B\n\t"
-    ".word 0xAC207710,0x3C01800B,0xA4207708,0xA4400180\n\t"
-    ".word 0xA4400182,0x0C026A83,0xA44001AA,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x00000000,0xA4400180,0xA4400182\n\t"
-    ".word 0x944201AE,0x00000000,0x304207FF,0x10400014\n\t"
-    ".word 0x00001821,0x24630001,0x2C620F01,0x14400008\n\t"
-    ".word 0x00000000,0x3C04800C,0x24845530,0x3C05800C\n\t"
-    ".word 0x0C0250EC,0x24A55540,0x08026854,0x00002021\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00000000,0x944201AE\n\t"
-    ".word 0x00000000,0x304207FF,0x1440FFEF,0x24630001\n\t"
-    ".word 0x00002021,0x3C05800F,0x24A5F188,0x24020002\n\t"
-    ".word 0x3C01800B,0xAC227714,0x24020003,0x3C01800B\n\t"
-    ".word 0xAC227718,0x24020008,0x3C01800B,0xAC22771C\n\t"
-    ".word 0x24020007,0x3C01800B,0xAC227720,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x24030004,0xA44301AC,0x3403FFFF\n\t"
-    ".word 0xA4400184,0xA4400186,0xA443018C,0xA443018E\n\t"
-    ".word 0xA4400198,0xA440019A,0xA4A00000,0x24840001\n\t"
-    ".word 0x2882000A,0x1440FFFC,0x24A50002,0x1600003C\n\t"
-    ".word 0x00001021,0x3C04800B,0x24847730,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x24030200,0x3C01800B,0xA4237708\n\t"
-    ".word 0xA4400190,0xA4400192,0xA4400194,0xA4400196\n\t"
-    ".word 0xA44001B0,0xA44001B2,0xA44001B4,0xA44001B6\n\t"
-    ".word 0x0C0268BF,0x24050010,0x00002021,0x24063FFF\n\t"
-    ".word 0x24050200,0x3C03800B,0x8C6376F0,0x00000000\n\t"
-    ".word 0xA4600000,0xA4600002,0xA4660004,0xA4650006\n\t"
-    ".word 0xA4600008,0xA460000A,0x24840001,0x28820018\n\t"
-    ".word 0x1440FFF7,0x24630010,0x3411FFFF,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x241000FF,0xA4510188,0x0C026A83\n\t"
-    ".word 0xA450018A,0x0C026A83,0x00000000,0x0C026A83\n\t"
-    ".word 0x00000000,0x0C026A83,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C4276F0,0x00000000,0xA451018C,0x0C026A83\n\t"
-    ".word 0xA450018E,0x0C026A83,0x00000000,0x0C026A83\n\t"
-    ".word 0x00000000,0x0C026A83,0x00000000,0x00001021\n\t"
-    ".word 0x3C04800B,0x8C8476F0,0x24030001,0x3C01800B\n\t"
-    ".word 0xAC237724,0x3403C000,0xA48301AA,0x3C01800B\n\t"
-    ".word 0xAC207728,0x3C01800B,0xAC20772C,0x8FBF0018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct SpuVoice {
+    unsigned short vol_l;
+    unsigned short vol_r;
+    unsigned short pitch;
+    unsigned short addr;
+    unsigned short adsr1;
+    unsigned short adsr2;
+    unsigned short volx;
+    unsigned short loop;
+} SpuVoice;
+
+typedef struct SpuRegs {
+    SpuVoice voice[24];
+    volatile unsigned short main_vol_l;
+    volatile unsigned short main_vol_r;
+    unsigned short rev_vol_l;
+    unsigned short rev_vol_r;
+    unsigned short key_on_l;
+    unsigned short key_on_r;
+    unsigned short key_off_l;
+    unsigned short key_off_r;
+    volatile unsigned short pitch_mod_l;
+    volatile unsigned short pitch_mod_r;
+    volatile unsigned short noise_l;
+    volatile unsigned short noise_r;
+    unsigned short reverb_l;
+    unsigned short reverb_r;
+    unsigned short status_l;
+    unsigned short status_r;
+    unsigned short pad1a0;
+    unsigned short rev_addr;
+    unsigned short irq_addr;
+    unsigned short trans_addr;
+    unsigned short data;
+    volatile unsigned short control;
+    unsigned short trans_ctrl;
+    volatile unsigned short status;
+    volatile unsigned short cd_vol_l;
+    volatile unsigned short cd_vol_r;
+    volatile unsigned short ext_vol_l;
+    volatile unsigned short ext_vol_r;
+} SpuRegs;
+
+extern SpuRegs *D_800B76F0;
+extern volatile int *D_800B7700;
+extern unsigned short D_800B7708;
+extern int D_800B770C;
+extern int D_800B7710;
+extern int D_800B7714;
+extern int D_800B7718;
+extern int D_800B771C;
+extern int D_800B7720;
+extern volatile int D_800B7724;
+extern volatile int D_800B7728;
+extern volatile int D_800B772C;
+extern unsigned char D_800B7730[];
+extern short D_800EF188[];
+extern char D_800C5530[];
+extern char D_800C5540[];
+extern void func_8009AA0C(void);
+extern void func_800943B0(char *, char *);
+extern void func_8009A2FC(unsigned char *, int);
+
+int func_8009A07C(int mode) {
+    unsigned int count;
+    int i;
+
+    *D_800B7700 |= 0xB0000;
+    D_800B770C = 0;
+    D_800B7710 = 0;
+    D_800B7708 = 0;
+    D_800B76F0->main_vol_l = 0;
+    D_800B76F0->main_vol_r = 0;
+    D_800B76F0->control = 0;
+    func_8009AA0C();
+    D_800B76F0->main_vol_l = 0;
+    D_800B76F0->main_vol_r = 0;
+    count = 0;
+    while (D_800B76F0->status & 0x7FF) {
+        if (++count > 0xF00) {
+            func_800943B0(D_800C5530, D_800C5540);
+            break;
+        }
+    }
+    D_800B7714 = 2;
+    D_800B7718 = 3;
+    D_800B771C = 8;
+    D_800B7720 = 7;
+    D_800B76F0->trans_ctrl = 4;
+    D_800B76F0->rev_vol_l = 0;
+    D_800B76F0->rev_vol_r = 0;
+    D_800B76F0->key_off_l = 0xFFFF;
+    D_800B76F0->key_off_r = 0xFFFF;
+    D_800B76F0->reverb_l = 0;
+    D_800B76F0->reverb_r = 0;
+    {
+        short *p;
+        for (i = 0, p = D_800EF188; i < 10; i++) {
+            *p++ = 0;
+        }
+    }
+    if (mode == 0) {
+        D_800B7708 = 0x200;
+        D_800B76F0->pitch_mod_l = 0;
+        D_800B76F0->pitch_mod_r = 0;
+        D_800B76F0->noise_l = 0;
+        D_800B76F0->noise_r = 0;
+        D_800B76F0->cd_vol_l = 0;
+        D_800B76F0->cd_vol_r = 0;
+        D_800B76F0->ext_vol_l = 0;
+        D_800B76F0->ext_vol_r = 0;
+        func_8009A2FC(D_800B7730, 16);
+        {
+            SpuVoice *v = D_800B76F0->voice;
+            for (i = 0; i < 24; i++) {
+                v->vol_l = 0;
+                v->vol_r = 0;
+                v->pitch = 0x3FFF;
+                v->addr = 0x200;
+                v->adsr1 = 0;
+                v->adsr2 = 0;
+                v++;
+            }
+        }
+        D_800B76F0->key_on_l = 0xFFFF;
+        D_800B76F0->key_on_r = 0xFF;
+        func_8009AA0C();
+        func_8009AA0C();
+        func_8009AA0C();
+        func_8009AA0C();
+        D_800B76F0->key_off_l = 0xFFFF;
+        D_800B76F0->key_off_r = 0xFF;
+        func_8009AA0C();
+        func_8009AA0C();
+        func_8009AA0C();
+        func_8009AA0C();
+    }
+    {
+        int r;
+        r = 0;
+        D_800B7724 = 1;
+        D_800B76F0->control = 0xC000;
+        D_800B7728 = 0;
+        D_800B772C = 0;
+        __asm__("" : "=r"(r) : "0"(r));
+        return r;
+    }
+}

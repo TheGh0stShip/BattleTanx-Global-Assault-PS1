@@ -1,14 +1,50 @@
-asm(".text\n\t.globl func_8007A3CC\nfunc_8007A3CC:\n\t"
-    ".word 0x3c02800c,0x8c4360d0,0x24020007,0x1062002d\n\t"
-    ".word 0x00004821,0x8c820008,0x00000000,0x10400025\n\t"
-    ".word 0x00405021,0x8c830000,0x8c850004,0x9087000c\n\t"
-    ".word 0x9082000d,0x9086000e,0x10a0001e,0x00804021\n\t"
-    ".word 0x10c00003,0x00000000,0x0801e908,0x00651823\n\t"
-    ".word 0x00651821,0x00021600,0x00022e03,0x00650018\n\t"
-    ".word 0x00005812,0x05610003,0x00051300,0x00621821\n\t"
-    ".word 0x00051300,0x0062001a,0x14400002,0x00000000\n\t"
-    ".word 0x0007000d,0x2401ffff,0x14410004,0x3c018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000d,0x00001810\n\t"
-    ".word 0x00000000,0x00031303,0x00e21021,0xad030000\n\t"
-    ".word 0xa1420000,0x25290001,0x29220005,0x1440ffd5\n\t"
-    ".word 0x24840010,0x03e00008,0x00000000\n\t");
+typedef struct Cycler {
+    int value;
+    int step;
+    unsigned char *out;
+    unsigned char base;
+    unsigned char range;
+    unsigned char reverse;
+    unsigned char pad;
+} Cycler;
+
+extern int D_800C60D0;
+
+static inline void Cycler_Step(Cycler *c) {
+    int step = c->step;
+    int v = c->value;
+    int range;
+    unsigned char base = c->base;
+    unsigned char *out = c->out;
+    unsigned char range8 = c->range;
+    unsigned char reverse = c->reverse;
+
+    if (step == 0) {
+        return;
+    }
+    if (reverse) {
+        v -= step;
+    } else {
+        v += step;
+    }
+    range = (signed char)range8;
+    if (v * range < 0) {
+        v += range << 12;
+    }
+    v %= range << 12;
+    c->value = v;
+    *out = base + (v >> 12);
+}
+
+void func_8007A3CC(Cycler *list) {
+    int i = 0;
+
+    if (D_800C60D0 == 7) {
+        return;
+    }
+    for (; i < 5; i++) {
+        if (list[i].out != 0) {
+            Cycler_Step(&list[i]);
+        }
+    }
+}

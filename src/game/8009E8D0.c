@@ -1,31 +1,71 @@
-asm(".text\n\t.globl func_8009E8D0\nfunc_8009E8D0:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFB20018\n\t"
-    ".word 0x00A09021,0xAFBF001C,0x06410022,0xAFB10014\n\t"
-    ".word 0x3C02800C,0x8C428CD8,0x8E030040,0x90440000\n\t"
-    ".word 0x240200FF,0xA2020044,0x24020001,0xA2020045\n\t"
-    ".word 0x00121027,0xA0620000,0x3C03800C,0x8C638CD8\n\t"
-    ".word 0x00000000,0x94620004,0x00000000,0x30420001\n\t"
-    ".word 0x14400006,0x309100FF,0x94620004,0x00000000\n\t"
-    ".word 0x30420001,0x1040FFFC,0x00000000,0x0C028E91\n\t"
-    ".word 0x00000000,0x1040FFFD,0x00121027,0x3C03800C\n\t"
-    ".word 0x8C638CD8,0x00000000,0xA0620000,0x08027AA4\n\t"
-    ".word 0x02201021,0x8E02003C,0x00000000,0x90420000\n\t"
-    ".word 0x24030008,0x00021103,0x14430007,0x24060088\n\t"
-    ".word 0x92020044,0x00000000,0x2C420009,0x14400003\n\t"
-    ".word 0x3C021F80,0x24060022,0x3C021F80,0x34421120\n\t"
-    ".word 0x3C05800C,0x8CA58CD8,0x94440000,0x94A30004\n\t"
-    ".word 0x240201AE,0x3C01800F,0xAC22FE3C,0x3C01800F\n\t"
-    ".word 0xAC24FE40,0x30630002,0x14600006,0x00A01821\n\t"
-    ".word 0x94620004,0x00000000,0x30420002,0x1040FFFC\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428CD8,0x3C03800C\n\t"
-    ".word 0x8C638CD4,0x90440000,0xA446000E,0x8C620000\n\t"
-    ".word 0x00000000,0x30420080,0x1440000D,0x309100FF\n\t"
-    ".word 0x0C028E91,0x00000000,0x14400019,0x2402FFEC\n\t"
-    ".word 0x3C02800C,0x8C428CD4,0x00000000,0x8C420000\n\t"
-    ".word 0x00000000,0x30420080,0x1040FFF5,0x00000000\n\t"
-    ".word 0x3C02800C,0x8C428CD8,0x00000000,0xA0520000\n\t"
-    ".word 0x92020045,0x92040044,0x8E03003C,0x24420001\n\t"
-    ".word 0x00641821,0xA2020045,0xA0710000,0x92020044\n\t"
-    ".word 0x00000000,0x24420001,0xA2020044,0x02201021\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct SioRegs {
+    unsigned char data;
+    char pad1[3];
+    unsigned short stat;
+    char pad6[2];
+    unsigned short mode;
+    unsigned short ctrl;
+    char padC[2];
+    unsigned short baud;
+} SioRegs;
+
+typedef struct PadRegs {
+    int unk00;
+} PadRegs;
+
+typedef struct PadPort {
+    char pad0[0x3C];
+    unsigned char *in;
+    unsigned char *out;
+    unsigned char index;
+    unsigned char count;
+} PadPort;
+
+extern volatile SioRegs *D_800B8CD8;
+extern volatile PadRegs *D_800B8CD4;
+extern int D_800EFE3C;
+extern int D_800EFE40;
+
+int func_800A3A44(void);
+
+int func_8009E8D0(PadPort *p, int byte)
+{
+    int r;
+    int baud;
+    int c;
+
+    if (byte < 0) {
+        r = D_800B8CD8->data;
+        p->index = 0xFF;
+        p->count = 1;
+        *p->out = ~byte;
+        while (!(D_800B8CD8->stat & 1)) {
+        }
+        while (func_800A3A44() == 0) {
+        }
+        D_800B8CD8->data = ~byte;
+        goto done;
+    }
+    c = *p->in;
+    baud = 0x88;
+    if ((c >> 4) == 8 && p->index >= 9) {
+        baud = 0x22;
+    }
+    D_800EFE3C = 430;
+    D_800EFE40 = *(volatile unsigned short *)0x1F801120;
+    while (!(D_800B8CD8->stat & 2)) {
+    }
+    r = D_800B8CD8->data;
+    D_800B8CD8->baud = baud;
+    while (!(D_800B8CD4->unk00 & 0x80)) {
+        if (func_800A3A44() != 0) {
+            return -20;
+        }
+    }
+    D_800B8CD8->data = byte;
+    p->count++;
+    p->in[p->index] = r;
+    p->index++;
+done:
+    return r;
+}

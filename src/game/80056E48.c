@@ -1,95 +1,150 @@
-asm(".text\n\t.globl func_80056E48\nfunc_80056E48:\n\t"
-    ".word 0x27BDFF70,0xAFB30074,0x00809821,0xAFB70084\n\t"
-    ".word 0x0260B821,0xAFBF008C,0xAFBE0088,0xAFB60080\n\t"
-    ".word 0xAFB5007C,0xAFB40078,0xAFB20070,0xAFB1006C\n\t"
-    ".word 0xAFB00068,0x92640000,0x00E06821,0xA7A50020\n\t"
-    ".word 0x30A3FFFF,0x00031900,0x3C02800E,0x244246C0\n\t"
-    ".word 0x00624021,0x8FAA00A0,0x8FAF00A4,0x8FA200B0\n\t"
-    ".word 0x97B800A8,0x97B900AC,0x00004821,0xA7A60028\n\t"
-    ".word 0xA7B80030,0x1080014B,0xA7B90038,0x330EFFFF\n\t"
-    ".word 0x00021400,0x00026403,0x240B0800,0x00008821\n\t"
-    ".word 0x0220F021,0x02208021,0x0220A021,0x24020020\n\t"
-    ".word 0x14820008,0x02209021,0x00401821,0x26730001\n\t"
-    ".word 0x26F70001,0x92620000,0x00000000,0x1043FFFB\n\t"
-    ".word 0x25290001,0x00121400,0x00021403,0x004E102A\n\t"
-    ".word 0x104000A7,0x0000A821,0x00091400,0x00022C03\n\t"
-    ".word 0x3C02800E,0x2456DB9C,0x92620000,0x00000000\n\t"
-    ".word 0x10400008,0x00000000,0x05800009,0x00111400\n\t"
-    ".word 0x00021403,0x00A21021,0x004C102A,0x14400004\n\t"
-    ".word 0x00000000,0x0220F021,0x08015C6E,0x0240A021\n\t"
-    ".word 0x92630000,0x24020020,0x14620030,0x2402000A\n\t"
-    ".word 0x0220F021,0x86C300BC,0x24020200,0x1462001C\n\t"
-    ".word 0x0240A021,0x95020004,0x24191999,0x00021300\n\t"
-    ".word 0x03220018,0x0000C012,0x00001810,0x0018C302\n\t"
-    ".word 0x00031D00,0x0303C025,0x03001021,0x01420018\n\t"
-    ".word 0x00001812,0x0000C010,0x00031B02,0x0018C500\n\t"
-    ".word 0x00781825,0x04600005,0x24620800,0x0441006B\n\t"
-    ".word 0x00000000,0x08015C64,0x00021023,0x2462F800\n\t"
-    ".word 0x0441006B,0x00021303,0x08015C64,0x01631023\n\t"
-    ".word 0x95020004,0x00000000,0x00021300,0x01420018\n\t"
-    ".word 0x00001812,0x0000C810,0x00031B02,0x0019CD00\n\t"
-    ".word 0x00791825,0x0460FFF1,0x24620800,0x04410057\n\t"
-    ".word 0x00000000,0x08015C64,0x00021023,0x10620003\n\t"
-    ".word 0x2402003C,0x14620005,0x00000000,0x0220F021\n\t"
-    ".word 0x0240A021,0x08015C6E,0x24150001,0x92640000\n\t"
-    ".word 0xAFA50040,0xAFA80044,0xAFA90048,0xAFAA004C\n\t"
-    ".word 0xAFAB0050,0xAFAC0054,0xAFAD0058,0xAFAE005C\n\t"
-    ".word 0x0C015A90,0xAFAF0060,0x3043FFFF,0x3402FFFF\n\t"
-    ".word 0x8FA50040,0x8FA80044,0x8FA90048,0x8FAA004C\n\t"
-    ".word 0x8FAB0050,0x8FAC0054,0x8FAD0058,0x8FAE005C\n\t"
-    ".word 0x8FAF0060,0x1062003C,0x00031040,0x00431021\n\t"
-    ".word 0x8D030008,0x00021040,0x00431021,0x94420004\n\t"
-    ".word 0x00000000,0x10400034,0x24020200,0x86C300BC\n\t"
-    ".word 0x00000000,0x14620017,0x24191999,0x95020004\n\t"
-    ".word 0x00000000,0x00021300,0x03220018,0x0000C012\n\t"
-    ".word 0x00001810,0x0018C302,0x00031D00,0x0303C025\n\t"
-    ".word 0x03001021,0x01420018,0x00001812,0x0000C010\n\t"
-    ".word 0x00031B02,0x0018C500,0x00781825,0x0460FFAF\n\t"
-    ".word 0x24620800,0x04410015,0x00000000,0x08015C64\n\t"
-    ".word 0x00021023,0x95020004,0x00000000,0x00021300\n\t"
-    ".word 0x01420018,0x00001812,0x0000C810,0x00031B02\n\t"
-    ".word 0x0019CD00,0x00791825,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x08015C64,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x08015C66\n\t"
-    ".word 0x00021303,0x01631023,0x00021303,0x00021023\n\t"
-    ".word 0x00408021,0x02509021,0x26730001,0x00121400\n\t"
-    ".word 0x00021403,0x004E102A,0x1440FF5F,0x26310001\n\t"
-    ".word 0x001E1400,0x1440001D,0x03C0B021,0x2622FFFF\n\t"
-    ".word 0x0040B021,0x00021400,0x04410017,0x32A2FFFF\n\t"
-    ".word 0x10400067,0x26730001,0x95020000,0x26F70001\n\t"
-    ".word 0x00021300,0x01E20018,0x00001812,0x0000C010\n\t"
-    ".word 0x00031B02,0x0018C500,0x00781825,0x04600005\n\t"
-    ".word 0x24620800,0x0441006E,0x00000000,0x08015CF5\n\t"
-    ".word 0x00021023,0x2462F800,0x0441006E,0x00021303\n\t"
-    ".word 0x08015CF5,0x01631023,0x0250A023,0x97A30038\n\t"
-    ".word 0x24020001,0x10620008,0x28620002,0x1040000B\n\t"
-    ".word 0x00141400,0x1460000A,0x00021403,0x97B00028\n\t"
-    ".word 0x08015CA3,0x00008821,0x97B90030,0x97B80028\n\t"
-    ".word 0x03341023,0x08015CA2,0x03028021,0x00021403\n\t"
-    ".word 0x01C21023,0x97B90028,0x00021043,0x03228021\n\t"
-    ".word 0x00008821,0x00161400,0x00021403,0x18400024\n\t"
-    ".word 0x00000000,0x000DAC00,0x0040A021,0x92E40000\n\t"
-    ".word 0x26F70001,0x26310001,0x00103400,0x00063403\n\t"
-    ".word 0x8FB800B4,0x97A50020,0x00153C03,0xAFAA0010\n\t"
-    ".word 0xAFAF0014,0xAFA80044,0xAFA90048,0xAFAA004C\n\t"
-    ".word 0xAFAB0050,0xAFAC0054,0xAFAD0058,0xAFAE005C\n\t"
-    ".word 0xAFAF0060,0x0C015ADC,0xAFB80018,0x02028021\n\t"
-    ".word 0x3222FFFF,0x0054102A,0x8FA80044,0x8FA90048\n\t"
-    ".word 0x8FAA004C,0x8FAB0050,0x8FAC0054,0x8FAD0058\n\t"
-    ".word 0x8FAE005C,0x8FAF0060,0x1440FFE0,0x00000000\n\t"
-    ".word 0x92620000,0x00000000,0x14400006,0x01364821\n\t"
-    ".word 0x00121400,0x00021403,0x004E102A,0x1440002A\n\t"
-    ".word 0x24020001,0x001E1400,0x10400003,0x00000000\n\t"
-    ".word 0x26F70001,0x25290001,0x05800007,0x00091400\n\t"
-    ".word 0x00021403,0x0182102A,0x10400003,0x00000000\n\t"
-    ".word 0x08015CFC,0x00001021,0x95020000,0x02E09821\n\t"
-    ".word 0x00021300,0x01E20018,0x00001812,0x0000C810\n\t"
-    ".word 0x00031B02,0x0019CD00,0x00791825,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x08015CF5\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x08015CF7,0x00021303,0x01631023,0x00021303\n\t"
-    ".word 0x00021023,0x92640000,0x00000000,0x1480FEBB\n\t"
-    ".word 0x01A26821,0x24020001,0x8FBF008C,0x8FBE0088\n\t"
-    ".word 0x8FB70084,0x8FB60080,0x8FB5007C,0x8FB40078\n\t"
-    ".word 0x8FB30074,0x8FB20070,0x8FB1006C,0x8FB00068\n\t"
-    ".word 0x03E00008,0x27BD0090\n");
+typedef struct {
+    unsigned short u;
+    unsigned short v;
+    unsigned short w;
+} Glyph;
+typedef struct {
+    unsigned short height;
+    unsigned short space;
+    unsigned short blank;
+    char pad6[2];
+    Glyph *glyphs;
+    void *image;
+} Font;
+extern Font D_800E46C0[];
+extern unsigned short D_800A5FEC;
+typedef struct {
+    char pad0[0xBC];
+    short width;
+} Video;
+extern Video D_800DDB9C;
+extern unsigned short func_80056A40(unsigned char);
+extern void func_80056550(void *, short, short, short, short, short, short, int, int, int);
+extern int func_80056B70(unsigned char, unsigned short, short, short, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+int func_80056E48(unsigned char *text, unsigned short font, short x, short y0, int scale_x, int scale_y,
+                  unsigned short width, unsigned short align, short max_chars, int color) {
+    Font *f = &D_800E46C0[font];
+    unsigned char *line = text;
+    short y = y0;
+    short shown = 0;
+    short count;
+    short brk;
+    short adv;
+    short brk_w;
+    short total;
+    unsigned short newline;
+    short draw;
+    short pos;
+    unsigned short i;
+    unsigned short index;
+
+    while (*text != 0) {
+        count = 0;
+        brk = 0;
+        adv = 0;
+        brk_w = 0;
+        total = 0;
+        while (*text == ' ') {
+            text++;
+            line++;
+            shown++;
+        }
+        newline = 0;
+        if (total < width) {
+            __asm__("" : "+r"(newline));
+            do {
+                if (*text == 0 || (max_chars >= 0 && shown + count >= max_chars)) {
+                    brk = count;
+                    brk_w = total;
+                    break;
+                }
+                if (*text == ' ') {
+                    brk = count;
+                    brk_w = total;
+                    if (D_800DDB9C.width == 512) {
+                        adv = round_fixed(fixed_mul(scale_x, fixed_mul(6553, f->blank << 12)));
+                    } else {
+                        adv = round_fixed(fixed_mul(scale_x, f->blank << 12));
+                    }
+                    total += adv;
+                } else if (*text == 10 || *text == '<') {
+                    brk = count;
+                    brk_w = total;
+                    newline = 1;
+                    break;
+                } else {
+                    index = func_80056A40(*text);
+                    if (index != 0xFFFF && f->glyphs[index].w != 0) {
+                        if (D_800DDB9C.width == 512) {
+                            adv = round_fixed(fixed_mul(scale_x, fixed_mul(6553, f->blank << 12)));
+                        } else {
+                            adv = round_fixed(fixed_mul(scale_x, f->blank << 12));
+                        }
+                        total += adv;
+                    }
+                }
+                text++;
+                count++;
+            } while (total < width);
+        }
+        draw = brk;
+        if (brk == 0) {
+            draw = count - 1;
+            if (draw < 0) {
+                text++;
+                if (newline == 0) {
+                    return 0;
+                }
+                line++;
+                y += round_fixed(fixed_mul(scale_y, f->height << 12));
+                continue;
+            }
+            brk_w = total - adv;
+        }
+        switch (align) {
+        case 0:
+            pos = x;
+            break;
+        case 1:
+            pos = x + (width - brk_w);
+            break;
+        case 2:
+        default:
+            pos = x + ((width - brk_w) >> 1);
+            break;
+        }
+        for (i = 0; i < draw; i++) {
+            pos += func_80056B70(*line++, font, pos, y, scale_x, scale_y, color);
+        }
+        shown += draw;
+        if (*text == 0 && total < width) {
+            return 1;
+        }
+        if (brk != 0) {
+            line++;
+            shown++;
+        }
+        if (max_chars >= 0 && max_chars < shown) {
+            return 0;
+        }
+        text = line;
+        y += round_fixed(fixed_mul(scale_y, f->height << 12));
+    }
+    return 1;
+}

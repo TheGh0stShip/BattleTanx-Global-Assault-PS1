@@ -1,78 +1,163 @@
-asm(".text\n\t.globl func_80074254\nfunc_80074254:\n\t"
-    ".word 0x27BDFF90,0xAFB50064,0x00A0A821,0xAFB3005C\n\t"
-    ".word 0x00C09821,0xAFBF006C,0xAFB60068,0xAFB40060\n\t"
-    ".word 0xAFB20058,0xAFB10054,0xAFB00050,0x8C940008\n\t"
-    ".word 0x00000000,0x12800119,0x00E0B021,0x8EB10000\n\t"
-    ".word 0x8E820008,0x8EB20008,0x02228823,0x8E820010\n\t"
-    ".word 0x02202021,0x02429023,0x0C022B8C,0x02402821\n\t"
-    ".word 0x30500FFF,0x02002021,0x00101100,0x0C022B58\n\t"
-    ".word 0xA7A20030,0x00510018,0x00004812,0x00005010\n\t"
-    ".word 0x00094B02,0x000A5500,0x012A4825,0x01208821\n\t"
-    ".word 0x0C022B30,0x02002021,0x00520018,0x00002812\n\t"
-    ".word 0x00005810,0x00052B02,0x000B5D00,0x00AB2825\n\t"
-    ".word 0x8EA20004,0x8E84000C,0x02252821,0x0C022B8C\n\t"
-    ".word 0x00442023,0x30500FFF,0x2A620032,0x10400047\n\t"
-    ".word 0x2A620006,0x14400045,0x2662FFFB,0x2405002D\n\t"
-    ".word 0x3C038000,0x00434024,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x00A03821,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20034,0xE85F0000,0x8FA40034\n\t"
-    ".word 0x00000000,0x2486FFF4,0x04C10023,0x00000000\n\t"
-    ".word 0x00831804,0x4887F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20038,0xE85F0000,0x8FA50038,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0801D0EF,0x00471007\n\t"
-    ".word 0x00021023,0x00471004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0801D105\n\t"
-    ".word 0x00831804,0x00061023,0x00471007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0801D107,0x00601021,0x00031B00,0x0065001B\n\t"
-    ".word 0x14A00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11000002,0x240A6800\n\t"
-    ".word 0x00021023,0x01420018,0x00001812,0x00004810\n\t"
-    ".word 0x00031B02,0x00094D00,0x00691825,0x12C00004\n\t"
-    ".word 0x00000000,0x97A20030,0x00000000,0xA6C20000\n\t"
-    ".word 0x00108102,0x0C022B58,0x02002021,0x02002021\n\t"
-    ".word 0x0C022B30,0x00409021,0x97A40030,0x00408021\n\t"
-    ".word 0x0C022B58,0x00042102,0x97A40030,0x00408821\n\t"
-    ".word 0x0C022B30,0x00042102,0x8EAB0000,0x8EAC0004\n\t"
-    ".word 0x8EA90008,0xAFAB0018,0xAFAC001C,0xAFA90020\n\t"
-    ".word 0x02110018,0x00001812,0x00002010,0x00031B02\n\t"
-    ".word 0x00042500,0x00641825,0xA7A30028,0x02020018\n\t"
-    ".word 0x00005812,0x00001810,0x000B5B02,0x00031D00\n\t"
-    ".word 0x01635825,0x01601021,0x24050064,0xA7A2002C\n\t"
-    ".word 0x3C028000,0xA7B2002A,0x8E830214,0x00A03821\n\t"
-    ".word 0x00624024,0x04610002,0x00000000,0x00031823\n\t"
-    ".word 0x4883F000,0x00000000,0x00000000,0x27A2003C\n\t"
-    ".word 0xE85F0000,0x8FA4003C,0x00000000,0x2486FFF4\n\t"
-    ".word 0x04C10023,0x00000000,0x00831804,0x4887F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20040,0xE85F0000\n\t"
-    ".word 0x8FA50040,0x00000000,0x00A42023,0x0480000F\n\t"
-    ".word 0x2402000C,0x00451023,0x04400003,0x00000000\n\t"
-    ".word 0x0801D15D,0x00471007,0x00021023,0x00471004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00003812,0x0801D173,0x00873804,0x00061023\n\t"
-    ".word 0x00471007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00003812,0x0801D173,0x00000000\n\t"
-    ".word 0x00031B00,0x0065001B,0x14A00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00003812,0x11000002,0x24040004\n\t"
-    ".word 0x00073823,0x27A50018,0x27A60028,0x0C01C629\n\t"
-    ".word 0xAFA00010,0x24050064,0x3C038000,0x8E820214\n\t"
-    ".word 0x00A03821,0x00434024,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20044,0xE85F0000,0x8FA40044,0x00000000\n\t"
-    ".word 0x2486FFF4,0x04C10023,0x00000000,0x00831804\n\t"
-    ".word 0x4887F000,0x00000000,0x00000000,0x27A20048\n\t"
-    ".word 0xE85F0000,0x8FA50048,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x0801D19E,0x00471007,0x00021023\n\t"
-    ".word 0x00471004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00003812,0x0801D1B4,0x00873804\n\t"
-    ".word 0x00061023,0x00471007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00003812,0x0801D1B4\n\t"
-    ".word 0x00000000,0x00031B00,0x0065001B,0x14A00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00003812,0x11000002\n\t"
-    ".word 0x00000000,0x00073823,0xAFA00010,0x24040005\n\t"
-    ".word 0x27A50018,0x0C01C629,0x27A60028,0x00001021\n\t"
-    ".word 0x8FBF006C,0x8FB60068,0x8FB50064,0x8FB40060\n\t"
-    ".word 0x8FB3005C,0x8FB20058,0x8FB10054,0x8FB00050\n\t"
-    ".word 0x03E00008,0x27BD0070\n");
+typedef struct Vec {
+    int x;
+    int y;
+    int z;
+} Vec;
+
+typedef struct SVec {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVec;
+
+typedef struct Angle {
+    unsigned short x;
+    short pad;
+} Angle;
+
+typedef struct Tank {
+    int pad0[2];
+    Vec pos;
+    char pad14[0x214 - 0x14];
+    int shake;
+} Tank;
+
+typedef struct Owner {
+    int pad0[2];
+    Tank *tank;
+} Owner;
+
+extern int func_8008AE30(int, int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+extern void func_800718A4(int, Vec *, SVec *, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denom) {
+    register int denominator asm("$5") = denom;
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    register int excess asm("$6");
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (sign = numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    __asm__("" : "=r"(negative) : "0"(negative));
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            scale = -excess;
+            quotient = (unsigned int)n / (d >> scale);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline void copy_heading(unsigned short *dst, unsigned short *src) {
+    if (dst != 0) {
+        *dst = *src;
+    }
+}
+
+int func_80074254(Owner *owner, Vec *target, int dist, unsigned short *heading) {
+    Tank *tank;
+    int dx;
+    int dz;
+    int yaw;
+    unsigned int pitch;
+    int sin_p;
+    int cos_p;
+    int sin_y;
+    int cos_y;
+    Vec pos;
+    SVec dir;
+    unsigned short angle;
+    unsigned short *ap;
+
+    tank = owner->tank;
+    if (tank == 0) {
+        return 0;
+    }
+    dx = target->x - tank->pos.x;
+    dz = target->z - tank->pos.z;
+    yaw = func_8008AE30(dx, dz) & 0xFFF;
+    ap = &angle;
+    *ap = yaw << 4;
+    dx = fixed_mul(func_8008AD60(yaw), dx);
+    pitch = func_8008AE30(target->y - tank->pos.y, dx + fixed_mul(func_8008ACC0(yaw), dz)) & 0xFFF;
+    if (dist < 50) {
+        if (dist >= 6) {
+            int n = dist - 5;
+            __asm__("" : "+r"(n));
+            fixed_mul(26624, fixed_div(n, 45));
+        }
+    }
+    copy_heading(heading, &angle);
+    pitch >>= 4;
+    sin_p = func_8008AD60(pitch);
+    cos_p = func_8008ACC0(pitch);
+    sin_y = func_8008AD60(angle >> 4);
+    cos_y = func_8008ACC0(angle >> 4);
+    pos = *target;
+    dir.x = fixed_mul(cos_p, sin_y);
+    dir.z = fixed_mul(cos_p, cos_y);
+    dir.y = sin_p;
+    func_800718A4(4, &pos, &dir, fixed_div(tank->shake, 100), 0);
+    func_800718A4(5, &pos, &dir, fixed_div(tank->shake, 100), 0);
+    return 0;
+}

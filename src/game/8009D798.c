@@ -1,41 +1,69 @@
-asm(".text\n\t.globl func_8009D798\nfunc_8009D798:\n\t"
-    ".word 0x27BDFFE8,0x3C04800C,0x24848C30,0xAFBF0010\n\t"
-    ".word 0x0C027684,0x24050008,0x24040003,0x3C02800C\n\t"
-    ".word 0x8C428C2C,0x3C05800A,0x24A5D7E4,0x0C025108\n\t"
-    ".word 0xAC400000,0x3C02800A,0x2442D964,0x8FBF0010\n\t"
-    ".word 0x27BD0018,0x03E00008,0x00000000,0x3C02800C\n\t"
-    ".word 0x8C428C2C,0x27BDFFD0,0xAFBF0028,0xAFB50024\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB20018,0xAFB10014\n\t"
-    ".word 0xAFB00010,0x8C420000,0x00000000,0x00021602\n\t"
-    ".word 0x3051007F,0x12200028,0x00000000,0x24140001\n\t"
-    ".word 0x3C1300FF,0x3673FFFF,0x3C15800C,0x26B58C30\n\t"
-    ".word 0x12200018,0x00008021,0x02A09021,0x2A020007\n\t"
-    ".word 0x10400014,0x32220001,0x1040000E,0x26020018\n\t"
-    ".word 0x3C04800C,0x8C848C2C,0x00541004,0x8C830000\n\t"
-    ".word 0x00531025,0x00621824,0xAC830000,0x8E420000\n\t"
-    ".word 0x00000000,0x10400003,0x00000000,0x0040F809\n\t"
-    ".word 0x00000000,0x26520004,0x00118842,0x1620FFEB\n\t"
-    ".word 0x26100001,0x3C02800C,0x8C428C2C,0x00000000\n\t"
-    ".word 0x8C420000,0x00000000,0x00021602,0x3051007F\n\t"
-    ".word 0x1620FFDF,0x00000000,0x3C05800C,0x8CA58C2C\n\t"
-    ".word 0x00000000,0x8CA20000,0x3C03FF00,0x00431024\n\t"
-    ".word 0x3C038000,0x10430006,0x00000000,0x8CA20000\n\t"
-    ".word 0x00000000,0x30428000,0x10400013,0x00000000\n\t"
-    ".word 0x3C04800C,0x24845CF8,0x8CA50000,0x0C0250EC\n\t"
-    ".word 0x00008021,0x3C04800C,0x24845D14,0x02002821\n\t"
-    ".word 0x3C02800C,0x8C428C50,0x00101900,0x00621821\n\t"
-    ".word 0x8C660000,0x0C0250EC,0x26100001,0x2A020007\n\t"
-    ".word 0x1440FFF4,0x00000000,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030,0x00803021\n\t"
-    ".word 0x3C03800C,0x24638C30,0x00061080,0x00431821\n\t"
-    ".word 0x8C670000,0x00A02021,0x10870021,0x00E01021\n\t"
-    ".word 0x10800010,0x3C0200FF,0x3C05800C,0x8CA58C2C\n\t"
-    ".word 0x3442FFFF,0xAC640000,0x8CA40000,0x24C30010\n\t"
-    ".word 0x00822024,0x24020001,0x00621004,0x3C030080\n\t"
-    ".word 0x00431025,0x00822025,0xACA40000,0x08027682\n\t"
-    ".word 0x00E01021,0x3C05800C,0x8CA58C2C,0x3442FFFF\n\t"
-    ".word 0xAC600000,0x8CA30000,0x24C40010,0x00621824\n\t"
-    ".word 0x3C020080,0x00621825,0x24020001,0x00821004\n\t"
-    ".word 0x00021027,0x00621824,0xACA30000,0x00E01021\n\t"
-    ".word 0x03E00008,0x00000000\n");
+typedef void (*DmaHandler)(void);
+
+extern DmaHandler D_800B8C30[8];
+extern volatile unsigned int *D_800B8C2C;
+extern volatile int *D_800B8C50;
+extern char D_800C5CF8[];
+extern char D_800C5D14[];
+extern void func_8009DA10(void *, int);
+extern void func_80094420(int, void (*)(void));
+extern void func_800943B0(char *, ...);
+
+void func_8009D7E4(void);
+DmaHandler func_8009D964(int channel, DmaHandler handler);
+
+void *func_8009D798(void)
+{
+    func_8009DA10(D_800B8C30, 8);
+    *D_800B8C2C = 0;
+    func_80094420(3, func_8009D7E4);
+    return func_8009D964;
+}
+
+void func_8009D7E4(void)
+{
+    unsigned int mask;
+    int i;
+
+    while ((mask = (*D_800B8C2C >> 24) & 0x7F) != 0) {
+        for (i = 0; mask != 0 && i < 7; i++, mask >>= 1) {
+            if (mask & 1) {
+                *D_800B8C2C &= (1 << (i + 24)) | 0xFFFFFF;
+                if (D_800B8C30[i] != 0) {
+                    D_800B8C30[i]();
+                }
+            }
+        }
+    }
+    if ((*D_800B8C2C & 0xFF000000) == 0x80000000 || (*D_800B8C2C & 0x8000)) {
+        func_800943B0(D_800C5CF8, *D_800B8C2C);
+        for (i = 0; i < 7; i++) {
+            func_800943B0(D_800C5D14, i, D_800B8C50[i * 4]);
+        }
+    }
+}
+
+static inline DmaHandler keep(DmaHandler h)
+{
+    __asm__("" : "=r"(h) : "0"(h));
+    return h;
+}
+
+DmaHandler func_8009D964(channel, handler)
+    int channel;
+    DmaHandler handler;
+{
+    DmaHandler old = D_800B8C30[channel];
+
+    if (handler == old) {
+        return old;
+    }
+    if (handler != 0) {
+        D_800B8C30[channel] = handler;
+        *D_800B8C2C = (*D_800B8C2C & 0xFFFFFF) | 0x800000 | (1 << (channel + 16));
+    } else {
+        D_800B8C30[channel] = 0;
+        *D_800B8C2C = ((*D_800B8C2C & 0xFFFFFF) | 0x800000) & ~(1 << (channel + 16));
+    }
+    return keep(old);
+}

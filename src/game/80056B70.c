@@ -1,47 +1,65 @@
-asm(".text\n\t.globl func_80056B70\nfunc_80056B70:\n\t"
-    ".word 0x27BDFFC0,0xAFB30034,0x00C09821,0xAFB40038\n\t"
-    ".word 0x00E0A021,0x30A5FFFF,0x00052900,0x3C02800E\n\t"
-    ".word 0x244246C0,0xAFB00028,0x00A28021,0x308400FF\n\t"
-    ".word 0xAFB1002C,0x8FB10050,0x24020020,0xAFBF003C\n\t"
-    ".word 0x14820036,0xAFB20030,0x3C02800A,0x94425FEC\n\t"
-    ".word 0x00000000,0x10400004,0x3C02800E,0x96040002\n\t"
-    ".word 0x08015AFA,0x00000000,0x8E020008,0x00000000\n\t"
-    ".word 0x94440004,0x3C02800E,0x8443DC58,0x24020200\n\t"
-    ".word 0x14620015,0x00041300,0x24091999,0x01220018\n\t"
-    ".word 0x00004012,0x00001810,0x00084302,0x00031D00\n\t"
-    ".word 0x01034025,0x01001021,0x02220018,0x00001812\n\t"
-    ".word 0x00004010,0x00031B02,0x00084500,0x00681825\n\t"
-    ".word 0x04600011,0x24620800,0x04410073,0x00000000\n\t"
-    ".word 0x08015B86,0x00021023,0x02220018,0x00001812\n\t"
-    ".word 0x00004810,0x00031B02,0x00094D00,0x00691825\n\t"
-    ".word 0x04600005,0x24620800,0x04410067,0x00000000\n\t"
-    ".word 0x08015B86,0x00021023,0x2462F800,0x04410068\n\t"
-    ".word 0x00021303,0x08015B85,0x24020800,0x0C015A90\n\t"
-    ".word 0x00000000,0x3043FFFF,0x3402FFFF,0x10620009\n\t"
-    ".word 0x00031040,0x00431021,0x8E030008,0x00029040\n\t"
-    ".word 0x02431021,0x94450004,0x00000000,0x14A00003\n\t"
-    ".word 0x00143400,0x08015B8A,0x00001021,0x94470000\n\t"
-    ".word 0x94430002,0x96040000,0x8FA20054,0x00000000\n\t"
-    ".word 0xAFA20020,0x8FA20058,0x00063403,0xAFB1001C\n\t"
-    ".word 0xAFA20024,0x00031400,0x00021403,0xAFA20010\n\t"
-    ".word 0x00E51021,0x00021400,0x00021403,0x00641821\n\t"
-    ".word 0x00031C00,0x00031C03,0x00132C00,0x00073C00\n\t"
-    ".word 0x00052C03,0xAFA20014,0xAFA30018,0x8E04000C\n\t"
-    ".word 0x0C015954,0x00073C03,0x3C02800A,0x94425FEC\n\t"
-    ".word 0x00000000,0x10400004,0x3C02800E,0x96040002\n\t"
-    ".word 0x08015B5B,0x00000000,0x8E020008,0x00000000\n\t"
-    ".word 0x02421021,0x94440004,0x3C02800E,0x8443DC58\n\t"
-    ".word 0x24020200,0x14620015,0x00041300,0x24091999\n\t"
-    ".word 0x01220018,0x00004012,0x00001810,0x00084302\n\t"
-    ".word 0x00031D00,0x01034025,0x01001021,0x02220018\n\t"
-    ".word 0x00001812,0x00004010,0x00031B02,0x00084500\n\t"
-    ".word 0x00681825,0x0460FFB0,0x24620800,0x04410012\n\t"
-    ".word 0x00000000,0x08015B86,0x00021023,0x02220018\n\t"
-    ".word 0x00001812,0x00004810,0x00031B02,0x00094D00\n\t"
-    ".word 0x00691825,0x04600005,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x08015B86,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x08015B88,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0x00021400,0x00021403,0x8FBF003C,0x8FB40038\n\t"
-    ".word 0x8FB30034,0x8FB20030,0x8FB1002C,0x8FB00028\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct {
+    unsigned short u;
+    unsigned short v;
+    unsigned short w;
+} Glyph;
+typedef struct {
+    unsigned short height;
+    unsigned short space;
+    char pad4[4];
+    Glyph *glyphs;
+    void *image;
+} Font;
+extern Font D_800E46C0[];
+extern unsigned short D_800A5FEC;
+extern short D_800DDC58;
+extern unsigned short func_80056A40(unsigned char);
+extern void func_80056550(void *, short, short, short, short, short, short, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+static inline short advance(int width, int scale) {
+    if (D_800DDC58 == 512) {
+        return round_fixed(fixed_mul(scale, fixed_mul(6553, width << 12)));
+    }
+    return round_fixed(fixed_mul(scale, width << 12));
+}
+
+short func_80056B70(unsigned char c, unsigned short font, short x, short y, int scale, int color, int flags) {
+    Font *f = &D_800E46C0[font];
+    unsigned short index;
+    Glyph *g;
+    unsigned short u;
+    unsigned short v;
+    unsigned short w;
+    short right;
+    short bottom;
+
+    if (c == ' ') {
+        return advance(D_800A5FEC != 0 ? f->space : f->glyphs->w, scale);
+    }
+    index = func_80056A40(c);
+    if (index == 0xFFFF || (w = f->glyphs[index].w) == 0) {
+        return 0;
+    }
+    g = &f->glyphs[index];
+    u = g->u;
+    v = g->v;
+    right = u + w;
+    bottom = v + f->height;
+    func_80056550(f->image, x, y, u, v, right, bottom, scale, color, flags);
+    return advance(D_800A5FEC != 0 ? f->space : f->glyphs[index].w, scale);
+}

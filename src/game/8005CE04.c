@@ -1,26 +1,70 @@
-asm(".text\n\t.globl func_8005CE04\nfunc_8005CE04:\n\t"
-    ".word 0x27BDFFE8,0x3C02800A,0x244260DC,0x30A5FFFF\n\t"
-    ".word 0x00A23821,0x3C02800A,0x24030001,0xAFBF0010\n\t"
-    ".word 0x90E60000,0x8042606C,0x8C840004,0x1443001A\n\t"
-    ".word 0x3C02800B,0x3C03800B,0x24639AFC,0x00061040\n\t"
-    ".word 0x00461021,0x00021080,0x00433021,0x3C03800A\n\t"
-    ".word 0x8CC20008,0x24636084,0xAC820048,0x3C04800B\n\t"
-    ".word 0x00051080,0x00431021,0x8C420000,0x8C84A20C\n\t"
-    ".word 0x10400041,0x00000000,0x8CC20004,0x00000000\n\t"
-    ".word 0xAC8202C8,0x90C40000,0x0C017EDC,0x00000000\n\t"
-    ".word 0x080173DF,0x00000000,0x24489AFC,0x30C300FF\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00483021\n\t"
-    ".word 0x8CC20008,0x00000000,0xAC820048,0x3C02800B\n\t"
-    ".word 0x8C44A97C,0x10A00003,0x24020002,0x14A20017\n\t"
-    ".word 0x3C02800A,0x3C02800A,0x24426084,0x00051880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x10400022\n\t"
-    ".word 0x00000000,0x8CC20004,0x00000000,0xAC820288\n\t"
-    ".word 0x80E30000,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00481021,0x90440000,0x0C017EDC\n\t"
-    ".word 0x00000000,0x080173DF,0x00000000,0x24426084\n\t"
-    ".word 0x00051880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x1040000D,0x00000000,0x8CC20004,0x00000000\n\t"
-    ".word 0xAC8202A8,0x80E30000,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00481021,0x90440000\n\t"
-    ".word 0x0C017EF5,0x00000000,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct Choice {
+    unsigned char id;
+    int name;
+    int icon;
+} Choice;
+
+typedef struct Screen {
+    char pad0[0x288];
+    int name0;
+    char pad1[0x2A8 - 0x28C];
+    int name1;
+    char pad2[0x2C8 - 0x2AC];
+    int name_single;
+} Screen;
+
+typedef struct Page {
+    char pad[0x48];
+    volatile int icon;
+} Page;
+
+typedef struct Menu {
+    int pad;
+    Page *page;
+} Menu;
+
+extern signed char D_800A60DC[];
+extern signed char D_800A606C;
+extern Choice D_800A9AFC[];
+extern int D_800A6084[];
+extern Screen *volatile D_800AA20C;
+extern Screen *volatile D_800AA97C;
+extern void func_8005FB70(int);
+extern void func_8005FBD4(int);
+
+void func_8005CE04(Menu *menu, unsigned short player) {
+    unsigned char index;
+    Page *page;
+    Choice *choice;
+    Screen *screen;
+
+    index = D_800A60DC[player];
+    page = menu->page;
+    if (D_800A606C == 1) {
+        {
+            Choice *tab = D_800A9AFC;
+            choice = tab + index;
+        }
+        page->icon = choice->icon;
+        screen = D_800AA20C;
+        if (D_800A6084[player] != 0) {
+            screen->name_single = choice->name;
+            func_8005FB70(choice->id);
+        }
+    } else {
+        Choice *tab = D_800A9AFC;
+
+        choice = &tab[(unsigned char)index];
+        page->icon = choice->icon;
+        screen = D_800AA97C;
+        if (player == 0 || player == 2) {
+            if (D_800A6084[player] != 0) {
+                screen->name0 = choice->name;
+                func_8005FB70(tab[D_800A60DC[player]].id);
+            }
+        } else if (D_800A6084[player] != 0) {
+            screen->name1 = choice->name;
+            func_8005FBD4(tab[D_800A60DC[player]].id);
+        }
+    }
+}

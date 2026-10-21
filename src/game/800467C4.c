@@ -1,45 +1,142 @@
-asm(".text\n\t.globl func_800467C4\nfunc_800467C4:\n\t"
-    ".word 0x00804021,0x8D030008,0x00000000,0x04600006\n\t"
-    ".word 0x27BDFFF0,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x08011A02,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x08011A04,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20000\n\t"
-    ".word 0xAFA00004,0x8D030010,0x00000000,0x04600005\n\t"
-    ".word 0x24620800,0x0441000C,0x00021B03,0x08011A15\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x08011A17,0x00021B03,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021823,0x3C02800B,0x2447D9EC\n\t"
-    ".word 0x8CE20010,0xAFA30008,0x2443FFE8,0x1860000B\n\t"
-    ".word 0x00002821,0x8CE50004,0x8CE20014,0xACE30010\n\t"
-    ".word 0x24420001,0x24A30018,0xACE20014,0x24020006\n\t"
-    ".word 0xACE30004,0xA0A20000,0xA0A00002,0x10A00076\n\t"
-    ".word 0x00000000,0x8CE20010,0x00000000,0x2443FFF4\n\t"
-    ".word 0x1860000B,0x00002021,0x8CE40004,0x8CE20014\n\t"
-    ".word 0xACE30010,0x24420001,0x2483000C,0xACE20014\n\t"
-    ".word 0x24020003,0xACE30004,0xA0820000,0xA0800002\n\t"
-    ".word 0x10800004,0x240200F0,0xA0820007,0x24020080\n\t"
-    ".word 0xAC820008,0x240200EC,0xA0A20007,0x24021000\n\t"
-    ".word 0xA4A00008,0xA4A2000A,0xA4A0000C,0xA4A00010\n\t"
-    ".word 0xA4A00012,0xA4A20014,0x8CE20010,0x00000000\n\t"
-    ".word 0x2443FFE0,0x1860000B,0x00003021,0x8CE60004\n\t"
-    ".word 0x8CE20014,0xACE30010,0x24420001,0x24C30020\n\t"
-    ".word 0xACE20014,0x24020008,0xACE30004,0xA0C20000\n\t"
-    ".word 0xA0C00002,0x10C00048,0x24020018,0x8FA90000\n\t"
-    ".word 0x8FAA0004,0x8FAB0008,0xACC90008,0xACCA000C\n\t"
-    ".word 0xACCB0010,0x3C04800A,0xA0C20004,0xA0C20005\n\t"
-    ".word 0xA0C20006,0x8D03009C,0x24844EF4,0x00031040\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021100\n\t"
-    ".word 0x00441021,0x84430006,0x84420004,0x00000000\n\t"
-    ".word 0x00621823,0x00031040,0x00431021,0xA4C20018\n\t"
-    ".word 0x8D03009C,0x00000000,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8444000A,0x84450008,0x24020009,0xA0C20003\n\t"
-    ".word 0x2402002C,0xA0C20007,0x3C02800B,0xA0C00001\n\t"
-    ".word 0x8C43DA04,0x24020020,0xA4C00014,0xA4C00016\n\t"
-    ".word 0xA0C20001,0x00852023,0x00041040,0x00441021\n\t"
-    ".word 0x24630108,0x3C04800D,0x24843034,0xA4C2001A\n\t"
-    ".word 0xACC3001C,0x90830001,0x9505002C,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00431023,0x00021080\n\t"
-    ".word 0x00441021,0x94440006,0x90C20007,0x24030040\n\t"
-    ".word 0xA4C30014,0x34420002,0x00852023,0x00042103\n\t"
-    ".word 0xA0C20007,0xA4C40016,0x03E00008,0x27BD0010\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    char pad0[4];
+    short x0;
+    short x1;
+    short y0;
+    short y1;
+    char padC[0xD0 - 0xC];
+} VehicleType;
+
+typedef struct {
+    char pad0[6];
+    unsigned short angle;
+    char pad8[0x9C - 8];
+} View;
+
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0x2C - 0x14];
+    unsigned short heading;
+    char pad2E[0x9C - 0x2E];
+    int type;
+} Tank;
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+extern VehicleType D_800A4EF4[];
+extern View D_800D3034[];
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline PacketList *packets(void) {
+    return &D_800AD9EC;
+}
+
+static inline int *tex_base(void) {
+    return &D_800ADA04;
+}
+
+static inline unsigned char *alloc_packet(PacketList *list, int size) {
+    unsigned char *p;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = list->free;
+    left = rem - size;
+    p = 0;
+    if (left > 0) {
+        p = list->cur;
+        list->free = left;
+        {
+            register int c asm("$2") = list->count + 1;
+            register unsigned char *n asm("$3") = p + size;
+
+            list->count = c;
+            list->cur = n;
+        }
+        p[0] = size / 4;
+        p[2] = 0;
+    }
+    return p;
+}
+
+void func_800467C4(Tank *tank) {
+    register Tank *t asm("$8") = tank;
+    Vector pos;
+    register unsigned char *m asm("$5");
+    register unsigned char *d asm("$4");
+    register unsigned char *s asm("$6");
+
+    pos.x = round_shift(t->position.x);
+    pos.y = 0;
+    pos.z = round_shift(t->position.z);
+    m = alloc_packet(packets(), 24);
+    if (m == 0) {
+        return;
+    }
+    d = alloc_packet(packets(), 12);
+    if (d != 0) {
+        d[7] = 0xF0;
+        *(int *)(d + 8) = 128;
+    }
+    m[7] = 0xEC;
+    *(short *)(m + 8) = 0;
+    *(short *)(m + 10) = 4096;
+    *(short *)(m + 12) = 0;
+    *(short *)(m + 16) = 0;
+    *(short *)(m + 18) = 0;
+    *(short *)(m + 20) = 4096;
+    s = alloc_packet(packets(), 32);
+    if (s == 0) {
+        return;
+    }
+    {
+        int c = 24;
+
+        *(Vector *)(s + 8) = pos;
+        __asm__("");
+        s[4] = c;
+        s[5] = c;
+        s[6] = c;
+    }
+    *(short *)(s + 24) = (D_800A4EF4[t->type].x1 - D_800A4EF4[t->type].x0) * 3;
+    {
+        int y1 = D_800A4EF4[t->type].y1;
+        int y0 = D_800A4EF4[t->type].y0;
+
+    s[3] = 9;
+    s[7] = 0x2C;
+    {
+        int *tp = tex_base();
+        int base;
+
+        s[1] = 0;
+        base = *tp;
+        *(short *)(s + 20) = 0;
+        *(short *)(s + 22) = 0;
+        s[1] = 32;
+        *(short *)(s + 26) = (y1 - y0) * 3;
+        *(int *)(s + 28) = base + 264;
+    }
+    }
+    *(short *)(s + 22) = (D_800D3034[((unsigned char *)D_800D3034)[1]].angle - t->heading) >> 4;
+    *(short *)(s + 20) = 64;
+    s[7] |= 2;
+}

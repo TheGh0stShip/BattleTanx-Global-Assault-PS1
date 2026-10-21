@@ -1,63 +1,155 @@
-asm(".text\n\t.globl func_80076524\nfunc_80076524:\n\t"
-    ".word 0x3C02800B,0x8C42EA48,0x27BDFFA0,0xAFBF005C\n\t"
-    ".word 0xAFBE0058,0xAFB70054,0xAFB60050,0xAFB5004C\n\t"
-    ".word 0xAFB40048,0xAFB30044,0xAFB20040,0xAFB1003C\n\t"
-    ".word 0x104000DF,0xAFB00038,0x3C10800F,0x2610AFF4\n\t"
-    ".word 0x02002021,0x0C022B24,0x240501B2,0x0000B821\n\t"
-    ".word 0x3C14800C,0x269E3CEC,0x3C16800C,0x3C15800F\n\t"
-    ".word 0x26B5AFF4,0x02A09021,0x3C02800F,0x8C42AFE8\n\t"
-    ".word 0x26530010,0x00408821,0xAFA20030,0x8E230008\n\t"
-    ".word 0x00000000,0x2C620010,0x10400091,0x3C02800C\n\t"
-    ".word 0x24423D44,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x27A40020\n\t"
-    ".word 0x8E250000,0x0C025011,0x2406000F,0x02402021\n\t"
-    ".word 0x03C02821,0x2626000C,0x0801D995,0xA3A0002E\n\t"
-    ".word 0x8E230000,0x00000000,0x8C650000,0x00000000\n\t"
-    ".word 0x80A40000,0x90A60000,0x00041080,0x00431021\n\t"
-    ".word 0x8C450004,0x04800007,0x27A40020,0x10A00005\n\t"
-    ".word 0x00000000,0x0C025011,0x2406000F,0x0801D992\n\t"
-    ".word 0xA3A0002E,0x26C53CF0,0x00063600,0x0C022BEC\n\t"
-    ".word 0x00063603,0x02402021,0x03C02821,0x2626000C\n\t"
-    ".word 0x0C022BEC,0x00000000,0x02602021,0x03C02821\n\t"
-    ".word 0x0C022BEC,0x27A60020,0x0801D9FD,0x00000000\n\t"
-    ".word 0x02402021,0x26853CEC,0x8E300000,0x0C022BEC\n\t"
-    ".word 0x2626000C,0x8E020000,0x00000000,0x04410004\n\t"
-    ".word 0x00023303,0x00021023,0x00021303,0x00023023\n\t"
-    ".word 0x02602021,0x3C05800C,0x8E070000,0x24A53CF4\n\t"
-    ".word 0x0C022BEC,0x30E70FFF,0x0801D9FD,0x00000000\n\t"
-    ".word 0x02402021,0x26853CEC,0x3C06800C,0x0C022BEC\n\t"
-    ".word 0x24C63CFC,0x0801D9FD,0x00000000,0x02402021\n\t"
-    ".word 0x26853CEC,0x3C06800C,0x0C022BEC,0x24C63D14\n\t"
-    ".word 0x0801D9FD,0x00000000,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x8E060000\n\t"
-    ".word 0x0801D9EE,0x02602021,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x8E060000\n\t"
-    ".word 0x0801D9EE,0x02602021,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x96060000\n\t"
-    ".word 0x0801D9EE,0x02602021,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x86060000\n\t"
-    ".word 0x0801D9EE,0x02602021,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x92060000\n\t"
-    ".word 0x0801D9EE,0x02602021,0x02402021,0x26853CEC\n\t"
-    ".word 0x8E300000,0x0C022BEC,0x2626000C,0x02602021\n\t"
-    ".word 0x82060000,0x0C022BEC,0x26C53CF0,0x0801D9FD\n\t"
-    ".word 0x00000000,0x02402021,0x3C05800C,0x24A53D2C\n\t"
-    ".word 0x0C022BEC,0x2626000C,0x0801D9FD,0x00000000\n\t"
-    ".word 0x02402021,0x3C05800C,0x0C022BEC,0x24A53D34\n\t"
-    ".word 0x92A30010,0x2402002D,0x14620002,0x2402004E\n\t"
-    ".word 0xA2A20010,0x26B5001F,0x2652001F,0x2673001F\n\t"
-    ".word 0x8E310020,0x00000000,0x16200003,0x26F70001\n\t"
-    ".word 0x3C02800F,0x8C51AFE4,0x3C02800B,0x8C43EA48\n\t"
-    ".word 0x00000000,0x02E3102A,0x10400005,0x00000000\n\t"
-    ".word 0x8FA80030,0x00000000,0x1628FF54,0x00000000\n\t"
-    ".word 0x2412008C,0x00008821,0x00609821,0x1A60001C\n\t"
-    ".word 0x24160019,0x3C02800D,0x24555B94,0x3C02800C\n\t"
-    ".word 0x24543CEC,0x3C10800F,0x2610AFF4,0x02C02821\n\t"
-    ".word 0x00123400,0x00063403,0x3C070064,0x34E7FF64\n\t"
-    ".word 0x26520009,0xAFB00018,0x2610001F,0x3C02800A\n\t"
-    ".word 0x8C4248B4,0x26310001,0xAFA00010,0xAFB40014\n\t"
-    ".word 0x000222C0,0x00822021,0x000420C0,0x0C0248D4\n\t"
-    ".word 0x00952021,0x0233102A,0x1440FFED,0x02C02821\n\t"
-    ".word 0x8FBF005C,0x8FBE0058,0x8FB70054,0x8FB60050\n\t"
-    ".word 0x8FB5004C,0x8FB40048,0x8FB30044,0x8FB20040\n\t"
-    ".word 0x8FB1003C,0x8FB00038,0x03E00008,0x27BD0060\n");
+typedef struct Entry {
+    void *value;
+    void *(*getter)(int, int);
+    unsigned int kind;
+    char name[16];
+    int step;
+    struct Entry *next;
+} Entry;
+
+typedef struct Choice {
+    unsigned char *selected;
+    char *options[1];
+} Choice;
+
+typedef struct Line {
+    char label[16];
+    char value[15];
+} Line;
+
+typedef struct Font {
+    char data[16392];
+} Font;
+
+extern int D_800AEA48;
+extern int D_800A48B4;
+extern Entry *D_800EAFE4;
+extern Entry *D_800EAFE8;
+extern Line D_800EAFF4[];
+extern Font D_800D5B94[];
+extern void func_8008AC90(void *, int);
+extern char *func_80094044(char *, char *, int);
+extern int func_8008AFB0(char *, char *, ...);
+extern void func_80092350(Font *, int, int, int, int, char *, ...);
+
+static inline int int_part(int v) {
+    if (v < 0) {
+        return -(-v >> 12);
+    }
+    return v >> 12;
+}
+
+void func_80076524(void) {
+    Entry *entry;
+    Entry *first;
+    Line *line;
+    Choice *choice;
+    int *ip;
+    int count;
+    int j;
+    short x;
+    int index;
+    unsigned char *sel;
+    unsigned char value;
+    char *option;
+    int i;
+    short y;
+    char text[15];
+
+    if (D_800AEA48 == 0) {
+        return;
+    }
+    func_8008AC90(D_800EAFF4, 434);
+    i = 0;
+    first = D_800EAFE8;
+    entry = first;
+    do {
+        switch (entry->kind) {
+        case 9:
+        case 10:
+            func_80094044(text, entry->value, 15);
+            text[14] = 0;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%s", text);
+            break;
+        case 13:
+            choice = entry->value;
+            sel = choice->selected;
+            index = (signed char)*sel;
+            value = *sel;
+            option = ((char **)choice)[index + 1];
+            if (index >= 0 && option != 0) {
+                func_80094044(text, option, 15);
+                text[14] = 0;
+            } else {
+                func_8008AFB0(text, "%d", (signed char)value);
+            }
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%s", text);
+            break;
+        case 0:
+        case 11:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d.%d", int_part(*ip), *ip & 0xFFF);
+            break;
+        case 1:
+            func_8008AFB0(D_800EAFF4[i].label, "%s", "u64 is not supported.");
+            break;
+        case 2:
+            func_8008AFB0(D_800EAFF4[i].label, "%s", "s64 is not supported.");
+            break;
+        case 3:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *ip);
+            break;
+        case 4:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *(unsigned int *)ip);
+            break;
+        case 5:
+        case 12:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *(unsigned short *)ip);
+            break;
+        case 6:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *(short *)ip);
+            break;
+        case 7:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *(unsigned char *)ip);
+            break;
+        case 8:
+            ip = entry->value;
+            func_8008AFB0(D_800EAFF4[i].label, "%s", entry->name);
+            func_8008AFB0(D_800EAFF4[i].value, "%d", *(signed char *)ip);
+            break;
+        case 14:
+            func_8008AFB0(D_800EAFF4[i].label, "    %s", entry->name);
+            break;
+        case 15:
+            func_8008AFB0(D_800EAFF4[i].label, "    BACK");
+            break;
+        }
+        if (D_800EAFF4[i].value[0] == '-') {
+            D_800EAFF4[i].value[0] = 'N';
+        }
+        i++;
+        entry = entry->next;
+        if (entry == 0) {
+            entry = D_800EAFE4;
+        }
+    } while (i < D_800AEA48 && entry != first);
+    count = D_800AEA48;
+    line = D_800EAFF4;
+    x = 25;
+    for (j = 0, y = 140; j < count; y += 9, j++) {
+        func_80092350(&D_800D5B94[D_800A48B4], x, y, 0x64FF64, 0, "%s", &line[j]);
+    }
+}

@@ -1,19 +1,98 @@
-asm(".text\n\t.globl func_80017760\nfunc_80017760:\n\t"
-    ".word 0x27bdffe8,0x3084ffff,0x00041080,0x00441021\n\t"
-    ".word 0x000210c0,0x3c03800c,0x246362b0,0x00434821\n\t"
-    ".word 0x30a5ffff,0x00051080,0x00451021,0x000210c0\n\t"
-    ".word 0x00434021,0xafbf0010,0x95220010,0x95030010\n\t"
-    ".word 0x00000000,0x00431023,0x00021400,0x00021403\n\t"
-    ".word 0x00420018,0x95220012,0x95030012,0x00000000\n\t"
-    ".word 0x00431023,0x00005012,0x00021400,0x00021403\n\t"
-    ".word 0x00420018,0x85030022,0x85220022,0x00005812\n\t"
-    ".word 0x00431021,0x00000000,0x00420018,0x014b1821\n\t"
-    ".word 0x00001012,0x0043102b,0x1440001b,0x00001021\n\t"
-    ".word 0x3c02800c,0x9442628c,0x00000000,0x10400013\n\t"
-    ".word 0x00000000,0x852b0014,0x8523001e,0x850a0014\n\t"
-    ".word 0x85020020,0x01631821,0x01421021,0x0043102a\n\t"
-    ".word 0x1440000c,0x00001021,0x85230020,0x8502001e\n\t"
-    ".word 0x01631821,0x01421021,0x0062182a,0x10600003\n\t"
-    ".word 0x00000000,0x08005e19,0x00001021,0x0c005cfb\n\t"
-    ".word 0x00000000,0x3042ffff,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef signed short s16;
+typedef unsigned short u16;
+typedef signed int s32;
+typedef unsigned int u32;
+
+typedef struct CollisionEntry {
+    unsigned char pad00[0x10];
+    u16 x;
+    u16 y;
+    s16 z;
+    unsigned char pad16[8];
+    s16 lower;
+    s16 upper;
+    s16 radius;
+    unsigned char pad24[4];
+} CollisionEntry;
+
+extern CollisionEntry D_800C62B0[];
+extern u16 D_800C628C;
+extern s32 func_800173EC(u32 first, u32 second, void *normal, u16 *depth);
+
+s32 func_80017760(u32 first_arg, u32 second_arg, void *normal, u16 *depth)
+{
+    register u32 first asm("$4") = first_arg;
+    register u32 second asm("$5") = second_arg;
+    CollisionEntry *a;
+    CollisionEntry *b;
+    s32 delta;
+    register s32 x_squared asm("$10");
+    register s32 y_squared asm("$11");
+    register s32 distance asm("$3");
+    s32 extent;
+    register s32 extent_squared asm("$2");
+    register s32 result asm("$2");
+
+    first &= 0xffff;
+    a = &D_800C62B0[first];
+    asm("" : "+r"(a));
+    second &= 0xffff;
+    b = &D_800C62B0[second];
+
+    delta = (s16)(a->x - b->x);
+    x_squared = delta * delta;
+    delta = (s16)(a->y - b->y);
+    y_squared = delta * delta;
+    extent = a->radius + b->radius;
+    distance = x_squared + y_squared;
+    extent_squared = extent * extent;
+    if ((u32)extent_squared < (u32)distance) {
+        return 0;
+    }
+
+    if (D_800C628C != 0) {
+        register s32 a_z asm("$11");
+        register s32 a_edge asm("$3");
+        register s32 b_z asm("$10");
+        register s32 b_edge asm("$2");
+        asm volatile("");
+        a_z = a->z;
+        a_edge = a->lower;
+        b_z = b->z;
+        b_edge = b->upper;
+        a_edge = a_z + a_edge;
+        b_edge = b_z + b_edge;
+        if (b_edge < a_edge) {
+            result = 0;
+            goto mask_result;
+        }
+        a_edge = a->upper;
+        b_edge = b->lower;
+        a_edge = a_z + a_edge;
+        b_edge = b_z + b_edge;
+        {
+            register s32 separated asm("$3") = a_edge < b_edge;
+            asm volatile("" : "+r"(separated));
+            asm volatile(
+                ".set noreorder\n\t"
+                ".set nomacro\n\t"
+                "beq $3,$zero,1f\n\t"
+                "nop\n\t"
+                "j 2f\n\t"
+                "addu $2,$zero,$zero\n"
+                "1:\n\t"
+                ".set macro\n\t"
+                ".set reorder"
+                :
+                : "r"(separated)
+                : "$2");
+        }
+    }
+
+    result = func_800173EC(first, second, normal, depth);
+    asm("" : "+r"(result));
+    asm volatile("2:");
+mask_result:
+    result &= 0xffff;
+    return result;
+}

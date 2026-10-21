@@ -1,58 +1,127 @@
-asm(".text\n\t.globl func_800591C8\nfunc_800591C8:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFBF0024\n\t"
-    ".word 0xAFB40020,0xAFB20018,0xAFB10014,0xAFB00010\n\t"
-    ".word 0x8E740010,0x00000000,0x8E820000,0x00000000\n\t"
-    ".word 0x10400007,0x00000000,0x0040F809,0x00000000\n\t"
-    ".word 0x00021400,0x00021403,0x144000C7,0x00000000\n\t"
-    ".word 0x8E72000C,0x0C01D8B3,0x00000000,0x304200FF\n\t"
-    ".word 0x104000A6,0x3C04800F,0x96630014,0x2484E028\n\t"
-    ".word 0x000310C0,0x00431021,0x00021080,0x00431023\n\t"
-    ".word 0x00021080,0x00441021,0x8E830004,0x94510006\n\t"
-    ".word 0x10600006,0x00000000,0x8E420000,0x00000000\n\t"
-    ".word 0x02221024,0x1440000A,0x00000000,0x8E830008\n\t"
-    ".word 0x00000000,0x1060000A,0x00000000,0x8E420004\n\t"
-    ".word 0x00000000,0x02221024,0x10400005,0x00000000\n\t"
-    ".word 0x0060F809,0x02602021,0x0C01528C,0x24040003\n\t"
-    ".word 0x8E420010,0x00000000,0x02221024,0x10400020\n\t"
-    ".word 0x00000000,0x8E650004,0x00000000,0x90A20000\n\t"
-    ".word 0x00000000,0x1040000B,0x00008021,0x90A20001\n\t"
-    ".word 0x00000000,0x30420080,0x14400006,0x00A08021\n\t"
-    ".word 0x24A50020,0x90A20000,0x00000000,0x1440FFF7\n\t"
-    ".word 0x00008021,0x1200000E,0x00000000,0x8E020014\n\t"
-    ".word 0x00000000,0x1040000A,0x00000000,0x0C01528C\n\t"
-    ".word 0x24040003,0x02602021,0x8E020014,0x00000000\n\t"
-    ".word 0x0040F809,0x02002821,0x0801654B,0x00021400\n\t"
-    ".word 0x8E420014,0x00000000,0x02221024,0x1040001C\n\t"
-    ".word 0x00000000,0x8E650004,0x00000000,0x90A20000\n\t"
-    ".word 0x00000000,0x1040000B,0x00008021,0x90A20001\n\t"
-    ".word 0x00000000,0x30420080,0x14400006,0x00A08021\n\t"
-    ".word 0x24A50020,0x90A20000,0x00000000,0x1440FFF7\n\t"
-    ".word 0x00008021,0x1200000A,0x00000000,0x8E020018\n\t"
-    ".word 0x00000000,0x10400006,0x00000000,0x0C01528C\n\t"
-    ".word 0x24040003,0x8E020018,0x080164C9,0x02602021\n\t"
-    ".word 0x8E420018,0x00000000,0x02221024,0x1040001C\n\t"
-    ".word 0x00000000,0x8E650004,0x00000000,0x90A20000\n\t"
-    ".word 0x00000000,0x1040000B,0x00008021,0x90A20001\n\t"
-    ".word 0x00000000,0x30420080,0x14400006,0x00A08021\n\t"
-    ".word 0x24A50020,0x90A20000,0x00000000,0x1440FFF7\n\t"
-    ".word 0x00008021,0x1200000A,0x00000000,0x8E02001C\n\t"
-    ".word 0x00000000,0x10400006,0x00000000,0x0C01528C\n\t"
-    ".word 0x24040003,0x8E02001C,0x080164C9,0x02602021\n\t"
-    ".word 0x8E83000C,0x00000000,0x10600008,0x00000000\n\t"
-    ".word 0x8E42000C,0x00000000,0x02221024,0x10400003\n\t"
-    ".word 0x00000000,0x0060F809,0x02602021,0x8E420008\n\t"
-    ".word 0x00000000,0x02221024,0x10400014,0x00000000\n\t"
-    ".word 0x0C01528C,0x24040003,0x8E820010,0x00000000\n\t"
-    ".word 0x1040000C,0x00000000,0x0040F809,0x02602021\n\t"
-    ".word 0x00021400,0x00021C03,0x24020001,0x10620003\n\t"
-    ".word 0x24020003,0x14620005,0x00000000,0x0801654C\n\t"
-    ".word 0x00601021,0x0801654C,0x24020001,0x8E700004\n\t"
-    ".word 0x00000000,0x92020000,0x00000000,0x10400013\n\t"
-    ".word 0x24120001,0x24110003,0x8E020010,0x00000000\n\t"
-    ".word 0x10400009,0x02602021,0x0C016386,0x02002821\n\t"
-    ".word 0x00021400,0x00021403,0x10520009,0x00000000\n\t"
-    ".word 0x10510008,0x00021400,0x26100020,0x92020000\n\t"
-    ".word 0x00000000,0x1440FFF0,0x00000000,0x00001021\n\t"
-    ".word 0x00021400,0x00021403,0x8FBF0024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Menu Menu;
+typedef struct Item Item;
+struct Item {
+    unsigned char valid;
+    unsigned char flags;
+    char pad2[0xE];
+    void *widget;
+    int (*on_select)(Menu *, Item *);
+    int (*on_left)(Menu *, Item *);
+    int (*on_right)(Menu *, Item *);
+};
+typedef struct {
+    short (*update)(Menu *);
+    void (*up)(Menu *);
+    void (*down)(Menu *);
+    void (*extra)(Menu *);
+    short (*back)(Menu *);
+} Handlers;
+typedef struct {
+    int up;
+    int down;
+    int back;
+    int extra;
+    int select;
+    int left;
+    int right;
+} Keys;
+struct Menu {
+    char pad0[4];
+    Item *items;
+    char pad8[4];
+    Keys *keys;
+    Handlers *handlers;
+    unsigned short player;
+};
+typedef struct {
+    char pad0[6];
+    unsigned short pressed;
+    char pad8[0x8C - 8];
+} Pad;
+extern Pad D_800EE028[];
+extern unsigned char func_800762CC(void);
+extern int func_80054A30(unsigned char);
+extern short func_80058E18(Menu *, Item *);
+
+static inline Item *find_selected(Item *p) {
+    for (; p->valid != 0; p++) {
+        if (p->flags & 0x80) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+short func_800591C8(Menu *menu) {
+    Handlers *h = menu->handlers;
+    Keys *keys;
+    Item *item;
+    int ret;
+    short r;
+
+    if (h->update != 0 && (r = h->update(menu)) != 0) {
+        return r;
+    }
+    keys = menu->keys;
+    if (func_800762CC() != 0) {
+        int pressed = D_800EE028[menu->player].pressed;
+
+        if (h->up != 0 && (pressed & keys->up)) {
+            h->up(menu);
+            func_80054A30(3);
+        } else if (h->down != 0 && (pressed & keys->down)) {
+            h->down(menu);
+            func_80054A30(3);
+        }
+        if (pressed & keys->select) {
+            item = find_selected(menu->items);
+            if (item != 0 && item->on_select != 0) {
+                func_80054A30(3);
+                ret = item->on_select(menu, item);
+                goto done;
+            }
+        }
+        if (pressed & keys->left) {
+            item = find_selected(menu->items);
+            if (item != 0 && item->on_left != 0) {
+                func_80054A30(3);
+                return item->on_left(menu, item);
+            }
+        }
+        if (pressed & keys->right) {
+            item = find_selected(menu->items);
+            if (item != 0 && item->on_right != 0) {
+                func_80054A30(3);
+                return item->on_right(menu, item);
+            }
+        }
+        if (h->extra != 0 && (pressed & keys->extra)) {
+            h->extra(menu);
+        }
+        if (pressed & keys->back) {
+            func_80054A30(3);
+            if (h->back != 0) {
+                r = h->back(menu);
+                if (r == 1 || r == 3) {
+                    return r;
+                }
+            } else {
+                return 1;
+            }
+        }
+    }
+    for (item = menu->items; item->valid != 0; item++) {
+        if (item->widget != 0) {
+            ret = func_80058E18(menu, item);
+            if (ret == 1) {
+                goto done;
+            }
+            if (ret == 3) {
+                goto done;
+            }
+        }
+    }
+    ret = 0;
+done:
+    return ret;
+}
