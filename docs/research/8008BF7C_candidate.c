@@ -1,115 +1,754 @@
-__asm__(
-    ".text\n"
-    ".align 2\n"
-    ".globl func_8008BF7C\n"
-    ".ent func_8008BF7C\n"
-    "func_8008BF7C:\n"
-    ".word 0x27BDFFBC,0xAFB00010,0xAFB10014,0xAFB20018,0xAFB3001C,0xAFB40020,0xAFB50024,0xAFB60028,0xAFB7002C,0xAFBE0030\n"
-    ".word 0xAFBC0034,0xAFBF0038,0xAFBF003C,0x8C890000,0x8C8A0004,0x48C90000,0x48CA0800,0x8C890008,0x8C8A000C,0x48C91000\n"
-    ".word 0x48CA1800,0x8C890010,0x8C8A0014,0x48C92000,0x48CA2800,0x8C890018,0x8C8A001C,0x48C93000,0x48CA3800,0x8FA80054\n"
-    ".word 0x3C191F80,0x37390300,0xAF270054,0x27BDFFD4,0xAFA40010,0xAFA50014,0xAFA60018,0xAFA7001C,0xAFA80020,0xAFBF0024\n"
-    ".word 0x0C01FDF6,0x00000000,0x0C01FDFD,0x00028200,0x00108202,0x2442FAC0,0x00505020,0x4848D000,0xAF2A0058,0x00084042\n"
-    ".word 0xA728005C,0x0C023709,0x00000000,0x0C023710,0xAF220050,0xAF22004C,0x8FA40010,0x8FA50014,0x8FA60018,0x8FA7001C\n"
-    ".word 0x8FA80020,0x8FBF0024,0x27BD002C,0x8D080000,0xAF200000,0x2001FFFF,0xAF210040,0x8F2A0058,0x110003CB,0x01504822\n"
-    ".word 0x192003C9,0x00000000,0x8D010000,0xAF28000C,0xAF210004,0x910E0007,0x0001E602,0x21C1FF1F,0x14200005,0xAF200008\n"
-    ".word 0x8D010004,0x21080004,0x910E0007,0xAF210008,0x01008821,0x20080004,0x31C10010,0x00010882,0x01014020,0x31C10004\n"
-    ".word 0x01013820,0x31C100C0,0x142003A9,0x31C10008,0x142001DF,0xAF2E0048,0x35CE0008,0x00070882,0x0381E020,0x23810001\n"
-    ".word 0x00010880,0x0220A021,0x02008821,0xAF31000C,0x02219020,0x02419820,0x02618020,0xAF330014,0x22730004,0x22940004\n"
-    ".word 0xAF320010,0x8F210008,0x22310004,0x10200007,0x22520004,0xAE410000,0xAE210000,0x22310004,0xAE610000,0x22730004\n"
-    ".word 0x22520004,0x20080556,0x48884000,0x31C10010,0x00E71820,0x10200062,0x0067F020,0x8E880000,0x02871020,0x8C490000\n"
-    ".word 0x00471020,0x8C4A0000,0x00085E02,0x356B0008,0x000B5E00,0x012B4825,0x00084200,0x00084202,0x010B4025,0x014B5025\n"
-    ".word 0x03D31020,0xAC480000,0xAE280000,0x03D11020,0xAC490000,0xAE490000,0x03D21020,0xAC4A0000,0xAE6A0000,0x310F00FF\n"
-    ".word 0x312E00FF,0x01EE1020,0x314100FF,0x00026842,0x01E17820,0x000F7842,0x01C17020,0x000E7042,0x00411020,0x48824800\n"
-    ".word 0x00084202,0x00094A02,0x000A5202,0x311800FF,0x312100FF,0x314C00FF,0x03011020,0x00021042,0x00021200,0x01A26825\n"
-    ".word 0x002C1020,0x00021042,0x00021200,0x01C27025,0x01981020,0x00021042,0x00021200,0x01E27825,0x03011020,0x004C1020\n"
-    ".word 0x48825000,0x00084202,0x00094A02,0x000A5202,0x311800FF,0x312100FF,0x314C00FF,0x03011020,0x004C1020,0x48825800\n"
-    ".word 0x03011020,0x00021042,0x00021400,0x01A26825,0x002C1020,0x00021042,0x00021400,0x01C27025,0x01981020,0x00021042\n"
-    ".word 0x00021400,0x01E27825,0x4B98003D,0x00F11020,0xAC4D0000,0x00F21020,0xAC4E0000,0x00F31020,0xAC4F0000,0x48085800\n"
-    ".word 0x48015000,0x00081400,0x48084800,0x00010A00,0x00411025,0x00481025,0x00714020,0xAD020000,0x00724020,0xAD020000\n"
-    ".word 0x00734020,0xAD020000,0x10000009,0x22310004,0x8E280000,0x22310004,0x00084200,0x00084202,0x000E0E00,0x010E4025\n"
-    ".word 0xAE480000,0xAE680000,0x22520004,0x22940004,0x22730004,0x8E880000,0x02871020,0x8C490000,0x1500001E,0x3101FFFF\n"
-    ".word 0x8F28001C,0x8F290020,0x8F2A0024,0x8F2C0028,0x8F2D0030,0x8F2E0034,0x8F2F0038,0xAE280000,0x00F11020,0xAC4D0000\n"
-    ".word 0x00471020,0xAC4C0000,0x00471020,0xAC490000,0xAE490000,0x00F21020,0xAC4E0000,0x00471020,0xAC4C0000,0x00471020\n"
-    ".word 0xAC4A0000,0xAE6A0000,0x00F31020,0xAC4F0000,0x00471020,0xAC4C0000,0x00471020,0x100000C9,0xAC480000,0x00471020\n"
-    ".word 0x8C420000,0x000108C0,0x00025402,0x8F2B0054,0x3042FFFF,0x01621020,0xAF220044,0x00251020,0x00260820,0x8C2A0000\n"
-    ".word 0x844C0000,0x844D0002,0x844E0004,0xAE2A0000,0x03D31020,0xAC4A0000,0x000A7C00,0x000F7C03,0x000AC403,0xAF2A001C\n"
-    ".word 0x00084402,0x000840C0,0x01051020,0x844B0000,0x01060821,0x018B6020,0x844B0002,0x8C2A0000,0x01AB6820,0x844B0004\n"
-    ".word 0x000A4400,0x00084403,0x01E80820,0x00010843,0x000A7C03,0x01F8C020,0x0018C043,0x0018C400,0x3021FFFF,0x0301C025\n"
-    ".word 0xAF380030,0x03D11020,0xAC4A0000,0xAE4A0000,0xAF2A0020,0x01CB7020,0x3121FFFF,0x000108C0,0x00251020,0x844B0000\n"
-    ".word 0x00260821,0x018B6020,0x488C4800,0x844B0002,0x8C2A0000,0x01AB6820,0x488D5000,0x844B0004,0xAF2A0024,0x01CB7020\n"
-    ".word 0x488E5800,0x03D21020,0xAC4A0000,0xAE6A0000,0x4B98003D,0x000AC400,0x0018C403,0x01184020,0x00084043,0x3102FFFF\n"
-    ".word 0x000A4403,0x010F7820,0x000F7843,0x000F7C00,0x01E27825,0xAF2F0034,0x03007821,0x0100C021,0x48084800,0x48095000\n"
-    ".word 0x480A5800,0x00084400,0x00094C00,0x00084402,0x01094025,0x48880000,0x488A0800,0x8728001C,0x8729001E,0x4A180001\n"
-    ".word 0x010F4020,0x00084043,0x01384820,0x00094843,0x00094C00,0x3108FFFF,0x0128C025,0xAF380038,0x48099800,0x8728005C\n"
-    ".word 0x00000000,0x0128482A,0x11200026,0x48017000,0x480CD800,0x480BC800,0x1D800002,0x00080C40,0x200C0001,0x002C001A\n"
-    ".word 0x480CD000,0x00000812,0x484AC000,0x484DC800,0x002B0018,0x000A5402,0x00005812,0x00004010,0x000B5C02,0x00084400\n"
-    ".word 0x01685825,0x016A5820,0x002C0018,0x000B0FC3,0x002B0826,0x2021FC00,0x04210279,0x000D6C02,0x00006012,0x00004010\n"
-    ".word 0x000C6402,0x00084400,0x01886025,0x018D6020,0x000C0FC3,0x002C0826,0x2021FC00,0x0421026E,0x000C6400,0x316BFFFF\n"
-    ".word 0x018B0825,0x00711020,0xAC410000,0x00721020,0xAC410000,0x00731020,0xAC410000,0x00015C03,0x00015400,0x000A5403\n"
-    ".word 0x872C0030,0x872D0032,0x018A7022,0x01AB7822,0x000E77C3,0x000F7FC3,0x35CE0001,0x35EF0001,0x018E6020,0x01AF6820\n"
-    ".word 0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C0030,0x00F11020,0xAC4C0000,0x872C0034,0x872D0036,0x018A7022,0x01AB7822\n"
-    ".word 0x000E77C3,0x000F7FC3,0x35CE0001,0x35EF0001,0x018E6020,0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C0034\n"
-    ".word 0x00F21020,0xAC4C0000,0x872C0038,0x872D003A,0x018A7022,0x01AB7822,0x000E77C3,0x000F7FC3,0x35CE0001,0x35EF0001\n"
-    ".word 0x018E6020,0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C0038,0x00F31020,0xAC4C0000,0xAF210028,0x22730004\n"
-    ".word 0x22940004,0x22310004,0x22520004,0x8F2E0048,0x20080556,0x31C10004,0x1020004C,0x48884000,0x8E880000,0x02871020\n"
-    ".word 0x8C490000,0x00471020,0x944A0000,0x3C01FFFF,0x0101C024,0x01216824,0x03D11020,0xA4490000,0x3101FFFF,0x00380825\n"
-    ".word 0xAE210000,0x3121FFFF,0x00380825,0xAE410000,0x03D21020,0xA44A0000,0x01580825,0xAE610000,0x03D31020,0xA4480000\n"
-    ".word 0x310B00FF,0x312C00FF,0x314E00FF,0x016C1020,0x004E1020,0x016E0820,0x016C5820,0x000B5842,0x018E6020,0x000C6042\n"
-    ".word 0x00017042,0x48824800,0x00084202,0x00094A02,0x000A5202,0x310800FF,0x312900FF,0x314A00FF,0x012A1020,0x00481020\n"
-    ".word 0x48825000,0x01480820,0x01094020,0x4B98003D,0x00084042,0x012A4820,0x00094842,0x00015042,0x00084200,0x00094A00\n"
-    ".word 0x000A5200,0x010B4025,0x012C4825,0x014E5025,0x010D4025,0x012D4825,0x014D5025,0x480C5000,0x48014800,0x000C6200\n"
-    ".word 0x01816025,0x00F11020,0xAC480000,0x00471020,0xA44C0000,0x00F21020,0xAC490000,0x00471020,0xA44C0000,0x00F31020\n"
-    ".word 0xAC4A0000,0x00471020,0xA44C0000,0x8F24004C,0x8F210050,0x20840003,0x2021FFFF,0xAF210050,0xAF24004C,0x8F220044\n"
-    ".word 0x001C4E00,0x8C480000,0x8F31000C,0x8F320010,0x8F330014,0x01094025,0xAE680000,0x02699825,0xAE530000,0x02499025\n"
-    ".word 0xAE320000,0xAC510000,0x100001C9,0x00000000,0x23810001,0x00010880,0x02009021,0x02419820,0x0261A020,0x02818020\n"
-    ".word 0xAF320010,0xAF330014,0xAF340018,0x22730004,0x22940004,0x8F210008,0x22310004,0x10200007,0x22520004,0xAE410000\n"
-    ".word 0xAE610000,0xAE810000,0x22730004,0x22940004,0x22520004,0x31C10010,0x00E71820,0x1020003D,0x0067F020,0x8E280000\n"
-    ".word 0x00F11020,0x8C490000,0x00471020,0x8C4B0000,0x00471020,0x8C4A0000,0x000E6600,0x014C5025,0x012C4825,0x016C5825\n"
-    ".word 0x03D11020,0xAC490000,0xAE490000,0x03D21020,0xAC4A0000,0xAE6A0000,0x03D31020,0xAC4B0000,0xAE8B0000,0x03D41020\n"
-    ".word 0xAC480000,0x3C0100FE,0x3421FEFE,0x01214824,0x01615824,0x01014024,0x01415024,0x010BC020,0x0018C043,0x014B7820\n"
-    ".word 0x000F7843,0x012A7020,0x000E7043,0x01096820,0x000D6843,0x012B1020,0x00021043,0x01826025,0x00F11020,0xAC4D0000\n"
-    ".word 0x00471020,0xAC4C0000,0x00F21020,0xAC4E0000,0x00471020,0xAC4C0000,0x00F31020,0xAC4F0000,0x00471020,0xAC4C0000\n"
-    ".word 0x00F41020,0xAC580000,0x00471020,0xAC4C0000,0x22730004,0x22940004,0x22310004,0x1000000E,0x22520004,0x8E280000\n"
-    ".word 0x000E0E00,0x00084200,0x00084202,0x01014025,0xAE280000,0xAE480000,0xAE680000,0xAE880000,0x22730004,0x22940004\n"
-    ".word 0x22310004,0x22520004,0x8E280000,0x00F11020,0x8C490000,0x15000027,0x00080C02,0x8F28001C,0x8F290020,0x8F2A0024\n"
-    ".word 0x8F2B0028,0x8F2C002C,0x8F2D0030,0x8F2E0034,0x8F2F0038,0x8F38003C,0xAE280000,0x00F11020,0xAC4D0000,0x00471020\n"
-    ".word 0xAC4C0000,0x00471020,0xAC490000,0xAE490000,0x00F21020,0xAC4E0000,0x00471020,0xAC4C0000,0x00471020,0xAC4A0000\n"
-    ".word 0xAE6A0000,0x00F31020,0xAC4F0000,0x00471020,0xAC4C0000,0x00471020,0xAC4B0000,0xAE8B0000,0x00F41020,0xAC580000\n"
-    ".word 0x00471020,0xAC4C0000,0x00471020,0x100000E2,0xAC480000,0x00471020,0x8C420000,0x000108C0,0x8F2B0054,0x3042FFFF\n"
-    ".word 0x004B1020,0xAF220044,0x00251020,0x3101FFFF,0x000108C0,0x00260820,0x8C2A0000,0x844C0000,0x844D0002,0x844E0004\n"
-    ".word 0xAE2A0000,0x03D41020,0xAC4A0000,0x000A7C00,0x000F7C03,0x000AC403,0xAF2A001C,0x00084402,0x000840C0,0x01060821\n"
-    ".word 0x8C2A0000,0x03D11020,0xAC4A0000,0xAE4A0000,0x000A4400,0x00084403,0x01E80820,0x00010843,0x000A7C03,0x01F8C020\n"
-    ".word 0x0018C043,0x0018C400,0x3021FFFF,0x0301C025,0xAF380030,0xAF2A0020,0x3121FFFF,0x000108C0,0x00260821,0x8C2A0000\n"
-    ".word 0x00000000,0x000AC400,0x0018C403,0x01184020,0x00084043,0x3102FFFF,0x000A4403,0x010F7820,0x000F7843,0x000F7C00\n"
-    ".word 0x01E27825,0xAF2F0034,0x03D21020,0xAC4A0000,0xAE6A0000,0xAF2A0024,0x00090C03,0x000108C0,0x00265021,0x00250820\n"
-    ".word 0x842B0000,0x8D4A0000,0x018B6020,0x842B0004,0x84210002,0x01CB7020,0x01A16820,0x03D31020,0xAC4A0000,0xAE8A0000\n"
-    ".word 0x000A7C00,0x000F7C03,0x030FC020,0x00181043,0x000AC403,0x01184020,0x00084043,0x00084400,0x3042FFFF,0x01024025\n"
-    ".word 0xAF280038,0xAF2A0028,0x000C6043,0x000D6843,0x000E7043,0x000D4400,0x3189FFFF,0x01094025,0x48880000,0x488E0800\n"
-    ".word 0x8728001C,0x8729001E,0x010F4020,0x00084043,0x01384820,0x00094843,0x00094C00,0x3108FFFF,0x0128C025,0x4A180001\n"
-    ".word 0xAF38003C,0x48099800,0x8728005C,0x00000000,0x0128482A,0x11200026,0x48017000,0x480CD800,0x480BC800,0x1D800002\n"
-    ".word 0x00080C40,0x200C0001,0x002C001A,0x480CD000,0x00000812,0x484AC000,0x484DC800,0x002B0018,0x000A5402,0x00005812\n"
-    ".word 0x00004010,0x000B5C02,0x00084400,0x01685825,0x016A5820,0x002C0018,0x000B0FC3,0x002B0826,0x2021FC00,0x042100B4\n"
-    ".word 0x000D6C02,0x00006012,0x00004010,0x000C6402,0x00084400,0x01886025,0x018D6020,0x000C0FC3,0x002C0826,0x2021FC00\n"
-    ".word 0x042100A9,0x000C6400,0x316BFFFF,0x018B0825,0x00714020,0xAD010000,0x00724020,0xAD010000,0x00734020,0xAD010000\n"
-    ".word 0x00744020,0xAD010000,0x00015C03,0x00015400,0x000A5403,0x872C0030,0x872D0032,0x018A7022,0x01AB7822,0x000E77C3\n"
-    ".word 0x000F7FC3,0x35CE0001,0x35EF0001,0x018E6020,0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C0030,0x00F11020\n"
-    ".word 0xAC4C0000,0x872C0034,0x872D0036,0x018A7022,0x01AB7822,0x000E77C3,0x000F7FC3,0x35CE0001,0x35EF0001,0x018E6020\n"
-    ".word 0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C0034,0x00F21020,0xAC4C0000,0x872C0038,0x872D003A,0x018A7022\n"
-    ".word 0x01AB7822,0x000E77C3,0x000F7FC3,0x35CE0001,0x35EF0001,0x018E6020,0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025\n"
-    ".word 0xAF2C0038,0x00F31020,0xAC4C0000,0x872C003C,0x872D003E,0x018A7022,0x01AB7822,0x000E77C3,0x000F7FC3,0x35CE0001\n"
-    ".word 0x35EF0001,0x018E6020,0x01AF6820,0x000D6C00,0x318CFFFF,0x018D6025,0xAF2C003C,0x00F41020,0xAC4C0000,0xAF21002C\n"
-    ".word 0x22310004,0x22520004,0x22730004,0x22940004,0x8F2E0048,0x00000000,0x31C10004,0x1020003E,0x00000000,0x8E280000\n"
-    ".word 0x00F11020,0x8C490000,0x00471020,0x944B0000,0x00471020,0x944A0000,0x00086402,0x000C6400,0x00096C02,0x03D11020\n"
-    ".word 0xA4490000,0xAE4C0000,0xA6490000,0x03D21020,0xA44A0000,0x014C0825,0xAE610000,0x03D31020,0xA44B0000,0x016C0825\n"
-    ".word 0xAE810000,0x03D41020,0xA4480000,0x3178FEFE,0x314FFEFE,0x312EFEFE,0x000D4C00,0x310DFEFE,0x030E1020,0x030D0820\n"
-    ".word 0x01CD6820,0x000D6843,0x01CF7020,0x000E7043,0x01F87820,0x000F7843,0x0001C043,0x00021043,0x01826025,0x01A96825\n"
-    ".word 0x01C97025,0x01E97825,0x0309C025,0x00E71820,0x00F11020,0xAC4D0000,0x00471020,0xA44C0000,0x00F21020,0xAC4E0000\n"
-    ".word 0x00471020,0xA44C0000,0x00F31020,0xAC4F0000,0x00471020,0xA44C0000,0x00F41020,0xAC580000,0x00471020,0xA44C0000\n"
-    ".word 0x8F24004C,0x00000000,0x20840003,0xAF24004C,0x8F220044,0x001C4E00,0x8C480000,0x8F31000C,0x8F320010,0x8F330014\n"
-    ".word 0x8F340018,0x01094025,0xAE880000,0x0289A025,0xAE740000,0x02699825,0xAE530000,0x02499025,0xAE320000,0xAC510000\n"
-    ".word 0x8F2A0058,0x8F280004,0x8F210000,0x01504822,0x19200005,0x00084200,0x00084202,0x20210001,0x1500FC39,0xAF210000\n"
-    ".word 0x8F240000,0x0C02371E,0x00000000,0x3C048000,0x0C01FDFA,0x00902025,0x8F240050,0x0C02370D,0x00000000,0x8F24004C\n"
-    ".word 0x0C023714,0x00000000,0x8FB00010,0x8FB10014,0x8FB20018,0x8FB3001C,0x8FB40020,0x8FB50024,0x8FB60028,0x8FB7002C\n"
-    ".word 0x8FBE0030,0x8FBC0034,0x8FBF0038,0x8FBF003C,0x27BD0044,0x03E00008,0x00000000\n"
-    ".end func_8008BF7C\n"
-);
+typedef signed char s8;
+typedef signed short s16;
+typedef signed int s32;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef signed int M2C_UNK;
+
+static __inline__ s32 gte_cfc2_24(void) { s32 value; __asm__ volatile("cfc2 %0,$24" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_25(void) { s32 value; __asm__ volatile("cfc2 %0,$25" : "=r" (value)); return value; }
+static __inline__ s32 gte_cfc2_26(void) { s32 value; __asm__ volatile("cfc2 %0,$26" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_9(void) { s32 value; __asm__ volatile("mfc2 %0,$9" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_10(void) { s32 value; __asm__ volatile("mfc2 %0,$10" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_11(void) { s32 value; __asm__ volatile("mfc2 %0,$11" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_14(void) { s32 value; __asm__ volatile("mfc2 %0,$14" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_19(void) { s32 value; __asm__ volatile("mfc2 %0,$19" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_25(void) { s32 value; __asm__ volatile("mfc2 %0,$25" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_26(void) { s32 value; __asm__ volatile("mfc2 %0,$26" : "=r" (value)); return value; }
+static __inline__ s32 gte_mfc2_27(void) { s32 value; __asm__ volatile("mfc2 %0,$27" : "=r" (value)); return value; }
+static __inline__ s32 mult_hi(s32 left, s32 right) { s32 value; __asm__ volatile("mult %1,%2\n\tmfhi %0" : "=r" (value) : "r" (left), "r" (right)); return value; }
+static __inline__ void gte_SetMatrices(const s32 *matrix) {
+    __asm__ volatile(
+        "lw $9,0(%0)\n\t"
+        "lw $10,4(%0)\n\t"
+        "ctc2 $9,$0\n\t"
+        "ctc2 $10,$1\n\t"
+        "lw $9,8(%0)\n\t"
+        "lw $10,12(%0)\n\t"
+        "ctc2 $9,$2\n\t"
+        "ctc2 $10,$3\n\t"
+        "lw $9,16(%0)\n\t"
+        "lw $10,20(%0)\n\t"
+        "ctc2 $9,$4\n\t"
+        "ctc2 $10,$5\n\t"
+        "lw $9,24(%0)\n\t"
+        "lw $10,28(%0)\n\t"
+        "ctc2 $9,$6\n\t"
+        "ctc2 $10,$7"
+        :
+        : "r"(matrix)
+        : "$9", "$10");
+}
+s32 func_8007F7D8();
+M2C_UNK func_8007F7E8(s32);
+s32 func_8007F7F4();
+s32 func_8008DC24();
+M2C_UNK func_8008DC34(s32);
+s32 func_8008DC40();
+M2C_UNK func_8008DC50(s32);
+M2C_UNK func_8008DC78(s32, s32, s32, u32);
+
+void func_8008BF7C(void *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, void **arg10) {
+    u8 *scratch = (u8 *)0x1F800300;
+    s16 temp_t0_17;
+    s16 temp_t0_8;
+    s16 temp_t4_10;
+    s16 temp_t4_13;
+    s16 temp_t4_19;
+    s16 temp_t4_21;
+    s16 temp_t4_23;
+    s16 temp_t4_25;
+    s16 temp_t4_28;
+    s16 temp_t4_6;
+    s16 temp_t4_8;
+    s16 temp_t5;
+    s16 temp_t5_2;
+    s16 temp_t5_3;
+    s16 temp_t5_5;
+    s16 temp_t5_6;
+    s16 temp_t5_7;
+    s16 temp_t5_8;
+    s32 *temp_s1_3;
+    s32 *temp_s1_6;
+    s32 *temp_s2_4;
+    s32 *temp_s2_8;
+    s32 *temp_s3_4;
+    s32 *temp_s3_7;
+    s32 *temp_s4_5;
+    s32 *temp_v0;
+    s32 *temp_v0_11;
+    s32 *temp_v0_12;
+    s32 *temp_v0_13;
+    s32 *temp_v0_14;
+    s32 *temp_v0_15;
+    s32 *temp_v0_16;
+    s32 *temp_v0_17;
+    s32 *temp_v0_18;
+    s32 *temp_v0_19;
+    s32 *temp_v0_20;
+    s32 *temp_v0_21;
+    s32 *temp_v0_22;
+    s32 *temp_v0_23;
+    s32 *temp_v0_24;
+    s32 *temp_v0_25;
+    s32 *temp_v0_26;
+    s32 *temp_v0_27;
+    s32 *temp_v0_28;
+    s32 *temp_v0_29;
+    s32 *temp_v0_32;
+    s32 *temp_v0_33;
+    s32 *temp_v0_34;
+    s32 *temp_v0_35;
+    s32 *temp_v0_36;
+    s32 *temp_v0_3;
+    s32 *temp_v0_4;
+    s32 *temp_v0_5;
+    s32 *temp_v0_6;
+    s32 *temp_v0_7;
+    s32 *temp_v0_8;
+    s32 *temp_v0_9;
+    s32 temp_at_2;
+    s32 temp_at_3;
+    s32 temp_at_4;
+    s32 temp_at_5;
+    s32 temp_at_6;
+    s32 temp_at_7;
+    s32 temp_at_8;
+    s32 temp_at_9;
+    s32 temp_fp;
+    s32 temp_fp_2;
+    s32 temp_gp_2;
+    s32 temp_lo;
+    s32 temp_lo_2;
+    s32 temp_t0_10;
+    s32 temp_t0_12;
+    s32 temp_t0_16;
+    s32 temp_t0_6;
+    s32 temp_t0_7;
+    s32 temp_t1_10;
+    s32 temp_t1_12;
+    s32 temp_t1_13;
+    s32 temp_t1_3;
+    s32 temp_t1_5;
+    s32 temp_t1_6;
+    s32 temp_t1_8;
+    s32 temp_t1_9;
+    s32 temp_t2_10;
+    s32 temp_t2_11;
+    s32 temp_t2_13;
+    s32 temp_t2_14;
+    s32 temp_t2_15;
+    s32 temp_t2_3;
+    s32 temp_t2_4;
+    s32 temp_t2_5;
+    s32 temp_t2_6;
+    s32 temp_t2_8;
+    s32 temp_t3;
+    s32 temp_t3_10;
+    s32 temp_t3_11;
+    s32 temp_t3_2;
+    s32 temp_t3_3;
+    s32 temp_t3_4;
+    s32 temp_t3_5;
+    s32 temp_t3_7;
+    s32 temp_t3_8;
+    s32 temp_t3_9;
+    s32 temp_t4;
+    s32 temp_t4_11;
+    s32 temp_t4_12;
+    s32 temp_t4_14;
+    s32 temp_t4_15;
+    s32 temp_t4_16;
+    s32 temp_t4_17;
+    s32 temp_t4_18;
+    s32 temp_t4_20;
+    s32 temp_t4_22;
+    s32 temp_t4_24;
+    s32 temp_t4_26;
+    s32 temp_t4_27;
+    s32 temp_t4_2;
+    s32 temp_t4_3;
+    s32 temp_t4_4;
+    s32 temp_t4_5;
+    s32 temp_t4_7;
+    s32 temp_t4_9;
+    s32 temp_t5_4;
+    s32 temp_t5_9;
+    s32 temp_t6;
+    s32 temp_t6_2;
+    s32 temp_t6_3;
+    s32 temp_t6_4;
+    s32 temp_t7;
+    s32 temp_t7_2;
+    s32 temp_t7_3;
+    s32 temp_t7_4;
+    s32 temp_t8;
+    s32 temp_t8_2;
+    s32 temp_t8_3;
+    s32 temp_t8_4;
+    s32 temp_t8_5;
+    s32 temp_v0_2;
+    s32 temp_v1;
+    s32 temp_v1_2;
+    s32 var_at;
+    s32 var_at_2;
+    s32 var_t4;
+    s32 var_t4_2;
+    u16 *temp_v0_31;
+    u16 temp_t2_16;
+    u16 temp_t2_7;
+    u16 temp_t3_12;
+    u32 *temp_v0_10;
+    u32 *temp_v0_30;
+    u32 *var_s1;
+    u32 *var_s3_2;
+    u32 *var_s4;
+    u32 temp_at;
+    u32 temp_gp;
+    u32 temp_s0;
+    u32 temp_s1;
+    u32 temp_s2_5;
+    u32 temp_t0;
+    u32 temp_t0_11;
+    u32 temp_t0_13;
+    u32 temp_t0_14;
+    u32 temp_t0_15;
+    u32 temp_t0_18;
+    u32 temp_t0_2;
+    u32 temp_t0_3;
+    u32 temp_t0_4;
+    u32 temp_t0_5;
+    u32 temp_t0_9;
+    u32 temp_t1;
+    u32 temp_t1_11;
+    u32 temp_t1_2;
+    u32 temp_t1_4;
+    u32 temp_t1_7;
+    u32 temp_t2;
+    u32 temp_t2_12;
+    u32 temp_t2_2;
+    u32 temp_t2_9;
+    u32 temp_t3_6;
+    u32 var_a3;
+    u32 var_s0;
+    u8 var_t6;
+    u8 *temp_s1_2;
+    u8 *temp_s1_4;
+    u8 *temp_s1_5;
+    u8 *temp_s2;
+    u8 *temp_s2_2;
+    u8 *temp_s2_3;
+    u8 *temp_s2_6;
+    u8 *temp_s2_7;
+    u8 *temp_s3;
+    u8 *temp_s3_2;
+    u8 *temp_s3_3;
+    u8 *temp_s3_5;
+    u8 *temp_s3_6;
+    u8 *temp_s4;
+    u8 *temp_s4_2;
+    u8 *temp_s4_3;
+    u8 *temp_s4_4;
+    u8 *var_s1_2;
+    u8 *var_s1_3;
+    u8 *var_s2;
+    u8 *var_s2_2;
+    u8 *var_s3;
+    u8 *var_s3_3;
+    u8 *var_s4_2;
+    u8 *var_t0;
+
+    gte_SetMatrices((const s32 *)arg0);
+    (*(s32 *)(scratch + 0x54)) = arg3;
+    temp_s0 = func_8007F7D8() << 8;
+    var_s0 = temp_s0 >> 8;
+    (*(s32 *)(scratch + 0x58)) = (s32) (func_8007F7F4() - 0x540 + var_s0);
+    (*(s16 *)(scratch + 0x5C)) = (s16) ((u32) gte_cfc2_26() >> 1);
+    (*(s32 *)(scratch + 0x50)) = func_8008DC24();
+    (*(s32 *)(scratch + 0x4C)) = func_8008DC40();
+    var_a3 = arg3;
+    var_t0 = *arg10;
+    *(s32 *)scratch = 0;
+    (*(s32 *)(scratch + 0x40)) = -1;
+    if ((var_t0 != ((void *)0)) && (((*(s32 *)(scratch + 0x58)) - var_s0) > 0)) {
+loop_2:
+        temp_at = (*(u32 *)(var_t0));
+        (*(s32 *)(scratch + 0xC)) = var_t0;
+        (*(s32 *)(scratch + 0x4)) = temp_at;
+        var_t6 = (*(u8 *)(var_t0));
+        temp_gp = temp_at >> 0x18;
+        (*(s32 *)(scratch + 0x8)) = 0;
+        if ((var_t6 - 0xE1) == 0) {
+            temp_at_2 = (*(u32 *)(var_t0));
+            var_t0 += 4;
+            var_t6 = (*(u8 *)(var_t0));
+            (*(s32 *)(scratch + 0x8)) = temp_at_2;
+        }
+        var_a3 = ((u32) (var_t6 & 0x10) >> 2) + 4 + (var_t6 & 4);
+        if (!(var_t6 & 0xC0)) {
+            (*(s32 *)(scratch + 0x48)) = (s32) var_t6;
+            if (!(var_t6 & 8)) {
+                temp_t6 = var_t6 | 8;
+                temp_gp_2 = temp_gp + (var_a3 >> 2);
+                temp_at_3 = (temp_gp_2 + 1) * 4;
+                temp_s1 = var_s0;
+                (*(s32 *)(scratch + 0xC)) = temp_s1;
+                temp_s2 = temp_s1 + temp_at_3;
+                temp_s3 = temp_s2 + temp_at_3;
+                var_s0 = temp_s3 + temp_at_3;
+                (*(s32 *)(scratch + 0x14)) = temp_s3;
+                var_s3 = temp_s3 + 4;
+                temp_s4 = var_t0 + 4;
+                (*(s32 *)(scratch + 0x10)) = temp_s2;
+                temp_at_4 = (*(s32 *)(scratch + 0x8));
+                var_s1 = temp_s1 + 4;
+                var_s2 = temp_s2 + 4;
+                if (temp_at_4 != 0) {
+                    (*(u32 *)(temp_s2)) = temp_at_4;
+                    (*(u32 *)(temp_s1)) = temp_at_4;
+                    var_s1 += 4;
+                    (*(u32 *)(temp_s3)) = temp_at_4;
+                    var_s3 += 4;
+                    var_s2 += 4;
+                }
+                __asm__ volatile("mtc2 $t0, $8");
+                temp_v1 = var_a3 * 2;
+                temp_fp = var_a3 * 3;
+                if (temp_t6 & 0x10) {
+                    temp_t0 = (*(u32 *)(var_t0));
+                    temp_v0 = temp_s4 + var_a3;
+                    temp_t3 = ((temp_t0 >> 0x18) | 8) << 0x18;
+                    temp_t1 = *temp_v0 | temp_t3;
+                    temp_t0_2 = ((u32) (temp_t0 << 8) >> 8) | temp_t3;
+                    temp_t2 = *(temp_v0 + var_a3) | temp_t3;
+                    *(s32 *)(temp_fp + (s32)var_s3) = temp_t0_2;
+                    *var_s1 = temp_t0_2;
+                    *(temp_fp + var_s1) = temp_t1;
+                    (*(u32 *)(var_s2)) = temp_t1;
+                    *(s32 *)(temp_fp + (s32)var_s2) = temp_t2;
+                    (*(u32 *)(var_s3)) = temp_t2;
+                    temp_t7 = temp_t0_2 & 0xFF;
+                    temp_t6_2 = temp_t1 & 0xFF;
+                    temp_at_5 = temp_t2 & 0xFF;
+                    __asm__ volatile("mtc2 $v0, $9");
+                    temp_t0_3 = temp_t0_2 >> 8;
+                    temp_t1_2 = temp_t1 >> 8;
+                    temp_t2_2 = temp_t2 >> 8;
+                    temp_t8 = temp_t0_3 & 0xFF;
+                    temp_at_6 = temp_t1_2 & 0xFF;
+                    temp_t4 = temp_t2_2 & 0xFF;
+                    __asm__ volatile("mtc2 $v0, $10");
+                    temp_t8_2 = (temp_t0_3 >> 8) & 0xFF;
+                    temp_at_7 = (temp_t1_2 >> 8) & 0xFF;
+                    temp_t4_2 = (temp_t2_2 >> 8) & 0xFF;
+                    __asm__ volatile("mtc2 $v0, $11");
+                    __asm__ volatile(".word 0x4B98003D");
+                    *(var_a3 + var_s1) = ((u32) (temp_t7 + temp_t6_2) >> 1) | (((u32) (temp_t8 + temp_at_6) >> 1) << 8) | (((u32) (temp_t8_2 + temp_at_7) >> 1) << 0x10);
+                    *(s32 *)(var_a3 + (s32)var_s2) = ((u32) (temp_t6_2 + temp_at_5) >> 1) | (((u32) (temp_at_6 + temp_t4) >> 1) << 8) | (((u32) (temp_at_7 + temp_t4_2) >> 1) << 0x10);
+                    *(s32 *)(var_a3 + (s32)var_s3) = ((u32) (temp_t7 + temp_at_5) >> 1) | (((u32) (temp_t4 + temp_t8) >> 1) << 8) | (((u32) (temp_t4_2 + temp_t8_2) >> 1) << 0x10);
+                    temp_v0_2 = (gte_mfc2_11() << 0x10) | (gte_mfc2_10() << 8) | gte_mfc2_9();
+                    *(temp_v1 + var_s1) = temp_v0_2;
+                    *(s32 *)(temp_v1 + (s32)var_s2) = temp_v0_2;
+                    *(s32 *)(temp_v1 + (s32)var_s3) = temp_v0_2;
+                    var_s1_2 = var_s1 + 4;
+                } else {
+                    var_s1_2 = var_s1 + 4;
+                    temp_t0_4 = ((u32) (*var_s1 << 8) >> 8) | temp_t6;
+                    (*(u32 *)(var_s2)) = temp_t0_4;
+                    (*(u32 *)(var_s3)) = temp_t0_4;
+                }
+                temp_s2_2 = var_s2 + 4;
+                temp_s4_2 = temp_s4 + 4;
+                temp_s3_2 = var_s3 + 4;
+                temp_t0_5 = (*(u32 *)(temp_s4));
+                temp_v0_3 = temp_s4_2 + var_a3;
+                if (temp_t0_5 == 0) {
+                    temp_t0_6 = (*(s32 *)(scratch + 0x1C));
+                    temp_t1_3 = (*(s32 *)(scratch + 0x20));
+                    temp_t2_3 = (*(s32 *)(scratch + 0x24));
+                    temp_t4_3 = (*(s32 *)(scratch + 0x28));
+                    (*(u32 *)(var_s1_2)) = temp_t0_6;
+                    temp_v0_4 = var_a3 + var_s1_2;
+                    *temp_v0_4 = (*(s32 *)(scratch + 0x30));
+                    temp_v0_5 = temp_v0_4 + var_a3;
+                    *temp_v0_5 = temp_t4_3;
+                    *(temp_v0_5 + var_a3) = temp_t1_3;
+                    (*(u32 *)(var_s2)) = temp_t1_3;
+                    temp_v0_6 = var_a3 + temp_s2_2;
+                    *temp_v0_6 = (*(s32 *)(scratch + 0x34));
+                    temp_v0_7 = temp_v0_6 + var_a3;
+                    *temp_v0_7 = temp_t4_3;
+                    *(temp_v0_7 + var_a3) = temp_t2_3;
+                    (*(u32 *)(var_s3)) = temp_t2_3;
+                    temp_v0_8 = var_a3 + temp_s3_2;
+                    *temp_v0_8 = (*(s32 *)(scratch + 0x38));
+                    temp_v0_9 = temp_v0_8 + var_a3;
+                    *temp_v0_9 = temp_t4_3;
+                    *(temp_v0_9 + var_a3) = temp_t0_6;
+                    goto block_20;
+                }
+                (*(s32 *)(scratch + 0x44)) = (s32) ((*(s32 *)(scratch + 0x54)) + (*(temp_v0_3 + var_a3) & 0xFFFF));
+                temp_t2_4 = *(s32 *)(((temp_t0_5 & 0xFFFF) * 8) + arg2);
+                (*(u32 *)(var_s1_2)) = temp_t2_4;
+                *(s32 *)(temp_fp + (s32)temp_s3_2) = temp_t2_4;
+                (*(s32 *)(scratch + 0x1C)) = temp_t2_4;
+                temp_t2_5 = *(s32 *)(((temp_t0_5 >> 0x10) * 8) + arg2);
+                temp_t7_2 = temp_t2_5 >> 0x10;
+                (*(s32 *)(scratch + 0x30)) = (s32) ((((s32) (temp_t7_2 + (temp_t2_4 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_4 + (s16) temp_t2_5) >> 1) & 0xFFFF));
+                *(s32 *)(temp_fp + (s32)var_s1_2) = temp_t2_5;
+                (*(u32 *)(var_s2)) = temp_t2_5;
+                (*(s32 *)(scratch + 0x20)) = temp_t2_5;
+                __asm__ volatile("mtc2 $t4, $9");
+                temp_t2_6 = *(s32 *)(((*temp_v0_3 & 0xFFFF) * 8) + arg2);
+                __asm__ volatile("mtc2 $t5, $10");
+                (*(s32 *)(scratch + 0x24)) = temp_t2_6;
+                __asm__ volatile("mtc2 $t6, $11");
+                *(s32 *)(temp_fp + (s32)temp_s2_2) = temp_t2_6;
+                (*(u32 *)(var_s3)) = temp_t2_6;
+                __asm__ volatile(".word 0x4B98003D");
+                temp_t0_7 = temp_t2_6 >> 0x10;
+                (*(s32 *)(scratch + 0x34)) = (s32) ((((s32) (temp_t0_7 + temp_t7_2) >> 1) << 0x10) | (((s32) ((s16) temp_t2_5 + (s16) temp_t2_6) >> 1) & 0xFFFF));
+                gte_mfc2_9();
+                gte_mfc2_10();
+                gte_mfc2_11();
+                __asm__ volatile("mtc2 $t0, $0");
+                __asm__ volatile("mtc2 $t2, $1");
+                __asm__ volatile(".word 0x4A180001");
+                (*(s32 *)(scratch + 0x38)) = (s32) ((((s32) ((*(s16 *)(scratch + 0x1E)) + temp_t0_7) >> 1) << 0x10) | (((s32) ((*(s32 *)(scratch + 0x1C)) + (s16) temp_t2_6) >> 1) & 0xFFFF));
+                temp_t0_8 = (*(s16 *)(scratch + 0x5C));
+                var_at = gte_mfc2_14();
+                if (gte_mfc2_19() < temp_t0_8) {
+                    var_t4 = gte_mfc2_27();
+                    temp_t3_2 = gte_mfc2_25();
+                    if (var_t4 <= 0) {
+                        var_t4 = 1;
+                    }
+                    temp_lo = (s32) (temp_t0_8 << 0x11) / var_t4;
+                    temp_t4_4 = gte_mfc2_26();
+                    temp_t3_3 = (((u32) (temp_lo * temp_t3_2) >> 0x10) | (mult_hi(temp_lo, temp_t3_2) << 0x10)) + ((u32) gte_cfc2_24() >> 0x10);
+                    if ((((temp_t3_3 >> 0x1F) ^ temp_t3_3) - 0x400) < 0) {
+                        temp_t4_5 = (((u32) (temp_lo * temp_t4_4) >> 0x10) | (mult_hi(temp_lo, temp_t4_4) << 0x10)) + ((u32) gte_cfc2_25() >> 0x10);
+                        if ((((temp_t4_5 >> 0x1F) ^ temp_t4_5) - 0x400) < 0) {
+                            var_at = (temp_t4_5 << 0x10) | (temp_t3_3 & 0xFFFF);
+                            goto block_19;
+                        }
+                    }
+                } else {
+block_19:
+                    *(s32 *)(temp_v1 + (s32)var_s1_2) = var_at;
+                    *(s32 *)(temp_v1 + (s32)temp_s2_2) = var_at;
+                    *(s32 *)(temp_v1 + (s32)temp_s3_2) = var_at;
+                    temp_t3_4 = var_at >> 0x10;
+                    temp_t4_6 = (*(s32 *)(scratch + 0x30));
+                    temp_t5 = (*(s16 *)(scratch + 0x32));
+                    temp_t4_7 = ((temp_t4_6 + (((s32) (temp_t4_6 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5 + (((s32) (temp_t5 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x30)) = temp_t4_7;
+                    *(s32 *)(var_a3 + (s32)var_s1_2) = temp_t4_7;
+                    temp_t4_8 = (*(s32 *)(scratch + 0x34));
+                    temp_t5_2 = (*(s16 *)(scratch + 0x36));
+                    temp_t4_9 = ((temp_t4_8 + (((s32) (temp_t4_8 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_2 + (((s32) (temp_t5_2 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x34)) = temp_t4_9;
+                    *(var_a3 + temp_s2_2) = temp_t4_9;
+                    temp_t4_10 = (*(s32 *)(scratch + 0x38));
+                    temp_t5_3 = (*(s16 *)(scratch + 0x3A));
+                    temp_t4_11 = ((temp_t4_10 + (((s32) (temp_t4_10 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_3 + (((s32) (temp_t5_3 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x38)) = temp_t4_11;
+                    *(var_a3 + temp_s3_2) = temp_t4_11;
+                    (*(s32 *)(scratch + 0x28)) = var_at;
+block_20:
+                    temp_s3_3 = temp_s3_2 + 4;
+                    temp_s1_2 = var_s1_2 + 4;
+                    temp_s2_3 = temp_s2_2 + 4;
+                    __asm__ volatile("mtc2 $t0, $8");
+                    if ((*(s32 *)(scratch + 0x48)) & 4) {
+                        temp_t0_9 = (*(u32 *)(temp_s4_2));
+                        temp_v0_10 = temp_s4_2 + 4 + var_a3;
+                        temp_t1_4 = *temp_v0_10;
+                        temp_t2_7 = *(temp_v0_10 + var_a3);
+                        temp_t8_3 = temp_t0_9 & 0xFFFF0000;
+                        temp_t5_4 = temp_t1_4 & 0xFFFF0000;
+                        *(temp_fp + temp_s1_2) = (s16) temp_t1_4;
+                        (*(u32 *)(var_s1_2)) = (s32) ((temp_t0_9 & 0xFFFF) | temp_t8_3);
+                        (*(u32 *)(temp_s2_2)) = (s32) ((temp_t1_4 & 0xFFFF) | temp_t8_3);
+                        *(temp_fp + temp_s2_3) = temp_t2_7;
+                        (*(u32 *)(temp_s3_2)) = (s32) (temp_t2_7 | temp_t8_3);
+                        *(temp_fp + temp_s3_3) = (s16) temp_t0_9;
+                        temp_t3_5 = temp_t0_9 & 0xFF;
+                        temp_t4_12 = temp_t1_4 & 0xFF;
+                        temp_t6_3 = temp_t2_7 & 0xFF;
+                        __asm__ volatile("mtc2 $v0, $9");
+                        temp_t0_10 = (temp_t0_9 >> 8) & 0xFF;
+                        temp_t1_5 = (temp_t1_4 >> 8) & 0xFF;
+                        temp_t2_8 = (temp_t2_7 >> 8) & 0xFF;
+                        __asm__ volatile("mtc2 $v0, $10");
+                        __asm__ volatile(".word 0x4B98003D");
+                        temp_t4_13 = (gte_mfc2_10() << 8) | gte_mfc2_9();
+                        temp_v0_11 = var_a3 + temp_s1_2;
+                        *temp_v0_11 = (((u32) (temp_t0_10 + temp_t1_5) >> 1) << 8) | ((u32) (temp_t3_5 + temp_t4_12) >> 1) | temp_t5_4;
+                        *(temp_v0_11 + var_a3) = temp_t4_13;
+                        temp_v0_12 = var_a3 + temp_s2_3;
+                        *temp_v0_12 = (((u32) (temp_t1_5 + temp_t2_8) >> 1) << 8) | ((u32) (temp_t4_12 + temp_t6_3) >> 1) | temp_t5_4;
+                        *(temp_v0_12 + var_a3) = temp_t4_13;
+                        temp_v0_13 = var_a3 + temp_s3_3;
+                        *temp_v0_13 = (((u32) (temp_t2_8 + temp_t0_10) >> 1) << 8) | ((u32) (temp_t3_5 + temp_t6_3) >> 1) | temp_t5_4;
+                        *(temp_v0_13 + var_a3) = temp_t4_13;
+                    }
+                    (*(s32 *)(scratch + 0x50)) = (s32) ((*(s32 *)(scratch + 0x50)) - 1);
+                    (*(s32 *)(scratch + 0x4C)) = (s32) ((*(s32 *)(scratch + 0x4C)) + 3);
+                    temp_v0_14 = (*(s32 *)(scratch + 0x44));
+                    temp_t1_6 = temp_gp_2 << 0x18;
+                    temp_s1_3 = (*(s32 *)(scratch + 0xC));
+                    temp_s2_4 = (*(s32 *)(scratch + 0x10));
+                    temp_s3_4 = (*(s32 *)(scratch + 0x14));
+                    *temp_s3_4 = *temp_v0_14 | temp_t1_6;
+                    *temp_s2_4 = (s32) temp_s3_4 | temp_t1_6;
+                    *temp_s1_3 = (s32) temp_s2_4 | temp_t1_6;
+                    *temp_v0_14 = (s32) temp_s1_3;
+                }
+            } else {
+                temp_at_8 = (temp_gp + 1) * 4;
+                temp_s2_5 = var_s0;
+                temp_s3_5 = temp_s2_5 + temp_at_8;
+                temp_s4_3 = temp_s3_5 + temp_at_8;
+                var_s0 = temp_s4_3 + temp_at_8;
+                (*(s32 *)(scratch + 0x10)) = temp_s2_5;
+                (*(s32 *)(scratch + 0x14)) = temp_s3_5;
+                (*(s32 *)(scratch + 0x18)) = temp_s4_3;
+                var_s3_2 = temp_s3_5 + 4;
+                var_s4 = temp_s4_3 + 4;
+                temp_at_9 = (*(s32 *)(scratch + 0x8));
+                temp_s1_4 = var_t0 + 4;
+                var_s2_2 = temp_s2_5 + 4;
+                if (temp_at_9 != 0) {
+                    (*(u32 *)(temp_s2_5)) = temp_at_9;
+                    (*(u32 *)(temp_s3_5)) = temp_at_9;
+                    (*(u32 *)(temp_s4_3)) = temp_at_9;
+                    var_s3_2 += 4;
+                    var_s4 += 4;
+                    var_s2_2 += 4;
+                }
+                temp_v1_2 = var_a3 * 2;
+                temp_fp_2 = var_a3 * 3;
+                if (var_t6 & 0x10) {
+                    temp_t0_11 = (*(u32 *)(var_t0));
+                    temp_v0_15 = var_a3 + temp_s1_4;
+                    temp_v0_16 = temp_v0_15 + var_a3;
+                    temp_t4_14 = var_t6 << 0x18;
+                    temp_t2_9 = *(temp_v0_16 + var_a3) | temp_t4_14;
+                    temp_t1_7 = *temp_v0_15 | temp_t4_14;
+                    temp_t3_6 = *temp_v0_16 | temp_t4_14;
+                    *(temp_fp_2 + temp_s1_4) = temp_t1_7;
+                    (*(u32 *)(var_s2_2)) = temp_t1_7;
+                    *(temp_fp_2 + var_s2_2) = temp_t2_9;
+                    *var_s3_2 = temp_t2_9;
+                    *(temp_fp_2 + var_s3_2) = temp_t3_6;
+                    *var_s4 = temp_t3_6;
+                    *(temp_fp_2 + var_s4) = temp_t0_11;
+                    temp_t1_8 = temp_t1_7 & 0xFEFEFE;
+                    temp_t3_7 = temp_t3_6 & 0xFEFEFE;
+                    temp_t0_12 = temp_t0_11 & 0xFEFEFE;
+                    temp_t2_10 = temp_t2_9 & 0xFEFEFE;
+                    temp_t4_15 = temp_t4_14 | ((s32) (temp_t1_8 + temp_t3_7) >> 1);
+                    temp_v0_17 = var_a3 + temp_s1_4;
+                    *temp_v0_17 = (s32) (temp_t0_12 + temp_t1_8) >> 1;
+                    *(temp_v0_17 + var_a3) = temp_t4_15;
+                    temp_v0_18 = var_a3 + var_s2_2;
+                    *temp_v0_18 = (s32) (temp_t1_8 + temp_t2_10) >> 1;
+                    *(temp_v0_18 + var_a3) = temp_t4_15;
+                    temp_v0_19 = var_a3 + var_s3_2;
+                    *temp_v0_19 = (s32) (temp_t2_10 + temp_t3_7) >> 1;
+                    *(temp_v0_19 + var_a3) = temp_t4_15;
+                    temp_v0_20 = var_a3 + var_s4;
+                    *temp_v0_20 = (s32) (temp_t0_12 + temp_t3_7) >> 1;
+                    *(temp_v0_20 + var_a3) = temp_t4_15;
+                    var_s3_3 = var_s3_2 + 4;
+                    var_s4_2 = var_s4 + 4;
+                    var_s1_3 = temp_s1_4 + 4;
+                } else {
+                    temp_t0_13 = ((u32) ((*(u32 *)(var_t0)) << 8) >> 8) | (var_t6 << 0x18);
+                    (*(u32 *)(var_t0)) = temp_t0_13;
+                    (*(u32 *)(var_s2_2)) = temp_t0_13;
+                    *var_s3_2 = temp_t0_13;
+                    *var_s4 = temp_t0_13;
+                    var_s3_3 = var_s3_2 + 4;
+                    var_s4_2 = var_s4 + 4;
+                    var_s1_3 = temp_s1_4 + 4;
+                }
+                temp_s2_6 = var_s2_2 + 4;
+                temp_t0_14 = (*(u32 *)(var_s1_3));
+                temp_v0_21 = var_a3 + var_s1_3;
+                temp_t1_9 = *temp_v0_21;
+                if (temp_t0_14 == 0) {
+                    temp_t0_15 = (*(s32 *)(scratch + 0x1C));
+                    temp_t1_10 = (*(s32 *)(scratch + 0x20));
+                    temp_t2_11 = (*(s32 *)(scratch + 0x24));
+                    temp_t3_8 = (*(s32 *)(scratch + 0x28));
+                    temp_t4_16 = (*(s32 *)(scratch + 0x2C));
+                    (*(u32 *)(var_s1_3)) = temp_t0_15;
+                    temp_v0_22 = var_a3 + var_s1_3;
+                    *temp_v0_22 = (*(s32 *)(scratch + 0x30));
+                    temp_v0_23 = temp_v0_22 + var_a3;
+                    *temp_v0_23 = temp_t4_16;
+                    *(temp_v0_23 + var_a3) = temp_t1_10;
+                    (*(u32 *)(var_s2_2)) = temp_t1_10;
+                    temp_v0_24 = var_a3 + temp_s2_6;
+                    *temp_v0_24 = (*(s32 *)(scratch + 0x34));
+                    temp_v0_25 = temp_v0_24 + var_a3;
+                    *temp_v0_25 = temp_t4_16;
+                    *(temp_v0_25 + var_a3) = temp_t2_11;
+                    (*(u32 *)(var_s3_3)) = temp_t2_11;
+                    temp_v0_26 = var_a3 + var_s3_3;
+                    *temp_v0_26 = (*(s32 *)(scratch + 0x38));
+                    temp_v0_27 = temp_v0_26 + var_a3;
+                    *temp_v0_27 = temp_t4_16;
+                    *(temp_v0_27 + var_a3) = temp_t3_8;
+                    (*(u32 *)(var_s4_2)) = temp_t3_8;
+                    temp_v0_28 = var_a3 + var_s4_2;
+                    *temp_v0_28 = (*(s16 *)(scratch + 0x3C));
+                    temp_v0_29 = temp_v0_28 + var_a3;
+                    *temp_v0_29 = temp_t4_16;
+                    *(temp_v0_29 + var_a3) = temp_t0_15;
+                    goto block_37;
+                }
+                (*(s32 *)(scratch + 0x44)) = (s32) ((*(temp_v0_21 + var_a3) & 0xFFFF) + (*(s32 *)(scratch + 0x54)));
+                temp_t2_12 = *(s32 *)(((temp_t0_14 & 0xFFFF) * 8) + arg2);
+                (*(u32 *)(var_s1_3)) = temp_t2_12;
+                *(temp_fp_2 + var_s4_2) = temp_t2_12;
+                (*(s32 *)(scratch + 0x1C)) = temp_t2_12;
+                temp_t2_13 = *(s32 *)(((temp_t0_14 >> 0x10) * 8) + arg2);
+                *(temp_fp_2 + var_s1_3) = temp_t2_13;
+                (*(u32 *)(var_s2_2)) = temp_t2_13;
+                temp_t7_3 = temp_t2_13 >> 0x10;
+                (*(s32 *)(scratch + 0x30)) = (s32) ((((s32) (temp_t7_3 + ((s32) temp_t2_12 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_12 + (s16) temp_t2_13) >> 1) & 0xFFFF));
+                (*(s32 *)(scratch + 0x20)) = temp_t2_13;
+                temp_t2_14 = *(s32 *)(((temp_t1_9 & 0xFFFF) * 8) + arg2);
+                temp_t0_16 = temp_t2_14 >> 0x10;
+                (*(s32 *)(scratch + 0x34)) = (s32) ((((s32) (temp_t0_16 + temp_t7_3) >> 1) << 0x10) | (((s32) ((s16) temp_t2_13 + (s16) temp_t2_14) >> 1) & 0xFFFF));
+                *(temp_fp_2 + temp_s2_6) = temp_t2_14;
+                (*(u32 *)(var_s3_3)) = temp_t2_14;
+                (*(s32 *)(scratch + 0x24)) = temp_t2_14;
+                temp_t2_15 = *(s32 *)(((temp_t1_9 >> 0x10) * 8) + arg2);
+                *(temp_fp_2 + var_s3_3) = temp_t2_15;
+                (*(u32 *)(var_s4_2)) = temp_t2_15;
+                temp_t8_4 = temp_t2_15 >> 0x10;
+                (*(s32 *)(scratch + 0x38)) = (s32) ((((s32) (temp_t0_16 + temp_t8_4) >> 1) << 0x10) | (((s32) ((s16) temp_t2_14 + (s16) temp_t2_15) >> 1) & 0xFFFF));
+                (*(s32 *)(scratch + 0x28)) = temp_t2_15;
+                __asm__ volatile("mtc2 $t0, $0");
+                __asm__ volatile("mtc2 $t6, $1");
+                __asm__ volatile(".word 0x4A180001");
+                (*(s16 *)(scratch + 0x3C)) = (s32) ((((s32) ((*(s16 *)(scratch + 0x1E)) + temp_t8_4) >> 1) << 0x10) | (((s32) ((*(s32 *)(scratch + 0x1C)) + (s16) temp_t2_15) >> 1) & 0xFFFF));
+                temp_t0_17 = (*(s16 *)(scratch + 0x5C));
+                var_at_2 = gte_mfc2_14();
+                if (gte_mfc2_19() < temp_t0_17) {
+                    var_t4_2 = gte_mfc2_27();
+                    temp_t3_9 = gte_mfc2_25();
+                    if (var_t4_2 <= 0) {
+                        var_t4_2 = 1;
+                    }
+                    temp_lo_2 = (s32) (temp_t0_17 << 0x11) / var_t4_2;
+                    temp_t4_17 = gte_mfc2_26();
+                    temp_t3_10 = (((u32) (temp_lo_2 * temp_t3_9) >> 0x10) | (mult_hi(temp_lo_2, temp_t3_9) << 0x10)) + ((u32) gte_cfc2_24() >> 0x10);
+                    if ((((temp_t3_10 >> 0x1F) ^ temp_t3_10) - 0x400) < 0) {
+                        temp_t4_18 = (((u32) (temp_lo_2 * temp_t4_17) >> 0x10) | (mult_hi(temp_lo_2, temp_t4_17) << 0x10)) + ((u32) gte_cfc2_25() >> 0x10);
+                        if ((((temp_t4_18 >> 0x1F) ^ temp_t4_18) - 0x400) < 0) {
+                            var_at_2 = (temp_t4_18 << 0x10) | (temp_t3_10 & 0xFFFF);
+                            goto block_36;
+                        }
+                    }
+                } else {
+block_36:
+                    *(temp_v1_2 + var_s1_3) = var_at_2;
+                    *(temp_v1_2 + temp_s2_6) = var_at_2;
+                    *(temp_v1_2 + var_s3_3) = var_at_2;
+                    *(temp_v1_2 + var_s4_2) = var_at_2;
+                    temp_t3_11 = var_at_2 >> 0x10;
+                    temp_t4_19 = (*(s32 *)(scratch + 0x30));
+                    temp_t5_5 = (*(s16 *)(scratch + 0x32));
+                    temp_t4_20 = ((temp_t4_19 + (((s32) (temp_t4_19 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_5 + (((s32) (temp_t5_5 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x30)) = temp_t4_20;
+                    *(var_a3 + var_s1_3) = temp_t4_20;
+                    temp_t4_21 = (*(s32 *)(scratch + 0x34));
+                    temp_t5_6 = (*(s16 *)(scratch + 0x36));
+                    temp_t4_22 = ((temp_t4_21 + (((s32) (temp_t4_21 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_6 + (((s32) (temp_t5_6 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x34)) = temp_t4_22;
+                    *(var_a3 + temp_s2_6) = temp_t4_22;
+                    temp_t4_23 = (*(s32 *)(scratch + 0x38));
+                    temp_t5_7 = (*(s16 *)(scratch + 0x3A));
+                    temp_t4_24 = ((temp_t4_23 + (((s32) (temp_t4_23 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_7 + (((s32) (temp_t5_7 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
+                    (*(s32 *)(scratch + 0x38)) = temp_t4_24;
+                    *(var_a3 + var_s3_3) = temp_t4_24;
+                    temp_t4_25 = (*(s16 *)(scratch + 0x3C));
+                    temp_t5_8 = (*(s16 *)(scratch + 0x3E));
+                    temp_t4_26 = ((temp_t4_25 + (((s32) (temp_t4_25 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_8 + (((s32) (temp_t5_8 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
+                    (*(s16 *)(scratch + 0x3C)) = temp_t4_26;
+                    *(var_a3 + var_s4_2) = temp_t4_26;
+                    (*(s32 *)(scratch + 0x2C)) = var_at_2;
+block_37:
+                    temp_s1_5 = var_s1_3 + 4;
+                    temp_s2_7 = temp_s2_6 + 4;
+                    temp_s3_6 = var_s3_3 + 4;
+                    temp_s4_4 = var_s4_2 + 4;
+                    if ((*(s32 *)(scratch + 0x48)) & 4) {
+                        temp_t0_18 = (*(u32 *)(var_s1_3));
+                        temp_v0_30 = var_a3 + temp_s1_5;
+                        temp_t1_11 = *temp_v0_30;
+                        temp_v0_31 = temp_v0_30 + var_a3;
+                        temp_t3_12 = *temp_v0_31;
+                        temp_t2_16 = *(temp_v0_31 + var_a3);
+                        temp_t4_27 = (temp_t0_18 >> 0x10) << 0x10;
+                        *(temp_fp_2 + temp_s1_5) = (s16) temp_t1_11;
+                        (*(u32 *)(temp_s2_6)) = temp_t4_27;
+                        (*(u32 *)(temp_s2_6)) = (s16) temp_t1_11;
+                        *(temp_fp_2 + temp_s2_7) = temp_t2_16;
+                        (*(u32 *)(var_s3_3)) = (s32) (temp_t2_16 | temp_t4_27);
+                        *(temp_fp_2 + temp_s3_6) = temp_t3_12;
+                        (*(u32 *)(var_s4_2)) = (s32) (temp_t3_12 | temp_t4_27);
+                        *(s16 *)(temp_fp_2 + (s32)temp_s4_4) = (s16) temp_t0_18;
+                        temp_t8_5 = temp_t3_12 & 0xFEFE;
+                        temp_t7_4 = temp_t2_16 & 0xFEFE;
+                        temp_t6_4 = temp_t1_11 & 0xFEFE;
+                        temp_t1_12 = (temp_t1_11 >> 0x10) << 0x10;
+                        temp_t5_9 = temp_t0_18 & 0xFEFE;
+                        temp_t4_28 = temp_t4_27 | ((s32) (temp_t8_5 + temp_t6_4) >> 1);
+                        temp_v0_32 = var_a3 + temp_s1_5;
+                        *temp_v0_32 = ((s32) (temp_t6_4 + temp_t5_9) >> 1) | temp_t1_12;
+                        *(temp_v0_32 + var_a3) = temp_t4_28;
+                        temp_v0_33 = var_a3 + temp_s2_7;
+                        *temp_v0_33 = ((s32) (temp_t6_4 + temp_t7_4) >> 1) | temp_t1_12;
+                        *(temp_v0_33 + var_a3) = temp_t4_28;
+                        temp_v0_34 = var_a3 + temp_s3_6;
+                        *temp_v0_34 = ((s32) (temp_t7_4 + temp_t8_5) >> 1) | temp_t1_12;
+                        *(temp_v0_34 + var_a3) = temp_t4_28;
+                        temp_v0_35 = var_a3 + temp_s4_4;
+                        *temp_v0_35 = ((s32) (temp_t8_5 + temp_t5_9) >> 1) | temp_t1_12;
+                        *(temp_v0_35 + var_a3) = temp_t4_28;
+                    }
+                    (*(s32 *)(scratch + 0x4C)) = (s32) ((*(s32 *)(scratch + 0x4C)) + 3);
+                    temp_v0_36 = (*(s32 *)(scratch + 0x44));
+                    temp_t1_13 = temp_gp << 0x18;
+                    temp_s1_6 = (*(s32 *)(scratch + 0xC));
+                    temp_s2_8 = (*(s32 *)(scratch + 0x10));
+                    temp_s3_7 = (*(s32 *)(scratch + 0x14));
+                    temp_s4_5 = (*(s32 *)(scratch + 0x18));
+                    *temp_s4_5 = *temp_v0_36 | temp_t1_13;
+                    *temp_s3_7 = (s32) temp_s4_5 | temp_t1_13;
+                    *temp_s2_8 = (s32) temp_s3_7 | temp_t1_13;
+                    *temp_s1_6 = (s32) temp_s2_8 | temp_t1_13;
+                    *temp_v0_36 = (s32) temp_s1_6;
+                }
+            }
+        }
+        if (((*(s32 *)(scratch + 0x58)) - var_s0) > 0) {
+            var_t0 = (void *) ((u32) ((*(s32 *)(scratch + 0x4)) << 8) >> 8);
+            *scratch = *scratch + 1;
+            if (var_t0 != ((void *)0)) {
+                goto loop_2;
+            }
+        }
+    }
+    func_8008DC78(*scratch, arg1, arg2, var_a3);
+    func_8007F7E8(0x80000000 | var_s0);
+    func_8008DC34((*(s32 *)(scratch + 0x50)));
+    func_8008DC50((*(s32 *)(scratch + 0x4C)));
+}
