@@ -7,9 +7,9 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,024 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Full lifted control-flow draft and both recovered jump tables; GTE placeholders remain |
+| `func_80065920` | 11,168 | Compiler-valid 6,928-byte draft and both recovered jump tables; GTE lowering remains |
 | `func_8007AE20` | 4,788 | Complete compiling crash-screen disassembler draft and both jump tables |
-| `func_8008BF7C` | 4,268 | Full lifted renderer draft; GTE operations still require typed intrinsics |
+| `func_8008BF7C` | 4,268 | Compiler-valid 3,728-byte renderer draft with recovered scratchpad state; GTE lowering remains |
 
 `func_80044C38` corresponds to the N64 tank input/update routine
 `func_80091768`.  The PS1 implementation replaces its floating-point steering,

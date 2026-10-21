@@ -1,13 +1,29 @@
-s32 func_8007F7D8();                                /* extern */
-? func_8007F7E8(s32);                               /* extern */
-s32 func_8007F7F4();                                /* extern */
-s32 func_8008DC24();                                /* extern */
-? func_8008DC34(s32);                               /* extern */
-s32 func_8008DC40();                                /* extern */
-? func_8008DC50(s32);                               /* extern */
-? func_8008DC78(s32, s32, s32, u32);                /* extern */
-
+typedef signed char s8;
+typedef signed short s16;
+typedef signed int s32;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef signed int M2C_UNK;
+static __inline__ s32 mult_hi(s32 left, s32 right) {
+    s32 result;
+    __asm__ volatile(
+        "mult %1,%2\n\t"
+        "mfhi %0"
+        : "=r" (result)
+        : "r" (left), "r" (right));
+    return result;
+}
+s32 func_8007F7D8();
+M2C_UNK func_8007F7E8(s32);
+s32 func_8007F7F4();
+s32 func_8008DC24();
+M2C_UNK func_8008DC34(s32);
+s32 func_8008DC40();
+M2C_UNK func_8008DC50(s32);
+M2C_UNK func_8008DC78(s32, s32, s32, u32);
 void func_8008BF7C(void *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, void **arg10) {
+    u8 *scratch = (u8 *) 0x1F800300;
     s16 temp_t0_17;
     s16 temp_t0_8;
     s16 temp_t4_10;
@@ -190,214 +206,208 @@ void func_8008BF7C(void *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, void **ar
     u32 var_a3;
     u32 var_s0;
     u8 var_t6;
-    void *temp_s1_2;
-    void *temp_s1_4;
-    void *temp_s1_5;
-    void *temp_s2;
-    void *temp_s2_2;
-    void *temp_s2_3;
-    void *temp_s2_6;
-    void *temp_s2_7;
-    void *temp_s3;
-    void *temp_s3_2;
-    void *temp_s3_3;
-    void *temp_s3_5;
-    void *temp_s3_6;
-    void *temp_s4;
-    void *temp_s4_2;
-    void *temp_s4_3;
-    void *temp_s4_4;
-    void *var_s1_2;
-    void *var_s1_3;
-    void *var_s2;
-    void *var_s2_2;
-    void *var_s3;
-    void *var_s3_3;
-    void *var_s4_2;
-    void *var_t0;
-
-    M2C_ERROR(/* unknown instruction: ctc2 $t1, $0 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t2, $1 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t1, $2 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t2, $3 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t1, $4 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t2, $5 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t1, $6 */);
-    M2C_ERROR(/* unknown instruction: ctc2 $t2, $7 */);
-    (void *)0x1F800300->unk54 = arg3;
-    unksp10 = arg0;
-    unksp14 = arg1;
-    unksp18 = arg2;
-    unksp1C = arg3;
-    unksp20 = arg10;
+    u8 *temp_s1_2;
+    u8 *temp_s1_4;
+    u8 *temp_s1_5;
+    u8 *temp_s2;
+    u8 *temp_s2_2;
+    u8 *temp_s2_3;
+    u8 *temp_s2_6;
+    u8 *temp_s2_7;
+    u8 *temp_s3;
+    u8 *temp_s3_2;
+    u8 *temp_s3_3;
+    u8 *temp_s3_5;
+    u8 *temp_s3_6;
+    u8 *temp_s4;
+    u8 *temp_s4_2;
+    u8 *temp_s4_3;
+    u8 *temp_s4_4;
+    u8 *var_s1_2;
+    u8 *var_s1_3;
+    u8 *var_s2;
+    u8 *var_s2_2;
+    u8 *var_s3;
+    u8 *var_s3_3;
+    u8 *var_s4_2;
+    u8 *var_t0;
+    0;
+    0;
+    0;
+    0;
+    0;
+    0;
+    0;
+    0;
+    (*(s32 *)(scratch + 0x54)) = arg3;
     temp_s0 = func_8007F7D8() << 8;
     var_s0 = temp_s0 >> 8;
-    M2C_ERROR(/* Read from unset register $t9 */)->unk58 = (s32) (func_8007F7F4() - 0x540 + var_s0);
-    M2C_ERROR(/* Read from unset register $t9 */)->unk5C = (s16) ((u32) M2C_ERROR(/* unknown instruction: cfc2 $t0, $26 */) >> 1);
-    M2C_ERROR(/* Read from unset register $t9 */)->unk50 = func_8008DC24();
-    M2C_ERROR(/* Read from unset register $t9 */)->unk4C = func_8008DC40();
+    (*( s32 *)(scratch + 0x58)) = (s32) (func_8007F7F4() - 0x540 + var_s0);
+    (*( s16 *)(scratch + 0x5C)) = (s16) ((u32) 0 >> 1);
+    (*( s32 *)(scratch + 0x50)) = func_8008DC24();
+    (*( s32 *)(scratch + 0x4C)) = func_8008DC40();
     var_a3 = arg3;
     var_t0 = *arg10;
-    *M2C_ERROR(/* Read from unset register $t9 */) = 0;
-    M2C_ERROR(/* Read from unset register $t9 */)->unk40 = -1;
-    if ((var_t0 != NULL) && ((M2C_ERROR(/* Read from unset register $t9 */)->unk58 - var_s0) > 0)) {
+    *(s32 *)scratch = 0;
+    (*( s32 *)(scratch + 0x40)) = -1;
+    if ((var_t0 != ((void *)0)) && (((*( s32 *)(scratch + 0x58)) - var_s0) > 0)) {
 loop_2:
-        temp_at = var_t0->unk0;
-        M2C_ERROR(/* Read from unset register $t9 */)->unkC = var_t0;
-        M2C_ERROR(/* Read from unset register $t9 */)->unk4 = temp_at;
-        var_t6 = var_t0->unk7;
+        temp_at = (*(u32 *)(var_t0));
+        (*( s32 *)(scratch + 0xC)) = var_t0;
+        (*( s32 *)(scratch + 0x4)) = temp_at;
+        var_t6 = (*(u8 *)(var_t0));
         temp_gp = temp_at >> 0x18;
-        M2C_ERROR(/* Read from unset register $t9 */)->unk8 = 0;
+        (*( s32 *)(scratch + 0x8)) = 0;
         if ((var_t6 - 0xE1) == 0) {
-            temp_at_2 = var_t0->unk4;
+            temp_at_2 = (*(u32 *)(var_t0));
             var_t0 += 4;
-            var_t6 = var_t0->unk7;
-            M2C_ERROR(/* Read from unset register $t9 */)->unk8 = temp_at_2;
+            var_t6 = (*(u8 *)(var_t0));
+            (*( s32 *)(scratch + 0x8)) = temp_at_2;
         }
         var_a3 = ((u32) (var_t6 & 0x10) >> 2) + 4 + (var_t6 & 4);
         if (!(var_t6 & 0xC0)) {
-            M2C_ERROR(/* Read from unset register $t9 */)->unk48 = (s32) var_t6;
+            (*( s32 *)(scratch + 0x48)) = (s32) var_t6;
             if (!(var_t6 & 8)) {
                 temp_t6 = var_t6 | 8;
                 temp_gp_2 = temp_gp + (var_a3 >> 2);
                 temp_at_3 = (temp_gp_2 + 1) * 4;
                 temp_s1 = var_s0;
-                M2C_ERROR(/* Read from unset register $t9 */)->unkC = temp_s1;
+                (*( s32 *)(scratch + 0xC)) = temp_s1;
                 temp_s2 = temp_s1 + temp_at_3;
                 temp_s3 = temp_s2 + temp_at_3;
                 var_s0 = temp_s3 + temp_at_3;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk14 = temp_s3;
+                (*( s32 *)(scratch + 0x14)) = temp_s3;
                 var_s3 = temp_s3 + 4;
                 temp_s4 = var_t0 + 4;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk10 = temp_s2;
-                temp_at_4 = M2C_ERROR(/* Read from unset register $t9 */)->unk8;
+                (*( s32 *)(scratch + 0x10)) = temp_s2;
+                temp_at_4 = (*( s32 *)(scratch + 0x8));
                 var_s1 = temp_s1 + 4;
                 var_s2 = temp_s2 + 4;
                 if (temp_at_4 != 0) {
-                    temp_s2->unk4 = temp_at_4;
-                    temp_s1->unk4 = temp_at_4;
+                    (*(u32 *)(temp_s2)) = temp_at_4;
+                    (*(u32 *)(temp_s1)) = temp_at_4;
                     var_s1 += 4;
-                    temp_s3->unk4 = temp_at_4;
+                    (*(u32 *)(temp_s3)) = temp_at_4;
                     var_s3 += 4;
                     var_s2 += 4;
                 }
-                M2C_ERROR(/* unknown instruction: mtc2 $t0, $8 */);
+                0;
                 temp_v1 = var_a3 * 2;
                 temp_fp = var_a3 * 3;
                 if (temp_t6 & 0x10) {
-                    temp_t0 = var_t0->unk4;
+                    temp_t0 = (*(u32 *)(var_t0));
                     temp_v0 = temp_s4 + var_a3;
                     temp_t3 = ((temp_t0 >> 0x18) | 8) << 0x18;
                     temp_t1 = *temp_v0 | temp_t3;
                     temp_t0_2 = ((u32) (temp_t0 << 8) >> 8) | temp_t3;
                     temp_t2 = *(temp_v0 + var_a3) | temp_t3;
-                    *(temp_fp + var_s3) = temp_t0_2;
+                    *(s32 *)(temp_fp + (s32)var_s3) = temp_t0_2;
                     *var_s1 = temp_t0_2;
                     *(temp_fp + var_s1) = temp_t1;
-                    var_s2->unk0 = temp_t1;
-                    *(temp_fp + var_s2) = temp_t2;
-                    var_s3->unk0 = temp_t2;
+                    (*(u32 *)(var_s2)) = temp_t1;
+                    *(s32 *)(temp_fp + (s32)var_s2) = temp_t2;
+                    (*(u32 *)(var_s3)) = temp_t2;
                     temp_t7 = temp_t0_2 & 0xFF;
                     temp_t6_2 = temp_t1 & 0xFF;
                     temp_at_5 = temp_t2 & 0xFF;
-                    M2C_ERROR(/* unknown instruction: mtc2 $v0, $9 */);
+                    0;
                     temp_t0_3 = temp_t0_2 >> 8;
                     temp_t1_2 = temp_t1 >> 8;
                     temp_t2_2 = temp_t2 >> 8;
                     temp_t8 = temp_t0_3 & 0xFF;
                     temp_at_6 = temp_t1_2 & 0xFF;
                     temp_t4 = temp_t2_2 & 0xFF;
-                    M2C_ERROR(/* unknown instruction: mtc2 $v0, $10 */);
+                    0;
                     temp_t8_2 = (temp_t0_3 >> 8) & 0xFF;
                     temp_at_7 = (temp_t1_2 >> 8) & 0xFF;
                     temp_t4_2 = (temp_t2_2 >> 8) & 0xFF;
-                    M2C_ERROR(/* unknown instruction: mtc2 $v0, $11 */);
-                    M2C_ERROR(/* unknown instruction: gpf 0x1 */);
+                    0;
+                    0;
                     *(var_a3 + var_s1) = ((u32) (temp_t7 + temp_t6_2) >> 1) | (((u32) (temp_t8 + temp_at_6) >> 1) << 8) | (((u32) (temp_t8_2 + temp_at_7) >> 1) << 0x10);
-                    *(var_a3 + var_s2) = ((u32) (temp_t6_2 + temp_at_5) >> 1) | (((u32) (temp_at_6 + temp_t4) >> 1) << 8) | (((u32) (temp_at_7 + temp_t4_2) >> 1) << 0x10);
-                    *(var_a3 + var_s3) = ((u32) (temp_t7 + temp_at_5) >> 1) | (((u32) (temp_t4 + temp_t8) >> 1) << 8) | (((u32) (temp_t4_2 + temp_t8_2) >> 1) << 0x10);
-                    temp_v0_2 = (M2C_ERROR(/* unknown instruction: mfc2 $t0, $11 */) << 0x10) | (M2C_ERROR(/* unknown instruction: mfc2 $at, $10 */) << 8) | M2C_ERROR(/* unknown instruction: mfc2 $t0, $9 */);
+                    *(s32 *)(var_a3 + (s32)var_s2) = ((u32) (temp_t6_2 + temp_at_5) >> 1) | (((u32) (temp_at_6 + temp_t4) >> 1) << 8) | (((u32) (temp_at_7 + temp_t4_2) >> 1) << 0x10);
+                    *(s32 *)(var_a3 + (s32)var_s3) = ((u32) (temp_t7 + temp_at_5) >> 1) | (((u32) (temp_t4 + temp_t8) >> 1) << 8) | (((u32) (temp_t4_2 + temp_t8_2) >> 1) << 0x10);
+                    temp_v0_2 = (0 << 0x10) | (0 << 8) | 0;
                     *(temp_v1 + var_s1) = temp_v0_2;
-                    *(temp_v1 + var_s2) = temp_v0_2;
-                    *(temp_v1 + var_s3) = temp_v0_2;
+                    *(s32 *)(temp_v1 + (s32)var_s2) = temp_v0_2;
+                    *(s32 *)(temp_v1 + (s32)var_s3) = temp_v0_2;
                     var_s1_2 = var_s1 + 4;
                 } else {
                     var_s1_2 = var_s1 + 4;
                     temp_t0_4 = ((u32) (*var_s1 << 8) >> 8) | temp_t6;
-                    var_s2->unk0 = temp_t0_4;
-                    var_s3->unk0 = temp_t0_4;
+                    (*(u32 *)(var_s2)) = temp_t0_4;
+                    (*(u32 *)(var_s3)) = temp_t0_4;
                 }
                 temp_s2_2 = var_s2 + 4;
                 temp_s4_2 = temp_s4 + 4;
                 temp_s3_2 = var_s3 + 4;
-                temp_t0_5 = temp_s4->unk4;
+                temp_t0_5 = (*(u32 *)(temp_s4));
                 temp_v0_3 = temp_s4_2 + var_a3;
                 if (temp_t0_5 == 0) {
-                    temp_t0_6 = M2C_ERROR(/* Read from unset register $t9 */)->unk1C;
-                    temp_t1_3 = M2C_ERROR(/* Read from unset register $t9 */)->unk20;
-                    temp_t2_3 = M2C_ERROR(/* Read from unset register $t9 */)->unk24;
-                    temp_t4_3 = M2C_ERROR(/* Read from unset register $t9 */)->unk28;
-                    var_s1_2->unk0 = temp_t0_6;
+                    temp_t0_6 = (*( s32 *)(scratch + 0x1C));
+                    temp_t1_3 = (*( s32 *)(scratch + 0x20));
+                    temp_t2_3 = (*( s32 *)(scratch + 0x24));
+                    temp_t4_3 = (*( s32 *)(scratch + 0x28));
+                    (*(u32 *)(var_s1_2)) = temp_t0_6;
                     temp_v0_4 = var_a3 + var_s1_2;
-                    *temp_v0_4 = M2C_ERROR(/* Read from unset register $t9 */)->unk30;
+                    *temp_v0_4 = (*( s32 *)(scratch + 0x30));
                     temp_v0_5 = temp_v0_4 + var_a3;
                     *temp_v0_5 = temp_t4_3;
                     *(temp_v0_5 + var_a3) = temp_t1_3;
-                    var_s2->unk4 = temp_t1_3;
+                    (*(u32 *)(var_s2)) = temp_t1_3;
                     temp_v0_6 = var_a3 + temp_s2_2;
-                    *temp_v0_6 = M2C_ERROR(/* Read from unset register $t9 */)->unk34;
+                    *temp_v0_6 = (*( s32 *)(scratch + 0x34));
                     temp_v0_7 = temp_v0_6 + var_a3;
                     *temp_v0_7 = temp_t4_3;
                     *(temp_v0_7 + var_a3) = temp_t2_3;
-                    var_s3->unk4 = temp_t2_3;
+                    (*(u32 *)(var_s3)) = temp_t2_3;
                     temp_v0_8 = var_a3 + temp_s3_2;
-                    *temp_v0_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk38;
+                    *temp_v0_8 = (*( s32 *)(scratch + 0x38));
                     temp_v0_9 = temp_v0_8 + var_a3;
                     *temp_v0_9 = temp_t4_3;
                     *(temp_v0_9 + var_a3) = temp_t0_6;
                     goto block_20;
                 }
-                M2C_ERROR(/* Read from unset register $t9 */)->unk44 = (s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk54 + (*(temp_v0_3 + var_a3) & 0xFFFF));
-                temp_t2_4 = *(((temp_t0_5 & 0xFFFF) * 8) + arg2);
-                var_s1_2->unk0 = temp_t2_4;
-                *(temp_fp + temp_s3_2) = temp_t2_4;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk1C = temp_t2_4;
-                temp_t2_5 = *(((temp_t0_5 >> 0x10) * 8) + arg2);
+                (*( s32 *)(scratch + 0x44)) = (s32) ((*( s32 *)(scratch + 0x54)) + (*(temp_v0_3 + var_a3) & 0xFFFF));
+                temp_t2_4 = *(s32 *)(((temp_t0_5 & 0xFFFF) * 8) + arg2);
+                (*(u32 *)(var_s1_2)) = temp_t2_4;
+                *(s32 *)(temp_fp + (s32)temp_s3_2) = temp_t2_4;
+                (*( s32 *)(scratch + 0x1C)) = temp_t2_4;
+                temp_t2_5 = *(s32 *)(((temp_t0_5 >> 0x10) * 8) + arg2);
                 temp_t7_2 = temp_t2_5 >> 0x10;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk30 = (s32) ((((s32) (temp_t7_2 + (temp_t2_4 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_4 + (s16) temp_t2_5) >> 1) & 0xFFFF));
-                *(temp_fp + var_s1_2) = temp_t2_5;
-                var_s2->unk4 = temp_t2_5;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk20 = temp_t2_5;
-                M2C_ERROR(/* unknown instruction: mtc2 $t4, $9 */);
-                temp_t2_6 = *(((*temp_v0_3 & 0xFFFF) * 8) + arg2);
-                M2C_ERROR(/* unknown instruction: mtc2 $t5, $10 */);
-                M2C_ERROR(/* Read from unset register $t9 */)->unk24 = temp_t2_6;
-                M2C_ERROR(/* unknown instruction: mtc2 $t6, $11 */);
-                *(temp_fp + temp_s2_2) = temp_t2_6;
-                var_s3->unk4 = temp_t2_6;
-                M2C_ERROR(/* unknown instruction: gpf 0x1 */);
+                (*( s32 *)(scratch + 0x30)) = (s32) ((((s32) (temp_t7_2 + (temp_t2_4 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_4 + (s16) temp_t2_5) >> 1) & 0xFFFF));
+                *(s32 *)(temp_fp + (s32)var_s1_2) = temp_t2_5;
+                (*(u32 *)(var_s2)) = temp_t2_5;
+                (*( s32 *)(scratch + 0x20)) = temp_t2_5;
+                0;
+                temp_t2_6 = *(s32 *)(((*temp_v0_3 & 0xFFFF) * 8) + arg2);
+                0;
+                (*( s32 *)(scratch + 0x24)) = temp_t2_6;
+                0;
+                *(s32 *)(temp_fp + (s32)temp_s2_2) = temp_t2_6;
+                (*(u32 *)(var_s3)) = temp_t2_6;
+                0;
                 temp_t0_7 = temp_t2_6 >> 0x10;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk34 = (s32) ((((s32) (temp_t0_7 + temp_t7_2) >> 1) << 0x10) | (((s32) ((s16) temp_t2_5 + (s16) temp_t2_6) >> 1) & 0xFFFF));
-                M2C_ERROR(/* unknown instruction: mfc2 $t0, $9 */);
-                M2C_ERROR(/* unknown instruction: mfc2 $t1, $10 */);
-                M2C_ERROR(/* unknown instruction: mfc2 $t2, $11 */);
-                M2C_ERROR(/* unknown instruction: mtc2 $t0, $0 */);
-                M2C_ERROR(/* unknown instruction: mtc2 $t2, $1 */);
-                M2C_ERROR(/* unknown instruction: rtps */);
-                M2C_ERROR(/* Read from unset register $t9 */)->unk38 = (s32) ((((s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk1E + temp_t0_7) >> 1) << 0x10) | (((s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk1C + (s16) temp_t2_6) >> 1) & 0xFFFF));
-                temp_t0_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk5C;
-                var_at = M2C_ERROR(/* unknown instruction: mfc2 $at, $14 */);
-                if (M2C_ERROR(/* unknown instruction: mfc2 $t1, $19 */) < temp_t0_8) {
-                    var_t4 = M2C_ERROR(/* unknown instruction: mfc2 $t4, $27 */);
-                    temp_t3_2 = M2C_ERROR(/* unknown instruction: mfc2 $t3, $25 */);
+                (*( s32 *)(scratch + 0x34)) = (s32) ((((s32) (temp_t0_7 + temp_t7_2) >> 1) << 0x10) | (((s32) ((s16) temp_t2_5 + (s16) temp_t2_6) >> 1) & 0xFFFF));
+                0;
+                0;
+                0;
+                0;
+                0;
+                0;
+                (*( s32 *)(scratch + 0x38)) = (s32) ((((s32) ((*( s16 *)(scratch + 0x1E)) + temp_t0_7) >> 1) << 0x10) | (((s32) ((*( s32 *)(scratch + 0x1C)) + (s16) temp_t2_6) >> 1) & 0xFFFF));
+                temp_t0_8 = (*( s16 *)(scratch + 0x5C));
+                var_at = 0;
+                if (0 < temp_t0_8) {
+                    var_t4 = 0;
+                    temp_t3_2 = 0;
                     if (var_t4 <= 0) {
                         var_t4 = 1;
                     }
                     temp_lo = (s32) (temp_t0_8 << 0x11) / var_t4;
-                    temp_t4_4 = M2C_ERROR(/* unknown instruction: mfc2 $t4, $26 */);
-                    temp_t3_3 = (((u32) (temp_lo * temp_t3_2) >> 0x10) | (MULT_HI(temp_lo, temp_t3_2) << 0x10)) + ((u32) M2C_ERROR(/* unknown instruction: cfc2 $t2, $24 */) >> 0x10);
+                    temp_t4_4 = 0;
+                    temp_t3_3 = (((u32) (temp_lo * temp_t3_2) >> 0x10) | (mult_hi((temp_lo), (temp_t3_2)) << 0x10)) + ((u32) 0 >> 0x10);
                     if ((((temp_t3_3 >> 0x1F) ^ temp_t3_3) - 0x400) < 0) {
-                        temp_t4_5 = (((u32) (temp_lo * temp_t4_4) >> 0x10) | (MULT_HI(temp_lo, temp_t4_4) << 0x10)) + ((u32) M2C_ERROR(/* unknown instruction: cfc2 $t5, $25 */) >> 0x10);
+                        temp_t4_5 = (((u32) (temp_lo * temp_t4_4) >> 0x10) | (mult_hi((temp_lo), (temp_t4_4)) << 0x10)) + ((u32) 0 >> 0x10);
                         if ((((temp_t4_5 >> 0x1F) ^ temp_t4_5) - 0x400) < 0) {
                             var_at = (temp_t4_5 << 0x10) | (temp_t3_3 & 0xFFFF);
                             goto block_19;
@@ -405,54 +415,54 @@ loop_2:
                     }
                 } else {
 block_19:
-                    *(temp_v1 + var_s1_2) = var_at;
-                    *(temp_v1 + temp_s2_2) = var_at;
-                    *(temp_v1 + temp_s3_2) = var_at;
+                    *(s32 *)(temp_v1 + (s32)var_s1_2) = var_at;
+                    *(s32 *)(temp_v1 + (s32)temp_s2_2) = var_at;
+                    *(s32 *)(temp_v1 + (s32)temp_s3_2) = var_at;
                     temp_t3_4 = var_at >> 0x10;
-                    temp_t4_6 = M2C_ERROR(/* Read from unset register $t9 */)->unk30;
-                    temp_t5 = M2C_ERROR(/* Read from unset register $t9 */)->unk32;
+                    temp_t4_6 = (*( s32 *)(scratch + 0x30));
+                    temp_t5 = (*( s16 *)(scratch + 0x32));
                     temp_t4_7 = ((temp_t4_6 + (((s32) (temp_t4_6 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5 + (((s32) (temp_t5 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk30 = temp_t4_7;
-                    *(var_a3 + var_s1_2) = temp_t4_7;
-                    temp_t4_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk34;
-                    temp_t5_2 = M2C_ERROR(/* Read from unset register $t9 */)->unk36;
+                    (*( s32 *)(scratch + 0x30)) = temp_t4_7;
+                    *(s32 *)(var_a3 + (s32)var_s1_2) = temp_t4_7;
+                    temp_t4_8 = (*( s32 *)(scratch + 0x34));
+                    temp_t5_2 = (*( s16 *)(scratch + 0x36));
                     temp_t4_9 = ((temp_t4_8 + (((s32) (temp_t4_8 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_2 + (((s32) (temp_t5_2 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk34 = temp_t4_9;
+                    (*( s32 *)(scratch + 0x34)) = temp_t4_9;
                     *(var_a3 + temp_s2_2) = temp_t4_9;
-                    temp_t4_10 = M2C_ERROR(/* Read from unset register $t9 */)->unk38;
-                    temp_t5_3 = M2C_ERROR(/* Read from unset register $t9 */)->unk3A;
+                    temp_t4_10 = (*( s32 *)(scratch + 0x38));
+                    temp_t5_3 = (*( s16 *)(scratch + 0x3A));
                     temp_t4_11 = ((temp_t4_10 + (((s32) (temp_t4_10 - (s16) var_at) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_3 + (((s32) (temp_t5_3 - temp_t3_4) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk38 = temp_t4_11;
+                    (*( s32 *)(scratch + 0x38)) = temp_t4_11;
                     *(var_a3 + temp_s3_2) = temp_t4_11;
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk28 = var_at;
+                    (*( s32 *)(scratch + 0x28)) = var_at;
 block_20:
                     temp_s3_3 = temp_s3_2 + 4;
                     temp_s1_2 = var_s1_2 + 4;
                     temp_s2_3 = temp_s2_2 + 4;
-                    M2C_ERROR(/* unknown instruction: mtc2 $t0, $8 */);
-                    if (M2C_ERROR(/* Read from unset register $t9 */)->unk48 & 4) {
-                        temp_t0_9 = temp_s4_2->unk4;
+                    0;
+                    if ((*( s32 *)(scratch + 0x48)) & 4) {
+                        temp_t0_9 = (*(u32 *)(temp_s4_2));
                         temp_v0_10 = temp_s4_2 + 4 + var_a3;
                         temp_t1_4 = *temp_v0_10;
                         temp_t2_7 = *(temp_v0_10 + var_a3);
                         temp_t8_3 = temp_t0_9 & 0xFFFF0000;
                         temp_t5_4 = temp_t1_4 & 0xFFFF0000;
                         *(temp_fp + temp_s1_2) = (s16) temp_t1_4;
-                        var_s1_2->unk4 = (s32) ((temp_t0_9 & 0xFFFF) | temp_t8_3);
-                        temp_s2_2->unk4 = (s32) ((temp_t1_4 & 0xFFFF) | temp_t8_3);
+                        (*(u32 *)(var_s1_2)) = (s32) ((temp_t0_9 & 0xFFFF) | temp_t8_3);
+                        (*(u32 *)(temp_s2_2)) = (s32) ((temp_t1_4 & 0xFFFF) | temp_t8_3);
                         *(temp_fp + temp_s2_3) = temp_t2_7;
-                        temp_s3_2->unk4 = (s32) (temp_t2_7 | temp_t8_3);
+                        (*(u32 *)(temp_s3_2)) = (s32) (temp_t2_7 | temp_t8_3);
                         *(temp_fp + temp_s3_3) = (s16) temp_t0_9;
                         temp_t3_5 = temp_t0_9 & 0xFF;
                         temp_t4_12 = temp_t1_4 & 0xFF;
                         temp_t6_3 = temp_t2_7 & 0xFF;
-                        M2C_ERROR(/* unknown instruction: mtc2 $v0, $9 */);
+                        0;
                         temp_t0_10 = (temp_t0_9 >> 8) & 0xFF;
                         temp_t1_5 = (temp_t1_4 >> 8) & 0xFF;
                         temp_t2_8 = (temp_t2_7 >> 8) & 0xFF;
-                        M2C_ERROR(/* unknown instruction: mtc2 $v0, $10 */);
-                        M2C_ERROR(/* unknown instruction: gpf 0x1 */);
-                        temp_t4_13 = (M2C_ERROR(/* unknown instruction: mfc2 $t4, $10 */) << 8) | M2C_ERROR(/* unknown instruction: mfc2 $at, $9 */);
+                        0;
+                        0;
+                        temp_t4_13 = (0 << 8) | 0;
                         temp_v0_11 = var_a3 + temp_s1_2;
                         *temp_v0_11 = (((u32) (temp_t0_10 + temp_t1_5) >> 1) << 8) | ((u32) (temp_t3_5 + temp_t4_12) >> 1) | temp_t5_4;
                         *(temp_v0_11 + var_a3) = temp_t4_13;
@@ -463,13 +473,13 @@ block_20:
                         *temp_v0_13 = (((u32) (temp_t2_8 + temp_t0_10) >> 1) << 8) | ((u32) (temp_t3_5 + temp_t6_3) >> 1) | temp_t5_4;
                         *(temp_v0_13 + var_a3) = temp_t4_13;
                     }
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk50 = (s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk50 - 1);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk4C = (s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk4C + 3);
-                    temp_v0_14 = M2C_ERROR(/* Read from unset register $t9 */)->unk44;
+                    (*( s32 *)(scratch + 0x50)) = (s32) ((*( s32 *)(scratch + 0x50)) - 1);
+                    (*( s32 *)(scratch + 0x4C)) = (s32) ((*( s32 *)(scratch + 0x4C)) + 3);
+                    temp_v0_14 = (*( s32 *)(scratch + 0x44));
                     temp_t1_6 = temp_gp_2 << 0x18;
-                    temp_s1_3 = M2C_ERROR(/* Read from unset register $t9 */)->unkC;
-                    temp_s2_4 = M2C_ERROR(/* Read from unset register $t9 */)->unk10;
-                    temp_s3_4 = M2C_ERROR(/* Read from unset register $t9 */)->unk14;
+                    temp_s1_3 = (*( s32 *)(scratch + 0xC));
+                    temp_s2_4 = (*( s32 *)(scratch + 0x10));
+                    temp_s3_4 = (*( s32 *)(scratch + 0x14));
                     *temp_s3_4 = *temp_v0_14 | temp_t1_6;
                     *temp_s2_4 = (s32) temp_s3_4 | temp_t1_6;
                     *temp_s1_3 = (s32) temp_s2_4 | temp_t1_6;
@@ -481,18 +491,18 @@ block_20:
                 temp_s3_5 = temp_s2_5 + temp_at_8;
                 temp_s4_3 = temp_s3_5 + temp_at_8;
                 var_s0 = temp_s4_3 + temp_at_8;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk10 = temp_s2_5;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk14 = temp_s3_5;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk18 = temp_s4_3;
+                (*( s32 *)(scratch + 0x10)) = temp_s2_5;
+                (*( s32 *)(scratch + 0x14)) = temp_s3_5;
+                (*( s32 *)(scratch + 0x18)) = temp_s4_3;
                 var_s3_2 = temp_s3_5 + 4;
                 var_s4 = temp_s4_3 + 4;
-                temp_at_9 = M2C_ERROR(/* Read from unset register $t9 */)->unk8;
+                temp_at_9 = (*( s32 *)(scratch + 0x8));
                 temp_s1_4 = var_t0 + 4;
                 var_s2_2 = temp_s2_5 + 4;
                 if (temp_at_9 != 0) {
-                    temp_s2_5->unk4 = temp_at_9;
-                    temp_s3_5->unk4 = temp_at_9;
-                    temp_s4_3->unk4 = temp_at_9;
+                    (*(u32 *)(temp_s2_5)) = temp_at_9;
+                    (*(u32 *)(temp_s3_5)) = temp_at_9;
+                    (*(u32 *)(temp_s4_3)) = temp_at_9;
                     var_s3_2 += 4;
                     var_s4 += 4;
                     var_s2_2 += 4;
@@ -500,7 +510,7 @@ block_20:
                 temp_v1_2 = var_a3 * 2;
                 temp_fp_2 = var_a3 * 3;
                 if (var_t6 & 0x10) {
-                    temp_t0_11 = var_t0->unk4;
+                    temp_t0_11 = (*(u32 *)(var_t0));
                     temp_v0_15 = var_a3 + temp_s1_4;
                     temp_v0_16 = temp_v0_15 + var_a3;
                     temp_t4_14 = var_t6 << 0x18;
@@ -508,7 +518,7 @@ block_20:
                     temp_t1_7 = *temp_v0_15 | temp_t4_14;
                     temp_t3_6 = *temp_v0_16 | temp_t4_14;
                     *(temp_fp_2 + temp_s1_4) = temp_t1_7;
-                    var_s2_2->unk0 = temp_t1_7;
+                    (*(u32 *)(var_s2_2)) = temp_t1_7;
                     *(temp_fp_2 + var_s2_2) = temp_t2_9;
                     *var_s3_2 = temp_t2_9;
                     *(temp_fp_2 + var_s3_2) = temp_t3_6;
@@ -535,9 +545,9 @@ block_20:
                     var_s4_2 = var_s4 + 4;
                     var_s1_3 = temp_s1_4 + 4;
                 } else {
-                    temp_t0_13 = ((u32) (var_t0->unk4 << 8) >> 8) | (var_t6 << 0x18);
-                    var_t0->unk4 = temp_t0_13;
-                    var_s2_2->unk0 = temp_t0_13;
+                    temp_t0_13 = ((u32) ((*(u32 *)(var_t0)) << 8) >> 8) | (var_t6 << 0x18);
+                    (*(u32 *)(var_t0)) = temp_t0_13;
+                    (*(u32 *)(var_s2_2)) = temp_t0_13;
                     *var_s3_2 = temp_t0_13;
                     *var_s4 = temp_t0_13;
                     var_s3_3 = var_s3_2 + 4;
@@ -545,81 +555,81 @@ block_20:
                     var_s1_3 = temp_s1_4 + 4;
                 }
                 temp_s2_6 = var_s2_2 + 4;
-                temp_t0_14 = var_s1_3->unk0;
+                temp_t0_14 = (*(u32 *)(var_s1_3));
                 temp_v0_21 = var_a3 + var_s1_3;
                 temp_t1_9 = *temp_v0_21;
                 if (temp_t0_14 == 0) {
-                    temp_t0_15 = M2C_ERROR(/* Read from unset register $t9 */)->unk1C;
-                    temp_t1_10 = M2C_ERROR(/* Read from unset register $t9 */)->unk20;
-                    temp_t2_11 = M2C_ERROR(/* Read from unset register $t9 */)->unk24;
-                    temp_t3_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk28;
-                    temp_t4_16 = M2C_ERROR(/* Read from unset register $t9 */)->unk2C;
-                    var_s1_3->unk0 = temp_t0_15;
+                    temp_t0_15 = (*( s32 *)(scratch + 0x1C));
+                    temp_t1_10 = (*( s32 *)(scratch + 0x20));
+                    temp_t2_11 = (*( s32 *)(scratch + 0x24));
+                    temp_t3_8 = (*( s32 *)(scratch + 0x28));
+                    temp_t4_16 = (*( s32 *)(scratch + 0x2C));
+                    (*(u32 *)(var_s1_3)) = temp_t0_15;
                     temp_v0_22 = var_a3 + var_s1_3;
-                    *temp_v0_22 = M2C_ERROR(/* Read from unset register $t9 */)->unk30;
+                    *temp_v0_22 = (*( s32 *)(scratch + 0x30));
                     temp_v0_23 = temp_v0_22 + var_a3;
                     *temp_v0_23 = temp_t4_16;
                     *(temp_v0_23 + var_a3) = temp_t1_10;
-                    var_s2_2->unk4 = temp_t1_10;
+                    (*(u32 *)(var_s2_2)) = temp_t1_10;
                     temp_v0_24 = var_a3 + temp_s2_6;
-                    *temp_v0_24 = M2C_ERROR(/* Read from unset register $t9 */)->unk34;
+                    *temp_v0_24 = (*( s32 *)(scratch + 0x34));
                     temp_v0_25 = temp_v0_24 + var_a3;
                     *temp_v0_25 = temp_t4_16;
                     *(temp_v0_25 + var_a3) = temp_t2_11;
-                    var_s3_3->unk0 = temp_t2_11;
+                    (*(u32 *)(var_s3_3)) = temp_t2_11;
                     temp_v0_26 = var_a3 + var_s3_3;
-                    *temp_v0_26 = M2C_ERROR(/* Read from unset register $t9 */)->unk38;
+                    *temp_v0_26 = (*( s32 *)(scratch + 0x38));
                     temp_v0_27 = temp_v0_26 + var_a3;
                     *temp_v0_27 = temp_t4_16;
                     *(temp_v0_27 + var_a3) = temp_t3_8;
-                    var_s4_2->unk0 = temp_t3_8;
+                    (*(u32 *)(var_s4_2)) = temp_t3_8;
                     temp_v0_28 = var_a3 + var_s4_2;
-                    *temp_v0_28 = M2C_ERROR(/* Read from unset register $t9 */)->unk3C;
+                    *temp_v0_28 = (*( s16 *)(scratch + 0x3C));
                     temp_v0_29 = temp_v0_28 + var_a3;
                     *temp_v0_29 = temp_t4_16;
                     *(temp_v0_29 + var_a3) = temp_t0_15;
                     goto block_37;
                 }
-                M2C_ERROR(/* Read from unset register $t9 */)->unk44 = (s32) ((*(temp_v0_21 + var_a3) & 0xFFFF) + M2C_ERROR(/* Read from unset register $t9 */)->unk54);
-                temp_t2_12 = *(((temp_t0_14 & 0xFFFF) * 8) + arg2);
-                var_s1_3->unk0 = temp_t2_12;
+                (*( s32 *)(scratch + 0x44)) = (s32) ((*(temp_v0_21 + var_a3) & 0xFFFF) + (*( s32 *)(scratch + 0x54)));
+                temp_t2_12 = *(s32 *)(((temp_t0_14 & 0xFFFF) * 8) + arg2);
+                (*(u32 *)(var_s1_3)) = temp_t2_12;
                 *(temp_fp_2 + var_s4_2) = temp_t2_12;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk1C = temp_t2_12;
-                temp_t2_13 = *(((temp_t0_14 >> 0x10) * 8) + arg2);
+                (*( s32 *)(scratch + 0x1C)) = temp_t2_12;
+                temp_t2_13 = *(s32 *)(((temp_t0_14 >> 0x10) * 8) + arg2);
                 *(temp_fp_2 + var_s1_3) = temp_t2_13;
-                var_s2_2->unk4 = temp_t2_13;
+                (*(u32 *)(var_s2_2)) = temp_t2_13;
                 temp_t7_3 = temp_t2_13 >> 0x10;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk30 = (s32) ((((s32) (temp_t7_3 + ((s32) temp_t2_12 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_12 + (s16) temp_t2_13) >> 1) & 0xFFFF));
-                M2C_ERROR(/* Read from unset register $t9 */)->unk20 = temp_t2_13;
-                temp_t2_14 = *(((temp_t1_9 & 0xFFFF) * 8) + arg2);
+                (*( s32 *)(scratch + 0x30)) = (s32) ((((s32) (temp_t7_3 + ((s32) temp_t2_12 >> 0x10)) >> 1) << 0x10) | (((s32) ((s16) temp_t2_12 + (s16) temp_t2_13) >> 1) & 0xFFFF));
+                (*( s32 *)(scratch + 0x20)) = temp_t2_13;
+                temp_t2_14 = *(s32 *)(((temp_t1_9 & 0xFFFF) * 8) + arg2);
                 temp_t0_16 = temp_t2_14 >> 0x10;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk34 = (s32) ((((s32) (temp_t0_16 + temp_t7_3) >> 1) << 0x10) | (((s32) ((s16) temp_t2_13 + (s16) temp_t2_14) >> 1) & 0xFFFF));
+                (*( s32 *)(scratch + 0x34)) = (s32) ((((s32) (temp_t0_16 + temp_t7_3) >> 1) << 0x10) | (((s32) ((s16) temp_t2_13 + (s16) temp_t2_14) >> 1) & 0xFFFF));
                 *(temp_fp_2 + temp_s2_6) = temp_t2_14;
-                var_s3_3->unk0 = temp_t2_14;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk24 = temp_t2_14;
-                temp_t2_15 = *(((temp_t1_9 >> 0x10) * 8) + arg2);
+                (*(u32 *)(var_s3_3)) = temp_t2_14;
+                (*( s32 *)(scratch + 0x24)) = temp_t2_14;
+                temp_t2_15 = *(s32 *)(((temp_t1_9 >> 0x10) * 8) + arg2);
                 *(temp_fp_2 + var_s3_3) = temp_t2_15;
-                var_s4_2->unk0 = temp_t2_15;
+                (*(u32 *)(var_s4_2)) = temp_t2_15;
                 temp_t8_4 = temp_t2_15 >> 0x10;
-                M2C_ERROR(/* Read from unset register $t9 */)->unk38 = (s32) ((((s32) (temp_t0_16 + temp_t8_4) >> 1) << 0x10) | (((s32) ((s16) temp_t2_14 + (s16) temp_t2_15) >> 1) & 0xFFFF));
-                M2C_ERROR(/* Read from unset register $t9 */)->unk28 = temp_t2_15;
-                M2C_ERROR(/* unknown instruction: mtc2 $t0, $0 */);
-                M2C_ERROR(/* unknown instruction: mtc2 $t6, $1 */);
-                M2C_ERROR(/* unknown instruction: rtps */);
-                M2C_ERROR(/* Read from unset register $t9 */)->unk3C = (s32) ((((s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk1E + temp_t8_4) >> 1) << 0x10) | (((s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk1C + (s16) temp_t2_15) >> 1) & 0xFFFF));
-                temp_t0_17 = M2C_ERROR(/* Read from unset register $t9 */)->unk5C;
-                var_at_2 = M2C_ERROR(/* unknown instruction: mfc2 $at, $14 */);
-                if (M2C_ERROR(/* unknown instruction: mfc2 $t1, $19 */) < temp_t0_17) {
-                    var_t4_2 = M2C_ERROR(/* unknown instruction: mfc2 $t4, $27 */);
-                    temp_t3_9 = M2C_ERROR(/* unknown instruction: mfc2 $t3, $25 */);
+                (*( s32 *)(scratch + 0x38)) = (s32) ((((s32) (temp_t0_16 + temp_t8_4) >> 1) << 0x10) | (((s32) ((s16) temp_t2_14 + (s16) temp_t2_15) >> 1) & 0xFFFF));
+                (*( s32 *)(scratch + 0x28)) = temp_t2_15;
+                0;
+                0;
+                0;
+                (*( s16 *)(scratch + 0x3C)) = (s32) ((((s32) ((*( s16 *)(scratch + 0x1E)) + temp_t8_4) >> 1) << 0x10) | (((s32) ((*( s32 *)(scratch + 0x1C)) + (s16) temp_t2_15) >> 1) & 0xFFFF));
+                temp_t0_17 = (*( s16 *)(scratch + 0x5C));
+                var_at_2 = 0;
+                if (0 < temp_t0_17) {
+                    var_t4_2 = 0;
+                    temp_t3_9 = 0;
                     if (var_t4_2 <= 0) {
                         var_t4_2 = 1;
                     }
                     temp_lo_2 = (s32) (temp_t0_17 << 0x11) / var_t4_2;
-                    temp_t4_17 = M2C_ERROR(/* unknown instruction: mfc2 $t4, $26 */);
-                    temp_t3_10 = (((u32) (temp_lo_2 * temp_t3_9) >> 0x10) | (MULT_HI(temp_lo_2, temp_t3_9) << 0x10)) + ((u32) M2C_ERROR(/* unknown instruction: cfc2 $t2, $24 */) >> 0x10);
+                    temp_t4_17 = 0;
+                    temp_t3_10 = (((u32) (temp_lo_2 * temp_t3_9) >> 0x10) | (mult_hi((temp_lo_2), (temp_t3_9)) << 0x10)) + ((u32) 0 >> 0x10);
                     if ((((temp_t3_10 >> 0x1F) ^ temp_t3_10) - 0x400) < 0) {
-                        temp_t4_18 = (((u32) (temp_lo_2 * temp_t4_17) >> 0x10) | (MULT_HI(temp_lo_2, temp_t4_17) << 0x10)) + ((u32) M2C_ERROR(/* unknown instruction: cfc2 $t5, $25 */) >> 0x10);
+                        temp_t4_18 = (((u32) (temp_lo_2 * temp_t4_17) >> 0x10) | (mult_hi((temp_lo_2), (temp_t4_17)) << 0x10)) + ((u32) 0 >> 0x10);
                         if ((((temp_t4_18 >> 0x1F) ^ temp_t4_18) - 0x400) < 0) {
                             var_at_2 = (temp_t4_18 << 0x10) | (temp_t3_10 & 0xFFFF);
                             goto block_36;
@@ -632,34 +642,34 @@ block_36:
                     *(temp_v1_2 + var_s3_3) = var_at_2;
                     *(temp_v1_2 + var_s4_2) = var_at_2;
                     temp_t3_11 = var_at_2 >> 0x10;
-                    temp_t4_19 = M2C_ERROR(/* Read from unset register $t9 */)->unk30;
-                    temp_t5_5 = M2C_ERROR(/* Read from unset register $t9 */)->unk32;
+                    temp_t4_19 = (*( s32 *)(scratch + 0x30));
+                    temp_t5_5 = (*( s16 *)(scratch + 0x32));
                     temp_t4_20 = ((temp_t4_19 + (((s32) (temp_t4_19 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_5 + (((s32) (temp_t5_5 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk30 = temp_t4_20;
+                    (*( s32 *)(scratch + 0x30)) = temp_t4_20;
                     *(var_a3 + var_s1_3) = temp_t4_20;
-                    temp_t4_21 = M2C_ERROR(/* Read from unset register $t9 */)->unk34;
-                    temp_t5_6 = M2C_ERROR(/* Read from unset register $t9 */)->unk36;
+                    temp_t4_21 = (*( s32 *)(scratch + 0x34));
+                    temp_t5_6 = (*( s16 *)(scratch + 0x36));
                     temp_t4_22 = ((temp_t4_21 + (((s32) (temp_t4_21 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_6 + (((s32) (temp_t5_6 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk34 = temp_t4_22;
+                    (*( s32 *)(scratch + 0x34)) = temp_t4_22;
                     *(var_a3 + temp_s2_6) = temp_t4_22;
-                    temp_t4_23 = M2C_ERROR(/* Read from unset register $t9 */)->unk38;
-                    temp_t5_7 = M2C_ERROR(/* Read from unset register $t9 */)->unk3A;
+                    temp_t4_23 = (*( s32 *)(scratch + 0x38));
+                    temp_t5_7 = (*( s16 *)(scratch + 0x3A));
                     temp_t4_24 = ((temp_t4_23 + (((s32) (temp_t4_23 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_7 + (((s32) (temp_t5_7 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk38 = temp_t4_24;
+                    (*( s32 *)(scratch + 0x38)) = temp_t4_24;
                     *(var_a3 + var_s3_3) = temp_t4_24;
-                    temp_t4_25 = M2C_ERROR(/* Read from unset register $t9 */)->unk3C;
-                    temp_t5_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk3E;
+                    temp_t4_25 = (*( s16 *)(scratch + 0x3C));
+                    temp_t5_8 = (*( s16 *)(scratch + 0x3E));
                     temp_t4_26 = ((temp_t4_25 + (((s32) (temp_t4_25 - (s16) var_at_2) >> 0x1F) | 1)) & 0xFFFF) | ((temp_t5_8 + (((s32) (temp_t5_8 - temp_t3_11) >> 0x1F) | 1)) << 0x10);
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk3C = temp_t4_26;
+                    (*( s16 *)(scratch + 0x3C)) = temp_t4_26;
                     *(var_a3 + var_s4_2) = temp_t4_26;
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk2C = var_at_2;
+                    (*( s32 *)(scratch + 0x2C)) = var_at_2;
 block_37:
                     temp_s1_5 = var_s1_3 + 4;
                     temp_s2_7 = temp_s2_6 + 4;
                     temp_s3_6 = var_s3_3 + 4;
                     temp_s4_4 = var_s4_2 + 4;
-                    if (M2C_ERROR(/* Read from unset register $t9 */)->unk48 & 4) {
-                        temp_t0_18 = var_s1_3->unk4;
+                    if ((*( s32 *)(scratch + 0x48)) & 4) {
+                        temp_t0_18 = (*(u32 *)(var_s1_3));
                         temp_v0_30 = var_a3 + temp_s1_5;
                         temp_t1_11 = *temp_v0_30;
                         temp_v0_31 = temp_v0_30 + var_a3;
@@ -667,13 +677,13 @@ block_37:
                         temp_t2_16 = *(temp_v0_31 + var_a3);
                         temp_t4_27 = (temp_t0_18 >> 0x10) << 0x10;
                         *(temp_fp_2 + temp_s1_5) = (s16) temp_t1_11;
-                        temp_s2_6->unk4 = temp_t4_27;
-                        temp_s2_6->unk4 = (s16) temp_t1_11;
+                        (*(u32 *)(temp_s2_6)) = temp_t4_27;
+                        (*(u32 *)(temp_s2_6)) = (s16) temp_t1_11;
                         *(temp_fp_2 + temp_s2_7) = temp_t2_16;
-                        var_s3_3->unk4 = (s32) (temp_t2_16 | temp_t4_27);
+                        (*(u32 *)(var_s3_3)) = (s32) (temp_t2_16 | temp_t4_27);
                         *(temp_fp_2 + temp_s3_6) = temp_t3_12;
-                        var_s4_2->unk4 = (s32) (temp_t3_12 | temp_t4_27);
-                        *(temp_fp_2 + temp_s4_4) = (s16) temp_t0_18;
+                        (*(u32 *)(var_s4_2)) = (s32) (temp_t3_12 | temp_t4_27);
+                        *(s16 *)(temp_fp_2 + (s32)temp_s4_4) = (s16) temp_t0_18;
                         temp_t8_5 = temp_t3_12 & 0xFEFE;
                         temp_t7_4 = temp_t2_16 & 0xFEFE;
                         temp_t6_4 = temp_t1_11 & 0xFEFE;
@@ -693,13 +703,13 @@ block_37:
                         *temp_v0_35 = ((s32) (temp_t8_5 + temp_t5_9) >> 1) | temp_t1_12;
                         *(temp_v0_35 + var_a3) = temp_t4_28;
                     }
-                    M2C_ERROR(/* Read from unset register $t9 */)->unk4C = (s32) (M2C_ERROR(/* Read from unset register $t9 */)->unk4C + 3);
-                    temp_v0_36 = M2C_ERROR(/* Read from unset register $t9 */)->unk44;
+                    (*( s32 *)(scratch + 0x4C)) = (s32) ((*( s32 *)(scratch + 0x4C)) + 3);
+                    temp_v0_36 = (*( s32 *)(scratch + 0x44));
                     temp_t1_13 = temp_gp << 0x18;
-                    temp_s1_6 = M2C_ERROR(/* Read from unset register $t9 */)->unkC;
-                    temp_s2_8 = M2C_ERROR(/* Read from unset register $t9 */)->unk10;
-                    temp_s3_7 = M2C_ERROR(/* Read from unset register $t9 */)->unk14;
-                    temp_s4_5 = M2C_ERROR(/* Read from unset register $t9 */)->unk18;
+                    temp_s1_6 = (*( s32 *)(scratch + 0xC));
+                    temp_s2_8 = (*( s32 *)(scratch + 0x10));
+                    temp_s3_7 = (*( s32 *)(scratch + 0x14));
+                    temp_s4_5 = (*( s32 *)(scratch + 0x18));
                     *temp_s4_5 = *temp_v0_36 | temp_t1_13;
                     *temp_s3_7 = (s32) temp_s4_5 | temp_t1_13;
                     *temp_s2_8 = (s32) temp_s3_7 | temp_t1_13;
@@ -708,16 +718,16 @@ block_37:
                 }
             }
         }
-        if ((M2C_ERROR(/* Read from unset register $t9 */)->unk58 - var_s0) > 0) {
-            var_t0 = (void *) ((u32) (M2C_ERROR(/* Read from unset register $t9 */)->unk4 << 8) >> 8);
-            *M2C_ERROR(/* Read from unset register $t9 */) = *M2C_ERROR(/* Read from unset register $t9 */) + 1;
-            if (var_t0 != NULL) {
+        if (((*( s32 *)(scratch + 0x58)) - var_s0) > 0) {
+            var_t0 = (void *) ((u32) ((*( s32 *)(scratch + 0x4)) << 8) >> 8);
+            *scratch = *scratch + 1;
+            if (var_t0 != ((void *)0)) {
                 goto loop_2;
             }
         }
     }
-    func_8008DC78(*M2C_ERROR(/* Read from unset register $t9 */), arg1, arg2, var_a3);
+    func_8008DC78(*scratch, arg1, arg2, var_a3);
     func_8007F7E8(0x80000000 | var_s0);
-    func_8008DC34(M2C_ERROR(/* Read from unset register $t9 */)->unk50);
-    func_8008DC50(M2C_ERROR(/* Read from unset register $t9 */)->unk4C);
+    func_8008DC34((*( s32 *)(scratch + 0x50)));
+    func_8008DC50((*( s32 *)(scratch + 0x4C)));
 }
