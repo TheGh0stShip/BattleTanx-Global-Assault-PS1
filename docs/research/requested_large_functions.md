@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 9,184-byte draft with both jump tables and 298 recovered hardware operations |
+| `func_80065920` | 11,168 | Compiler-valid 9,932-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
@@ -22,6 +22,13 @@ retail agreement from 1,570 to 2,052 bytes.  The first paired steering
 normalizers now keep the fixed `0x58000` denominator and its leading-sign count
 in the retail `$a2`/`$a1` registers.  That closes the candidate-size gap from
 28 to 12 bytes and raises direct agreement to 2,287 bytes.
+
+`func_80065920` now models its scratch area as one 260-byte structure rather
+than unrelated scalar placeholders.  Together with the outgoing argument area
+and saved registers, this reproduces the retail 320-byte frame and the exact
+local addresses from `sp+0x10` through `sp+0x110`.  The persistent display-state
+and matrix-pool pointers are also recovered in retail `$s2` and `$s4`, and the
+function prologue now agrees through the first 0x80 bytes.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
