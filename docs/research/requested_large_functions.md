@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 10,632-byte draft with the exact 320-byte retail frame, both jump tables, and recovered GTE matrix, light, and color input loads |
+| `func_80065920` | 11,168 | Compiler-valid 10,880-byte draft with the exact 320-byte retail frame, both jump tables, and the complete 397-operation COP2 stream |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
@@ -43,6 +43,13 @@ widths.  Recovered 16-bit packet fields use halfword stores instead of
 pointer-sized stores throughout the second and third passes.  Conversely, two
 packed XY coordinate fields at packet offset `0x18` now retain both 16-bit
 components with word stores instead of truncating the upper coordinate.
+All 17 matrix/light/color restore sites now load their CPU inputs before
+writing GTE control registers.  The two vector-normalization pipelines also
+retain the retail squared-length operation, leading-zero-derived shift,
+reciprocal-scale lookup, and shifted three-component output.  The resulting
+candidate contains the same ordered 397 COP2 transfers and commands as the
+retail function; the remaining mismatch is CPU instruction selection and
+scheduling rather than missing GTE work.
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
