@@ -19,7 +19,7 @@ s32 func_800940C4(void) {
     sp0 = *D_800B59E8_reload;
     temp_v0 = *D_800B59E0;
     sp0 = temp_v0;
-    if ((temp_v0 & 0xFFFFFF) == 0xFFFFFF) {
+    if (((u32) sp0 & 0xFFFFFF) == 0xFFFFFF) {
         return 0;
     }
     return sp0;

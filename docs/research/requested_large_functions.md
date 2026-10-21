@@ -30,3 +30,8 @@ accounts for the complete 16-instruction matrix setup at `0x8008BFB0`.
 These candidates are research inputs and are not listed as matching units until
 they reproduce their target byte ranges exactly.  The raw wrappers remain the
 authoritative build fallback meanwhile.
+
+The adjacent polling candidate `func_800940C4` now emits the complete 148-byte
+instruction body.  Its volatile stack reload restores the retail load-delay
+sequence and raises the byte agreement from 103 to 138 of 148 bytes; only two
+compiler register/scheduling choices remain before promotion.

@@ -12,21 +12,23 @@ void func_8009CA3C(int flags) {
 
     func_8009713C(0xE, &command, 0);
     if ((flags & 0x100) != 0) {
-        register int enabled asm("$2") = 1;
-
         if ((flags & 0x20) != 0) {
-            asm volatile("lui $1,%%hi(D_800EFD08)\n\t"
-                         "j 1f\n\t"
-                         "sw $0,%%lo(D_800EFD08)($1)\n"
-                         "1:"
-                         : : : "$1", "memory");
+            D_800EFD08 = 0;
         } else {
-            asm volatile("lui $1,%%hi(D_800EFD08)\n\t"
-                         "sw %0,%%lo(D_800EFD08)($1)"
-                         : : "r"(enabled) : "$1", "memory");
+            D_800EFD08 = 1;
         }
-        func_80097558(func_800A2FF0);
-        func_80097128(func_8009CAC0);
+        {
+            register char *callback asm("$4");
+            asm("lui %0,0x800A" : "=r"(callback));
+            callback += 0x2FF0;
+            func_80097558((void (*)(void))callback);
+        }
+        {
+            register char *callback asm("$4");
+            asm("lui %0,0x800A" : "=r"(callback));
+            callback -= 0x3540;
+            func_80097128((void (*)(void))callback);
+        }
     }
     func_8009713C(0x1B, 0, 0);
 }
