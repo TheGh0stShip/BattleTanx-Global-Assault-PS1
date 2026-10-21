@@ -47,6 +47,17 @@ class MatchingUnits(unittest.TestCase):
         with self.assertRaises(ValueError):
             verify_matching_units.validate_units({"units": units})
 
+    def test_accepts_semantic_assembly_without_a_compiler(self):
+        verify_matching_units.validate_units({"units": [self.unit(
+            source="first.s", size="0x4"
+        ) | {"language": "assembly"}]})
+
+    def test_rejects_unknown_source_language(self):
+        with self.assertRaises(ValueError):
+            verify_matching_units.validate_units({"units": [self.unit() | {
+                "language": "bytecode"
+            }]})
+
     def test_rewrite_move_pseudos_preserves_other_instructions(self):
         with tempfile.TemporaryDirectory() as directory:
             assembly = Path(directory) / "unit.s"

@@ -13,17 +13,25 @@ class ProgressReport(unittest.TestCase):
         self.assertEqual(report["version"], 2)
         self.assertEqual(len(report["units"]), 1875)
         self.assertEqual(report["measures"]["total_code"], 589836)
-        self.assertEqual(report["measures"]["matched_code"], 424844)
+        self.assertEqual(report["measures"]["matched_code"], 429112)
         self.assertEqual(report["measures"]["total_data"], 157684)
         self.assertEqual(report["measures"]["matched_data"], 157684)
         self.assertEqual(report["measures"]["total_functions"], 1771)
-        self.assertEqual(report["measures"]["matched_functions"], 1569)
-        self.assertEqual(report["measures"]["complete_units"], 1673)
+        self.assertEqual(report["measures"]["matched_functions"], 1570)
+        self.assertEqual(report["measures"]["complete_units"], 1674)
         self.assertEqual(
             report["measures"]["total_code"] + report["measures"]["total_data"],
             747520,
         )
 
+    def test_semantic_assembly_rejects_encoded_instruction_blobs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "unit.s"
+            unit = {"language": "assembly"}
+            source.write_text(".text\naddiu $2,$2,1\n")
+            self.assertTrue(progress_report.is_semantic_source(source, unit))
+            source.write_text(".text\n.word 0x24420001\n")
+            self.assertFalse(progress_report.is_semantic_source(source, unit))
     def test_cli_output_is_deterministic(self):
         root = Path(__file__).resolve().parents[1]
         config = root / "config/us/matching_units.json"

@@ -54,8 +54,10 @@ def add_measures(items):
     )
 
 
-def is_semantic_source(path):
+def is_semantic_source(path, unit=None):
     source = Path(path).read_text().lstrip()
+    if unit and unit.get("language") == "assembly":
+        return ".word" not in source
     return not source.startswith(("asm(", "__asm__("))
 
 
@@ -68,7 +70,7 @@ def generate(config):
         size = int(unit["size"], 0)
         address = int(unit["address"], 0)
         is_data = unit.get("kind") in ("data", "padding")
-        semantic = not is_data and is_semantic_source(root / unit["source"])
+        semantic = not is_data and is_semantic_source(root / unit["source"], unit)
         if is_data:
             unit_measures = measures(
                 data=size, matched_data=size, units=1, complete_units=1

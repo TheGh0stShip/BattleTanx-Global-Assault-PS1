@@ -15,12 +15,14 @@ from pathlib import Path
 try:
     from .verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        apply_assembly_profile, rewrite_move_pseudos, run_compiler, validate_units,
+        apply_assembly_profile, prepare_assembly, rewrite_move_pseudos,
+        validate_units,
     )
 except ImportError:
     from verify_matching_units import (
         HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
-        apply_assembly_profile, rewrite_move_pseudos, run_compiler, validate_units,
+        apply_assembly_profile, prepare_assembly, rewrite_move_pseudos,
+        validate_units,
     )
 
 
@@ -69,19 +71,9 @@ def compile_object(item, config, prefix, work_root):
     trimmed = work / "unit-trimmed.bin"
     wrapper = work / "unit-wrapper.s"
     section = ".unit%04d" % index
-    flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
-
-    run_compiler(unit, config, ROOT / unit["source"], assembly, flags)
-    with processed.open("wb") as output:
-        result = subprocess.run(
-            [sys.executable, str(maspsx), *config["maspsx_flags"],
-             *unit.get("maspsx_flags_extra", []), str(assembly)],
-            stdout=output,
-            stderr=subprocess.PIPE,
-        )
-    if result.returncode:
-        sys.stderr.buffer.write(result.stderr)
-        raise subprocess.CalledProcessError(result.returncode, result.args)
+    prepare_assembly(
+        unit, config, ROOT / unit["source"], assembly, processed
+    )
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
     if unit.get("assembly_profile"):

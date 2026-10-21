@@ -121,7 +121,13 @@ def run_compiler(unit, config, source, assembly, flags):
 def validate_units(config):
     units = config["units"]
     for unit in units:
-        compiler_path(unit, config)
+        if unit.get("language", "c") == "c":
+            compiler_path(unit, config)
+        elif unit["language"] != "assembly":
+            raise ValueError(
+                "unsupported source language for %s: %s"
+                % (unit.get("name"), unit["language"])
+            )
     for key in ("name", "address", "source"):
         seen = set()
         for unit in units:
@@ -154,6 +160,26 @@ def rewrite_move_pseudos(path):
         source,
     )
     path.write_text(source)
+
+
+def prepare_assembly(unit, config, source, assembly, processed):
+    """Produce assembler input from either reconstructed C or semantic assembly."""
+    language = unit.get("language", "c")
+    if language == "assembly":
+        shutil.copyfile(source, processed)
+        return
+
+    compiler_flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
+    run_compiler(unit, config, source, assembly, compiler_flags)
+    maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
+    if not maspsx.is_file():
+        raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
+    with processed.open("wb") as output:
+        run_checked(
+            [sys.executable, str(maspsx), *config["maspsx_flags"],
+             *unit.get("maspsx_flags_extra", []), str(assembly)],
+            stdout=output,
+        )
 
 
 def apply_assembly_profile(path, profile):
@@ -1349,9 +1375,6 @@ lw\t$2,0($2)
 
 
 def compile_unit(unit, config, prefix, work):
-    maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
-    if not maspsx.is_file():
-        raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
     assembler = command("as", prefix)
     linker = command("ld", prefix)
     objcopy = command("objcopy", prefix)
@@ -1363,14 +1386,7 @@ def compile_unit(unit, config, prefix, work):
     elf = work / "unit.elf"
     binary = work / "unit.bin"
 
-    compiler_flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
-    run_compiler(unit, config, source, assembly, compiler_flags)
-    with processed.open("wb") as output:
-        run_checked(
-            [sys.executable, str(maspsx), *config["maspsx_flags"],
-             *unit.get("maspsx_flags_extra", []), str(assembly)],
-            stdout=output,
-        )
+    prepare_assembly(unit, config, source, assembly, processed)
     if unit.get("rewrite_move_pseudos"):
         rewrite_move_pseudos(processed)
     if unit.get("assembly_profile"):

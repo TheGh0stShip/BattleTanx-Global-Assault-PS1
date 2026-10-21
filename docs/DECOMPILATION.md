@@ -10,7 +10,8 @@ bytes. The loaded range is `0x80010000..0x800C6800`; execution begins at
 1. Verify the complete executable hash and every relevant header field before
    reading or splitting it.
 2. Account for every byte in the loaded range without treating unknown bytes as
-   matched C or understood data.
+   matched source or understood data. Original hand-written routines require
+   labeled mnemonic assembly; encoded instruction directives receive no credit.
 3. Identify the original compiler from code-generation evidence and library
    fingerprints before selecting matching flags or claiming a toolchain.
 4. Give each function a reviewed, non-overlapping address range. Similar N64
@@ -43,8 +44,11 @@ awards no progress by itself. Exact source units now cover the complete range;
 the next milestones are broader compiler corroboration, semantic reconstruction,
 function-boundary review, and section ownership.
 
-One thousand eight hundred sixty-nine production source units compile with the PSX-patched GCC 2.8.1 at `-O2 -G0`
-and collectively match all 747,520 retail payload bytes after the pinned assembler compatibility pass.
+Production C source units compile with the configured PSX compiler profiles at
+`-O2 -G0`. Original hand-written routines may instead use reviewed `.s` sources;
+these bypass the C compiler and assembler compatibility pass, and must not contain
+raw instruction directives. Together the source units match all 747,520 retail
+payload bytes.
 The verifier links each unit at its retail address, resolves declared external
 calls, extracts `.text`, permits only zero object-section tail padding, and
 rejects the first differing byte.

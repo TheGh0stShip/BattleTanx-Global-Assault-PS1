@@ -20590,8 +20590,18 @@
       "name": "func_8008BF7C",
       "address": "0x8008BF7C",
       "size": "0x10AC",
-      "source": "src/game/8008BF7C.c",
-      "symbols": {}
+      "source": "src/game/8008BF7C.s",
+      "language": "assembly",
+      "symbols": {
+        "func_8007F7D8": "0x8007F7D8",
+        "func_8007F7E8": "0x8007F7E8",
+        "func_8007F7F4": "0x8007F7F4",
+        "func_8008DC24": "0x8008DC24",
+        "func_8008DC34": "0x8008DC34",
+        "func_8008DC40": "0x8008DC40",
+        "func_8008DC50": "0x8008DC50",
+        "func_8008DC78": "0x8008DC78"
+      }
     },
     {
       "name": "func_8009D0AC",
