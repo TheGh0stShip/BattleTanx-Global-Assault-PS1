@@ -13,12 +13,12 @@ class ProgressReport(unittest.TestCase):
         self.assertEqual(report["version"], 2)
         self.assertEqual(len(report["units"]), 1875)
         self.assertEqual(report["measures"]["total_code"], 589836)
-        self.assertEqual(report["measures"]["matched_code"], 417792)
+        self.assertEqual(report["measures"]["matched_code"], 424844)
         self.assertEqual(report["measures"]["total_data"], 157684)
         self.assertEqual(report["measures"]["matched_data"], 157684)
         self.assertEqual(report["measures"]["total_functions"], 1771)
-        self.assertEqual(report["measures"]["matched_functions"], 1568)
-        self.assertEqual(report["measures"]["complete_units"], 1672)
+        self.assertEqual(report["measures"]["matched_functions"], 1569)
+        self.assertEqual(report["measures"]["complete_units"], 1673)
         self.assertEqual(
             report["measures"]["total_code"] + report["measures"]["total_data"],
             747520,
