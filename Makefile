@@ -48,11 +48,11 @@ progress-report:
 	$(PYTHON) tools/progress_report.py
 
 inventory: verify
-	@echo "usage: python3 -m btga_ps1.inventory EXTRACTED_DIR out --previews --obj"
+	@echo "usage: python3 -m tools.btga_ps1.inventory EXTRACTED_DIR out --previews --obj"
 
 test:
 	$(PYTHON) -m unittest discover -s tests -t . -v
-	$(PYTHON) mutation_check.py
+	$(PYTHON) tools/mutation_check.py
 
 check: test
 	$(PYTHON) tools/check_repository.py

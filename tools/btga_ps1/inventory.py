@@ -1,6 +1,6 @@
 """Corpus inventory: classify, decode and fingerprint every file of the extracted disc.
 
-usage: python -m btga_ps1.inventory EXTRACTED_DIR OUT_DIR [--previews] [--obj] [--wav]
+usage: python -m tools.btga_ps1.inventory EXTRACTED_DIR OUT_DIR [--previews] [--obj] [--wav]
 
 Writes OUT_DIR/manifest.json (deterministic: sorted keys, no timestamps, no host paths),
 and with --previews / --obj / --wav, PNG sheets, OBJ models, and WAV effects under OUT_DIR. Nothing is
@@ -67,7 +67,7 @@ def run(root, out, previews=False, objs=False, wavs=False):
     files = sorted(os.path.join(d, f) for d, _, fs in os.walk(root) for f in fs)
     by_rel = {rel(root, p): p for p in files}
     upper = {k.upper(): k for k in by_rel}
-    manifest = {"tool": "btga_ps1.inventory", "files": {}, "summary": {}}
+    manifest = {"tool": "tools.btga_ps1.inventory", "files": {}, "summary": {}}
     texsets = {}
 
     def sib(r, ext):

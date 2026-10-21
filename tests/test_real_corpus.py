@@ -10,7 +10,7 @@ CORPUS = os.environ.get("BTGA_PS1_EXTRACTED", "")
 @unittest.skipUnless(CORPUS and os.path.isdir(CORPUS), "BTGA_PS1_EXTRACTED not set or missing")
 class RealCorpus(unittest.TestCase):
     def test_every_file_accepted(self):
-        from btga_ps1 import inventory
+        from tools.btga_ps1 import inventory
         with tempfile.TemporaryDirectory() as out:
             m = inventory.run(CORPUS, out)
         self.assertEqual(m["file_count"], 737)

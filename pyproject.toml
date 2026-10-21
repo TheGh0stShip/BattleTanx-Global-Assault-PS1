@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [project.scripts]
-btga-ps1-inventory = "btga_ps1.inventory:main"
+btga-ps1-inventory = "tools.btga_ps1.inventory:main"
 
 [tool.setuptools]
-packages = ["btga_ps1"]
+packages = ["tools", "tools.btga_ps1"]

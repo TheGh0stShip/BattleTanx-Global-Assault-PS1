@@ -3,9 +3,9 @@ import struct
 import tempfile
 import unittest
 
-from btga_ps1 import audio, level, media, metadata, models, textures
-from btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
-from btga_ps1.png import encode_rgba
+from tools.btga_ps1 import audio, level, media, metadata, models, textures
+from tools.btga_ps1.binio import FormatError, Reader, bgr555_to_rgba
+from tools.btga_ps1.png import encode_rgba
 from tests import fixtures as fx
 
 
@@ -413,12 +413,12 @@ class Png(unittest.TestCase):
 
 class InventoryIsolation(unittest.TestCase):
     def test_refuses_output_inside_input(self):
-        from btga_ps1 import inventory
+        from tools.btga_ps1 import inventory
         with tempfile.TemporaryDirectory() as d:
             self.assertRaises(SystemExit, inventory.run, d, os.path.join(d, "out"))
 
     def test_synthetic_corpus_deterministic(self):
-        from btga_ps1 import inventory
+        from tools.btga_ps1 import inventory
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as o1, tempfile.TemporaryDirectory() as o2:
             a = os.path.join(root, "ASSETS")
             os.makedirs(a)

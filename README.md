@@ -131,7 +131,7 @@ mounted Windows directory if the default user temp directory cannot be found.
 
 ```sh
 python3 -m unittest discover -s tests -t .
-python3 mutation_check.py
+python3 tools/mutation_check.py
 ```
 
 When a native `cc` is available, the suite also compiles an interface regression
@@ -149,7 +149,7 @@ BTGA_PS1_EXTRACTED=/path/to/extracted \
 ## Inventory
 
 ```sh
-python3 -m btga_ps1.inventory /path/to/extracted out --previews --obj --wav
+python3 -m tools.btga_ps1.inventory /path/to/extracted out --previews --obj --wav
 ```
 
 The tool refuses to place output inside the input tree. Generated manifests,
@@ -176,7 +176,7 @@ Technical format notes and executable evidence are recorded in
 | `config/us/` | US executable layout and matching-unit metadata |
 | `src/game/` | Matching game and linked-library source units |
 | `src/data/` | Classified data, jump tables, and padding |
-| `btga_ps1/` | Bounds-checked host-side asset decoders |
+| `tools/btga_ps1/` | Bounds-checked host-side asset decoders |
 | `tools/` | Reproducible build, verification, reporting, and extraction tools |
 | `tests/` | Portable regression, profile, and format tests |
 | `docs/` | Platform, format, SDK, and decompilation documentation |

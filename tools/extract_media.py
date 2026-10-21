@@ -13,7 +13,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from btga_ps1.media import wrap_mode2_sectors
+from tools.btga_ps1.media import wrap_mode2_sectors
 
 
 def main():
