@@ -8,7 +8,7 @@ compiler matching continues:
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
 | `func_80065920` | 11,168 | Compiler-valid 9,184-byte draft with both jump tables and 298 recovered hardware operations |
-| `func_8007AE20` | 4,788 | Complete compiling crash-screen disassembler draft and both jump tables |
+| `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 
 `func_80044C38` corresponds to the N64 tank input/update routine
@@ -25,7 +25,10 @@ in the retail `$a2`/`$a1` registers.  That closes the candidate-size gap from
 
 `func_8007AE20` is the exception display and MIPS instruction formatter, not
 gameplay code.  Its nested opcode/funct dispatch tables are recovered as
-`jtbl_800C490C` and `jtbl_800C49FC`.
+`jtbl_800C490C` and `jtbl_800C49FC`.  Its two display records now occupy the
+retail `sp+0x30` and `sp+0x90` ranges, restoring the exact 248-byte stack frame;
+the accumulated register mask is constrained to retail `$s4`.  Those layout
+fixes move the first differing instruction from byte zero to `+0xC`.
 
 `func_8008BF7C` begins by loading one 32-byte matrix into GTE control
 registers 0 through 7.  Keeping the loads and `ctc2` operations in one inline

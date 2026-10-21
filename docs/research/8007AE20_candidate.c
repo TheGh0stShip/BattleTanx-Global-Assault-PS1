@@ -63,8 +63,8 @@ s32 func_8007AE20(void) {
     s8 unkspAF;
     s8 spAB;
     s32 spA8;
-    M2C_UNK sp90;
-    M2C_UNK sp30;
+    M2C_UNK sp30[0x60];
+    M2C_UNK sp90[0x2C];
     M2C_UNK *var_a0;
     M2C_UNK *var_a0_2;
     M2C_UNK *var_a0_3;
@@ -103,7 +103,7 @@ s32 func_8007AE20(void) {
     s32 var_s0_4;
     s32 var_s0_5;
     s32 var_s1;
-    s32 var_s4;
+    register s32 var_s4 asm("$20");
     s32 var_v0_4;
     s32 var_v0_5;
     s32 var_v0_6;
