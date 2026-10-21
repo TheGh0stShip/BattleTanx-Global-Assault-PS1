@@ -7,7 +7,7 @@ compiler matching continues:
 | Function | Target bytes | Recovery status |
 | --- | ---: | --- |
 | `func_80044C38` | 7,052 | Complete C control flow; recompiles to 7,040 bytes with `--expand-div` |
-| `func_80065920` | 11,168 | Compiler-valid 10,020-byte draft with the exact 320-byte retail frame, both jump tables, and 298 recovered hardware operations |
+| `func_80065920` | 11,168 | Compiler-valid 10,632-byte draft with the exact 320-byte retail frame, both jump tables, and recovered GTE matrix, light, and color input loads |
 | `func_8007AE20` | 4,788 | Compiling crash-screen disassembler with recovered 248-byte retail frame and both jump tables |
 | `func_8008BF7C` | 4,268 | Compiler-valid 4,208-byte renderer with recovered scratchpad state, matrix loads, and complete COP2 stream |
 

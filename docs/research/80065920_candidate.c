@@ -23,6 +23,39 @@ static __inline__ s32 gte_mfc2_26(void) { s32 value; __asm__ volatile("mfc2 %0,$
 static __inline__ s32 gte_mfc2_27(void) { s32 value; __asm__ volatile("mfc2 %0,$27" : "=r" (value)); return value; }
 static __inline__ s32 gte_mfc2_31(void) { s32 value; __asm__ volatile("mfc2 %0,$31" : "=r" (value)); return value; }
 static __inline__ s32 mult_hi(s32 left, s32 right) { s32 value; __asm__ volatile("mult %1,%2\n\tmfhi %0" : "=r" (value) : "r" (left), "r" (right)); return value; }
+static __inline__ void gte_load_rotation5(const s32 *matrix) {
+    register s32 t4 __asm__("$12") = matrix[0];
+    register s32 t5 __asm__("$13") = matrix[1];
+    __asm__ volatile("ctc2 %0,$0" : : "r" (t4));
+    __asm__ volatile("ctc2 %0,$1" : : "r" (t5));
+    t4 = matrix[2];
+    t5 = matrix[3];
+    {
+        register s32 t6 __asm__("$14") = matrix[4];
+        __asm__ volatile("ctc2 %0,$2" : : "r" (t4));
+        __asm__ volatile("ctc2 %0,$3" : : "r" (t5));
+        __asm__ volatile("ctc2 %0,$4" : : "r" (t6));
+    }
+}
+static __inline__ void gte_load_diagonal3(const s32 *vector) {
+    register s32 t4 __asm__("$12") = vector[0];
+    register s32 t5 __asm__("$13") = vector[1];
+    register s32 t6 __asm__("$14") = vector[2];
+    __asm__ volatile("ctc2 %0,$0" : : "r" (t4));
+    __asm__ volatile("ctc2 %0,$2" : : "r" (t5));
+    __asm__ volatile("ctc2 %0,$4" : : "r" (t6));
+}
+static __inline__ void gte_load_transform8(const s32 *matrix) {
+    gte_load_rotation5(matrix);
+    {
+        register s32 t4 __asm__("$12") = matrix[5];
+        register s32 t5 __asm__("$13") = matrix[6];
+        register s32 t6 __asm__("$14") = matrix[7];
+        __asm__ volatile("ctc2 %0,$5" : : "r" (t4));
+        __asm__ volatile("ctc2 %0,$6" : : "r" (t5));
+        __asm__ volatile("ctc2 %0,$7" : : "r" (t6));
+    }
+}
 M2C_UNK func_80065710(M2C_UNK *, void *, s32 *);
 s32 func_80068720(void *, void *, s32, M2C_UNK);
 M2C_UNK func_800687CC(M2C_UNK *, M2C_UNK *, s16);
@@ -384,11 +417,7 @@ block_52:
                         (*(s32 *)((u8 *)(temp_v0_6)+(0x14))) = (s32) gte_cfc2_5();
                         (*(s32 *)((u8 *)(temp_v0_7)+(4))) = (s32) gte_cfc2_6();
                         (*(s32 *)((u8 *)(temp_v0_7)+(8))) = (s32) gte_cfc2_7();
-                        __asm__ volatile("ctc2 $t4, $0");
-                        __asm__ volatile("ctc2 $t5, $1");
-                        __asm__ volatile("ctc2 $t4, $2");
-                        __asm__ volatile("ctc2 $t5, $3");
-                        __asm__ volatile("ctc2 $t6, $4");
+                        gte_load_rotation5((s32 *)&D_800E5398);
                     }
                     goto block_106;
                 case 0x10:
@@ -430,9 +459,7 @@ block_52:
                     (*(s32 *)((u8 *)(&stack.spC8)+(0))) = (s32) ((s32) gte_mfc2_25() >> temp_a2);
                     (*(s32 *)((u8 *)(&stack.spC8)+(4))) = (s32) ((s32) gte_mfc2_26() >> temp_a2);
                     (*(s32 *)((u8 *)(&stack.spC8)+(8))) = (s32) ((s32) gte_mfc2_27() >> temp_a2);
-                    __asm__ volatile("ctc2 $t4, $0");
-                    __asm__ volatile("ctc2 $t5, $2");
-                    __asm__ volatile("ctc2 $t6, $4");
+                    gte_load_diagonal3((s32 *)&D_800E5358);
                     __asm__ volatile("lwc2 $11, 0x8($v0)");
                     __asm__ volatile("lwc2 $9, ($v0)");
                     __asm__ volatile("lwc2 $10, 0x4($v0)");
@@ -460,9 +487,7 @@ block_52:
                     (*(s32 *)((u8 *)(stack.sp110)+(0))) = (s32) ((s32) gte_mfc2_25() >> temp_a2_2);
                     (*(s32 *)((u8 *)(stack.sp110)+(4))) = (s32) ((s32) gte_mfc2_26() >> temp_a2_2);
                     (*(s32 *)((u8 *)(stack.sp110)+(8))) = (s32) ((s32) gte_mfc2_27() >> temp_a2_2);
-                    __asm__ volatile("ctc2 $t4, $0");
-                    __asm__ volatile("ctc2 $t5, $2");
-                    __asm__ volatile("ctc2 $t6, $4");
+                    gte_load_diagonal3((s32 *)&stack.spC8);
                     __asm__ volatile("lwc2 $11, 0x8($t9)");
                     __asm__ volatile("lwc2 $9, ($t9)");
                     __asm__ volatile("lwc2 $10, 0x4($t9)");
@@ -475,11 +500,7 @@ block_52:
                     (*(s16 *)((u8 *)(&D_800E5378)+(0x10))) = (s16) (*(s32 *)((u8 *)(&stack.spC8)+(8)));
                     (*(s32 *)((u8 *)(&D_800E5378)+(4))) = (s32) (((*(s32 *)((u8 *)(stack.sp110)+(4))) << 0x10) | ((*(s32 *)((u8 *)(&stack.spC8)+(0))) & 0xFFFF));
                     (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s32) (((*(s32 *)((u8 *)(&stack.spB8)+(8))) << 0x10) | ((*(s32 *)((u8 *)(stack.sp110)+(8))) & 0xFFFF));
-                    __asm__ volatile("ctc2 $t4, $0");
-                    __asm__ volatile("ctc2 $t5, $1");
-                    __asm__ volatile("ctc2 $t4, $2");
-                    __asm__ volatile("ctc2 $t5, $3");
-                    __asm__ volatile("ctc2 $t6, $4");
+                    gte_load_rotation5((s32 *)&D_800E5398);
                     __asm__ volatile("mtc2 $t4, $9");
                     __asm__ volatile("mtc2 $t5, $10");
                     __asm__ volatile("mtc2 $t6, $11");
@@ -505,11 +526,7 @@ block_52:
                     D_800E5374 = &D_800E5378;
                     goto block_105;
                 case 0xF4:
-                    __asm__ volatile("ctc2 $t4, $0");
-                    __asm__ volatile("ctc2 $t5, $1");
-                    __asm__ volatile("ctc2 $t4, $2");
-                    __asm__ volatile("ctc2 $t5, $3");
-                    __asm__ volatile("ctc2 $t6, $4");
+                    gte_load_rotation5((s32 *)&D_800E5398);
                     __asm__ volatile("mtc2 $t4, $9");
                     __asm__ volatile("mtc2 $t5, $10");
                     __asm__ volatile("mtc2 $t6, $11");
@@ -673,11 +690,7 @@ block_101:
                     (*(s32 *)((u8 *)(temp_v0_18)+(0x14))) = (s32) gte_cfc2_5();
                     (*(s32 *)((u8 *)(temp_v0_19)+(4))) = (s32) gte_cfc2_6();
                     (*(s32 *)((u8 *)(temp_v0_19)+(8))) = (s32) gte_cfc2_7();
-                    __asm__ volatile("ctc2 $t4, $0");
-                    __asm__ volatile("ctc2 $t5, $1");
-                    __asm__ volatile("ctc2 $t4, $2");
-                    __asm__ volatile("ctc2 $t5, $3");
-                    __asm__ volatile("ctc2 $t6, $4");
+                    gte_load_rotation5((s32 *)&D_800E5398);
                     var_s4_2 = (*(u8 *)((u8 *)(var_s1)+(2)));
                     if ((s32) var_s4_2 > 0) {
                         var_v0_5 = var_s5 < 0x200;
@@ -701,11 +714,7 @@ loop_103:
                             (*(s32 *)((u8 *)(temp_v0_22)+(4))) = (s32) gte_cfc2_6();
                             (*(s32 *)((u8 *)(temp_v0_22)+(8))) = (s32) gte_cfc2_7();
                             var_s0_2 += (*(u8 *)((u8 *)(var_s0_2)+(0))) * 4;
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
+                            gte_load_rotation5((s32 *)&D_800E5398);
                             var_s4_2 -= 1;
                             var_v0_5 = var_s5 < 0x200;
                             if ((s32) var_s4_2 > 0) {
@@ -815,28 +824,15 @@ block_126:
                             stack.sp110 = (M2C_UNK *)4;
                             (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x20)));
                         case 0x40:
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
+                            var_s5_2 += 1;
                             __asm__ volatile("mtc2 $zero, $0");
                             __asm__ volatile("mtc2 $zero, $1");
                             __asm__ volatile(".word 0x4A180001");
                             __asm__ volatile("swc2 $14, ($v0)");
                             __asm__ volatile("swc2 $19, ($t9)");
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
-                            var_s5_2 = var_s5_2 + 1 + 1;
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
+                            var_s5_2 += 1;
                             __asm__ volatile("lwc2 $0, ($v0)");
                             __asm__ volatile("lwc2 $1, 0x4($v0)");
                             __asm__ volatile(".word 0x4A180001");
@@ -879,14 +875,7 @@ block_136:
                                 var_a2_3 += 1;
                                 var_a0_2 += 8;
                             } while (var_a2_3 < 3);
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                             var_s5_2 += 1;
                             __asm__ volatile("lwc2 $0, ($t8)");
                             __asm__ volatile("lwc2 $1, 0x4($t8)");
@@ -952,14 +941,7 @@ block_155:
                                 var_a2_4 += 1;
                                 var_a0_3 += 8;
                             } while (var_a2_4 < 4);
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                             var_s5_2 += 1;
                             __asm__ volatile("lwc2 $0, 0x8($t8)");
                             __asm__ volatile("lwc2 $1, 0xc($t8)");
@@ -1020,14 +1002,7 @@ block_154:
                             (*(s8 *)((u8 *)(var_s3)+(7))) = 0x38;
                             (*(void **)((u8 *)(var_s3)+(0x1C))) = (void *) (*(void **)((u8 *)(var_s1_2)+(0x30)));
 block_173:
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                             var_s5_2 += 1;
                             __asm__ volatile("mtc2 $zero, $0");
                             __asm__ volatile("mtc2 $zero, $1");
@@ -1336,14 +1311,7 @@ block_252:
                             stack.sp110 = (M2C_UNK *)4;
                             __asm__ volatile("lwc2 $6, 0x4($s0)");
 block_269:
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                             var_s5_2 += 1;
                             __asm__ volatile("mtc2 $zero, $0");
                             __asm__ volatile("mtc2 $zero, $1");
@@ -1354,14 +1322,7 @@ block_269:
 loop_271:
                                 if (var_s5_2 < stack.spFC) {
                                     __asm__ volatile("swc2 $19, ($v0)");
-                                    __asm__ volatile("ctc2 $t4, $0");
-                                    __asm__ volatile("ctc2 $t5, $1");
-                                    __asm__ volatile("ctc2 $t4, $2");
-                                    __asm__ volatile("ctc2 $t5, $3");
-                                    __asm__ volatile("ctc2 $t6, $4");
-                                    __asm__ volatile("ctc2 $t4, $5");
-                                    __asm__ volatile("ctc2 $t5, $6");
-                                    __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                                     var_s5_2 += 1;
                                     __asm__ volatile("mtc2 $zero, $0");
                                     __asm__ volatile("mtc2 $zero, $1");
@@ -1437,14 +1398,7 @@ block_279:
 block_292:
                             (*(u16 *)((u8 *)(var_s3)+(0xC))) = (u16) (*(u16 *)((u8 *)(stack.spF8)+(4)));
 block_294:
-                            __asm__ volatile("ctc2 $t4, $0");
-                            __asm__ volatile("ctc2 $t5, $1");
-                            __asm__ volatile("ctc2 $t4, $2");
-                            __asm__ volatile("ctc2 $t5, $3");
-                            __asm__ volatile("ctc2 $t6, $4");
-                            __asm__ volatile("ctc2 $t4, $5");
-                            __asm__ volatile("ctc2 $t5, $6");
-                            __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                             var_s5_2 += 1;
                             __asm__ volatile("lwc2 $20, 0x4($s0)");
                             var_a2_6 = 0;
@@ -1478,14 +1432,7 @@ loop_297:
                                 if (var_s5_2 < stack.spFC) {
                                     __asm__ volatile("swc2 $17, ($v0)");
                                     __asm__ volatile("swc2 $18, 0x4($v0)");
-                                    __asm__ volatile("ctc2 $t4, $0");
-                                    __asm__ volatile("ctc2 $t5, $1");
-                                    __asm__ volatile("ctc2 $t4, $2");
-                                    __asm__ volatile("ctc2 $t5, $3");
-                                    __asm__ volatile("ctc2 $t6, $4");
-                                    __asm__ volatile("ctc2 $t4, $5");
-                                    __asm__ volatile("ctc2 $t5, $6");
-                                    __asm__ volatile("ctc2 $t6, $7");
+                            gte_load_transform8((s32 *)(D_800E53E8 + (var_s5_2 << 5)));
                                     var_s5_2 += 1;
                                     var_a2_7 = 0;
                                     var_a0_6 = &D_800ADB58;
@@ -1633,14 +1580,7 @@ block_336:
                 }
             } else {
 block_337:
-                __asm__ volatile("ctc2 $t4, $0");
-                __asm__ volatile("ctc2 $t5, $1");
-                __asm__ volatile("ctc2 $t4, $2");
-                __asm__ volatile("ctc2 $t5, $3");
-                __asm__ volatile("ctc2 $t6, $4");
-                __asm__ volatile("ctc2 $t4, $5");
-                __asm__ volatile("ctc2 $t5, $6");
-                __asm__ volatile("ctc2 $t6, $7");
+                gte_load_transform8((s32 *)&D_800E5398);
             }
         }
     }
