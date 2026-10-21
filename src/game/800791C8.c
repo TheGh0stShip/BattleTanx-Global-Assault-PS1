@@ -1,179 +1,295 @@
-asm(".text\n\t.globl func_800791C8\nfunc_800791C8:\n\t"
-    ".word 0x00806021,0x3C04800F,0x2484E028,0x318300FF\n\t"
-    ".word 0x000310C0,0x00431021,0x00021080,0x00431023\n\t"
-    ".word 0x00021080,0x00441021,0x90490011,0x9048001A\n\t"
-    ".word 0x904A0010,0x90440019,0x944B0004,0xA0E00000\n\t"
-    ".word 0xA0C00000,0xA0A00000,0x8C430000,0x00000000\n\t"
-    ".word 0x2C620007,0x104002A9,0x00031880,0x3C02800C\n\t"
-    ".word 0x24423FD0,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800F,0x2442C0F8\n\t"
-    ".word 0x318300FF,0x00031880,0x00621821,0x8C630000\n\t"
-    ".word 0x00000000,0x2C620007,0x1040007F,0x3C02800C\n\t"
-    ".word 0x24423FF0,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x2522001D\n\t"
-    ".word 0x304200FF,0x2C42003B,0x10400002,0xA0A90000\n\t"
-    ".word 0xA0A00000,0x25420028,0x304200FF,0x2C420051\n\t"
-    ".word 0xA0C00000,0x1040006C,0xA0EA0000,0x0801E518\n\t"
-    ".word 0xA0E00000,0x2522001D,0x304200FF,0x2C42003B\n\t"
-    ".word 0x10400002,0xA0A90000,0xA0A00000,0x25420028\n\t"
-    ".word 0x304200FF,0x2C420051,0x10400002,0xA0CA0000\n\t"
-    ".word 0xA0C00000,0x24820028,0x304200FF,0x2C420051\n\t"
-    ".word 0x10400002,0xA0E40000,0xA0E00000,0x0801E4D6\n\t"
-    ".word 0x00041600,0x2502001D,0x304200FF,0x2C42003B\n\t"
-    ".word 0x10400002,0xA0A80000,0xA0A00000,0x24820028\n\t"
-    ".word 0x304200FF,0x2C420051,0x10400002,0xA0C40000\n\t"
-    ".word 0xA0C00000,0x25420028,0x304200FF,0x2C420051\n\t"
-    ".word 0x10400002,0xA0EA0000,0xA0E00000,0x000A1600\n\t"
-    ".word 0x00021E03,0x28620056,0x14400004,0x2862FFAB\n\t"
-    ".word 0x24020055,0xA0E20000,0x2862FFAB,0x1040003A\n\t"
-    ".word 0x2402FFAB,0x0801E518,0xA0E20000,0x00091600\n\t"
-    ".word 0x00021603,0x00081E00,0x00031E03,0x00431021\n\t"
-    ".word 0x00021FC2,0x00431021,0x00021043,0x00402021\n\t"
-    ".word 0x2442001D,0x3042FFFF,0x2C42003B,0x10400003\n\t"
-    ".word 0x00000000,0x0801E4F2,0xA0A00000,0xA0A40000\n\t"
-    ".word 0x00081E00,0x00031E03,0x00091600,0x00021603\n\t"
-    ".word 0x00621823,0x00031400,0x00024403,0x2902FF83\n\t"
-    ".word 0x10400004,0x00602021,0x2402FF83,0x0801E517\n\t"
-    ".word 0xA0C20000,0x2902007E,0x14400004,0x24620028\n\t"
-    ".word 0x2402007D,0x0801E517,0xA0C20000,0x3042FFFF\n\t"
-    ".word 0x2C420051,0x1440000E,0x00000000,0x0801E517\n\t"
-    ".word 0xA0C40000,0x2522001D,0x304200FF,0x2C42003B\n\t"
-    ".word 0x10400002,0xA0A90000,0xA0A00000,0x25420028\n\t"
-    ".word 0x304200FF,0x2C420051,0x10400002,0xA0CA0000\n\t"
-    ".word 0xA0C00000,0xA0E00000,0x3C02800A,0x8C436070\n\t"
-    ".word 0x24020007,0x1462000D,0x2522001D,0x304200FF\n\t"
-    ".word 0x2C42003B,0x10400002,0xA0A90000,0xA0A00000\n\t"
-    ".word 0x25420028,0x304200FF,0x2C420051,0x10400002\n\t"
-    ".word 0xA0CA0000,0xA0C00000,0xA0E00000,0x90A20000\n\t"
-    ".word 0x90C40000,0x90E30000,0x00441025,0x00621825\n\t"
-    ".word 0x14600202,0x318800FF,0x3C02800F,0x2442C0F8\n\t"
-    ".word 0x00081880,0x00621021,0x8C440000,0x24020005\n\t"
-    ".word 0x10820118,0x0082102B,0x14400005,0x3C02800F\n\t"
-    ".word 0x24020006,0x148201F5,0x00000000,0x3C02800F\n\t"
-    ".word 0x2442C0AC,0x00681821,0x00031880,0x00681823\n\t"
-    ".word 0x00031840,0x00621821,0x94620000,0x00000000\n\t"
-    ".word 0x01621024,0x14400006,0x3C02800F,0x94620002\n\t"
-    ".word 0x00000000,0x01621024,0x10400046,0x3C02800F\n\t"
-    ".word 0x2442C094,0x01021021,0x90420000,0x00000000\n\t"
-    ".word 0xA0A20000,0x00021600,0x00022603,0x14800008\n\t"
-    ".word 0x00000000,0x94620000,0x00000000,0x01621024\n\t"
-    ".word 0x1040001D,0x2402FFD8,0x0801E57A,0xA0A20000\n\t"
-    ".word 0x94620000,0x00000000,0x01621024,0x10400004\n\t"
-    ".word 0x00000000,0x18800002,0x2402FFD8,0xA0A20000\n\t"
-    ".word 0x3C04800F,0x2484C0AC,0x318300FF,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x00021040\n\t"
-    ".word 0x00441021,0x94420002,0x00000000,0x01621024\n\t"
-    ".word 0x10400007,0x00000000,0x80A20000,0x00000000\n\t"
-    ".word 0x04410003,0x00000000,0x24020028,0xA0A20000\n\t"
-    ".word 0x90A30000,0x00000000,0x00031E00,0x00031603\n\t"
-    ".word 0x00031EC3,0x00431021,0x00402021,0x00021400\n\t"
-    ".word 0x00021403,0x28420079,0x14400003,0x00041400\n\t"
-    ".word 0x24040078,0x00041400,0x00021403,0x2842FF88\n\t"
-    ".word 0x10400002,0x3C03800F,0x2404FF88,0x2463C094\n\t"
-    ".word 0x318200FF,0x00431021,0xA0440000,0x0801E597\n\t"
-    ".word 0xA0A40000,0x2442C094,0x01021021,0xA0400000\n\t"
-    ".word 0xA0A00000,0x3C02800F,0x2442C0AC,0x318400FF\n\t"
-    ".word 0x00041880,0x00641821,0x00031880,0x00641823\n\t"
-    ".word 0x00031840,0x00621821,0x94620004,0x00000000\n\t"
-    ".word 0x01621024,0x14400006,0x3C02800F,0x94620006\n\t"
-    ".word 0x00000000,0x01621024,0x10400046,0x3C02800F\n\t"
-    ".word 0x2442C09C,0x00821021,0x90420000,0x00000000\n\t"
-    ".word 0xA0C20000,0x00021600,0x00022603,0x14800008\n\t"
-    ".word 0x00000000,0x94620004,0x00000000,0x01621024\n\t"
-    ".word 0x1040001D,0x2402FFD8,0x0801E5D6,0xA0C20000\n\t"
-    ".word 0x94620004,0x00000000,0x01621024,0x10400004\n\t"
-    ".word 0x00000000,0x18800002,0x2402FFD8,0xA0C20000\n\t"
-    ".word 0x3C04800F,0x2484C0AC,0x318300FF,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x00021040\n\t"
-    ".word 0x00441021,0x94420006,0x00000000,0x01621024\n\t"
-    ".word 0x10400007,0x00000000,0x80C20000,0x00000000\n\t"
-    ".word 0x04410003,0x00000000,0x24020028,0xA0C20000\n\t"
-    ".word 0x90C30000,0x00000000,0x00031E00,0x00031603\n\t"
-    ".word 0x00031EC3,0x00431021,0x00402021,0x00021400\n\t"
-    ".word 0x00021403,0x28420079,0x14400003,0x00041400\n\t"
-    ".word 0x24040078,0x00041400,0x00021403,0x2842FF88\n\t"
-    ".word 0x10400002,0x3C03800F,0x2404FF88,0x2463C09C\n\t"
-    ".word 0x318200FF,0x00431021,0xA0440000,0x0801E5F3\n\t"
-    ".word 0xA0C40000,0x2442C09C,0x00821021,0xA0400000\n\t"
-    ".word 0xA0C00000,0x3C02800F,0x2442C0AC,0x318400FF\n\t"
-    ".word 0x00041880,0x00641821,0x00031880,0x00641823\n\t"
-    ".word 0x00031840,0x00621821,0x94620008,0x00000000\n\t"
-    ".word 0x01621024,0x14400006,0x3C02800F,0x9462000A\n\t"
-    ".word 0x00000000,0x01621024,0x10400046,0x3C02800F\n\t"
-    ".word 0x2442C0A4,0x00821021,0x90420000,0x00000000\n\t"
-    ".word 0xA0E20000,0x00021600,0x00022603,0x14800008\n\t"
-    ".word 0x00000000,0x94620008,0x00000000,0x01621024\n\t"
-    ".word 0x1040001D,0x2402FFD8,0x0801E632,0xA0E20000\n\t"
-    ".word 0x94620008,0x00000000,0x01621024,0x10400004\n\t"
-    ".word 0x00000000,0x18800002,0x2402FFD8,0xA0E20000\n\t"
-    ".word 0x3C04800F,0x2484C0AC,0x318300FF,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431023,0x00021040\n\t"
-    ".word 0x00441021,0x9442000A,0x00000000,0x01621024\n\t"
-    ".word 0x10400007,0x00000000,0x80E20000,0x00000000\n\t"
-    ".word 0x04410003,0x00000000,0x24020028,0xA0E20000\n\t"
-    ".word 0x90E30000,0x00000000,0x00031E00,0x00031603\n\t"
-    ".word 0x00031EC3,0x00431021,0x00402021,0x00021400\n\t"
-    ".word 0x00021403,0x28420079,0x14400003,0x00041400\n\t"
-    ".word 0x24040078,0x00041400,0x00021403,0x2842FF88\n\t"
-    ".word 0x10400002,0x3C03800F,0x2404FF88,0x2463C0A4\n\t"
-    ".word 0x318200FF,0x00431021,0xA0440000,0x0801E731\n\t"
-    ".word 0xA0E40000,0x2442C0A4,0x00821021,0x0801E730\n\t"
-    ".word 0xA0400000,0x3C02800F,0x2442C0AC,0x00681821\n\t"
-    ".word 0x00031880,0x00681823,0x00031840,0x00621821\n\t"
-    ".word 0x94620000,0x00000000,0x01621024,0x14400006\n\t"
-    ".word 0x3C02800F,0x94620002,0x00000000,0x01621024\n\t"
-    ".word 0x10400046,0x3C02800F,0x2442C094,0x01021021\n\t"
-    ".word 0x90420000,0x00000000,0xA0A20000,0x00021600\n\t"
-    ".word 0x00022603,0x14800008,0x00000000,0x94620000\n\t"
-    ".word 0x00000000,0x01621024,0x1040001D,0x2402FFD8\n\t"
-    ".word 0x0801E68C,0xA0A20000,0x94620000,0x00000000\n\t"
-    ".word 0x01621024,0x10400004,0x00000000,0x18800002\n\t"
-    ".word 0x2402FFD8,0xA0A20000,0x3C04800F,0x2484C0AC\n\t"
-    ".word 0x318300FF,0x00031080,0x00431021,0x00021080\n\t"
-    ".word 0x00431023,0x00021040,0x00441021,0x94420002\n\t"
-    ".word 0x00000000,0x01621024,0x10400007,0x00000000\n\t"
-    ".word 0x80A20000,0x00000000,0x04410003,0x00000000\n\t"
-    ".word 0x24020028,0xA0A20000,0x90A30000,0x00000000\n\t"
-    ".word 0x00031E00,0x00031603,0x00031EC3,0x00431021\n\t"
-    ".word 0x00402021,0x00021400,0x00021403,0x28420079\n\t"
-    ".word 0x14400003,0x00041400,0x24040078,0x00041400\n\t"
-    ".word 0x00021403,0x2842FF88,0x10400002,0x3C03800F\n\t"
-    ".word 0x2404FF88,0x2463C094,0x318200FF,0x00431021\n\t"
-    ".word 0xA0440000,0x0801E6A9,0xA0A40000,0x2442C094\n\t"
-    ".word 0x01021021,0xA0400000,0xA0A00000,0x3C02800F\n\t"
-    ".word 0x2442C0AC,0x318400FF,0x00041880,0x00641821\n\t"
-    ".word 0x00031880,0x00641823,0x00031840,0x00621821\n\t"
-    ".word 0x94620014,0x00000000,0x01621024,0x14400006\n\t"
-    ".word 0x3C02800F,0x9462001C,0x00000000,0x01621024\n\t"
-    ".word 0x10400046,0x3C02800F,0x2442C09C,0x00821021\n\t"
-    ".word 0x90420000,0x00000000,0xA0C20000,0x00021600\n\t"
-    ".word 0x00022603,0x14800008,0x00000000,0x94620014\n\t"
-    ".word 0x00000000,0x01621024,0x1040001D,0x2402FFD8\n\t"
-    ".word 0x0801E6E8,0xA0C20000,0x94620014,0x00000000\n\t"
-    ".word 0x01621024,0x10400004,0x00000000,0x18800002\n\t"
-    ".word 0x2402FFD8,0xA0C20000,0x3C04800F,0x2484C0AC\n\t"
-    ".word 0x318300FF,0x00031080,0x00431021,0x00021080\n\t"
-    ".word 0x00431023,0x00021040,0x00441021,0x9442001C\n\t"
-    ".word 0x00000000,0x01621024,0x10400007,0x00000000\n\t"
-    ".word 0x80C20000,0x00000000,0x04410003,0x00000000\n\t"
-    ".word 0x24020028,0xA0C20000,0x90C30000,0x00000000\n\t"
-    ".word 0x00031E00,0x00031603,0x00031EC3,0x00431021\n\t"
-    ".word 0x00402021,0x00021400,0x00021403,0x28420079\n\t"
-    ".word 0x14400003,0x00041400,0x24040078,0x00041400\n\t"
-    ".word 0x00021403,0x2842FF88,0x10400002,0x3C03800F\n\t"
-    ".word 0x2404FF88,0x2463C09C,0x318200FF,0x00431021\n\t"
-    ".word 0xA0440000,0x0801E705,0xA0C40000,0x2442C09C\n\t"
-    ".word 0x00821021,0xA0400000,0xA0C00000,0x90A90000\n\t"
-    ".word 0x80A20000,0x80C30000,0x90C80000,0x00431021\n\t"
-    ".word 0x00021FC2,0x00431021,0x00021043,0x00402021\n\t"
-    ".word 0x24420027,0x3042FFFF,0x2C42004F,0x10400003\n\t"
-    ".word 0x00000000,0x0801E716,0xA0A00000,0xA0A40000\n\t"
-    ".word 0x00081E00,0x00031E03,0x00091600,0x00021603\n\t"
-    ".word 0x00621823,0x00031400,0x00024403,0x2902FF88\n\t"
-    ".word 0x10400004,0x00602021,0x2402FF88,0x0801E730\n\t"
-    ".word 0xA0C20000,0x29020079,0x14400003,0x24020078\n\t"
-    ".word 0x0801E730,0xA0C20000,0x24620027,0x3042FFFF\n\t"
-    ".word 0x2C42004F,0x10400003,0x00000000,0x0801E730\n\t"
-    ".word 0xA0C00000,0xA0C40000,0xA0E00000,0x90A30000\n\t"
-    ".word 0x90C40000,0x90E20000,0x00641825,0x00431025\n\t"
-    ".word 0x00021600,0x03E00008,0x00021603\n");
+typedef struct PadInput {
+    int type;
+    unsigned short buttons;
+    char pad06[10];
+    signed char lx;
+    signed char ly;
+    char pad12[7];
+    signed char rx;
+    signed char ry;
+    char pad1B[113];
+} PadInput;
+
+extern PadInput D_800EE028[];
+extern int D_800EC0F8[];
+extern unsigned short D_800EC0AC[][19];
+extern signed char D_800EC094[];
+extern signed char D_800EC09C[];
+extern signed char D_800EC0A4[];
+extern int D_800A6070;
+
+static inline void dead29(signed char *out, signed char v) {
+    *out = v;
+    if ((unsigned char)(v + 29) < 59) {
+        *out = 0;
+    }
+}
+
+static inline void dead40(signed char *out, signed char v) {
+    *out = v;
+    if ((unsigned char)(v + 40) < 81) {
+        *out = 0;
+    }
+}
+
+static inline void clamp85(signed char *out, signed char v) {
+    if (v > 85) {
+        *out = 85;
+    }
+    if (v < -85) {
+        *out = -85;
+    }
+}
+
+int func_800791C8(unsigned char slot, signed char *steer, signed char *drive, signed char *aim) {
+    signed char lx = D_800EE028[slot].lx;
+    signed char ry = D_800EE028[slot].ry;
+    signed char ly = D_800EE028[slot].ly;
+    signed char rx = D_800EE028[slot].rx;
+    unsigned short buttons = D_800EE028[slot].buttons;
+    short sum;
+    short v;
+
+    *aim = 0;
+    *drive = 0;
+    *steer = 0;
+    switch (D_800EE028[slot].type) {
+    case 2:
+    case 3:
+    case 4:
+        switch (D_800EC0F8[slot]) {
+        case 1:
+        case 6:
+            dead29(steer, ly);
+            *drive = 0;
+            dead40(aim, lx);
+            break;
+        case 3:
+            dead29(steer, ly);
+            dead40(drive, lx);
+            dead40(aim, rx);
+            clamp85(aim, rx);
+            break;
+        case 4:
+            dead29(steer, ry);
+            dead40(drive, rx);
+            dead40(aim, lx);
+            clamp85(aim, lx);
+            break;
+        case 5:
+            sum = (ly + ry) / 2;
+            if ((unsigned short)(sum + 29) < 59) {
+                *steer = 0;
+            } else {
+                *steer = sum;
+            }
+            v = ry - ly;
+            if (v < -125) {
+                *drive = -125;
+            } else if (v > 125) {
+                *drive = 125;
+            } else if ((unsigned short)(v + 40) < 81) {
+                *drive = 0;
+            } else {
+                *drive = v;
+            }
+            *aim = 0;
+            break;
+        case 0:
+        case 2:
+            dead29(steer, ly);
+            dead40(drive, lx);
+            *aim = 0;
+            break;
+        }
+        if (D_800A6070 == 7) {
+            dead29(steer, ly);
+            dead40(drive, lx);
+            *aim = 0;
+        }
+    case 1:
+    case 5:
+        if ((*steer | *drive | *aim) == 0) {
+            switch ((unsigned int)D_800EC0F8[slot]) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 6:
+                if ((buttons & D_800EC0AC[slot][0]) || (buttons & D_800EC0AC[slot][1])) {
+                    *steer = D_800EC094[slot];
+                    if (*steer == 0) {
+                        if (buttons & D_800EC0AC[slot][0]) {
+                            *steer = -40;
+                        } else {
+                            *steer = 40;
+                        }
+                    } else {
+                        if ((buttons & D_800EC0AC[slot][0]) && *steer > 0) {
+                            *steer = -40;
+                        }
+                        if ((buttons & D_800EC0AC[slot][1]) && *steer < 0) {
+                            *steer = 40;
+                        }
+                    }
+                    v = *steer + (*steer >> 3);
+                    if (v > 120) {
+                        v = 120;
+                    }
+                    if (v < -120) {
+                        v = -120;
+                    }
+                    D_800EC094[slot] = v;
+                    *steer = v;
+                } else {
+                    D_800EC094[slot] = 0;
+                    *steer = 0;
+                }
+                if ((buttons & D_800EC0AC[slot][2]) || (buttons & D_800EC0AC[slot][3])) {
+                    *drive = D_800EC09C[slot];
+                    if (*drive == 0) {
+                        if (buttons & D_800EC0AC[slot][2]) {
+                            *drive = -40;
+                        } else {
+                            *drive = 40;
+                        }
+                    } else {
+                        if ((buttons & D_800EC0AC[slot][2]) && *drive > 0) {
+                            *drive = -40;
+                        }
+                        if ((buttons & D_800EC0AC[slot][3]) && *drive < 0) {
+                            *drive = 40;
+                        }
+                    }
+                    v = *drive + (*drive >> 3);
+                    if (v > 120) {
+                        v = 120;
+                    }
+                    if (v < -120) {
+                        v = -120;
+                    }
+                    D_800EC09C[slot] = v;
+                    *drive = v;
+                } else {
+                    D_800EC09C[slot] = 0;
+                    *drive = 0;
+                }
+                if ((buttons & D_800EC0AC[slot][4]) || (buttons & D_800EC0AC[slot][5])) {
+                    *aim = D_800EC0A4[slot];
+                    if (*aim == 0) {
+                        if (buttons & D_800EC0AC[slot][4]) {
+                            *aim = -40;
+                        } else {
+                            *aim = 40;
+                        }
+                    } else {
+                        if ((buttons & D_800EC0AC[slot][4]) && *aim > 0) {
+                            *aim = -40;
+                        }
+                        if ((buttons & D_800EC0AC[slot][5]) && *aim < 0) {
+                            *aim = 40;
+                        }
+                    }
+                    v = *aim + (*aim >> 3);
+                    if (v > 120) {
+                        v = 120;
+                    }
+                    if (v < -120) {
+                        v = -120;
+                    }
+                    D_800EC0A4[slot] = v;
+                    *aim = v;
+                } else {
+                    D_800EC0A4[slot] = 0;
+                    *aim = 0;
+                }
+                break;
+            case 5:
+                if ((buttons & D_800EC0AC[slot][0]) || (buttons & D_800EC0AC[slot][1])) {
+                    *steer = D_800EC094[slot];
+                    if (*steer == 0) {
+                        if (buttons & D_800EC0AC[slot][0]) {
+                            *steer = -40;
+                        } else {
+                            *steer = 40;
+                        }
+                    } else {
+                        if ((buttons & D_800EC0AC[slot][0]) && *steer > 0) {
+                            *steer = -40;
+                        }
+                        if ((buttons & D_800EC0AC[slot][1]) && *steer < 0) {
+                            *steer = 40;
+                        }
+                    }
+                    v = *steer + (*steer >> 3);
+                    if (v > 120) {
+                        v = 120;
+                    }
+                    if (v < -120) {
+                        v = -120;
+                    }
+                    D_800EC094[slot] = v;
+                    *steer = v;
+                } else {
+                    D_800EC094[slot] = 0;
+                    *steer = 0;
+                }
+                if ((buttons & D_800EC0AC[slot][10]) || (buttons & D_800EC0AC[slot][14])) {
+                    *drive = D_800EC09C[slot];
+                    if (*drive == 0) {
+                        if (buttons & D_800EC0AC[slot][10]) {
+                            *drive = -40;
+                        } else {
+                            *drive = 40;
+                        }
+                    } else {
+                        if ((buttons & D_800EC0AC[slot][10]) && *drive > 0) {
+                            *drive = -40;
+                        }
+                        if ((buttons & D_800EC0AC[slot][14]) && *drive < 0) {
+                            *drive = 40;
+                        }
+                    }
+                    v = *drive + (*drive >> 3);
+                    if (v > 120) {
+                        v = 120;
+                    }
+                    if (v < -120) {
+                        v = -120;
+                    }
+                    D_800EC09C[slot] = v;
+                    *drive = v;
+                } else {
+                    D_800EC09C[slot] = 0;
+                    *drive = 0;
+                }
+                ly = *steer;
+                rx = *drive;
+                sum = (*steer + *drive) / 2;
+                if ((unsigned short)(sum + 39) < 79) {
+                    *steer = 0;
+                } else {
+                    *steer = sum;
+                }
+                v = rx - ly;
+                if (v < -120) {
+                    *drive = -120;
+                } else if (v > 120) {
+                    *drive = 120;
+                } else if ((unsigned short)(v + 39) < 79) {
+                    *drive = 0;
+                } else {
+                    *drive = v;
+                }
+                *aim = 0;
+                break;
+            }
+        }
+        break;
+    case 0:
+    case 6:
+        break;
+    }
+    return (signed char)(*steer | *drive | *aim);
+}

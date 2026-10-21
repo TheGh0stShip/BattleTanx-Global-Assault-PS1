@@ -1,104 +1,205 @@
-asm(".text\n\t.globl func_8003D5B8\nfunc_8003D5B8:\n\t"
-    ".word 0x27BDFE88,0x27A40010,0xAFB50164,0x3C15800C\n\t"
-    ".word 0x26B5EA74,0x02A02821,0xAFBF0174,0xAFBE0170\n\t"
-    ".word 0xAFB7016C,0xAFB60168,0xAFB40160,0xAFB3015C\n\t"
-    ".word 0xAFB20158,0xAFB10154,0x0C023681,0xAFB00150\n\t"
-    ".word 0x27A40010,0x3C05800C,0x0C023655,0x24A5F098\n\t"
-    ".word 0x27A40078,0x27B10010,0x0C020909,0x02202821\n\t"
-    ".word 0x8FB00084,0x0C01A3CD,0x02002021,0x27A40078\n\t"
-    ".word 0x00409021,0x02402821,0x0C020A15,0x02003021\n\t"
-    ".word 0x0C0209A8,0x27A40078,0x02202021,0x0240B821\n\t"
-    ".word 0x8EFE0004,0x0C023681,0x02A02821,0x02202021\n\t"
-    ".word 0x3C05800C,0x0C023655,0x24A5F0A4,0x27A40078\n\t"
-    ".word 0x0C020909,0x02202821,0x8FB00084,0x0C01A3CD\n\t"
-    ".word 0x02002021,0x27A40078,0x0040B021,0x02C02821\n\t"
-    ".word 0x0C020A15,0x02003021,0x0C0209A8,0x27A40078\n\t"
-    ".word 0x02202021,0x0C023681,0x02A02821,0x3C14800A\n\t"
-    ".word 0x3C13800D,0x26732FE4,0x8E620044,0x269448E0\n\t"
-    ".word 0x00021080,0x00541021,0x8C450000,0x0C023655\n\t"
-    ".word 0x02202021,0x02202021,0x3C05800C,0x0C023655\n\t"
-    ".word 0x24A5F0B0,0x27A40078,0x0C020909,0x02202821\n\t"
-    ".word 0x8FB00084,0x0C01A3CD,0x02002021,0x27A40078\n\t"
-    ".word 0x00409021,0x02402821,0x0C020A15,0x02003021\n\t"
-    ".word 0x0C0209A8,0x27A40078,0x02A02821,0x8E550004\n\t"
-    ".word 0x0C023681,0x02202021,0x8E620044,0x00000000\n\t"
-    ".word 0x00021080,0x00541021,0x8C450000,0x0C023655\n\t"
-    ".word 0x02202021,0x02202021,0x3C05800C,0x0C023655\n\t"
-    ".word 0x24A5F0B8,0x27A40078,0x0C020909,0x02202821\n\t"
-    ".word 0x8FB00084,0x0C01A3CD,0x02002021,0x27A40078\n\t"
-    ".word 0x00408821,0x02202821,0x0C020A15,0x02003021\n\t"
-    ".word 0x0C0209A8,0x27A40078,0x0C00F433,0x02E02021\n\t"
-    ".word 0x02402021,0x0C00F433,0x0040A021,0x00003821\n\t"
-    ".word 0x26C30004,0xAFA30148,0x26C30008,0x8EC90004\n\t"
-    ".word 0x00408021,0x1120002B,0xAFA30148,0x27A80148\n\t"
-    ".word 0x240B0001,0x240A0002,0x02802021,0x8D030000\n\t"
-    ".word 0x00000000,0x8C650000,0x24630004,0xAC850000\n\t"
-    ".word 0x8C660000,0x24630004,0xAC860004,0x8C620000\n\t"
-    ".word 0x24630004,0xAC83000C,0x104B000C,0xAC820008\n\t"
-    ".word 0x10400005,0x00000000,0x104A000A,0x00061040\n\t"
-    ".word 0x0800F612,0xAD030000,0x000517C2,0x00A21021\n\t"
-    ".word 0x00021043,0x0800F60C,0x00460018,0x0800F60C\n\t"
-    ".word 0x00A60018,0x00A20018,0x00001012,0xAC820010\n\t"
-    ".word 0x00021082,0x00021080,0x00621821,0xAD030000\n\t"
-    ".word 0x24E70001,0x00E9102B,0x1440FFDC,0x24840028\n\t"
-    ".word 0x00003821,0x26220004,0xAFA2014C,0x8E290004\n\t"
-    ".word 0x26220008,0x1120002A,0xAFA2014C,0x27A8014C\n\t"
-    ".word 0x240B0001,0x240A0002,0x02002021,0x8D030000\n\t"
-    ".word 0x00000000,0x8C650000,0x24630004,0xAC850000\n\t"
-    ".word 0x8C660000,0x24630004,0xAC860004,0x8C620000\n\t"
-    ".word 0x24630004,0xAC83000C,0x104B000C,0xAC820008\n\t"
-    ".word 0x10400005,0x00000000,0x104A000A,0x00061040\n\t"
-    ".word 0x0800F642,0xAD030000,0x000517C2,0x00A21021\n\t"
-    ".word 0x00021043,0x0800F63C,0x00460018,0x0800F63C\n\t"
-    ".word 0x00A60018,0x00A20018,0x00001012,0xAC820010\n\t"
-    ".word 0x00021082,0x00021080,0x00621821,0xAD030000\n\t"
-    ".word 0x24E70001,0x00E9102B,0x1440FFDC,0x24840028\n\t"
-    ".word 0x03C02021,0x02802821,0x02A03021,0x0C00F470\n\t"
-    ".word 0x02003821,0x03C02021,0x0C00F52D,0x02802821\n\t"
-    ".word 0x02A02021,0x02002821,0x0C00F52D,0x00409821\n\t"
-    ".word 0x02C02021,0x0C01A3E7,0x0040A821,0x0C01A3E7\n\t"
-    ".word 0x02E02021,0x0C01A3E7,0x02802021,0x0C01A3E7\n\t"
-    ".word 0x02202021,0x0C01A3E7,0x02402021,0x0C01A3E7\n\t"
-    ".word 0x02002021,0x27A40010,0x3C05800C,0x0C023681\n\t"
-    ".word 0x24A5F0C0,0x27A40010,0x3C05800A,0x0C00EFE2\n\t"
-    ".word 0x24A54B18,0x27A400C0,0x27A50010,0x00409021\n\t"
-    ".word 0x3C02800A,0x0C023681,0xAC524B1C,0x27A400C0\n\t"
-    ".word 0x3C05800C,0x0C023655,0x24A5EA8C,0x27A40100\n\t"
-    ".word 0x0C020909,0x27A500C0,0x8FB0010C,0x0C01A369\n\t"
-    ".word 0x02002021,0x27A40100,0x00408821,0x02202821\n\t"
-    ".word 0x0C020A15,0x02003021,0x0C0209A8,0x27A40100\n\t"
-    ".word 0x26310004,0x8E280000,0x26310004,0x1900001C\n\t"
-    ".word 0x00003821,0x02403021,0xACD10004,0x26310004\n\t"
-    ".word 0x8E250000,0x00000000,0x10A0000F,0x26310004\n\t"
-    ".word 0x18A0000E,0x00002021,0x8E220000,0x24840001\n\t"
-    ".word 0x00021880,0x00621821,0x00031880,0x02631821\n\t"
-    ".word 0xAE230000,0x0085102A,0x1440FFF7,0x26310004\n\t"
-    ".word 0x0800F69A,0x24C6000C,0xACC00004,0x24C6000C\n\t"
-    ".word 0x24E70001,0x00E8102A,0x1440FFE7,0x00000000\n\t"
-    ".word 0x00002821,0x3C02800D,0x24442E14,0x3C02800A\n\t"
-    ".word 0x8C464B18,0x3C02800A,0x8C434B1C,0x00000000\n\t"
-    ".word 0x8C620000,0x00000000,0x10400005,0x00A6102B\n\t"
-    ".word 0x10400003,0x00000000,0x0800F6AF,0xAC830000\n\t"
-    ".word 0xAC800000,0x24840004,0x24A50001,0x28A2006B\n\t"
-    ".word 0x1440FFF2,0x2463000C,0x3C05800C,0x27A40010\n\t"
-    ".word 0x0C023681,0x24A5EA74,0x3C03800A,0x3C02800D\n\t"
-    ".word 0x8C423028,0x246348E0,0x00021080,0x00431021\n\t"
-    ".word 0x8C450000,0x0C023655,0x27A40010,0x27A40010\n\t"
-    ".word 0x3C05800A,0x0C00EFE2,0x24A54B10,0x27A40078\n\t"
-    ".word 0x27A50010,0x00409021,0x3C02800A,0x0C023681\n\t"
-    ".word 0xAC524B14,0x27A40078,0x3C05800C,0x0C023655\n\t"
-    ".word 0x24A5EA8C,0x27A400B8,0x0C020909,0x27A50078\n\t"
-    ".word 0x8FB000C4,0x0C01A369,0x02002021,0x27A400B8\n\t"
-    ".word 0x00408821,0x02202821,0x0C020A15,0x02003021\n\t"
-    ".word 0x0C0209A8,0x27A400B8,0x26310004,0x8E280000\n\t"
-    ".word 0x26310004,0x1900001C,0x00003821,0x02403021\n\t"
-    ".word 0xACD10004,0x26310004,0x8E250000,0x00000000\n\t"
-    ".word 0x10A0000F,0x26310004,0x18A0000E,0x00002021\n\t"
-    ".word 0x8E220000,0x24840001,0x00021880,0x00621821\n\t"
-    ".word 0x00031880,0x02A31821,0xAE230000,0x0085102A\n\t"
-    ".word 0x1440FFF7,0x26310004,0x0800F6F8,0x24C6000C\n\t"
-    ".word 0xACC00004,0x24C6000C,0x24E70001,0x00E8102A\n\t"
-    ".word 0x1440FFE7,0x00000000,0x8FBF0174,0x8FBE0170\n\t"
-    ".word 0x8FB7016C,0x8FB60168,0x8FB50164,0x8FB40160\n\t"
-    ".word 0x8FB3015C,0x8FB20158,0x8FB10154,0x8FB00150\n\t"
-    ".word 0x03E00008,0x27BD0178\n");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { int offset; int *f4; char *data; } Entry;
+typedef struct { int pad0; char *f4; } Blob;
+typedef struct { int width; int height; int type; int *pixels; unsigned int size; char pad[20]; } Image;
+typedef struct { int pad0; unsigned int count; int data[1]; } ImageFile;
+
+extern char D_800BEA74[];
+extern char D_800BEA8C[];
+extern char D_800BF098[];
+extern char D_800BF0A4[];
+extern char D_800BF0B0[];
+extern char D_800BF0B8[];
+extern char D_800BF0C0[];
+extern char *D_800A48E0[];
+typedef struct { char pad[68]; int level; } World;
+extern World D_800D2FE4;
+extern unsigned int D_800A4B10;
+extern Entry *D_800A4B14;
+extern unsigned int D_800A4B18;
+extern Entry *D_800A4B1C;
+extern Entry *D_800D2E14[];
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_80082424(File *, char *);
+extern void *func_80068F34(int);
+extern void *func_80068DA4(int);
+extern void func_80082854(File *, void *, int);
+extern void func_800826A0(File *);
+extern Image *func_8003D0CC(void *);
+extern void func_8003D1C0(char *, Image *, char *, Image *);
+extern char *func_8003D4B4(char *, Image *);
+extern void func_80068F9C(void *);
+extern Entry *func_8003BF88(char *, unsigned int *);
+
+static inline void *load_file(char *path)
+{
+    File file;
+    int size;
+    void *data;
+
+    func_80082424(&file, path);
+    size = file.size;
+    data = func_80068F34(size);
+    func_80082854(&file, data, size);
+    func_800826A0(&file);
+    return data;
+}
+
+static inline int *load_pack(char *path)
+{
+    File file;
+    int size;
+    int *data;
+
+    func_80082424(&file, path);
+    size = file.size;
+    data = func_80068DA4(size);
+    func_80082854(&file, data, size);
+    func_800826A0(&file);
+    return data;
+}
+
+static inline void parse_image(Image *out_arg, int **cursor)
+{
+    register Image *out asm("$4") = out_arg;
+    int *p;
+    int width;
+    int height;
+    unsigned int type;
+
+    p = *cursor;
+    width = *p++;
+    out->width = width;
+    height = *p++;
+    out->height = height;
+    type = *p++;
+    out->pixels = p;
+    out->type = type;
+    switch (type) {
+    case 0:
+        out->size = (width / 2) * height;
+        p += out->size >> 2;
+        break;
+    case 1:
+        out->size = width * height;
+        p += out->size >> 2;
+        break;
+    case 2:
+        out->size = width * (height << 1);
+        p += out->size >> 2;
+        break;
+    }
+    *cursor = p;
+}
+
+static inline void parse_images(Image *out, ImageFile *file)
+{
+    int *cursor;
+    unsigned int count;
+    unsigned int i;
+    register Image *o asm("$4");
+
+    cursor = (int *)&file->count;
+    count = *cursor++;
+    i = 0;
+    if (i < count) {
+        o = out;
+        do {
+            parse_image(o, &cursor);
+            o++;
+            i++;
+        } while (i < count);
+    }
+}
+
+static inline void relocate(char *name, Entry **dst, Entry *entries, char *base)
+{
+    char path[64];
+    int *p;
+    int count;
+    int i;
+    int n;
+    int j;
+
+    *dst = entries;
+    func_8008DA04(path, name);
+    func_8008D954(path, D_800BEA8C);
+    p = load_pack(path);
+    p++;
+    count = *p++;
+    for (i = 0; i < count; i++) {
+        entries[i].f4 = p;
+        p++;
+        n = *p++;
+        if (n != 0) {
+            for (j = 0; j < n; j++) {
+                *p = (int)(base + *p * 20);
+                p++;
+            }
+        } else {
+            entries[i].f4 = 0;
+        }
+    }
+}
+
+void func_8003D5B8(void)
+{
+    char path[104];
+    Blob *plt_a;
+    ImageFile *img_a;
+    Blob *plt_b;
+    ImageFile *img_b;
+    char *pal_a;
+    char *pal_b;
+    Image *images_a;
+    Image *images_b;
+    char *base_a;
+    char *base_b;
+    Entry *entries;
+    int i;
+
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800BF098);
+    plt_a = load_file(path);
+    pal_a = plt_a->f4;
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800BF0A4);
+    img_a = load_file(path);
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800A48E0[D_800D2FE4.level]);
+    func_8008D954(path, D_800BF0B0);
+    plt_b = load_file(path);
+    pal_b = plt_b->f4;
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800A48E0[D_800D2FE4.level]);
+    func_8008D954(path, D_800BF0B8);
+    img_b = load_file(path);
+    images_a = func_8003D0CC(plt_a);
+    images_b = func_8003D0CC(plt_b);
+    parse_images(images_a, img_a);
+    parse_images(images_b, img_b);
+    func_8003D1C0(pal_a, images_a, pal_b, images_b);
+    base_a = func_8003D4B4(pal_a, images_a);
+    base_b = func_8003D4B4(pal_b, images_b);
+    func_80068F9C(img_a);
+    func_80068F9C(plt_a);
+    func_80068F9C(images_a);
+    func_80068F9C(img_b);
+    func_80068F9C(plt_b);
+    func_80068F9C(images_b);
+
+    func_8008DA04(path, D_800BF0C0);
+    relocate(path, &D_800A4B1C, func_8003BF88(path, &D_800A4B18), base_a);
+    for (i = 0; i < 107; i++) {
+        if (D_800A4B1C[i].offset != 0 && i < D_800A4B18) {
+            D_800D2E14[i] = &D_800A4B1C[i];
+        } else {
+            D_800D2E14[i] = 0;
+        }
+    }
+
+    func_8008DA04(path, D_800BEA74);
+    func_8008D954(path, D_800A48E0[D_800D2FE4.level]);
+    relocate(path, &D_800A4B14, func_8003BF88(path, &D_800A4B10), base_b);
+}

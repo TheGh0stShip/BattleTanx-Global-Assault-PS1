@@ -1,5 +1,9 @@
-asm(".text\n\t.globl func_800A3AE4\nfunc_800A3AE4:\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x3C02800C,0x8C428C8C\n\t"
-    ".word 0xAFBF0014,0x0040F809,0x00808021,0x02002021\n\t"
-    ".word 0x3C01800C,0xAC22D45C,0x0C027A34,0x2405FFFE\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n");
+extern int (*D_800B8C8C)(void);
+extern int D_800BD45C;
+void func_8009E8D0(int a, int b);
+
+void func_800A3AE4(int a)
+{
+    D_800BD45C = D_800B8C8C();
+    func_8009E8D0(a, -2);
+}

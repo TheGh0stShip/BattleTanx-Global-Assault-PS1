@@ -1,35 +1,76 @@
-asm(".text\n\t.globl func_8009E5F4\nfunc_8009E5F4:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0x3C03800C\n\t"
-    ".word 0x8C638CD8,0x24020040,0xAFBF0018,0xAFB10014\n\t"
-    ".word 0xA462000A,0x2402000D,0xA460000A,0xA4620008\n\t"
-    ".word 0x24020088,0xA462000E,0x920300E8,0x24020008\n\t"
-    ".word 0x14620002,0x24040091,0x24040050,0x0C028E89\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428CB4,0x3C04800C\n\t"
-    ".word 0x8C848CD8,0x10400002,0x24031003,0x24033003\n\t"
-    ".word 0x00021080,0xA483000A,0x3C01800C,0x00220821\n\t"
-    ".word 0x8C228CCC,0x3C03800C,0x04400034,0x24638CCC\n\t"
-    ".word 0x1840001D,0x00000000,0x00608821,0x3C03800C\n\t"
-    ".word 0x8C638CB4,0x00000000,0x00031880,0x00711821\n\t"
-    ".word 0x8C620000,0x00000000,0x2442FFFF,0x00022100\n\t"
-    ".word 0x00822023,0x00042100,0xAC620000,0x8E02000C\n\t"
-    ".word 0x3C03800C,0x8C638C94,0x00000000,0x0060F809\n\t"
-    ".word 0x00442021,0x3C02800C,0x8C428CB4,0x00000000\n\t"
-    ".word 0x00021080,0x00511021,0x8C420000,0x00000000\n\t"
-    ".word 0x1C40FFE6,0x00000000,0x3C02800C,0x8C428CB4\n\t"
-    ".word 0x3C03800C,0x24638CCC,0x00021080,0x00432821\n\t"
-    ".word 0x8CA20000,0x00000000,0x1440000C,0x2403FFFF\n\t"
-    ".word 0x02002021,0x3C02800C,0x8C428C94,0x00000000\n\t"
-    ".word 0x0040F809,0xACA30000,0x3C02800C,0x8C428C98\n\t"
-    ".word 0x00000000,0x0040F809,0x02002021,0x3C03800C\n\t"
-    ".word 0x8C638CD8,0x00000000,0x94620004,0x00000000\n\t"
-    ".word 0x30420200,0x10400017,0x00000000,0x9462000A\n\t"
-    ".word 0x00000000,0x34420010,0xA462000A,0x94620004\n\t"
-    ".word 0x00000000,0x30420200,0x1040000A,0x24020001\n\t"
-    ".word 0xA0620000,0x0C027B5B,0x00000000,0x3C03800C\n\t"
-    ".word 0x8C638CD8,0x00001021,0x90630000,0x080279FD\n\t"
-    ".word 0x00000000,0x3C03800C,0x8C638CD4,0x2402FF7F\n\t"
-    ".word 0xAC620000,0x92020050,0x00000000,0x10400005\n\t"
-    ".word 0x00000000,0x92020036,0x00000000,0x14400004\n\t"
-    ".word 0x00001021,0x8E03003C,0x24020001,0xA0600000\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct PadPort {
+    unsigned char pad0[0x0C];
+    struct PadPort *slots;
+    unsigned char pad10[0x26];
+    unsigned char b36;
+    unsigned char pad37[5];
+    unsigned char *act;
+    unsigned char pad40[0x10];
+    unsigned char b50;
+    unsigned char pad51[0x97];
+    unsigned char bE8;
+    unsigned char padE9[7];
+} PadPort;
+
+typedef struct SioRegs {
+    unsigned char data;
+    unsigned char pad1[3];
+    unsigned short status;
+    unsigned short pad6;
+    unsigned short mode;
+    unsigned short ctrl;
+    unsigned short padC;
+    unsigned short baud;
+} SioRegs;
+
+extern volatile SioRegs *D_800B8CD8;
+extern volatile int *D_800B8CD4;
+extern int D_800B8CB4;
+extern int D_800B8CCC[];
+extern void (*D_800B8C94)(PadPort *p);
+extern void (*D_800B8C98)(PadPort *p);
+extern void func_800A3A24(int n);
+extern void func_8009ED6C(void);
+
+int func_8009E5F4(PadPort *p)
+{
+    volatile SioRegs *sio;
+    int n;
+    int v;
+
+    sio = D_800B8CD8;
+    sio->ctrl = 0x40;
+    sio->ctrl = 0;
+    sio->mode = 13;
+    sio->baud = 0x88;
+    func_800A3A24(p->bE8 == 8 ? 80 : 145);
+    n = D_800B8CB4;
+    D_800B8CD8->ctrl = n ? 0x3003 : 0x1003;
+    if (D_800B8CCC[n] >= 0) {
+        while (D_800B8CCC[D_800B8CB4] > 0) {
+            v = --D_800B8CCC[D_800B8CB4];
+            D_800B8C94(p->slots + v);
+        }
+        if (D_800B8CCC[D_800B8CB4] == 0) {
+            D_800B8CCC[D_800B8CB4] = -1;
+            D_800B8C94(p);
+            D_800B8C98(p);
+        }
+    }
+    sio = D_800B8CD8;
+    if (sio->status & 0x200) {
+        sio->ctrl |= 0x10;
+        if (sio->status & 0x200) {
+            sio->data = 1;
+            func_8009ED6C();
+            D_800B8CD8->data;
+            return 0;
+        }
+        *D_800B8CD4 = ~0x80;
+    }
+    if (p->b50 && p->b36) {
+        return 0;
+    }
+    *p->act = 0;
+    return 1;
+}

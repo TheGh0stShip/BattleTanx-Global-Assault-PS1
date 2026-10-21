@@ -1,18 +1,81 @@
-asm(".text\n\t.globl func_8009DEB0\nfunc_8009DEB0:\n\t"
-    ".word 0x90820045,0x10A0000E,0x2446FFFD,0x04C10002\n\t"
-    ".word 0x00C01821,0x24430004,0x000318C3,0x000310C0\n\t"
-    ".word 0x00C21023,0x2445FFFE,0x00031100,0x00431023\n\t"
-    ".word 0x8C83000C,0x00021100,0x080277BD,0x00622021\n\t"
-    ".word 0x00C02821,0x90830036,0x04A00029,0x00000000\n\t"
-    ".word 0x10600005,0x2402004D,0x10620015,0x00000000\n\t"
-    ".word 0x080277E0,0x00000000,0x28A20006,0x10400005\n\t"
-    ".word 0x00851021,0x90420057,0x00000000,0x10400022\n\t"
-    ".word 0x00001021,0x90820034,0x00000000,0x00A2102A\n\t"
-    ".word 0x1040001D,0x00001021,0x8C820028,0x00000000\n\t"
-    ".word 0x00451021,0x90420000,0x080277EE,0x00000000\n\t"
-    ".word 0x90820035,0x00000000,0x00A2102A,0x10400012\n\t"
-    ".word 0x240200FF,0x8C82002C,0x080277D5,0x00451021\n\t"
-    ".word 0x90820035,0x00000000,0x00A2102A,0x1040000A\n\t"
-    ".word 0x00001021,0x8C82002C,0x080277D5,0x00451021\n\t"
-    ".word 0x24A40002,0x14800004,0x00001021,0x10600002\n\t"
-    ".word 0x24020042,0x306200FF,0x03E00008,0x00000000\n");
+typedef struct PadRec {
+    unsigned char b0;
+    unsigned char b1;
+    unsigned char b2;
+    unsigned char b3;
+    unsigned char b4;
+} PadRec;
+
+typedef struct PadPort {
+    int w0;
+    PadRec *recs;
+    int w8;
+    struct PadPort *slots;
+    struct PadPort *port;
+    unsigned char pad14[0x14];
+    unsigned char *in;
+    unsigned char *out;
+    unsigned char pad30[4];
+    unsigned char in_len;
+    unsigned char out_len;
+    unsigned char b36;
+    unsigned char b37;
+    unsigned char b38;
+    unsigned char pad39[0x0C];
+    unsigned char b45;
+    unsigned char pad46[0x11];
+    unsigned char act[6];
+    unsigned char id[6];
+    unsigned char pad63[0x83];
+    unsigned short hE6;
+    unsigned char bE8;
+    unsigned char bE9;
+    unsigned char padEA[6];
+} PadPort;
+
+unsigned char func_8009DEB0(PadPort *p, int sub)
+{
+    int idx;
+    int n;
+    int c;
+    unsigned char *buf;
+
+    idx = p->b45 - 3;
+    if (sub) {
+        n = idx - (idx / 8) * 8 - 2;
+        p = &p->slots[idx / 8];
+    } else {
+        n = idx;
+    }
+    c = p->b36;
+    if (n >= 0) {
+        switch (c) {
+        case 0:
+            if (n < 6 && p->act[n] == 0) {
+                return 0;
+            }
+            if (n >= p->in_len) {
+                return 0;
+            }
+            buf = p->in;
+        read:
+            return buf[n];
+        case 0x4D:
+            if (n < p->out_len) {
+                buf = p->out;
+                goto read;
+            }
+            return 0xFF;
+        default:
+            if (n >= p->out_len) {
+                return 0;
+            }
+            buf = p->out;
+            goto read;
+        }
+    }
+    if (n + 2 != 0) {
+        return 0;
+    }
+    return c != 0 ? c : 0x42;
+}

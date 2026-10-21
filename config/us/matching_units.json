@@ -14429,7 +14429,31 @@
       "address": "0x800A0CFC",
       "size": "0x168",
       "source": "src/game/800A0CFC.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8D45": "0x800B8D45",
+        "D_800B8D4C": "0x800B8D4C",
+        "D_800B8DCC": "0x800B8DCC",
+        "D_800B9004": "0x800B9004",
+        "D_800B9030": "0x800B9030",
+        "D_800C5E84": "0x800C5E84",
+        "D_800C5E94": "0x800C5E94",
+        "D_800C5F8C": "0x800C5F8C",
+        "D_800EFCF0": "0x800EFCF0",
+        "D_800EFCF4": "0x800EFCF4",
+        "D_800EFCF8": "0x800EFCF8",
+        "func_80088870": "0x80088870",
+        "func_800943B0": "0x800943B0",
+        "func_80096F9C": "0x80096F9C",
+        "func_800A090C": "0x800A090C"
+      },
+      "compiler_flags_extra": [
+        "-mno-split-addresses"
+      ],
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "cd_error_string_address"
     },
     {
       "name": "func_800A2094",
@@ -15835,7 +15859,19 @@
       "address": "0x80077B9C",
       "size": "0x1FC",
       "source": "src/game/80077B9C.c",
-      "symbols": {}
+      "symbols": {
+        "D_800AEAC0": "0x800AEAC0",
+        "D_800AEB18": "0x800AEB18",
+        "D_800EBC3C": "0x800EBC3C",
+        "D_800EBC48": "0x800EBC48",
+        "D_800EBC50": "0x800EBC50",
+        "func_80086EA8": "0x80086EA8",
+        "func_80086F8C": "0x80086F8C",
+        "func_80088270": "0x80088270",
+        "func_80088324": "0x80088324",
+        "func_8008DA04": "0x8008DA04"
+      },
+      "assembly_profile": "stream_open_failure_layout"
     },
     {
       "name": "func_80078464",
@@ -15965,7 +16001,23 @@
       "address": "0x8009DC98",
       "size": "0x1D4",
       "source": "src/game/8009DC98.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8C5C": "0x800B8C5C",
+        "D_800B8CB4": "0x800B8CB4",
+        "D_800B8CB8": "0x800B8CB8",
+        "D_800B8CC8": "0x800B8CC8",
+        "D_800B8CCC": "0x800B8CCC",
+        "D_800EF2D8": "0x800EF2D8",
+        "func_8009DE6C": "0x8009DE6C",
+        "func_8009E5F4": "0x8009E5F4",
+        "func_800A3698": "0x800A3698"
+      },
+      "compiler": "gcc-2.7.2-psx",
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "pad_port_advance_layout"
     },
     {
       "name": "func_8009E8D0",
@@ -16717,7 +16769,22 @@
       "address": "0x8009E5F4",
       "size": "0x214",
       "source": "src/game/8009E5F4.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8C94": "0x800B8C94",
+        "D_800B8C98": "0x800B8C98",
+        "D_800B8CB4": "0x800B8CB4",
+        "D_800B8CCC": "0x800B8CCC",
+        "D_800B8CD4": "0x800B8CD4",
+        "D_800B8CD8": "0x800B8CD8",
+        "func_8009ED6C": "0x8009ED6C",
+        "func_800A3A24": "0x800A3A24"
+      },
+      "compiler": "gcc-2.7.2-psx",
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "sio_poll_frame32"
     },
     {
       "name": "func_800A232C",
@@ -19630,7 +19697,16 @@
       "address": "0x800738D4",
       "size": "0x498",
       "source": "src/game/800738D4.c",
-      "symbols": {}
+      "symbols": {
+        "func_80022BD4": "0x80022BD4",
+        "func_800237D0": "0x800237D0",
+        "func_8002382C": "0x8002382C",
+        "func_80072C50": "0x80072C50",
+        "func_8007374C": "0x8007374C",
+        "func_80086C84": "0x80086C84",
+        "func_8008A65C": "0x8008A65C"
+      },
+      "assembly_profile": "debris_matrix_setup_schedule"
     },
     {
       "name": "func_8007471C",
@@ -20464,7 +20540,35 @@
       "address": "0x8003D5B8",
       "size": "0x668",
       "source": "src/game/8003D5B8.c",
-      "symbols": {}
+      "symbols": {
+        "D_800A48E0": "0x800A48E0",
+        "D_800A4B10": "0x800A4B10",
+        "D_800A4B14": "0x800A4B14",
+        "D_800A4B18": "0x800A4B18",
+        "D_800A4B1C": "0x800A4B1C",
+        "D_800BEA74": "0x800BEA74",
+        "D_800BEA8C": "0x800BEA8C",
+        "D_800BF098": "0x800BF098",
+        "D_800BF0A4": "0x800BF0A4",
+        "D_800BF0B0": "0x800BF0B0",
+        "D_800BF0B8": "0x800BF0B8",
+        "D_800BF0C0": "0x800BF0C0",
+        "D_800D2E14": "0x800D2E14",
+        "D_800D2FE4": "0x800D2FE4",
+        "func_8003BF88": "0x8003BF88",
+        "func_8003D0CC": "0x8003D0CC",
+        "func_8003D1C0": "0x8003D1C0",
+        "func_8003D4B4": "0x8003D4B4",
+        "func_80068DA4": "0x80068DA4",
+        "func_80068F34": "0x80068F34",
+        "func_80068F9C": "0x80068F9C",
+        "func_80082424": "0x80082424",
+        "func_800826A0": "0x800826A0",
+        "func_80082854": "0x80082854",
+        "func_8008D954": "0x8008D954",
+        "func_8008DA04": "0x8008DA04"
+      },
+      "assembly_profile": "image_parse_loop_schedule"
     },
     {
       "name": "func_80053FF4",
@@ -21201,7 +21305,17 @@
       "address": "0x800791C8",
       "size": "0xB1C",
       "source": "src/game/800791C8.c",
-      "symbols": {}
+      "symbols": {
+        "D_800A6070": "0x800A6070",
+        "D_800EC094": "0x800EC094",
+        "D_800EC09C": "0x800EC09C",
+        "D_800EC0A4": "0x800EC0A4",
+        "D_800EC0AC": "0x800EC0AC",
+        "D_800EC0F8": "0x800EC0F8",
+        "D_800EE028": "0x800EE028"
+      },
+      "rodata_address": "0x800C3FD0",
+      "assembly_profile": "dual_axis_sum_registers"
     },
     {
       "name": "func_8007C91C",
@@ -22051,7 +22165,9 @@
       "address": "0x8008BB14",
       "size": "0x8",
       "source": "src/game/8008BB14.c",
-      "symbols": {},
+      "symbols": {
+        "func_8008DBE8": "0x8008DBE8"
+      },
       "kind": "code_fragment"
     },
     {
@@ -23667,7 +23783,13 @@
       "address": "0x8009DEB0",
       "size": "0x110",
       "source": "src/game/8009DEB0.c",
-      "symbols": {}
+      "symbols": {},
+      "compiler": "gcc-2.7.2-psx",
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "pad_read_default_layout"
     },
     {
       "name": "func_8009DFC0",
@@ -23848,7 +23970,15 @@
       "address": "0x800A3AE4",
       "size": "0x40",
       "source": "src/game/800A3AE4.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8C8C": "0x800B8C8C",
+        "D_800BD45C": "0x800BD45C",
+        "func_8009E8D0": "0x8009E8D0"
+      },
+      "compiler_flags_extra": [
+        "-mno-split-addresses"
+      ],
+      "assembly_profile": "callback_frame_setup"
     },
     {
       "name": "func_800A3B24",

@@ -1,33 +1,70 @@
-asm(".text\n\t.globl func_80077B9C\nfunc_80077B9C:\n\t"
-    ".word 0x27BDFF48,0xAFB200A8,0x00809021,0xAFB300AC\n\t"
-    ".word 0x00A09821,0xAFB400B0,0x00C0A021,0x27A40018\n\t"
-    ".word 0xAFBF00B4,0xAFB100A4,0x0C023681,0xAFB000A0\n\t"
-    ".word 0x0C021BE3,0x27A40018,0x24040001,0x3C02800B\n\t"
-    ".word 0x0C021BAA,0x2451EAC0,0x3C02800F,0x2442BC50\n\t"
-    ".word 0x24040005,0x02402821,0x27A60018,0x24070002\n\t"
-    ".word 0x0C0220C9,0xAFA20010,0x00408021,0x16000009\n\t"
-    ".word 0x2404000A,0x00002021,0x3C03800F,0x24020003\n\t"
-    ".word 0xAC62BC48,0x3C03800F,0x2402000D,0x0801DF23\n\t"
-    ".word 0xAC62BC3C,0x02002821,0x00003021,0x02203821\n\t"
-    ".word 0x24020064,0xAFA20010,0x0C0220C9,0xAFA00014\n\t"
-    ".word 0x2404000C,0x02002821,0x0C0220C9,0x24060001\n\t"
-    ".word 0x02402021,0x0C02209C,0x02002821,0x00401821\n\t"
-    ".word 0x24020001,0x10620003,0x24040007,0x1462FFFF\n\t"
-    ".word 0x24040007,0x0C0220C9,0x02002821,0x24040001\n\t"
-    ".word 0x308200FF,0x14400009,0x26840058,0x00001021\n\t"
-    ".word 0x3C04800F,0x24030002,0xAC83BC48,0x3C04800F\n\t"
-    ".word 0x2403000D,0x0801DF5E,0xAC83BC3C,0x3C05800B\n\t"
-    ".word 0x0C023681,0x24A5EB18,0x00008021,0x24040008\n\t"
-    ".word 0x02402821,0x02603021,0x0C0220C9,0x27A70098\n\t"
-    ".word 0x8FA20098,0x00000000,0x1040001D,0x27B10018\n\t"
-    ".word 0x0C021BAA,0x24040001,0x24040006,0x02402821\n\t"
-    ".word 0x02203021,0x0C0220C9,0x00003821,0x00408021\n\t"
-    ".word 0x16000003,0x2404000B,0x0801DF57,0x00008021\n\t"
-    ".word 0x02002821,0x00003021,0x02803821,0x24020064\n\t"
-    ".word 0xAFA20010,0x0C0220C9,0xAFA00014,0x2404000C\n\t"
-    ".word 0x02002821,0x0C0220C9,0x24060001,0x24040007\n\t"
-    ".word 0x0C0220C9,0x02002821,0x0801DF5D,0x24100001\n\t"
-    ".word 0x3C03800F,0x24020002,0xAC62BC48,0x3C03800F\n\t"
-    ".word 0x2402000D,0xAC62BC3C,0x02001021,0x8FBF00B4\n\t"
-    ".word 0x8FB400B0,0x8FB300AC,0x8FB200A8,0x8FB100A4\n\t"
-    ".word 0x8FB000A0,0x03E00008,0x27BD00B8\n");
+extern int D_800EBC3C;
+extern int D_800EBC48;
+extern char D_800EBC50[];
+extern char D_800AEAC0[];
+extern char D_800AEB18[];
+extern char *func_8008DA04(char *, char *);
+extern void func_80086F8C(char *);
+extern void func_80086EA8(int);
+extern int func_80088324(int, ...);
+extern int func_80088270(int, int);
+
+static inline unsigned char write_icon_block(int port, char *path) {
+    char *header = D_800AEAC0;
+    int fd;
+    int result;
+
+    func_80086EA8(1);
+    fd = func_80088324(5, port, path, 2, D_800EBC50);
+    if (fd == 0) {
+        D_800EBC48 = 3;
+        D_800EBC3C = 13;
+        return 0;
+    }
+    func_80088324(10, fd, 0, header, 100, 0);
+    func_80088324(12, fd, 1);
+    result = func_80088270(port, fd);
+    while (result != 1) {
+    }
+    func_80088324(7, fd);
+    return 1;
+}
+
+static inline int write_save_block(int port, char *name, char *data, char *path) {
+    int exists;
+    int fd;
+    int ok = 0;
+
+    __asm__("" : "=r"(ok) : "0"(ok));
+    func_80088324(8, port, name, &exists);
+    if (exists != 0) {
+        func_80086EA8(1);
+        fd = func_80088324(6, port, path, 0);
+        if (fd != 0) {
+            func_80088324(11, fd, 0, data, 100, 0);
+            func_80088324(12, fd, 1);
+            func_80088324(7, fd);
+            ok = 1;
+            goto done;
+        }
+        ok = 0;
+    }
+    D_800EBC48 = 2;
+    D_800EBC3C = 13;
+done:
+    return ok;
+}
+
+int func_80077B9C(int port, char *name, char *data) {
+    char path[128];
+
+    func_8008DA04(path, name);
+    func_80086F8C(path);
+    if (!write_icon_block(port, path)) {
+        D_800EBC48 = 2;
+        D_800EBC3C = 13;
+        return 0;
+    }
+    func_8008DA04(data + 88, D_800AEB18);
+    return write_save_block(port, name, data, path);
+}

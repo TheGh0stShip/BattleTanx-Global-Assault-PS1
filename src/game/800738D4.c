@@ -1,75 +1,188 @@
-asm(".text\n\t.globl func_800738D4\nfunc_800738D4:\n\t"
-    ".word 0x27BDFF90,0xAFB20050,0x00809021,0xAFB5005C\n\t"
-    ".word 0x00A0A821,0xAFB1004C,0x00C08821,0xAFB70064\n\t"
-    ".word 0x00E0B821,0xAFB00048,0x00008021,0xAFB60060\n\t"
-    ".word 0x0200B021,0x24040046,0x24050024,0xAFBF006C\n\t"
-    ".word 0xAFBE0068,0xAFB40058,0x0C008DF4,0xAFB30054\n\t"
-    ".word 0x00409821,0x12600104,0xA7B10040,0x3C020005\n\t"
-    ".word 0xAE720008,0x8EAB0000,0x8EAC0004,0x8EAD0008\n\t"
-    ".word 0xAE6B0010,0xAE6C0014,0xAE6D0018,0xAE620020\n\t"
-    ".word 0x8E420000,0x00000000,0x245E0018,0x8C540004\n\t"
-    ".word 0x8C4B0008,0x27A20020,0xAFAB0044,0xAE74000C\n\t"
-    ".word 0x24081000,0xAC480008,0xA4400002,0xA4400006\n\t"
-    ".word 0xA440000E,0xAC400014,0xAC400018,0xAC40001C\n\t"
-    ".word 0x32284000,0x32293FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x32288000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA44A0004,0x000A5022,0xA44A000C,0x262A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA44A0000,0xA44A0010,0x02008821,0x0234102A\n\t"
-    ".word 0x1040000C,0x2672001C,0x0C008AF5,0x00000000\n\t"
-    ".word 0x00408021,0x12000007,0x0234102A,0xAE500000\n\t"
-    ".word 0x26310001,0x0234102A,0x1440FFF7,0x26120008\n\t"
-    ".word 0x0234102A,0x1040000D,0xAE400000,0x8E70001C\n\t"
-    ".word 0x00000000,0x12000007,0x00000000,0x0C008E0B\n\t"
-    ".word 0x02002021,0x8E100008,0x00000000,0x1600FFFB\n\t"
-    ".word 0x00000000,0x0801CF4F,0xAE60001C,0x8E70001C\n\t"
-    ".word 0x3C12FFFF,0x36524000,0x2604000C,0x02C02821\n\t"
-    ".word 0x8FA60044,0x0C01CDD3,0x03C03821,0x0040B021\n\t"
-    ".word 0x27A40020,0x8602000C,0x27A50010,0x00021300\n\t"
-    ".word 0xAFA20010,0x8602000E,0x26110014,0x00021300\n\t"
-    ".word 0xAFA20014,0x86020010,0x02203021,0x00021300\n\t"
-    ".word 0x0C022997,0xAFA20018,0x8E020014,0x8EA30000\n\t"
-    ".word 0x00000000,0x00431021,0xAE020014,0x8E020018\n\t"
-    ".word 0x8EA30004,0x00000000,0x00431021,0xAE020018\n\t"
-    ".word 0x8E02001C,0x8EA30008,0x00000000,0x00431021\n\t"
-    ".word 0x0C021B21,0xAE02001C,0x00021502,0x3C0D0001\n\t"
-    ".word 0x35AD8001,0x004D0018,0x00006012,0x00001810\n\t"
-    ".word 0x000C6302,0x00031D00,0x01836025,0x01801021\n\t"
-    ".word 0x00521021,0x0C021B21,0xAE020020,0x00021502\n\t"
-    ".word 0x3C0B0001,0x356B8001,0x004B0018,0x00007012\n\t"
-    ".word 0x00001810,0x000E7302,0x00031D00,0x01C37025\n\t"
-    ".word 0x01C01021,0x00521021,0x0C021B21,0xAE020028\n\t"
-    ".word 0x00021502,0x3C0E0001,0x35CE2001,0x004E0018\n\t"
-    ".word 0x00006012,0x00006810,0x000C6302,0x000D6D00\n\t"
-    ".word 0x018D6025,0xAE0C0024,0x340CC000,0x86E20000\n\t"
-    ".word 0x00000000,0x01820018,0x00001812,0x00005810\n\t"
-    ".word 0x00031B02,0x000B5D00,0x006B1825,0x8E020020\n\t"
-    ".word 0x00000000,0x00431021,0xAE020020,0x86E20004\n\t"
-    ".word 0x00000000,0x01820018,0x00001812,0x00006810\n\t"
-    ".word 0x00031B02,0x000D6D00,0x006D1825,0x8E020028\n\t"
-    ".word 0x3C0B0001,0x356B2000,0x00431021,0xAE020028\n\t"
-    ".word 0x86E20002,0x00000000,0x01620018,0x00001812\n\t"
-    ".word 0x00007010,0x00031B02,0x000E7500,0x006E1825\n\t"
-    ".word 0x8E020024,0x00000000,0x00431021,0x0C021B21\n\t"
-    ".word 0xAE020024,0x00021402,0x30420007,0x24030007\n\t"
-    ".word 0x14430010,0x00000000,0x0C021B21,0x00000000\n\t"
-    ".word 0x00021502,0x240D0801,0x004D0018,0x00003812\n\t"
-    ".word 0x00006010,0x00073B02,0x000C6500,0x00EC3825\n\t"
-    ".word 0x00002021,0x02202821,0x26060020,0x0C01CB14\n\t"
-    ".word 0x24E71800,0xA600002C,0x97AE0040,0xA6000030\n\t"
-    ".word 0xA6000032,0x0C021B21,0xA60E002E,0x00021502\n\t"
-    ".word 0x240C0801,0x004C0018,0x00005812,0x00001810\n\t"
-    ".word 0x000B5B02,0x00031D00,0x01635825,0x01601021\n\t"
-    ".word 0x2442FC00,0x0C021B21,0xA6020034,0x00021502\n\t"
-    ".word 0x240E0401,0x004E0018,0x00006812,0x00001810\n\t"
-    ".word 0x000D6B02,0x00031D00,0x01A36825,0x01A01021\n\t"
-    ".word 0x2442FE00,0xA6020036,0x8E100008,0x00000000\n\t"
-    ".word 0x1600FF5E,0x2604000C,0x8FBF006C,0x8FBE0068\n\t"
-    ".word 0x8FB70064,0x8FB60060,0x8FB5005C,0x8FB40058\n\t"
-    ".word 0x8FB30054,0x8FB20050,0x8FB1004C,0x8FB00048\n\t"
-    ".word 0x03E00008,0x27BD0070\n");
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[4];
+    int count;
+    int style;
+    char pad0C[0x18 - 0xC];
+    char parts[1];
+} ModelInfo;
+typedef struct {
+    ModelInfo *info;
+} Model;
+typedef struct Piece Piece;
+struct Piece {
+    char pad0[8];
+    Piece *next;
+    short ox;
+    short oy;
+    short oz;
+    char pad12[2];
+    Vector pos;
+    Vector vel;
+    short rx;
+    unsigned short ry;
+    short rz;
+    short spin_x;
+    short spin_y;
+    short spin_z;
+};
+typedef struct {
+    char pad0[8];
+    Model *model;
+    int count;
+    Vector pos;
+    Piece *pieces;
+    int scale;
+} Debris;
+
+extern Debris *func_800237D0(int, int);
+extern Piece *func_80022BD4(void);
+extern void func_8002382C(Piece *);
+extern void *func_8007374C(short *, void *, int, char *);
+extern void func_8008A65C(MATRIX *, Vector *, Vector *);
+extern unsigned int func_80086C84(void);
+extern void func_80072C50(int, Vector *, Vector *, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_800738D4(Model *model, Vector *pos, int angle, short *push) {
+    Debris *debris;
+    ModelInfo *info;
+    Piece *piece;
+    Piece **link;
+    void *prev;
+    char *parts;
+    int count;
+    unsigned short heading;
+    int style;
+    int i;
+    Vector local;
+    MATRIX m;
+    register MATRIX *mp asm("$2");
+    register int one asm("$8");
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    register int value asm("$10");
+
+    piece = 0;
+    prev = piece;
+    debris = func_800237D0(70, 36);
+    heading = angle;
+    if (debris == 0) {
+        return;
+    }
+    debris->model = model;
+    debris->pos = *pos;
+    debris->scale = 0x50000;
+    info = model->info;
+    __asm__ volatile("");
+    count = info->count;
+    parts = info->parts;
+    style = info->style;
+    debris->count = count;
+    __asm__ volatile("");
+    mp = &m;
+    __asm__ volatile("" : "+r"(mp));
+    one = 4096;
+    *(int *)&mp->m[1][1] = one;
+    mp->m[0][1] = 0;
+    mp->m[1][0] = 0;
+    mp->m[2][1] = 0;
+    mp->t[0] = 0;
+    mp->t[1] = 0;
+    mp->t[2] = 0;
+    __asm__ volatile("");
+    quadrant = angle & 0x4000;
+    __asm__ volatile("");
+    index = angle & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(angle));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    mp->m[0][2] = value;
+    __asm__ volatile("neg $10, $10" : "+r"(value));
+    mp->m[2][0] = value;
+    value = angle + 0x4000;
+    __asm__ volatile("" : "+r"(value));
+    quadrant = value & 0x4000;
+    __asm__ volatile("");
+    index = value & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(value));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    mp->m[0][0] = value;
+    mp->m[2][2] = value;
+    __asm__ volatile("");
+
+    i = 0;
+    __asm__("" : "+r"(i));
+    link = &debris->pieces;
+    for (; i < count; i++) {
+        piece = func_80022BD4();
+        if (piece == 0) {
+            break;
+        }
+        *link = piece;
+        link = &piece->next;
+    }
+    *link = 0;
+    if (i < count) {
+        for (piece = debris->pieces; piece != 0; piece = piece->next) {
+            func_8002382C(piece);
+        }
+        debris->pieces = 0;
+        return;
+    }
+    piece = debris->pieces;
+    do {
+        prev = func_8007374C(&piece->ox, prev, style, parts);
+        local.x = piece->ox << 12;
+        local.y = piece->oy << 12;
+        local.z = piece->oz << 12;
+        func_8008A65C(&m, &local, &piece->pos);
+        piece->pos.x += pos->x;
+        piece->pos.y += pos->y;
+        piece->pos.z += pos->z;
+        piece->vel.x = fixed_mul(func_80086C84() >> 20, 0x18001) - 0xC000;
+        piece->vel.z = fixed_mul(func_80086C84() >> 20, 0x18001) - 0xC000;
+        piece->vel.y = fixed_mul(func_80086C84() >> 20, 0x12001);
+        piece->vel.x += fixed_mul(0xC000, push[0]);
+        piece->vel.z += fixed_mul(0xC000, push[2]);
+        piece->vel.y += fixed_mul(0x12000, push[1]);
+        if (((func_80086C84() >> 16) & 7) == 7) {
+            func_80072C50(0, &piece->pos, &piece->vel, fixed_mul(func_80086C84() >> 20, 2049) + 6144);
+        }
+        piece->rx = 0;
+        piece->ry = heading;
+        piece->rz = 0;
+        piece->spin_x = 0;
+        piece->spin_y = fixed_mul(func_80086C84() >> 20, 2049) - 1024;
+        piece->spin_z = fixed_mul(func_80086C84() >> 20, 1025) - 512;
+        piece = piece->next;
+    } while (piece != 0);
+}

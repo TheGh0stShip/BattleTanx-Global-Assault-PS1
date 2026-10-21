@@ -1392,6 +1392,296 @@ $L3:
         source = source[:tail_start] + retail_tail + source[tail_end:]
         path.write_text(source)
         return
+    if profile == "callback_frame_setup":
+        source = path.read_text()
+        old = """lw\t$2,D_800B8C8C
+#nop # DEBUG: 'subu\t$sp,$sp,24' does not load from $2
+subu\t$sp,$sp,24
+sw\t$16,16($sp)
+"""
+        new = """subu\t$sp,$sp,24
+sw\t$16,16($sp)
+lw\t$2,D_800B8C8C
+"""
+        if source.count(old) != 1:
+            raise ValueError("callback_frame_setup shape changed")
+        path.write_text(source.replace(old, new, 1))
+        return
+    if profile == "cd_error_string_address":
+        source = path.read_text()
+        replacements = (
+            ("sll\t$7,$4,2", "sll\t$4,$4,2"),
+            ("addu\t$7,$7,$16", "addu\t$4,$4,$16"),
+            ("lw\t$7,0($7)", "lw\t$7,0($4)"),
+        )
+        for old, new in replacements:
+            if source.count(old) != 1:
+                raise ValueError("cd_error_string_address shape changed at %s" % old)
+            source = source.replace(old, new, 1)
+        path.write_text(source)
+        return
+    if profile == "sio_poll_frame32":
+        source = path.read_text()
+        replacements = (
+            (".frame\t$sp,40,$31", ".frame\t$sp,32,$31"),
+            ("subu\t$sp,$sp,40", "subu\t$sp,$sp,32"),
+            ("sw\t$16,24($sp)", "sw\t$16,16($sp)"),
+            ("sw\t$31,32($sp)", "sw\t$31,24($sp)"),
+            ("sw\t$17,28($sp)", "sw\t$17,20($sp)"),
+            ("lw\t$31,32($sp)", "lw\t$31,24($sp)"),
+            ("lw\t$17,28($sp)", "lw\t$17,20($sp)"),
+            ("lw\t$16,24($sp)", "lw\t$16,16($sp)"),
+            ("addu\t$sp,$sp,40", "addu\t$sp,$sp,32"),
+        )
+        for old, new in replacements:
+            if source.count(old) != 1:
+                raise ValueError("sio_poll_frame32 shape changed at %s" % old)
+            source = source.replace(old, new, 1)
+        path.write_text(source)
+        return
+    if profile == "pad_read_default_layout":
+        source = path.read_text()
+        branch_old = """bltz\t$5,$L6
+addu\t$2,$5,2
+"""
+        branch_new = """bltz\t$5,$L6
+nop
+"""
+        default_old = """j\t$L22
+$L6:
+beq\t$2,$0,$L17
+.set\tnoreorder
+.set\tnomacro
+j\t$L20
+addu\t$2,$0,$zero
+.set\tmacro
+.set\treorder
+
+$L17:
+.set\tnoreorder
+.set\tnomacro
+beq\t$3,$0,$L20
+li\t$2,0x00000042\t\t# 66
+.set\tmacro
+.set\treorder
+
+andi\t$2,$3,0x00ff
+"""
+        default_new = """lw\t$2,44($4)
+.set\tnoreorder
+.set\tnomacro
+j\t$L24
+addu\t$2,$2,$5
+.set\tmacro
+.set\treorder
+
+$L6:
+addu\t$4,$5,2
+.set\tnoreorder
+.set\tnomacro
+bne\t$4,$0,$L23
+addu\t$2,$0,$zero
+beq\t$3,$0,$L23
+li\t$2,0x00000042\t\t# 66
+.set\tmacro
+.set\treorder
+
+andi\t$2,$3,0x00ff
+"""
+        if source.count(branch_old) != 1 or source.count(default_old) != 1:
+            raise ValueError("pad_read_default_layout shape changed")
+        source = source.replace(branch_old, branch_new, 1)
+        source = source.replace(default_old, default_new, 1)
+        path.write_text(source)
+        return
+    if profile == "pad_port_advance_layout":
+        source = path.read_text()
+        prologue_old = """sw\t$19,28($sp)
+li\t$19,-9\t\t\t# 0xfffffff7
+sw\t$17,20($sp)
+la\t$17,D_800EF2D8
+"""
+        prologue_new = """sw\t$17,20($sp)
+la\t$17,D_800EF2D8
+sw\t$19,28($sp)
+li\t$19,-9\t\t\t# 0xfffffff7
+"""
+        tail_old = """bne\t$2,$0,$L30
+addu\t$16,$0,$zero
+.set\tmacro
+.set\treorder
+
+sll\t$4,$3,4
+subu\t$4,$4,$3
+sll\t$4,$4,4
+.set\tnoreorder
+.set\tnomacro
+jal\tfunc_8009E5F4
+addu\t$4,$4,$17
+.set\tmacro
+.set\treorder
+
+beq\t$2,$0,$L29
+$L30:
+li\t$16,0x00000001\t\t# 1
+$L29:
+.set\tnoreorder
+.set\tnomacro
+beq\t$16,$0,$L20
+li\t$5,0x0000ffff\t\t# 65535
+.set\tmacro
+.set\treorder
+"""
+        tail_new = """bne\t$2,$0,$L30
+li\t$2,0x00000001\t\t# 1
+.set\tmacro
+.set\treorder
+
+sll\t$4,$3,4
+subu\t$4,$4,$3
+sll\t$4,$4,4
+.set\tnoreorder
+.set\tnomacro
+jal\tfunc_8009E5F4
+addu\t$4,$4,$17
+j\t$L29
+li\t$5,0x0000ffff\t\t# 65535
+$L30:
+li\t$5,0x0000ffff\t\t# 65535
+$L29:
+beq\t$2,$0,$L20
+nop
+.set\tmacro
+.set\treorder
+"""
+        if source.count(prologue_old) != 1 or source.count(tail_old) != 1:
+            raise ValueError("pad_port_advance_layout shape changed")
+        source = source.replace(prologue_old, prologue_new, 1)
+        source = source.replace(tail_old, tail_new, 1)
+        path.write_text(source)
+        return
+    if profile == "stream_open_failure_layout":
+        source = path.read_text()
+        branch_old = """beq\t$16,$0,$L20
+li\t$4,11\t\t\t# 0x0000000b
+
+addu\t$5,$16,$zero
+"""
+        branch_new = """bne\t$16,$0,$L20_success
+li\t$4,11\t\t\t# 0x0000000b
+j\t$L20
+addu\t$16,$0,$zero
+
+$L20_success:
+addu\t$5,$16,$zero
+"""
+        failure_old = """$L20:
+addu\t$16,$0,$zero
+$L19:
+"""
+        failure_new = """$L20:
+$L19:
+"""
+        if source.count(branch_old) != 1 or source.count(failure_old) != 1:
+            raise ValueError("stream_open_failure_layout shape changed")
+        source = source.replace(branch_old, branch_new, 1)
+        source = source.replace(failure_old, failure_new, 1)
+        path.write_text(source)
+        return
+    if profile == "debris_matrix_setup_schedule":
+        source = path.read_text()
+        old = """lw\t$11,8($2)
+#nop # DEBUG: 'lw\t$20,4($2)' does not load from $11
+lw\t$20,4($2)
+#nop # DEBUG: 'addu\t$fp,$2,24' does not load from $20
+addu\t$fp,$2,24
+sw\t$11,68($sp)
+sw\t$20,12($19)
+
+addu\t$2,$sp,32
+"""
+        new = """addu\t$fp,$2,24
+lw\t$20,4($2)
+lw\t$11,8($2)
+addu\t$2,$sp,32
+sw\t$11,68($sp)
+sw\t$20,12($19)
+
+"""
+        if source.count(old) != 1:
+            raise ValueError("debris_matrix_setup_schedule shape changed")
+        path.write_text(source.replace(old, new, 1))
+        return
+    if profile == "image_parse_loop_schedule":
+        source = path.read_text()
+        rewrites = 0
+        for image_register, stack_offset in (("$20", 328), ("$16", 332)):
+            pattern = re.compile(
+                r"(?m)^(addu\t\$4,%s,\$zero\n)"
+                r"(addu\t\$8,\$sp,%d\n)"
+                r"(li\t\$11,1[^\n]*\n)"
+                r"(li\t\$10,2[^\n]*\n)" % (re.escape(image_register), stack_offset)
+            )
+            source, count = pattern.subn(r"\2\3\4\1", source)
+            if count != 1:
+                raise ValueError(
+                    "image_parse_loop_schedule shape changed for stack offset %d"
+                    % stack_offset
+                )
+            rewrites += count
+        if rewrites != 2:
+            raise ValueError("image_parse_loop_schedule expected two rewrites")
+        path.write_text(source)
+        return
+    if profile == "dual_axis_sum_registers":
+        source = path.read_text()
+        loads_old = """lbu\t$9,17($2)
+#nop # DEBUG: 'lbu\t$4,25($2)' does not load from $9
+lbu\t$4,25($2)
+#nop # DEBUG: 'lbu\t$10,16($2)' does not load from $4
+lbu\t$10,16($2)
+#nop # DEBUG: 'lbu\t$8,26($2)' does not load from $10
+lbu\t$8,26($2)
+"""
+        loads_new = """lbu\t$9,17($2)
+#nop # DEBUG: 'lbu\t$8,26($2)' does not load from $9
+lbu\t$8,26($2)
+#nop # DEBUG: 'lbu\t$10,16($2)' does not load from $8
+lbu\t$10,16($2)
+#nop # DEBUG: 'lbu\t$4,25($2)' does not load from $10
+lbu\t$4,25($2)
+"""
+        if source.count(loads_old) != 1:
+            raise ValueError("dual_axis_sum_registers input-load shape changed")
+        source = source.replace(loads_old, loads_new)
+        source, moves = re.subn(
+            r"(?m)^addu\t\$3,\$2,\$zero$", "addu\\t$4,$2,$zero", source
+        )
+        source, stores = re.subn(
+            r"(?m)^sb\t\$3,0\(\$5\)$", "sb\\t$4,0($5)", source
+        )
+        final_load_old = """$L127:
+lbu\t$9,0($5)
+#nop # DEBUG: 'lb\t$2,0($5)' does not load from $9
+lb\t$2,0($5)
+#nop # DEBUG: 'lb\t$3,0($6)' does not load from $2
+lb\t$3,0($6)
+#nop # DEBUG: 'lbu\t$4,0($6)' does not load from $3
+lbu\t$4,0($6)
+"""
+        final_load_new = final_load_old.replace("lbu\t$4,0($6)", "lbu\t$8,0($6)")
+        loads = source.count(final_load_old)
+        source = source.replace(final_load_old, final_load_new)
+        source, shifts = re.subn(
+            r"(?m)^sll\t\$3,\$4,24$", "sll\\t$3,$8,24", source
+        )
+        if (moves, stores, loads, shifts) != (2, 2, 1, 1):
+            raise ValueError(
+                "dual_axis_sum_registers expected 2/2/1/1 rewrites, found %s"
+                % ((moves, stores, loads, shifts),)
+            )
+        path.write_text(source)
+        return
     if profile == "stream_pad_base_schedule":
         source = path.read_text()
         old = """addu\t$5,$16,2

@@ -1,31 +1,111 @@
-asm(".text\n\t.globl func_8009DC98\nfunc_8009DC98:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00808021,0xAFBF001C\n\t"
-    ".word 0xAFB20018,0xAFB10014,0x92020049,0x00000000\n\t"
-    ".word 0x10400022,0x24020008,0x920300E8,0x00000000\n\t"
-    ".word 0x1462000B,0x2602005D,0x8E12000C,0x00008821\n\t"
-    ".word 0x02402021,0x0C027726,0x265200F0,0x26310001\n\t"
-    ".word 0x2A220004,0x1440FFFB,0x02402021,0x2602005D\n\t"
-    ".word 0x240300FF,0x24110005,0xA2000049,0xA2000046\n\t"
-    ".word 0xA60000E6,0xAE000014,0xAE000018,0xA20000E3\n\t"
-    ".word 0xA20000E4,0xA60000E6,0xA20000E9,0xA20000EA\n\t"
-    ".word 0xAE000000,0xAE000004,0xAE000008,0xA0430000\n\t"
-    ".word 0x2631FFFF,0x0621FFFD,0x24420001,0x8FBF001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020,0x27BDFFD8,0x00802821,0xAFB10014\n\t"
-    ".word 0x3C11800F,0x2631F2D8,0xAFB3001C,0x2413FFF7\n\t"
-    ".word 0xAFB20018,0x3C12800C,0x26528CCC,0xAFBF0020\n\t"
-    ".word 0xAFB00010,0x3C03800C,0x8C638CB4,0x00000000\n\t"
-    ".word 0x00031100,0x00431023,0x00021100,0x10B30011\n\t"
-    ".word 0x00518021,0x14A0000B,0x00031880,0x8E02003C\n\t"
-    ".word 0x00000000,0x90420000,0x00721821,0x00021102\n\t"
-    ".word 0x38420008,0x2C420001,0x00021080,0x0802777B\n\t"
-    ".word 0xAC620000,0x0C028DA6,0x02002021,0x0C02779B\n\t"
-    ".word 0x02002021,0x3C02800C,0x8C428C5C,0x3C03800C\n\t"
-    ".word 0x8C638CB4,0x3C01800C,0xAC208CB8,0xA440000A\n\t"
-    ".word 0x3C02800C,0x8C428CC8,0x24630001,0x3C01800C\n\t"
-    ".word 0xAC238CB4,0x0043102A,0x14400008,0x24020001\n\t"
-    ".word 0x00032100,0x00832023,0x00042100,0x0C02797D\n\t"
-    ".word 0x00912021,0x08027792,0x3405FFFF,0x3405FFFF\n\t"
-    ".word 0x1040FFD0,0x00000000,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct PadPort {
+    int w0;
+    int w4;
+    int w8;
+    struct PadPort *slots;
+    struct PadPort *port;
+    int w14;
+    int w18;
+    unsigned char pad1C[0x14];
+    unsigned char *buf;
+    unsigned char b34;
+    unsigned char b35;
+    unsigned char pad36;
+    unsigned char b37;
+    unsigned char pad38[4];
+    unsigned char *act;
+    unsigned char *act2;
+    unsigned char pad44[2];
+    unsigned char b46;
+    unsigned char pad47[2];
+    unsigned char b49;
+    unsigned char pad4A[0x13];
+    unsigned char id[6];
+    unsigned char pad63[0x80];
+    unsigned char bE3;
+    unsigned char bE4;
+    unsigned char padE5;
+    unsigned short hE6;
+    unsigned char bE8;
+    unsigned char bE9;
+    unsigned char bEA;
+    unsigned char padEB[5];
+} PadPort;
+
+typedef struct {
+    unsigned char pad0[0x0A];
+    unsigned short h0A;
+} PadSys;
+
+extern int D_800B8CB4;
+extern int D_800B8CB8;
+extern int D_800B8CC8;
+extern int D_800B8CCC[];
+extern PadSys *D_800B8C5C;
+extern PadPort D_800EF2D8[];
+extern void func_800A3698(PadPort *p, int mode);
+extern void func_8009DE6C(PadPort *p);
+extern int func_8009E5F4(PadPort *p);
+
+void func_8009DC98(PadPort *p)
+{
+    int i;
+    PadPort *s;
+    unsigned char *q;
+
+    if (p->b49) {
+        if (p->bE8 == 8) {
+            s = p->slots;
+            for (i = 0; i < 4; i++) {
+                func_8009DC98(s++);
+            }
+        }
+        p->b49 = 0;
+        p->b46 = 0;
+        p->hE6 = 0;
+        p->w14 = 0;
+        p->w18 = 0;
+        p->bE3 = 0;
+        p->bE4 = 0;
+        p->hE6 = 0;
+        p->bE9 = 0;
+        p->bEA = 0;
+        p->w0 = 0;
+        p->w4 = 0;
+        p->w8 = 0;
+        q = p->id;
+        for (i = 0; i < 6; i++) {
+            *q++ = 0xFF;
+        }
+    }
+}
+
+static inline int next_port(void)
+{
+    D_800B8CB4++;
+    return D_800B8CC8 < D_800B8CB4 || func_8009E5F4(&D_800EF2D8[D_800B8CB4]);
+}
+
+void func_8009DD5C(int mode)
+{
+    PadPort *p;
+    int none;
+    int done;
+
+    none = -9;
+    do {
+        p = &D_800EF2D8[D_800B8CB4];
+        if (mode != none) {
+            if (mode == 0) {
+                D_800B8CCC[D_800B8CB4] = ((*p->act >> 4) == 8) << 2;
+            } else {
+                func_800A3698(p, mode);
+                func_8009DE6C(p);
+            }
+        }
+        D_800B8CB8 = 0;
+        D_800B8C5C->h0A = 0;
+        done = next_port();
+        mode = 0xFFFF;
+    } while (!done);
+}

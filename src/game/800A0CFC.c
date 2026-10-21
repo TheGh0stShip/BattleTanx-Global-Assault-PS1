@@ -1,24 +1,53 @@
-asm(".text\n\t.globl func_800A0CFC\nfunc_800A0CFC:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0x2404FFFF\n\t"
-    ".word 0xAFBF002C,0xAFB40028,0xAFB30024,0xAFB1001C\n\t"
-    ".word 0x0C02221C,0xAFB00018,0x3C14003C,0x3C13800C\n\t"
-    ".word 0x26738D4C,0x3C11800C,0x26319004,0x3C10800C\n\t"
-    ".word 0x26108DCC,0x244203C0,0x3C01800F,0xAC22FCF0\n\t"
-    ".word 0x3C02800C,0x24425F8C,0x3C01800F,0xAC20FCF4\n\t"
-    ".word 0x3C01800F,0xAC22FCF8,0x0C02221C,0x2404FFFF\n\t"
-    ".word 0x3C03800F,0x8C63FCF0,0x00000000,0x0062182A\n\t"
-    ".word 0x1460000A,0x00000000,0x3C02800F,0x8C42FCF4\n\t"
-    ".word 0x00000000,0x00401821,0x24420001,0x0283182A\n\t"
-    ".word 0x3C01800F,0x1060001B,0xAC22FCF4,0x3C04800C\n\t"
-    ".word 0x0C025BE7,0x24845E84,0x92240000,0x92220001\n\t"
-    ".word 0x3C05800F,0x8CA5FCF8,0x00021080,0x00501021\n\t"
-    ".word 0x00042080,0x8C430000,0x3C02800C,0x90428D45\n\t"
-    ".word 0x00902021,0x00021080,0x00531021,0xAFA30010\n\t"
-    ".word 0x8C460000,0x8C870000,0x3C04800C,0x0C0250EC\n\t"
-    ".word 0x24845E94,0x0C028243,0x00000000,0x08028385\n\t"
-    ".word 0x2402FFFF,0x00001021,0x1440000B,0x2402FFFF\n\t"
-    ".word 0x3C02800C,0x8C429030,0x00000000,0x8C420000\n\t"
-    ".word 0x3C030100,0x00431024,0x10400003,0x00001021\n\t"
-    ".word 0x1240FFC9,0x24020001,0x8FBF002C,0x8FB40028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct CdMode {
+    unsigned char a;
+    unsigned char b;
+    unsigned char c;
+} CdMode;
+
+extern int func_80088870(int);
+extern void func_80096F9C(char *);
+extern void func_800943B0(char *, ...);
+extern void func_800A090C(void);
+extern int D_800EFCF0;
+extern int D_800EFCF4;
+extern char *D_800EFCF8;
+extern char D_800C5F8C[];
+extern char D_800C5E84[];
+extern char D_800C5E94[];
+extern char *D_800B8D4C[];
+extern char *D_800B8DCC[];
+extern unsigned char D_800B8D45;
+extern volatile CdMode D_800B9004;
+extern volatile unsigned int *D_800B9030;
+
+static inline int cd_check_timeout(int limit, char **comstr, volatile CdMode *st, char **intstr) {
+    if (func_80088870(-1) > D_800EFCF0 || D_800EFCF4++ > limit) {
+        func_80096F9C(D_800C5E84);
+        {
+            register unsigned char ia asm("$4") = st->a;
+            char *sb = intstr[st->b];
+
+            func_800943B0(D_800C5E94, D_800EFCF8, comstr[D_800B8D45], intstr[ia], sb);
+        }
+        func_800A090C();
+        return -1;
+    }
+    return 0;
+}
+
+int func_800A0CFC(int mode_arg) {
+    register int mode asm("$18") = mode_arg;
+
+    D_800EFCF0 = func_80088870(-1) + 960;
+    D_800EFCF4 = 0;
+    D_800EFCF8 = D_800C5F8C;
+    do {
+        if (cd_check_timeout(0x3C0000, D_800B8D4C, &D_800B9004, D_800B8DCC) != 0) {
+            return -1;
+        }
+        if (!(*D_800B9030 & 0x01000000)) {
+            return 0;
+        }
+    } while (mode == 0);
+    return 1;
+}
