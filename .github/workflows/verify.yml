@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: verify-${{ github.workflow }}-${{ github.ref }}
@@ -29,3 +30,11 @@ jobs:
         with:
           name: SLUS_01044_report
           path: build/us/report.json
+      - name: Publish progress to decmp.dev
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: decmp/upload-action@v1
+        with:
+          report: build/us/report.json
+          version: SLUS_01044
+          name: "BattleTanx: Global Assault"
+          platform: ps1

@@ -17,6 +17,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
+[![decmp.dev](https://api.decmp.dev/badge/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?measure=matched_code_percent&label=decmp.dev)](https://decmp.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
 
 The ByteMatch percentage is the authoritative semantic decompilation measurement:
 matching code emitted from reconstructed C, plus readable mnemonic assembly for
