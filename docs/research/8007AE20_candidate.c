@@ -4,6 +4,14 @@ typedef signed int s32;
 typedef unsigned char u8;
 typedef unsigned int u32;
 typedef unsigned char M2C_UNK;
+typedef struct {
+    u32 *name;
+    u32 fields[3];
+} OpcodeClass;
+typedef struct {
+    u32 opcode;
+    u32 *name;
+} GteOpcode;
 extern int func_8007E8E0();
 extern int func_8007FA74();
 extern int func_8007FE4C();
@@ -17,14 +25,14 @@ extern int func_80091D34();
 extern int func_80091D4C();
 extern int func_800940C4();
 extern u32 func_80094178();
-extern M2C_UNK D_800B0588;
-extern M2C_UNK D_800B0640;
-extern M2C_UNK D_800B07C0;
+extern GteOpcode D_800B0588[];
+extern GteOpcode D_800B0640[];
+extern OpcodeClass D_800B07C0[];
 extern M2C_UNK D_800B0804;
 extern u32 *D_800B080C;
 extern u32 *D_800B090C;
 extern u32 *D_800B0A14;
-extern M2C_UNK D_800B0B94;
+extern u32 D_800B0B94[];
 extern u32 *D_800B0BC8;
 extern M2C_UNK D_800C4784;
 extern M2C_UNK D_800C47AC;
@@ -74,8 +82,8 @@ s32 func_8007AE20(void) {
     M2C_UNK *var_a1_3;
     s16 temp_v0;
     s16 temp_v1_7;
-    s32 *var_v1;
-    s32 *var_v1_2;
+    GteOpcode *var_v1_2;
+    GteOpcode *var_v1;
     s32 temp_a2;
     s32 temp_s0;
     s32 temp_s0_2;
@@ -128,7 +136,7 @@ s32 func_8007AE20(void) {
     func_8007E8E0();
     temp_fp = (func_80094178() >> 2) & 0xF;
     if (temp_fp < 0xDU) {
-        var_s2 = *((temp_fp * 4) + &D_800B0B94);
+        var_s2 = (u32 *) D_800B0B94[temp_fp];
     } else {
         var_s2 = D_800B0BC8;
     }
@@ -335,7 +343,7 @@ block_188:
                     }
                     var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
                     var_a1_2 = &D_800C4868;
-                    var_a3 = (&D_800B07C0);
+                    var_a3 = D_800B07C0[0].name;
                     goto block_46;
                 }
                 if (temp_v1_3 != 4) {
@@ -345,11 +353,11 @@ block_188:
 block_52:
                         var_a2 = 0x16;
                         if (var_v0_3 & 1) {
-                            var_v1 = &D_800B0588 + 0xB0;
+                            var_v1 = &D_800B0588[0x16];
 loop_54:
-                            if ((temp_t0 & 0xFFFF) != *var_v1) {
+                            if ((temp_t0 & 0xFFFF) != var_v1->opcode) {
                                 var_a2 -= 1;
-                                var_v1 -= 8;
+                                var_v1 -= 1;
                                 if (var_a2 >= 0) {
                                     goto loop_54;
                                 }
@@ -441,23 +449,24 @@ loop_54:
                                                 }
                                                 goto block_185;
                                             }
-                                            func_8008AFB0(&D_800EC100 - 0x3F00, &D_800C489C, var_s3, *(((temp_t0 >> 0x1C) * 0x10) + &D_800B07C0), (temp_t0 >> 0x1A) & 3, (((var_a2 * 8) + &D_800B0588)), (temp_t0 >> 0x18) & 1, (temp_t0 >> 0x16) & 3, (temp_t0 >> 0x14) & 3, (temp_t0 >> 0x12) & 3, (temp_t0 >> 0x11) & 1);
+                                            func_8008AFB0(&D_800EC100 - 0x3F00, &D_800C489C, var_s3, D_800B07C0[temp_t0 >> 0x1C].name, (temp_t0 >> 0x1A) & 3, D_800B0588[var_a2].name, (temp_t0 >> 0x18) & 1, (temp_t0 >> 0x16) & 3, (temp_t0 >> 0x14) & 3, (temp_t0 >> 0x12) & 3, (temp_t0 >> 0x11) & 1);
                                         } else {
                                             if (temp_v1_4 != 0x147F) {
                                                 var_a0_4 = &D_800EC100 - 0x3F00;
                                                 if (temp_v1_4 != 0x14BF) {
                                                     var_a2_2 = 0x2F;
 block_98:
-                                                    var_v1_2 = &D_800B0640 + 0x178;
+                                                    var_v1_2 = &D_800B0640[0x2F];
 loop_99:
-                                                    if ((temp_t0 & 0x01FFFFFF) != *var_v1_2) {
+                                                    if ((temp_t0 & 0x01FFFFFF) != var_v1_2->opcode) {
                                                         var_a2_2 -= 1;
-                                                        var_v1_2 -= 8;
+                                                        var_v1_2 -= 1;
                                                         if (var_a2_2 >= 0) {
                                                             goto loop_99;
                                                         }
                                                     }
                                                     if (var_a2_2 < 0) {
+                                                        var_a2_2 = 0;
                                                     }
                                                     temp_v1_5 = temp_t0 & 0x01FFFFFF;
                                                     if (temp_v1_5 != 0x4B8012) {
@@ -644,7 +653,7 @@ block_181:
                                                                         var_a0_3 = &D_800EC100 - 0x3F00;
 block_182:
                                                                         var_a1_3 = &D_800C488C;
-                                                                        var_v0_2 = ((temp_t0 >> 0x1C) * 0x10) + &D_800B07C0;
+                                                                        var_v0_2 = &D_800B07C0[temp_t0 >> 0x1C].name;
                                                                     } else {
                                                                         goto block_178;
                                                                     }
@@ -676,7 +685,7 @@ block_179:
 block_184:
                                         var_a0_4 = &D_800EC100 - 0x3F00;
 block_185:
-                                        func_8008AFB0(var_a0_4, &D_800C48C0, var_s3, *(((temp_t0 >> 0x1C) * 0x10) + &D_800B07C0), (temp_t0 >> 0x1A) & 3, (((var_a2 * 8) + &D_800B0588)), (temp_t0 >> 0x18) & 1);
+                                        func_8008AFB0(var_a0_4, &D_800C48C0, var_s3, D_800B07C0[temp_t0 >> 0x1C].name, (temp_t0 >> 0x1A) & 3, D_800B0588[var_a2].name, (temp_t0 >> 0x18) & 1);
                                     }
                                 } else {
                                     goto block_96;
@@ -695,18 +704,18 @@ block_97:
                             var_a1_3 = &D_800C48D4;
                             var_v0_8 = (temp_t0 >> 0x1C) * 0x10;
 block_187:
-                            var_v0_2 = var_v0_8 + &D_800B07C0;
+                            var_v0_2 = &D_800B07C0[var_v0_8 >> 4].name;
                             goto block_188;
                         }
                     } else {
-                        var_a3 = (&D_800B07C0);
+                        var_a3 = D_800B07C0[0].name;
                         var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
                         var_a1_2 = &D_800C4868;
                         goto block_47;
                     }
                 } else {
                     var_a0_2 = &D_800EC100 - 0x3F00;
-                    var_a3 = (&D_800B07C0);
+                    var_a3 = D_800B07C0[0].name;
                     var_s0_4 = (temp_t0 >> 0x10) & 0x1F;
                     var_a1_2 = &D_800C4868;
 block_46:
@@ -714,7 +723,7 @@ block_47:
                     goto block_48;
                 }
             } else {
-                var_a3 = (&D_800B07C0);
+                var_a3 = D_800B07C0[0].name;
                 var_s0_4 = (temp_t0 >> 0xB) & 0x1F;
                 var_a1_2 = &D_800C4868;
 block_48:

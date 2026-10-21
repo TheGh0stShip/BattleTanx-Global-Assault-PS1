@@ -29,6 +29,10 @@ gameplay code.  Its nested opcode/funct dispatch tables are recovered as
 retail `sp+0x30` and `sp+0x90` ranges, restoring the exact 248-byte stack frame;
 the accumulated register mask is constrained to retail `$s4`.  Those layout
 fixes move the first differing instruction from byte zero to `+0xC`.
+The exception-name table and both eight-byte GTE opcode/name catalogs are now
+typed as 32-bit records.  Their reverse searches consequently use the retail
+eight-byte stride, and an unsuccessful extended-opcode search resets its index
+to zero instead of executing the earlier empty recovery branch.
 
 `func_8008BF7C` begins by loading one 32-byte matrix into GTE control
 registers 0 through 7.  Keeping the loads and `ctc2` operations in one inline
