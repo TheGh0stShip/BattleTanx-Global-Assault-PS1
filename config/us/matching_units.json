@@ -10060,7 +10060,9 @@
       "address": "0x80015C2C",
       "size": "0xCC",
       "source": "src/game/80015C2C.c",
-      "symbols": {}
+      "symbols": {
+        "D_800C62B0": "0x800C62B0"
+      }
     },
     {
       "name": "func_80028314",

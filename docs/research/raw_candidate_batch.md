@@ -1,8 +1,10 @@
 # Raw-unit recovery candidate batch
 
-This batch preserves compiler-valid semantic C recoveries for 21 functions that
+This batch preserves compiler-valid semantic C recoveries for 20 functions that
 remain raw instruction wrappers in the matching build.  Together they cover
-3,932 bytes of retail code.  Low-level context-switch trampolines at
+3,728 bytes of retail code.  `func_80015C2C` graduated from this batch after
+its 204-byte grid-link removal routine reached an exact match.  Low-level
+context-switch trampolines at
 `0x800940B4` and `0x80094AFC` are deliberately excluded because their available
 drafts only restate the original instructions as inline assembly.
 
