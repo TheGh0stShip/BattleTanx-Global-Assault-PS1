@@ -32,9 +32,9 @@ jobs:
           path: build/us/report.json
       - name: Publish progress to decmp.dev
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: decmp/upload-action@v1
+        uses: TheGh0stShip/upload-action@82dad316c7d61166013158c0b34abb910ab89e40
         with:
           report: build/us/report.json
           version: SLUS_01044
           name: "BattleTanx: Global Assault"
-          platform: ps1
+          platform: ps
