@@ -1,12 +1,44 @@
-asm(".text\n\t.globl func_8009CA3C\nfunc_8009CA3C:\n\t"
-    ".word 0x27bdffe0,0xafb00018,0x00808021,0x2404000e\n\t"
-    ".word 0x27a50010,0x00003021,0xafbf001c,0x0c025c4f\n\t"
-    ".word 0xa3b00010,0x32020100,0x1040000e,0x32020020\n\t"
-    ".word 0x10400004,0x24020001,0x3c01800f,0x080272a2\n\t"
-    ".word 0xac20fd08,0x3c01800f,0xac22fd08,0x3c04800a\n\t"
-    ".word 0x0c025d56,0x24842ff0,0x3c04800a,0x0c025c4a\n\t"
-    ".word 0x2484cac0,0x2404001b,0x00002821,0x0c025c4f\n\t"
-    ".word 0x00003021,0x8fbf001c,0x8fb00018,0x03e00008\n\t"
-    ".word 0x27bd0020,0x27bdffe8,0xafbf0010,0x0c026e82\n\t"
-    ".word 0x00000000,0x8fbf0010,0x27bd0018,0x03e00008\n\t"
-    ".word 0x00000000\n\t");
+extern int D_800EFD08;
+extern void func_8009713C();
+extern void func_80097128(void (*callback)(void));
+extern void func_80097558(void (*callback)(void));
+extern void func_800A2FF0(void);
+
+void func_8009CA3C(int flags) {
+    unsigned char command = (unsigned char)flags;
+
+    func_8009713C(0xE, &command, 0);
+    if ((flags & 0x100) != 0) {
+        register int condition asm("$2") = flags & 0x20;
+
+        if (condition != 0) {
+            register int *destination asm("$1");
+            asm("lui %0,0x800F" : "=r"(destination));
+            *(int *)((char *)destination - 0x2F8) = 0;
+        } else {
+            register int *destination asm("$1");
+            condition = 1;
+            asm("lui %0,0x800F" : "=r"(destination));
+            *(int *)((char *)destination - 0x2F8) = condition;
+        }
+        {
+            register char *callback asm("$4");
+            asm("lui %0,0x800A" : "=r"(callback));
+            callback += 0x2FF0;
+            func_80097558((void (*)(void))callback);
+        }
+        {
+            register char *callback asm("$4");
+            asm("lui %0,0x800A" : "=r"(callback));
+            callback -= 0x3540;
+            func_80097128((void (*)(void))callback);
+        }
+    }
+    {
+        register int final_command asm("$4") = 0x1B;
+        register void *no_data asm("$5");
+        asm volatile("" : "+r"(final_command));
+        asm("move %0,$0" : "=r"(no_data));
+        func_8009713C(final_command, no_data, 0);
+    }
+}

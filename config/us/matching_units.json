@@ -9336,9 +9336,24 @@
     {
       "name": "func_8009CA3C",
       "address": "0x8009CA3C",
-      "size": "0xA4",
+      "size": "0x84",
       "source": "src/game/8009CA3C.c",
-      "symbols": {}
+      "symbols": {
+        "D_800EFD08": "0x800EFD08",
+        "func_80097128": "0x80097128",
+        "func_8009713C": "0x8009713C",
+        "func_80097558": "0x80097558"
+      }
+    },
+    {
+      "name": "func_8009CAC0",
+      "address": "0x8009CAC0",
+      "size": "0x20",
+      "source": "src/game/8009CAC0.c",
+      "symbols": {
+        "func_8009BA08": "0x8009BA08"
+      },
+      "compiler": "gcc-2.7.2-psx"
     },
     {
       "name": "func_8009CFCC",
