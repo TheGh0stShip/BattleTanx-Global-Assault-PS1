@@ -10284,7 +10284,10 @@
       "address": "0x80056914",
       "size": "0xD8",
       "source": "src/game/80056914.c",
-      "symbols": {}
+      "symbols": {
+        "func_80056160": "0x80056160",
+        "func_80056550": "0x80056550"
+      }
     },
     {
       "name": "func_8005ADC0",
@@ -10459,7 +10462,11 @@
       "compiler_flags_extra": [
         "-fforce-addr",
         "-fno-rerun-cse-after-loop"
-      ]
+      ],
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true
     },
     {
       "name": "func_80096BF8",
@@ -15195,7 +15202,20 @@
       "address": "0x8009C350",
       "size": "0x1A8",
       "source": "src/game/8009C350.c",
-      "symbols": {}
+      "symbols": {
+        "D_800B8A0C": "0x800B8A0C",
+        "D_800B8A24": "0x800B8A24",
+        "D_800B8A28": "0x800B8A28",
+        "D_800C5A68": "0x800C5A68",
+        "func_800943B0": "0x800943B0"
+      },
+      "compiler_flags_extra": [
+        "-mno-split-addresses"
+      ],
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true
     },
     {
       "name": "func_80014E2C",
@@ -16660,6 +16680,10 @@
       "address": "0x80065710",
       "size": "0x210",
       "source": "src/game/80065710.c",
+      "compiler_flags_extra": [
+        "-fno-schedule-insns2"
+      ],
+      "assembly_profile": "vector_split_schedule",
       "symbols": {}
     },
     {
@@ -16861,7 +16885,32 @@
       "address": "0x80096138",
       "size": "0x208",
       "source": "src/game/80096138.c",
-      "symbols": {}
+      "symbols": {
+        "D_800C5218": "0x800C5218",
+        "D_800C5368": "0x800C5368",
+        "D_800EF090": "0x800EF090",
+        "D_800EF094": "0x800EF094",
+        "D_800EF09C": "0x800EF09C",
+        "D_800EF0A0": "0x800EF0A0",
+        "D_800EF0E0": "0x800EF0E0",
+        "D_800EF0E8": "0x800EF0E8",
+        "func_8008D954": "0x8008D954",
+        "func_800943B0": "0x800943B0",
+        "func_800950D4": "0x800950D4",
+        "func_80096008": "0x80096008",
+        "func_80096714": "0x80096714",
+        "func_8009F5AC": "0x8009F5AC",
+        "func_8009F70C": "0x8009F70C",
+        "func_8009F71C": "0x8009F71C"
+      },
+      "compiler_flags_extra": [
+        "-mno-split-addresses"
+      ],
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "card_create_cse"
     },
     {
       "name": "func_8009DA78",
@@ -17564,7 +17613,26 @@
       "address": "0x8007586C",
       "size": "0x280",
       "source": "src/game/8007586C.c",
-      "symbols": {}
+      "symbols": {
+        "D_800AE9E8": "0x800AE9E8",
+        "D_800AE9E9": "0x800AE9E9",
+        "D_800EAFE0": "0x800EAFE0",
+        "D_800EAFC0": "0x800EAFC0",
+        "D_800EAFB4": "0x800EAFB4",
+        "D_800EAF6C": "0x800EAF6C",
+        "D_800AE9E0": "0x800AE9E0",
+        "func_80083194": "0x80083194",
+        "func_80075570": "0x80075570",
+        "func_8008314C": "0x8008314C",
+        "func_80082798": "0x80082798",
+        "func_80082854": "0x80082854",
+        "func_80082BEC": "0x80082BEC",
+        "func_8007FC88": "0x8007FC88",
+        "func_8007FA74": "0x8007FA74",
+        "func_800757F0": "0x800757F0",
+        "func_800756A4": "0x800756A4",
+        "func_800762DC": "0x800762DC"
+      }
     },
     {
       "name": "func_80076B80",
@@ -17873,7 +17941,31 @@
       "address": "0x80095DB4",
       "size": "0x254",
       "source": "src/game/80095DB4.c",
-      "symbols": {}
+      "symbols": {
+        "D_800C5218": "0x800C5218",
+        "D_800C5368": "0x800C5368",
+        "D_800EF090": "0x800EF090",
+        "D_800EF094": "0x800EF094",
+        "D_800EF0E8": "0x800EF0E8",
+        "func_8008D954": "0x8008D954",
+        "func_800943B0": "0x800943B0",
+        "func_800950D4": "0x800950D4",
+        "func_80096008": "0x80096008",
+        "func_8009601C": "0x8009601C",
+        "func_80096714": "0x80096714",
+        "func_8009F5AC": "0x8009F5AC",
+        "func_8009F75C": "0x8009F75C",
+        "func_8009F76C": "0x8009F76C"
+      },
+      "compiler": "gcc-2.7.2-psx",
+      "compiler_flags_extra": [
+        "-mhard-float"
+      ],
+      "maspsx_flags_extra": [
+        "--passthrough"
+      ],
+      "rewrite_move_pseudos": true,
+      "assembly_profile": "card_directory_locals"
     },
     {
       "name": "func_80096840",
@@ -19202,7 +19294,13 @@
       "address": "0x80057420",
       "size": "0x394",
       "source": "src/game/80057420.c",
-      "symbols": {}
+      "symbols": {
+        "D_800A5FEC": "0x800A5FEC",
+        "D_800DDB9C": "0x800DDB9C",
+        "D_800E46C0": "0x800E46C0",
+        "func_80056A40": "0x80056A40"
+      },
+      "assembly_profile": "font_advance_negative_layout"
     },
     {
       "name": "func_800591C8",
@@ -20536,7 +20634,20 @@
       "address": "0x80043F40",
       "size": "0x540",
       "source": "src/game/80043F40.c",
-      "symbols": {}
+      "symbols": {
+        "D_800A4EF4": "0x800A4EF4",
+        "D_800C62B0": "0x800C62B0",
+        "D_800C628C": "0x800C628C",
+        "D_800D32F4": "0x800D32F4",
+        "func_8001CAC8": "0x8001CAC8",
+        "func_8001EBA0": "0x8001EBA0",
+        "func_80019D80": "0x80019D80",
+        "func_80015F64": "0x80015F64",
+        "func_8001BEA8": "0x8001BEA8",
+        "func_8001E0A4": "0x8001E0A4",
+        "func_80017AAC": "0x80017AAC",
+        "func_80043D30": "0x80043D30"
+      }
     },
     {
       "name": "func_800516B8",
@@ -21867,7 +21978,7 @@
       "address": "0x80065920",
       "size": "0x2BA0",
       "rodata_address": "0x800BFF00",
-      "source": "docs/research/80065920_candidate.c",
+      "source": "src/game/80065920.c",
       "symbols": {
         "func_80065710": "0x80065710",
         "func_80068720": "0x80068720",
@@ -23240,7 +23351,13 @@
       "address": "0x80044480",
       "size": "0x7B8",
       "source": "src/game/80044480.c",
-      "symbols": {}
+      "symbols": {
+        "D_800DE30C": "0x800DE30C",
+        "func_8001F094": "0x8001F094"
+      },
+      "maspsx_flags_extra": [
+        "--expand-div"
+      ]
     },
     {
       "name": "func_8007D580",

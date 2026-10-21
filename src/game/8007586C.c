@@ -1,41 +1,98 @@
-asm(".text\n\t.globl func_8007586C\nfunc_8007586C:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFBF0020\n\t"
-    ".word 0xAFB20018,0xAFB10014,0x12600092,0xAFB00010\n\t"
-    ".word 0x3C02800F,0x8C42AFE0,0x00000000,0x10530073\n\t"
-    ".word 0x3C02800B,0x9042E9E9,0x00000000,0x1040001C\n\t"
-    ".word 0x00008021,0x00402821,0x02002021,0x3C02800F\n\t"
-    ".word 0x2443AFC0,0x8C620004,0x00000000,0x8C420000\n\t"
-    ".word 0x00000000,0x1453000D,0x00000000,0x90620000\n\t"
-    ".word 0x00000000,0x10400007,0x3C02800F,0x2442AFC0\n\t"
-    ".word 0x00821021,0x90420000,0x00000000,0x1440FFFE\n\t"
-    ".word 0x00000000,0x0801D648,0x02009021,0x24840008\n\t"
-    ".word 0x26100001,0x0205102A,0x1440FFEA,0x24630008\n\t"
-    ".word 0x24120064,0x325000FF,0x24020064,0x1602003B\n\t"
-    ".word 0x3C02800F,0x3C02800B,0x9042E9E8,0x00000000\n\t"
-    ".word 0x10500015,0x00008821,0x3C04800F,0x0C020C65\n\t"
-    ".word 0x2484AF6C,0x3C02800F,0x3C03800F,0x8C42AFC4\n\t"
-    ".word 0x2463AFB4,0xAC400000,0x322200FF,0x00431021\n\t"
-    ".word 0xA0400001,0x26310001,0x322200FF,0x2C420003\n\t"
-    ".word 0x1440FFFA,0x322200FF,0x3C02800F,0xA040AFB4\n\t"
-    ".word 0x2442AFB4,0xA0400004,0x0C01D55C,0x3C11800F\n\t"
-    ".word 0x00409021,0x2631AF6C,0x02202021,0x24050001\n\t"
-    ".word 0x0C020C53,0x02608021,0x02202021,0x321000FF\n\t"
-    ".word 0x2610FFFF,0x00102880,0x00B02821,0x00052B40\n\t"
-    ".word 0x00B02821,0x00052880,0x0C0209E6,0x00003021\n\t"
-    ".word 0x02202021,0x0C020C53,0x24050001,0x02202021\n\t"
-    ".word 0x3C060002,0x3C02800F,0x2442AFC0,0x325000FF\n\t"
-    ".word 0x001080C0,0x02028021,0x8E050004,0x0C020A15\n\t"
-    ".word 0x34C68004,0x0801D68A,0x3C04800B,0x3C04800B\n\t"
-    ".word 0x2442AFC0,0x001080C0,0x02028021,0x8E050004\n\t"
-    ".word 0x2484E9E0,0x0C01FF22,0x24A50004,0x0C01FE9D\n\t"
-    ".word 0x00002021,0x8E020004,0x00000000,0x8C430000\n\t"
-    ".word 0x3C02800F,0x0C01D5FC,0xAC43AFE0,0x0C01D5A9\n\t"
-    ".word 0x02602021,0x0801D6B4,0x00000000,0x0C01D5FC\n\t"
-    ".word 0x3C11800F,0x9222AFB4,0x00000000,0x10400015\n\t"
-    ".word 0x2632AFB4,0x3C10800F,0x2610AF6C,0x02002021\n\t"
-    ".word 0x0C020C53,0x24050001,0x02002021,0x00003021\n\t"
-    ".word 0x92420004,0x3C078007,0x00521021,0x90420001\n\t"
-    ".word 0x24E762DC,0x2442FFFF,0x00022880,0x00A22821\n\t"
-    ".word 0x00052B40,0x00A22821,0x0C020AFB,0x00052880\n\t"
-    ".word 0xA220AFB4,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct Buffer {
+    unsigned char busy;
+    char pad[3];
+    int *data;
+} Buffer;
+
+typedef struct Playlist {
+    unsigned char state;
+    unsigned char track[3];
+    unsigned char cursor;
+} Playlist;
+
+extern unsigned char D_800AE9E8;
+extern unsigned char D_800AE9E9;
+extern int D_800EAFE0;
+extern Buffer D_800EAFC0[];
+extern Playlist D_800EAFB4;
+extern char D_800EAF6C[];
+extern char D_800AE9E0[];
+extern void func_80083194(void *);
+extern unsigned char func_80075570(void);
+extern void func_8008314C(void *, int);
+extern void func_80082798(void *, int, int);
+extern void func_80082854(void *, void *, int);
+extern void func_80082BEC(void *, int, int, void (*)(void));
+extern void func_8007FC88(void *, void *);
+extern void func_8007FA74(int);
+extern void func_800757F0(void);
+extern void func_800756A4(int);
+extern void func_800762DC(void);
+
+static inline unsigned char find_buffer(int track) {
+    int i;
+
+    for (i = 0; i < D_800AE9E9; i++) {
+        if (*D_800EAFC0[i].data == track) {
+            while (D_800EAFC0[i].busy != 0) {
+            }
+            return i;
+        }
+    }
+    return 100;
+}
+
+static inline void stop_stream(void) {
+    unsigned char j = 0;
+
+    if (D_800AE9E8 != 100) {
+        func_80083194(D_800EAF6C);
+        *D_800EAFC0[0].data = 0;
+        for (; j < 3; j++) {
+            D_800EAFB4.track[j] = 0;
+        }
+        D_800EAFB4.state = 0;
+        D_800EAFB4.cursor = 0;
+    }
+}
+
+static inline void seek_track(unsigned char track) {
+    func_8008314C(D_800EAF6C, 1);
+    func_80082798(D_800EAF6C, (track - 1) * 0x28004, 0);
+    func_8008314C(D_800EAF6C, 1);
+}
+
+static inline void start_buffer(unsigned char slot, int track) {
+    func_8007FC88(D_800AE9E0, D_800EAFC0[slot].data + 1);
+    func_8007FA74(0);
+    D_800EAFE0 = D_800EAFC0[slot].data[0];
+    func_800757F0();
+    func_800756A4(track);
+}
+
+void func_8007586C(int track) {
+    unsigned char slot;
+
+    if (track == 0) {
+        return;
+    }
+    if (D_800EAFE0 != track) {
+        slot = find_buffer(track);
+        if (slot == 100) {
+            stop_stream();
+            slot = func_80075570();
+            seek_track(track);
+            func_80082854(D_800EAF6C, D_800EAFC0[slot].data, 0x28004);
+            start_buffer(slot, track);
+        } else {
+            start_buffer(slot, track);
+        }
+    } else {
+        func_800757F0();
+        if (D_800EAFB4.state != 0) {
+            func_8008314C(D_800EAF6C, 1);
+            func_80082BEC(D_800EAF6C, (D_800EAFB4.track[D_800EAFB4.cursor] - 1) * 0x28004, 0, func_800762DC);
+            D_800EAFB4.state = 0;
+        }
+    }
+}

@@ -642,6 +642,182 @@ def _sio_control_shared_return(source):
     return source
 
 
+_CARD_DIR_BODY_COUNTS = {"16": 4, "18": 3, "17": 8, "21": 3}
+_CARD_DIR_REG = re.compile(r"\$(16|17|18|21)(?![0-9A-Za-z_])")
+
+
+def _card_directory_locals(source):
+    """Restore the retail allocation of four card-directory locals."""
+    if len(re.findall(r"(?m)^func_80095DB4:", source)) != 1:
+        raise ValueError("card_directory_locals expects exactly one func_80095DB4")
+    if re.search(r"(?m)^func_(?!80095DB4)[0-9A-F]{8}:", source):
+        raise ValueError("card_directory_locals is restricted to func_80095DB4")
+    start_marker = "addu\t$16,$0,$zero\n"
+    end_marker = "$L7:\n"
+    if source.count(start_marker) != 1 or source.count(end_marker) != 1:
+        raise ValueError("card_directory_locals body markers changed")
+    start = source.index(start_marker)
+    end = source.index(end_marker, start)
+    body = source[start:end]
+    counts = {reg: 0 for reg in _CARD_DIR_BODY_COUNTS}
+    for match in _CARD_DIR_REG.finditer(body):
+        counts[match.group(1)] += 1
+    if counts != _CARD_DIR_BODY_COUNTS:
+        raise ValueError("card_directory_locals register counts %r != %r"
+                         % (counts, _CARD_DIR_BODY_COUNTS))
+
+    body = body.replace("$16", "$CARD_DIR_S0")
+    body = body.replace("$18", "$16")
+    body = body.replace("$CARD_DIR_S0", "$18")
+    init_n = "addu\t$21,$0,$zero\n"
+    init_i = "addu\t$17,$0,$zero\n"
+    if body.count(init_n) != 1 or body.count(init_i) != 1:
+        raise ValueError("card_directory_locals initializers changed")
+    body = body.replace(init_n, "CARD_DIR_INIT\n", 1)
+    body = body.replace(init_i, init_n, 1)
+    body = body.replace("CARD_DIR_INIT\n", init_i, 1)
+    source = source[:start] + body + source[end:]
+
+    home = "sw\t$7,156($sp)\n"
+    if source.count(home) != 1:
+        raise ValueError("card_directory_locals count home changed")
+    source = source.replace(home, "sw\t$7,92($sp)\n", 1)
+    old_tail = (
+        "$L7:\n"
+        "lw\t$2,156($sp)\n"
+        "#nop\n"
+        "beq\t$2,$0,$L25\n"
+        "sw\t$21,0($2)\n"
+        "$L25:\n"
+        "addu\t$2,$0,$zero\n"
+    )
+    new_tail = (
+        "$L7:\n"
+        "lw\t$8,92($sp)\n"
+        "#nop\n"
+        ".set\tnoreorder\n"
+        "beq\t$8,$0,$L25\n"
+        "addu\t$2,$0,$zero\n"
+        ".set\treorder\n"
+        "sw\t$21,0($8)\n"
+        "$L25:\n"
+    )
+    if source.count(old_tail) != 1:
+        raise ValueError("card_directory_locals tail changed")
+    return source.replace(old_tail, new_tail, 1)
+
+
+def _card_create_cse(source):
+    """Restore three narrow code-generation choices in the card-create loop."""
+    if len(re.findall(r"(?m)^func_80096138:", source)) != 1:
+        raise ValueError("card_create_cse expects exactly one func_80096138")
+    if re.search(r"(?m)^func_(?!80096138)[0-9A-F]{8}:", source):
+        raise ValueError("card_create_cse is restricted to func_80096138")
+
+    one_copy = "addu\t$2,$5,$zero\n"
+    if source.count(one_copy) != 1:
+        raise ValueError("card_create_cse constant copy changed")
+    source = source.replace(one_copy, "li\t$2,1\n", 1)
+
+    preheader = (
+        "$L15:\n"
+        "la\t$16,D_800EF094\n"
+        "li\t$18,2\t\t\t# 0x00000002\n"
+    )
+    retail_preheader = (
+        "$L15:\n"
+        "addu\t$16,$18,$zero\n"
+        "li\t$18,2\t\t\t# 0x00000002\n"
+    )
+    if source.count(preheader) != 1:
+        raise ValueError("card_create_cse loop preheader changed")
+    source = source.replace(preheader, retail_preheader, 1)
+
+    retry = (
+        "bne\t$3,$18,$L18\n"
+        "addu\t$17,$17,1\n"
+        ".set\tmacro\n"
+        ".set\treorder\n"
+        "\n"
+        "slt\t$2,$17,16\n"
+    )
+    retail_retry = (
+        "bne\t$3,$18,$L18\n"
+        "nop\n"
+        ".set\tmacro\n"
+        ".set\treorder\n"
+        "\n"
+        "addu\t$17,$17,1\n"
+        "slt\t$2,$17,16\n"
+    )
+    if source.count(retry) != 1:
+        raise ValueError("card_create_cse retry branch changed")
+    return source.replace(retry, retail_retry, 1)
+
+
+def _font_advance_negative_layout(source):
+    """Keep the first copy of one cross-jumped rounding tail, as retail did."""
+    if len(re.findall(r"(?m)^func_80057420:", source)) != 1:
+        raise ValueError("font_advance_negative_layout expects func_80057420")
+    if re.search(r"(?m)^func_(?!80057420)[0-9A-F]{8}:", source):
+        raise ValueError("font_advance_negative_layout is restricted to func_80057420")
+
+    tail = (
+        "$L66:\n"
+        "addu\t$2,$3,-2048\n"
+        "bgez\t$2,$L86\n"
+        "sra\t$2,$2,12\n"
+        "\n"
+        "j\t$L123\n"
+        "subu\t$2,$20,$3\n"
+        "\n"
+    )
+    if source.count(tail) != 1:
+        raise ValueError("font_advance_negative_layout rounding tail changed")
+    if source.count("$L53:\n") != 1 or source.count("$L51:\n") != 1:
+        raise ValueError("font_advance_negative_layout anchor labels changed")
+    without_tail = source.replace(tail, "", 1)
+    return without_tail.replace("$L53:\n", tail + "$L53:\n", 1)
+
+
+def _vector_split_schedule(source):
+    """Restore two local scheduling choices in func_80065710."""
+    if len(re.findall(r"(?m)^func_80065710:", source)) != 1:
+        raise ValueError("vector_split_schedule expects func_80065710")
+    if re.search(r"(?m)^func_(?!80065710)[0-9A-F]{8}:", source):
+        raise ValueError("vector_split_schedule is restricted to func_80065710")
+
+    entry = (
+        "sw\t$4,12($sp)\n"
+        "sw\t$2,16($sp)\n"
+        "sw\t$3,20($sp)\n"
+        "addu\t$3,$4,$zero\n"
+        "bgez\t$3,$L7\n"
+        "subu\t$3,$0,$3\n"
+    )
+    retail_entry = (
+        "sw\t$4,12($sp)\n"
+        "sw\t$3,20($sp)\n"
+        "addu\t$3,$4,$zero\n"
+        "bgez\t$3,$L7\n"
+        "sw\t$2,16($sp)\n"
+        "subu\t$3,$0,$3\n"
+    )
+    tail = (
+        "addu\t$2,$2,$4\n"
+        "sw\t$2,4($7)\n"
+        "addu\t$3,$3,$5\n"
+    )
+    retail_tail = (
+        "addu\t$2,$2,$4\n"
+        "addu\t$3,$3,$5\n"
+        "sw\t$2,4($7)\n"
+    )
+    if source.count(entry) != 1 or source.count(tail) != 1:
+        raise ValueError("vector_split_schedule code shape changed")
+    return source.replace(entry, retail_entry, 1).replace(tail, retail_tail, 1)
+
+
 def apply_assembly_profile(path, profile):
     """Reproduce narrow PsyQ assembler choices that old GCC cannot express."""
     if profile == "tank_input_psyq":
@@ -2046,6 +2222,18 @@ addu\t$9,$18,$zero
         return
     if profile == "sio_control_shared_return":
         path.write_text(_sio_control_shared_return(path.read_text()))
+        return
+    if profile == "card_directory_locals":
+        path.write_text(_card_directory_locals(path.read_text()))
+        return
+    if profile == "card_create_cse":
+        path.write_text(_card_create_cse(path.read_text()))
+        return
+    if profile == "font_advance_negative_layout":
+        path.write_text(_font_advance_negative_layout(path.read_text()))
+        return
+    if profile == "vector_split_schedule":
+        path.write_text(_vector_split_schedule(path.read_text()))
         return
     if profile == "card_finish_const_arg":
         path.write_text(_card_finish_const_arg(path.read_text()))

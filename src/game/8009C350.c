@@ -1,28 +1,61 @@
-asm(".text\n\t.globl func_8009C350\nfunc_8009C350:\n\t"
-    ".word 0x27BDFFD0,0xAFB00018,0x00808021,0xAFB20020\n\t"
-    ".word 0x00A09021,0xAFB30024,0x00C09821,0xAFB40028\n\t"
-    ".word 0x00E0A021,0x00002021,0x00102900,0x3C030100\n\t"
-    ".word 0xAFBF002C,0xAFB1001C,0x3C021F80,0x00451021\n\t"
-    ".word 0x8C421088,0x93B10044,0x00431024,0x1040000A\n\t"
-    ".word 0x3C060001,0x10860012,0x00000000,0x3C021F80\n\t"
-    ".word 0x00451021,0x8C421088,0x00000000,0x00431024\n\t"
-    ".word 0x1440FFF8,0x24840001,0x24020001,0x16220010\n\t"
-    ".word 0x00000000,0x3C03800C,0x8C638A28,0x00000000\n\t"
-    ".word 0x90640002,0x02021004,0x0802710A,0x00821025\n\t"
-    ".word 0x3C011F80,0x00250821,0x8C251088,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845A68,0x080270F3,0x24020001\n\t"
-    ".word 0x3C03800C,0x8C638A28,0x02021004,0x90640002\n\t"
-    ".word 0x00021027,0x00821024,0xA0620002,0x3C02800C\n\t"
-    ".word 0x8C428A28,0x00000000,0x8C420000,0x00000000\n\t"
-    ".word 0xAFA20010,0x00103080,0x24C60003,0x24030001\n\t"
-    ".word 0x00C31804,0x3C051F80,0x34A51080,0x00101100\n\t"
-    ".word 0x00452821,0x3C04800C,0x8C848A24,0x00131400\n\t"
-    ".word 0x8C860000,0x00541025,0x00C33025,0xAC860000\n\t"
-    ".word 0xACB20000,0x24A50004,0xACA20000,0x3C03800C\n\t"
-    ".word 0x8C638A0C,0x00000000,0x90620000,0x00000000\n\t"
-    ".word 0x30420040,0x14400006,0x24A50004,0x90620000\n\t"
-    ".word 0x00000000,0x30420040,0x1040FFFC,0x00000000\n\t"
-    ".word 0x8FA20040,0x00000000,0xACA20000,0x8CA20000\n\t"
-    ".word 0x00000000,0xAFA20010,0x8FBF002C,0x8FB40028\n\t"
-    ".word 0x8FB30024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct {
+    int madr;
+    int bcr;
+    int chcr;
+    int unk;
+} DMA_CONTROL;
+
+extern volatile unsigned char *D_800B8A0C;
+extern volatile int *D_800B8A24;
+extern volatile unsigned char *D_800B8A28;
+extern char D_800C5A68[];
+extern void func_800943B0(char *, ...);
+
+void func_8009C350(int id, void *addr, unsigned int blocks, unsigned int size,
+                   unsigned int control, unsigned char completion,
+                   unsigned int unused)
+{
+    int i;
+    int temp;
+    int temp2;
+    unsigned char v;
+    volatile int ret;
+    volatile int *ptr;
+
+    for (i = 0; *(volatile unsigned int *)(0x1F801088 + (id << 4)) & 0x01000000; i++) {
+        if (i == 0x10000) {
+            func_800943B0(D_800C5A68, *(volatile unsigned int *)(0x1F801088 + (id << 4)));
+            break;
+        }
+    }
+    if (completion == 1) {
+        unsigned char *q = (unsigned char *)D_800B8A28;
+        v = q[2];
+        v |= 1 << id;
+        q[2] = v;
+    } else {
+        unsigned char *q = (unsigned char *)D_800B8A28;
+        v = q[2];
+        v &= ~(1 << id);
+        q[2] = v;
+    }
+    do {
+        ret = *(volatile int *)D_800B8A28;
+    } while (0);
+    temp2 = id << 2;
+    temp2 = temp2 + 3;
+    temp = 1;
+    temp = temp << temp2;
+    ptr = &((volatile DMA_CONTROL *)0x1F801080)[id].madr;
+    temp2 = *D_800B8A24;
+    temp2 |= temp;
+    *D_800B8A24 = temp2;
+    *ptr++ = (int)addr;
+    *ptr++ = (blocks << 16) | size;
+    while (!(*D_800B8A0C & 0x40)) {
+    }
+    *ptr = control;
+    do {
+        ret = *ptr;
+    } while (0);
+}

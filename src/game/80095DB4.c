@@ -1,39 +1,115 @@
-asm(".text\n\t.globl func_80095DB4\nfunc_80095DB4:\n\t"
-    ".word 0x27BDFF70,0xAFB60080,0x0080B021,0xAFB00068\n\t"
-    ".word 0x00A08021,0xAFB70084,0x00C0B821,0xAFB30074\n\t"
-    ".word 0x3C13800F,0x2673F094,0xAFBF008C,0xAFBE0088\n\t"
-    ".word 0xAFB5007C,0xAFB40078,0xAFB20070,0xAFB1006C\n\t"
-    ".word 0xAFA7005C,0x8E620000,0x8FBE00A0,0x10400006\n\t"
-    ".word 0x02C02021,0x3C04800C,0x0C0250EC,0x24845368\n\t"
-    ".word 0x080257F6,0x2402FFFF,0x0C0259C5,0x27A50010\n\t"
-    ".word 0x27A40010,0x0C023655,0x02002821,0x00009021\n\t"
-    ".word 0x00008821,0x24030001,0xAFA00058,0x8E64000C\n\t"
-    ".word 0x3C02800F,0x8C42F090,0x8FA800A4,0x00831804\n\t"
-    ".word 0x00431025,0x3C01800F,0xAC22F090,0x03C81021\n\t"
-    ".word 0x18400057,0x0000A821,0x27A80050,0xAFA80060\n\t"
-    ".word 0x0000A021,0x16200030,0x27A40010,0x0C027DD7\n\t"
-    ".word 0x27A50030,0x00408021,0x1600002F,0x023E102A\n\t"
-    ".word 0x0C025802,0x00002021,0x8E630000,0x3C01800F\n\t"
-    ".word 0xAC22F0E8,0x10600006,0x24080002,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845218,0x080257BA,0x00002021\n\t"
-    ".word 0x3C048009,0x248450D4,0xAE680000,0xAE600004\n\t"
-    ".word 0xAE600008,0x3C01800F,0x0C027D6B,0xAC36F0A0\n\t"
-    ".word 0x00002021,0x00002821,0x0C025807,0x27A60058\n\t"
-    ".word 0x3C04800F,0x8C84F0E8,0x0C025802,0x00000000\n\t"
-    ".word 0x8FA30058,0x00000000,0x10600007,0x00000000\n\t"
-    ".word 0x26520001,0x2A420010,0x1440FFD8,0x27A40010\n\t"
-    ".word 0x080257F6,0x00601021,0x12000025,0x023E102A\n\t"
-    ".word 0x080257D3,0x00000000,0x0C027DDB,0x27A40030\n\t"
-    ".word 0x1040001F,0x023E102A,0x14400017,0x00000000\n\t"
-    ".word 0x12E00015,0x02973821,0x27A60030,0x8CC20000\n\t"
-    ".word 0x8CC30004,0x8CC40008,0x8CC5000C,0xACE20000\n\t"
-    ".word 0xACE30004,0xACE40008,0xACE5000C,0x24C60010\n\t"
-    ".word 0x8FA80060,0x00000000,0x14C8FFF4,0x24E70010\n\t"
-    ".word 0x8CC20000,0x8CC30004,0xACE20000,0xACE30004\n\t"
-    ".word 0x26940028,0x26B50001,0x8FA800A4,0x26310001\n\t"
-    ".word 0x03C81021,0x0222102A,0x1440FFAE,0x00000000\n\t"
-    ".word 0x8FA8005C,0x00000000,0x11000002,0x00001021\n\t"
-    ".word 0xAD150000,0x8FBF008C,0x8FBE0088,0x8FB70084\n\t"
-    ".word 0x8FB60080,0x8FB5007C,0x8FB40078,0x8FB30074\n\t"
-    ".word 0x8FB20070,0x8FB1006C,0x8FB00068,0x03E00008\n\t"
-    ".word 0x27BD0090\n");
+typedef struct {
+    char name[20];
+    int attr;
+    int size;
+    void *next;
+    int head;
+    char system[4];
+} CardDirEntry;
+
+typedef struct {
+    int state;
+    int result;
+    int f8;
+    int chan;
+} CardState;
+
+extern CardState D_800EF094;
+extern int D_800EF090;
+extern int D_800EF0E8;
+extern char D_800C5368[];
+extern char D_800C5218[];
+extern int func_800943B0(char *);
+extern void func_80096714(int, char *);
+extern char *func_8008D954(char *, char *);
+extern int func_8009F75C(char *, CardDirEntry *);
+extern int func_8009F76C(CardDirEntry *);
+extern int func_80096008(int);
+extern int func_8009601C(int, int *, int *);
+extern void func_8009F5AC(int (*)(int *));
+extern int func_800950D4(int *);
+
+static inline int card_start_format(CardState *p, int chan)
+{
+    if (p->state != 0) {
+        func_800943B0(D_800C5218);
+        return 0;
+    }
+    p->state = 2;
+    p->result = 0;
+    p->f8 = 0;
+    D_800EF094.chan = chan;
+    func_8009F5AC(func_800950D4);
+    return 1;
+}
+
+static inline void store_count(int **pc, int n)
+{
+    if (*pc != 0) {
+        **pc = n;
+    }
+}
+
+int func_80095DB4(int chan, char *path, CardDirEntry *out, int *count, int skip, int max)
+{
+    char name[32];
+    CardDirEntry d;
+    int result;
+    int retry;
+    int i;
+    int n;
+    int r;
+    CardState *cs;
+
+    cs = &D_800EF094;
+    __asm__("" : "=r"(cs) : "0"(cs));
+    if (cs->state != 0) {
+        func_800943B0(D_800C5368);
+        return -1;
+    }
+    func_80096714(chan, name);
+    func_8008D954(name, path);
+    retry = 0;
+    result = 0;
+    D_800EF090 |= 1 << cs->chan;
+    n = 0;
+    i = 0;
+    if (skip + max > 0) {
+        do {
+            __asm__("" : : "r"(i));
+            __asm__("" : : "r"(i));
+            __asm__("" : : "r"(i));
+            __asm__("" : : "r"(i));
+            if (i == 0) {
+                while ((r = func_8009F75C(name, &d)) == 0) {
+                    D_800EF0E8 = func_80096008(0);
+                    card_start_format(cs, chan);
+                    func_8009601C(0, 0, &result);
+                    func_80096008(D_800EF0E8);
+                    if (result == 0) {
+                        break;
+                    }
+                    __asm__("" : : "r"(retry));
+                    __asm__("" : : "r"(retry));
+                    __asm__("" : : "r"(retry));
+                    __asm__("" : : "r"(retry));
+                    if (++retry >= 16) {
+                        return result;
+                    }
+                }
+                if (r == 0) {
+                    break;
+                }
+            } else if (func_8009F76C(&d) == 0) {
+                break;
+            }
+            if (i >= skip && out != 0) {
+                out[n] = d;
+                n++;
+            }
+            i++;
+        } while (i < skip + max);
+    }
+    store_count(&count, n);
+    return 0;
+}

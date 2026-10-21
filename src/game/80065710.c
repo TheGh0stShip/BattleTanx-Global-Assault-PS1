@@ -1,34 +1,88 @@
-asm(".text\n\t.globl func_80065710\nfunc_80065710:\n\t"
-    ".word 0x27BDFFE8,0x00803821,0x8CA20000,0x8CC30000\n\t"
-    ".word 0x00000000,0x00431023,0xACE20000,0x8CA20004\n\t"
-    ".word 0x8CC30004,0x00000000,0x00431023,0xACE20004\n\t"
-    ".word 0x8CA20008,0x8CC30008,0x00000000,0x00431023\n\t"
-    ".word 0xACE20008,0x8CE40000,0x8CE20004,0x8CE30008\n\t"
-    ".word 0xAFA4000C,0xAFA30014,0x00801821,0x0461000A\n\t"
-    ".word 0xAFA20010,0x00031823,0xAFA3000C,0x000313C3\n\t"
-    ".word 0x00021023,0x30637FFF,0x00031823,0xAFA20000\n\t"
-    ".word 0x080195EA,0xAFA3000C,0x000443C3,0x30827FFF\n\t"
-    ".word 0xAFA80000,0xAFA2000C,0x8FA30010,0x00000000\n\t"
-    ".word 0x0461000A,0x00000000,0x00031823,0xAFA30010\n\t"
-    ".word 0x000313C3,0x00021023,0x30637FFF,0x00031823\n\t"
-    ".word 0xAFA20004,0x080195FB,0xAFA30010,0x000313C3\n\t"
-    ".word 0xAFA20004,0x30627FFF,0xAFA20010,0x8FA20014\n\t"
-    ".word 0x00000000,0x04410009,0x00021823,0xAFA30014\n\t"
-    ".word 0x000313C3,0x00021023,0x30637FFF,0x00031823\n\t"
-    ".word 0xAFA20008,0x0801960B,0xAFA30014,0x000243C3\n\t"
-    ".word 0x30427FFF,0xAFA80008,0xAFA20014,0x27A30004\n\t"
-    ".word 0x27A20008,0xCBA90000,0xC86A0000,0xC84B0000\n\t"
-    ".word 0x00000000,0x00000000,0x00000000,0x4A41E012\n\t"
-    ".word 0xEBB90000,0xE87A0000,0xE85B0000,0x27A4000C\n\t"
-    ".word 0x27A30010,0x27A20014,0xC8890000,0xC86A0000\n\t"
-    ".word 0xC84B0000,0x00000000,0x00000000,0x00000000\n\t"
-    ".word 0x4A49E012,0x8FA20000,0x00000000,0x000210C0\n\t"
-    ".word 0xAFA20000,0x8FA20004,0x00000000,0x000210C0\n\t"
-    ".word 0xAFA20004,0x8FA20008,0x00000000,0x000210C0\n\t"
-    ".word 0xAFA20008,0x27A4000C,0x27A30010,0x27A20014\n\t"
-    ".word 0xE8990000,0xE87A0000,0xE85B0000,0x8FA2000C\n\t"
-    ".word 0x8FA30000,0x00000000,0x00431021,0xACE20000\n\t"
-    ".word 0x8FA20010,0x8FA40004,0x8FA30014,0x8FA50008\n\t"
-    ".word 0x00441021,0x00651821,0xACE20004,0xACE30008\n\t"
-    ".word 0x8CEC0000,0x8CED0004,0x8CEE0008,0x48CC2800\n\t"
-    ".word 0x48CD3000,0x48CE3800,0x03E00008,0x27BD0018\n");
+typedef struct {
+    int vx;
+    int vy;
+    int vz;
+} LongVector;
+
+static inline void gte_ldlv_3(volatile int *r0, volatile int *r1,
+                              volatile int *r2) {
+    __asm__ volatile("lwc2 $9, 0(%0)\n\tlwc2 $10, 0(%1)\n\tlwc2 $11, 0(%2)"
+                     : : "r"(r0), "r"(r1), "r"(r2));
+}
+
+static inline void gte_stlv_3(volatile int *r0, volatile int *r1,
+                              volatile int *r2) {
+    __asm__ volatile("swc2 $25, 0(%0)\n\tswc2 $26, 0(%1)\n\tswc2 $27, 0(%2)"
+                     : : "r"(r0), "r"(r1), "r"(r2) : "memory");
+}
+
+static inline void gte_rtir_sf0(void) {
+    __asm__ volatile("nop\n\tnop\n\tnop\n\tcop2 0x41E012");
+}
+
+static inline void gte_rtir(void) {
+    __asm__ volatile("nop\n\tnop\n\tnop\n\tcop2 0x49E012");
+}
+
+static inline void gte_SetTransVector(LongVector *r0) {
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tlw $14, 8(%0)\n\t"
+                     "ctc2 $12, $5\n\tctc2 $13, $6\n\tctc2 $14, $7"
+                     : : "r"(r0) : "$12", "$13", "$14");
+}
+
+void func_80065710(LongVector *out, LongVector *a, LongVector *b) {
+    volatile int high_x;
+    volatile int high_y;
+    volatile int high_z;
+    int low_x;
+    int low_y;
+    int low_z;
+
+    out->vx = a->vx - b->vx;
+    out->vy = a->vy - b->vy;
+    out->vz = a->vz - b->vz;
+    low_x = out->vx;
+    low_y = out->vy;
+    low_z = out->vz;
+
+    if (low_x < 0) {
+        low_x = -low_x;
+        { int h=-(low_x>>15); register int l asm("$3"); __asm__ volatile("andi %0,%1,0x7fff\n\tnegu %0,%0" : "=r"(l) : "r"(low_x)); high_x=h;low_x=l; }
+    } else {
+        __asm__ volatile("");
+        { register int h asm("$8")=low_x>>15; int l=low_x&0x7fff; __asm__("" :: "r"(l)); high_x=h;low_x=l; }
+    }
+    if (low_y < 0) {
+        low_y = -low_y;
+        { int h=-(low_y>>15); register int l asm("$3"); __asm__ volatile("andi %0,%1,0x7fff\n\tnegu %0,%0" : "=r"(l) : "r"(low_y)); high_y=h;low_y=l; }
+    } else {
+        __asm__ volatile("");
+        high_y = low_y >> 15;
+        low_y = low_y & 0x7FFF;
+    }
+    { register int z asm("$2") = low_z; register int n asm("$3");
+    n=-z;
+    if (z < 0) { int h; register int l asm("$3"); low_z=n; h=-(n>>15); __asm__ volatile("andi %0,%1,0x7fff\n\tnegu %0,%0" : "=r"(l) : "r"(n)); high_z=h; low_z=l; }
+    else { register int h asm("$8")=z >> 15; int l=z & 0x7FFF; __asm__("" :: "r"(l)); high_z=h; low_z=l; } }
+
+    gte_ldlv_3(&high_x, &high_y, &high_z);
+    gte_rtir_sf0();
+    gte_stlv_3(&high_x, &high_y, &high_z);
+    {
+        int *px = &low_x, *py = &low_y, *pz = &low_z;
+        __asm__("" : "=r"(px) : "0"(px));
+        __asm__("" : "=r"(py) : "0"(py));
+        __asm__("" : "=r"(pz) : "0"(pz));
+        gte_ldlv_3(px, py, pz);
+    }
+    gte_rtir();
+    high_x <<= 3;
+    high_y <<= 3;
+    high_z <<= 3;
+    gte_stlv_3(&low_x, &low_y, &low_z);
+
+    out->vx = low_x + high_x;
+    out->vy = low_y + high_y;
+    out->vz = low_z + high_z;
+    gte_SetTransVector(out);
+}

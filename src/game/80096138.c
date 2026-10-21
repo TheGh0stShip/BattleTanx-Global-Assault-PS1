@@ -1,34 +1,107 @@
-asm(".text\n\t.globl func_80096138\nfunc_80096138:\n\t"
-    ".word 0x27BDFFB0,0xAFB30044,0x00809821,0xAFB00038\n\t"
-    ".word 0x00A08021,0xAFB40048,0x00C0A021,0xAFB20040\n\t"
-    ".word 0x3C12800F,0x2652F094,0xAFBF004C,0xAFB1003C\n\t"
-    ".word 0x8E420000,0x00000000,0x10400006,0x00008821\n\t"
-    ".word 0x3C04800C,0x0C0250EC,0x24845368,0x080258C8\n\t"
-    ".word 0x2402FFFF,0x02602021,0x0C0259C5,0x27A50010\n\t"
-    ".word 0x27A40010,0x0C023655,0x02002821,0x27A40010\n\t"
-    ".word 0x24050001,0x24020001,0x8E46000C,0x3C03800F\n\t"
-    ".word 0x8C63F090,0x00C21004,0x00621825,0x3C01800F\n\t"
-    ".word 0x0C027DC3,0xAC23F090,0x04400007,0x0014A400\n\t"
-    ".word 0x0C027DC7,0x00402021,0x080258C8,0x24020006\n\t"
-    ".word 0x080258C8,0x24020007,0x02408021,0x24120002\n\t"
-    ".word 0x27A40010,0x0C027DC3,0x36850200,0x04410043\n\t"
-    ".word 0x00000000,0x0C025802,0x00002021,0x8E030000\n\t"
-    ".word 0x3C01800F,0x10600006,0xAC22F0E8,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845218,0x08025896,0x00000000\n\t"
-    ".word 0x3C048009,0x248450D4,0xAE120000,0xAE000004\n\t"
-    ".word 0xAE000008,0x3C01800F,0x0C027D6B,0xAC33F0A0\n\t"
-    ".word 0x8E020000,0x00000000,0x14400005,0x00000000\n\t"
-    ".word 0x8E020008,0x00000000,0x10400012,0x00000000\n\t"
-    ".word 0x8E020000,0x8E020004,0x8E020008,0x00000000\n\t"
-    ".word 0x14400007,0x00000000,0x3C03800F,0x2463F09C\n\t"
-    ".word 0x8C620000,0x00000000,0x1040FFFD,0x00000000\n\t"
-    ".word 0x3C02800F,0x2442F0E0,0x8C420000,0xAE000008\n\t"
-    ".word 0xAFA20030,0x3C04800F,0x8C84F0E8,0x0C025802\n\t"
-    ".word 0x00000000,0x8FA30030,0x00000000,0x1060FFC4\n\t"
-    ".word 0x24020003,0x1062FFC7,0x27A40010,0x14720005\n\t"
-    ".word 0x00000000,0x26310001,0x2A220010,0x1440FFC0\n\t"
-    ".word 0x00000000,0x14600002,0x24020005,0xAFA20030\n\t"
-    ".word 0x8FA20030,0x080258C8,0x00000000,0x0C027DC7\n\t"
-    ".word 0x00402021,0x00001021,0x8FBF004C,0x8FB40048\n\t"
-    ".word 0x8FB30044,0x8FB20040,0x8FB1003C,0x8FB00038\n\t"
-    ".word 0x03E00008,0x27BD0050\n");
+typedef struct {
+    int state;
+    int busy;
+    int done;
+    int slot;
+} Card80096138;
+
+extern volatile Card80096138 D_800EF094;
+extern int D_800EF090;
+extern char *D_800EF0A0;
+extern int D_800EF0E0;
+extern int D_800EF0E8;
+extern char D_800C5368[];
+extern char D_800C5218[];
+extern void func_800943B0(char *, ...);
+extern void func_80096714(char *, char *);
+extern void func_8008D954(char *, char *);
+extern int func_8009F70C(char *, int);
+extern void func_8009F71C(int);
+extern int func_80096008(int);
+extern void func_8009F5AC(void (*)(void));
+extern void func_800950D4(void);
+
+static inline void card_create_request(volatile Card80096138 *c, char *name)
+{
+    if (c->state != 0) {
+        func_800943B0(D_800C5218);
+    } else {
+        c->state = 2;
+        c->busy = 0;
+        c->done = 0;
+        D_800EF0A0 = name;
+        func_8009F5AC(func_800950D4);
+    }
+}
+
+static inline void card_create_wait(volatile Card80096138 *c, int *result)
+{
+    if (c->state != 0 || c->done != 0) {
+        c->state;
+        c->busy;
+        if (c->done == 0) {
+            while (D_800EF094.done == 0) {
+            }
+        }
+        *result = *(volatile int *)&D_800EF0E0;
+        c->done = 0;
+    }
+}
+
+int func_80096138(char *name, char *suffix, int blocks)
+{
+    struct {
+        char path[32];
+        int result;
+    } io;
+    int retry = 0;
+    int fd;
+    volatile Card80096138 *c;
+    int mode;
+
+    if (D_800EF094.state != 0) {
+        func_800943B0(D_800C5368);
+        return -1;
+    }
+    __asm__("" : : "r"(name));
+    func_80096714(name, io.path);
+    func_8008D954(io.path, suffix);
+    D_800EF090 |= 1 << D_800EF094.slot;
+    fd = func_8009F70C(io.path, 1);
+    if (fd >= 0) {
+        func_8009F71C(fd);
+        return 6;
+    }
+    mode = blocks << 16;
+    if (0) {
+fail:
+        return 7;
+    }
+    for (;;) {
+        c = &D_800EF094;
+        fd = func_8009F70C(io.path, mode | 0x200);
+        if (fd >= 0) {
+            goto created;
+        }
+        D_800EF0E8 = func_80096008(0);
+        card_create_request(c, name);
+        card_create_wait(c, &io.result);
+        func_80096008(D_800EF0E8);
+        if (io.result == 0) {
+            goto fail;
+        }
+        if (io.result == 3) {
+            continue;
+        }
+        if (io.result != 2 || ++retry >= 16) {
+            break;
+        }
+    }
+    if (io.result == 0) {
+        io.result = 5;
+    }
+    return io.result;
+created:
+    func_8009F71C(fd);
+    return 0;
+}

@@ -1,125 +1,297 @@
-asm(".text\n\t.globl func_80044480\nfunc_80044480:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00808021,0xAFBF0024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0x8E04009C,0x24020003\n\t"
-    ".word 0x10820005,0x24020004,0x10820165,0x00051400\n\t"
-    ".word 0x08011308,0x00000000,0x8E03028C,0x24020001\n\t"
-    ".word 0x14620002,0x00000000,0xAE00028C,0x92020090\n\t"
-    ".word 0x00000000,0x3042000F,0x1040000C,0x00051400\n\t"
-    ".word 0x00021403,0x04410006,0x24030002,0x9602027E\n\t"
-    ".word 0xAE03028C,0x2442FFFF,0x08011143,0xA602027E\n\t"
-    ".word 0x18400002,0x00000000,0xAE04028C,0x8E03028C\n\t"
-    ".word 0x24020002,0x106200A6,0x24020003,0x146201C0\n\t"
-    ".word 0x3C02800E,0x240D071C,0x8C4CE30C,0x00000000\n\t"
-    ".word 0x018D0018,0x00005812,0x00001810,0x000B5B02\n\t"
-    ".word 0x00031D00,0x01635825,0x01601021,0x9605027E\n\t"
-    ".word 0x00403821,0x30A27FFF,0x2C422000,0x1040000A\n\t"
-    ".word 0x30E2FFFF,0x240C2800,0x01820018,0x00005812\n\t"
-    ".word 0x00001810,0x000B5B02,0x00031D00,0x01635825\n\t"
-    ".word 0x01601021,0x00403821,0x00A72021,0x3086FFFF\n\t"
-    ".word 0x00061BC2,0x000513C2,0x1062000A,0x30C27FFF\n\t"
-    ".word 0x00821023,0xA602027E,0x24020001,0xAE02028C\n\t"
-    ".word 0x9602027E,0x34038000,0x00431021,0x08011172\n\t"
-    ".word 0xA602027E,0xA604027E,0x26040280,0x9603027E\n\t"
-    ".word 0x00000000,0x30684000,0x30693FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x30688000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x3C0C0006,0x358C1B33,0x004C0018\n\t"
-    ".word 0x00006812,0x00005810,0x000D6B02,0x000B5D00\n\t"
-    ".word 0x01AB6825,0xAE0D0280,0x246A4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091040,0x00021103,0x004C0018\n\t"
-    ".word 0x00001812,0x00006810,0x00031B02,0x000D6D00\n\t"
-    ".word 0x006D1825,0x3C020006,0x34421B33,0x00431023\n\t"
-    ".word 0xAC820004,0x30E2FFFF,0x3C0C0003,0x358C2000\n\t"
-    ".word 0xAC800008,0x01820018,0x00001812,0x00005810\n\t"
-    ".word 0x00031B02,0x000B5D00,0x006B1825,0x960D002C\n\t"
-    ".word 0x00000000,0x25AA4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x00021103,0x00021023,0x00620018\n\t"
-    ".word 0x00002012,0x00005810,0x00042302,0x000B5D00\n\t"
-    ".word 0x008B2025,0x8E020008,0x01A06021,0x00441021\n\t"
-    ".word 0xAE020008,0x31884000,0x31893FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x31888000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x00620018,0x00006812,0x00005810\n\t"
-    ".word 0x000D6B02,0x000B5D00,0x01AB6825,0x8E020010\n\t"
-    ".word 0x01A01821,0x00431021,0x08011308,0xAE020010\n\t"
-    ".word 0x3C02800E,0x240B071C,0x8C4DE30C,0x00000000\n\t"
-    ".word 0x01AB0018,0x00006012,0x00001810,0x000C6302\n\t"
-    ".word 0x00031D00,0x01836025,0x01801021,0x9604027E\n\t"
-    ".word 0x00403021,0x30877FFF,0x2CE26001,0x1440000C\n\t"
-    ".word 0x00862823,0x30C2FFFF,0x240D2800,0x01A20018\n\t"
-    ".word 0x00006012,0x00001810,0x000C6302,0x00031D00\n\t"
-    ".word 0x01836025,0x01801021,0x00403021,0x00862823\n\t"
-    ".word 0x30A2FFFF,0x000213C2,0x00041BC2,0x10430009\n\t"
-    ".word 0x00871023,0xA602027E,0x24020001,0xAE02028C\n\t"
-    ".word 0x9602027E,0x34038000,0x00431021,0x08011216\n\t"
-    ".word 0xA602027E,0xA605027E,0x26040280,0x9603027E\n\t"
-    ".word 0x00000000,0x30684000,0x30693FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x30688000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x3C0D0006,0x35AD1B33,0x004D0018\n\t"
-    ".word 0x00005812,0x00006010,0x000B5B02,0x000C6500\n\t"
-    ".word 0x016C5825,0xAE0B0280,0x246A4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091040,0x00021103,0x004D0018\n\t"
-    ".word 0x00001812,0x00005810,0x00031B02,0x000B5D00\n\t"
-    ".word 0x006B1825,0x3C020006,0x34421B33,0x00431023\n\t"
-    ".word 0xAC820004,0x30C2FFFF,0x3C0D0003,0x35AD2000\n\t"
-    ".word 0xAC800008,0x01A20018,0x00001812,0x00006010\n\t"
-    ".word 0x00031B02,0x000C6500,0x006C1825,0x960B002C\n\t"
-    ".word 0x00000000,0x256A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x00021103,0x00021023,0x00620018\n\t"
-    ".word 0x00002012,0x00006010,0x00042302,0x000C6500\n\t"
-    ".word 0x008C2025,0x8E020008,0x01606821,0x00441023\n\t"
-    ".word 0xAE020008,0x31A84000,0x31A93FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x31A88000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x00021103,0x00620018,0x00005812,0x00006010\n\t"
-    ".word 0x000B5B02,0x000C6500,0x016C5825,0x8E020010\n\t"
-    ".word 0x01601821,0x00431023,0x08011308,0xAE020010\n\t"
-    ".word 0x00021C03,0x10600076,0x240D0B33,0x8E0B0040\n\t"
-    ".word 0x00000000,0x01AB0018,0x00008812,0x00001010\n\t"
-    ".word 0x00118B02,0x00021500,0x02228825,0x9606002C\n\t"
-    ".word 0x04610004,0x2412FFFF,0x24C64000,0x080112A2\n\t"
-    ".word 0x24120001,0x24C6C000,0x3C02800E,0x26040034\n\t"
-    ".word 0x8C42E30C,0x30C6FFFF,0x00022840,0x00A22821\n\t"
-    ".word 0x00052900,0x00A22823,0x000528C0,0x00A22823\n\t"
-    ".word 0x0C007C25,0x00052880,0x8E02003C,0x00000000\n\t"
-    ".word 0x0222102A,0x10400002,0x02202021,0xAE11003C\n\t"
-    ".word 0x8E05003C,0x14800002,0x3C028000,0x24040002\n\t"
-    ".word 0x00A21824,0x00821024,0x00624026,0x04A10002\n\t"
-    ".word 0x00A01821,0x00031823,0x04810002,0x00803021\n\t"
-    ".word 0x00063023,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20010,0xE85F0000,0x8FA40010,0x00000000\n\t"
-    ".word 0x2487FFF4,0x04E10023,0x00000000,0x00831804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A20014\n\t"
-    ".word 0xE85F0000,0x8FA50014,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x080112DD,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x080112F3,0x00831804\n\t"
-    ".word 0x00071023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x080112F5\n\t"
-    ".word 0x00601021,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00601021,0x11000002,0x240C1000,0x00021023\n\t"
-    ".word 0x004C0018,0x00001812,0x00005810,0x00031B02\n\t"
-    ".word 0x000B5D00,0x006B1825,0x00121400,0x18400004\n\t"
-    ".word 0x00000000,0x9602006E,0x08011307,0x00431023\n\t"
-    ".word 0x9602006E,0x00000000,0x00431021,0xA602006E\n\t"
-    ".word 0x8FBF0024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Tank {
+    char pad0[0x8];
+    int x;
+    char pad1[0x10 - 0xC];
+    int z;
+    char pad2[0x2C - 0x14];
+    unsigned short heading;
+    char pad3[0x34 - 0x2E];
+    int body[2];
+    int speed_limit;
+    int speed;
+    char pad4[0x6E - 0x44];
+    unsigned short yaw;
+    char pad5[0x90 - 0x70];
+    unsigned char input_flags;
+    char pad6[0x9C - 0x91];
+    int kind;
+    char pad7[0x27E - 0xA0];
+    unsigned short swing;
+    int swing_offset[3];
+    int swing_state;
+} Tank;
+
+extern int D_800DE30C;
+
+int abs(int);
+void func_8001F094(void *, int, int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int sine_lookup(int angle) {
+    register int mask asm("$8");
+    register int index asm("$9");
+    int value;
+
+    __asm__ volatile("" : : "r"(angle));
+    mask = angle & 0x4000;
+    index = angle & 0x3FFF;
+    __asm__ volatile("");
+    if (mask != 0) {
+        __asm__ volatile("");
+        mask = 0x3FFF;
+        __asm__ volatile("sub %0,%1,%0" : "=r"(index) : "r"(mask), "0"(index));
+    }
+    index &= 0x3FFE;
+    __asm__ volatile(".set noat\n\tlui $1,0x800b\n\taddu $1,$1,%0\n\tlhu %0,3820($1)\n\t.set at" : "=r"(index) : "0"(index));
+    mask = angle & 0x8000;
+    if (mask != 0) {
+        __asm__ volatile("neg %0,%0" : "=r"(index) : "0"(index));
+    }
+    __asm__ volatile("");
+    value = index << 1;
+    __asm__ volatile("" : : "r"(index));
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    register int mask asm("$8");
+    register int index asm("$9");
+    register int next asm("$10");
+    int value;
+
+    __asm__ volatile("" : : "r"(angle));
+    next = angle + 0x4000;
+    __asm__ volatile("" : : "r"(angle));
+    mask = next & 0x4000;
+    index = next & 0x3FFF;
+    __asm__ volatile("beqz %1,1f\n\tnop\n\tli %1,16383\n\tsub %0,%1,%0\n1:\n\tandi %0,%0,0x3ffe\n\t.set noat\n\tlui $1,0x800b\n\taddu $1,$1,%0\n\tlhu %0,3820($1)\n\t.set at\n\tandi %1,%2,0x8000\n\tbeqz %1,2f\n\tnop\n\tneg %0,%0\n2:"
+                     : "=r"(index), "=r"(mask)
+                     : "r"(next), "0"(index), "1"(mask));
+    value = index << 1;
+    __asm__ volatile("" : : "r"(index));
+    return value;
+}
+
+static inline int cosine_lookup_u16(unsigned short angle) {
+    register int mask asm("$8");
+    register int index asm("$9");
+    register int next asm("$10");
+    int value;
+
+    __asm__ volatile("addu %0,%1,0x4000" : "=r"(next) : "r"(angle));
+    mask = next & 0x4000;
+    index = next & 0x3FFF;
+    __asm__ volatile("beqz %1,1f\n\tnop\n\tli %1,16383\n\tsub %0,%1,%0\n1:\n\tandi %0,%0,0x3ffe\n\t.set noat\n\tlui $1,0x800b\n\taddu $1,$1,%0\n\tlhu %0,3820($1)\n\t.set at\n\tandi %1,%2,0x8000\n\tbeqz %1,2f\n\tnop\n\tneg %0,%0\n2:"
+                     : "=r"(index), "=r"(mask)
+                     : "r"(next), "0"(index), "1"(mask));
+    value = index << 1;
+    __asm__ volatile("" : : "r"(index));
+    return value;
+}
+
+static inline int sine_lookup_u16(unsigned short angle) {
+    register int mask asm("$8");
+    register int index asm("$9");
+    int value;
+
+    __asm__ volatile("andi %1,%2,0x4000\n\tandi %0,%2,0x3fff\n\tbeqz %1,1f\n\tnop\n\tli %1,16383\n\tsub %0,%1,%0\n1:\n\tandi %0,%0,0x3ffe\n\t.set noat\n\tlui $1,0x800b\n\taddu $1,$1,%0\n\tlhu %0,3820($1)\n\t.set at\n\tandi %1,%2,0x8000\n\tbeqz %1,2f\n\tnop\n\tneg %0,%0\n2:"
+                     : "=r"(index), "=r"(mask)
+                     : "r"(angle));
+    value = index << 1;
+    __asm__ volatile("" : : "r"(index));
+    return value;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    unsigned int dv;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                dv = d >> scale;
+            } else {
+                dv = d << -scale;
+            }
+            quotient = (unsigned int)n / dv;
+            quotient <<= n_zeros;
+        } else {
+            dv = d >> -excess;
+            quotient = (unsigned int)n / dv;
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline void swing_offset_update(int *offset, unsigned short swing) {
+    int angle = swing;
+
+    offset[0] = fixed_mul(sine_lookup(angle) >> 4, 0x61B33);
+    offset[1] = 0x61B33 - fixed_mul(cosine_lookup(angle) >> 4, 0x61B33);
+    offset[2] = 0;
+}
+
+void func_80044480(Tank *t, short turn) {
+    unsigned short swing;
+    unsigned short next;
+    unsigned int bits;
+    unsigned int frac;
+    int step;
+    int heading;
+    int limit;
+    short sign;
+    int num;
+    int den;
+
+    switch (t->kind) {
+    case 3:
+        if (t->swing_state == 1) {
+            t->swing_state = 0;
+        }
+        if (t->input_flags & 0xF) {
+            if (turn < 0) {
+                t->swing_state = 2;
+                t->swing--;
+            } else if (turn > 0) {
+                t->swing_state = 3;
+            }
+        }
+        switch (t->swing_state) {
+        case 3: {
+            unsigned short rate;
+            int k;
+            rate = fixed_mul(D_800DE30C, 1820);
+            if ((t->swing & 0x7FFF) < 0x2000) {
+                rate = fixed_mul(10240, rate & 0xFFFF);
+            }
+            next = t->swing + rate;
+            bits = next;
+            if ((bits >> 15) != (t->swing >> 15)) {
+                t->swing = next - (bits & 0x7FFF);
+                t->swing_state = 1;
+                t->swing += 0x8000;
+            } else {
+                t->swing = next;
+            }
+            swing_offset_update(t->swing_offset, t->swing);
+            k = fixed_mul(0x32000, rate & 0xFFFF);
+            __asm__("" : : "r"(k));
+            __asm__("" : : "r"(k));
+            t->x += fixed_mul(k, -(cosine_lookup_u16(t->heading) >> 4));
+            k = fixed_mul(k, sine_lookup_u16(t->heading) >> 4);
+            t->z += k;
+            break;
+        }
+        case 2: {
+            unsigned short rate;
+            int k;
+            rate = fixed_mul(D_800DE30C, 1820);
+            swing = t->swing;
+            frac = swing & 0x7FFF;
+            if (frac > 0x6000) {
+                rate = fixed_mul(10240, rate & 0xFFFF);
+            }
+            next = swing - rate;
+            if ((next >> 15) != (swing >> 15)) {
+                t->swing = swing - frac;
+                t->swing_state = 1;
+                t->swing += 0x8000;
+            } else {
+                t->swing = next;
+            }
+            __asm__("" : : "r"(rate));
+            __asm__("" : : "r"(rate));
+            __asm__("" : : "r"(rate));
+            swing_offset_update(t->swing_offset, t->swing);
+            k = fixed_mul(0x32000, rate & 0xFFFF);
+            __asm__("" : : "r"(k));
+            __asm__("" : : "r"(k));
+            t->x -= fixed_mul(k, -(cosine_lookup_u16(t->heading) >> 4));
+            k = fixed_mul(k, sine_lookup_u16(t->heading) >> 4);
+            t->z -= k;
+            break;
+        }
+        }
+        break;
+    case 4:
+        if (turn != 0) {
+            limit = fixed_mul(2867, t->speed);
+            heading = t->heading;
+            if (turn < 0) {
+                heading += 0x4000;
+                sign = 1;
+            } else {
+                heading -= 0x4000;
+                sign = -1;
+            }
+            func_8001F094(t->body, D_800DE30C * 1500, heading & 0xFFFF);
+            if (limit < t->speed_limit) {
+                t->speed_limit = limit;
+            }
+            num = t->speed_limit;
+            den = limit;
+            if (den == 0) {
+                den = 2;
+            }
+            step = fixed_mul(fixed_div(num, den), 4096);
+            if (sign > 0) {
+                t->yaw -= step;
+            } else {
+                t->yaw += step;
+            }
+        }
+        break;
+    }
+}

@@ -57,21 +57,22 @@ range, all providers for each proposed label, and all ambiguous names.
 ## Compiler status
 
 GCC 2.8.1 with the PSX patches, `-O2 -G0`, is the leading game-code compiler.
-It produces exact matches for one thousand eight hundred sixty-nine source units totaling all 747,520 payload bytes;
+It produces exact matches, together with the documented per-unit compiler
+profiles, for all 1,898 source units totaling all 747,520 payload bytes;
 GCC 2.7.2 assigns the non-leaf function's saved registers differently, while
 GCC 2.95.2 inserts argument sign-extension instructions absent from retail. The
 additional matches corroborate basic expression and store scheduling,
 branches, global-address construction, structure strides, and a non-leaf call.
 Those units also survive one final retail-address link and reproduce the full
 PS-X EXE, including its metadata-built header, at both supported hashes.
-The overall compiler gate stays open pending more representative functions.
+The compiler and final-link gates cover the complete executable.
 
 The native-Windows `CC1PSX.EXE` backend was also checked directly from WSL,
-without Wine, against the 4,788-byte `func_8007AE20` research candidate. Psy-Q
+without Wine, against the 4,788-byte `func_8007AE20` matching source. Psy-Q
 4.3 and 4.4 both emitted the same text as the pinned Linux GCC 2.8.1 PSX
-compiler: 4,716 bytes already agree with retail and the same 20 aligned
-differences remain. Psy-Q 4.5 emitted 4,924 bytes and is excluded for this
-unit. The locally tested compiler fingerprints are:
+compiler before the function-specific assembler profile. Psy-Q 4.5 emitted
+4,924 bytes and is excluded for this unit. The locally tested compiler
+fingerprints are:
 
 | Psy-Q bundle | `CC1PSX.EXE` SHA-256 | Candidate result |
 |---|---|---|
