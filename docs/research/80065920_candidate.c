@@ -109,23 +109,23 @@ s32 func_8007F7D8();
 s32 func_8008B984();
 s16 func_800924F0();
 s16 func_80092500();
-extern M2C_UNK D_800AD9EC;
+extern u8 D_800AD9EC;
 extern s32 D_800AD9F0;
-extern M2C_UNK D_800ADA08;
-extern M2C_UNK D_800ADB28;
-extern M2C_UNK D_800ADB58;
+extern u8 D_800ADA08;
+extern u8 D_800ADB28;
+extern u8 D_800ADB58;
 extern u16 D_800ADB78;
-extern M2C_UNK D_800D3034;
-extern M2C_UNK D_800E5358;
-extern M2C_UNK D_800E5368;
+extern u8 D_800D3034;
+extern u8 D_800E5358;
+extern u8 D_800E5368;
 extern M2C_UNK *D_800E5374;
-extern M2C_UNK D_800E5378;
-extern M2C_UNK D_800E537C;
-extern M2C_UNK D_800E5398;
-extern M2C_UNK D_800E53AC;
+extern u8 D_800E5378;
+extern u8 D_800E537C;
+extern u8 D_800E5398;
+extern u8 D_800E53AC;
 extern s32 D_800E53B8;
 extern M2C_UNK (*D_800E53BC)(M2C_UNK *, M2C_UNK *, s16);
-extern M2C_UNK D_800E53C8;
+extern u8 D_800E53C8;
 extern s32 D_800E53E8;
 extern s32 D_800E53EC;
 
@@ -177,10 +177,10 @@ void func_80065920(void * volatile arg0, s32 arg1) {
     register M2C_UNK *state_or_mask __asm__("$18");
     M2C_UNK (*var_v0_2)(M2C_UNK *, M2C_UNK *, s16);
     M2C_UNK (*var_v0_3)(M2C_UNK *, M2C_UNK *, s16);
-    M2C_UNK *var_a0_5;
-    M2C_UNK *var_a0_6;
-    M2C_UNK *var_a1;
-    M2C_UNK *var_a1_2;
+    u8 *var_a0_5;
+    u8 *var_a0_6;
+    u8 *var_a1;
+    u8 *var_a1_2;
     M2C_UNK *var_t9;
     s16 temp_t0;
     s16 temp_t0_2;
@@ -507,9 +507,9 @@ block_52:
                     gte_load_rotation5((s32 *)&D_800E5398);
                     gte_load_vector3((u16 *)&D_800E5378);
                     __asm__ volatile(".word 0x4A49E012");
-                    (*(s32 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
+                    (*(s16 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
                     (*(u16 *)((u8 *)(&D_800E5378)+(6))) = (u16) gte_mfc2_10();
-                    (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
+                    (*(s16 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
                     gte_load_vector3((u16 *)((u8 *)&D_800E5378 + 2));
                     __asm__ volatile(".word 0x4A49E012");
                     temp_a3 = &D_800E5378 + 2;
@@ -527,9 +527,9 @@ block_52:
                     gte_load_rotation5((s32 *)&D_800E5398);
                     gte_load_vector3((u16 *)&D_800E5378);
                     __asm__ volatile(".word 0x4A49E012");
-                    (*(s32 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
+                    (*(s16 *)((u8 *)(&D_800E5378)+(0))) = (s16) gte_mfc2_9();
                     (*(u16 *)((u8 *)(&D_800E5378)+(6))) = (u16) gte_mfc2_10();
-                    (*(s32 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
+                    (*(s16 *)((u8 *)(&D_800E5378)+(0xC))) = (s16) gte_mfc2_11();
                     gte_load_vector3((u16 *)((u8 *)&D_800E5378 + 2));
                     __asm__ volatile(".word 0x4A49E012");
                     temp_t8 = &D_800E5378 + 2;
@@ -551,7 +551,7 @@ block_52:
                         if (var_s3 != ((void *)0)) {
                             stack.spE0 = var_s1 + 0x10;
                             var_a2_2 = 4;
-                            var_v1 = var_s3 + 0x10;
+                            var_v1 = (s32 *)((u8 *)var_s3 + 0x10);
                             if ((s32) (*(u8 *)((u8 *)(var_s1)+(0))) > 4) {
                                 var_a0 = var_s1 + 0x20;
                                 do {
@@ -559,7 +559,7 @@ block_52:
                                     var_a0 += 4;
                                     var_a2_2 += 1;
                                     (*(s32 *)((u8 *)(var_v1)+(-0x10))) = temp_v0_10;
-                                    var_v1 += 4;
+                                    var_v1 = (s32 *)((u8 *)var_v1 + 4);
                                 } while (var_a2_2 < (s32) (*(u8 *)((u8 *)(var_s1)+(0))));
                             }
                             temp_v1_5 = (s32) (*(s16 *)((u8 *)(var_s1)+(8)));
@@ -766,7 +766,7 @@ loop_109:
                             }
                             temp_s0 = var_s3;
                             stack.spE0 = var_s3;
-                            var_s3 += 8;
+                            var_s3 = (s32 *)((u8 *)var_s3 + 8);
                             stack.spE4 += 8;
                             if (func_80068EE8(8) != ((void *)0)) {
                                 (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_2)+(3)));
@@ -1004,30 +1004,30 @@ block_173:
                             case 0xE0:
                                 temp_t0 = gte_mfc2_14();
                                 temp_t1 = temp_t0 >> 0x10;
-                                (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x1C))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1) << 0x10));
-                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1) << 0x10));
-                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0xC))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x1C))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x20))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x24))) + temp_t0) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1) << 0x10));
                                 break;
                             case 0xE8:
                                 temp_t0_2 = gte_mfc2_14();
                                 temp_t1_2 = temp_t0_2 >> 0x10;
-                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x1C))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1_2) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_2) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_2) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x1C))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x1E))) + temp_t1_2) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x20))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_2) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x24))) + temp_t0_2) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_2) << 0x10));
                                 break;
                             case 0xA4:
                                 temp_t0_3 = gte_mfc2_14();
                                 temp_t1_3 = temp_t0_3 >> 0x10;
-                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_3) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_3) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x28))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_3) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x10))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x20))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_3) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x18))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x24))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_3) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x28))) + temp_t0_3) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_3) << 0x10));
                                 break;
                             case 0xB4:
                                 temp_t0_4 = gte_mfc2_14();
                                 temp_t1_4 = temp_t0_4 >> 0x10;
-                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x20))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_4) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x24))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_4) << 0x10));
-                                (*(s32 *)((u8 *)(var_s3)+(0x2C))) = (s32) ((((s16) (*(void **)((u8 *)(var_s1_2)+(0x28))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_4) << 0x10));
+                                (*(void **)((u8 *)(var_s3)+(0x14))) = (void *) ((((*(s16 *)((u8 *)(var_s1_2)+(0x20))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x22))) + temp_t1_4) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x20))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x24))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x26))) + temp_t1_4) << 0x10));
+                                (*(s32 *)((u8 *)(var_s3)+(0x2C))) = (s32) ((((*(s16 *)((u8 *)(var_s1_2)+(0x28))) + temp_t0_4) & 0xFFFF) | (((*(s16 *)((u8 *)(var_s1_2)+(0x2A))) + temp_t1_4) << 0x10));
                                 break;
                             }
                             temp_t0_5 = gte_mfc2_14();
@@ -1211,7 +1211,7 @@ block_235:
                             }
                             temp_s0_2 = var_s3;
                             stack.spE0 = var_s3;
-                            var_s3 += 8;
+                            var_s3 = (s32 *)((u8 *)var_s3 + 8);
                             stack.spE4 += 8;
                             if (func_80068EE8(8) != ((void *)0)) {
                                 (*(u8 *)((u8 *)(var_s3)+(3))) = (u8) (*(u8 *)((u8 *)(var_s1_3)+(3)));
@@ -1352,10 +1352,10 @@ block_279:
                                             var_v1_2 = &stack.spE0[var_a2_5];
                                             do {
                                                 temp_v0_34 = *var_v1_2;
-                                                var_v1_2 -= 4;
+                                                var_v1_2 -= 1;
                                                 var_a2_5 -= 1;
                                                 *var_a0_4 = temp_v0_34;
-                                                var_a0_4 -= 4;
+                                                var_a0_4 -= 1;
                                             } while (var_a2_5 >= 0);
                                         }
                                         var_s3 = temp_v0_33 + (var_s3 - stack.spE0);
@@ -1505,10 +1505,10 @@ block_316:
                                             var_v1_3 = &stack.spE0[var_a2_8];
                                             do {
                                                 temp_v0_40 = *var_v1_3;
-                                                var_v1_3 -= 4;
+                                                var_v1_3 -= 1;
                                                 var_a2_8 -= 1;
                                                 *var_a0_7 = temp_v0_40;
-                                                var_a0_7 -= 4;
+                                                var_a0_7 -= 1;
                                             } while (var_a2_8 >= 0);
                                         }
                                         var_s3 = temp_v0_39 + (var_s3 - stack.spE0);
