@@ -1,58 +1,172 @@
-asm(".text\n\t.globl func_8008EFE0\nfunc_8008EFE0:\n\t"
-    ".word 0x27BDFFD8,0x00A03821,0x00C02821,0xAFBF0020\n\t"
-    ".word 0x10E00002,0xAFA00018,0xACE00000,0xAFA00010\n\t"
-    ".word 0x0C023B21,0x27A60018,0x10400003,0x00000000\n\t"
-    ".word 0x0C023AE7,0x24040001,0x8FA20018,0x8FBF0020\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0028,0xAFA40000\n\t"
-    ".word 0xAFA50004,0xAFA60008,0xAFA7000C,0x27BDFFD8\n\t"
-    ".word 0xAFB00018,0x00008021,0x27A8002C,0x2C820011\n\t"
-    ".word 0xAFBF0024,0xAFB20020,0xAFB1001C,0x104000BB\n\t"
-    ".word 0xAFA40028,0x3C02800C,0x24425060,0x00041880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x25080004,0x8D03FFFC,0x3C02800F\n\t"
-    ".word 0xAC43EDE4,0x8D030000,0x00000000,0x106000AB\n\t"
-    ".word 0x00008021,0x08023CD3,0xAC600000,0x25080004\n\t"
-    ".word 0x8D06FFFC,0x25080004,0x2403003A,0x8D07FFFC\n\t"
-    ".word 0x90C20003,0x8D040000,0x1443000F,0x00002821\n\t"
-    ".word 0x90C30000,0x24020073,0x1462000B,0x24020065\n\t"
-    ".word 0x90C30001,0x00000000,0x14620009,0x2402003A\n\t"
-    ".word 0x90C30002,0x24020072,0x14620003,0x00000000\n\t"
-    ".word 0x08023C4F,0xACE00000,0x90C30001,0x2402003A\n\t"
-    ".word 0x1462000B,0x00000000,0x90C30000,0x00000000\n\t"
-    ".word 0x2C620061,0x14400006,0x2C62007B,0x10400004\n\t"
-    ".word 0x00000000,0xACE00000,0x24050001,0x24100001\n\t"
-    ".word 0x10800083,0x02001021,0x08023CD4,0xAC850000\n\t"
-    ".word 0x24100003,0x0C023AE7,0x00002021,0x1440007C\n\t"
-    ".word 0x02001021,0x08023CD3,0x2410000B,0x08023CD3\n\t"
-    ".word 0x2410FFFF,0x25080008,0x8D04FFFC,0x8D050004\n\t"
-    ".word 0x0C023BF8,0x00003021,0x08023CD3,0x00408021\n\t"
-    ".word 0x25080008,0x8D04FFFC,0x8D050000,0x0C023BF8\n\t"
-    ".word 0x24060001,0x08023CD3,0x00408021,0x8D040000\n\t"
-    ".word 0x0C023B42,0x00002821,0x10400065,0x02001021\n\t"
-    ".word 0x0C023AE7,0x24040001,0x08023CD3,0x24100001\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x25080008,0x8D05FFFC\n\t"
-    ".word 0x25080004,0x3C078009,0x24E7EF5C,0x3C02800F\n\t"
-    ".word 0x8D06FFFC,0x8D030000,0x2451EDE4,0x0C023B56\n\t"
-    ".word 0xAE230004,0x00408021,0x16000051,0x02001021\n\t"
-    ".word 0x8E220004,0x00000000,0x1040004C,0x2404000B\n\t"
-    ".word 0x08023CBB,0x00002821,0x25080004,0x8D04FFFC\n\t"
-    ".word 0x25080008,0x8D12FFFC,0x25080004,0x00003821\n\t"
-    ".word 0x3C028009,0x8D06FFFC,0x8D030000,0x2442EF5C\n\t"
-    ".word 0xAFA20010,0x3C02800F,0x2451EDE4,0x02402821\n\t"
-    ".word 0x0C023B73,0xAE230008,0x00408021,0x16000038\n\t"
-    ".word 0x02001021,0x8E220008,0x00000000,0x10400033\n\t"
-    ".word 0x2404000C,0x08023CBB,0x02402821,0x25080004\n\t"
-    ".word 0x8D04FFFC,0x25080008,0x8D12FFFC,0x25080004\n\t"
-    ".word 0x00003821,0x3C028009,0x8D06FFFC,0x8D030000\n\t"
-    ".word 0x2442EF5C,0xAFA20010,0x3C02800F,0x2451EDE4\n\t"
-    ".word 0x02402821,0x0C023B98,0xAE23000C,0x00408021\n\t"
-    ".word 0x1600001F,0x02001021,0x8E22000C,0x00000000\n\t"
-    ".word 0x1040001A,0x2404000D,0x02402821,0x00003021\n\t"
-    ".word 0x0C023BD7,0x00003821,0x08023CD4,0x02001021\n\t"
-    ".word 0x8D040004,0x0C023AE7,0x00000000,0x08023CD3\n\t"
-    ".word 0x00408021,0x0C023B03,0x00000000,0x3C02800F\n\t"
-    ".word 0x2442EDE4,0xAC400004,0xAC400008,0x08023CD3\n\t"
-    ".word 0xAC40000C,0x08023CD3,0x00008021,0x8D040000\n\t"
-    ".word 0x0C023BBD,0x00000000,0x00408021,0x02001021\n\t"
-    ".word 0x8FBF0024,0x8FB20020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct DevCtl {
+    int handle;
+    int read_cb;
+    int write_cb;
+    int seek_cb;
+} DevCtl;
+
+extern DevCtl D_800EEDE4;
+extern int func_8008EC84(int, int, int *, int *, int);
+extern int func_8008EB9C(int);
+extern void func_8008EC0C(void);
+extern int func_8008ED08(int, int);
+extern int func_8008ED58(int, int, int, void (*)(int, int, int, int));
+extern int func_8008EDCC(int, int, int, int, void (*)(int, int, int, int));
+extern int func_8008EE60(int, int, int, int, void (*)(int, int, int, int));
+extern int func_8008EEF4(int);
+extern void func_8008EF5C(int, int, int, int);
+
+int func_8008EFE0(int path, int *flag, int mode) {
+    int result = 0;
+
+    if (flag != 0) {
+        *flag = 0;
+    }
+    if (func_8008EC84(path, mode, &result, flag, 0)) {
+        func_8008EB9C(1);
+    }
+    return result;
+}
+
+int func_8008F02C(int op, ...) {
+    char *ap;
+    int ret = 0;
+
+    ap = (char *)&op + 4;
+    switch (op) {
+    case 0: {
+        int *out;
+
+        D_800EEDE4.handle = *(int *)((ap += 4) - 4);
+        out = *(int **)((ap += 4) - 4);
+        ret = 0;
+        if (out != 0) {
+            *out = 0;
+        }
+        break;
+    }
+    case 1: {
+        unsigned char *name = *(unsigned char **)((ap += 4) - 4);
+        int *p1 = *(int **)((ap += 4) - 4);
+        int *p2 = *(int **)((ap += 4) - 4);
+        int drive = 0;
+
+        if (name[3] == ':' && name[0] == 's' && name[1] == 'e' && name[2] == 'r') {
+            *p1 = 0;
+            ret = 1;
+        } else if (name[1] == ':' && name[0] >= 'a' && name[0] <= 'z') {
+            *p1 = 0;
+            drive = 1;
+            ret = 1;
+        }
+        if (p2 != 0) {
+            *p2 = drive;
+        }
+        break;
+    }
+    case 2:
+        ret = 3;
+        if (func_8008EB9C(0) == 0) {
+            ret = 11;
+        }
+        break;
+    case 3:
+        ret = -1;
+        break;
+    case 4:
+        ret = 1;
+        break;
+    case 5: {
+        int a, b;
+
+        ap += 4;
+        a = *(int *)((ap += 4) - 4);
+        ap += 4;
+        b = *(int *)((ap += 4) - 4);
+        ret = func_8008EFE0(a, (int *)b, 0);
+        break;
+    }
+    case 6: {
+        int a, b;
+
+        ap += 4;
+        a = *(int *)((ap += 4) - 4);
+        b = *(int *)((ap += 4) - 4);
+        ret = func_8008EFE0(a, (int *)b, 1);
+        break;
+    }
+    case 7:
+        if (func_8008ED08(*(int *)((ap += 4) - 4), 0) != 0) {
+            func_8008EB9C(1);
+            ret = 1;
+        }
+        break;
+    case 9: {
+        int h, buf, len;
+
+        h = *(int *)((ap += 4) - 4);
+        ap += 4;
+        buf = *(int *)((ap += 4) - 4);
+        len = *(int *)((ap += 4) - 4);
+        D_800EEDE4.read_cb = *(int *)((ap += 4) - 4);
+        ret = func_8008ED58(h, buf, len, func_8008EF5C);
+        if (ret == 0) {
+            if (D_800EEDE4.read_cb != 0) {
+                func_8008EF5C(11, 0, 0, 0);
+            }
+        }
+        return ret;
+    }
+    case 10: {
+        int h, buf, len;
+
+        h = *(int *)((ap += 4) - 4);
+        ap += 4;
+        buf = *(int *)((ap += 4) - 4);
+        len = *(int *)((ap += 4) - 4);
+        D_800EEDE4.write_cb = *(int *)((ap += 4) - 4);
+        ret = func_8008EDCC(h, buf, len, 0, func_8008EF5C);
+        if (ret == 0) {
+            if (D_800EEDE4.write_cb != 0) {
+                func_8008EF5C(12, buf, 0, 0);
+            }
+        }
+        return ret;
+    }
+    case 11: {
+        int h, buf, len;
+
+        h = *(int *)((ap += 4) - 4);
+        ap += 4;
+        buf = *(int *)((ap += 4) - 4);
+        len = *(int *)((ap += 4) - 4);
+        D_800EEDE4.seek_cb = *(int *)((ap += 4) - 4);
+        ret = func_8008EE60(h, buf, len, 0, func_8008EF5C);
+        if (ret == 0) {
+            if (D_800EEDE4.seek_cb != 0) {
+                func_8008EF5C(13, buf, 0, 0);
+            }
+        }
+        return ret;
+    }
+    case 12:
+        ap += 4;
+        ret = func_8008EB9C(*(int *)((ap += 4) - 4));
+        break;
+    case 13:
+        func_8008EC0C();
+        D_800EEDE4.read_cb = 0;
+        D_800EEDE4.write_cb = 0;
+        D_800EEDE4.seek_cb = 0;
+        break;
+    case 8:
+    case 14:
+    case 15:
+        ret = 0;
+        break;
+    case 16:
+        ret = func_8008EEF4(*(int *)((ap += 4) - 4));
+        break;
+    }
+    return ret;
+}

@@ -1,33 +1,95 @@
-asm(".text\n\t.globl func_8003CCE8\nfunc_8003CCE8:\n\t"
-    ".word 0x27BDFF00,0x00802821,0x27A40038,0xAFBF00FC\n\t"
-    ".word 0xAFBE00F8,0xAFB700F4,0xAFB600F0,0xAFB500EC\n\t"
-    ".word 0xAFB400E8,0xAFB300E4,0xAFB200E0,0xAFB100DC\n\t"
-    ".word 0x0C023681,0xAFB000D8,0x27A40038,0x3C05800C\n\t"
-    ".word 0x0C023655,0x24A5F090,0x27A40078,0x0C020909\n\t"
-    ".word 0x27A50038,0x8FB10084,0x0C01A3CD,0x02202021\n\t"
-    ".word 0x27A40078,0x00408021,0x02002821,0x0C020A15\n\t"
-    ".word 0x02203021,0x0C0209A8,0x27A40078,0x02004021\n\t"
-    ".word 0xAFB000D0,0xAFB000C0,0x8D080000,0x00000000\n\t"
-    ".word 0xAFA800D4,0x02004021,0x25020004,0xAFA200C0\n\t"
-    ".word 0x8D080004,0x00000000,0xAFA800C4,0x02004021\n\t"
-    ".word 0x25020008,0x8FA800C4,0xAFA200C0,0x00082040\n\t"
-    ".word 0x00882021,0x0C01A369,0x00042080,0xAFA200CC\n\t"
-    ".word 0x00404021,0xAFA800C8,0x8FA800C4,0x00000000\n\t"
-    ".word 0x11000034,0x0000F021,0x00404021,0x2517000B\n\t"
-    ".word 0x27A400C0,0x8FA600D4,0x0C00F2E0,0x27A50010\n\t"
-    ".word 0x00002821,0x8FB60018,0x8FA30030,0x8FA20034\n\t"
-    ".word 0x93B10010,0x93B20014,0x84660008,0x94540008\n\t"
-    ".word 0x9455000A,0x94700008,0x8467000A,0x9473000A\n\t"
-    ".word 0x0C023695,0x02C02021,0x02802021,0x8FA800C8\n\t"
-    ".word 0x02A02821,0x0C0236A4,0xA5020000,0x3210003F\n\t"
-    ".word 0xA6E2FFF7,0x24020002,0x00561023,0x00508004\n\t"
-    ".word 0x02118821,0x2631FFFF,0x02539021,0x2652FFFF\n\t"
-    ".word 0xA2F0FFF9,0xA2F3FFFA,0xA2F1FFFB,0xA2F3FFFC\n\t"
-    ".word 0xA2F0FFFD,0xA2F2FFFE,0xA2F1FFFF,0xA2F20000\n\t"
-    ".word 0x8FA800C8,0x27DE0001,0x2508000C,0xAFA800C8\n\t"
-    ".word 0x8FA800C4,0x00000000,0x03C8102B,0x1440FFD0\n\t"
-    ".word 0x26F7000C,0x8FA400D0,0x0C01A3E7,0x00000000\n\t"
-    ".word 0x8FA200CC,0x8FBF00FC,0x8FBE00F8,0x8FB700F4\n\t"
-    ".word 0x8FB600F0,0x8FB500EC,0x8FB400E8,0x8FB300E4\n\t"
-    ".word 0x8FB200E0,0x8FB100DC,0x8FB000D8,0x03E00008\n\t"
-    ".word 0x27BD0100\n");
+typedef struct { int pad[3]; int size; char rest[56]; } File;
+typedef struct { char pad[8]; unsigned short x; unsigned short y; } Img;
+typedef struct {
+    int w;
+    int h;
+    int mode;
+    int *data;
+    unsigned int size;
+    int clut_count;
+    int *clut;
+    int clut_size;
+    Img *image;
+    Img *clut_image;
+} Conv;
+typedef struct { short tpage; short clut; unsigned char u0; unsigned char v0; unsigned char u1; unsigned char v1; unsigned char u2; unsigned char v2; unsigned char u3; unsigned char v3; } TexQuad;
+extern char D_800BF090[];
+extern void func_8008DA04(char *, char *);
+extern void func_8008D954(char *, char *);
+extern void func_80082424(File *, char *);
+extern int *func_80068F34(int);
+extern void func_80068F9C(void *);
+extern int func_80082854(File *, void *, int);
+extern void func_800826A0(File *);
+extern void func_8003CB80(int **, Conv *, int);
+extern short func_8008DA54(int, int, int, int);
+extern short func_8008DA90(int, int);
+extern void *func_80068DA4(int);
+
+static inline int *load_file(File *file, char *path)
+{
+    int size;
+    int *buf;
+
+    func_80082424(file, path);
+    size = file->size;
+    buf = func_80068F34(size);
+    func_80082854(file, buf, size);
+    func_800826A0(file);
+    return buf;
+}
+
+static inline void build_path(char *path, char *name)
+{
+    func_8008DA04(path, name);
+    func_8008D954(path, D_800BF090);
+}
+
+static inline void set_quad(TexQuad *t, int mode, short tx, short ty, int cx, int cy,
+                            unsigned short u, int v, unsigned char w, unsigned char h)
+{
+    unsigned char u0, u1, v1;
+    t->tpage = func_8008DA54(mode, 0, tx, ty);
+    t->clut = func_8008DA90(cx, cy);
+    u0 = (u & 0x3F) << (2 - mode);
+    u1 = u0 + w - 1;
+    v1 = v + h - 1;
+    t->u0 = u0;
+    t->v0 = v;
+    t->u1 = u1;
+    t->v1 = v;
+    t->u2 = u0;
+    t->v2 = v1;
+    t->u3 = u1;
+    t->v3 = v1;
+}
+
+TexQuad *func_8003CCE8(char *name)
+{
+    Conv conv;
+    char path[64];
+    File file;
+    int *cursor;
+    unsigned int count;
+    TexQuad *out;
+    TexQuad *result;
+    int *base;
+    int magic;
+    unsigned int i;
+
+    build_path(path, name);
+    base = load_file(&file, path);
+    cursor = base;
+    magic = *cursor++;
+    count = *cursor++;
+    result = func_80068DA4(count * sizeof(TexQuad));
+    out = result;
+    for (i = 0; i < count; i++) {
+        func_8003CB80(&cursor, &conv, magic);
+        set_quad(out, conv.mode, conv.image->x, conv.image->y, conv.clut_image->x, conv.clut_image->y,
+                 conv.image->x, conv.image->y, conv.w, conv.h);
+        out++;
+    }
+    func_80068F9C(base);
+    return result;
+}

@@ -1,53 +1,176 @@
-asm(".text\n\t.globl func_8004ED14\nfunc_8004ED14:\n\t"
-    ".word 0x27BDFFA8,0xAFB10044,0x00808821,0xAFBF0050\n\t"
-    ".word 0xAFB3004C,0xAFB20048,0xAFB00040,0x8E220184\n\t"
-    ".word 0x00000000,0x2443FFFF,0x2C620006,0x104000BC\n\t"
-    ".word 0x26300184,0x3C02800C,0x2442F7A0,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x00002021,0x0C008E1C,0x24050015\n\t"
-    ".word 0x00402821,0x10A0001E,0x3C02800E,0x2413007F\n\t"
-    ".word 0x24523E68,0x90A20018,0x00000000,0x14530003\n\t"
-    ".word 0x00401821,0x08013B6E,0x00001821,0x00031100\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x00521821,0x8E220208,0x8C63000C,0x8C42000C\n\t"
-    ".word 0x00000000,0x10620005,0x00A02021,0x8CA20008\n\t"
-    ".word 0x00000000,0x14400006,0x00000000,0x0C008E1C\n\t"
-    ".word 0x24050015,0x00402821,0x14A0FFE6,0x00000000\n\t"
-    ".word 0xAE050004,0x8E2200A4,0x00000000,0x14400053\n\t"
-    ".word 0x24020004,0x10A00087,0x02202021,0x24A5000C\n\t"
-    ".word 0x00003021,0x0C013858,0x24070001,0x24020002\n\t"
-    ".word 0x08013C0D,0xAE020000,0x8E2200A4,0x00000000\n\t"
-    ".word 0x14400046,0x24020004,0x8E030004,0x00000000\n\t"
-    ".word 0x10600004,0x00001021,0x8C620008,0x00000000\n\t"
-    ".word 0x0002102B,0x1040003A,0x3C03800D,0x8E02000C\n\t"
-    ".word 0x8C632FE0,0x00000000,0x0062102A,0x14400070\n\t"
-    ".word 0x2462001E,0x8E050004,0xAE02000C,0x8CA2001C\n\t"
-    ".word 0x00000000,0x90420017,0x00000000,0x38420007\n\t"
-    ".word 0x10400067,0x26320008,0x02402021,0x24A5000C\n\t"
-    ".word 0x3C060024,0x34C61009,0x00003821,0x8E230000\n\t"
-    ".word 0x3C02800C,0xA440628C,0x27A20018,0xAFA20014\n\t"
-    ".word 0x0C006760,0xAFA30010,0x3042FFFF,0x14400058\n\t"
-    ".word 0x02402021,0x8E050004,0x0C012576,0x24A5000C\n\t"
-    ".word 0x8E2301F0,0x00000000,0x0062182A,0x14600050\n\t"
-    ".word 0x00000000,0x8E050004,0x0C01360E,0x02202021\n\t"
-    ".word 0x24020003,0x08013C0D,0xAE020000,0x8E2200A4\n\t"
-    ".word 0x00000000,0x1440000D,0x24020004,0x8E030004\n\t"
-    ".word 0x00000000,0x10600004,0x00001021,0x8C620008\n\t"
-    ".word 0x00000000,0x0002102B,0x1440003D,0x00000000\n\t"
-    ".word 0x24020001,0x08013C0D,0xAE020000,0x08013C0D\n\t"
-    ".word 0xAE020000,0x8E050004,0x00000000,0x10A00004\n\t"
-    ".word 0x00001021,0x8CA20008,0x00000000,0x0002102B\n\t"
-    ".word 0x10400018,0x00002021,0x8CA2001C,0x00000000\n\t"
-    ".word 0x90420017,0x00000000,0x38420007,0x14400008\n\t"
-    ".word 0x00001821,0x26240008,0x0C012576,0x24A5000C\n\t"
-    ".word 0x3C030012,0x3463C000,0x0062182A,0x38630001\n\t"
-    ".word 0x1460001F,0x00002021,0x08013BF6,0x00000000\n\t"
-    ".word 0x90A30018,0x8E220098,0x00000000,0x10620006\n\t"
-    ".word 0x00A02021,0x0C008E1C,0x24050015,0x00402821\n\t"
-    ".word 0x14A0FFF7,0x00000000,0x10A0000E,0x02202021\n\t"
-    ".word 0x24A5000C,0x00003021,0x0C013858,0x24070001\n\t"
-    ".word 0x24020005,0x08013C0D,0xAE020000,0x8E2200A4\n\t"
-    ".word 0x00000000,0x14400006,0x24020006,0x08013C0D\n\t"
-    ".word 0xAE020000,0x02202021,0x0C0138AB,0x24050006\n\t"
-    ".word 0x8FBF0050,0x8FB3004C,0x8FB20048,0x8FB10044\n\t"
-    ".word 0x8FB00040,0x03E00008,0x27BD0058\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0xC];
+    int team;
+    char pad10[0x114 - 0x10];
+} RuntimeObject;
+typedef struct {
+    char pad0[0x17];
+    unsigned char kind;
+} ObjectInfo;
+typedef struct {
+    char pad0[8];
+    int alive;
+    Vector position;
+    unsigned char waypoint;
+    char pad19[3];
+    ObjectInfo *info;
+} WorldObject;
+typedef struct {
+    int state;
+    WorldObject *object;
+    int pad8;
+    int time;
+} Capture;
+typedef struct {
+    char pad0[0xC];
+    int team;
+} Owner;
+typedef struct {
+    int id;
+    char pad04[4];
+    Vector position;
+    char pad14[0x98 - 0x14];
+    int home;
+    char pad9C[0xA4 - 0x9C];
+    void *active;
+    char padA8[0x184 - 0xA8];
+    Capture capture;
+    char pad194[0x1F0 - 0x194];
+    int range;
+    char pad1F4[0x208 - 0x1F4];
+    Owner *owner;
+} Tank;
+typedef struct {
+    char data[40];
+} Hit;
+extern RuntimeObject D_800E3E68[];
+extern int D_800D2FE0;
+extern short D_800C628C;
+extern WorldObject *func_80023870(WorldObject *, int);
+extern void func_8004E160(Tank *, Vector *, int, int);
+extern void func_8004E2AC(Tank *, int);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, Hit *);
+extern int func_800495D8(Vector *, Vector *);
+extern void func_8004D838(Tank *, WorldObject *);
+
+static inline int object_alive(WorldObject *obj) {
+    return obj != 0 && obj->alive != 0;
+}
+
+static inline RuntimeObject *waypoint_lookup(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int is_base(WorldObject *obj) {
+    return obj->info->kind == 7;
+}
+
+static inline int at_base(Tank *tank, WorldObject *obj) {
+    if (!is_base(obj)) {
+        return 0;
+    }
+    return func_800495D8(&tank->position, &obj->position) <= 0x12C000;
+}
+
+static inline WorldObject *find_home(Tank *tank) {
+    register WorldObject *obj asm("$5");
+    for (obj = func_80023870(0, 21); obj != 0; obj = func_80023870(obj, 21)) {
+        if (obj->waypoint == tank->home) {
+            return obj;
+        }
+    }
+    return obj;
+}
+
+void func_8004ED14(Tank *tank) {
+    Capture *cap = &tank->capture;
+    WorldObject *obj;
+    RuntimeObject *wp;
+    Hit hit;
+    int now;
+
+    switch (tank->capture.state) {
+    case 1:
+        for (obj = func_80023870(0, 21); obj != 0; obj = func_80023870(obj, 21)) {
+            wp = waypoint_lookup(obj->waypoint);
+            if (wp->team != tank->owner->team && obj->alive != 0) {
+                break;
+            }
+        }
+        cap->object = obj;
+        if (tank->active != 0) {
+            cap->state = 4;
+        } else if (obj != 0) {
+            func_8004E160(tank, &obj->position, 0, 1);
+            cap->state = 2;
+        } else {
+            func_8004E2AC(tank, 6);
+        }
+        break;
+    case 2:
+        if (tank->active != 0) {
+            cap->state = 4;
+            break;
+        }
+        if (!object_alive(cap->object)) {
+            cap->state = 1;
+            break;
+        }
+        if (cap->time > D_800D2FE0) {
+            break;
+        }
+        cap->time = D_800D2FE0 + 30;
+        obj = cap->object;
+        if (is_base(obj)) {
+            break;
+        }
+        D_800C628C = 0;
+        if (func_80019D80(&tank->position, &obj->position, 0x241009, 0, tank->id, &hit) != 0) {
+            break;
+        }
+        if (func_800495D8(&tank->position, &cap->object->position) > tank->range) {
+            break;
+        }
+        func_8004D838(tank, cap->object);
+        cap->state = 3;
+        break;
+    case 3:
+        if (tank->active == 0) {
+            if (!object_alive(cap->object)) {
+                cap->state = 1;
+            }
+        } else {
+            cap->state = 4;
+        }
+        break;
+    case 4:
+        obj = cap->object;
+        if (object_alive(obj) && at_base(tank, obj)) {
+            break;
+        }
+        obj = find_home(tank);
+        if (obj != 0) {
+            func_8004E160(tank, &obj->position, 0, 1);
+            cap->state = 5;
+        } else {
+            func_8004E2AC(tank, 6);
+        }
+        break;
+    case 5:
+        if (tank->active == 0) {
+            cap->state = 6;
+        }
+        break;
+    case 6:
+        func_8004E2AC(tank, 6);
+        break;
+    }
+}

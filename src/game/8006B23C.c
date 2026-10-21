@@ -1,56 +1,155 @@
-asm(".text\n\t.globl func_8006B23C\nfunc_8006B23C:\n\t"
-    ".word 0x27BDFF00,0xAFB000E0,0x00808021,0xAFBF00FC\n\t"
-    ".word 0xAFB600F8,0xAFB500F4,0xAFB400F0,0xAFB300EC\n\t"
-    ".word 0xAFB200E8,0xAFB100E4,0x8E020008,0x3C03800F\n\t"
-    ".word 0x90440007,0x2463E028,0x000410C0,0x00441021\n\t"
-    ".word 0x00021080,0x00441023,0x00021080,0x00431021\n\t"
-    ".word 0x3C03800A,0x24634D30,0x00042080,0x00832021\n\t"
-    ".word 0x94530006,0x94540004,0x90550010,0x24020001\n\t"
-    ".word 0xAC820000,0x8E040008,0x00A0B021,0x8C820060\n\t"
-    ".word 0x00000000,0x145000AE,0x00008821,0x27A50010\n\t"
-    ".word 0x27B20050,0x0C0149E1,0x02403021,0x00404021\n\t"
-    ".word 0x0228102A,0x10400014,0x02201821,0x02403021\n\t"
-    ".word 0x27A70010,0x27A500A0,0x27A40060,0x00C31021\n\t"
-    ".word 0x90420000,0x00000000,0x10400007,0x00000000\n\t"
-    ".word 0x8CE20000,0x26310001,0xAC820000,0xACA30000\n\t"
-    ".word 0x24A50004,0x24840004,0x24630001,0x0068102A\n\t"
-    ".word 0x1440FFF2,0x24E70004,0x1A200091,0x00000000\n\t"
-    ".word 0x9202001C,0x00000000,0x14400003,0xAE11000C\n\t"
-    ".word 0x24020001,0xA202001C,0x24120001,0x16320002\n\t"
-    ".word 0x00000000,0xAE000014,0x8E020010,0x00000000\n\t"
-    ".word 0x0051102A,0x14400002,0x00000000,0xAE000010\n\t"
-    ".word 0x8E030014,0x00000000,0x10720007,0x3C02800E\n\t"
-    ".word 0x10600038,0x24020002,0x1062001C,0x3C02800E\n\t"
-    ".word 0x0801AD5F,0x00000000,0x240B00A3,0x8C4AE30C\n\t"
-    ".word 0x00000000,0x014B0018,0x00001812,0x00004810\n\t"
-    ".word 0x00031B02,0x00094D00,0x00691825,0x8E020018\n\t"
-    ".word 0x00000000,0x00431021,0xAE020018,0x28421001\n\t"
-    ".word 0x14400067,0x2402FFFF,0x8E030010,0xAE000014\n\t"
-    ".word 0xAE000018,0x2463FFFF,0x14620061,0xAE030010\n\t"
-    ".word 0x02221021,0x0801AD5F,0xAE020010,0x240B00A3\n\t"
-    ".word 0x8C4AE30C,0x00000000,0x014B0018,0x00001812\n\t"
-    ".word 0x00004810,0x00031B02,0x00094D00,0x00691825\n\t"
-    ".word 0x8E020018,0x00000000,0x00431021,0xAE020018\n\t"
-    ".word 0x28421001,0x1440004E,0x00000000,0x8E020010\n\t"
-    ".word 0xAE000014,0xAE000018,0x24420001,0xAE020010\n\t"
-    ".word 0x0051102A,0x14400046,0x00000000,0x0801AD5F\n\t"
-    ".word 0xAE000010,0x32624000,0x1040002E,0x32820080\n\t"
-    ".word 0x8E020010,0x00000000,0x00021080,0x03A21021\n\t"
-    ".word 0x8C510060,0x0C008A05,0x00000000,0x00403021\n\t"
-    ".word 0x8E040008,0x0C014AA2,0x02202821,0x04400021\n\t"
-    ".word 0x32820080,0x8E040008,0x0C014B19,0x02202821\n\t"
-    ".word 0xAED20000,0x8E030008,0x3C02800B,0xAC40DED8\n\t"
-    ".word 0x0C008A05,0xAC6000AC,0x10400015,0x3C03800A\n\t"
-    ".word 0x24634EF4,0x00111040,0x00511021,0x00021080\n\t"
-    ".word 0x00511021,0x00021100,0x8E040008,0x00431021\n\t"
-    ".word 0x8C83000C,0x944400C8,0x8C62000C,0x00000000\n\t"
-    ".word 0x00441023,0xAC62000C,0x8E030008,0x00000000\n\t"
-    ".word 0x94620074,0x00000000,0x00441023,0xA4620074\n\t"
-    ".word 0x32820080,0x14400006,0x24020002,0x00151600\n\t"
-    ".word 0x00021603,0x2842FFE2,0x10400003,0x24020002\n\t"
-    ".word 0xAE020014,0xAE000018,0x32820020,0x14400006\n\t"
-    ".word 0x24020001,0x00151600,0x00021603,0x2842001F\n\t"
-    ".word 0x14400003,0x24020001,0xAE020014,0xAE000018\n\t"
-    ".word 0x8FBF00FC,0x8FB600F8,0x8FB500F4,0x8FB400F0\n\t"
-    ".word 0x8FB300EC,0x8FB200E8,0x8FB100E4,0x8FB000E0\n\t"
-    ".word 0x03E00008,0x27BD0100\n");
+typedef struct {
+    char pad0[0xC];
+    int money;
+} Account;
+
+typedef struct {
+    char pad0[7];
+    unsigned char player;
+    char pad8[4];
+    Account *account;
+    char pad10[0x60 - 0x10];
+    void *menu;
+    char pad64[0x74 - 0x64];
+    unsigned short credits;
+    char pad76[0xAC - 0x76];
+    int acc;
+} Owner;
+
+typedef struct {
+    char pad0[8];
+    Owner *owner;
+    int count;
+    int cursor;
+    unsigned int state;
+    int timer;
+    unsigned char ready;
+} Menu;
+
+typedef struct {
+    char pad0[4];
+    unsigned short pressed;
+    unsigned short held;
+    char pad8[8];
+    signed char stick;
+    char pad11[140 - 17];
+} Pad;
+
+typedef struct {
+    char pad0[200];
+    unsigned short cost;
+    char padCA[208 - 202];
+} VehicleInfo;
+
+extern Pad D_800EE028[];
+extern int D_800A4D30[];
+extern int D_800DE30C;
+extern int D_800ADED8;
+extern VehicleInfo D_800A4EF4[];
+extern int func_80052784(Owner *owner, int *items, unsigned char *usable);
+extern int func_80022814(void);
+extern int func_80052A88(Owner *owner, int id, int mode);
+extern void func_80052C64(Owner *owner, int id);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8006B23C(Menu *menu, int *done) {
+    int items[16];
+    unsigned char usable[16];
+    int ids[16];
+    int slots[16];
+    unsigned short held;
+    unsigned short pressed;
+    signed char stick;
+    int n;
+    int i;
+    int count;
+    int id;
+
+    held = D_800EE028[menu->owner->player].held;
+    pressed = D_800EE028[menu->owner->player].pressed;
+    stick = D_800EE028[menu->owner->player].stick;
+    D_800A4D30[menu->owner->player] = 1;
+    count = 0;
+    if (menu->owner->menu != menu) {
+        return;
+    }
+    n = func_80052784(menu->owner, items, usable);
+    for (i = 0; i < n; i++) {
+        if (usable[i] != 0) {
+            ids[count] = items[i];
+            slots[count] = i;
+            count++;
+        }
+    }
+    if (count <= 0) {
+        return;
+    }
+    menu->count = count;
+    if (menu->ready == 0) {
+        menu->ready = 1;
+    }
+    if (count == 1) {
+        menu->state = 0;
+    }
+    if (menu->cursor >= count) {
+        menu->cursor = 0;
+    }
+    switch (menu->state) {
+    case 1:
+        menu->timer += fixed_mul(D_800DE30C, 163);
+        if (menu->timer > 4096) {
+            menu->state = 0;
+            menu->timer = 0;
+            menu->cursor--;
+            if (menu->cursor == -1) {
+                menu->cursor = count - 1;
+            }
+        }
+        break;
+    case 2:
+        menu->timer += fixed_mul(D_800DE30C, 163);
+        if (menu->timer > 4096) {
+            menu->state = 0;
+            menu->timer = 0;
+            menu->cursor++;
+            if (menu->cursor >= count) {
+                menu->cursor = 0;
+            }
+        }
+        break;
+    case 0:
+        if (held & 0x4000) {
+            id = ids[menu->cursor];
+            if (func_80052A88(menu->owner, id, func_80022814()) >= 0) {
+                func_80052C64(menu->owner, id);
+                *done = 1;
+                D_800ADED8 = 0;
+                menu->owner->acc = 0;
+                if (func_80022814() != 0) {
+                    unsigned short cost = D_800A4EF4[id].cost;
+
+                    menu->owner->account->money -= cost;
+                    menu->owner->credits -= cost;
+                }
+            }
+        }
+        if ((pressed & 0x80) || stick < -30) {
+            menu->state = 2;
+            menu->timer = 0;
+        }
+        if ((pressed & 0x20) || stick >= 31) {
+            menu->state = 1;
+            menu->timer = 0;
+        }
+        break;
+    }
+}

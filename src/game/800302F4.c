@@ -1,26 +1,85 @@
-asm(".text\n\t.globl func_800302F4\nfunc_800302F4:\n\t"
-    ".word 0x27BDFFC8,0xAFB10024,0x00808821,0xAFB40030\n\t"
-    ".word 0x00A0A021,0xAFB20028,0x00009021,0xAFBF0034\n\t"
-    ".word 0xAFB3002C,0xAFB00020,0x8E220028,0x86230030\n\t"
-    ".word 0x02822023,0x00031B00,0x00602821,0x0064102A\n\t"
-    ".word 0x14400005,0xAE24003C,0x00051823,0x0083102A\n\t"
-    ".word 0x10400002,0x00000000,0xAE23003C,0x96240020\n\t"
-    ".word 0x0C022B58,0x00042102,0x8E28003C,0x00000000\n\t"
-    ".word 0x00480018,0x00003012,0x00003810,0x00063302\n\t"
-    ".word 0x00073D00,0x00C73025,0xAFA60010,0x96240020\n\t"
-    ".word 0x0C022B30,0x00042102,0x8E28003C,0x00000000\n\t"
-    ".word 0x00480018,0x00003012,0x00003810,0x00063302\n\t"
-    ".word 0x00073D00,0x00C73025,0xAFA60018,0xAFA00014\n\t"
-    ".word 0x8E30002C,0x00000000,0x12000029,0xAE340028\n\t"
-    ".word 0x3413FFFF,0x8E020034,0x02922021,0x1840001F\n\t"
-    ".word 0xAE040010,0x8E020018,0x8E230018,0x00821021\n\t"
-    ".word 0x0062182A,0x10600012,0x00000000,0x8E22001C\n\t"
-    ".word 0x00000000,0x0082102A,0x1040000D,0x00000000\n\t"
-    ".word 0x96020020,0x00000000,0x14530005,0x00000000\n\t"
-    ".word 0x0C00BFE6,0x02002021,0x0800C114,0x00000000\n\t"
-    ".word 0x0C00C07F,0x02002021,0x0800C114,0x00000000\n\t"
-    ".word 0x96020020,0x00000000,0x10530004,0x00000000\n\t"
-    ".word 0x0C006C25,0x00402021,0xA6130020,0x8E020018\n\t"
-    ".word 0x8E10000C,0x00000000,0x1600FFDA,0x02429021\n\t"
-    ".word 0x8FBF0034,0x8FB40030,0x8FB3002C,0x8FB20028\n\t"
-    ".word 0x8FB10024,0x8FB00020,0x03E00008,0x27BD0038\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct Segment Segment;
+struct Segment {
+    int pad[3];
+    Segment *next;
+    int offset;
+    int pad2;
+    int length;
+    int pad3;
+    unsigned short sound;
+    short pad4;
+    int pad5[4];
+    int hp;
+};
+typedef struct {
+    int pad[6];
+    int min;
+    int max;
+    unsigned short angle;
+    short pad2;
+    int pad3;
+    int pos;
+    Segment *segments;
+    short max_speed;
+    short pad4;
+    int pad5[2];
+    int speed;
+} Chain;
+int func_8008AD60(int);
+int func_8008ACC0(int);
+void func_8002FF98(Segment *);
+void func_800301FC(Segment *);
+void func_8001B094(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_800302F4(Chain *c, int pos) {
+    Vector step;
+    Segment *s;
+    int offset;
+    int at;
+    int limit;
+    int clamp;
+    int d;
+
+    offset = 0;
+    d = pos - c->pos;
+    limit = c->max_speed << 12;
+    clamp = limit;
+    c->speed = d;
+    if (d > limit) {
+        c->speed = limit;
+    } else if (d < -clamp) {
+        c->speed = -clamp;
+    }
+    step.x = fixed_mul(func_8008AD60(c->angle >> 4), c->speed);
+    step.z = fixed_mul(func_8008ACC0(c->angle >> 4), c->speed);
+    step.y = 0;
+    c->pos = pos;
+    for (s = c->segments; s != 0; s = s->next) {
+        at = pos + offset;
+        s->offset = at;
+        if (s->hp > 0) {
+            if (c->min < at + s->length && at < c->max) {
+                if (s->sound == 0xFFFF) {
+                    func_8002FF98(s);
+                } else {
+                    func_800301FC(s);
+                }
+            } else if (s->sound != 0xFFFF) {
+                func_8001B094(s->sound);
+                s->sound = 0xFFFF;
+            }
+        }
+        offset += s->length;
+    }
+}

@@ -1,43 +1,94 @@
-asm(".text\n\t.globl func_8004D510\nfunc_8004D510:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0xAFB00010\n\t"
-    ".word 0x24100001,0xAFBF001C,0xAFB20018,0x922200F0\n\t"
-    ".word 0x00000000,0x10400002,0x00002821,0x262500D8\n\t"
-    ".word 0x0C012576,0x26240008,0x8E2301F0,0x00409021\n\t"
-    ".word 0x0072182A,0x1460008E,0x00000000,0x0C021B21\n\t"
-    ".word 0x00000000,0x8E230200,0x30420FFF,0x0043102A\n\t"
-    ".word 0x10400089,0x02001021,0x8E300208,0x0C021B21\n\t"
-    ".word 0x261100B4,0x30420001,0x10400039,0x00000000\n\t"
-    ".word 0x8E0200B4,0x00000000,0x2443FFFF,0x2C620010\n\t"
-    ".word 0x1040001E,0x3C02800C,0x2442F520,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x08013588,0x24040002,0x08013588\n\t"
-    ".word 0x24040003,0x08013588,0x24040004,0x08013588\n\t"
-    ".word 0x24040009,0x3C02003E,0x34428000,0x0052102A\n\t"
-    ".word 0x14400008,0x00001821,0x08013585,0x2403000C\n\t"
-    ".word 0x3C02007D,0x0052102A,0x14400002,0x00001821\n\t"
-    ".word 0x2403000E,0x08013588,0x00602021,0x00002021\n\t"
-    ".word 0x8E220004,0x00000000,0x2443FFFF,0x2C620010\n\t"
-    ".word 0x1040004F,0x3C02800C,0x2442F560,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x3C02003E,0x34428000,0x0052102A\n\t"
-    ".word 0x14400041,0x00001821,0x080135DA,0x2403000C\n\t"
-    ".word 0x8E220004,0x00000000,0x2443FFFF,0x2C620010\n\t"
-    ".word 0x1040001E,0x3C02800C,0x2442F5A0,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x080135C0,0x24040002,0x080135C0\n\t"
-    ".word 0x24040003,0x080135C0,0x24040004,0x080135C0\n\t"
-    ".word 0x24040009,0x3C02003E,0x34428000,0x0052102A\n\t"
-    ".word 0x14400008,0x00001821,0x080135BD,0x2403000C\n\t"
-    ".word 0x3C02007D,0x0052102A,0x14400002,0x00001821\n\t"
-    ".word 0x2403000E,0x080135C0,0x00602021,0x00002021\n\t"
-    ".word 0x8E220000,0x00000000,0x2443FFFF,0x2C620010\n\t"
-    ".word 0x10400017,0x3C02800C,0x2442F5E0,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x080135DD,0x24020002,0x080135DD\n\t"
-    ".word 0x24020003,0x080135DD,0x24020004,0x080135DD\n\t"
-    ".word 0x24020009,0x3C02007D,0x0052102A,0x14400002\n\t"
-    ".word 0x00001821,0x2403000E,0x080135DD,0x00601021\n\t"
-    ".word 0x00001021,0x14800007,0x00808021,0x00408021\n\t"
-    ".word 0x16000005,0x02001021,0x080135E5,0x24100001\n\t"
-    ".word 0x00008021,0x02001021,0x8FBF001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0xB4];
+    int slots[2];
+} Owner;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0xD8 - 0x14];
+    Vector target;
+    char padE4[0xF0 - 0xE4];
+    unsigned char has_target;
+    char padF1[0x1F0 - 0xF1];
+    int range;
+    char pad1F4[0x200 - 0x1F4];
+    int chance;
+    char pad204[0x208 - 0x204];
+    Owner *owner;
+} Tank;
+extern int func_800495D8(Vector *, Vector *);
+extern unsigned int func_80086C84(void);
+
+static inline int slot_weapon(int slot, int dist) {
+    int weapon;
+
+    switch (slot) {
+    case 1:
+        return 2;
+    case 2:
+        return 3;
+    case 3:
+        return 4;
+    case 10:
+        return 9;
+    case 14:
+        weapon = 0;
+        if (dist <= 0x3E8000) {
+            weapon = 12;
+        }
+        return weapon;
+    case 16:
+        weapon = 0;
+        if (dist <= 0x7D0000) {
+            weapon = 14;
+        }
+        return weapon;
+    }
+    return 0;
+}
+
+static inline Vector *tank_target(Tank *tank) {
+    if (tank->has_target) {
+        return &tank->target;
+    }
+    return 0;
+}
+
+int func_8004D510(Tank *tank) {
+    int result = 1;
+    int dist;
+    unsigned int first;
+    int second;
+    int *slots;
+
+    dist = func_800495D8(&tank->position, tank_target(tank));
+    if (dist <= tank->range) {
+        if ((int)(func_80086C84() & 0xFFF) < tank->chance) {
+        slots = tank->owner->slots;
+        if (func_80086C84() & 1) {
+            first = slot_weapon(slots[0], dist);
+            second = slot_weapon(slots[1], dist);
+        } else {
+            first = slot_weapon(slots[1], dist);
+            second = slot_weapon(slots[0], dist);
+        }
+if (first == 0) {
+            result = second;
+            if (result == 0) {
+                result = 1;
+            }
+        } else {
+            result = first;
+        }
+
+        }
+    } else {
+        result = 0;
+    }
+    return result;
+}

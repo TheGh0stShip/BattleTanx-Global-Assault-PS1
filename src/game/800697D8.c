@@ -1,47 +1,147 @@
-asm(".text\n\t.globl func_800697D8\nfunc_800697D8:\n\t"
-    ".word 0x27BDFFD0,0x00805021,0x114000B2,0x00E05821\n\t"
-    ".word 0x8D420000,0x00000000,0x104000AE,0x3C03800D\n\t"
-    ".word 0x8D420008,0x00000000,0x84420022,0x8CA90000\n\t"
-    ".word 0x00023B00,0x8C622E04,0x01272021,0x00021300\n\t"
-    ".word 0x0082202A,0x14800014,0x24682E04,0x8CA40008\n\t"
-    ".word 0x8D020004,0x00871821,0x00021300,0x0062182A\n\t"
-    ".word 0x1460000E,0x00001021,0x8D020008,0x01271823\n\t"
-    ".word 0x00021300,0x0043102A,0x14400008,0x00001021\n\t"
-    ".word 0x8D02000C,0x00871823,0x00021300,0x0043102A\n\t"
-    ".word 0x10400002,0x24020001,0x00001021,0x1040008D\n\t"
-    ".word 0x3C04800D,0x24843034,0x8CCC0000,0x8CCD0004\n\t"
-    ".word 0x8CCE0008,0x8CCF000C,0xAFAC0000,0xAFAD0004\n\t"
-    ".word 0xAFAE0008,0xAFAF000C,0x8CCC0010,0x8CCD0014\n\t"
-    ".word 0x8CCE0018,0x8CCF001C,0xAFAC0010,0xAFAD0014\n\t"
-    ".word 0xAFAE0018,0xAFAF001C,0x8CA60000,0x8CA20004\n\t"
-    ".word 0x8CA50008,0x90830001,0x24840004,0xAFA20024\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00431023\n\t"
-    ".word 0x00021080,0x00442021,0xAFA60020,0xAFA50028\n\t"
-    ".word 0x8C820008,0x00000000,0x00C23023,0x04C00005\n\t"
-    ".word 0x24C20800,0x04410006,0x00000000,0x0801A64E\n\t"
-    ".word 0x00021023,0x24C2F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801A650,0x00021303,0x24020800,0x00461023\n\t"
-    ".word 0x00021303,0x00021023,0x8FA30024,0xAFA20014\n\t"
-    ".word 0x8C82000C,0x00000000,0x00621823,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x0801A662\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801A664,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0x8FA30028,0xAFA20018\n\t"
-    ".word 0x8C820010,0x00000000,0x00621823,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x0801A676\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801A678,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0x11400032,0xAFA2001C\n\t"
-    ".word 0x3C03800B,0x2463DD14,0x8C640010,0x8C62001C\n\t"
-    ".word 0x2487FFEC,0x2442FFEC,0xAC62001C,0x24020004\n\t"
-    ".word 0xAC670010,0xAC82FFEC,0xACEA0008,0x8C650014\n\t"
-    ".word 0x8C62001C,0x24A40020,0x2442FFE0,0xAC640014\n\t"
-    ".word 0xAC62001C,0xACE5000C,0x8FAC0000,0x8FAD0004\n\t"
-    ".word 0x8FAE0008,0x8FAF000C,0xACAC0000,0xACAD0004\n\t"
-    ".word 0xACAE0008,0xACAF000C,0x8FAC0010,0x8FAD0014\n\t"
-    ".word 0x8FAE0018,0x8FAF001C,0xACAC0010,0xACAD0014\n\t"
-    ".word 0xACAE0018,0xACAF001C,0x8D420000,0x8C660014\n\t"
-    ".word 0x8C450008,0x8C62001C,0x000528C0,0x00C52021\n\t"
-    ".word 0x00451023,0xAC640014,0xAC62001C,0xACE60004\n\t"
-    ".word 0xA0EB0010,0x8C62000C,0x00000000,0x24420001\n\t"
-    ".word 0xAC62000C,0x03E00008,0x27BD0030\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+} Rect;
+
+typedef struct {
+    char pad0[0x22];
+    short radius;
+} Bounds;
+
+typedef struct {
+    char pad0[8];
+    int count;
+} Mesh;
+
+typedef struct {
+    Mesh *mesh;
+    int pad4;
+    Bounds *bounds;
+} Model;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[0x9C - 0x14];
+} Camera;
+
+typedef struct {
+    char pad0;
+    unsigned char current;
+    char pad2[2];
+    Camera cams[1];
+} CameraSet;
+
+typedef struct {
+    int type;
+    void *verts;
+    Model *model;
+    Matrix *matrix;
+    unsigned char flags;
+} DrawNode;
+
+typedef struct {
+    char pad0[0xC];
+    int count;
+    char *nodes;
+    char *data;
+    int pad18;
+    int free;
+} DrawQueue;
+
+extern Rect D_800D2E04;
+extern CameraSet D_800D3034;
+extern DrawQueue D_800ADD14;
+
+static inline void *pool_push(int size) {
+    DrawQueue *pool = &D_800ADD14;
+
+    pool->nodes -= size;
+    pool->free -= size;
+    return pool->nodes;
+}
+
+static inline void *pool_alloc(int size) {
+    DrawQueue *pool = &D_800ADD14;
+    char *p = pool->data;
+
+    pool->data += size;
+    pool->free -= size;
+    return p;
+}
+
+static inline int in_bounds(Vector *pos, int radius) {
+    if (pos->x + radius < D_800D2E04.x0 << 12 || pos->z + radius < D_800D2E04.z0 << 12
+        || D_800D2E04.x1 << 12 < pos->x - radius || D_800D2E04.z1 << 12 < pos->z - radius) {
+        return 0;
+    }
+    return 1;
+}
+
+static inline int round_to_int(int value) {
+    if (value >= 0) {
+        value += 2048;
+        if (value >= 0) {
+            return value >> 12;
+        }
+        return -(-value >> 12);
+    }
+    if (value - 2048 >= 0) {
+        return (value - 2048) >> 12;
+    }
+    return -((2048 - value) >> 12);
+}
+
+void func_800697D8(Model *model, Vector *pos, Matrix *mat, unsigned char flags) {
+    Matrix local;
+    Vector p;
+    Camera *cam;
+    DrawNode *node;
+    Matrix *m;
+
+    if (model == 0 || model->mesh == 0) {
+        return;
+    }
+    if (!in_bounds(pos, model->bounds->radius << 12)) {
+        return;
+    }
+    local = *mat;
+    {
+        int x = pos->x;
+        int y = pos->y;
+        int z = pos->z;
+
+        p.x = x;
+        p.y = y;
+        p.z = z;
+    }
+    cam = &D_800D3034.cams[D_800D3034.current];
+    local.t[0] = round_to_int(p.x - cam->pos.x);
+    local.t[1] = round_to_int(p.y - cam->pos.y);
+    local.t[2] = round_to_int(p.z - cam->pos.z);
+    if (model == 0) {
+        return;
+    }
+    node = pool_push(sizeof(DrawNode));
+    node->type = 4;
+    node->model = model;
+    m = node->matrix = pool_alloc(sizeof(Matrix));
+    *m = local;
+    node->verts = pool_alloc(model->mesh->count * 8);
+    node->flags = flags;
+    D_800ADD14.count++;
+}

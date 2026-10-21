@@ -1,289 +1,350 @@
-asm(".text\n\t.globl func_80017EE4\nfunc_80017EE4:\n\t"
-    ".word 0x27BDFF68,0xAFB1007C,0x00808821,0x00A05821\n\t"
-    ".word 0xAFB40088,0x8FB400A8,0x00005021,0xAFB20080\n\t"
-    ".word 0x27B20010,0xAFB30084,0x00E09821,0xAFBF0094\n\t"
-    ".word 0xAFB60090,0xAFB5008C,0xAFB00078,0x8D630000\n\t"
-    ".word 0x8E220000,0x8D650004,0x8E240004,0x00624823\n\t"
-    ".word 0x00A44023,0xAFA90010,0x15200002,0xAE480004\n\t"
-    ".word 0x2D0A0001,0x1140001D,0x30C2FFFF,0x8E220000\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08005FDD\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E250004,0x00000000,0x04A00003\n\t"
-    ".word 0x00022403,0x08005FE7,0x00051303,0x00051023\n\t"
-    ".word 0x00021303,0x00021023,0x00022B80,0x00052C03\n\t"
-    ".word 0x0C005B5E,0x30C6FFFF,0x3042FFFF,0x14400434\n\t"
-    ".word 0x00001021,0x08006429,0x00000000,0x00021880\n\t"
-    ".word 0x00621821,0x000318C0,0x3C02800C,0x244262B0\n\t"
-    ".word 0x00628021,0x96030024,0x00000000,0x14600019\n\t"
-    ".word 0x0000B021,0x86020010,0x8E230000,0x86040012\n\t"
-    ".word 0x8E250004,0x24151000,0xAFA90028,0xAFA8002C\n\t"
-    ".word 0x00021380,0x00621823,0x00042380,0x00A42823\n\t"
-    ".word 0xAFA30018,0xAFA5001C,0x86050010,0x8D620000\n\t"
-    ".word 0x86030012,0x8D640004,0x00052B80,0x00451023\n\t"
-    ".word 0x00031B80,0x00832023,0xAFA20020,0x0800604D\n\t"
-    ".word 0xAFA40024,0x30684000,0x30693FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x30688000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00091040\n\t"
-    ".word 0x0002B103,0x246A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x0002A903,0x27A40030,0x86060010\n\t"
-    ".word 0x8E220000,0x86030012,0x8E250004,0x00063380\n\t"
-    ".word 0x00461023,0x00031B80,0x00A32823,0xAFA20030\n\t"
-    ".word 0xAFA50034,0x96050024,0x0C0059F4,0x27A60018\n\t"
-    ".word 0x02402021,0x96050024,0x0C0059F4,0x27A60028\n\t"
-    ".word 0x8FA20018,0x8FA40028,0x8FA3001C,0x8FA5002C\n\t"
-    ".word 0x00441021,0x00651821,0xAFA20020,0xAFA30024\n\t"
-    ".word 0x86020016,0x8FA40018,0x00021B80,0x0083102A\n\t"
-    ".word 0x10400165,0x00000000,0x8FA20020,0x00000000\n\t"
-    ".word 0x0043102A,0x144003D2,0x00001021,0x8602001A\n\t"
-    ".word 0x8FA5001C,0x00021B80,0x00A3102A,0x1040007C\n\t"
-    ".word 0x00000000,0x8FA20024,0x00000000,0x0043102A\n\t"
-    ".word 0x144003C7,0x00001021,0x8FA4002C,0x00000000\n\t"
-    ".word 0x14800002,0x00652823,0x24040002,0x3C028000\n\t"
-    ".word 0x00A21824,0x00821024,0x00624026,0x04A10002\n\t"
-    ".word 0x00A01821,0x00031823,0x04810002,0x00803021\n\t"
-    ".word 0x00063023,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20038,0xE85F0000,0x8FA40038,0x00000000\n\t"
-    ".word 0x2487FFF4,0x04E10023,0x00000000,0x00831804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A2003C\n\t"
-    ".word 0xE85F0000,0x8FA5003C,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x0800608E,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x080060A4,0x00831804\n\t"
-    ".word 0x00071023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x080060A6\n\t"
-    ".word 0x00602821,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00602821,0x11000002,0x00000000,0x00052823\n\t"
-    ".word 0x8FAC0028,0x00000000,0x01850018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x8FA30018,0x86020016,0x00641821,0x00021380\n\t"
-    ".word 0x0062102A,0x14400088,0x00000000,0x86020018\n\t"
-    ".word 0x00000000,0x00021380,0x0043102A,0x14400082\n\t"
-    ".word 0x00000000,0x8FAD0010,0x00000000,0x01A50018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x8E240000,0x8FAD0014,0x00822021\n\t"
-    ".word 0x01A50018,0x00006012,0x00001010,0x000C6302\n\t"
-    ".word 0x00021500,0x01826025,0x01802821,0x8E230004\n\t"
-    ".word 0x24020002,0xAE640000,0x00651821,0xAE630004\n\t"
-    ".word 0x00161823,0xAE830000,0x08006428,0x00151823\n\t"
-    ".word 0x8602001C,0x00000000,0x00021B80,0x0065102A\n\t"
-    ".word 0x10400061,0x00000000,0x8FA20024,0x00000000\n\t"
-    ".word 0x0062102A,0x14400346,0x00001021,0x8FA4002C\n\t"
-    ".word 0x00000000,0x14800002,0x00652823,0x24040002\n\t"
-    ".word 0x3C028000,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20040,0xE85F0000,0x8FA40040\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20044,0xE85F0000,0x8FA50044,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0800610F,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08006125\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08006127,0x00602821,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00602821,0x11000002,0x00000000\n\t"
-    ".word 0x00052823,0x8FAC0028,0x00000000,0x01850018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8FA30018,0x86020016,0x00641821\n\t"
-    ".word 0x00021380,0x0062102A,0x14400007,0x00000000\n\t"
-    ".word 0x86020018,0x00000000,0x00021380,0x0043102A\n\t"
-    ".word 0x104002C9,0x00000000,0x8FA40028,0x86020016\n\t"
-    ".word 0x8FA30018,0x00021380,0x14800002,0x00432823\n\t"
-    ".word 0x24040002,0x3C028000,0x00A21824,0x00821024\n\t"
-    ".word 0x00624026,0x04A10002,0x00A01821,0x00031823\n\t"
-    ".word 0x04810002,0x00803021,0x00063023,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20048,0xE85F0000\n\t"
-    ".word 0x8FA40048,0x00000000,0x2487FFF4,0x04E10023\n\t"
-    ".word 0x00000000,0x00831804,0x4886F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A2004C,0xE85F0000,0x8FA5004C\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x0800616C\n\t"
-    ".word 0x00461007,0x00021023,0x00461004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08006182,0x00831804,0x00071023,0x00461007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x08006184,0x00602821,0x00031B00\n\t"
-    ".word 0x0066001B,0x14C00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00602821,0x11000002\n\t"
-    ".word 0x00000000,0x00052823,0x8FAC002C,0x00000000\n\t"
-    ".word 0x01850018,0x00002012,0x00001010,0x00042302\n\t"
-    ".word 0x00021500,0x00822025,0x8FA3001C,0x8602001A\n\t"
-    ".word 0x00641821,0x00021380,0x0062102A,0x14400294\n\t"
-    ".word 0x00001021,0x8602001C,0x00000000,0x00021380\n\t"
-    ".word 0x0043102A,0x1440028E,0x00001021,0x8FAD0010\n\t"
-    ".word 0x00000000,0x01A50018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x8E240000\n\t"
-    ".word 0x8FAD0014,0x00822021,0x01A50018,0x00006012\n\t"
-    ".word 0x00001010,0x000C6302,0x00021500,0x01826025\n\t"
-    ".word 0x01802821,0x8E230004,0x24020004,0xAE640000\n\t"
-    ".word 0x00651821,0xAE630004,0x00151823,0xAE830000\n\t"
-    ".word 0x08006429,0xAE960004,0x86020018,0x00000000\n\t"
-    ".word 0x00021B80,0x0064102A,0x10400164,0x00000000\n\t"
-    ".word 0x8FA20020,0x00000000,0x0062102A,0x14400268\n\t"
-    ".word 0x00001021,0x8602001A,0x8FA5001C,0x00021B80\n\t"
-    ".word 0x00A3102A,0x1040007C,0x00000000,0x8FA20024\n\t"
-    ".word 0x00000000,0x0043102A,0x1440025D,0x00001021\n\t"
-    ".word 0x8FA4002C,0x00000000,0x14800002,0x00652823\n\t"
-    ".word 0x24040002,0x3C028000,0x00A21824,0x00821024\n\t"
-    ".word 0x00624026,0x04A10002,0x00A01821,0x00031823\n\t"
-    ".word 0x04810002,0x00803021,0x00063023,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20050,0xE85F0000\n\t"
-    ".word 0x8FA40050,0x00000000,0x2487FFF4,0x04E10023\n\t"
-    ".word 0x00000000,0x00831804,0x4886F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20054,0xE85F0000,0x8FA50054\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x080061F8\n\t"
-    ".word 0x00461007,0x00021023,0x00461004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800620E,0x00831804,0x00071023,0x00461007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x08006210,0x00602821,0x00031B00\n\t"
-    ".word 0x0066001B,0x14C00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00602821,0x11000002\n\t"
-    ".word 0x00000000,0x00052823,0x8FAC0028,0x00000000\n\t"
-    ".word 0x01850018,0x00002012,0x00001010,0x00042302\n\t"
-    ".word 0x00021500,0x00822025,0x8FA30018,0x86020016\n\t"
-    ".word 0x00641821,0x00021380,0x0062102A,0x14400088\n\t"
-    ".word 0x00000000,0x86020018,0x00000000,0x00021380\n\t"
-    ".word 0x0043102A,0x14400082,0x00000000,0x8FAD0010\n\t"
-    ".word 0x00000000,0x01A50018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x8E240000\n\t"
-    ".word 0x8FAD0014,0x00822021,0x01A50018,0x00006012\n\t"
-    ".word 0x00001010,0x000C6302,0x00021500,0x01826025\n\t"
-    ".word 0x01802821,0x8E230004,0x24020002,0xAE640000\n\t"
-    ".word 0x00651821,0xAE630004,0x00161823,0xAE830000\n\t"
-    ".word 0x08006428,0x00151823,0x8602001C,0x00000000\n\t"
-    ".word 0x00021B80,0x0065102A,0x10400061,0x00000000\n\t"
-    ".word 0x8FA20024,0x00000000,0x0062102A,0x144001DC\n\t"
-    ".word 0x00001021,0x8FA4002C,0x00000000,0x14800002\n\t"
-    ".word 0x00652823,0x24040002,0x3C028000,0x00A21824\n\t"
-    ".word 0x00821024,0x00624026,0x04A10002,0x00A01821\n\t"
-    ".word 0x00031823,0x04810002,0x00803021,0x00063023\n\t"
-    ".word 0x4883F000,0x00000000,0x00000000,0x27A20058\n\t"
-    ".word 0xE85F0000,0x8FA40058,0x00000000,0x2487FFF4\n\t"
-    ".word 0x04E10023,0x00000000,0x00831804,0x4886F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A2005C,0xE85F0000\n\t"
-    ".word 0x8FA5005C,0x00000000,0x00A42023,0x0480000F\n\t"
-    ".word 0x2402000C,0x00451023,0x04400003,0x00000000\n\t"
-    ".word 0x08006279,0x00461007,0x00021023,0x00461004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0800628F,0x00831804,0x00071023\n\t"
-    ".word 0x00461007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x08006291,0x00602821\n\t"
-    ".word 0x00031B00,0x0066001B,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00000000,0x00602821\n\t"
-    ".word 0x11000002,0x00000000,0x00052823,0x8FAC0028\n\t"
-    ".word 0x00000000,0x01850018,0x00002012,0x00001010\n\t"
-    ".word 0x00042302,0x00021500,0x00822025,0x8FA30018\n\t"
-    ".word 0x86020016,0x00641821,0x00021380,0x0062102A\n\t"
-    ".word 0x14400007,0x00000000,0x86020018,0x00000000\n\t"
-    ".word 0x00021380,0x0043102A,0x1040015F,0x00000000\n\t"
-    ".word 0x8FA40028,0x86020018,0x8FA30018,0x00021380\n\t"
-    ".word 0x14800002,0x00432823,0x24040002,0x3C028000\n\t"
-    ".word 0x00A21824,0x00821024,0x00624026,0x04A10002\n\t"
-    ".word 0x00A01821,0x00031823,0x04810002,0x00803021\n\t"
-    ".word 0x00063023,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20060,0xE85F0000,0x8FA40060,0x00000000\n\t"
-    ".word 0x2487FFF4,0x04E10023,0x00000000,0x00831804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A20064\n\t"
-    ".word 0xE85F0000,0x8FA50064,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x080062D6,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x080062EC,0x00831804\n\t"
-    ".word 0x00071023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x080062EE\n\t"
-    ".word 0x00602821,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00602821,0x11000002,0x00000000,0x00052823\n\t"
-    ".word 0x8FAC002C,0x00000000,0x01850018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x8FA3001C,0x8602001A,0x00641821,0x00021380\n\t"
-    ".word 0x0062102A,0x1440012A,0x00001021,0x8602001C\n\t"
-    ".word 0x00000000,0x00021380,0x0043102A,0x14400124\n\t"
-    ".word 0x00001021,0x8FAD0010,0x00000000,0x01A50018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x8E240000,0x8FAD0014,0x00822021\n\t"
-    ".word 0x01A50018,0x00006012,0x00001010,0x000C6302\n\t"
-    ".word 0x00021500,0x01826025,0x01802821,0x8E230004\n\t"
-    ".word 0x24020003,0xAE640000,0x00651821,0xAE630004\n\t"
-    ".word 0x00161823,0x08006428,0xAE950000,0x8602001A\n\t"
-    ".word 0x8FA5001C,0x00021B80,0x00A3102A,0x1040007C\n\t"
-    ".word 0x00000000,0x8FA20024,0x00000000,0x0043102A\n\t"
-    ".word 0x144000FF,0x00001021,0x8FA4002C,0x00000000\n\t"
-    ".word 0x14800002,0x00652823,0x24040002,0x3C028000\n\t"
-    ".word 0x00A21824,0x00821024,0x00624026,0x04A10002\n\t"
-    ".word 0x00A01821,0x00031823,0x04810002,0x00803021\n\t"
-    ".word 0x00063023,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20068,0xE85F0000,0x8FA40068,0x00000000\n\t"
-    ".word 0x2487FFF4,0x04E10023,0x00000000,0x00831804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A2006C\n\t"
-    ".word 0xE85F0000,0x8FA5006C,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x08006356,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0800636C,0x00831804\n\t"
-    ".word 0x00071023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800636E\n\t"
-    ".word 0x00602821,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00602821,0x11000002,0x00000000,0x00052823\n\t"
-    ".word 0x8FAC0028,0x00000000,0x01850018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x8FA30018,0x86020016,0x00641821,0x00021380\n\t"
-    ".word 0x0062102A,0x144000AA,0x00001021,0x86020018\n\t"
-    ".word 0x00000000,0x00021380,0x0043102A,0x144000A4\n\t"
-    ".word 0x00001021,0x8FAD0010,0x00000000,0x01A50018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x8E240000,0x8FAD0014,0x00822021\n\t"
-    ".word 0x01A50018,0x00006012,0x00001010,0x000C6302\n\t"
-    ".word 0x00021500,0x01826025,0x01802821,0x8E230004\n\t"
-    ".word 0x24020002,0xAE640000,0x00651821,0xAE630004\n\t"
-    ".word 0x00161823,0xAE830000,0x08006428,0x00151823\n\t"
-    ".word 0x8602001C,0x00000000,0x00021B80,0x0065102A\n\t"
-    ".word 0x1040007B,0x00000000,0x8FA20024,0x00000000\n\t"
-    ".word 0x0062102A,0x1440007E,0x00001021,0x8FA4002C\n\t"
-    ".word 0x00000000,0x14800002,0x00652823,0x24040002\n\t"
-    ".word 0x3C028000,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20070,0xE85F0000,0x8FA40070\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20074,0xE85F0000,0x8FA50074,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x080063D7,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x080063ED\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x080063EF,0x00602821,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00602821,0x11000002,0x00000000\n\t"
-    ".word 0x00052823,0x8FAC0028,0x00000000,0x01850018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8FA30018,0x86020016,0x00641821\n\t"
-    ".word 0x00021380,0x0062102A,0x14400029,0x00001021\n\t"
-    ".word 0x86020018,0x00000000,0x00021380,0x0043102A\n\t"
-    ".word 0x14400023,0x00001021,0x8FAD0010,0x00000000\n\t"
-    ".word 0x01A50018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x8E240000,0x8FAD0014\n\t"
-    ".word 0x00822021,0x01A50018,0x00006012,0x00001010\n\t"
-    ".word 0x000C6302,0x00021500,0x01826025,0x01802821\n\t"
-    ".word 0x8E230004,0x24020001,0xAE640000,0x00651821\n\t"
-    ".word 0xAE630004,0xAE960000,0x08006429,0xAE950004\n\t"
-    ".word 0x8E230000,0x8E240004,0x24020007,0xAE630000\n\t"
-    ".word 0x24031000,0xAE640004,0xAE800000,0xAE830004\n\t"
-    ".word 0x8FBF0094,0x8FB60090,0x8FB5008C,0x8FB40088\n\t"
-    ".word 0x8FB30084,0x8FB20080,0x8FB1007C,0x8FB00078\n\t"
-    ".word 0x03E00008,0x27BD0098\n\t"
-);
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Pos2;
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next[4];
+    short x;
+    short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short min_y;
+    short max_y;
+    short radius;
+    unsigned short angle;
+} Cell;
+extern Cell D_800C62B0[];
+extern int func_80016D78(int, int, unsigned short);
+void func_800167D0(Pos2 *, unsigned short, Pos2 *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    register int n_zeros asm("$4");
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        quotient = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = quotient / (d >> scale);
+            } else {
+                quotient = quotient / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = quotient / (d >> -excess);
+        }
+    } else {
+        quotient = n << 12;
+        quotient = quotient / d;
+    }
+    result = quotient;
+    if (negative) {
+        return -result;
+    }
+    return result;
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline int sine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+
+static inline void set_pos2(Pos2 *p, int x, int z) {
+    p->x = x;
+    p->z = z;
+}
+
+static inline void pos2_copy(Pos2 *r, Pos2 *a) {
+    r->x = a->x;
+    r->z = a->z;
+}
+
+static inline void pos2_sub(Pos2 *r, Pos2 *a, Pos2 *b) {
+    int x = a->x - b->x;
+    int z = a->z - b->z;
+
+    r->x = x;
+    r->z = z;
+}
+
+static inline int pos2_is_zero(Pos2 *v) {
+    return v->x == 0 && v->z == 0;
+}
+
+int func_80017EE4(Pos2 *a, Pos2 *b, unsigned short id, Pos2 *out, Pos2 *normal) {
+    Pos2 delta;
+    Pos2 p0;
+    Pos2 p1;
+    Pos2 d;
+    Pos2 tmp;
+    Cell *e;
+    int s;
+    int c;
+    int t;
+    int v;
+    int den;
+    int num;
+    int hx;
+    register int hm asm("$2");
+    int hz;
+    unsigned short angle;
+
+    pos2_sub(&delta, b, a);
+    if (pos2_is_zero(&delta)) {
+        if ((unsigned short)func_80016D78((short)(to_int(a->x) >> 2), (short)(to_int(a->z) >> 2), id)) {
+            goto inside;
+        }
+        return 0;
+    }
+    e = &D_800C62B0[id];
+    angle = e->angle;
+    if (angle == 0) {
+        s = 0;
+        c = 4096;
+        set_pos2(&p0, a->x - (e->x << 14), a->z - (e->z << 14));
+        pos2_copy(&d, &delta);
+        set_pos2(&p1, b->x - (e->x << 14), b->z - (e->z << 14));
+    } else {
+        s = sine_lookup(angle) >> 4;
+        c = cosine_lookup(angle) >> 4;
+        set_pos2(&tmp, a->x - (e->x << 14), a->z - (e->z << 14));
+        func_800167D0(&tmp, e->angle, &p0);
+        func_800167D0(&delta, e->angle, &d);
+        set_pos2(&p1, p0.x + d.x, p0.z + d.z);
+    }
+    if (p0.x < e->min_x << 14) {
+        if (p1.x < e->min_x << 14) {
+            return 0;
+        }
+        do {
+            if (p0.z < e->min_z << 14) {
+                if (p1.z < e->min_z << 14) {
+                    return 0;
+                }
+                num = (e->min_z << 14) - p0.z;
+                den = d.z;
+                if (den == 0) {
+                    den = 2;
+                }
+                t = fixed_div(num, den);
+                v = p0.x + fixed_mul(d.x, t);
+                if (v >= e->min_x << 14 && v <= e->max_x << 14) {
+                    hm = fixed_mul(delta.x, t);
+                    hx = a->x;
+                    hx += hm;
+                    hz = fixed_mul(delta.z, t);
+                    set_pos2(out, hx, a->z + hz);
+                    normal->x = -s;
+                    normal->z = -c;
+                    return 2;
+                }
+            } else if (p0.z > e->max_z << 14) {
+                if (p1.z > e->max_z << 14) {
+                    return 0;
+                }
+                num = (e->max_z << 14) - p0.z;
+                den = d.z;
+                if (den == 0) {
+                    den = 2;
+                }
+                t = fixed_div(num, den);
+                v = p0.x + fixed_mul(d.x, t);
+                if (v >= e->min_x << 14 && v <= e->max_x << 14) {
+                    goto hit_max_z;
+                }
+            }
+            num = (e->min_x << 14) - p0.x;
+            den = d.x;
+            if (den == 0) {
+                den = 2;
+            }
+        } while (0);
+        t = fixed_div(num, den);
+        v = p0.z + fixed_mul(d.z, t);
+        if (v < e->min_z << 14 || v > e->max_z << 14) {
+            return 0;
+        }
+        hm = fixed_mul(delta.x, t);
+        hx = a->x;
+        hx += hm;
+        hz = fixed_mul(delta.z, t);
+        set_pos2(out, hx, a->z + hz);
+        set_pos2(normal, -c, s);
+        return 4;
+    }
+    if (p0.x > e->max_x << 14) {
+        if (p1.x > e->max_x << 14) {
+            return 0;
+        }
+        if (p0.z < e->min_z << 14) {
+            if (p1.z < e->min_z << 14) {
+                return 0;
+            }
+            num = (e->min_z << 14) - p0.z;
+            den = d.z;
+            if (den == 0) {
+                den = 2;
+            }
+            t = fixed_div(num, den);
+            v = p0.x + fixed_mul(d.x, t);
+            if (v >= e->min_x << 14 && v <= e->max_x << 14) {
+                hm = fixed_mul(delta.x, t);
+                hx = a->x;
+                hx += hm;
+                hz = fixed_mul(delta.z, t);
+                set_pos2(out, hx, a->z + hz);
+                normal->x = -s;
+                normal->z = -c;
+                return 2;
+            }
+        } else if (p0.z > e->max_z << 14) {
+            if (p1.z > e->max_z << 14) {
+                return 0;
+            }
+            num = (e->max_z << 14) - p0.z;
+            den = d.z;
+            if (den == 0) {
+                den = 2;
+            }
+            t = fixed_div(num, den);
+            v = p0.x + fixed_mul(d.x, t);
+            if (v >= e->min_x << 14 && v <= e->max_x << 14) {
+                goto hit_max_z;
+            }
+        }
+        num = (e->max_x << 14) - p0.x;
+        den = d.x;
+        if (den == 0) {
+            den = 2;
+        }
+        t = fixed_div(num, den);
+        v = p0.z + fixed_mul(d.z, t);
+        if (v < e->min_z << 14 || v > e->max_z << 14) {
+            return 0;
+        }
+        hm = fixed_mul(delta.x, t);
+        hx = a->x;
+        hx += hm;
+        hz = fixed_mul(delta.z, t);
+        set_pos2(out, hx, a->z + hz);
+        set_pos2(normal, c, -s);
+        return 3;
+    }
+    do {
+        if (p0.z < e->min_z << 14) {
+            if (p1.z < e->min_z << 14) {
+                return 0;
+            }
+            num = (e->min_z << 14) - p0.z;
+            den = d.z;
+            if (den == 0) {
+                den = 2;
+            }
+            t = fixed_div(num, den);
+            v = p0.x + fixed_mul(d.x, t);
+            if (v < e->min_x << 14 || v > e->max_x << 14) {
+                return 0;
+            }
+            hm = fixed_mul(delta.x, t);
+            hx = a->x;
+            hx += hm;
+            hz = fixed_mul(delta.z, t);
+            set_pos2(out, hx, a->z + hz);
+            set_pos2(normal, -s, -c);
+            return 2;
+        }
+    } while (0);
+    if (p0.z > e->max_z << 14) {
+        if (p1.z > e->max_z << 14) {
+            return 0;
+        }
+        num = (e->max_z << 14) - p0.z;
+        den = d.z;
+        if (den == 0) {
+            den = 2;
+        }
+        t = fixed_div(num, den);
+        v = p0.x + fixed_mul(d.x, t);
+        if (v < e->min_x << 14 || v > e->max_x << 14) {
+            return 0;
+        }
+    hit_max_z:
+        hm = fixed_mul(delta.x, t);
+        hx = a->x;
+        hx += hm;
+        hz = fixed_mul(delta.z, t);
+        set_pos2(out, hx, a->z + hz);
+        set_pos2(normal, s, c);
+        return 1;
+    }
+inside:
+    set_pos2(out, a->x, a->z);
+    set_pos2(normal, 0, 4096);
+    return 7;
+}

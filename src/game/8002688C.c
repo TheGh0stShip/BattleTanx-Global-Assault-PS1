@@ -1,17 +1,63 @@
-asm(".text\n\t.globl func_8002688C\nfunc_8002688C:\n\t"
-    ".word 0x00803021,0x84c3003a,0x2402ffff,0x10620011\n\t"
-    ".word 0x24020007,0x3c05800c,0x8cc40034,0x8cc30028\n\t"
-    ".word 0x24a562b0,0xa0c20017,0xac83003c,0x94c30006\n\t"
-    ".word 0x3c040200,0x00031080,0x00431021,0x000210c0\n\t"
-    ".word 0x00451021,0x8c430000,0x34840040,0x08009a4d\n\t"
-    ".word 0x00641825,0x8cc40034,0x8cc30028,0x3c05800c\n\t"
-    ".word 0xa0c20017,0xac83003c,0x94c30006,0x24a562b0\n\t"
-    ".word 0x00031080,0x00431021,0x000210c0,0x00451021\n\t"
-    ".word 0xac400004,0x94c30006,0x00000000,0x00031080\n\t"
-    ".word 0x00431021,0x000210c0,0x00451021,0x8c430000\n\t"
-    ".word 0x00000000,0x34630040,0xac430000,0x94c30006\n\t"
-    ".word 0x00000000,0x00031080,0x00431021,0x000210c0\n\t"
-    ".word 0x00451021,0x8c430000,0x2404fffd,0x00641824\n\t"
-    ".word 0xac430000,0x94c30006,0x8cc40028,0x00031080\n\t"
-    ".word 0x00431021,0x8c830008,0x000210c0,0x9463000e\n\t"
-    ".word 0x00451021,0x03e00008,0xa4430020\n\t");
+typedef struct {
+    int flags;
+    int timer;
+    char pad08[0x20 - 8];
+    unsigned short frame;
+    char pad22[0x28 - 0x22];
+} Sprite;
+
+typedef struct {
+    char pad0[0xE];
+    unsigned short frame;
+} Anim;
+
+typedef struct {
+    char pad0[8];
+    Anim *anim;
+} Model;
+
+typedef struct {
+    char pad0[0x3C];
+    Model *model;
+} Instance;
+
+typedef struct {
+    char pad0[6];
+    unsigned short sprite;
+    char pad08[0x17 - 8];
+    unsigned char state;
+    char pad18[0x28 - 0x18];
+    Model *model;
+    char pad2C[0x34 - 0x2C];
+    Instance *instance;
+    char pad38[2];
+    short link;
+} Object;
+
+extern Sprite D_800C62B0[];
+
+static inline Sprite *sprite_get(int id) {
+    return &D_800C62B0[id];
+}
+
+void func_8002688C(Object *obj) {
+    register Sprite *sprites asm("$5");
+    register int state asm("$2");
+
+    if (obj->link != -1) {
+        state = 7;
+        sprites = D_800C62B0;
+        obj->state = state;
+        obj->instance->model = obj->model;
+        sprites[obj->sprite].flags |= 0x02000040;
+    } else {
+        state = 7;
+        sprites = D_800C62B0;
+        obj->state = state;
+        obj->instance->model = obj->model;
+        sprites[obj->sprite].timer = 0;
+        sprites[obj->sprite].flags |= 0x40;
+    }
+    sprites[obj->sprite].flags &= ~2;
+    sprites[obj->sprite].frame = obj->model->anim->frame;
+}

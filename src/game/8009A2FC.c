@@ -1,41 +1,95 @@
-asm(".text\n\t.globl func_8009A2FC\nfunc_8009A2FC:\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x3C03800B,0x94637708\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00A08821,0xAFBF0020\n\t"
-    ".word 0xAFB3001C,0xAFB20018,0xAFB00010,0x944501AE\n\t"
-    ".word 0x00809021,0xA44301A6,0x0C026A83,0x30B307FF\n\t"
-    ".word 0x12200039,0x2E220041,0x10400002,0x24100040\n\t"
-    ".word 0x02208021,0x1A00000A,0x00001821,0x3C04800B\n\t"
-    ".word 0x8C8476F0,0x96420000,0x26520002,0x24630002\n\t"
-    ".word 0xA48201A8,0x0070102A,0x1440FFFA,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C6376F0,0x00000000,0x946401AA\n\t"
-    ".word 0x00000000,0x3082FFCF,0x34420010,0x0C026A83\n\t"
-    ".word 0xA46201AA,0x3C02800B,0x8C4276F0,0x00000000\n\t"
-    ".word 0x944201AE,0x00000000,0x30420400,0x10400014\n\t"
-    ".word 0x00001821,0x24630001,0x2C620F01,0x14400008\n\t"
-    ".word 0x00000000,0x3C04800C,0x24845530,0x3C05800C\n\t"
-    ".word 0x0C0250EC,0x24A55550,0x08026903,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C4276F0,0x00000000,0x944201AE\n\t"
-    ".word 0x00000000,0x30420400,0x1440FFEF,0x24630001\n\t"
-    ".word 0x0C026A83,0x02308823,0x0C026A83,0x00000000\n\t"
-    ".word 0x1620FFC9,0x2E220041,0x3C02800B,0x8C4276F0\n\t"
-    ".word 0x00000000,0x944401AA,0x3265FFFF,0x3083FFCF\n\t"
-    ".word 0xA44301AA,0x944201AE,0x00000000,0x304207FF\n\t"
-    ".word 0x10450014,0x00001821,0x24630001,0x2C620F01\n\t"
-    ".word 0x14400008,0x00000000,0x3C04800C,0x24845530\n\t"
-    ".word 0x3C05800C,0x0C0250EC,0x24A55564,0x08026928\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C4276F0,0x00000000\n\t"
-    ".word 0x944201AE,0x00000000,0x304207FF,0x1445FFEF\n\t"
-    ".word 0x24630001,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n\t"
-    ".word 0x3C02800B,0x8C427740,0x27BDFFE8,0x14400003\n\t"
-    ".word 0xAFBF0010,0x0C026A83,0x00000000,0x3C04800B\n\t"
-    ".word 0x8C8476F0,0x00000000,0x948201AA,0x00000000\n\t"
-    ".word 0x3042FFCF,0xA48201AA,0x948201AA,0x00000000\n\t"
-    ".word 0x30420030,0x1040000A,0x00001821,0x24630001\n\t"
-    ".word 0x2C620F01,0x10400006,0x00000000,0x948201AA\n\t"
-    ".word 0x00000000,0x30420030,0x1440FFF9,0x24630001\n\t"
-    ".word 0x3C02800B,0x8C427728,0x00000000,0x10400008\n\t"
-    ".word 0x3C04F000,0x3C02800B,0x8C427728,0x00000000\n\t"
-    ".word 0x0040F809,0x00000000,0x0802695A,0x00000000\n\t"
-    ".word 0x34840009,0x0C025B9B,0x24050020,0x8FBF0010\n\t"
-    ".word 0x27BD0018,0x03E00008,0x00000000\n");
+typedef struct {
+    unsigned char pad[0x1A6];
+    volatile unsigned short trans_addr;
+    volatile unsigned short trans_fifo;
+    volatile unsigned short control;
+    volatile unsigned short trans_mode;
+    volatile unsigned short status;
+} SpuRegs;
+
+extern SpuRegs *D_800B76F0;
+extern unsigned short D_800B7708;
+extern int D_800B7740;
+extern void (*volatile D_800B7728)(void);
+extern char D_800C5530[];
+extern char D_800C5550[];
+extern char D_800C5564[];
+extern void func_8009AA0C(void);
+extern void func_800943B0(char *, ...);
+extern void func_80096E6C(int, int);
+
+void func_8009A2FC(unsigned short *addr_in, unsigned int size_in)
+{
+    unsigned int size = size_in;
+    unsigned short *addr = addr_in;
+    unsigned short status;
+    int n;
+    int i;
+    unsigned int wait;
+
+    status = D_800B76F0->status & 0x7FF;
+    D_800B76F0->trans_addr = D_800B7708;
+    func_8009AA0C();
+    while (size != 0) {
+        n = (size > 64) ? 64 : size;
+        i = 0;
+        if (n > 0) {
+            do {
+                D_800B76F0->trans_fifo = *addr++;
+                i += 2;
+            } while (i < n);
+        }
+        {
+            register unsigned short c asm("$4") = D_800B76F0->control;
+
+            D_800B76F0->control = (c & 0xFFCF) | 0x10;
+            __asm__ volatile("" : : "r"(c));
+        }
+        func_8009AA0C();
+        wait = 0;
+        while (D_800B76F0->status & 0x400) {
+            if (++wait > 3840) {
+                func_800943B0(D_800C5530, D_800C5550);
+                break;
+            }
+        }
+        func_8009AA0C();
+        func_8009AA0C();
+        size -= n;
+    }
+    {
+        register unsigned short c asm("$4") = D_800B76F0->control;
+        register unsigned short d asm("$3") = c & 0xFFCF;
+
+        D_800B76F0->control = d;
+    }
+    wait = 0;
+    while ((D_800B76F0->status & 0x7FF) != status) {
+        if (++wait > 3840) {
+            func_800943B0(D_800C5530, D_800C5564);
+            break;
+        }
+    }
+}
+
+void func_8009A4B4(void)
+{
+    unsigned int i;
+
+    if (D_800B7740 == 0) {
+        func_8009AA0C();
+    }
+    D_800B76F0->control &= 0xFFCF;
+    i = 0;
+    while (D_800B76F0->control & 0x30) {
+        if (++i > 3840) {
+            break;
+        }
+    }
+    __asm__ volatile("" : "=r"(i));
+    if (D_800B7728 != 0) {
+        D_800B7728();
+    } else {
+        func_80096E6C(0xF0000009, 32);
+    }
+}

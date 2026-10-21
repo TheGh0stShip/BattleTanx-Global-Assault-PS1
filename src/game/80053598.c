@@ -1,33 +1,69 @@
-asm(".text\n\t.globl func_80053598\nfunc_80053598:\n\t"
-    ".word 0x27BDFFF0,0x04800003,0x00005021,0x08014D6E\n\t"
-    ".word 0x00041303,0x00041023,0x00021303,0x00021023\n\t"
-    ".word 0x04A00003,0x00402021,0x08014D75,0x00052B03\n\t"
-    ".word 0x00051023,0x00021303,0x00022823,0x3C02800D\n\t"
-    ".word 0x90432FEC,0x00000000,0x10600064,0x00004021\n\t"
-    ".word 0x240D007F,0x3C02800E,0x244C3E68,0x00607021\n\t"
-    ".word 0x3C02800E,0x944B4654,0x84494654,0x3102FFFF\n\t"
-    ".word 0x144D0003,0x00401821,0x08014D8C,0x00001021\n\t"
-    ".word 0x00031100,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x004C1021,0x8C42005C,0x00000000\n\t"
-    ".word 0x8C420008,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x08014D97,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00403021,0x3102FFFF,0x144D0003\n\t"
-    ".word 0x00401821,0x08014DA3,0x00001021,0x00031100\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x004C1021,0x8C42005C,0x00000000,0x8C420010\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08014DAE\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00A21823,0x04610002,0x00603821,0x00073823\n\t"
-    ".word 0x00861023,0x04410002,0x00403021,0x00063023\n\t"
-    ".word 0x00E6102A,0x10400002,0x00000000,0x00C03821\n\t"
-    ".word 0x04610002,0x00000000,0x00031823,0x00C3102A\n\t"
-    ".word 0x10400003,0x00031040,0x00C01821,0x00031040\n\t"
-    ".word 0x00431021,0x04410002,0x3C035555,0x24420007\n\t"
-    ".word 0x34635556,0x000210C3,0x00E21021,0x00430018\n\t"
-    ".word 0x000217C3,0x00007810,0x01E21823,0x0123102B\n\t"
-    ".word 0x10400003,0x01633023,0x01201821,0x01633023\n\t"
-    ".word 0x00061C00,0x000A1400,0x0043102A,0x10400002\n\t"
-    ".word 0x00000000,0x00C05021,0x25080001,0x3102FFFF\n\t"
-    ".word 0x004E102B,0x1440FFA6,0x3102FFFF,0x000A1C00\n\t"
-    ".word 0x00031C03,0x1C600002,0x00601021,0x00001021\n\t"
-    ".word 0x03E00008,0x27BD0010\n");
+typedef struct {
+    char pad0[8];
+    int x;
+    char padC[4];
+    int z;
+} Body;
+typedef struct Waypoint {
+    char pad000[0x5C];
+    Body *body;
+    char pad060[0x114 - 0x60];
+} Waypoint;
+typedef struct {
+    char pad0[8];
+    unsigned char count;
+} Game;
+extern Waypoint D_800E3E68[];
+extern Game D_800D2FE4;
+extern unsigned short D_800E4654;
+extern int abs(int);
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+short func_80053598(int x, int z) {
+    short best = 0;
+    int frame_pad[3];
+    unsigned short i;
+    int hx;
+    int hz;
+    int px;
+    int pz;
+    unsigned int d;
+    short volume;
+
+    hx = to_int(x);
+    hz = to_int(z);
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        px = to_int(waypoint(i)->body->x);
+        pz = to_int(waypoint(i)->body->z);
+        {
+            int dz = hz - pz;
+            int dx = abs(hx - px);
+            int max = abs(dz);
+            int min;
+            if (max < dx) max = dx;
+            min = dx < abs(dz) ? dx : abs(dz);
+            d = (max + min * 3 / 8) / 3;
+        }
+        if (d > (short)D_800E4654) {
+            d = (short)D_800E4654;
+        }
+        volume = D_800E4654 - d;
+        if (volume > best) {
+            best = volume;
+        }
+    }
+    if (best > 0) {
+        return best;
+    }
+    return 0;
+}

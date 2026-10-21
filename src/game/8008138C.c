@@ -1,44 +1,69 @@
-asm(".text\n\t.globl func_8008138C\nfunc_8008138C:\n\t"
-    ".word 0x27BDFFD8,0xAFB3001C,0x00809821,0xAFB00010\n\t"
-    ".word 0x00A08021,0xAFB10014,0x00C08821,0xAFB20018\n\t"
-    ".word 0xAFBF0020,0x0C0206CA,0x00E09021,0x080204F6\n\t"
-    ".word 0x00000000,0x0C0206D7,0x00000000,0x14400095\n\t"
-    ".word 0x2402FFFF,0x0C02058F,0x00000000,0x3C02800B\n\t"
-    ".word 0x8C420D58,0x3C03800B,0x8C630D5C,0x24420001\n\t"
-    ".word 0x3042003F,0x1043FFF3,0x00000000,0x0C02513D\n\t"
-    ".word 0x00002021,0x3C04800B,0x24840C60,0x3C01800B\n\t"
-    ".word 0xAC220D60,0x90830001,0x24020001,0x10600014\n\t"
-    ".word 0xAC820008,0x3C03800B,0x8C630D58,0x3C02800B\n\t"
-    ".word 0x8C420D5C,0x00000000,0x1462001E,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C420D44,0x00000000,0x8C420000\n\t"
-    ".word 0x3C030100,0x00431024,0x14400016,0x00000000\n\t"
-    ".word 0x8C82000C,0x00000000,0x14400012,0x00000000\n\t"
-    ".word 0x3C03800B,0x8C630D38,0x3C040400,0x8C620000\n\t"
-    ".word 0x00000000,0x00441024,0x1040FFFC,0x00000000\n\t"
-    ".word 0x02002021,0x0260F809,0x02402821,0x3C04800B\n\t"
-    ".word 0x8C840D60,0x0C02513D,0x00000000,0x08020588\n\t"
-    ".word 0x00001021,0x3C058008,0x24A5163C,0x0C025114\n\t"
-    ".word 0x24040002,0x1220002A,0x00003021,0x3C08800F\n\t"
-    ".word 0x2508C4A8,0x02003821,0x02201021,0x04410002\n\t"
-    ".word 0x00000000,0x24420003,0x00021083,0x00C2102A\n\t"
-    ".word 0x1040000E,0x00062080,0x8CE50000,0x24E70004\n\t"
-    ".word 0x3C03800B,0x8C630D58,0x24C60001,0x00031040\n\t"
-    ".word 0x00431021,0x00021140,0x00481021,0x00822021\n\t"
-    ".word 0xAC850000,0x08020536,0x02201021,0x3C02800B\n\t"
-    ".word 0x8C420D58,0x3C03800B,0x8C630D58,0x00022040\n\t"
-    ".word 0x00822021,0x00042140,0x00031040,0x00431021\n\t"
-    ".word 0x00021140,0x3C03800F,0x2463C4A8,0x00431021\n\t"
-    ".word 0x3C01800F,0x00240821,0x08020564,0xAC22C4A0\n\t"
-    ".word 0x3C03800B,0x8C630D58,0x00000000,0x00031040\n\t"
-    ".word 0x00431021,0x00021140,0x3C01800F,0x00220821\n\t"
-    ".word 0xAC30C4A0,0x3C03800B,0x8C630D58,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021140,0x3C01800F\n\t"
-    ".word 0x00220821,0xAC32C4A4,0x3C03800B,0x8C630D58\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021140\n\t"
-    ".word 0x3C01800F,0x00220821,0xAC33C49C,0x3C02800B\n\t"
-    ".word 0x8C420D58,0x3C04800B,0x8C840D60,0x24420001\n\t"
-    ".word 0x3042003F,0x3C01800B,0x0C02513D,0xAC220D58\n\t"
-    ".word 0x0C02058F,0x00000000,0x3C02800B,0x8C420D58\n\t"
-    ".word 0x3C03800B,0x8C630D5C,0x00000000,0x00431023\n\t"
-    ".word 0x3042003F,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct {
+    void (*func)(void *, int);
+    void *param;
+    int arg;
+    unsigned long data[21];
+} GpuQueueEntry;
+
+typedef struct {
+    unsigned char pad0;
+    unsigned char sync_mode;
+    unsigned char pad2[6];
+    int pending;
+    void (*callback)(void);
+} GpuSyncState;
+
+extern GpuSyncState D_800B0C60;
+extern volatile unsigned long *D_800B0D38;
+extern volatile unsigned long *D_800B0D44;
+extern volatile int D_800B0D58;
+extern volatile int D_800B0D5C;
+extern int D_800B0D60;
+extern volatile GpuQueueEntry D_800EC49C[];
+
+extern void func_80081B28(void);
+extern int func_80081B5C(void);
+extern int func_8008163C(void);
+extern int func_800944F4(int);
+extern void func_80094450(int, void *);
+
+int func_8008138C(void (*func)(void *, int), unsigned long *param, int len, int arg)
+{
+    int i;
+    GpuSyncState *st;
+
+    func_80081B28();
+    while (((D_800B0D58 + 1) & 0x3F) == D_800B0D5C) {
+        if (func_80081B5C()) {
+            return -1;
+        }
+        func_8008163C();
+    }
+    D_800B0D60 = func_800944F4(0);
+    st = &D_800B0C60;
+    st->pending = 1;
+    if (st->sync_mode == 0
+        || (D_800B0D58 == D_800B0D5C && !(*D_800B0D44 & 0x01000000) && st->callback == 0)) {
+        while (!(*D_800B0D38 & 0x04000000)) {
+        }
+        func(param, arg);
+        func_800944F4(D_800B0D60);
+        return 0;
+    }
+    func_80094450(2, func_8008163C);
+    if (len != 0) {
+        for (i = 0; i < len / 4; i++) {
+            volatile unsigned long *dst = D_800EC49C[D_800B0D58].data;
+            dst[i] = param[i];
+        }
+        D_800EC49C[D_800B0D58].param = D_800EC49C[D_800B0D58].data;
+    } else {
+        D_800EC49C[D_800B0D58].param = param;
+    }
+    D_800EC49C[D_800B0D58].arg = arg;
+    D_800EC49C[D_800B0D58].func = func;
+    D_800B0D58 = (D_800B0D58 + 1) & 0x3F;
+    func_800944F4(D_800B0D60);
+    func_8008163C();
+    return (D_800B0D58 - D_800B0D5C) & 0x3F;
+}

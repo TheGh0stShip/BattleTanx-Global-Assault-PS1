@@ -1,55 +1,187 @@
-asm(".text\n\t.globl func_80046A84\nfunc_80046A84:\n\t"
-    ".word 0x27BDFF50,0xAFBF00AC,0xAFB400A8,0xAFB300A4\n\t"
-    ".word 0xAFB200A0,0xAFB1009C,0xAFB00098,0x8C910008\n\t"
-    ".word 0x00000000,0x122000C3,0x3C02800D,0x8E230594\n\t"
-    ".word 0x8C422FE0,0x00000000,0x106200BE,0x00000000\n\t"
-    ".word 0x8E220208,0x00000000,0x905300A4,0x0C01E8F3\n\t"
-    ".word 0x2624052C,0x0C0119F1,0x02202021,0x96220068\n\t"
-    ".word 0x00000000,0xA7A20010,0x9622006A,0x26340308\n\t"
-    ".word 0xA7A20014,0x8E2200A4,0x00000000,0x10400048\n\t"
-    ".word 0x263003E8,0x3C02800D,0x90433035,0x2402007F\n\t"
-    ".word 0x14620003,0x00602021,0x08011AD1,0x00001821\n\t"
-    ".word 0x00041100,0x00441021,0x00021080,0x00441021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00431821\n\t"
-    ".word 0x8E220208,0x00000000,0x10430035,0x3C050008\n\t"
-    ".word 0x8E220008,0x3C04800A,0xAFA20028,0x8E23009C\n\t"
-    ".word 0x24844EF4,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x00441021,0x8443000E\n\t"
-    ".word 0x8E22000C,0x34A52000,0x00431021,0x00451021\n\t"
-    ".word 0xAFA2002C,0x8E22009C,0x00000000,0x2443FFFF\n\t"
-    ".word 0x2C62000E,0x10400014,0x3C02800C,0x2442F258\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x8FA2002C,0x08011AFD\n\t"
-    ".word 0x3C030005,0x3C03FFFE,0x8FA2002C,0x08011AFD\n\t"
-    ".word 0x34632000,0x3C030001,0x8FA2002C,0x3463E000\n\t"
-    ".word 0x00431021,0xAFA2002C,0x27A50028,0x8E220010\n\t"
-    ".word 0x00003821,0xAFA20030,0x3C02800D,0x8C462FE0\n\t"
-    ".word 0x8E2400A4,0x00063240,0x0C00CDC3,0x30C6FE00\n\t"
-    ".word 0x8E230584,0x24020001,0x10620062,0x27B20038\n\t"
-    ".word 0x8E2B02BC,0x8E2C02C0,0x8E2D02C4,0x8E2E02C8\n\t"
-    ".word 0xAFAB0038,0xAFAC003C,0xAFAD0040,0xAFAE0044\n\t"
-    ".word 0x8E2B02CC,0x8E2C02D0,0x8E2D02D4,0x8E2E02D8\n\t"
-    ".word 0xAFAB0048,0xAFAC004C,0xAFAD0050,0xAFAE0054\n\t"
-    ".word 0x8E2202D0,0x00000000,0xAFA20018,0x8E2202D4\n\t"
-    ".word 0x02402021,0xAFA2001C,0x8E2202D8,0x262502DC\n\t"
-    ".word 0x0C02294F,0xAFA20020,0x8E020000,0x00000000\n\t"
-    ".word 0x10400005,0x27A50018,0x02002021,0x02403021\n\t"
-    ".word 0x0C01A867,0x326700FF,0x27B00018,0x02002021\n\t"
-    ".word 0x02202821,0x02003021,0xAFA00018,0xAFA0001C\n\t"
-    ".word 0x0C0103BA,0xAFA00020,0x27A50058,0x96310030\n\t"
-    ".word 0x24081000,0xACA80008,0xA4A00002,0xA4A00006\n\t"
-    ".word 0xA4A0000E,0xACA00014,0xACA00018,0xACA0001C\n\t"
-    ".word 0x32284000,0x32293FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x32288000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA4AA0004,0x000A5022,0xA4AA000C,0x262A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA4AA0000,0xA4AA0010,0x0C02294F,0x02402021\n\t"
-    ".word 0x02802021,0x02002821,0x02403021,0x0C01A867\n\t"
-    ".word 0x326700FF,0x8FBF00AC,0x8FB400A8,0x8FB300A4\n\t"
-    ".word 0x8FB200A0,0x8FB1009C,0x8FB00098,0x03E00008\n\t"
-    ".word 0x27BD00B0\n");
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVECTOR;
+typedef struct {
+    char pad0[0xE];
+    short height;
+    char pad10[0xD0 - 0x10];
+} VehicleInfo;
+typedef struct {
+    char pad0[0xA4];
+    unsigned char team;
+} Owner;
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[0x30 - 0x14];
+    unsigned short heading;
+    char pad32[0x68 - 0x32];
+    unsigned short pitch;
+    unsigned short roll;
+    char pad6C[0x9C - 0x6C];
+    int vehicle;
+    char padA0[4];
+    void *active;
+    char padA8[0x208 - 0xA8];
+    Owner *owner;
+    char pad20C[0x2BC - 0x20C];
+    MATRIX matrix;
+    MATRIX turret;
+    char pad2FC[0x308 - 0x2FC];
+    char hull_model[0x3E8 - 0x308];
+    int turret_model;
+    char pad3EC[0x52C - 0x3EC];
+    char sound[0x584 - 0x52C];
+    int hidden;
+    char pad588[0x594 - 0x588];
+    int frame;
+} Tank;
+typedef struct {
+    char pad0[8];
+    Tank *tank;
+} Holder;
+
+extern int D_800D2FE0;
+extern unsigned char D_800D3035;
+typedef struct {
+    char pad0[0x114];
+} Waypoint;
+extern Waypoint D_800E3E68[];
+extern VehicleInfo D_800A4EF4[];
+void func_8007A3CC(void *);
+void func_800467C4(Tank *);
+void func_8003370C(void *, Vector *, int, int);
+void func_8008A53C(MATRIX *, MATRIX *);
+void func_8006A19C(void *, Vector *, MATRIX *, int);
+void func_80040EE8(Vector *, Tank *, Vector *);
+
+static inline Owner *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return (Owner *)&D_800E3E68[index];
+}
+
+void func_80046A84(Holder *holder) {
+    register Tank *t asm("$17");
+    register int heading asm("$17");
+    register int one asm("$8");
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    register int value asm("$10");
+    register MATRIX *rot asm("$5");
+    SVECTOR angles;
+    Vector offset;
+    Vector at;
+    MATRIX m;
+    MATRIX turn;
+    MATRIX spare;
+    unsigned char team;
+    char *hull;
+    int *turret_model;
+
+    t = holder->tank;
+    if (t == 0 || t->frame == D_800D2FE0) {
+        return;
+    }
+    team = t->owner->team;
+    func_8007A3CC(t->sound);
+    func_800467C4(t);
+    angles.vx = t->pitch;
+    angles.vz = t->roll;
+    hull = t->hull_model;
+    turret_model = &t->turret_model;
+    if (t->active != 0) {
+        if (t->owner != waypoint_get(D_800D3035)) {
+            at.x = t->pos.x;
+            at.y = t->pos.y + D_800A4EF4[t->vehicle].height + 0x82000;
+            switch (t->vehicle) {
+            case 2:
+            case 14:
+                at.y += 0x50000;
+                break;
+            case 1:
+            case 5:
+            case 12:
+                at.y -= 0x1E000;
+                break;
+            case 10:
+                at.y += 0x1E000;
+                break;
+            }
+            at.z = t->pos.z;
+            func_8003370C(t->active, &at, (D_800D2FE0 << 9) & 0xFE00, 0);
+        }
+    }
+    if (t->hidden == 1) {
+        return;
+    }
+    m = t->matrix;
+    offset.x = t->matrix.t[0];
+    offset.y = t->matrix.t[1];
+    offset.z = t->matrix.t[2];
+    func_8008A53C(&m, &t->turret);
+    if (*turret_model != 0) {
+        func_8006A19C(turret_model, &offset, &m, team);
+    }
+    offset.x = 0;
+    offset.y = 0;
+    offset.z = 0;
+    func_80040EE8(&offset, t, &offset);
+    rot = &turn;
+    heading = t->heading;
+    __asm__ volatile("" : "+r"(rot));
+    one = 4096;
+    *(int *)&rot->m[1][1] = one;
+    rot->m[0][1] = 0;
+    rot->m[1][0] = 0;
+    rot->m[2][1] = 0;
+    rot->t[0] = 0;
+    rot->t[1] = 0;
+    rot->t[2] = 0;
+    __asm__ volatile("");
+    quadrant = heading & 0x4000;
+    __asm__ volatile("");
+    index = heading & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(heading));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    rot->m[0][2] = value;
+    __asm__ volatile("neg $10, $10" : "+r"(value));
+    rot->m[2][0] = value;
+    value = heading + 0x4000;
+    __asm__ volatile("" : "+r"(value));
+    quadrant = value & 0x4000;
+    __asm__ volatile("");
+    index = value & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(value));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    rot->m[0][0] = value;
+    rot->m[2][2] = value;
+    __asm__ volatile("");
+    func_8008A53C(&m, rot);
+    func_8006A19C(hull, &offset, &m, team);
+}

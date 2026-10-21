@@ -1,36 +1,76 @@
-asm(".text\n\t.globl func_80015F64\nfunc_80015F64:\n\t"
-    ".word 0x27BDFFA8,0xAFB7004C,0x0080B821,0x32E4FFFF\n\t"
-    ".word 0x3402FFFF,0xAFBF0054,0xAFBE0050,0xAFB60048\n\t"
-    ".word 0xAFB50044,0xAFB40040,0xAFB3003C,0xAFB20038\n\t"
-    ".word 0xAFB10034,0xAFB00030,0xA7A50010,0x1082006F\n\t"
-    ".word 0xA7A60012,0x00041080,0x00441021,0x000210C0\n\t"
-    ".word 0x3C03800C,0x246362B0,0x0043A021,0x3C03800C\n\t"
-    ".word 0x86820022,0x00000000,0x28420401,0x14400004\n\t"
-    ".word 0x24756290,0xA6850010,0x08005858,0xA6860012\n\t"
-    ".word 0x00008821,0x94626290,0x0080B021,0x00A22823\n\t"
-    ".word 0xA7A50018,0x96A40002,0x96830010,0x00C43023\n\t"
-    ".word 0x00621823,0x00031C00,0xA7A60020,0x96820012\n\t"
-    ".word 0x00031C03,0xAFA30028,0x00441023,0x00021400\n\t"
-    ".word 0x0002F403,0x3226FFFF,0x00069040,0x3C09800A\n\t"
-    ".word 0x2529435C,0x02491021,0x94450000,0x3C02800A\n\t"
-    ".word 0x24424364,0x02421021,0x8FA90028,0x94440000\n\t"
-    ".word 0x01251821,0x00034283,0x03C41021,0x97A90018\n\t"
-    ".word 0x00023A83,0x00091400,0x00021403,0x00451021\n\t"
-    ".word 0x97A90020,0x00029A83,0x00091400,0x00021403\n\t"
-    ".word 0x00441021,0x15130003,0x00028283,0x10F00028\n\t"
-    ".word 0x00000000,0x96A2000A,0x00000000,0x02220018\n\t"
-    ".word 0x00004812,0x96A30008,0x00E91021,0x00430018\n\t"
-    ".word 0x02C02021,0x8EA5000C,0x00004812,0x01281021\n\t"
-    ".word 0x3042FFFF,0x00021040,0x00A22821,0x0C00570B\n\t"
-    ".word 0x24A50002,0x96A2000A,0x00000000,0x02220018\n\t"
-    ".word 0x00004812,0x96A30008,0x02091021,0x00430018\n\t"
-    ".word 0x8EA4000C,0x00161880,0x00761821,0x000318C0\n\t"
-    ".word 0x00004812,0x01331021,0x3042FFFF,0x00021040\n\t"
-    ".word 0x00822021,0x3C02800C,0x244262B0,0x00621821\n\t"
-    ".word 0x94820002,0x00721821,0xA4620008,0xA4970002\n\t"
-    ".word 0x26310001,0x3222FFFF,0x2C420004,0x1440FFBA\n\t"
-    ".word 0x3226FFFF,0x97A90010,0x00000000,0xA6890010\n\t"
-    ".word 0x97A90012,0x00000000,0xA6890012,0x8FBF0054\n\t"
-    ".word 0x8FBE0050,0x8FB7004C,0x8FB60048,0x8FB50044\n\t"
-    ".word 0x8FB40040,0x8FB3003C,0x8FB20038,0x8FB10034\n\t"
-    ".word 0x8FB00030,0x03E00008,0x27BD0058\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    short y;
+    char pad16[0x22 - 0x16];
+    short radius;
+    char pad24[0x28 - 0x24];
+} Cell;
+typedef struct Grid {
+    unsigned short x0;
+    unsigned short z0;
+    short width;
+    short depth;
+    unsigned short cols;
+    unsigned short rows;
+    unsigned short *cells;
+} Grid;
+extern Cell D_800C62B0[];
+extern Grid D_800C6290;
+extern unsigned short D_800A435C[4];
+extern unsigned short D_800A4364[4];
+int func_80015C2C(unsigned short, unsigned short *, unsigned short);
+
+void func_80015F64(unsigned short id, short x, short z) {
+    Grid *g;
+    Cell *e;
+    short nx;
+    short nz;
+    short ox;
+    short oz;
+    unsigned short k;
+    int ncx;
+    int ncz;
+    int ocx;
+    int ocz;
+    unsigned short *cell;
+    unsigned short idx;
+    Cell *c;
+
+    if (id == 0xFFFF) {
+        return;
+    }
+    e = &D_800C62B0[id];
+    g = &D_800C6290;
+    if (e->radius > 1024) {
+        e->x = x;
+        e->z = z;
+        return;
+    }
+    nx = x - D_800C6290.x0;
+    nz = z - g->z0;
+    ox = e->x - D_800C6290.x0;
+    oz = e->z - g->z0;
+    for (k = 0; k < 4; k++) {
+        ocx = (ox + D_800A435C[k]) >> 10;
+        ocz = (oz + D_800A4364[k]) >> 10;
+        ncx = (nx + D_800A435C[k]) >> 10;
+        ncz = (nz + D_800A4364[k]) >> 10;
+        if (ocx != ncx || ocz != ncz) {
+            idx = ocz + k * g->rows;
+            idx = idx * g->cols + ocx;
+            func_80015C2C(id, g->cells + idx + 1, k);
+            idx = ncz + k * g->rows;
+            idx = idx * g->cols + ncx;
+            cell = g->cells + idx + 1;
+            c = &D_800C62B0[id];
+            c->next[k] = *cell;
+            *cell = id;
+        }
+    }
+    e->x = x;
+    e->z = z;
+}

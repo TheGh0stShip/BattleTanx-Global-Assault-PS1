@@ -1,52 +1,137 @@
-asm(".text\n\t.globl func_80039094\nfunc_80039094:\n\t"
-    ".word 0x27BDFFF8,0x00803821,0x00A05821,0x3C03800A\n\t"
-    ".word 0x24634EF4,0x240504CC,0x8CE8009C,0x8CE4020C\n\t"
-    ".word 0x00081040,0x00481021,0x00021080,0x00481021\n\t"
-    ".word 0x00021100,0x00431021,0x8C4A00AC,0x24032666\n\t"
-    ".word 0xACE301EC,0x00041FC2,0x00832021,0x00042043\n\t"
-    ".word 0xACE501F0,0xACE501F4,0xACE501F8,0xACE401FC\n\t"
-    ".word 0xACE50200,0x8C4E00B8,0x8D6F0000,0x00000000\n\t"
-    ".word 0x01CF0018,0x00002812,0x00006810,0x00052B02\n\t"
-    ".word 0x000D6D00,0x00AD2825,0x8CE20208,0x00000000\n\t"
-    ".word 0x8C440098,0x00000000,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x00A21824,0x00821024,0x00626026\n\t"
-    ".word 0x04A10002,0x00A01021,0x00021023,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4882F000,0x00000000\n\t"
-    ".word 0x00000000,0xEBBF0000,0x8FA40000,0x00000000\n\t"
-    ".word 0x2489FFF4,0x05210023,0x00021B00,0x00821804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A20004\n\t"
-    ".word 0xE85F0000,0x8FA50004,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x0800E472,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0800E487,0x00831804\n\t"
-    ".word 0x00091023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800E489\n\t"
-    ".word 0x00601021,0x0066001B,0x14C00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x00000000,0x00601021\n\t"
-    ".word 0x11800002,0x00000000,0x00021023,0xACE201EC\n\t"
-    ".word 0x8D6D0004,0x00000000,0x014D0018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x3C02800A,0x24424EF4,0x00081840,0x00681821\n\t"
-    ".word 0x00031880,0x00681821,0x00031900,0x00621821\n\t"
-    ".word 0x8C6F00BC,0x00000000,0x01E40018,0x00007012\n\t"
-    ".word 0x00001010,0x000E7302,0x00021500,0x01C27025\n\t"
-    ".word 0xACEE01F0,0x8D6D0008,0x00000000,0x014D0018\n\t"
-    ".word 0x00001012,0x00002010,0x00021302,0x00042500\n\t"
-    ".word 0x00441025,0x8C6D00C0,0x00000000,0x01A20018\n\t"
-    ".word 0x00007012,0x00007810,0x000E7302,0x000F7D00\n\t"
-    ".word 0x01CF7025,0x8CE2020C,0xACEE01F4,0x8D64000C\n\t"
-    ".word 0x00021300,0xACE401F8,0x8D6F0010,0x00000000\n\t"
-    ".word 0x01E20018,0x00007012,0x00002010,0x000E7302\n\t"
-    ".word 0x00042500,0x01C47025,0x01C01021,0x8C6F00B4\n\t"
-    ".word 0x00000000,0x01E20018,0x00006812,0x00007010\n\t"
-    ".word 0x000D6B02,0x000E7500,0x01AE6825,0x01A01821\n\t"
-    ".word 0x04610004,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0xACE201FC,0x8CE20208,0x8D6B0014\n\t"
-    ".word 0x8C4E009C,0x00000000,0x01CB0018,0x00002012\n\t"
-    ".word 0x00006810,0x00042302,0x000D6D00,0x008D2025\n\t"
-    ".word 0x3C03800A,0x24634EF4,0x00081040,0x00481021\n\t"
-    ".word 0x00021080,0x00481021,0x00021100,0x00431021\n\t"
-    ".word 0x8C4E00C4,0x00000000,0x01C40018,0x00007812\n\t"
-    ".word 0x00006810,0x000F7B02,0x000D6D00,0x01ED7825\n\t"
-    ".word 0xACEF0200,0x03E00008,0x27BD0008\n");
+typedef struct {
+    char pad[0xAC];
+    int scale;
+    int fB0;
+    int hp_scale;
+    int speed;
+    int turn;
+    int accel;
+    int armor;
+    char pad2[0xD0 - 0xC8];
+} Vehicle;
+typedef struct { char pad[0x98]; int divisor; int factor; } Owner;
+typedef struct {
+    char pad0[0x9C];
+    int type;
+    char pad1[0x1EC - 0xA0];
+    int speed;
+    int turn;
+    int accel;
+    int f1F8;
+    int hp;
+    int armor;
+    char pad2[0x208 - 0x204];
+    Owner *owner;
+    int max_hp;
+} Tank;
+extern Vehicle D_800A4EF4[];
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    register int d_zeros asm("$5");
+    int excess;
+    int scale;
+    unsigned int quotient;
+    unsigned int m;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        m = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = m / (d >> scale);
+            } else {
+                quotient = m / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = m / (d >> -excess);
+        }
+    } else {
+        m = n << 12;
+        quotient = m / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int to_int(int v)
+{
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+void func_80039094(Tank *t, int *mods)
+{
+    int type;
+    int scale;
+    int num;
+    int den;
+    int k;
+
+    type = t->type;
+    scale = D_800A4EF4[type].scale;
+    t->speed = 9830;
+    t->turn = 1228;
+    t->accel = 1228;
+    t->f1F8 = 1228;
+    t->hp = t->max_hp / 2;
+    t->armor = 1228;
+    num = fixed_mul(D_800A4EF4[type].speed, mods[0]);
+    den = t->owner->divisor;
+    if (den == 0) {
+        den = 2;
+    }
+    t->speed = fixed_div(num, den);
+    k = fixed_mul(scale, mods[1]);
+    t->turn = fixed_mul(D_800A4EF4[type].turn, k);
+    t->accel = fixed_mul(D_800A4EF4[type].accel, fixed_mul(scale, mods[2]));
+    t->f1F8 = mods[3];
+    t->hp = to_int(fixed_mul(D_800A4EF4[type].hp_scale, fixed_mul(mods[4], t->max_hp << 12)));
+    k = fixed_mul(t->owner->factor, mods[5]);
+    t->armor = fixed_mul(D_800A4EF4[type].armor, k);
+}

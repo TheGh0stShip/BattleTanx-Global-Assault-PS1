@@ -1,33 +1,91 @@
-asm(".text\n\t.globl func_8009E328\nfunc_8009E328:\n\t"
-    ".word 0x3C02800F,0x2442FC3C,0x3C03800A,0x2463E3BC\n\t"
-    ".word 0xAC430000,0x3C03800A,0x2463E354,0xAC430004\n\t"
-    ".word 0xAC40FFFC,0x03E00008,0xAC400008,0x3C03800C\n\t"
-    ".word 0x8C638CD4,0x27BDFFE8,0xAFBF0010,0x8C620004\n\t"
-    ".word 0x00000000,0x30420001,0x1040000E,0x00001021\n\t"
-    ".word 0x8C620000,0x00000000,0x30420001,0x10400009\n\t"
-    ".word 0x00001021,0x3C02800C,0x8C428C9C,0x00000000\n\t"
-    ".word 0x10400003,0x00000000,0x0040F809,0x00000000\n\t"
-    ".word 0x24020001,0x8FBF0010,0x27BD0018,0x03E00008\n\t"
-    ".word 0x00000000,0x27BDFFE8,0x3C03800C,0x8C638CC4\n\t"
-    ".word 0x24020001,0xAFBF0010,0x3C01800C,0x10600009\n\t"
-    ".word 0xAC228CDC,0x3C04800F,0x2484FC48,0x8C830000\n\t"
-    ".word 0x00000000,0x28620096,0x10400002,0x24620001\n\t"
-    ".word 0xAC820000,0x3C02800C,0x8C428CC8,0x00000000\n\t"
-    ".word 0x14400009,0x00000000,0x3C04800F,0x2484FC4C\n\t"
-    ".word 0x8C830000,0x00000000,0x28620096,0x10400002\n\t"
-    ".word 0x24620001,0xAC820000,0x3C02800C,0x8C428CAC\n\t"
-    ".word 0x00000000,0x10400036,0x00000000,0x3C03800C\n\t"
-    ".word 0x8C638CC4,0x3C02800C,0x8C428CC8,0x00000000\n\t"
-    ".word 0x0043102A,0x1440002E,0x00032100,0x00832023\n\t"
-    ".word 0x3C02800C,0x8C428CA8,0x00042100,0x3C01800C\n\t"
-    ".word 0xAC208CB8,0x3C01800C,0xAC238CB4,0x0C02797D\n\t"
-    ".word 0x00442021,0x14400006,0x00000000,0x3C02800C\n\t"
-    ".word 0x8C428C74,0x00000000,0x0040F809,0x3404FFFF\n\t"
-    ".word 0x3C03800C,0x8C638CB4,0x3C02800C,0x8C428CC8\n\t"
-    ".word 0x3C01800C,0xAC208CBC,0x0043102A,0x14400010\n\t"
-    ".word 0x00000000,0x00032100,0x00832023,0x3C02800C\n\t"
-    ".word 0x8C428CA8,0x00042100,0x0C027A02,0x00442021\n\t"
-    ".word 0x3C03800C,0x8C638CB4,0x3C02800C,0x8C428CC8\n\t"
-    ".word 0x00000000,0x0043102A,0x1040FFF2,0x00000000\n\t"
-    ".word 0x3C03800C,0x8C638CD8,0x24020088,0xA462000E\n\t"
-    ".word 0x8FBF0010,0x00001021,0x03E00008,0x27BD0018\n");
+typedef struct PadPort {
+    unsigned char pad[0xF0];
+} PadPort;
+
+typedef struct {
+    int w0;
+    int (*handler)(void);
+    int (*check)(void);
+    int wC;
+    int count0;
+    int count1;
+} PadHook;
+
+typedef struct {
+    int w0;
+    int w4;
+} PadRegs;
+
+typedef struct {
+    unsigned char pad0[0x0E];
+    unsigned short h0E;
+} PadSys;
+
+extern PadHook D_800EFC38;
+extern PadRegs *D_800B8CD4;
+extern void (*D_800B8C9C)(void);
+extern void (*D_800B8C74)(int);
+extern int D_800B8CDC;
+extern int D_800B8CC4;
+extern int D_800B8CC8;
+extern int D_800B8CAC;
+extern int D_800B8CB4;
+extern int D_800B8CB8;
+extern int D_800B8CBC;
+extern PadPort *D_800B8CA8;
+extern PadSys *D_800B8CD8;
+extern int func_8009E5F4(PadPort *p);
+extern void func_8009E808(PadPort *p);
+int func_8009E3BC(void);
+int func_8009E354(void);
+
+void func_8009E328(void)
+{
+    D_800EFC38.handler = func_8009E3BC;
+    D_800EFC38.check = func_8009E354;
+    D_800EFC38.w0 = 0;
+    D_800EFC38.wC = 0;
+}
+
+int func_8009E354(void)
+{
+    if ((D_800B8CD4->w4 & 1) == 0) {
+        return 0;
+    }
+    if ((D_800B8CD4->w0 & 1) == 0) {
+        return 0;
+    }
+    if (D_800B8C9C) {
+        D_800B8C9C();
+    }
+    return 1;
+}
+
+int func_8009E3BC(void)
+{
+    int n;
+
+    D_800B8CDC = 1;
+    if (D_800B8CC4 && D_800EFC38.count0 < 150) {
+        D_800EFC38.count0++;
+    }
+    if (D_800B8CC8 == 0 && D_800EFC38.count1 < 150) {
+        D_800EFC38.count1++;
+    }
+    if (D_800B8CAC) {
+        n = D_800B8CC4;
+        if (n <= D_800B8CC8) {
+            D_800B8CB8 = 0;
+            D_800B8CB4 = n;
+            if (!func_8009E5F4(&D_800B8CA8[n])) {
+                D_800B8C74(0xFFFF);
+            }
+            D_800B8CBC = 0;
+            while (D_800B8CB4 <= D_800B8CC8) {
+                func_8009E808(&D_800B8CA8[D_800B8CB4]);
+            }
+            D_800B8CD8->h0E = 0x88;
+        }
+    }
+    return 0;
+}

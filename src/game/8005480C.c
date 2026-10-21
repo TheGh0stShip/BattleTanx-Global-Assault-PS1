@@ -1,24 +1,87 @@
-asm(".text\n\t.globl func_8005480C\nfunc_8005480C:\n\t"
-    ".word 0x27BDFF98,0xAFB10054,0x00808821,0xAFB20058\n\t"
-    ".word 0x00A09021,0xAFB3005C,0x00C09821,0x3C04800E\n\t"
-    ".word 0x322300FF,0x00031080,0x00431021,0x3C03800E\n\t"
-    ".word 0x8C844658,0x8C6346BC,0x00021080,0xAFBF0060\n\t"
-    ".word 0xAFB00050,0x1460003F,0x00828021,0x0C014CED\n\t"
-    ".word 0x30E400FF,0x304200FF,0xA6020012,0x00402021\n\t"
-    ".word 0x24020064,0x10820038,0x02403821,0x3C03800E\n\t"
-    ".word 0x2463465C,0x00041080,0x00431021,0xA0510003\n\t"
-    ".word 0x86030012,0x24020093,0xAFA20014,0x24020001\n\t"
-    ".word 0x00621004,0xAFA20010,0x8E020000,0x00000000\n\t"
-    ".word 0xAFA2002C,0x00131400,0x00022C03,0x10A0001C\n\t"
-    ".word 0x02403021,0x04A10002,0x00A01821,0x00031823\n\t"
-    ".word 0x24043FFF,0x00121400,0x00021403,0x00831823\n\t"
-    ".word 0x00620018,0x00001812,0x00000000,0x00000000\n\t"
-    ".word 0x0064001A,0x14800002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14810004,0x3C018000,0x14610002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x04A10003\n\t"
-    ".word 0x00000000,0x0801524B,0x00603021,0x00603821\n\t"
-    ".word 0x96020010,0x27A40010,0xA7A70018,0xA7A6001A\n\t"
-    ".word 0x0C0241E5,0xA7A20024,0x92020012,0x08015255\n\t"
-    ".word 0x00000000,0x24020064,0x8FBF0060,0x8FB3005C\n\t"
-    ".word 0x8FB20058,0x8FB10054,0x8FB00050,0x03E00008\n\t"
-    ".word 0x27BD0068\n");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int func_800533B4(unsigned char);
+extern void func_80090794(SpuVoiceAttr *);
+
+extern int abs(int);
+
+int func_8005480C(unsigned char id, int vol, int pn, unsigned char priority) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+    short left;
+    short right;
+    short pan;
+    short volume;
+
+    if (D_800E46BC == 0) {
+    voice = sound->voice = (unsigned char)func_800533B4(priority);
+    if (voice == 100) {
+        return 100;
+    }
+    D_800E465C[voice].sound = id;
+    attr.voice = 1 << sound->voice;
+    attr.mask = 147;
+    attr.addr = sound->addr;
+    volume = vol;
+    pan = pn;
+    left = volume;
+    right = volume;
+    if (pan != 0) {
+        int scaled = abs(pan);
+        int full = 0x3FFF;
+        int vol2 = volume;
+        scaled = (full - scaled) * vol2 / full;
+        if (pan < 0) {
+            right = scaled;
+        } else {
+            left = scaled;
+        }
+    }
+    attr.pitch = sound->pitch;
+    attr.volume.left = left;
+    attr.volume.right = right;
+    func_80090794(&attr);
+    return (unsigned char)sound->voice;
+    }
+    return 100;
+}

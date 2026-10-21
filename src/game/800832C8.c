@@ -1,41 +1,140 @@
-asm(".text\n\t.globl func_800832C8\nfunc_800832C8:\n\t"
-    ".word 0xAFA40000,0xAFA50004,0xAFA60008,0xAFA7000C\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x00008021,0x27A8001C\n\t"
-    ".word 0x2C820012,0xAFBF0014,0x1040008E,0xAFA40018\n\t"
-    ".word 0x3C02800C,0x24424D10,0x00041880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x8D050000,0x0C020909\n\t"
-    ".word 0x00000000,0x08020D4B,0x00408021,0x25080004\n\t"
-    ".word 0x8D04FFFC,0x8D050000,0x0C020969,0x00000000\n\t"
-    ".word 0x08020D4B,0x00408021,0x8D040000,0x0C0209A8\n\t"
-    ".word 0x00000000,0x08020D4B,0x00408021,0x8D040000\n\t"
-    ".word 0x0C0209CB,0x00000000,0x08020D4B,0x00408021\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x25080004,0x8D060000\n\t"
-    ".word 0x8D05FFFC,0x0C0209E6,0x00000000,0x08020D4B\n\t"
-    ".word 0x00408021,0x25080004,0x8D04FFFC,0x25080004\n\t"
-    ".word 0x8D060000,0x8D05FFFC,0x0C020A15,0x00000000\n\t"
-    ".word 0x08020D4B,0x00408021,0x25080004,0x8D04FFFC\n\t"
-    ".word 0x25080004,0x8D060000,0x8D05FFFC,0x0C020A61\n\t"
-    ".word 0x00000000,0x08020D4B,0x00408021,0x25080004\n\t"
-    ".word 0x8D04FFFC,0x25080004,0x8D05FFFC,0x25080004\n\t"
-    ".word 0x8D070000,0x8D06FFFC,0x0C020AFB,0x00000000\n\t"
-    ".word 0x08020D4B,0x00408021,0x25080004,0x8D04FFFC\n\t"
-    ".word 0x25080004,0x8D05FFFC,0x25080004,0x8D070000\n\t"
-    ".word 0x8D06FFFC,0x0C020B7D,0x00000000,0x08020D4B\n\t"
-    ".word 0x00408021,0x25080004,0x8D04FFFC,0x25080004\n\t"
-    ".word 0x8D05FFFC,0x25080004,0x8D070000,0x8D06FFFC\n\t"
-    ".word 0x0C020BF8,0x00000000,0x08020D4B,0x00408021\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x8D050000,0x0C020C53\n\t"
-    ".word 0x00000000,0x08020D4B,0x00408021,0x8D040000\n\t"
-    ".word 0x0C020C65,0x00000000,0x08020D4C,0x02001021\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x25080004,0x8D060000\n\t"
-    ".word 0x8D05FFFC,0x0C020AA8,0x00000000,0x08020D4B\n\t"
-    ".word 0x00408021,0x25080004,0x8D04FFFC,0x25080004\n\t"
-    ".word 0x8D060000,0x8D05FFFC,0x0C020AC8,0x00000000\n\t"
-    ".word 0x08020D4B,0x00408021,0x8D020000,0x00000000\n\t"
-    ".word 0x8C50000C,0x08020D4C,0x02001021,0x8D040000\n\t"
-    ".word 0x0C020C8F,0x00000000,0x08020D4B,0x00408021\n\t"
-    ".word 0x8D020000,0x00000000,0x8C500010,0x08020D4C\n\t"
-    ".word 0x02001021,0x8D040000,0x0C020C43,0x00000000\n\t"
-    ".word 0x00408021,0x02001021,0x8FBF0014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0018\n");
+typedef struct Info {
+    char pad00[0xC];
+    int count;
+    int size;
+} Info;
+
+extern int func_80082424(int, int);
+extern int func_800825A4(int, int);
+extern int func_800826A0(int);
+extern int func_8008272C(int);
+extern int func_80082798(int, int, int);
+extern int func_80082854(int, int, int);
+extern int func_80082984(int, int, int);
+extern int func_80082BEC(int, int, int, int);
+extern int func_80082DF4(int, int, int, int);
+extern int func_80082FE0(int, int, int, int);
+extern int func_8008314C(int, int);
+extern void func_80083194(int);
+extern int func_80082AA0(int, int, int);
+extern int func_80082B20(int, int, int);
+extern int func_8008323C(int);
+extern int func_8008310C(int);
+
+int func_800832C8(int cmd, ...) {
+    int result = 0;
+    char *ap = (char *)&cmd + 4;
+
+    switch ((unsigned int)cmd) {
+    case 0:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            result = func_80082424(a, b);
+        }
+        break;
+    case 1:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            result = func_800825A4(a, b);
+        }
+        break;
+    case 2:
+        result = func_800826A0(*(int *)ap);
+        break;
+    case 3:
+        result = func_8008272C(*(int *)ap);
+        break;
+    case 4:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            result = func_80082798(a, b, c);
+        }
+        break;
+    case 5:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            result = func_80082854(a, b, c);
+        }
+        break;
+    case 6:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            result = func_80082984(a, b, c);
+        }
+        break;
+    case 7:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            int d = (ap += 4, *(int *)(ap - 4));
+            result = func_80082BEC(a, b, c, d);
+        }
+        break;
+    case 8:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            int d = (ap += 4, *(int *)(ap - 4));
+            result = func_80082DF4(a, b, c, d);
+        }
+        break;
+    case 9:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            int d = (ap += 4, *(int *)(ap - 4));
+            result = func_80082FE0(a, b, c, d);
+        }
+        break;
+    case 10:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            result = func_8008314C(a, b);
+        }
+        break;
+    case 11:
+        func_80083194(*(int *)ap);
+        break;
+    case 12:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            result = func_80082AA0(a, b, c);
+        }
+        break;
+    case 13:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int c = (ap += 4, *(int *)(ap - 4));
+            result = func_80082B20(a, b, c);
+        }
+        break;
+    case 14:
+        result = (*(Info **)ap)->count;
+        break;
+    case 15:
+        result = func_8008323C(*(int *)ap);
+        break;
+    case 16:
+        result = (*(Info **)ap)->size;
+        break;
+    case 17:
+        result = func_8008310C(*(int *)ap);
+        break;
+    }
+    return result;
+}

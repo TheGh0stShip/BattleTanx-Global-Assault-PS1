@@ -1,19 +1,79 @@
-asm(".text\n\t.globl func_80015808\nfunc_80015808:\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00A08021,0xAFBF0018\n\t"
-    ".word 0xAFB10014,0x96020004,0x00808821,0x00021023\n\t"
-    ".word 0x24081000,0xA6280010,0xA6200004,0xA620000A\n\t"
-    ".word 0xAE20000C,0xAE200014,0xAE200018,0xAE20001C\n\t"
-    ".word 0x30484000,0x30493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x30488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA62A0006,0x000A5022,0xA62A0002,0x244A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA62A0000,0xA62A0008,0x96050002,0x00000000\n\t"
-    ".word 0x00052823,0x0C02292E,0x30A5FFFF,0x96050000\n\t"
-    ".word 0x02202021,0x00052823,0x0C022923,0x30A5FFFF\n\t"
-    ".word 0x0C005649,0x02202021,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    unsigned short vx;
+    unsigned short vy;
+    unsigned short vz;
+} Angles;
+void func_8008A4B8(MATRIX *, int);
+void func_8008A48C(MATRIX *, int);
+void func_80015924(MATRIX *);
+
+static inline int table_sine_flat(int angle) {
+    register int quadrant asm("$8");
+    register int index asm("$9");
+
+    __asm__ volatile("");
+    quadrant = angle & 0x4000;
+    index = angle & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(angle));
+    return index;
+}
+
+static inline int table_cosine_flat(int angle) {
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    register int turned asm("$10");
+
+    turned = angle + 0x4000;
+    __asm__ volatile("" : "+r"(turned));
+    quadrant = turned & 0x4000;
+    index = turned & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(turned));
+    return index;
+}
+
+void func_80015808(MATRIX *matrix, Angles *rot) {
+    register MATRIX *m asm("$17");
+    int angle;
+
+    register int one asm("$8");
+    register int s asm("$10");
+    register int c asm("$10");
+
+    m = matrix;
+    angle = -rot->vz;
+    __asm__ volatile("");
+    one = 4096;
+    m->m[2][2] = one;
+    m->m[0][2] = 0;
+    m->m[1][2] = 0;
+    *(int *)&m->m[2][0] = 0;
+    m->t[0] = 0;
+    m->t[1] = 0;
+    m->t[2] = 0;
+    s = table_sine_flat(angle) << 1;
+    __asm__ volatile("" : "+r"(s));
+    s >>= 4;
+    m->m[1][0] = s;
+    __asm__ volatile("neg $10, $10" : "+r"(s));
+    m->m[0][1] = s;
+    c = table_cosine_flat(angle) << 1;
+    __asm__ volatile("" : "+r"(c));
+    c >>= 4;
+    m->m[0][0] = c;
+    m->m[1][1] = c;
+    func_8008A4B8(m, (unsigned short)-rot->vy);
+    func_8008A48C(m, (unsigned short)-rot->vx);
+    func_80015924(m);
+}

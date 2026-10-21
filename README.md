@@ -11,7 +11,7 @@ distributed by this repository. Supply files from a legally obtained copy.
 ## Progress
 
 ![Exact executable reconstruction: 100%](https://img.shields.io/badge/exact_reconstruction-100%25-brightgreen)
-![Semantic C decompilation: 46.06%](https://img.shields.io/badge/semantic_C-46.06%25-yellow)
+![Semantic C decompilation: 70.02%](https://img.shields.io/badge/semantic_C-70.02%25-yellow)
 ![Asset files structurally decoded: 100%](https://img.shields.io/badge/asset_files_decoded-100%25-brightgreen)
 ![Decoder tests passing: 100%](https://img.shields.io/badge/decoder_tests-100%25-brightgreen)
 [![ByteMatch](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1.svg?label=ByteMatch&measure=matched_code_percent)](https://bytematch.dev/TheGh0stShip/BattleTanx-Global-Assault-PS1)
@@ -25,15 +25,15 @@ is also reported separately and never inflates either executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching C | 271,692 code bytes | 318,144 code bytes | 46.06% |
-| Semantic functions | 1,382 functions | 384 raw instruction units | 78.26% by provisional function count |
+| Semantic matching C | 413,004 code bytes | 176,832 code bytes | 70.02% |
+| Semantic functions | 1,567 functions | 204 raw instruction units | 88.48% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
 | Provisional function starts | 1,779 represented | 0 unrepresented | 100% exact-start coverage; classification continues |
 | Exact SDK signature proposals | 142 candidate starts | conflict review required | no game-code credit |
-| Reviewed source-unit boundaries | 1,869 | semantic naming and consolidation | byte coverage complete |
-| Source units matched | 1,869 | 0 provisional candidates | all 1,779 provisional starts represented; 10 additional entries |
+| Reviewed source-unit boundaries | 1,875 | semantic naming and consolidation | byte coverage complete |
+| Source units matched | 1,875 | 0 provisional candidates | all provisional starts represented |
 | Classified data units | 38 ranges / 140,796 bytes | semantic field recovery | exact bytes verified |
 | Classified zero padding | 66 ranges / 16,888 bytes | 0 bytes | 100% |
 
@@ -100,6 +100,21 @@ executable under `build/us/`; that output remains local. See
 [`docs/DECOMPILATION.md`](docs/DECOMPILATION.md) for the evidence gates and
 current memory map. SDK and compiler evidence is tracked separately in
 [`docs/SDK.md`](docs/SDK.md).
+
+### Original PsyQ compiler on WSL
+
+PsyQ library units can select the original Windows compiler by setting
+`"compiler": "psyq-cc1psx"` in their matching-unit manifest entry. Supply a
+legally obtained `CC1PSX.EXE` outside version control and point the build at it:
+
+```sh
+PSYQ_CC1PSX='/mnt/c/psyq/bin/CC1PSX.EXE' make verify-matching
+```
+
+The verifier runs the executable through Windows interoperability, not Wine.
+It stages each translation unit in a Windows-local temporary directory so the
+original compiler never receives a WSL UNC path. Set `PSYQ_CC1PSX_TEMP` to a
+mounted Windows directory if the default user temp directory cannot be found.
 
 ## Tests
 

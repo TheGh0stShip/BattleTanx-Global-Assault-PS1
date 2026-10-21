@@ -1,25 +1,78 @@
-asm(".text\n\t.globl func_8007EF64\nfunc_8007EF64:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x3C12800F,0xAFB00010\n\t"
-    ".word 0x2650C200,0xAFBF001C,0xAFB10014,0x8E020108\n\t"
-    ".word 0x00000000,0x14400004,0x3C028008,0x24020002\n\t"
-    ".word 0xAE020108,0x3C028008,0x8C426058,0x00000000\n\t"
-    ".word 0x10400048,0x24020002,0x8E030108,0x00000000\n\t"
-    ".word 0x14620044,0x00000000,0x8E02010C,0x00000000\n\t"
-    ".word 0x10400040,0x00000000,0x8E05011C,0x00000000\n\t"
-    ".word 0x14A0000C,0x00000000,0x8E020110,0xAE000110\n\t"
-    ".word 0xAE000128,0xAE00010C,0x10400036,0x00000000\n\t"
-    ".word 0x8E44C200,0x0040F809,0x24050001,0x0801FC32\n\t"
-    ".word 0x00000000,0x8E060120,0x8E030124,0x00000000\n\t"
-    ".word 0x0066102B,0x1040001E,0x00C38823,0x2E221401\n\t"
-    ".word 0x14400002,0x00000000,0x24111400,0x00A32821\n\t"
-    ".word 0x8E04010C,0x02203021,0x0C01FAC7,0xAE000130\n\t"
-    ".word 0x10400006,0x00000000,0x8E020124,0x00000000\n\t"
-    ".word 0x00511021,0x0801FC32,0xAE020124,0x8E020114\n\t"
-    ".word 0x8E05011C,0xAE000114,0xAE00011C,0xAE000128\n\t"
-    ".word 0xAE00010C,0x10400013,0x00003021,0x8E44C200\n\t"
-    ".word 0x0040F809,0x00C03821,0x0801FC32,0x00000000\n\t"
-    ".word 0x8E080114,0x8E03010C,0x8E02012C,0xAE000114\n\t"
-    ".word 0xAE00011C,0xAE00010C,0x00461021,0xAE030128\n\t"
-    ".word 0x11000004,0xAE02012C,0x8E44C200,0x0100F809\n\t"
-    ".word 0x24070001,0x8FBF001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct FileCtl {
+    int handle;
+    char pad4[260];
+    int mode;
+    volatile int active;
+    void (*callback)(int, int);
+    void (*volatile callback4)(int, char *, unsigned int, int);
+    int pad118;
+    char *volatile buf;
+    unsigned int total;
+    unsigned int done;
+    int busy;
+    unsigned int pos;
+    int count;
+} FileCtl;
+
+extern FileCtl D_800EC200;
+extern int D_80086058;
+extern int func_8007EB1C(int, char *, unsigned int);
+
+void func_8007EF64(void) {
+    FileCtl *ctl = &D_800EC200;
+    void (*cb)(int, int);
+    void (*cb4)(int, char *, unsigned int, int);
+    char *buf;
+    unsigned int n;
+    int active;
+    void (*fail)(int, char *, unsigned int, int);
+
+    if (ctl->mode == 0) {
+        ctl->mode = 2;
+    }
+    if (D_80086058 == 0 || ctl->mode != 2 || ctl->active == 0) {
+        return;
+    }
+    buf = ctl->buf;
+    if (buf == 0) {
+        cb = ctl->callback;
+        ctl->callback = 0;
+        ctl->busy = 0;
+        ctl->active = 0;
+        if (cb != 0) {
+            cb(D_800EC200.handle, 1);
+        }
+        return;
+    }
+    if (ctl->total > ctl->done) {
+        n = ctl->total - ctl->done;
+        if (n > 5120) {
+            n = 5120;
+        }
+        D_800EC200.count = 0;
+        if (func_8007EB1C(ctl->active, buf + ctl->done, n)) {
+            ctl->done += n;
+            return;
+        }
+        fail = ctl->callback4;
+        buf = ctl->buf;
+        ctl->callback4 = 0;
+        ctl->buf = 0;
+        ctl->busy = 0;
+        ctl->active = 0;
+        if (fail != 0) {
+            fail(D_800EC200.handle, buf, 0, 0);
+        }
+        return;
+    }
+    cb4 = ctl->callback4;
+    active = ctl->active;
+    ctl->callback4 = 0;
+    ctl->buf = 0;
+    ctl->active = 0;
+    ctl->busy = active;
+    ctl->pos += ctl->total;
+    if (cb4 != 0) {
+        cb4(D_800EC200.handle, buf, ctl->total, 1);
+    }
+}

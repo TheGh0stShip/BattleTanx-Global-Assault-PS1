@@ -1,63 +1,207 @@
-asm(".text\n\t.globl func_8004AF4C\nfunc_8004AF4C:\n\t"
-    ".word 0x27BDFF78,0xAFB00070,0x00808021,0x260400FC\n\t"
-    ".word 0x00002821,0xAFB3007C,0x261300F8,0xAFBF0080\n\t"
-    ".word 0xAFB20078,0xAFB10074,0x0C012858,0xA600014A\n\t"
-    ".word 0x02002021,0x00002821,0xA6600006,0xAE0000F8\n\t"
-    ".word 0xA660000A,0xA6600014,0xA6600016,0xAE600018\n\t"
-    ".word 0x8E020180,0x2403FE7F,0x00431024,0x0C012558\n\t"
-    ".word 0xAE020180,0x2604011C,0x26050128,0x3C060008\n\t"
-    ".word 0x34C67007,0x3047FFFF,0x8E030000,0x3C02800C\n\t"
-    ".word 0xA440628C,0x27A20018,0xAFA20014,0x0C006760\n\t"
-    ".word 0xAFA30010,0x3042FFFF,0x104000AE,0x26640024\n\t"
-    ".word 0x8E63003C,0x00000000,0x10600009,0x00000000\n\t"
-    ".word 0x8FA20018,0x00000000,0x10400005,0x00000000\n\t"
-    ".word 0x84420000,0x00000000,0x106200A2,0x00000000\n\t"
-    ".word 0x97A30038,0x24020007,0x14620005,0x27A40060\n\t"
-    ".word 0x24020002,0xA6600004,0x08012CC3,0xAE62001C\n\t"
-    ".word 0x0C0129A5,0x24050003,0xA6620004,0x96620006\n\t"
-    ".word 0x8FA30060,0x24420001,0xA6620006,0xA0600018\n\t"
-    ".word 0x8FA20060,0x27A50018,0x24440010,0x0C0124E1\n\t"
-    ".word 0xA4400002,0x8E020180,0x00000000,0x30420008\n\t"
-    ".word 0x1040007C,0x27B20050,0x02403021,0x27B10040\n\t"
-    ".word 0x02203821,0x8FA40060,0x8E650040,0x0C01251A\n\t"
-    ".word 0x24840010,0x26700024,0x02002021,0x0C012576\n\t"
-    ".word 0x02202821,0x02002021,0x02402821,0x0C012576\n\t"
-    ".word 0x00408021,0x02022021,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x02021824,0x00821024,0x00624026\n\t"
-    ".word 0x06010002,0x02001821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20064,0xE85F0000,0x8FA40064\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20068,0xE85F0000,0x8FA50068,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x08012C59,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08012C6F\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08012C71,0x00603021,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00603021,0x11000002,0x24021000\n\t"
-    ".word 0x00063023,0x00461023,0x8FA90040,0x00000000\n\t"
-    ".word 0x00490018,0x00001812,0x00002010,0x00031B02\n\t"
-    ".word 0x00042500,0x00641825,0x8FAA0050,0x00000000\n\t"
-    ".word 0x00CA0018,0x00002012,0x00002810,0x00042302\n\t"
-    ".word 0x00052D00,0x00852025,0x8FA50060,0x00641821\n\t"
-    ".word 0xACA30004,0x8FAA0048,0x00000000,0x004A0018\n\t"
-    ".word 0x00004812,0x00001810,0x00094B02,0x00031D00\n\t"
-    ".word 0x01234825,0x01201021,0x8FA90058,0x00000000\n\t"
-    ".word 0x00C90018,0x00001812,0x00002010,0x00031B02\n\t"
-    ".word 0x00042500,0x00641825,0x00431021,0x08012CBE\n\t"
-    ".word 0xACA2000C,0x8FA40060,0x8FA20020,0x00000000\n\t"
-    ".word 0xAC820004,0x8FA20028,0x26650024,0xAC82000C\n\t"
-    ".word 0x8E660040,0x0C01261B,0x24840004,0x08012CBE\n\t"
-    ".word 0x00000000,0x0C012576,0x26650030,0x8E630040\n\t"
-    ".word 0x00000000,0x0062182A,0x10600013,0x27A40060\n\t"
-    ".word 0x0C0129A5,0x24050003,0xA6620004,0x96620006\n\t"
-    ".word 0x8FA30060,0x8E640030,0x24420001,0xA6620006\n\t"
-    ".word 0xAC640004,0x8E640038,0x24020003,0xA0620018\n\t"
-    ".word 0x8FA20060,0xAC64000C,0xA4400002,0x96620004\n\t"
-    ".word 0x08012CC3,0xA662000A,0xA6600004,0xAFA00060\n\t"
-    ".word 0x8FBF0080,0x8FB3007C,0x8FB20078,0x8FB10074\n\t"
-    ".word 0x8FB00070,0x03E00008,0x27BD0088\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+typedef struct {
+    short id;
+} HitObject;
+typedef struct {
+    HitObject *object;
+    char pad4[4];
+    Vector position;
+    char pad14[12];
+    unsigned short surface;
+    char pad22[6];
+} Hit;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int x;
+    int pad8;
+    int z;
+    SVector point;
+    unsigned char mode;
+} Move;
+typedef struct {
+    int state;
+    unsigned short head;
+    unsigned short count;
+    char pad8[2];
+    unsigned short current;
+    char padC[8];
+    unsigned short a14;
+    unsigned short a16;
+    int a18;
+    int mode;
+    char pad20[4];
+    Vector from;
+    Vector goal;
+    int ignore_id;
+    int width;
+} Route;
+typedef struct {
+    int id;
+    char pad04[0xF8 - 4];
+    Route route;
+    char pad13C[0x14A - 0x13C];
+    unsigned short route_seen2;
+    char pad14C[0x180 - 0x14C];
+    int flags;
+} Tank;
+extern short D_800C628C;
+extern int func_8004A160(unsigned short *, int);
+extern int func_80049560(Tank *, int);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, Hit *);
+extern unsigned short func_8004A694(Move **, int);
+extern void func_80049384(SVector *, Hit *);
+extern void func_80049468(SVector *, int, Vector *, Vector *);
+extern int func_800495D8(Vector *, Vector *);
+extern void func_8004986C(int *, Vector *, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+void func_8004AF4C(Tank *tank) {
+    Route *route = &tank->route;
+    Hit hit;
+    Vector near;
+    Vector far;
+    Move *move;
+    unsigned short reach;
+    int d_near;
+    int sum;
+    int t;
+
+    tank->route_seen2 = 0;
+    func_8004A160(&route->head, 0);
+    route->count = 0;
+    tank->route.state = 0;
+    route->current = 0;
+    route->a14 = 0;
+    route->a16 = 0;
+    route->a18 = 0;
+    tank->flags &= ~0x180;
+    reach = func_80049560(tank, 0);
+    D_800C628C = 0;
+    if (func_80019D80(&route->from, &route->goal, 0x87007, reach, tank->id, &hit) != 0
+        && !(route->ignore_id != 0 && hit.object != 0 && route->ignore_id == hit.object->id)) {
+        if (hit.surface == 7) {
+            route->head = 0;
+            route->mode = 2;
+            return;
+        }
+        route->head = func_8004A694(&move, 3);
+        route->count++;
+        move->mode = 0;
+        move->current = 0;
+        func_80049384(&move->point, &hit);
+        if (tank->flags & 8) {
+            func_80049468(&move->point, route->width, &far, &near);
+            d_near = func_800495D8(&route->from, &near);
+            sum = d_near + func_800495D8(&route->from, &far);
+            if (sum == 0) {
+                sum = 2;
+            }
+            t = fixed_div(d_near, sum);
+            move->x = fixed_mul(0x1000 - t, near.x) + fixed_mul(t, far.x);
+            move->z = fixed_mul(0x1000 - t, near.z) + fixed_mul(t, far.z);
+        } else {
+            move->x = hit.position.x;
+            move->z = hit.position.z;
+            func_8004986C(&move->x, &route->from, route->width);
+        }
+    } else if (func_800495D8(&route->from, &route->goal) > route->width) {
+        route->head = func_8004A694(&move, 3);
+        route->count++;
+        move->x = route->goal.x;
+        move->z = route->goal.z;
+        move->mode = 3;
+        move->current = 0;
+    } else {
+        goto fail;
+    }
+    route->current = route->head;
+    return;
+fail:
+    route->head = 0;
+    move = 0;
+}

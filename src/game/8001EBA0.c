@@ -1,40 +1,112 @@
-asm(".text\n\t.globl func_8001EBA0\nfunc_8001EBA0:\n\t"
-    ".word 0x27BDFE78,0xAFB00168,0x00808021,0xAFB1016C\n\t"
-    ".word 0x00008821,0xAFB20170,0xAFBF0184,0xAFB60180\n\t"
-    ".word 0xAFB5017C,0xAFB40178,0xAFB30174,0x960302B8\n\t"
-    ".word 0x3402FFFF,0x10620084,0x26120034,0x3C02800C\n\t"
-    ".word 0x245562B0,0x27B40040,0x24160008,0x8E020008\n\t"
-    ".word 0x00000000,0x04410004,0x00021B03,0x00021023\n\t"
-    ".word 0x00021303,0x00021823,0x8E020010,0x00000000\n\t"
-    ".word 0x04400003,0x00032882,0x08007B0B,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x00023403,0x3402FFFF,0x960402B8,0x9603002C\n\t"
-    ".word 0x10820008,0x00041080,0x00441021,0x000210C0\n\t"
-    ".word 0x00551021,0xA4430024,0x00052C00,0x0C0057D9\n\t"
-    ".word 0x00052C03,0x3C0500E4,0x34A55C0F,0x27A60040\n\t"
-    ".word 0x8E020008,0x00003821,0xAFA20030,0xAFA20028\n\t"
-    ".word 0x8E020010,0x3C03800C,0xAFA20034,0xAFA2002C\n\t"
-    ".word 0x960402B8,0x24020001,0xA462628C,0xAFA00010\n\t"
-    ".word 0x0C005EAB,0x3084FFFF,0x3043FFFF,0x14600005\n\t"
-    ".word 0x00609821,0x08007B7A,0xA240005D,0x08007B4C\n\t"
-    ".word 0x24060001,0x3222FFFF,0x14400023,0x02402021\n\t"
-    ".word 0x00003021,0x0043102B,0x10400015,0x00C02021\n\t"
-    ".word 0x00602821,0x308300FF,0x000310C0,0x00431021\n\t"
-    ".word 0x00021080,0x02821021,0x94430004,0x00000000\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00551021\n\t"
-    ".word 0x8C420000,0x00000000,0x1456FFE8,0x24840001\n\t"
-    ".word 0x308200FF,0x0045102B,0x1440FFEF,0x308300FF\n\t"
-    ".word 0x30C200FF,0x1040002C,0x3222FFFF,0x14400006\n\t"
-    ".word 0x02402021,0x97A40044,0x9605002C,0x0C006B57\n\t"
-    ".word 0x02403021,0x02402021,0x27A60028,0x27A70030\n\t"
-    ".word 0x960502B8,0x27A20160,0xAFA20018,0x27A20038\n\t"
-    ".word 0xAFA2001C,0x27A20164,0xAFA20020,0x2402FFFF\n\t"
-    ".word 0xAFB40010,0xAFB30014,0x0C007134,0xAFA20024\n\t"
-    ".word 0x8FA20028,0x00000000,0xAE020008,0x8FA2002C\n\t"
-    ".word 0x26310001,0xAE020010,0x3222FFFF,0x2C42000B\n\t"
-    ".word 0x1440FF8E,0x00000000,0x9242005D,0x00000000\n\t"
-    ".word 0x24420001,0xA242005D,0x304200FF,0x2C42000B\n\t"
-    ".word 0x14400005,0x02002021,0x24057530,0x00003021\n\t"
-    ".word 0x0C00FEDA,0x24070001,0x8FBF0184,0x8FB60180\n\t"
-    ".word 0x8FB5017C,0x8FB40178,0x8FB30174,0x8FB20170\n\t"
-    ".word 0x8FB1016C,0x8FB00168,0x03E00008,0x27BD0188\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    char pad10[0x24 - 0x10];
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Hit {
+    void *owner;
+    unsigned short id;
+    char pad06[0x24 - 6];
+} Hit;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+typedef struct Contact {
+    char pad00[0x5D];
+    unsigned char stuck;
+} Contact;
+typedef struct Tank {
+    char pad00[8];
+    int x;
+    int y;
+    int z;
+    char pad14[0x2C - 0x14];
+    unsigned short angle;
+    char pad2E[0x34 - 0x2E];
+    Contact contact;
+    char pad92[0x2B8 - 0x92];
+    unsigned short grid_id;
+} Tank;
+extern Cell D_800C62B0[];
+extern unsigned short D_800C628C;
+void func_80015F64(unsigned short, short, short);
+unsigned short func_80017AAC(unsigned short, int, Hit *, int, int);
+void func_8001AD5C(unsigned short, unsigned short, Contact *);
+void func_8001C4D0(Contact *, unsigned short, Pos2 *, Pos2 *, Hit *, unsigned int, int *, Pos2 *, int *, int);
+void func_8003FB68(Tank *, int, int, int);
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+void func_8001EBA0(Tank *tank) {
+    register Contact *contact asm("$18") = &tank->contact;
+    register unsigned short iter asm("$17") = 0;
+    Pos2 moved;
+    Pos2 from;
+    Pos2 normal;
+    Hit hits[8];
+    int depth;
+    int extra;
+    unsigned short count;
+    unsigned short gid;
+    register unsigned int n asm("$19");
+    unsigned char j;
+    unsigned char found;
+
+    if (tank->grid_id == 0xFFFF) {
+        return;
+    }
+    do {
+        short gx = to_int(tank->x) >> 2;
+        int gz = (short)(to_int(tank->z) >> 2);
+
+        {
+            unsigned short id = tank->grid_id;
+            unsigned short angle = tank->angle;
+
+            if (id != 0xFFFF) {
+                D_800C62B0[id].angle = angle;
+                func_80015F64(id, gx, gz);
+            }
+        }
+        moved.x = from.x = tank->x;
+        moved.z = from.z = tank->z;
+        gid = *(volatile unsigned short *)&tank->grid_id;
+        D_800C628C = 1;
+        count = func_80017AAC(gid, 0xE45C0F, hits, 0, 0);
+        if (count == 0) {
+            contact->stuck = 0;
+            return;
+        }
+        n = count;
+        __asm__("" : "=r"(n) : "0"(n));
+        if (iter == 0) {
+            found = 0;
+            for (j = 0; j < count; j++) {
+                if (D_800C62B0[hits[j].id].flags != 8) {
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found) {
+                return;
+            }
+        }
+        if (iter == 0) {
+            func_8001AD5C(hits[0].id, tank->angle, contact);
+        }
+        func_8001C4D0(contact, tank->grid_id, &moved, &from, hits, n, &depth, &normal, &extra, -1);
+        tank->x = moved.x;
+        tank->z = moved.z;
+        iter++;
+    } while (iter < 11);
+    contact->stuck++;
+    if (contact->stuck >= 11) {
+        func_8003FB68(tank, 30000, 0, 1);
+    }
+}

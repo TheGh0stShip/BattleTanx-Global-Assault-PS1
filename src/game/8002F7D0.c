@@ -1,25 +1,81 @@
-asm(".text\n\t.globl func_8002F7D0\nfunc_8002F7D0:\n\t"
-    ".word 0x27BDFFE8,0x00E04821,0x00804021,0x8FA70028\n\t"
-    ".word 0x24020003,0x10C20048,0xAFBF0010,0x2CC20004\n\t"
-    ".word 0x10400005,0x00000000,0x10C0000A,0x00000000\n\t"
-    ".word 0x0800BE4F,0x00000000,0x24020005,0x10C20020\n\t"
-    ".word 0x24020006,0x10C20038,0x00000000,0x0800BE4F\n\t"
-    ".word 0x00000000,0x94A20004,0x00000000,0x2442FFFC\n\t"
-    ".word 0x00021400,0x00021C03,0x2C620048,0x1040003F\n\t"
-    ".word 0x3C02800C,0x2442DD8C,0x00031880,0x00621821\n\t"
-    ".word 0x8C620000,0x00000000,0x00400008,0x00000000\n\t"
-    ".word 0x81030016,0x8D220010,0x00000000,0x00621823\n\t"
-    ".word 0x1C600003,0x00000000,0x0800BE21,0xA1000016\n\t"
-    ".word 0xA1030016,0x24020001,0x0800BE4F,0xACE20000\n\t"
-    ".word 0x8D220000,0x00000000,0x14400028,0x24050001\n\t"
-    ".word 0x90820037,0x00000000,0x14450005,0x3C02800D\n\t"
-    ".word 0x90435A88,0x24020061,0x10620020,0x00000000\n\t"
-    ".word 0x90830035,0x00000000,0x28620004,0x1040001B\n\t"
-    ".word 0x00000000,0x04600019,0x00000000,0xA0E50000\n\t"
-    ".word 0x8C820008,0x00000000,0xACE20004,0x8C820010\n\t"
-    ".word 0x0800BE4F,0xACE20008,0x0C00BCF6,0x01203021\n\t"
-    ".word 0x0800BE4F,0x00000000,0x80820016,0x8D23000C\n\t"
-    ".word 0x00000000,0x0043102A,0x90830016,0x10400003\n\t"
-    ".word 0x00000000,0x0800BE4F,0xA0800016,0x9122000C\n\t"
-    ".word 0x00000000,0x00621023,0xA0820016,0x8FBF0010\n\t"
-    ".word 0x00000000,0x03E00008,0x27BD0018\n");
+typedef struct {
+    int pad[2];
+    int x;
+    int pad2;
+    int z;
+    short pad3;
+    signed char hp;
+    char pad4[53 - 23];
+    unsigned char state;
+    char pad5;
+    unsigned char team;
+} Obj;
+typedef struct { int pad; unsigned short type; } Msg;
+typedef struct { int pad[3]; int drain; int amount; } MsgData;
+typedef struct { unsigned char valid; char pad[3]; int x; int z; } Query;
+extern unsigned char D_800D5A88;
+void func_8002F3D8(Obj *, Msg *, MsgData *);
+
+static inline void handle_msg(Obj *obj, Msg *msg, MsgData *data, int *handled) {
+    int v;
+
+    switch ((short)msg->type) {
+    case 7:
+    case 12:
+    case 39:
+    case 40:
+    case 52:
+        v = obj->hp - data->amount;
+        if (v <= 0) {
+            obj->hp = 0;
+        } else {
+            obj->hp = v;
+        }
+        *handled = 1;
+        break;
+    case 4:
+    case 30:
+    case 75:
+        *handled = 1;
+        break;
+    }
+}
+
+void func_8002F7D0(Obj *obj, Msg *msg, unsigned int event, MsgData *data, Query *out) {
+    register MsgData *d asm("$9") = data;
+    register Obj *self asm("$8") = obj;
+
+    __asm__("" : "+r"(d));
+    switch (event) {
+    case 0:
+        handle_msg(self, msg, d, (int *)out);
+        break;
+    case 5:
+        if (*(int *)d == 0) {
+            if (obj->team == 1 && D_800D5A88 == 97) {
+                break;
+            }
+            switch (obj->state) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                out->valid = 1;
+                out->x = obj->x;
+                out->z = obj->z;
+                break;
+            }
+        }
+        break;
+    case 6:
+        func_8002F3D8(obj, msg, d);
+        break;
+    case 3:
+        if (obj->hp < d->drain) {
+            obj->hp = 0;
+        } else {
+            obj->hp -= d->drain;
+        }
+        break;
+    }
+}

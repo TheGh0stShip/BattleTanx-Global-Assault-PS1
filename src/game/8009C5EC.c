@@ -1,16 +1,34 @@
-asm(".text\n\t.globl func_8009C5EC\nfunc_8009C5EC:\n\t"
-    ".word 0x27bdffe8,0x00802821,0x10a00006,0xafbf0010\n\t"
-    ".word 0x24020001,0x10a2001b,0x3c028000,0x080271b0\n\t"
-    ".word 0x00000000,0x3c03800c,0x8c638ba0,0x3c028000\n\t"
-    ".word 0xac620000,0x3c02800c,0x8c428b74,0x3c04800c\n\t"
-    ".word 0x24848a5c,0xac400000,0x3c02800c,0x8c428b80\n\t"
-    ".word 0x24050020,0xac400000,0x3c03800c,0x8c638ba0\n\t"
-    ".word 0x3c026000,0x0c0271b7,0xac620000,0x3c04800c\n\t"
-    ".word 0x24848ae0,0x0c0271b7,0x24050020,0x080271b3\n\t"
-    ".word 0x00000000,0x3c03800c,0x8c638ba0,0x00000000\n\t"
-    ".word 0xac620000,0x3c02800c,0x8c428b74,0x00000000\n\t"
-    ".word 0xac400000,0x3c02800c,0x8c428b80,0x00000000\n\t"
-    ".word 0xac400000,0x3c02800c,0x8c428b80,0x3c03800c\n\t"
-    ".word 0x8c638ba0,0x8c420000,0x3c026000,0x080271b3\n\t"
-    ".word 0xac620000,0x3c04800c,0x0c0250ec,0x24845a88\n\t"
-    ".word 0x8fbf0010,0x27bd0018,0x03e00008,0x00000000\n\t");
+extern volatile int *D_800B8BA0;
+extern volatile int *D_800B8B74;
+extern volatile int *D_800B8B80;
+extern char D_800B8A5C[];
+extern char D_800B8AE0[];
+extern char D_800C5A88[];
+extern void func_8009C6DC(char *, int);
+extern void func_800943B0(char *, ...);
+
+void func_8009C5EC(int mode)
+{
+    int dummy;
+
+    switch (mode) {
+    case 0:
+        *D_800B8BA0 = 0x80000000;
+        *D_800B8B74 = 0;
+        *D_800B8B80 = 0;
+        *D_800B8BA0 = 0x60000000;
+        func_8009C6DC(D_800B8A5C, 32);
+        func_8009C6DC(D_800B8AE0, 32);
+        break;
+    case 1:
+        *D_800B8BA0 = 0x80000000;
+        *D_800B8B74 = 0;
+        *D_800B8B80 = 0;
+        dummy = *D_800B8B80;
+        *D_800B8BA0 = 0x60000000;
+        break;
+    default:
+        func_800943B0(D_800C5A88, mode);
+        break;
+    }
+}

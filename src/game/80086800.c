@@ -1,15 +1,60 @@
-asm(".text\n\t.globl func_80086800\nfunc_80086800:\n\t"
-    ".word 0x27bdffd8,0xafbf0024,0xafb40020,0xafb3001c\n\t"
-    ".word 0xafb20018,0xafb10014,0x0c021931,0xafb00010\n\t"
-    ".word 0x3c028008,0x24426058,0x8c540010,0x8c430008\n\t"
-    ".word 0x8c42000c,0x00149823,0x00738024,0x00538824\n\t"
-    ".word 0x0211102b,0x1040001e,0x24120001,0x02002021\n\t"
-    ".word 0x0c0219bf,0x02202821,0x00402021,0x14800004\n\t"
-    ".word 0x00000000,0x0000000d,0x08021a1a,0x00000000\n\t"
-    ".word 0x10900005,0x00000000,0x8c820000,0x8e030000\n\t"
-    ".word 0xae020000,0xac830000,0x8e020000,0x00000000\n\t"
-    ".word 0xac52000c,0x8c420000,0x00000000,0x10400003\n\t"
-    ".word 0x26520001,0x0040f809,0x00000000,0x02141021\n\t"
-    ".word 0x00538024,0x0211102b,0x1440ffe5,0x02002021\n\t"
-    ".word 0x8fbf0024,0x8fb40020,0x8fb3001c,0x8fb20018\n\t"
-    ".word 0x8fb10014,0x8fb00010,0x03e00008,0x27bd0028\n\t");
+typedef struct Module {
+    void (*init)(void);
+    char pad04[8];
+    int order;
+    void **deps;
+} Module;
+
+typedef struct ModuleInfo {
+    char pad00[8];
+    unsigned int start;
+    unsigned int end;
+    unsigned int align;
+} ModuleInfo;
+
+extern ModuleInfo D_80086058;
+extern void func_800864C4(void);
+extern Module **func_800866FC(Module **p, Module **end);
+
+void func_80086800(void) {
+    ModuleInfo *info;
+    unsigned int align;
+    unsigned int mask;
+    Module **p;
+    Module **end;
+    Module **m;
+    Module *tmp;
+    void (*init)(void);
+    int order;
+
+    func_800864C4();
+    info = &D_80086058;
+    align = info->align;
+    mask = -align;
+    p = (Module **)(info->start & mask);
+    end = (Module **)(info->end & mask);
+    order = 1;
+    while (p < end) {
+        m = func_800866FC(p, end);
+        if (m == 0) {
+            __asm__ volatile("break 0");
+            for (;;) {
+            }
+        }
+        if (m != p) {
+            tmp = *p;
+            *p = *m;
+            *m = tmp;
+        }
+        {
+            Module *mod = *p;
+            mod->order = order;
+            init = mod->init;
+        }
+        order++;
+        if (init != 0) {
+            init();
+        }
+        p = (Module **)(((unsigned int)p + align) & mask);
+    }
+}

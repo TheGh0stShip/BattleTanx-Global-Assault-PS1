@@ -1,52 +1,107 @@
-asm(".text\n\t.globl func_80037B3C\nfunc_80037B3C:\n\t"
-    ".word 0x27BDFF58,0xAFB00098,0x00808021,0xAFB1009C\n\t"
-    ".word 0x00A08821,0xAFBF00A4,0xAFB200A0,0x96020028\n\t"
-    ".word 0x00000000,0x2442FFFF,0xA6020028,0x00021400\n\t"
-    ".word 0x00021C03,0x186000B4,0x02009021,0x86020026\n\t"
-    ".word 0x00000000,0x2442FFFF,0x0043102A,0x14400004\n\t"
-    ".word 0x3C02800E,0x24020001,0xA602002E,0x3C02800E\n\t"
-    ".word 0x8C43E30C,0x8E090014,0x00000000,0x00690018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8E020008,0x00000000,0x00441021\n\t"
-    ".word 0xAFA20018,0x8E0A0018,0x00000000,0x006A0018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8E020010,0x00000000,0x00441021\n\t"
-    ".word 0xAFA20020,0x8E02000C,0x00000000,0xAFA2001C\n\t"
-    ".word 0x8E0B001C,0x00000000,0x006B0018,0x00002012\n\t"
-    ".word 0x00001010,0x00042302,0x00021500,0x00822025\n\t"
-    ".word 0x8E020014,0x8E0C0020,0x00441021,0xAE020014\n\t"
-    ".word 0x006C0018,0x00004012,0x00001010,0x00084302\n\t"
-    ".word 0x00021500,0x01024025,0x26040008,0x27A50018\n\t"
-    ".word 0x3C060064,0x34C6940B,0x00003821,0x3C03800C\n\t"
-    ".word 0x24020001,0xA462628C,0x8E020018,0x8E030030\n\t"
-    ".word 0x00481021,0xAE020018,0x27A20028,0xAFA30010\n\t"
-    ".word 0x0C006760,0xAFA20014,0x3042FFFF,0x1040004C\n\t"
-    ".word 0x00000000,0x8FA20028,0x00000000,0x10400039\n\t"
-    ".word 0x3C02800C,0x244CE7B0,0x8D890000,0x8D8A0004\n\t"
-    ".word 0x8D8B0008,0xAFA90078,0xAFAA007C,0xAFAB0080\n\t"
-    ".word 0x8D89000C,0x8D8A0010,0x8D8B0014,0xAFA90084\n\t"
-    ".word 0xAFAA0088,0xAFAB008C,0x8D890018,0x00000000\n\t"
-    ".word 0xAFA90090,0x8FA90030,0x8FAA0034,0x8FAB0038\n\t"
-    ".word 0xAFA90050,0xAFAA0054,0xAFAB0058,0x96020024\n\t"
-    ".word 0x00000000,0xA7A2005C,0x9202002A,0x00000000\n\t"
-    ".word 0xAFA20060,0x8E020034,0x00000000,0xAFA20064\n\t"
-    ".word 0x9202002B,0x27A80078,0xAFA20068,0x8FA20028\n\t"
-    ".word 0x3C03800D,0xAFA00070,0x84440004,0x246332F4\n\t"
-    ".word 0x00041040,0x00441021,0x00021080,0x00431821\n\t"
-    ".word 0x8C620004,0x00000000,0x1040000A,0x27A70050\n\t"
-    ".word 0x2402FFFF,0x10820007,0x02002821,0xAFA80010\n\t"
-    ".word 0x8FA40028,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x00003021,0x8643002C,0x24020001,0x14620002\n\t"
-    ".word 0x24040004,0x24040008,0x27A50030,0x00003021\n\t"
-    ".word 0x0C01BF6C,0x00C03821,0x8FA50030,0x8FA60038\n\t"
-    ".word 0x0C014DE4,0x2404002D,0x0800DF92,0x24020001\n\t"
-    ".word 0x8FA20018,0x00000000,0xAE020008,0x8FA20020\n\t"
-    ".word 0x00000000,0xAE020010,0x8FA20018,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x0800DF82,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8FA50020,0x00000000,0x04A00003,0x00022403\n\t"
-    ".word 0x0800DF8C,0x00051303,0x00051023,0x00021303\n\t"
-    ".word 0x00021023,0x00022B80,0x0C009233,0x00052C03\n\t"
-    ".word 0x14400003,0x00000000,0x24020001,0xAE220000\n\t"
-    ".word 0x8FBF00A4,0x8FB200A0,0x8FB1009C,0x8FB00098\n\t"
-    ".word 0x03E00008,0x27BD00A8\n");
+typedef struct { int x; int y; int z; } Vector;
+typedef struct { short f0; short f2; short type; } Hittable;
+typedef struct { Hittable *obj; int f4; Vector pos; int pad[5]; } HitResult;
+typedef struct { int w[7]; } Reply;
+typedef struct { Vector pos; unsigned short kind; int a; int b; int c; int f1C; int f20; int f24; } HitInfo;
+typedef struct { int f0; void (*handler)(Hittable *, void *, int, HitInfo *, Reply *); int f8; } HitClass;
+typedef struct {
+    int f0;
+    int f4;
+    Vector pos;
+    int vx;
+    int vz;
+    int ax;
+    int az;
+    unsigned short kind;
+    short arm_time;
+    short life;
+    unsigned char a;
+    unsigned char c;
+    short big;
+    short armed;
+    int mask;
+    int b;
+} Shot;
+extern int D_800DE30C;
+extern short D_800C628C;
+extern Reply D_800BE7B0;
+extern HitClass D_800D32F4[];
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, int, HitResult *);
+extern void func_8006FDB0(int, Vector *, int, int);
+extern void func_80053790(int, int, int);
+extern int func_800248CC(short, short);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int to_int(int v)
+{
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline void impact(Shot *s, Vector *p)
+{
+    if (s->big == 1) {
+        func_8006FDB0(8, p, 0, 0);
+    } else {
+        func_8006FDB0(4, p, 0, 0);
+    }
+    func_80053790(45, p->x, p->z);
+}
+
+void func_80037B3C(Shot *s, int *done)
+{
+    Vector next;
+    HitResult hit;
+    HitInfo info;
+    Reply reply;
+    int scale;
+    Hittable *obj;
+    Shot *self;
+
+    self = s;
+    if (--s->life <= 0) {
+        *done = 1;
+        return;
+    }
+    if (s->life <= s->arm_time - 1) {
+        s->armed = 1;
+    }
+    scale = D_800DE30C;
+    next.x = s->pos.x + fixed_mul(scale, s->vx);
+    next.z = s->pos.z + fixed_mul(scale, s->vz);
+    next.y = s->pos.y;
+    s->vx += fixed_mul(scale, s->ax);
+    s->vz += fixed_mul(scale, s->az);
+    D_800C628C = 1;
+    if (func_80019D80(&s->pos, &next, 0x64940B, 0, s->mask, &hit)) {
+        if (hit.obj != 0) {
+            reply = D_800BE7B0;
+            info.pos = hit.pos;
+            info.kind = s->kind;
+            info.a = s->a;
+            info.b = s->b;
+            info.c = s->c;
+            info.f20 = 0;
+            obj = hit.obj;
+            if (D_800D32F4[obj->type].handler != 0 && obj->type != -1) {
+                D_800D32F4[obj->type].handler(hit.obj, s, 0, &info, &reply);
+            }
+        }
+        impact(self, &hit.pos);
+        *done = 1;
+        return;
+    }
+    s->pos.x = next.x;
+    s->pos.z = next.z;
+    if (func_800248CC(to_int(next.x) >> 2, to_int(next.z) >> 2) == 0) {
+        *done = 1;
+    }
+}

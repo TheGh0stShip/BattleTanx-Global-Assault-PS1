@@ -1,166 +1,312 @@
-asm(".text\n\t.globl func_8002BB40\nfunc_8002BB40:\n\t"
-    ".word 0x27BDFF28,0xAFB300C4,0x00809821,0xAFB600D0\n\t"
-    ".word 0x00A0B021,0xAFB400C8,0x0000A021,0x27A500A8\n\t"
-    ".word 0x27A600A9,0x27A700AA,0xAFBF00D4,0xAFB500CC\n\t"
-    ".word 0xAFB200C0,0xAFB100BC,0xAFB000B8,0xAFA000AC\n\t"
-    ".word 0xAFA000B0,0xAFA000B4,0x9264002C,0x0C01E472\n\t"
-    ".word 0x02608821,0x9262002B,0x00000000,0x30420008\n\t"
-    ".word 0x1040001B,0x24150001,0x3C02800E,0x8E630024\n\t"
-    ".word 0x8C42E30C,0x00000000,0x00621823,0x1C600267\n\t"
-    ".word 0xAE630024,0x9263002C,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x0800AEFF,0x02802021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00432021,0x0C014A78\n\t"
-    ".word 0x00000000,0x24020001,0x0800B157,0xAEC20000\n\t"
-    ".word 0x3C03800E,0x8E620024,0x8C65E30C,0x00000000\n\t"
-    ".word 0x00451023,0x1840022A,0xAE620024,0x9263002B\n\t"
-    ".word 0x00000000,0x30620001,0x10400248,0x30620004\n\t"
-    ".word 0x104000A9,0x24040007,0x27A600AC,0x27A700B0\n\t"
-    ".word 0x9265002C,0x27A200B4,0x0C01E41B,0xAFA20010\n\t"
-    ".word 0x1440001C,0x3C03800F,0x9263002C,0x2402007F\n\t"
-    ".word 0x14620003,0x00031100,0x0800AF27,0x00002021\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00432021,0x9222002B\n\t"
-    ".word 0x00000000,0x304200FB,0xA222002B,0x8C82005C\n\t"
-    ".word 0x00000000,0x8C420048,0x00000000,0x145300C1\n\t"
-    ".word 0x00000000,0x0C014A78,0x00000000,0x0800AFF1\n\t"
-    ".word 0x00000000,0x9262002C,0x2463C0F8,0x00021080\n\t"
-    ".word 0x00431021,0x8C430000,0x00000000,0x10750003\n\t"
-    ".word 0x24020006,0x14620009,0x00000000,0x3C02800A\n\t"
-    ".word 0x8C436070,0x24020007,0x10620004,0x00000000\n\t"
-    ".word 0x83A400AA,0x0800AF48,0x00000000,0x83A400A9\n\t"
-    ".word 0x0C00AE3B,0x24050028,0x240A0280,0x01420018\n\t"
-    ".word 0x00004812,0x00001810,0x00094B02,0x00031D00\n\t"
-    ".word 0x01234825,0x01201021,0x24050014,0x83A400A8\n\t"
-    ".word 0x0C00AE3B,0x00028023,0x240C1556,0x01820018\n\t"
-    ".word 0x00001812,0x00005810,0x00031B02,0x000B5D00\n\t"
-    ".word 0x006B1825,0x24024000,0x00433023,0x3C02800E\n\t"
-    ".word 0x240B0080,0x8E240020,0x8C4AE30C,0x02042823\n\t"
-    ".word 0x014B0018,0x00001812,0x00004810,0x00031B02\n\t"
-    ".word 0x00094D00,0x00691825,0x00031023,0x00A2102A\n\t"
-    ".word 0x14400006,0x00831023,0x0065102A,0x14400003\n\t"
-    ".word 0x00831021,0x0800AF74,0xAE300020,0xAE220020\n\t"
-    ".word 0x3C02800E,0x240A0300,0x8E240018,0x8C49E30C\n\t"
-    ".word 0x00C42823,0x012A0018,0x00001812,0x00006010\n\t"
-    ".word 0x00031B02,0x000C6500,0x006C1825,0x00031023\n\t"
-    ".word 0x00A2102A,0x14400006,0x00831023,0x0065102A\n\t"
-    ".word 0x14400003,0x00831021,0x0800AF89,0xAE260018\n\t"
-    ".word 0xAE220018,0x8E24000C,0x8E300018,0x0C00ADE8\n\t"
-    ".word 0x00000000,0x8E24000C,0x0C00AD95,0x00409021\n\t"
-    ".word 0x3043FFFF,0x0070102A,0x14400005,0x00000000\n\t"
-    ".word 0x3243FFFF,0x0203102A,0x10400003,0x3C02800E\n\t"
-    ".word 0x00608021,0x3C02800E,0x24090300,0x8E24001C\n\t"
-    ".word 0x8C4CE30C,0x02042823,0x01890018,0x00001812\n\t"
-    ".word 0x00005810,0x00031B02,0x000B5D00,0x006B1825\n\t"
-    ".word 0x00031023,0x00A2102A,0x14400006,0x00831023\n\t"
-    ".word 0x0065102A,0x14400003,0x00831021,0x0800AFAE\n\t"
-    ".word 0xAE30001C,0xAE22001C,0x3C02800E,0x8C4BE30C\n\t"
-    ".word 0x8E2C0020,0x00000000,0x016C0018,0x00001812\n\t"
-    ".word 0x00005010,0x00031B02,0x000A5500,0x006A1825\n\t"
-    ".word 0x0800AFED,0x00000000,0x8E640020,0x24090080\n\t"
-    ".word 0x00043023,0x00A90018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x00031023\n\t"
-    ".word 0x00C2102A,0x14400006,0x00831023,0x0066102A\n\t"
-    ".word 0x14400003,0x00831021,0x0800AFCD,0xAE600020\n\t"
-    ".word 0xAE620020,0x24064000,0x3C02800E,0x240C0300\n\t"
-    ".word 0x8E240018,0x8C4BE30C,0x00C42823,0x016C0018\n\t"
-    ".word 0x00001812,0x00005010,0x00031B02,0x000A5500\n\t"
-    ".word 0x006A1825,0x00031023,0x00A2102A,0x14400006\n\t"
-    ".word 0x00831023,0x0065102A,0x14400003,0x00831021\n\t"
-    ".word 0x0800AFE3,0xAE260018,0xAE220018,0x3C02800E\n\t"
-    ".word 0x8C4AE30C,0x8E2B0020,0x00000000,0x014B0018\n\t"
-    ".word 0x00001812,0x00004810,0x00031B02,0x00094D00\n\t"
-    ".word 0x00691825,0x96220028,0x00000000,0x00431021\n\t"
-    ".word 0xA6220028,0x8E240018,0x0C022B58,0x00042103\n\t"
-    ".word 0x8E290014,0x00000000,0x00490018,0x00001812\n\t"
-    ".word 0x00006010,0x00031B02,0x000C6500,0x006C1825\n\t"
-    ".word 0x3C02800E,0x8C4BE30C,0x00000000,0x01630018\n\t"
-    ".word 0x00008012,0x00005010,0x00108302,0x000A5500\n\t"
-    ".word 0x020A8025,0x96240028,0x0C022B58,0x00042102\n\t"
-    ".word 0x00500018,0x00001812,0x00006010,0x00031B02\n\t"
-    ".word 0x000C6500,0x006C1825,0x8E220008,0x00000000\n\t"
-    ".word 0x00431021,0xAFA20050,0x96240028,0x0C022B30\n\t"
-    ".word 0x00042102,0x00500018,0x00001812,0x00004810\n\t"
-    ".word 0x00031B02,0x00094D00,0x00691825,0x8E220010\n\t"
-    ".word 0x00000000,0x00431021,0xAFA20058,0x8E240018\n\t"
-    ".word 0x0C022B30,0x00042103,0x8E2B0014,0x00000000\n\t"
-    ".word 0x004B0018,0x00001812,0x00005010,0x00031B02\n\t"
-    ".word 0x000A5500,0x006A1825,0x3C04001F,0x8E22000C\n\t"
-    ".word 0x34844000,0x00431821,0x0083102A,0x10400003\n\t"
-    ".word 0xAFA30054,0x0800B039,0xAFA40054,0x34029FFF\n\t"
-    ".word 0x0043102A,0x14400004,0x26240008,0x3402A000\n\t"
-    ".word 0xAFA20054,0x26240008,0x27A50050,0x3C060064\n\t"
-    ".word 0x34C6940B,0x8E220008,0x00003821,0xAFA20040\n\t"
-    ".word 0x8E22000C,0x3C03800C,0xAFA20044,0x8E280010\n\t"
-    ".word 0x24020001,0xA462628C,0x27A20018,0xAFA80048\n\t"
-    ".word 0xAFA00010,0x0C006760,0xAFA20014,0x3042FFFF\n\t"
-    ".word 0x10400069,0x00000000,0x8E230030,0x00000000\n\t"
-    ".word 0x10600007,0x00000000,0x8FA20018,0x00000000\n\t"
-    ".word 0x14430004,0x00000000,0x0800B0C5,0x0000A021\n\t"
-    ".word 0x8FA20018,0x00000000,0x10400059,0x3C02800C\n\t"
-    ".word 0x244BD910,0x8D6C0000,0x8D690004,0x8D6A0008\n\t"
-    ".word 0xAFAC0088,0xAFA9008C,0xAFAA0090,0x8D6C000C\n\t"
-    ".word 0x8D690010,0x8D6A0014,0xAFAC0094,0xAFA90098\n\t"
-    ".word 0xAFAA009C,0x8D6C0018,0x00000000,0xAFAC00A0\n\t"
-    ".word 0x8FA20020,0x8FA30024,0x8FA40028,0xAFA20060\n\t"
-    ".word 0xAFA30064,0xAFA40068,0x96220028,0x00000000\n\t"
-    ".word 0xA7A2006C,0x9222002A,0x00000000,0xAFA20070\n\t"
-    ".word 0x9223002C,0x2402007F,0x14620003,0x00602021\n\t"
-    ".word 0x0800B086,0x00001021,0x00041100,0x00441021\n\t"
-    ".word 0x00021080,0x00441021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431021,0xAFA20074,0x9222002B\n\t"
-    ".word 0x00000000,0x30420004,0xAFA20078,0x8FA20018\n\t"
-    ".word 0x3C03800D,0xAFA00080,0x84440004,0x246332F4\n\t"
-    ".word 0x00041040,0x00441021,0x00021080,0x00431821\n\t"
-    ".word 0x8C620004,0x00000000,0x1040000B,0x2402FFFF\n\t"
-    ".word 0x10820009,0x02202821,0x00003021,0x27A20088\n\t"
-    ".word 0xAFA20010,0x8FA40018,0x8C620004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70060,0x8FA30088,0x24020003\n\t"
-    ".word 0x1062000C,0x2C620004,0x10400005,0x24020001\n\t"
-    ".word 0x1062000B,0x00000000,0x0800B0C5,0xAE200030\n\t"
-    ".word 0x24020005,0x14620016,0x00000000,0x0800B0C4\n\t"
-    ".word 0x24140001,0x24140001,0x0800B0C4,0x0000A821\n\t"
-    ".word 0x0800B0C4,0x24140001,0x8E240030,0x00000000\n\t"
-    ".word 0x1080000B,0x24020004,0x84830004,0x00000000\n\t"
-    ".word 0x14620007,0x00000000,0x8C820008,0x00000000\n\t"
-    ".word 0x8C43009C,0x2402000B,0x10620002,0x00000000\n\t"
-    ".word 0xAE200030,0x12800036,0x2402007F,0x9223002C\n\t"
-    ".word 0x00000000,0x14620003,0x00602021,0x0800B0D5\n\t"
-    ".word 0x00008021,0x00041100,0x00441021,0x00021080\n\t"
-    ".word 0x00441021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00438021,0x12A0000A,0x00000000,0x8E250008\n\t"
-    ".word 0x8E260010,0x0C014DE4,0x2404000B,0x24040004\n\t"
-    ".word 0x27A50040,0x00003021,0x0C01BF6C,0x00C03821\n\t"
-    ".word 0x8E02005C,0x00000000,0x8C420048,0x00000000\n\t"
-    ".word 0x14530008,0x24020001,0x3C030001,0x9222002B\n\t"
-    ".word 0x3463E000,0xAE230024,0x34420008,0x0800B0EE\n\t"
-    ".word 0xA222002B,0xAEC20000,0x8E240034,0x00000000\n\t"
-    ".word 0x10800003,0x00000000,0x0C01BC89,0x02202821\n\t"
-    ".word 0x8E240038,0x00000000,0x10800060,0x00000000\n\t"
-    ".word 0x0C01BC89,0x02202821,0x0800B157,0x00000000\n\t"
-    ".word 0x8FA20050,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x0800B105,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8FA50058,0x00000000\n\t"
-    ".word 0x04A00003,0x00022403,0x0800B10F,0x00051303\n\t"
-    ".word 0x00051023,0x00021303,0x00021023,0x00022B80\n\t"
-    ".word 0x0C009233,0x00052C03,0x10400005,0x00000000\n\t"
-    ".word 0x8FA20054,0x00000000,0x1C400014,0x00000000\n\t"
-    ".word 0x9223002C,0x2402007F,0x14620003,0x00031100\n\t"
-    ".word 0x0800B125,0x00008021,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00438021,0x8E250008,0x8E260010,0x0C014DE4\n\t"
-    ".word 0x2404000B,0x0800B142,0x24020001,0x8FA20050\n\t"
-    ".word 0x00000000,0xAE220008,0x8FA20058,0x00000000\n\t"
-    ".word 0xAE220010,0x8FA20054,0x0800B157,0xAE22000C\n\t"
-    ".word 0x9263002C,0x2402007F,0x14620003,0x00031100\n\t"
-    ".word 0x0800B141,0x00008021,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00438021,0x24020001,0xAEC20000,0x8E240034\n\t"
-    ".word 0x00000000,0x10800003,0x00000000,0x0C01BC89\n\t"
-    ".word 0x02202821,0x8E240038,0x00000000,0x10800003\n\t"
-    ".word 0x00000000,0x0C01BC89,0x02202821,0x8E02005C\n\t"
-    ".word 0x00000000,0x8C420048,0x00000000,0x14530003\n\t"
-    ".word 0x00000000,0x0C014A78,0x02002021,0x8FBF00D4\n\t"
-    ".word 0x8FB600D0,0x8FB500CC,0x8FB400C8,0x8FB300C4\n\t"
-    ".word 0x8FB200C0,0x8FB100BC,0x8FB000B8,0x03E00008\n\t"
-    ".word 0x27BD00D8\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Node {
+    short id;
+    short next;
+    short kind;
+    short pad06;
+    struct Unit *unit;
+} Node;
+
+typedef struct Unit {
+    char pad0[0x9C];
+    int type;
+} Unit;
+
+typedef struct {
+    void (*update)();
+    void (*notify)(Node *, void *, int, void *, void *);
+    void (*draw)();
+} NodeClass;
+
+typedef struct {
+    char pad0[0x48];
+    void *controlled;
+} Player;
+
+typedef struct {
+    char pad0[0x5C];
+    Player *player;
+    char pad60[0x114 - 0x60];
+} Waypoint;
+
+typedef struct {
+    Node *obj;
+    int pad04;
+    Vector pos;
+    int pad14[4];
+} Hit;
+
+typedef struct {
+    Vector pos;
+    unsigned short heading;
+    short pad0E;
+    int kind;
+    Waypoint *owner;
+    int guided;
+    int pad1C;
+    int zero;
+} HitInfo;
+
+typedef struct {
+    int result;
+    int data[6];
+} HitReply;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    int speed;
+    int pitch;
+    int climb;
+    int turn;
+    int timer;
+    unsigned short heading;
+    unsigned char kind;
+    unsigned char flags;
+    unsigned char owner;
+    char pad2D[3];
+    Node *target;
+    void *sound0;
+    void *sound1;
+} Missile;
+
+extern Waypoint D_800E3E68[];
+extern NodeClass D_800D32F4[];
+extern int D_800EC0F8[];
+extern int D_800A6070;
+extern int D_800DE30C;
+extern short D_800C628C;
+extern HitReply D_800BD910;
+extern void func_800791C8(int, signed char *, signed char *, signed char *);
+extern int func_8007906C(int, int, int *, int *, int *);
+extern void func_800529E0(Waypoint *);
+extern int func_8002B8EC(int, int);
+extern int func_8002B7A0(int);
+extern int func_8002B654(int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, void *, Hit *);
+extern void func_80053790(int, int, int);
+extern void func_8006FDB0(int, Vector *, int, int);
+extern void func_8006F224(void *, void *);
+extern int func_800248CC(short, short);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline void approach(int *value, int target, int rate) {
+    int cur = *value;
+    int diff = target - cur;
+    int step = fixed_mul(D_800DE30C, rate);
+
+    if (diff >= -step) {
+        if (diff <= step) {
+            *value = target;
+        } else {
+            *value = cur + step;
+        }
+    } else {
+        *value = cur - step;
+    }
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+void func_8002BB40(Missile *obj, int *done) {
+    Hit hit;
+    Vector old;
+    Vector next;
+    HitInfo info;
+    HitReply reply;
+    Missile *m;
+    Waypoint *w;
+    int hit_something = 0;
+    int show_blast = 1;
+    signed char stick_y;
+    signed char stick_x;
+    signed char stick_x2;
+    int button0 = 0;
+    int button1 = 0;
+    int button2 = 0;
+
+    m = obj;
+    func_800791C8(obj->owner, &stick_y, &stick_x, &stick_x2);
+    if (obj->flags & 8) {
+        obj->timer -= D_800DE30C;
+        if (obj->timer > 0) {
+            return;
+        }
+        func_800529E0(waypoint_get(obj->owner));
+        *done = 1;
+        return;
+    }
+    obj->timer -= D_800DE30C;
+    if (obj->timer <= 0) {
+        goto expired;
+    }
+    if (!(obj->flags & 1)) {
+        return;
+    }
+    if (obj->flags & 4) {
+        int turn;
+        int pitch;
+        int climb;
+        int lo;
+        int hi;
+        int axis;
+
+        if (func_8007906C(7, obj->owner, &button0, &button1, &button2) == 0) {
+            Waypoint *pw = waypoint_get(obj->owner);
+
+            m->flags &= ~4;
+            if (pw->player->controlled == obj) {
+                func_800529E0(pw);
+            }
+            goto move;
+        }
+        if ((D_800EC0F8[obj->owner] == 1 || D_800EC0F8[obj->owner] == 6) && D_800A6070 != 7) {
+            axis = stick_x2;
+        } else {
+            axis = stick_x;
+        }
+        turn = -fixed_mul(640, func_8002B8EC(axis, 40));
+        pitch = 0x4000 - fixed_mul(5462, func_8002B8EC(stick_y, 20));
+        approach(&m->turn, turn, 128);
+        approach(&m->pitch, pitch, 768);
+        climb = m->pitch;
+        lo = func_8002B7A0(m->pos.y);
+        hi = func_8002B654(m->pos.y);
+        if ((unsigned short)hi < climb) {
+            climb = (unsigned short)hi;
+        } else if (climb < (unsigned short)lo) {
+            climb = (unsigned short)lo;
+        }
+        approach(&m->climb, climb, 768);
+        m->heading += fixed_mul(D_800DE30C, m->turn);
+    } else {
+        approach(&obj->turn, 0, 128);
+        approach(&m->pitch, 0x4000, 768);
+        m->heading += fixed_mul(D_800DE30C, m->turn);
+    }
+move:
+    {
+        int dist = fixed_mul(D_800DE30C, fixed_mul(func_8008AD60(m->pitch >> 4), m->speed));
+
+        next.x = m->pos.x + fixed_mul(func_8008AD60(m->heading >> 4), dist);
+        next.z = m->pos.z + fixed_mul(func_8008ACC0(m->heading >> 4), dist);
+        next.y = m->pos.y + fixed_mul(func_8008ACC0(m->pitch >> 4), m->speed);
+        if (next.y > 0x1F4000) {
+            next.y = 0x1F4000;
+        } else if (next.y < 0xA000) {
+            next.y = 0xA000;
+        }
+    }
+    old.x = m->pos.x;
+    old.y = m->pos.y;
+    old.z = m->pos.z;
+    D_800C628C = 1;
+    if (func_80019D80(&m->pos, &next, 0x64940B, 0, 0, &hit) != 0) {
+        if (m->target != 0 && hit.obj == m->target) {
+            hit_something = 0;
+            goto check;
+        }
+        if (hit.obj != 0) {
+            reply = D_800BD910;
+            info.pos.x = hit.pos.x;
+            info.pos.y = hit.pos.y;
+            info.pos.z = hit.pos.z;
+            info.heading = m->heading;
+            info.kind = m->kind;
+            info.owner = waypoint_get(m->owner);
+            info.guided = m->flags & 4;
+            info.zero = 0;
+            if (D_800D32F4[hit.obj->kind].notify != 0 && hit.obj->kind != -1) {
+                D_800D32F4[hit.obj->kind].notify(hit.obj, m, 0, &info, &reply);
+            }
+            switch ((unsigned int)reply.result) {
+            case 5:
+                hit_something = 1;
+                break;
+            case 3:
+                hit_something = 1;
+                show_blast = 0;
+                break;
+            case 1:
+                hit_something = 1;
+                break;
+            }
+        } else {
+            hit_something = 1;
+        }
+        m->target = 0;
+    } else if (m->target == 0 || m->target->kind != 4 || m->target->unit->type != 11) {
+        m->target = 0;
+    }
+check:
+    if (hit_something) {
+        w = waypoint_get(m->owner);
+        if (show_blast) {
+            func_80053790(11, m->pos.x, m->pos.z);
+            func_8006FDB0(4, &old, 0, 0);
+        }
+        if (w->player->controlled == obj) {
+            m->timer = 0x1E000;
+            m->flags |= 8;
+        } else {
+            *done = 1;
+        }
+        if (m->sound0 != 0) {
+            func_8006F224(m->sound0, m);
+        }
+        if (m->sound1 != 0) {
+            func_8006F224(m->sound1, m);
+        }
+        return;
+    }
+    if (func_800248CC(fixed_to_int(next.x) >> 2, fixed_to_int(next.z) >> 2) == 0 || next.y <= 0) {
+        w = waypoint_get(m->owner);
+        func_80053790(11, m->pos.x, m->pos.z);
+        goto finish;
+    }
+    m->pos.x = next.x;
+    m->pos.z = next.z;
+    m->pos.y = next.y;
+    return;
+expired:
+    w = waypoint_get(obj->owner);
+finish:
+    *done = 1;
+    if (m->sound0 != 0) {
+        func_8006F224(m->sound0, m);
+    }
+    if (m->sound1 != 0) {
+        func_8006F224(m->sound1, m);
+    }
+    if (w->player->controlled == obj) {
+        func_800529E0(w);
+    }
+}

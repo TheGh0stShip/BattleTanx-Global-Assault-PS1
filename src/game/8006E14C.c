@@ -1,63 +1,155 @@
-asm(".text\n\t.globl func_8006E14C\nfunc_8006E14C:\n\t"
-    ".word 0x27BDFF70,0xAFB00070,0x00808021,0xAFBF008C\n\t"
-    ".word 0xAFB60088,0xAFB50084,0xAFB40080,0xAFB3007C\n\t"
-    ".word 0xAFB20078,0xAFB10074,0x8E040008,0x00000000\n\t"
-    ".word 0x1080004D,0x00A0B021,0x84830000,0x86020000\n\t"
-    ".word 0x00000000,0x14620048,0x24020004,0x84840004\n\t"
-    ".word 0x00000000,0x14820029,0x3C02800D,0x244232F4\n\t"
-    ".word 0x24430030,0x8C620004,0x00000000,0x10400009\n\t"
-    ".word 0x02002821,0x24060001,0x27A20040,0xAFA20010\n\t"
-    ".word 0x8E040008,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x00003821,0x96020032,0x27A40040,0xA7A20068\n\t"
-    ".word 0x96020034,0x27A50068,0xA7A2006A,0x96020036\n\t"
-    ".word 0x27A60030,0x0C024FFD,0xA7A2006C,0x8FA20030\n\t"
-    ".word 0x8FA30054,0x00021300,0x00431021,0xAFA20030\n\t"
-    ".word 0x8FA20034,0x8FA30058,0x00021300,0x00431021\n\t"
-    ".word 0xAFA20034,0x8FA20038,0x8FA3005C,0x00021300\n\t"
-    ".word 0x00431021,0x0801B8B3,0xAFA20038,0x244232F4\n\t"
-    ".word 0x00041840,0x00641821,0x00031880,0x00621821\n\t"
-    ".word 0x8C620004,0x00000000,0x1040000B,0x2402FFFF\n\t"
-    ".word 0x10820009,0x02002821,0x24060007,0x27A20018\n\t"
-    ".word 0xAFA20010,0x8E040008,0x8C620004,0x00000000\n\t"
-    ".word 0x0040F809,0x00003821,0x8FA80018,0x8FA9001C\n\t"
-    ".word 0x8FAA0020,0xAFA80030,0xAFA90034,0xAFAA0038\n\t"
-    ".word 0x0801B8B3,0x00000000,0x8E080010,0x8E090014\n\t"
-    ".word 0x8E0A0018,0xAFA80030,0xAFA90034,0xAFAA0038\n\t"
-    ".word 0x8FA20030,0x8E030010,0x00000000,0x00431023\n\t"
-    ".word 0xAFA20040,0x8FA20034,0x8E030014,0x00000000\n\t"
-    ".word 0x00431023,0xAFA20044,0x8FA20038,0x8E030018\n\t"
-    ".word 0x00000000,0x00431023,0xAFA20048,0x8E04000C\n\t"
-    ".word 0x00000000,0x1080001D,0x2612000C,0x3C02800B\n\t"
-    ".word 0x2455DF64,0x3C14800E,0x3C13800F,0x8C820008\n\t"
-    ".word 0x8C910000,0x1840000E,0x00000000,0x92020007\n\t"
-    ".word 0x8E86E30C,0x000218C0,0x00621821,0x00031880\n\t"
-    ".word 0x00751821,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x27A50040,0x8E520000,0x0801B8E0,0x02202021\n\t"
-    ".word 0xAE510000,0x8E62AC10,0xAE64AC10,0xAC820000\n\t"
-    ".word 0x02202021,0x1480FFE9,0x00000000,0x8E050024\n\t"
-    ".word 0x00000000,0x18A0003A,0x3C03800B,0x92040007\n\t"
-    ".word 0x2463DF64,0x000410C0,0x00441021,0x00021080\n\t"
-    ".word 0x00431021,0x8C42000C,0x00000000,0x00A2102A\n\t"
-    ".word 0x1040001A,0x3C02800E,0x8C43E30C,0x8E02001C\n\t"
-    ".word 0x00000000,0x00620018,0x00001812,0x00000000\n\t"
-    ".word 0x00000000,0x0065001A,0x14A00002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14A10004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00001812\n\t"
-    ".word 0x00000000,0x00431023,0xAE02001C,0x28420100\n\t"
-    ".word 0x10400002,0x24020100,0xAE02001C,0x8E020008\n\t"
-    ".word 0x00000000,0x10400006,0x02002021,0x84430000\n\t"
-    ".word 0x86020000,0x00000000,0x1462000A,0x00000000\n\t"
-    ".word 0x0C01B19F,0x27A50030,0x3C02800E,0x8E030024\n\t"
-    ".word 0x8C42E30C,0x00000000,0x00621823,0x0801B91D\n\t"
-    ".word 0xAE030024,0xAE000024,0x0801B939,0xAEC00000\n\t"
-    ".word 0x8E02000C,0x00000000,0x14400017,0x00000000\n\t"
-    ".word 0x8E030038,0x00000000,0x14600004,0x3C02800F\n\t"
-    ".word 0x8E03003C,0x0801B92D,0xAC43AC14,0x8E02003C\n\t"
-    ".word 0x00000000,0xAC62003C,0x8E03003C,0x00000000\n\t"
-    ".word 0x14600004,0x3C02800F,0x8E030038,0x0801B937\n\t"
-    ".word 0xAC43AC18,0x8E020038,0x00000000,0xAC620038\n\t"
-    ".word 0x24020001,0xAEC20000,0x8FA80030,0x8FA90034\n\t"
-    ".word 0x8FAA0038,0xAE080010,0xAE090014,0xAE0A0018\n\t"
-    ".word 0x8FBF008C,0x8FB60088,0x8FB50084,0x8FB40080\n\t"
-    ".word 0x8FB3007C,0x8FB20078,0x8FB10074,0x8FB00070\n\t"
-    ".word 0x03E00008,0x27BD0090\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    short id;
+    short pad2;
+    short type;
+} Source;
+
+typedef struct Particle {
+    struct Particle *next;
+    int pad4;
+    int count;
+} Particle;
+
+typedef struct Effect {
+    short id;
+    char pad2[5];
+    unsigned char kind;
+    Source *src;
+    Particle *particles;
+    Vector pos;
+    int alpha;
+    int life;
+    int fade;
+    int scale;
+    short dir[3];
+    short angle[3];
+    struct Effect *prev;
+    struct Effect *next;
+} Effect;
+
+typedef struct {
+    int pad;
+    void (*fn)(Source *src, Effect *e, int what, int arg, void *out);
+    int pad2;
+} Handler;
+
+typedef struct {
+    int pad0;
+    void (*update)(Particle *p, Vector *delta, int dt);
+    int pad8;
+    int fade_time;
+    char pad10[36 - 16];
+} EffectKind;
+
+extern Effect *D_800EAC14;
+extern Effect *D_800EAC18;
+extern Particle *D_800EAC10;
+extern int D_800DE30C;
+extern EffectKind D_800ADF64[];
+extern Handler D_800D32F4[];
+extern void func_80093FF4(Matrix *m, SVector *v, Vector *out);
+extern void func_8006C67C(Effect *e, Vector *pos);
+
+void func_8006E14C(Effect *e, int *dead) {
+    Vector tmp[2];
+    Vector pos;
+    Handler *h;
+    Handler *table;
+    Particle **link;
+    Particle *p;
+    register Particle *next asm("$17");
+
+    if (e->src != 0 && e->src->id == e->id) {
+        if (e->src->type == 4) {
+            Matrix mat;
+            int pad[2];
+            SVector angle;
+
+            if (D_800D32F4[e->src->type].fn != 0) {
+                D_800D32F4[e->src->type].fn(e->src, e, 1, 0, &mat);
+            }
+            angle.x = e->angle[0];
+            angle.y = e->angle[1];
+            angle.z = e->angle[2];
+            func_80093FF4(&mat, &angle, &pos);
+            pos.x = (pos.x << 12) + mat.t[0];
+            pos.y = (pos.y << 12) + mat.t[1];
+            pos.z = (pos.z << 12) + mat.t[2];
+        } else {
+            if (D_800D32F4[e->src->type].fn != 0 && e->src->type != -1) {
+                D_800D32F4[e->src->type].fn(e->src, e, 7, 0, tmp);
+            }
+            pos = tmp[0];
+        }
+    } else {
+        pos = e->pos;
+    }
+    {
+        Vector delta;
+
+    delta.x = pos.x - e->pos.x;
+    delta.y = pos.y - e->pos.y;
+    delta.z = pos.z - e->pos.z;
+    link = &e->particles;
+    p = e->particles;
+    while (p != 0) {
+        next = p->next;
+        if (p->count > 0) {
+            D_800ADF64[e->kind].update(p, &delta, D_800DE30C);
+            link = &(*link)->next;
+        } else {
+            *link = next;
+            p->next = D_800EAC10;
+            D_800EAC10 = p;
+        }
+        p = next;
+    }
+    }
+    if (e->fade > 0) {
+        if (e->fade < D_800ADF64[e->kind].fade_time) {
+            e->alpha -= D_800DE30C * e->alpha / e->fade;
+            if (e->alpha < 256) {
+                e->alpha = 256;
+            }
+        }
+        if (e->src == 0 || e->src->id == e->id) {
+            func_8006C67C(e, &pos);
+            e->fade -= D_800DE30C;
+        } else {
+            e->fade = 0;
+        }
+        *dead = 0;
+    } else if (e->particles == 0) {
+        if (e->prev == 0) {
+            D_800EAC14 = e->next;
+        } else {
+            e->prev->next = e->next;
+        }
+        if (e->next == 0) {
+            D_800EAC18 = e->prev;
+        } else {
+            e->next->prev = e->prev;
+        }
+        *dead = 1;
+    }
+    e->pos = pos;
+}

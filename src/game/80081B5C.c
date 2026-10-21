@@ -1,22 +1,38 @@
-asm(".text\n\t.globl func_80081B5C\nfunc_80081B5C:\n\t"
-    ".word 0x27BDFFE0,0xAFBF0018,0x0C02221C,0x2404FFFF\n\t"
-    ".word 0x3C03800B,0x8C630D6C,0x00000000,0x0062182A\n\t"
-    ".word 0x1460000C,0x00000000,0x3C03800B,0x24630D70\n\t"
-    ".word 0x8C620000,0x00000000,0x00402021,0x24420001\n\t"
-    ".word 0xAC620000,0x3C02000F,0x0044102A,0x10400038\n\t"
-    ".word 0x00000000,0x3C06800B,0x8CC60D38,0x3C04800C\n\t"
-    ".word 0x24844CCC,0x8CC20000,0x3C05800B,0x8CA50D58\n\t"
-    ".word 0x3C02800B,0x8C420D3C,0x3C03800B,0x8C630D5C\n\t"
-    ".word 0x8C420000,0x00A32823,0xAFA20010,0x3C02800B\n\t"
-    ".word 0x8C420D44,0x8CC60000,0x8C470000,0x0C0250EC\n\t"
-    ".word 0x30A5003F,0x0C02513D,0x00002021,0x3C01800B\n\t"
-    ".word 0xAC200D5C,0x3C03800B,0x8C630D5C,0x3C01800B\n\t"
-    ".word 0xAC220D68,0x3C01800B,0xAC230D58,0x3C03800B\n\t"
-    ".word 0x8C630D44,0x24020401,0xAC620000,0x3C03800B\n\t"
-    ".word 0x8C630D54,0x00000000,0x8C620000,0x00000000\n\t"
-    ".word 0x34420800,0xAC620000,0x3C03800B,0x8C630D38\n\t"
-    ".word 0x3C020200,0xAC620000,0x3C03800B,0x8C630D38\n\t"
-    ".word 0x3C020100,0xAC620000,0x3C04800B,0x8C840D68\n\t"
-    ".word 0x0C02513D,0x00000000,0x08020724,0x2402FFFF\n\t"
-    ".word 0x00001021,0x8FBF0018,0x27BD0020,0x03E00008\n\t"
-    ".word 0x00000000\n");
+extern int func_80088870(int a);
+extern int func_800944F4(int a);
+extern void func_800943B0(char *fmt, ...);
+extern volatile int D_800B0D6C;
+extern volatile int D_800B0D70;
+extern volatile int D_800B0D58;
+extern volatile int D_800B0D5C;
+extern int D_800B0D68;
+extern volatile unsigned long *D_800B0D38;
+extern volatile unsigned long *D_800B0D3C;
+extern volatile unsigned long *D_800B0D44;
+extern volatile unsigned long *D_800B0D54;
+extern char D_800C4CCC[];
+
+static inline int bump(volatile int *counter) {
+    int v = *counter;
+    int old = v;
+
+    v++;
+    *counter = v;
+    return old;
+}
+
+int func_80081B5C(void) {
+    if (D_800B0D6C < func_80088870(-1) || bump(&D_800B0D70) > 0xF0000) {
+        *D_800B0D38;
+        func_800943B0(D_800C4CCC, (D_800B0D58 - D_800B0D5C) & 0x3F, *D_800B0D38, *D_800B0D44, *D_800B0D3C);
+        D_800B0D68 = func_800944F4(0);
+        D_800B0D58 = D_800B0D5C = 0;
+        *D_800B0D44 = 0x401;
+        *D_800B0D54 |= 0x800;
+        *D_800B0D38 = 0x02000000;
+        *D_800B0D38 = 0x01000000;
+        func_800944F4(D_800B0D68);
+        return -1;
+    }
+    return 0;
+}

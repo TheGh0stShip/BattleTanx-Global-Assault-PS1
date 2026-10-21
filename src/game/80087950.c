@@ -1,34 +1,104 @@
-asm(".text\n\t.globl func_80087950\nfunc_80087950:\n\t"
-    ".word 0x27BDFF78,0xAFB30074,0x00809821,0xAFB60080\n\t"
-    ".word 0x00A0B021,0x3C02800F,0xAFB00068,0x2450E588\n\t"
-    ".word 0xAFBF0084,0xAFB5007C,0xAFB40078,0xAFB20070\n\t"
-    ".word 0xAFB1006C,0x92020004,0x00000000,0x10400003\n\t"
-    ".word 0x0000A821,0x0C021C78,0x00000000,0x92020006\n\t"
-    ".word 0x00000000,0x10400004,0x00000000,0x8E040030\n\t"
-    ".word 0x0C021D18,0x00000000,0x0C021BF1,0x02602021\n\t"
-    ".word 0x30420003,0x24030003,0x1443005B,0x02A01021\n\t"
-    ".word 0x27A40018,0x0C021BC3,0x02C02821,0x8E0202EC\n\t"
-    ".word 0x00002021,0x0C025802,0x00029342,0x02602021\n\t"
-    ".word 0x27A50018,0x0C02584E,0x02403021,0x00401821\n\t"
-    ".word 0x24140006,0x14740020,0x00008821,0x02602021\n\t"
-    ".word 0x27A50018,0x27A60030,0x27A70058,0x24100001\n\t"
-    ".word 0xAFA00010,0x0C02576D,0xAFB00014,0x00401821\n\t"
-    ".word 0x14600017,0x24020006,0x8FA20058,0x00000000\n\t"
-    ".word 0x14500002,0x00121340,0x8FB10048,0x00000000\n\t"
-    ".word 0x1222000D,0x02602021,0x0C0258D0,0x27A50018\n\t"
-    ".word 0x00401821,0x14600005,0x02602021,0x27A50018\n\t"
-    ".word 0x0C02584E,0x02403021,0x00401821,0x14740002\n\t"
-    ".word 0x00000000,0x24030007,0x10600003,0x24020006\n\t"
-    ".word 0x14620029,0x02A01021,0x02602021,0x27A50018\n\t"
-    ".word 0x0C0254B4,0x24060002,0x14400023,0x02A01021\n\t"
-    ".word 0x0C021BB2,0x00000000,0x00408021,0x3C02800F\n\t"
-    ".word 0x2451E588,0x92220008,0x00000000,0x10400002\n\t"
-    ".word 0x02003021,0x2606FFFC,0x262400EC,0x0C0255A1\n\t"
-    ".word 0x00002821,0x10400013,0x24040060,0x27A5005C\n\t"
-    ".word 0x0C021B2B,0x03A43021,0x8FA3005C,0x24020006\n\t"
-    ".word 0x1462000D,0x02A01021,0x8FA20060,0x00000000\n\t"
-    ".word 0x14400009,0x02A01021,0x02602021,0x02C02821\n\t"
-    ".word 0x00123340,0x0C021DF9,0x02003821,0x8E350030\n\t"
-    ".word 0xA2200007,0x02A01021,0x8FBF0084,0x8FB60080\n\t"
-    ".word 0x8FB5007C,0x8FB40078,0x8FB30074,0x8FB20070\n\t"
-    ".word 0x8FB1006C,0x8FB00068,0x03E00008,0x27BD0088\n");
+typedef struct DirEntry {
+    char name[20];
+    int attr;
+    int size;
+    struct DirEntry *next;
+    int head;
+    char system[4];
+} DirEntry;
+
+typedef struct CardInfo {
+    char pad00[4];
+    unsigned char busy;
+    char pad05;
+    unsigned char pending;
+    unsigned char dirty;
+    unsigned char header;
+    char pad09[0x27];
+    int handle;
+    char pad34[0xB8];
+    char buffer[0x200];
+    unsigned int file_size;
+} CardInfo;
+
+extern CardInfo D_800EE588;
+extern void func_800871E0(void);
+extern void func_80087460(int);
+extern int func_80086FC4(int);
+extern void func_80086F0C(char *, char *);
+extern void func_80096008(int);
+extern int func_80096138(int, char *, int);
+extern int func_80095DB4(int, char *, DirEntry *, int *, int, int);
+extern int func_80096340(int, char *);
+extern int func_800952D0(int, char *, int);
+extern int func_80086EC8(void);
+extern int func_80095684(void *, int, int);
+extern void func_80086CAC(int, int *, int *);
+extern void func_800877E4(int, char *, int, int);
+
+int func_80087950(int chan, char *name) {
+    char path[24];
+    DirEntry entry;
+    int count;
+    int event;
+    int code;
+    int result = 0;
+    unsigned int blocks;
+    int size;
+    int r;
+    int len;
+    int n;
+
+    if (D_800EE588.busy != 0) {
+        func_800871E0();
+    }
+    if (D_800EE588.pending != 0) {
+        func_80087460(D_800EE588.handle);
+    }
+    if ((func_80086FC4(chan) & 3) != 3) {
+        goto done;
+    }
+        func_80086F0C(path, name);
+        blocks = D_800EE588.file_size >> 13;
+        func_80096008(0);
+        r = func_80096138(chan, path, blocks);
+        if (r == 6) {
+            size = 0;
+            r = func_80095DB4(chan, path, &entry, &count, 0, 1);
+            if (r == 0) {
+                if (count == 1) {
+                    size = entry.size;
+                }
+                if (size != blocks << 13) {
+                    r = func_80096340(chan, path);
+                    if (r == 0) {
+                        r = func_80096138(chan, path, blocks);
+                    }
+                    if (r == 6) {
+                        r = 7;
+                    }
+                }
+            }
+        }
+        if (r != 0 && r != 6) {
+            goto done;
+        }
+        if (func_800952D0(chan, path, 2) != 0) {
+            goto done;
+        }
+        len = func_80086EC8();
+        n = len;
+        if (D_800EE588.header != 0) {
+            n = len - 4;
+        }
+        if (func_80095684(D_800EE588.buffer, 0, n)) {
+            func_80086CAC(0x60, &event, &code);
+            if (event == 6 && code == 0) {
+                func_800877E4(chan, name, blocks << 13, len);
+                result = D_800EE588.handle;
+                D_800EE588.dirty = 0;
+            }
+        }
+done:
+    return result;
+}

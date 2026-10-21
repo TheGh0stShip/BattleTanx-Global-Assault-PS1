@@ -1,18 +1,30 @@
-asm(".text\n\t.globl func_8006AC7C\nfunc_8006AC7C:\n\t"
-    ".word 0x27bdffd8,0x24040004,0xafbf0024,0xafb20020\n\t"
-    ".word 0xafb1001c,0x0c024d64,0xafb00018,0x3c02800e\n\t"
-    ".word 0x8444540c,0x0c0246a4,0x00802821,0x0c021b21\n\t"
-    ".word 0x00008021,0x00021402,0x3c11aaaa,0x3631aaab\n\t"
-    ".word 0x00510019,0x00004010,0x00082042,0x00041840\n\t"
-    ".word 0x00641821,0x00431023,0x3043ffff,0x04600016\n\t"
-    ".word 0x00409021,0x28620002,0x14400005,0x24020002\n\t"
-    ".word 0x10620008,0x00002821,0x0801ab4f,0x3c028007\n\t"
-    ".word 0x0c021b21,0x00000000,0x00021402,0x0801ab4d\n\t"
-    ".word 0x30500007,0x0c021b21,0x00000000,0x00021402\n\t"
-    ".word 0x00510019,0x00004010,0x00082042,0x00041840\n\t"
-    ".word 0x00641821,0x00438023,0x00002821,0x3c028007\n\t"
-    ".word 0x2442adbc,0x3c03800b,0x2463de3c,0xafa20014\n\t"
-    ".word 0x3242ffff,0x00021080,0x00431021,0x00a03021\n\t"
-    ".word 0xafa00010,0x8c440000,0x0c024e0f,0x3207ffff\n\t"
-    ".word 0x8fbf0024,0x8fb20020,0x8fb1001c,0x8fb00018\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+extern void func_80093590(int a);
+extern void func_80091A90(int a, int b);
+extern unsigned int func_80086C84(void);
+extern void func_8009383C(int a, int b, int c, int d, int e, void (*f)(void));
+extern void func_8006ADBC(void);
+extern short D_800E540C;
+extern int D_800ADE3C[];
+
+static inline unsigned short rnd(void) {
+    return func_80086C84() >> 16;
+}
+
+void func_8006AC7C(void) {
+    unsigned short kind;
+    unsigned short sub;
+
+    func_80093590(4);
+    func_80091A90(D_800E540C, D_800E540C);
+    sub = 0;
+    switch (kind = rnd() % 3) {
+    case 0:
+    case 1:
+        sub = rnd() & 7;
+        break;
+    case 2:
+        sub = rnd() % 3;
+        break;
+    }
+    func_8009383C(D_800ADE3C[kind], 0, 0, sub, 0, func_8006ADBC);
+}

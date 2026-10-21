@@ -1,29 +1,85 @@
-asm(".text\n\t.globl func_80096340\nfunc_80096340:\n\t"
-    ".word 0x27BDFFB0,0xAFB20040,0x00809021,0xAFB00038\n\t"
-    ".word 0x00A08021,0xAFB30044,0x3C13800F,0x2673F094\n\t"
-    ".word 0xAFBF0048,0xAFB1003C,0x8E620000,0x00000000\n\t"
-    ".word 0x10400006,0x00008821,0x3C04800C,0x0C0250EC\n\t"
-    ".word 0x24845368,0x08025938,0x2402FFFF,0x02402021\n\t"
-    ".word 0x0C0259C5,0x27A50010,0x27A40010,0x0C023655\n\t"
-    ".word 0x02002821,0x02608021,0x24130002,0x24020001\n\t"
-    ".word 0x8E04000C,0x3C03800F,0x8C63F090,0x00821004\n\t"
-    ".word 0x00621825,0x3C01800F,0xAC23F090,0x0C027DDF\n\t"
-    ".word 0x27A40010,0x14400041,0xAFA20030,0x0C025802\n\t"
-    ".word 0x00002021,0x8E030000,0x3C01800F,0x10600006\n\t"
-    ".word 0xAC22F0E8,0x3C04800C,0x0C0250EC,0x24845218\n\t"
-    ".word 0x0802590A,0x00000000,0x3C048009,0x248450D4\n\t"
-    ".word 0xAE130000,0xAE000004,0xAE000008,0x3C01800F\n\t"
-    ".word 0x0C027D6B,0xAC32F0A0,0x8E020000,0x00000000\n\t"
-    ".word 0x14400005,0x00000000,0x8E020008,0x00000000\n\t"
-    ".word 0x10400012,0x00000000,0x8E020000,0x8E020004\n\t"
-    ".word 0x8E020008,0x00000000,0x14400007,0x00000000\n\t"
-    ".word 0x3C03800F,0x2463F09C,0x8C620000,0x00000000\n\t"
-    ".word 0x1040FFFD,0x00000000,0x3C02800F,0x2442F0E0\n\t"
-    ".word 0x8C420000,0xAE000008,0xAFA20030,0x3C04800F\n\t"
-    ".word 0x8C84F0E8,0x0C025802,0x00000000,0x8FA30030\n\t"
-    ".word 0x24020003,0x1062FFC9,0x00000000,0x14730005\n\t"
-    ".word 0x00000000,0x26310001,0x2A220010,0x1440FFC3\n\t"
-    ".word 0x00000000,0x14600002,0x24020005,0xAFA20030\n\t"
-    ".word 0x8FA20030,0x08025938,0x00000000,0x00001021\n\t"
-    ".word 0x8FBF0048,0x8FB30044,0x8FB20040,0x8FB1003C\n\t"
-    ".word 0x8FB00038,0x03E00008,0x27BD0050\n");
+typedef struct {
+    volatile int state;
+    volatile int f4;
+    volatile int f8;
+    volatile int chan;
+} CardState;
+
+extern CardState D_800EF094;
+extern int D_800EF090;
+extern volatile int D_800EF09C;
+extern volatile int D_800EF0E0;
+extern int D_800EF0E8;
+extern char D_800C5368[];
+extern char D_800C5218[];
+extern void func_800950D4(void);
+extern int func_800943B0(char *);
+extern void func_80096714(int, char *);
+extern void func_8008D954(char *, int);
+extern int func_8009F77C(char *);
+extern int func_80096008(int);
+extern void func_8009F5AC(void (*)(void));
+
+int func_80096340(int a0, int a1)
+{
+    struct { char buf[32]; int result; } s;
+    register CardState *p asm("$19");
+    CardState *q;
+    register int i asm("$17");
+    register int busy asm("$19");
+
+    p = &D_800EF094;
+    i = 0;
+    if (p->state != 0) {
+        func_800943B0(D_800C5368);
+        return -1;
+    }
+    func_80096714(a0, s.buf);
+    func_8008D954(s.buf, a1);
+    q = p;
+    __asm__("" : "=r"(q) : "0"(q));
+    busy = 2;
+    D_800EF090 |= 1 << q->chan;
+retry:
+        if ((s.result = func_8009F77C(s.buf)) != 0) {
+            goto fail;
+        }
+        D_800EF0E8 = func_80096008(0);
+        if (q->state != 0) {
+            func_800943B0(D_800C5218);
+        } else {
+            q->state = busy;
+            q->f4 = 0;
+            q->f8 = 0;
+            D_800EF094.chan = a0;
+            func_8009F5AC(func_800950D4);
+        }
+        if (q->state != 0 || q->f8 != 0) {
+            q->state;
+            q->f4;
+            if (q->f8 == 0) {
+                while (*(volatile int *)&D_800EF09C == 0) {
+                }
+            }
+            {
+                int r;
+
+                r = *(volatile int *)&D_800EF0E0;
+                q->f8 = 0;
+                s.result = r;
+            }
+        }
+        func_80096008(D_800EF0E8);
+        if (s.result == 3) {
+            goto retry;
+        }
+        if (s.result == busy && ++i < 16) {
+            goto retry;
+        }
+    if (s.result == 0) {
+        s.result = 5;
+    }
+    return s.result;
+fail:
+    return 0;
+}

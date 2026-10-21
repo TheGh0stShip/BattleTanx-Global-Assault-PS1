@@ -1,95 +1,281 @@
-asm(".text\n\t.globl func_800516B8\nfunc_800516B8:\n\t"
-    ".word 0x27BDFF10,0xAFB200D8,0x00809021,0xAFB500E4\n\t"
-    ".word 0x00A0A821,0xAFBF00EC,0xAFB600E8,0xAFB400E0\n\t"
-    ".word 0xAFB300DC,0xAFB100D4,0xAFB000D0,0x8EA40010\n\t"
-    ".word 0x0C014CCE,0x00000000,0x2403004C,0xA6400000\n\t"
-    ".word 0xA6430004,0xA6400002,0x92A30000,0x00000000\n\t"
-    ".word 0xA2430006,0x92A30001,0x00000000,0xA2430007\n\t"
-    ".word 0x8EA30004,0xAE400070,0xA6400074,0xAE43000C\n\t"
-    ".word 0x00602021,0x8EA3000C,0x0040B021,0xAC83001C\n\t"
-    ".word 0x8E43000C,0x8EA20008,0x24050002,0xAC620018\n\t"
-    ".word 0x8EA20030,0x00002021,0xAE4200A8,0x02441021\n\t"
-    ".word 0x24830001,0x00602021,0xA04400BE,0x28820010\n\t"
-    ".word 0x1440FFFA,0xA24500CE,0x8EA20010,0x02402021\n\t"
-    ".word 0x27B00060,0x02002821,0xAE420054,0x8EA2003C\n\t"
-    ".word 0x27A600A0,0x0C0149E1,0xAE4200B0,0x00403021\n\t"
-    ".word 0x18C0000C,0x00002021,0x24070001,0x02002821\n\t"
-    ".word 0x8CA20000,0x24A50004,0x24840001,0x8E430008\n\t"
-    ".word 0x00471004,0x00621825,0x0086102A,0x1440FFF8\n\t"
-    ".word 0xAE430008,0x264400B4,0x26A50040,0xAE4000AC\n\t"
-    ".word 0x92A20034,0x24060008,0xA24000BC,0x0C0229EF\n\t"
-    ".word 0xA24200BD,0x00002821,0x02A02021,0x02401821\n\t"
-    ".word 0x8C820014,0x24840004,0x24A50001,0xAC620088\n\t"
-    ".word 0x28A20007,0x1440FFFA,0x24630004,0x26440078\n\t"
-    ".word 0x00002821,0x0C022A92,0x2406000C,0x26440084\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060003,0x8EA30038\n\t"
-    ".word 0x00000000,0x2C620006,0x1040006D,0x3C02800C\n\t"
-    ".word 0x2442F87C,0x00031880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x8E4200A8\n\t"
-    ".word 0x00000000,0x8C42000C,0xAFA00034,0xAFA20030\n\t"
-    ".word 0x8E4200A8,0x00000000,0x8C420010,0x00000000\n\t"
-    ".word 0xAFA20038,0x8E4200A8,0x00000000,0x94420014\n\t"
-    ".word 0x00000000,0xA7A2003C,0x92430007,0x24020002\n\t"
-    ".word 0xAFA20040,0xAFA20044,0x24020017,0xAFA20048\n\t"
-    ".word 0xA3A3003E,0x8E4200B0,0xAFA00050,0xAFA0005C\n\t"
-    ".word 0xAFA2004C,0x8E4200B4,0x27A40030,0xAC820024\n\t"
-    ".word 0x8E4200B8,0x0C00FBBE,0xAC820028,0x8E4200A8\n\t"
-    ".word 0x00000000,0x8C420000,0xAFA00034,0xAFA20030\n\t"
-    ".word 0x8E4200A8,0x00000000,0x8C420004,0x00000000\n\t"
-    ".word 0xAFA20038,0x8E4200A8,0x00000000,0x94420008\n\t"
-    ".word 0x00000000,0xA7A2003C,0x92420007,0x00000000\n\t"
-    ".word 0xA3A2003E,0x8EC30000,0x24020004,0xAFA00044\n\t"
-    ".word 0xAFA20048,0xAFA30040,0x8E4300B0,0x24020002\n\t"
-    ".word 0xAFA20050,0x08014676,0xAFA3004C,0x0C008A05\n\t"
-    ".word 0x00000000,0x10400005,0x24020001,0x92430007\n\t"
-    ".word 0x00000000,0x10620022,0x00000000,0x8E4200A8\n\t"
-    ".word 0x00000000,0x8C42000C,0xAFA00034,0xAFA20030\n\t"
-    ".word 0x8E4200A8,0x00000000,0x8C420010,0x00000000\n\t"
-    ".word 0xAFA20038,0x8E4200A8,0x00000000,0x94420014\n\t"
-    ".word 0x00000000,0xA7A2003C,0x92430007,0x24020002\n\t"
-    ".word 0xAFA20040,0xAFA20044,0x24020017,0xAFA20048\n\t"
-    ".word 0xA3A3003E,0x8E4200B0,0xAFA00050,0xAFA2004C\n\t"
-    ".word 0x8E4200B4,0x27A40030,0xAC820024,0x8E4200B8\n\t"
-    ".word 0x00000000,0xAC820028,0x0C00FBBE,0xAFA0005C\n\t"
-    ".word 0x0C008A05,0x00000000,0x14400006,0x00000000\n\t"
-    ".word 0x92420006,0x00000000,0x30420002,0x10400008\n\t"
-    ".word 0x0000A021,0x8EA30038,0x24020005,0x10620003\n\t"
-    ".word 0x24020006,0x1462004F,0x00000000,0x0000A021\n\t"
-    ".word 0x00008821,0x24040001,0x02C01821,0x8C620000\n\t"
-    ".word 0x26310001,0x00441004,0x0282A025,0x2A220005\n\t"
-    ".word 0x1440FFFA,0x24630004,0x00008821,0x02208021\n\t"
-    ".word 0x8E4200A8,0x27A400B0,0x02021021,0x8C420000\n\t"
-    ".word 0x26310001,0xAFA000C4,0xAFA200C0,0x8E4200A8\n\t"
-    ".word 0x24130006,0x02021021,0x8C420004,0x3407FFFF\n\t"
-    ".word 0xAFA200C8,0x8FA800C0,0x8FA900C4,0x8FAA00C8\n\t"
-    ".word 0xAFA800B0,0xAFA900B4,0xAFAA00B8,0x8E4200A8\n\t"
-    ".word 0x92460007,0x02021021,0x2610000C,0x94450008\n\t"
-    ".word 0x3282FFFF,0xAFA20010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0xAFB3001C,0xAFA00020,0xAFA00024,0xAFA00028\n\t"
-    ".word 0x0C00D335,0xAFA0002C,0x2A220005,0x1440FFDC\n\t"
-    ".word 0x00000000,0x8EA30038,0x00000000,0x14730015\n\t"
-    ".word 0x24020005,0x3C02800D,0x90432FED,0x24040003\n\t"
-    ".word 0x1064000C,0x28620004,0x10400005,0x24020002\n\t"
-    ".word 0x1062000F,0x24020005,0x080146DB,0x00000000\n\t"
-    ".word 0x24020004,0x10620005,0x00000000,0x080146DB\n\t"
-    ".word 0x00000000,0x080146DA,0x24020004,0x080146DB\n\t"
-    ".word 0xA24400BD,0x14620002,0x24020001,0x24020004\n\t"
-    ".word 0xA24200BD,0x92420006,0x00000000,0x30420002\n\t"
-    ".word 0x10400030,0x00000000,0x8EA20038,0x00000000\n\t"
-    ".word 0x2442FFFD,0x2C420002,0x10400005,0x00000000\n\t"
-    ".word 0x0C01B0B5,0x02402021,0x080146FA,0x00408021\n\t"
-    ".word 0x8E420078,0x00000000,0x14400005,0x00000000\n\t"
-    ".word 0x8E42007C,0x00000000,0x10400004,0x00000000\n\t"
-    ".word 0x8C500000,0x080146FA,0x00000000,0x3C02800A\n\t"
-    ".word 0x8C436070,0x2402000A,0x14620022,0x00008021\n\t"
-    ".word 0x92420007,0x00000000,0x00022080,0x00822021\n\t"
-    ".word 0x000420C0,0x00822023,0x00042080,0x3C02800D\n\t"
-    ".word 0x24423038,0x00822021,0x0C00536D,0xAE44005C\n\t"
-    ".word 0x02002821,0x8E44005C,0x0C00526E,0x00003021\n\t"
-    ".word 0x02402021,0x24020001,0xAE500060,0x0C014C98\n\t"
-    ".word 0xA2420064,0x0C008A05,0x00000000,0x10400004\n\t"
-    ".word 0x00000000,0x92C20014,0x0801471B,0xA24200A4\n\t"
-    ".word 0x8E42000C,0x00000000,0x90420021,0x00000000\n\t"
-    ".word 0xA24200A4,0x8FBF00EC,0x8FB600E8,0x8FB500E4\n\t"
-    ".word 0x8FB400E0,0x8FB300DC,0x8FB200D8,0x8FB100D4\n\t"
-    ".word 0x8FB000D0,0x03E00008,0x27BD00F0\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int z;
+    unsigned short id;
+    char padA[2];
+} Spot;
+typedef struct {
+    char pad0[0x18];
+    int a18;
+    int a1C;
+    char pad20;
+    unsigned char color;
+} Team;
+typedef struct {
+    int slots[5];
+    unsigned char color;
+} Info;
+typedef struct {
+    unsigned char flags;
+    unsigned char index;
+    char pad2[2];
+    Team *team;
+    int a8;
+    int aC;
+    int value;
+    int stats[7];
+    Spot *spots;
+    unsigned char kind;
+    char pad35[3];
+    int mode;
+    int a3C;
+    int pair[2];
+} Desc;
+typedef struct {
+    int x;
+    int pad4;
+    int z;
+    unsigned short id;
+    unsigned char index;
+    char padF;
+    int a10;
+    int a14;
+    int a18;
+    int a1C;
+    int a20;
+    int pair[2];
+    int a2C;
+} Event;
+typedef struct {
+    unsigned short h0;
+    unsigned short h2;
+    unsigned short h4;
+    unsigned char flags;
+    unsigned char index;
+    int mask;
+    Team *team;
+    char pad10[0x54 - 0x10];
+    int value;
+    char pad58[4];
+    void *slot;
+    int a60;
+    unsigned char a64;
+    char pad65[0x70 - 0x65];
+    int a70;
+    short a74;
+    char pad76[2];
+    int *a78;
+    int *a7C;
+    char pad80[4];
+    unsigned char a84[3];
+    char pad87;
+    int stats[7];
+    unsigned char color;
+    char padA5[3];
+    Spot *spots;
+    int aAC;
+    int aB0;
+    int pair[2];
+    unsigned char aBC;
+    unsigned char kind;
+    unsigned char order[16];
+    unsigned char aCE;
+} Player;
+typedef struct {
+    char data[156];
+} Slot;
+extern Slot D_800D3038[];
+extern unsigned char D_800D2FED;
+extern int D_800A6070;
+extern Info *func_80053338(int);
+extern int func_80052784(Player *, int *, void *);
+extern void func_8008A7BC(void *, void *, int);
+extern void func_8008AA48(void *, int, int);
+extern void func_8003EEF8(Event *);
+extern int func_80022814(void);
+extern void func_80034CD4(Vector *, unsigned short, unsigned char, int, int, int, int, int, int, int, int, int);
+extern int func_8006C2D4(Player *);
+extern void func_80014DB4(void *);
+extern void func_800149B8(void *, int, int);
+extern void func_80053260(Player *);
+
+static inline void set_pair(Event *event, Player *player) {
+    event->pair[0] = player->pair[0];
+    event->pair[1] = player->pair[1];
+}
+
+void func_800516B8(Player *player, Desc *desc) {
+    Event event;
+    int list[16];
+    char extra[16];
+    Vector pos;
+    Vector tmp;
+    Info *info;
+    Team *team;
+    int count;
+    int i;
+    unsigned short mask;
+    int value;
+    int offset;
+
+    info = func_80053338(desc->value);
+    player->h0 = 0;
+    player->h4 = 76;
+    player->h2 = 0;
+    player->flags = desc->flags;
+    player->index = desc->index;
+    player->team = desc->team;
+    player->a70 = 0;
+    player->a74 = 0;
+    player->team->a1C = desc->aC;
+    player->team->a18 = desc->a8;
+    player->spots = desc->spots;
+    {
+        int n;
+
+        for (n = 0; n < 16;) {
+            player->order[n] = n + 1;
+            n++;
+            player->aCE = 2;
+        }
+    }
+    player->value = desc->value;
+    player->aB0 = desc->a3C;
+    count = func_80052784(player, list, extra);
+    {
+        int n;
+
+        for (n = 0; n < count; n++) {
+            player->mask |= 1 << list[n];
+        }
+    }
+    player->aAC = 0;
+    player->kind = desc->kind;
+    player->aBC = 0;
+    func_8008A7BC(player->pair, desc->pair, 8);
+    {
+        int n;
+
+        for (n = 0; n < 7; n++) {
+            player->stats[n] = desc->stats[n];
+        }
+    }
+    func_8008AA48(&player->a78, 0, 12);
+    func_8008AA48(player->a84, 0, 3);
+    switch (desc->mode) {
+    case 2:
+        event.x = player->spots[1].x;
+        event.pad4 = 0;
+        event.z = player->spots[1].z;
+        event.id = player->spots[1].id;
+        event.index = player->index;
+        event.a10 = 2;
+        event.a14 = 2;
+        event.a18 = 23;
+        event.a1C = player->aB0;
+        event.a20 = 0;
+        event.a2C = 0;
+        set_pair(&event, player);
+        func_8003EEF8(&event);
+    case 0:
+    case 5:
+        event.x = player->spots[0].x;
+        event.pad4 = 0;
+        event.z = player->spots[0].z;
+        event.id = player->spots[0].id;
+        event.index = player->index;
+        event.a10 = info->slots[0];
+        event.a14 = 0;
+        event.a18 = 4;
+        event.a1C = player->aB0;
+        event.a20 = 2;
+        set_pair(&event, player);
+        event.a2C = 0;
+        func_8003EEF8(&event);
+        break;
+    case 1:
+    case 4:
+        if (func_80022814() != 0 && player->index == 1) {
+            break;
+        }
+        event.x = player->spots[1].x;
+        event.pad4 = 0;
+        event.z = player->spots[1].z;
+        event.id = player->spots[1].id;
+        event.index = player->index;
+        event.a10 = 2;
+        event.a14 = 2;
+        event.a18 = 23;
+        event.a1C = player->aB0;
+        event.a20 = 0;
+        set_pair(&event, player);
+        event.a2C = 0;
+        func_8003EEF8(&event);
+        break;
+    case 3:
+        break;
+    }
+    if ((func_80022814() == 0 && !(player->flags & 2)) || desc->mode == 5 || desc->mode == 6) {
+        mask = 0;
+        for (i = 0; i < 5; i++) {
+            mask |= 1 << info->slots[i];
+        }
+        for (i = 0; i < 5; i++) {
+            tmp.x = (&player->spots[i])->x;
+            tmp.y = 0;
+            tmp.z = (&player->spots[i])->z;
+            pos = tmp;
+            func_80034CD4(&pos, (&player->spots[i])->id, player->index, 0xFFFF,
+                          mask, 0, 0, 6, 0, 0, 0, 0);
+        }
+        if (desc->mode == 6) {
+            switch (D_800D2FED) {
+            case 2:
+                player->kind = 5;
+                break;
+            case 3:
+                player->kind = 4;
+                break;
+            case 4:
+                player->kind = 3;
+                break;
+            }
+        } else {
+            if (desc->mode == 5) {
+                player->kind = 4;
+            } else {
+                player->kind = 1;
+            }
+        }
+    }
+    if (player->flags & 2) {
+        if ((unsigned int)(desc->mode - 3) < 2) {
+            value = func_8006C2D4(player);
+        } else if (player->a78 != 0) {
+            value = *player->a78;
+        } else if (player->a7C != 0) {
+            value = *player->a7C;
+        } else {
+            if (D_800A6070 != 10) {
+                return;
+            }
+            value = 0;
+        }
+        player->slot = &D_800D3038[player->index];
+        func_80014DB4(player->slot);
+        func_800149B8(player->slot, value, 0);
+        player->a60 = value;
+        player->a64 = 1;
+        func_80053260(player);
+    }
+    if (func_80022814() != 0) {
+        player->color = info->color;
+    } else {
+        player->color = player->team->color;
+    }
+}

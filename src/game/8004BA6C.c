@@ -1,20 +1,55 @@
-asm(".text\n\t.globl func_8004BA6C\nfunc_8004BA6C:\n\t"
-    ".word 0x27BDFFD0,0xAFB50024,0x0080A821,0xAFB10014\n\t"
-    ".word 0x00A08821,0xAFB00010,0x24100003,0xAFBF0028\n\t"
-    ".word 0xAFB40020,0xAFB3001C,0xAFB20018,0x10A0000A\n\t"
-    ".word 0x26B3011C,0x90A20000,0x00000000,0x10500006\n\t"
-    ".word 0x24B30004,0x94A40002,0x0C0129E5,0x00000000\n\t"
-    ".word 0x08012EA6,0x00402821,0x96240002,0x00008821\n\t"
-    ".word 0x24140003,0x0C0129E5,0x00000000,0x00409021\n\t"
-    ".word 0x16400005,0x26A4011C,0x0C012576,0x02602821\n\t"
-    ".word 0x08012EDC,0x02228821,0x92420000,0x00000000\n\t"
-    ".word 0x1454000B,0x02402021,0x26500004,0x02002021\n\t"
-    ".word 0x0C012576,0x02602821,0x02228821,0x96440002\n\t"
-    ".word 0x08012EB4,0x02009821,0x08012ED7,0x26A4011C\n\t"
-    ".word 0x1080FFFD,0x00000000,0x90820000,0x00000000\n\t"
-    ".word 0x10540006,0x00000000,0x94840002,0x0C0129E5\n\t"
-    ".word 0x00000000,0x08012ECB,0x00402021,0x24840004\n\t"
-    ".word 0x0C012576,0x02602821,0x8E430004,0x02228821\n\t"
-    ".word 0x02238821,0x02201021,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short next;
+    union {
+        Vector point;
+        int length;
+    } u;
+} PathNode;
+typedef struct {
+    char pad0[0x11C];
+    Vector goal;
+} Tank;
+extern PathNode *func_8004A794(unsigned short);
+extern int func_800495D8(Vector *, Vector *);
+
+static inline Vector *path_point(Tank *tank, PathNode *node) {
+    for (;;) {
+        if (node == 0) {
+            return &tank->goal;
+        }
+        if (node->kind == 3) {
+            return &node->u.point;
+        }
+        node = func_8004A794(node->next);
+    }
+}
+
+int func_8004BA6C(Tank *tank, PathNode *start) {
+    Vector *from = path_point(tank, start);
+    PathNode *node = func_8004A794(start->next);
+    int total = 0;
+
+    for (;;) {
+        if (node == 0) {
+            total += func_800495D8(&tank->goal, from);
+            break;
+        }
+        if (node->kind == 3) {
+            total += func_800495D8(&node->u.point, from);
+            from = &node->u.point;
+            node = func_8004A794(node->next);
+        } else {
+            total += func_800495D8(path_point(tank, node), from);
+            total += node->u.length;
+            break;
+        }
+    }
+    return total;
+}

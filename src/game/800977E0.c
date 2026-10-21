@@ -1,26 +1,69 @@
-asm(".text\n\t.globl func_800977E0\nfunc_800977E0:\n\t"
-    ".word 0x27BDFFD8,0x3C02800F,0x2442F0EC,0xAFBF0024\n\t"
-    ".word 0xAFB00020,0x8C500004,0x8C430008,0x2602000C\n\t"
-    ".word 0x0043102B,0x10400055,0x00803021,0x90C20003\n\t"
-    ".word 0x90C40002,0x90C30004,0x00021200,0x00822025\n\t"
-    ".word 0x00031C00,0x90C20005,0x00832025,0x00021600\n\t"
-    ".word 0x00822025,0xAE040000,0x90C2000B,0x90C5000A\n\t"
-    ".word 0x90C3000C,0x90C4000D,0x00021200,0x00A22825\n\t"
-    ".word 0x00031C00,0x00A32825,0x00042600,0x90C20019\n\t"
-    ".word 0x00000000,0x30420002,0x10400003,0x00A42025\n\t"
-    ".word 0x3C02C000,0x00822025,0x24C90021,0x00003821\n\t"
-    ".word 0x00E05821,0x00E04021,0xAE040004,0x90C40020\n\t"
-    ".word 0x00000000,0x10800027,0x00E03021,0x240D003B\n\t"
-    ".word 0x240C002E,0x27AA0010,0x01402821,0x91230000\n\t"
-    ".word 0x00000000,0x306200FF,0x10400003,0x25290001\n\t"
-    ".word 0x144D0003,0x00000000,0x08025E49,0x00804021\n\t"
-    ".word 0x144C0006,0x00000000,0x240B0001,0xA0A30000\n\t"
-    ".word 0x00AB2821,0x08025E49,0x00CB3021,0x15600008\n\t"
-    ".word 0x2CE20003,0x2CC20008,0x1040000A,0x00000000\n\t"
-    ".word 0xA0A30000,0x24A50001,0x08025E49,0x24C60001\n\t"
-    ".word 0x10400004,0x00C71021,0x01421021,0xA0430000\n\t"
-    ".word 0x24E70001,0x25080001,0x0104102B,0x1440FFDF\n\t"
-    ".word 0x00000000,0x00C71021,0x27A40010,0x00821021\n\t"
-    ".word 0x24050001,0x0C02844D,0xA0400000,0x3C03800F\n\t"
-    ".word 0xAE020008,0x2602000C,0xAC62F0F0,0x8FBF0024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0028\n");
+extern int func_800A1134(char *, int);
+
+typedef struct {
+    unsigned int sector;
+    unsigned int size;
+    int hash;
+} Entry800977E0;
+
+typedef struct {
+    Entry800977E0 *root;
+    Entry800977E0 *cur;
+    Entry800977E0 *end;
+} Dir800977E0;
+extern Dir800977E0 D_800EF0EC;
+
+void func_800977E0(unsigned char *rec) {
+    Entry800977E0 *e = D_800EF0EC.cur;
+    char name[16];
+    unsigned char *p;
+    unsigned int size;
+    unsigned int len;
+    unsigned int i;
+    unsigned int base;
+    unsigned int ext;
+    int dot;
+    unsigned char c;
+
+    if (e + 1 < D_800EF0EC.end) {
+        size = rec[2] | (rec[3] << 8) | (rec[4] << 16) | (rec[5] << 24);
+        e->sector = size;
+        size = rec[10] | (rec[11] << 8) | (rec[12] << 16) | (rec[13] << 24);
+        if (rec[25] & 2) {
+            size |= 0xC0000000;
+        }
+        p = rec + 33;
+        ext = 0;
+        dot = ext;
+        i = ext;
+        e->size = size;
+        len = rec[32];
+        base = ext;
+        if (len != 0) {
+            do {
+                c = *p++;
+                if (c == 0 || c == ';') {
+                    i = len;
+                } else if (c == '.') {
+                    dot = 1;
+                    name[base] = c;
+                    base += dot;
+                } else if (!dot) {
+                    if (base < 8) {
+                        name[base] = c;
+                        base++;
+                    }
+                } else if (ext < 3) {
+                    do {
+                        name[base + ext] = c;
+                        ext++;
+                    } while (0);
+                }
+                i++;
+            } while (i < len);
+        }
+        name[base + ext] = 0;
+        e->hash = func_800A1134(name, 1);
+        D_800EF0EC.cur = e + 1;
+    }
+}

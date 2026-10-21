@@ -1,46 +1,75 @@
-asm(".text\n\t.globl func_8004305C\nfunc_8004305C:\n\t"
-    ".word 0x27BDFE90,0xAFB3015C,0x8FB30188,0xAFB40160\n\t"
-    ".word 0x93B40184,0xAFB60168,0x93B60180,0xAFB20158\n\t"
-    ".word 0x00809021,0xAFB00150,0x00A08021,0xAFB10154\n\t"
-    ".word 0x00C08821,0xAFB50164,0x00E0A821,0x12800025\n\t"
-    ".word 0xAFBF016C,0x06010004,0x00101303,0x00101023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x06200003\n\t"
-    ".word 0x00022403,0x08010C35,0x00111303,0x00111023\n\t"
-    ".word 0x00021303,0x00021023,0x00022B80,0x0C0091DB\n\t"
-    ".word 0x00052C03,0x10400088,0x00001021,0x06010004\n\t"
-    ".word 0x00101303,0x00101023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x06200003,0x00022403,0x08010C47\n\t"
-    ".word 0x00111303,0x00111023,0x00021303,0x00021023\n\t"
-    ".word 0x00022B80,0x0C009233,0x00052C03,0x10400076\n\t"
-    ".word 0x00001021,0x06010004,0x00101303,0x00101023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x06200003\n\t"
-    ".word 0x00022C03,0x08010C59,0x00113303,0x00111023\n\t"
-    ".word 0x00021303,0x00023023,0x3C03800A,0x24634EF4\n\t"
-    ".word 0x00121040,0x00521021,0x00021080,0x00521021\n\t"
-    ".word 0x00021100,0x00431021,0x84430004,0x00000000\n\t"
-    ".word 0xAFA30010,0x84430006,0x00002021,0xAFA30014\n\t"
-    ".word 0x84430008,0x00063380,0xAFA30018,0x8443000A\n\t"
-    ".word 0x00063403,0xAFA3001C,0x8443000C,0x00803821\n\t"
-    ".word 0xAFA30020,0x8443000E,0x32A2FFFF,0xAFA20028\n\t"
-    ".word 0x24020008,0xAFA2002C,0x0C006BB5,0xAFA30024\n\t"
-    ".word 0x00402021,0x32C200FF,0x1040001E,0x3C050064\n\t"
-    ".word 0x12600018,0x27A60030,0x3084FFFF,0x3C050024\n\t"
-    ".word 0x34A50008,0x00003821,0x3C02800C,0xA440628C\n\t"
-    ".word 0x0C005EAB,0xAFA00010,0x3044FFFF,0x00001821\n\t"
-    ".word 0x1080002A,0x00803021,0x27A50030,0x8CA20000\n\t"
-    ".word 0x00000000,0x14530032,0x24630001,0x2484FFFF\n\t"
-    ".word 0x0066102A,0x1440FFF9,0x24A50024,0x08010CC0\n\t"
-    ".word 0x00001021,0x3084FFFF,0x3C050024,0x08010CB5\n\t"
-    ".word 0x34A50008,0x328200FF,0x10400003,0x34A5510B\n\t"
-    ".word 0x3C050164,0x34A5510B,0x12600016,0x27A60030\n\t"
-    ".word 0x3084FFFF,0x00003821,0x3C02800C,0xA440628C\n\t"
-    ".word 0x0C005EAB,0xAFA00010,0x3044FFFF,0x00001821\n\t"
-    ".word 0x1080000A,0x00803021,0x27A50030,0x8CA20000\n\t"
-    ".word 0x00000000,0x14530012,0x24630001,0x2484FFFF\n\t"
-    ".word 0x0066102A,0x1440FFF9,0x24A50024,0x08010CC0\n\t"
-    ".word 0x00001021,0x3084FFFF,0x27A60030,0x00003821\n\t"
-    ".word 0x3C02800C,0xA440628C,0x24020001,0x0C005EAB\n\t"
-    ".word 0xAFA20010,0x3044FFFF,0x10800002,0x00001021\n\t"
-    ".word 0x00801021,0x2C420001,0x8FBF016C,0x8FB60168\n\t"
-    ".word 0x8FB50164,0x8FB40160,0x8FB3015C,0x8FB20158\n\t"
-    ".word 0x8FB10154,0x8FB00150,0x03E00008,0x27BD0170\n");
+typedef struct {
+    char pad0[4];
+    short ext[6];
+    char pad10[0xD0 - 0x10];
+} VehicleType;
+typedef struct {
+    int owner;
+    char pad4[32];
+} Found;
+extern VehicleType D_800A4EF4[];
+extern short D_800C628C;
+extern int func_8002476C(int, int);
+extern int func_800248CC(int, int);
+extern int func_8001AED4(int, int, int, int, int, int, int, int, int, int, int, int);
+extern unsigned short func_80017AAC(unsigned short, int, Found *, int, int);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int count_blockers(unsigned short box, int mask, int ignore) {
+    Found found[8];
+    int total;
+    int count;
+    int i;
+    Found *f;
+
+    if (ignore != 0) {
+        D_800C628C = 0;
+        total = (unsigned short)func_80017AAC(box, mask, found, 0, 0);
+        count = total;
+        for (i = 0; i < total; i++) {
+            if (found[i].owner != ignore) {
+                return count;
+            }
+            count--;
+        }
+        return 0;
+    }
+    D_800C628C = 0;
+    count = func_80017AAC(box, mask, found, 0, 1);
+    if (count != 0) {
+        return count;
+    }
+    return 0;
+}
+
+int func_8004305C(int type, int x, int z, unsigned short heading, unsigned char strict, unsigned char check_map, int ignore) {
+    unsigned short box;
+    int mask;
+
+    if (check_map) {
+        if (func_8002476C((short)(fixed_to_int(x) >> 2), (short)(fixed_to_int(z) >> 2)) == 0) {
+            return 0;
+        }
+        if (func_800248CC((short)(fixed_to_int(x) >> 2), (short)(fixed_to_int(z) >> 2)) == 0) {
+            return 0;
+        }
+    }
+    box = func_8001AED4(0, (short)(fixed_to_int(x) >> 2), (short)(fixed_to_int(z) >> 2), 0,
+                        D_800A4EF4[type].ext[0], D_800A4EF4[type].ext[1], D_800A4EF4[type].ext[2],
+                        D_800A4EF4[type].ext[3], D_800A4EF4[type].ext[4], D_800A4EF4[type].ext[5],
+                        heading, 8);
+    if (strict) {
+        return count_blockers(box, 0x240008, ignore) == 0;
+    }
+    mask = 0x64510B;
+    if (check_map) {
+        mask = 0x164510B;
+    }
+    return count_blockers(box, mask, ignore) == 0;
+}

@@ -1,79 +1,178 @@
-asm(".text\n\t.globl func_800162F0\nfunc_800162F0:\n\t"
-    ".word 0x27BDFFB8,0xAFB50034,0x97B50058,0xAFB3002C\n\t"
-    ".word 0x97B3005C,0xAFB60038,0x97B60060,0xAFBE0040\n\t"
-    ".word 0x00A0F021,0xAFB40030,0x97B40064,0x3C08800C\n\t"
-    ".word 0xAFB20028,0x97B20070,0x95056288,0x00804821\n\t"
-    ".word 0xA7A70018,0x8FA70074,0x97AA0068,0x3402FFFF\n\t"
-    ".word 0xAFBF0044,0xAFB7003C,0xAFB10024,0xAFB00020\n\t"
-    ".word 0xA7A60010,0xA7AA001A,0x97AA006C,0x30A3FFFF\n\t"
-    ".word 0x14620003,0xA7AA001C,0x080058F2,0x0040B821\n\t"
-    ".word 0x00A02021,0x00002821,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x3C03800C,0x246362B0,0x00431821\n\t"
-    ".word 0x94620008,0x3406FFFF,0xA5026288,0x30A2FFFF\n\t"
-    ".word 0x00021040,0x00621021,0xA4460008,0x24A50001\n\t"
-    ".word 0x30A2FFFF,0x2C420004,0x1440FFF9,0x30A2FFFF\n\t"
-    ".word 0xAC600004,0x0080B821,0x32E3FFFF,0x3402FFFF\n\t"
-    ".word 0x106200F3,0x00000000,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x3C03800C,0x246362B0,0x00438821\n\t"
-    ".word 0x30E24863,0xAE270000,0x1040004F,0xAE290004\n\t"
-    ".word 0x24020800,0x14E20003,0x3243FFFF,0x00009021\n\t"
-    ".word 0x3243FFFF,0x24024000,0x10620027,0x28624001\n\t"
-    ".word 0x10400005,0x34028000,0x10600023,0x00002021\n\t"
-    ".word 0x08005913,0x3250FFFF,0x1062001F,0x3402C000\n\t"
-    ".word 0x1062001D,0x00002021,0x3250FFFF,0x0C011EDF\n\t"
-    ".word 0x02002821,0x28421001,0x10400003,0x24044000\n\t"
-    ".word 0x0800592E,0x00009021,0x0C011EDF,0x02002821\n\t"
-    ".word 0x28421001,0x10400003,0x34048000,0x0800592E\n\t"
-    ".word 0x24124000,0x0C011EDF,0x02002821,0x28421001\n\t"
-    ".word 0x10400003,0x3404C000,0x0800592E,0x34128000\n\t"
-    ".word 0x0C011EDF,0x02002821,0x28421001,0x10400003\n\t"
-    ".word 0x3243FFFF,0x3412C000,0x3243FFFF,0x24024000\n\t"
-    ".word 0x1062000A,0x28624001,0x1440001C,0x00131400\n\t"
-    ".word 0x34028000,0x1062000B,0x3402C000,0x10620010\n\t"
-    ".word 0x00131400,0x08005950,0x00021403,0x02C01021\n\t"
-    ".word 0x0013B023,0x02809821,0x0015A023,0x0800594D\n\t"
-    ".word 0x0040A821,0x02A01021,0x0013A823,0x00029823\n\t"
-    ".word 0x02C01021,0x0014B023,0x0800594D,0x0002A023\n\t"
-    ".word 0x02C01021,0x02A0B021,0x0014A823,0x0260A021\n\t"
-    ".word 0x00029823,0x00009021,0x00131400,0x00021403\n\t"
-    ".word 0x04410002,0x00403021,0x00063023,0xA63E0010\n\t"
-    ".word 0x97AA0010,0x00151400,0xA62A0012,0x97AA0018\n\t"
-    ".word 0x00021403,0xA62A0014,0xA6350016,0xA6330018\n\t"
-    ".word 0xA636001A,0xA634001C,0x97AA001A,0x04410002\n\t"
-    ".word 0x00401821,0x00031823,0xA62A001E,0x97AA001C\n\t"
-    ".word 0x00C3102A,0xA62A0020,0x10400002,0xA6320024\n\t"
-    ".word 0x00603021,0x00141400,0x00021403,0x04410002\n\t"
-    ".word 0x00401821,0x00031823,0x00161400,0x00021403\n\t"
-    ".word 0x04410002,0x00402021,0x00042023,0x0064102A\n\t"
-    ".word 0x10400003,0x00031400,0x00801821,0x00031400\n\t"
-    ".word 0x00021C03,0x04610002,0x00602821,0x00052823\n\t"
-    ".word 0x00061400,0x00021403,0x04410002,0x00402021\n\t"
-    ".word 0x00042023,0x00A4102A,0x10400002,0x00000000\n\t"
-    ".word 0x00802821,0x04610002,0x00000000,0x00031823\n\t"
-    ".word 0x0083102A,0x10400003,0x00031040,0x00801821\n\t"
-    ".word 0x00031040,0x00431021,0x04410002,0x00000000\n\t"
-    ".word 0x24420007,0x000210C3,0x00A22021,0x3C05800A\n\t"
-    ".word 0x00041400,0x84A34372,0x00021403,0x0062182A\n\t"
-    ".word 0x10600002,0xA6240022,0xA4A44372,0x3C02800C\n\t"
-    ".word 0x24466290,0x94436290,0x94C20002,0x97AA0010\n\t"
-    ".word 0x03C31823,0x00602821,0x01421023,0x00031C00\n\t"
-    ".word 0x00031C03,0x04600011,0x00403821,0x00021400\n\t"
-    ".word 0x00022403,0x0480000E,0x00051400,0x94C20008\n\t"
-    ".word 0x00000000,0x00021280,0x0062102A,0x10400008\n\t"
-    ".word 0x00051400,0x94C2000A,0x00000000,0x00021280\n\t"
-    ".word 0x0082102A,0x1440002B,0x00000000,0x00051400\n\t"
-    ".word 0x00022403,0x00131400,0x00021403,0x00821021\n\t"
-    ".word 0x04400015,0x00071400,0x00022C03,0x00141400\n\t"
-    ".word 0x00021403,0x00A21021,0x0440000F,0x00151400\n\t"
-    ".word 0x00021403,0x94C30008,0x00821021,0x00031A80\n\t"
-    ".word 0x0043102A,0x10400008,0x00161400,0x00021403\n\t"
-    ".word 0x94C3000A,0x00A21021,0x00031A80,0x0043102A\n\t"
-    ".word 0x14400008,0x32E4FFFF,0x3C03800C,0x94646288\n\t"
-    ".word 0x3402FFFF,0xA4776288,0xAE200004,0x080059E8\n\t"
-    ".word 0xA6240008,0x001E2C00,0x97AA0010,0x00052C03\n\t"
-    ".word 0x000A3400,0x0C005864,0x00063403,0x080059E4\n\t"
-    ".word 0x3C04800A,0x0C00573E,0x32E4FFFF,0x3C04800A\n\t"
-    ".word 0x94834370,0x32E2FFFF,0x24630001,0xA4834370\n\t"
-    ".word 0x8FBF0044,0x8FBE0040,0x8FB7003C,0x8FB60038\n\t"
-    ".word 0x8FB50034,0x8FB40030,0x8FB3002C,0x8FB20028\n\t"
-    ".word 0x8FB10024,0x8FB00020,0x03E00008,0x27BD0048\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short y_low;
+    short y_high;
+    short radius;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Grid {
+    unsigned short x0;
+    unsigned short z0;
+    short width;
+    short depth;
+    unsigned short cols;
+    unsigned short rows;
+    unsigned short *cells;
+} Grid;
+extern Cell D_800C62B0[];
+extern Grid D_800C6290;
+extern unsigned short D_800C6288;
+extern unsigned short D_800A4370;
+extern short D_800A4372;
+int abs(int);
+int func_80047B7C(int, int);
+void func_80015CF8(unsigned short);
+void func_80016190(unsigned short, int, int);
+
+static inline unsigned short cell_alloc(void) {
+    unsigned short i;
+    unsigned short id;
+    Cell *c;
+
+    if (D_800C6288 == 0xFFFF) {
+        return 0xFFFF;
+    }
+    id = D_800C6288;
+    c = &D_800C62B0[id];
+    D_800C6288 = c->next[0];
+    for (i = 0; i < 4; i++) {
+        c->next[i] = 0xFFFF;
+    }
+    c->owner = 0;
+    return id;
+}
+
+static inline int imax(int a, int b) {
+    if (a < b) {
+        a = b;
+    }
+    return a;
+}
+
+unsigned short func_800162F0(void *owner, short x, short z, short y, short min_x, short max_x, short min_z,
+                             short max_z, short y_low, short y_high, unsigned short angle, int flags) {
+    unsigned short id;
+    Cell *c;
+    short t;
+    int ax;
+    int bx;
+    short ex;
+    short ez;
+    int big;
+    int small;
+    Grid *g;
+    short dx;
+    short dz;
+
+    id = cell_alloc();
+    if (id == 0xFFFF) {
+        return 0xFFFF;
+    }
+    c = &D_800C62B0[id];
+    c->flags = flags;
+    c->owner = owner;
+    if (flags & 0x4863) {
+        if (flags == 0x800) {
+            angle = 0;
+        }
+        switch (angle) {
+        case 0:
+        case 0x4000:
+        case 0x8000:
+        case 0xC000:
+            break;
+        default:
+            if (func_80047B7C(0, angle) <= 4096) {
+                angle = 0;
+            } else if (func_80047B7C(0x4000, angle) <= 4096) {
+                angle = 0x4000;
+            } else if (func_80047B7C(0x8000, angle) <= 4096) {
+                angle = 0x8000;
+            } else if (func_80047B7C(0xC000, angle) <= 4096) {
+                angle = 0xC000;
+            }
+            break;
+        }
+        switch (angle) {
+        case 0:
+            break;
+        case 0x4000:
+            t = min_z;
+            min_z = -max_x;
+            max_x = max_z;
+            max_z = -min_x;
+            min_x = t;
+            angle = 0;
+            break;
+        case 0x8000:
+            t = min_x;
+            min_x = -max_x;
+            max_x = -t;
+            t = min_z;
+            min_z = -max_z;
+            max_z = -t;
+            angle = 0;
+            break;
+        case 0xC000:
+            t = min_z;
+            min_z = min_x;
+            min_x = -max_z;
+            max_z = max_x;
+            max_x = -t;
+            angle = 0;
+            break;
+        }
+    }
+    ax = abs(max_x);
+    c->x = x;
+    c->z = z;
+    c->y = y;
+    c->min_x = min_x;
+    c->max_x = max_x;
+    c->min_z = min_z;
+    c->max_z = max_z;
+    bx = abs(min_x);
+    c->y_low = y_low;
+    c->y_high = y_high;
+    c->angle = angle;
+    ex = imax(ax, bx);
+    ez = imax(abs(max_z), abs(min_z));
+    big = abs(ez);
+    if (big < abs(ex)) {
+        big = abs(ex);
+    }
+    small = abs(ez);
+    if (abs(ex) < small) {
+        small = abs(ex);
+    }
+    c->radius = big + small * 3 / 8;
+    if (D_800A4372 < c->radius) {
+        D_800A4372 = c->radius;
+    }
+    g = &D_800C6290;
+    dx = x - D_800C6290.x0;
+    dz = z - g->z0;
+    if (dx < 0 || dz < 0 || dx >= g->cols << 10 || dz >= g->rows << 10) {
+        if (dx + max_x < 0 || dz + max_z < 0 || dx + min_x >= g->cols << 10 || dz + min_z >= g->rows << 10) {
+            c->next[0] = D_800C6288;
+            D_800C6288 = id;
+            c->owner = 0;
+            return 0xFFFF;
+        }
+        func_80016190(id, x, z);
+    } else {
+        func_80015CF8(id);
+    }
+    D_800A4370++;
+    return id;
+}

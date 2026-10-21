@@ -66,6 +66,23 @@ Those units also survive one final retail-address link and reproduce the full
 PS-X EXE, including its metadata-built header, at both supported hashes.
 The overall compiler gate stays open pending more representative functions.
 
+The native-Windows `CC1PSX.EXE` backend was also checked directly from WSL,
+without Wine, against the 4,788-byte `func_8007AE20` research candidate. Psy-Q
+4.3 and 4.4 both emitted the same text as the pinned Linux GCC 2.8.1 PSX
+compiler: 4,716 bytes already agree with retail and the same 20 aligned
+differences remain. Psy-Q 4.5 emitted 4,924 bytes and is excluded for this
+unit. The locally tested compiler fingerprints are:
+
+| Psy-Q bundle | `CC1PSX.EXE` SHA-256 | Candidate result |
+|---|---|---|
+| 4.3 | `17081b8e39a92078b16aa788f419306c0d77b28c30a02b9bb9c208cac172e5be` | identical to pinned GCC 2.8.1 output |
+| 4.4 | `26eb8259fa3e077d1980eb1e0c942006752135953dd03173200bf99ef6f5b6c9` | identical to pinned GCC 2.8.1 output |
+| 4.5 | `a24ed21b8d371ca57048721109506cdfabb40539178e436e21400245d9c4dd76` | excluded; wrong text size and allocation |
+
+These executables remain ignored local toolchain inputs. A matching-unit entry
+selects the backend with `"compiler": "psyq-cc1psx"`; `PSYQ_CC1PSX` names the
+mounted Windows executable path.
+
 Final compiler selection requires matching code-generation evidence from
 additional representative game functions,
 including stack layout, delay-slot scheduling, switch lowering, signed and

@@ -1,149 +1,365 @@
-asm(".text\n\t.globl func_800289C8\nfunc_800289C8:\n\t"
-    ".word 0x27BDFF40,0xAFB600B8,0x00A0B021,0xAFB200A8\n\t"
-    ".word 0x00009021,0xAFB100A4,0x00808821,0xAFB500B4\n\t"
-    ".word 0x0000A821,0xAFBF00BC,0xAFB400B0,0xAFB300AC\n\t"
-    ".word 0xAFB000A0,0x9223001B,0x9224001D,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x3C03800A,0x246344D4,0x00439821,0x2402007F\n\t"
-    ".word 0x14820003,0x00801821,0x0800A296,0x02A01021\n\t"
-    ".word 0x00031100,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021080,0x3C03800E,0x24633E68,0x00431021\n\t"
-    ".word 0x8E23003C,0x8C540094,0x10600005,0x00000000\n\t"
-    ".word 0x84620000,0x00000000,0x10400049,0x00000000\n\t"
-    ".word 0x92220007,0x00000000,0x10400002,0x2442FFFF\n\t"
-    ".word 0xA2220007,0x8E22003C,0x00000000,0x1040002E\n\t"
-    ".word 0x27B00028,0x27A70040,0x24081000,0xACE80000\n\t"
-    ".word 0xACE00004,0xACE80008,0xACE0000C,0xACE80010\n\t"
-    ".word 0xACE00014,0xACE00018,0xACE0001C,0xAFA00038\n\t"
-    ".word 0xAFA0003C,0xA3A00060,0x8E22003C,0x3C03800D\n\t"
-    ".word 0x84440004,0x246332F4,0x00041040,0x00441021\n\t"
-    ".word 0x00021080,0x00431821,0x8C620004,0x00000000\n\t"
-    ".word 0x1040000A,0x2402FFFF,0x10820008,0x02202821\n\t"
-    ".word 0x24060001,0xAFA70010,0x8E24003C,0x8C620004\n\t"
-    ".word 0x00000000,0x0040F809,0x27A70038,0x27A40040\n\t"
-    ".word 0x26250008,0x0C022997,0x02003021,0x96240024\n\t"
-    ".word 0x86050000,0x86060008,0x0C0057D9,0x00000000\n\t"
-    ".word 0x0800A2DA,0x00000000,0x8E290008,0x8E2A000C\n\t"
-    ".word 0x8E2B0010,0xAFA90028,0xAFAA002C,0xAFAB0030\n\t"
-    ".word 0x8E220038,0x00000000,0x1C400012,0x24020001\n\t"
-    ".word 0x92220006,0x00000000,0x30420002,0x14400004\n\t"
-    ".word 0x2404000A,0x8FA50028,0x0C014DE4,0x00A03021\n\t"
-    ".word 0x96230024,0x3402FFFF,0x10620004,0x24020001\n\t"
-    ".word 0x0C006C25,0x00602021,0x24020001,0x0800A4B8\n\t"
-    ".word 0xAEC20000,0x92230019,0x00000000,0x1062002B\n\t"
-    ".word 0x28620002,0x10400005,0x00000000,0x10600008\n\t"
-    ".word 0x00000000,0x0800A366,0x00000000,0x24020003\n\t"
-    ".word 0x10620062,0x3C02800D,0x0800A366,0x00000000\n\t"
-    ".word 0x0C021B21,0x00000000,0x3042000F,0x14400064\n\t"
-    ".word 0x2402007F,0x9223001D,0x00000000,0x14620003\n\t"
-    ".word 0x00031100,0x0800A310,0x00001021,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431021,0x8C45000C,0x0C00A0FA\n\t"
-    ".word 0x27A40028,0x10400052,0xAE220034,0x8C420000\n\t"
-    ".word 0x00000000,0x84430000,0x24020001,0xA2220019\n\t"
-    ".word 0xA2200007,0x0800A366,0xAE230020,0x0C021B21\n\t"
-    ".word 0x00000000,0x3042000F,0x14400022,0x2402007F\n\t"
-    ".word 0x9223001D,0x00000000,0x14620003,0x00031100\n\t"
-    ".word 0x0800A32F,0x00001021,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00431021,0x8C45000C,0x0C00A0FA,0x27A40028\n\t"
-    ".word 0x00401821,0x14600004,0x00000000,0xA2200019\n\t"
-    ".word 0x0800A366,0xAE200034,0x8E220034,0x00000000\n\t"
-    ".word 0x10430002,0x00000000,0xA2200007,0xAE230034\n\t"
-    ".word 0x8C620000,0x00000000,0x84420000,0x0800A351\n\t"
-    ".word 0xAE220020,0x8E230034,0x00000000,0x8C620218\n\t"
-    ".word 0x00000000,0x30420001,0x1040001C,0x00000000\n\t"
-    ".word 0x8C620000,0x00000000,0x84430000,0x8E220020\n\t"
-    ".word 0x00000000,0x14620015,0x00000000,0x24150001\n\t"
-    ".word 0x8E220034,0x8FA40028,0x8FA50030,0x8C430008\n\t"
-    ".word 0x8C420010,0x00642023,0x0C022B8C,0x00452823\n\t"
-    ".word 0x30420FFF,0x0800A366,0x00029100,0x24150001\n\t"
-    ".word 0x96230014,0x8C442FE0,0x8E220028,0x00000000\n\t"
-    ".word 0x0044102A,0x10400002,0x24721556,0xA2200019\n\t"
-    ".word 0x12A00044,0x00000000,0x96240014,0x0C011EDF\n\t"
-    ".word 0x3245FFFF,0x00402821,0x96620000,0x00000000\n\t"
-    ".word 0x02820018,0x00001812,0x00004810,0x00031B02\n\t"
-    ".word 0x00094D00,0x00691825,0x3C02800E,0x8C4BE30C\n\t"
-    ".word 0x00000000,0x006B0018,0x00002012,0x00005010\n\t"
-    ".word 0x00042302,0x000A5500,0x008A2025,0x92230019\n\t"
-    ".word 0x24020003,0x14620004,0x00041023,0x00041040\n\t"
-    ".word 0x00822021,0x00041023,0x00A2102A,0x10400004\n\t"
-    ".word 0x00000000,0x96220014,0x0800A392,0x00441023\n\t"
-    ".word 0x0085102A,0x14400003,0x00000000,0x0800A393\n\t"
-    ".word 0xA6320014,0x96220014,0x00000000,0x00441021\n\t"
-    ".word 0xA6220014,0x9662004C,0x00000000,0x10400015\n\t"
-    ".word 0x00000000,0x96240016,0x96250014,0x0C011EDF\n\t"
-    ".word 0x00000000,0x9663004C,0x00402021,0x00031023\n\t"
-    ".word 0x0082102A,0x10400004,0x00000000,0x96220016\n\t"
-    ".word 0x0800A3AA,0x00431023,0x0064102A,0x10400005\n\t"
-    ".word 0x00000000,0x96220016,0x00000000,0x00431021\n\t"
-    ".word 0xA6220014,0x9223001A,0x24020002,0x10620003\n\t"
-    ".word 0x00000000,0x14600108,0x00000000,0x12A00106\n\t"
-    ".word 0x3250FFFF,0x96240014,0x0C011EDF,0x02002821\n\t"
-    ".word 0x04400009,0x00000000,0x96240014,0x0C011EDF\n\t"
-    ".word 0x02002821,0x28420200,0x104000FB,0x00000000\n\t"
-    ".word 0x0800A3C7,0x00000000,0x96240014,0x0C011EDF\n\t"
-    ".word 0x02002821,0x00021023,0x28420200,0x104000F2\n\t"
-    ".word 0x00000000,0x8E220034,0x00000000,0x104000EE\n\t"
-    ".word 0x00000000,0x8E6C0004,0x00000000,0x028C0018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x3C02800D,0x8C422FE0,0x8E23002C\n\t"
-    ".word 0x00000000,0x00431023,0x0082202A,0x108000DE\n\t"
-    ".word 0x27A40060,0x00002821,0x0C022A92,0x24060008\n\t"
-    ".word 0x96300014,0x00000000,0x00108102,0x0C022B58\n\t"
-    ".word 0x02002021,0x02002021,0x0C022B30,0x00409021\n\t"
-    ".word 0x92230007,0x00000000,0x10600005,0x00408021\n\t"
-    ".word 0x92220018,0x00000000,0x104000CB,0x00000000\n\t"
-    ".word 0x8E69003C,0x8E6A0040,0x8E6B0044,0xAFA90048\n\t"
-    ".word 0xAFAA004C,0xAFAB0050,0x92220006,0x00000000\n\t"
-    ".word 0x30420001,0x10400005,0x00000000,0x8FA20048\n\t"
-    ".word 0x00000000,0x00021023,0xAFA20048,0x92220006\n\t"
-    ".word 0x00000000,0x38420001,0xA2220006,0x8FA30048\n\t"
-    ".word 0x8FA40050,0x02030018,0x00002812,0x00001010\n\t"
-    ".word 0x00052B02,0x00021500,0x00A22825,0x02440018\n\t"
-    ".word 0x00003012,0x00001010,0x00063302,0x00021500\n\t"
-    ".word 0x00C23025,0x8FA20028,0x00000000,0x00451021\n\t"
-    ".word 0x00461021,0xAFA20038,0x02430018,0x00004812\n\t"
-    ".word 0x00001010,0x00094B02,0x00021500,0x01224825\n\t"
-    ".word 0x01201821,0x02040018,0x00002812,0x00001010\n\t"
-    ".word 0x00052B02,0x00021500,0x00A22825,0x8FA20030\n\t"
-    ".word 0x8FA4004C,0x00431023,0x8FA3002C,0x00451021\n\t"
-    ".word 0xAFA20040,0x00641821,0xAFA3003C,0x92220007\n\t"
-    ".word 0x00000000,0x14400024,0x27A40038,0x27A50090\n\t"
-    ".word 0x3C060064,0x34C6940B,0x00003821,0x8E220034\n\t"
-    ".word 0x3C03800C,0x8C4A0008,0x8C4B000C,0x8C4C0010\n\t"
-    ".word 0xAFAA0090,0xAFAB0094,0xAFAC0098,0x8FA8003C\n\t"
-    ".word 0x24020001,0xA462628C,0x27A20068,0xAFA80094\n\t"
-    ".word 0xAFB10010,0x0C006760,0xAFA20014,0x3042FFFF\n\t"
-    ".word 0x10400008,0x00001021,0x8E220034,0x8FA30068\n\t"
-    ".word 0x8C420000,0x00000000,0x14620002,0x00001021\n\t"
-    ".word 0x24020001,0xA2220018,0x304300FF,0x24020010\n\t"
-    ".word 0x10600069,0xA2220007,0x8E62000C,0x00000000\n\t"
-    ".word 0x02820018,0x00001012,0x00000000,0x00000000\n\t"
-    ".word 0x00520018,0x00004812,0x00001810,0x00094B02\n\t"
-    ".word 0x00031D00,0x01234825,0xAFA90058,0x00500018\n\t"
-    ".word 0x00005012,0x00005810,0x000A5302,0x000B5D00\n\t"
-    ".word 0x014B5025,0xAFAA005C,0x8E630014,0x24020001\n\t"
-    ".word 0x1062000A,0x24040029,0x10600005,0x24020002\n\t"
-    ".word 0x10620005,0x00002021,0x0800A471,0x00000000\n\t"
-    ".word 0x0800A471,0x24040004,0x24040019,0x8FA50028\n\t"
-    ".word 0x8FA60030,0x0C014DE4,0x00000000,0x3C02800B\n\t"
-    ".word 0x9042ED58,0x00000000,0x30420001,0x10400014\n\t"
-    ".word 0x00000000,0x8E6C0008,0x00000000,0x028C0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x00021040,0x304600FF,0x9223001D\n\t"
-    ".word 0x2402007F,0x10620013,0x00602021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x0800A4A0,0x00441021\n\t"
-    ".word 0x8E690008,0x00000000,0x02890018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x306600FF,0x9223001D,0x2402007F,0x14620003\n\t"
-    ".word 0x00031100,0x0800A4A4,0x00001821,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00431821,0x27A40038,0x96270014\n\t"
-    ".word 0x27A50058,0xAFA60010,0x8E620014,0x27A60060\n\t"
-    ".word 0xAFB10018,0xAFA0001C,0xAFA30020,0x0C00E36C\n\t"
-    ".word 0xAFA20014,0x8E220034,0x00000000,0x10400002\n\t"
-    ".word 0x00000000,0xAC5100B4,0x3C02800D,0x8C422FE0\n\t"
-    ".word 0x00000000,0xAE22002C,0x8FBF00BC,0x8FB600B8\n\t"
-    ".word 0x8FB500B4,0x8FB400B0,0x8FB300AC,0x8FB200A8\n\t"
-    ".word 0x8FB100A4,0x8FB000A0,0x03E00008,0x27BD00C0\n");
+typedef struct NodeMsg NodeMsg;
+typedef struct Matrix Matrix;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short id;
+} Ident;
+
+typedef struct {
+    Ident *ident;
+    char pad4[4];
+    Vector pos;
+    char pad14[0xB4 - 0x14];
+    void *attacker;
+    char padB8[0x218 - 0xB8];
+    int status;
+} Tank;
+
+typedef struct {
+    short id;
+    short next;
+    short kind;
+} Node;
+
+typedef struct {
+    void (*update)();
+    void (*notify)(Node *, void *, int, NodeMsg *, Matrix *);
+    void (*draw)();
+} NodeClass;
+
+typedef struct {
+    unsigned short turn;
+    char pad2[2];
+    int reload;
+    int damage;
+    int speed;
+    char pad10[4];
+    int weapon;
+    char pad18[0x3C - 0x18];
+    Vector muzzle;
+    char pad48[4];
+    unsigned short limit;
+    char pad4E[0x54 - 0x4E];
+} Kind;
+
+typedef struct {
+    char pad0[0xC];
+    int team;
+    char pad10[0x94 - 0x10];
+    int scale;
+    char pad98[0x114 - 0x98];
+} Waypoint;
+
+typedef struct {
+    char pad0[6];
+    unsigned char flags;
+    unsigned char cooldown;
+    Vector pos;
+    unsigned short angle;
+    unsigned short base;
+    unsigned char los;
+    unsigned char state;
+    unsigned char mode;
+    unsigned char kind;
+    char pad1C;
+    unsigned char owner;
+    char pad1E[2];
+    int target_id;
+    unsigned short handle;
+    char pad26[2];
+    int timer;
+    int last_fire;
+    char pad30[4];
+    Tank *target;
+    int health;
+    Node *node;
+} Turret;
+
+struct Matrix {
+    short m[3][3];
+    int t[3];
+};
+
+struct NodeMsg {
+    int a;
+    int b;
+    Matrix mat;
+    unsigned char flag;
+    char pad29[0x58 - 0x29];
+};
+
+typedef struct {
+    Ident *obj;
+    int pad[8];
+} Hit;
+
+extern Kind D_800A44D4[];
+extern Waypoint D_800E3E68[];
+extern NodeClass D_800D32F4[];
+extern int D_800D2FE0;
+extern int D_800DE30C;
+extern short D_800C628C;
+extern unsigned char D_800AED58;
+extern void func_8008A65C(Matrix *, Vector *, Vector *);
+extern void func_80015F64(int, int, int);
+extern void func_80053790(int, int, int);
+extern void func_8001B094(int);
+extern unsigned int func_80086C84(void);
+extern Tank *func_800283E8(Vector *, int);
+extern int func_8008AE30(int, int);
+extern int func_8008AD60(int);
+extern int func_8008ACC0(int);
+extern int func_80047B7C(int, int);
+extern void func_8008AA48(void *, int, int);
+extern unsigned short func_80019D80(Vector *, Vector *, int, int, void *, Hit *);
+extern void func_80038DB0(Vector *, int *, void *, int, int, int, void *, int, Waypoint *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_mul2(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult\t%2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline Waypoint *waypoint_get(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline Waypoint *waypoint_get_initial(int index, int null_value) {
+    if (index == 127) {
+        return (Waypoint *)null_value;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline void identity_matrix(Matrix *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\tsw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     : : "r"(m) : "$8", "memory");
+}
+
+void func_800289C8(Turret *arg0, int *arg1) {
+    int *done = arg1;
+    Turret *obj = arg0;
+    Kind *kind;
+    int scale;
+    int aim = 0;
+    int turning;
+    Vector pos;
+    Tank *t;
+
+    __asm__("move $21,$zero" : "=r"(turning));
+
+    kind = &D_800A44D4[obj->kind];
+    scale = waypoint_get_initial(obj->owner, turning)->scale;
+    if (obj->node != 0 && obj->node->id == 0) {
+        goto dead;
+    }
+    if (obj->cooldown != 0) {
+        obj->cooldown--;
+    }
+    if (obj->node != 0) {
+        {
+        Vector *out = &pos;
+        NodeMsg msg;
+        NodeClass *cls;
+
+        identity_matrix(&msg.mat);
+        msg.a = 0;
+        msg.b = 0;
+        msg.flag = 0;
+        if (D_800D32F4[obj->node->kind].notify != 0 && obj->node->kind != -1) {
+            D_800D32F4[obj->node->kind].notify(obj->node, obj, 1, &msg, &msg.mat);
+        }
+        func_8008A65C(&msg.mat, &obj->pos, out);
+        func_80015F64(obj->handle, *(short *)&out->x, *(short *)&out->z);
+        }
+    } else {
+        pos = obj->pos;
+    }
+    if (obj->health <= 0) {
+        if (!(obj->flags & 2)) {
+            func_80053790(10, pos.x, pos.x);
+        }
+    dead:
+        if (obj->handle != 0xFFFF) {
+            func_8001B094(obj->handle);
+        }
+        *done = 1;
+        return;
+    }
+    switch (obj->state) {
+    case 0:
+        if ((func_80086C84() & 0xF) == 0) {
+            Tank *found = func_800283E8(&pos, waypoint_get(obj->owner)->team);
+
+            obj->target = found;
+            if (found != 0) {
+                int id = found->ident->id;
+
+                obj->state = 1;
+                obj->cooldown = 0;
+                obj->target_id = id;
+            }
+        }
+        break;
+    case 1:
+        if ((func_80086C84() & 0xF) == 0) {
+            t = func_800283E8(&pos, waypoint_get(obj->owner)->team);
+            if (t == 0) {
+                obj->state = 0;
+                obj->target = 0;
+                break;
+            }
+            if (obj->target != t) {
+                obj->cooldown = 0;
+            }
+            obj->target = t;
+            obj->target_id = t->ident->id;
+        } else if (!(obj->target->status & 1) || obj->target->ident->id != obj->target_id) {
+            obj->state = 0;
+            break;
+        }
+        turning = 1;
+        aim = (func_8008AE30(obj->target->pos.x - pos.x, obj->target->pos.z - pos.z) & 0xFFF) << 4;
+        break;
+    case 3:
+        turning = 1;
+        aim = obj->angle + 5462;
+        if (D_800D2FE0 > obj->timer) {
+            obj->state = 0;
+        }
+        break;
+    }
+    if (turning) {
+        int diff = func_80047B7C(obj->angle, aim & 0xFFFF);
+        int step = fixed_mul(fixed_mul(scale, kind->turn), D_800DE30C);
+
+        if (obj->state == 3) {
+            step *= 3;
+        }
+        if (diff < -step) {
+            obj->angle -= step;
+        } else if (diff <= step) {
+            obj->angle = aim;
+        } else {
+            obj->angle += step;
+        }
+        if (kind->limit != 0) {
+            int lim;
+            int off;
+
+            off = func_80047B7C(obj->base, obj->angle);
+            lim = kind->limit;
+            if (off < -lim) {
+                obj->angle = obj->base - lim;
+            } else if (lim < off) {
+                obj->angle = obj->base + lim;
+            }
+        }
+    }
+    if ((obj->mode == 2 || obj->mode == 0) && turning) {
+        int a = aim & 0xFFFF;
+
+        if ((func_80047B7C(obj->angle, a) >= 0 ? func_80047B7C(obj->angle, a) : -func_80047B7C(obj->angle, a)) < 512
+            && obj->target != 0 && fixed_mul(scale, kind->reload) < D_800D2FE0 - obj->last_fire) {
+            Vector start;
+            Vector muzzle;
+            int vel[2];
+            unsigned char buf[8];
+            int s;
+            int c;
+            int sp;
+            int sound;
+            int idx;
+            int mx;
+            int mz;
+
+            func_8008AA48(buf, 0, 8);
+            idx = obj->angle >> 4;
+            s = func_8008AD60(idx);
+            c = func_8008ACC0(idx);
+            if (obj->cooldown != 0 && obj->los == 0) {
+                return;
+            }
+            muzzle = kind->muzzle;
+            if (obj->flags & 1) {
+                muzzle.x = -muzzle.x;
+            }
+            obj->flags ^= 1;
+            mx = muzzle.x;
+            mz = muzzle.z;
+            start.x = pos.x + fixed_mul(c, mx) + fixed_mul(s, mz);
+            start.z = pos.z - fixed_mul(s, mx) + fixed_mul(c, mz);
+            start.y = pos.y + muzzle.y;
+            if (obj->cooldown == 0) {
+                Hit hit;
+                Vector to;
+                int ok;
+
+                to = obj->target->pos;
+                to.y = start.y;
+                D_800C628C = 1;
+                if (func_80019D80(&start, &to, 0x64940B, 0, obj, &hit) == 0 || hit.obj != obj->target->ident) {
+                    ok = 0;
+                } else {
+                    ok = 1;
+                }
+                obj->los = ok;
+                obj->cooldown = 16;
+                if (!obj->los) {
+                    return;
+                }
+            }
+            sp = scale * kind->speed;
+            vel[0] = fixed_mul2(sp, s);
+            vel[1] = fixed_mul(sp, c);
+            switch ((unsigned int)kind->weapon) {
+            case 0:
+                sound = 4;
+                break;
+            case 1:
+                sound = 41;
+                break;
+            case 2:
+                sound = 25;
+                break;
+            default:
+                sound = 0;
+                break;
+            }
+            func_80053790(sound, pos.x, pos.z);
+            if (D_800AED58 & 1) {
+                func_80038DB0(&start, vel, buf, obj->angle, (fixed_mul(scale, kind->damage) * 2) & 0xFF, kind->weapon, obj, 0,
+                              waypoint_get(obj->owner));
+            } else {
+                func_80038DB0(&start, vel, buf, obj->angle, fixed_mul(scale, kind->damage) & 0xFF, kind->weapon, obj, 0,
+                              waypoint_get(obj->owner));
+            }
+            if (obj->target != 0) {
+                obj->target->attacker = obj;
+            }
+            obj->last_fire = D_800D2FE0;
+        }
+    }
+}

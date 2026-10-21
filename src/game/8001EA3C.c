@@ -1,24 +1,66 @@
-asm(".text\n\t.globl func_8001EA3C\nfunc_8001EA3C:\n\t"
-    ".word 0x27BDFEB8,0xAFB3013C,0x00809821,0xAFB10134\n\t"
-    ".word 0x3C11FFC1,0x36318000,0x240500E0,0x27A60010\n\t"
-    ".word 0x00003821,0xAFBF0144,0xAFB40140,0xAFB20138\n\t"
-    ".word 0x0C00698E,0xAFB00130,0x00409021,0x3242FFFF\n\t"
-    ".word 0x1040003B,0x00008021,0x3C02800C,0x245462B0\n\t"
-    ".word 0x3203FFFF,0x000310C0,0x00431021,0x00021080\n\t"
-    ".word 0x27A30010,0x00622021,0x94830004,0x00000000\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00543021\n\t"
-    ".word 0x8CC20000,0x00000000,0x304300E0,0x24020020\n\t"
-    ".word 0x10620008,0x24020040,0x1462001B,0x00001821\n\t"
-    ".word 0x94840004,0x0C00769C,0x02602821,0x08007AD1\n\t"
-    ".word 0x00401821,0x84C2001E,0x84C30020,0x94C5001E\n\t"
-    ".word 0x94C40020,0x04410002,0x00000000,0x00021023\n\t"
-    ".word 0x04610002,0x00000000,0x00031823,0x0062182A\n\t"
-    ".word 0x10600004,0x00000000,0x94C20014,0x08007ACF\n\t"
-    ".word 0x00A21021,0x94C20014,0x00000000,0x00821021\n\t"
-    ".word 0x00021400,0x00021883,0x0223102A,0x10400002\n\t"
-    ".word 0x00000000,0x00608821,0x26100001,0x3202FFFF\n\t"
-    ".word 0x3243FFFF,0x0043102B,0x1440FFCA,0x3203FFFF\n\t"
-    ".word 0x3C03FFC1,0x34638000,0x12230002,0x00001021\n\t"
-    ".word 0x02201021,0x8FBF0144,0x8FB40140,0x8FB3013C\n\t"
-    ".word 0x8FB20138,0x8FB10134,0x8FB00130,0x03E00008\n\t"
-    ".word 0x27BD0148\n");
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    unsigned short x;
+    unsigned short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short y_low;
+    short y_high;
+    short radius;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+typedef struct Hit {
+    void *owner;
+    volatile unsigned short id;
+    char pad06[0x24 - 6];
+} Hit;
+extern Cell D_800C62B0[];
+unsigned short func_8001A638(void *, int, Hit *, int);
+int func_8001DA70(unsigned short, void *);
+
+int abs(int);
+
+int func_8001EA3C(void *pos) {
+    Hit hits[8];
+    int best = -0x3E8000;
+    unsigned short count;
+    unsigned short i;
+    Cell *e;
+    int v;
+
+    count = func_8001A638(pos, 224, hits, 0);
+    for (i = 0; i < count; i++) {
+        Hit *h = &hits[i];
+
+        e = &D_800C62B0[h->id];
+        switch (e->flags & 0xE0) {
+        case 64:
+            v = func_8001DA70(h->id, pos);
+            break;
+        case 32: {
+            if (abs(e->y_low) > abs(e->y_high)) {
+                v = (short)(e->y_low + e->y) << 14;
+            } else {
+                v = (short)(e->y_high + e->y) << 14;
+            }
+            break;
+        }
+        default:
+            v = 0;
+            break;
+        }
+        if (best < v) {
+            best = v;
+        }
+    }
+    if (best == -0x3E8000) {
+        return 0;
+    }
+    return best;
+}

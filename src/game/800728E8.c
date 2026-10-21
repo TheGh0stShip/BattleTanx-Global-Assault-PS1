@@ -1,46 +1,122 @@
-asm(".text\n\t.globl func_800728E8\nfunc_800728E8:\n\t"
-    ".word 0x8C830014,0x00000000,0x04600006,0x27BDFFF0\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x0801CA4A\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801CA4C,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0xAFA20000,0x8C830018\n\t"
-    ".word 0x00000000,0x04600005,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x0801CA5C,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x0801CA5E,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0xAFA20004,0x8C83001C,0x00000000,0x04600005\n\t"
-    ".word 0x24620800,0x0441000C,0x00021B03,0x0801CA6E\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801CA70,0x00021B03,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021823,0x3C02800B,0x2447D9EC\n\t"
-    ".word 0x8CE20010,0xAFA30008,0x2443FFE8,0x1860000B\n\t"
-    ".word 0x00002821,0x8CE50004,0x8CE20014,0xACE30010\n\t"
-    ".word 0x24420001,0x24A30018,0xACE20014,0x24020006\n\t"
-    ".word 0xACE30004,0xA0A20000,0xA0A00002,0x10A00069\n\t"
-    ".word 0x240200EC,0xA0A20007,0x94820020,0x00000000\n\t"
-    ".word 0xA4A20008,0x94820022,0x00000000,0xA4A2000A\n\t"
-    ".word 0x94820024,0x00000000,0xA4A2000C,0x94820028\n\t"
-    ".word 0x00000000,0xA4A20010,0x9482002A,0x00000000\n\t"
-    ".word 0xA4A20012,0x9482002C,0x00000000,0xA4A20014\n\t"
-    ".word 0x8CE20010,0x00000000,0x2443FFF4,0x1860000B\n\t"
-    ".word 0x00002821,0x8CE50004,0x8CE20014,0xACE30010\n\t"
-    ".word 0x24420001,0x24A3000C,0xACE20014,0x24020003\n\t"
-    ".word 0xACE30004,0xA0A20000,0xA0A00002,0x10A00003\n\t"
-    ".word 0x240200F0,0xA0A20007,0xACA00008,0x8CE20010\n\t"
-    ".word 0x00000000,0x2443FFE0,0x1860000B,0x00003021\n\t"
-    ".word 0x8CE60004,0x8CE20014,0xACE30010,0x24420001\n\t"
-    ".word 0x24C30020,0xACE20014,0x24020008,0xACE30004\n\t"
-    ".word 0xA0C20000,0xA0C00002,0x10C00032,0x3C05800B\n\t"
-    ".word 0x8FA80000,0x8FA90004,0x8FAA0008,0xACC80008\n\t"
-    ".word 0xACC9000C,0xACCA0010,0x90820037,0x00000000\n\t"
-    ".word 0xA0C20004,0x90820038,0x00000000,0xA0C20005\n\t"
-    ".word 0x90820039,0x00000000,0xA0C20006,0x94820006\n\t"
-    ".word 0x00000000,0xA4C20018,0x94820006,0x3C03800B\n\t"
-    ".word 0xA4C2001A,0x8C840008,0x2463E184,0x000410C0\n\t"
-    ".word 0x00441023,0x00021080,0x00431021,0x84430018\n\t"
-    ".word 0x8CA4DA04,0x24020009,0xA0C20003,0x2402002C\n\t"
-    ".word 0xA0C20007,0x24020040,0xA0C00001,0xA0C20001\n\t"
-    ".word 0x24020020,0xA4C00014,0xA4C00016,0xA4C00016\n\t"
-    ".word 0xA4C20014,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x90C30007,0x00822021,0xACC4001C,0x34630002\n\t"
-    ".word 0xA0C30007,0x03E00008,0x27BD0010\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct {
+    char pad[0x18];
+    short frame;
+    char pad1A[2];
+} EffectDef;
+
+typedef struct {
+    int pad0;
+    short pad4;
+    unsigned short angle;
+    int kind;
+    int padC;
+    int pad10;
+    int x, y, z;
+    short a0, a1, a2;
+    short pad26;
+    short b0, b1, b2;
+    char pad2E[0x37 - 0x2E];
+    unsigned char r, g, b;
+} Sprite;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+extern EffectDef D_800AE184[];
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline unsigned char *alloc_packet(int size, int code) {
+    PacketList *list = &D_800AD9EC;
+    unsigned char *p = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = list->free;
+    left = rem - size;
+    if (left > 0) {
+        p = list->cur;
+        list->free = left;
+        {
+            register int c asm("$2") = list->count + 1;
+            register unsigned char *n asm("$3") = p + size;
+
+            list->count = c;
+            list->cur = n;
+        }
+        p[0] = code;
+        p[2] = 0;
+    }
+    return p;
+}
+
+void func_800728E8(Sprite *s) {
+    Vector v;
+    unsigned char *p;
+    unsigned char *q;
+    unsigned char *r;
+    volatile unsigned char *vr;
+    register int *texp asm("$5");
+    int frame;
+    int tex;
+
+    v.x = round_shift(s->x);
+    v.y = round_shift(s->y);
+    v.z = round_shift(s->z);
+    p = alloc_packet(24, 6);
+    if (p == 0) {
+        return;
+    }
+    p[7] = 0xEC;
+    *(short *)(p + 8) = s->a0;
+    *(short *)(p + 10) = s->a1;
+    *(short *)(p + 12) = s->a2;
+    *(short *)(p + 16) = s->b0;
+    *(short *)(p + 18) = s->b1;
+    *(short *)(p + 20) = s->b2;
+    q = alloc_packet(12, 3);
+    if (q != 0) {
+        q[7] = 0xF0;
+        *(int *)(q + 8) = 0;
+    }
+    r = alloc_packet(32, 8);
+    if (r == 0) {
+        return;
+    }
+    vr = r;
+    *(Vector *)(r + 8) = v;
+    r[4] = s->r;
+    r[5] = s->g;
+    r[6] = s->b;
+    *(short *)(r + 24) = s->angle;
+    *(short *)(r + 26) = s->angle;
+    texp = (int *)0x800B0000;
+    frame = D_800AE184[s->kind].frame;
+    __asm__("" : "+r"(texp) : "r"(frame));
+    tex = *(int *)((char *)texp - 9724);
+    vr[3] = 9;
+    vr[7] = 0x2C;
+    vr[1] = 0;
+    vr[1] = 64;
+    *(volatile short *)(r + 20) = 0;
+    *(volatile short *)(r + 22) = 0;
+    *(volatile short *)(r + 22) = 0;
+    *(volatile short *)(r + 20) = 32;
+    *(int *)(r + 28) = tex + frame * 12;
+    vr[7] |= 2;
+}

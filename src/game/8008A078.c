@@ -1,42 +1,164 @@
-asm(".text\n\t.globl func_8008A078\nfunc_8008A078:\n\t"
-    ".word 0xAFA40000,0xAFA50004,0xAFA60008,0xAFA7000C\n\t"
-    ".word 0x27BDFFD8,0x3C02800F,0x2442EAE8,0xAFBF0020\n\t"
-    ".word 0xAFB1001C,0xAFB00018,0xAFA40028,0x90420030\n\t"
-    ".word 0x00000000,0x1040008F,0x00008021,0x2C820011\n\t"
-    ".word 0x1040008C,0x27A7002C,0x3C02800C,0x24424DC8\n\t"
-    ".word 0x00041880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x24E70004,0x8CE3FFFC\n\t"
-    ".word 0x3C02800F,0xAC43EB14,0x8CE70000,0x00000000\n\t"
-    ".word 0x10E0007C,0x24100001,0x080228BB,0xACE00000\n\t"
-    ".word 0x24E70004,0x8CE4FFFC,0x24E70004,0x2403003A\n\t"
-    ".word 0x8CE6FFFC,0x90820002,0x8CE70000,0x14430011\n\t"
-    ".word 0x24020063,0x90850000,0x00000000,0x14A20005\n\t"
-    ".word 0x2402006D,0x90830001,0x24020064,0x10620007\n\t"
-    ".word 0x2402006D,0x14A20007,0x24020073,0x90830001\n\t"
-    ".word 0x00000000,0x14620003,0x00000000,0xACC00000\n\t"
-    ".word 0x24100001,0x10E00061,0x02001021,0x080228BD\n\t"
-    ".word 0xACE00000,0x0C024601,0x00008021,0x10400059\n\t"
-    ".word 0x3C02800F,0x2443EAE8,0x90620033,0x00000000\n\t"
-    ".word 0x10400005,0x24100003,0x90620032,0x00000000\n\t"
-    ".word 0x14400052,0x02001021,0x080228BB,0x2410000B\n\t"
-    ".word 0x24E70008,0x27A50010,0x8CE4FFFC,0x8CF10004\n\t"
-    ".word 0x0C0260AC,0x27A60014,0x10400048,0x02001021\n\t"
-    ".word 0x12200004,0x00000000,0x8FA20014,0x00000000\n\t"
-    ".word 0xAE220000,0x8FB00010,0x080228BD,0x02001021\n\t"
-    ".word 0x080228BB,0x24100001,0x24E70004,0x8CE2FFFC\n\t"
-    ".word 0x24E70004,0x8CE4FFFC,0x8CE50008,0x0C0224EB\n\t"
-    ".word 0x00442021,0x080228BB,0x00408021,0x24E70004\n\t"
-    ".word 0x8CE2FFFC,0x24E70004,0x8CE4FFFC,0x24E70004\n\t"
-    ".word 0x8CE5FFFC,0x24E70004,0x8CE6FFFC,0x8CE70000\n\t"
-    ".word 0x0C022781,0x00442021,0x080228BB,0x00408021\n\t"
-    ".word 0x8CE70004,0x3C02800F,0x2443EAE8,0x90620033\n\t"
-    ".word 0x00000000,0x10400008,0x00008021,0x90620032\n\t"
-    ".word 0x00000000,0x10400004,0x00000000,0x9062003C\n\t"
-    ".word 0x00000000,0x2C500001,0x16000018,0x02001021\n\t"
-    ".word 0x10E00016,0x00000000,0x08022899,0x00000000\n\t"
-    ".word 0x0C022448,0x00000000,0x080228BD,0x02001021\n\t"
-    ".word 0x080228BB,0x00008021,0x3C02800F,0x2443EAE8\n\t"
-    ".word 0x90620033,0x00000000,0x10400005,0x00008021\n\t"
-    ".word 0x90620032,0x00000000,0x14400004,0x02001021\n\t"
-    ".word 0x8C700084,0x00000000,0x02001021,0x8FBF0020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0028\n");
+typedef struct CacheCtl {
+    int reads;
+    int partial;
+    int misses;
+    char pad0C[32];
+    int arg;
+    volatile unsigned char enabled;
+    char pad31;
+    volatile unsigned char f50;
+    volatile unsigned char valid;
+    char pad34[4];
+    volatile unsigned char f56;
+    volatile unsigned char busy;
+    volatile unsigned char active;
+    volatile unsigned char hit;
+    volatile unsigned char f60;
+    char pad3D;
+    volatile unsigned char f62;
+    char pad3F[25];
+    unsigned int lo;
+    unsigned int hi;
+    char pad60[36];
+    int done_a;
+    int done_b;
+    unsigned int next;
+} CacheCtl;
+
+extern CacheCtl D_800EEAE8;
+extern int func_80091804(void);
+extern int func_800982B0(int, int *, int *);
+extern int func_800893AC(int, int);
+extern int func_80089E04(unsigned int, char *, int, void (*)(int, char *, int, int));
+extern void func_80089120(void);
+
+int func_8008A078(int op, ...) {
+    char *ap;
+    int ok = 0;
+
+    if (D_800EEAE8.enabled == 0) {
+        return ok;
+    }
+    ap = (char *)&op + 4;
+    switch (op) {
+    case 0: {
+        int *out;
+
+        D_800EEAE8.arg = *(int *)((ap += 4) - 4);
+        out = *(int **)((ap += 4) - 4);
+        if (out != 0) {
+            *out = 0;
+        }
+        ok = 1;
+        break;
+    }
+    case 1: {
+        unsigned char *name = *(unsigned char **)((ap += 4) - 4);
+        int *p1 = *(int **)((ap += 4) - 4);
+        int *p2 = *(int **)((ap += 4) - 4);
+
+        if (name[2] == ':' && ((name[0] == 'c' && name[1] == 'd') || (name[0] == 'm' && name[1] == 's'))) {
+            *p1 = 0;
+            ok = 1;
+        }
+        if (p2 != 0) {
+            *p2 = 0;
+        }
+        break;
+    }
+    case 2:
+        ok = 0;
+        if (func_80091804() != 0) {
+            ok = 3;
+            if (D_800EEAE8.valid == 0 || D_800EEAE8.f50 == 0) {
+                ok = 11;
+            }
+        }
+        break;
+    case 5: {
+        int name;
+        int *size_out;
+        int handle;
+        int size;
+
+        ap += 4;
+        name = *(int *)((ap += 4) - 4);
+        ap += 4;
+        size_out = *(int **)((ap += 4) - 4);
+        if (func_800982B0(name, &handle, &size) == 0) {
+            break;
+        }
+        if (size_out != 0) {
+            *size_out = size;
+        }
+        ok = handle;
+        break;
+    }
+    case 4:
+    case 7:
+        ok = 1;
+        break;
+    case 9: {
+        int base, offset, count;
+
+        base = *(int *)((ap += 4) - 4);
+        offset = *(int *)((ap += 4) - 4);
+        ap += 8;
+        count = *(int *)((ap += 4) - 4);
+        ok = func_800893AC(base + offset, count);
+        break;
+    }
+    case 10: {
+        int base, offset;
+        char *dst;
+        int size;
+        void (*cb)(int, char *, int, int);
+
+        base = *(int *)((ap += 4) - 4);
+        offset = *(int *)((ap += 4) - 4);
+        dst = *(char **)((ap += 4) - 4);
+        size = *(int *)((ap += 4) - 4);
+        cb = *(void **)((ap += 4) - 4);
+        ok = func_80089E04(base + offset, dst, size, cb);
+        break;
+    }
+    case 12: {
+        int wait;
+
+        ap += 4;
+        wait = *(int *)((ap += 4) - 4);
+        for (;;) {
+            ok = 0;
+            if (D_800EEAE8.valid != 0 && D_800EEAE8.f50 != 0) {
+                ok = D_800EEAE8.f60 == 0;
+            }
+            if (ok != 0) {
+                break;
+            }
+            if (wait == 0) {
+                break;
+            }
+        }
+        break;
+    }
+    case 13:
+        func_80089120();
+        break;
+    case 3:
+    case 6:
+    case 8:
+    case 11:
+    case 14:
+    case 15:
+        ok = 0;
+        break;
+    case 16:
+        ok = 0;
+        if (D_800EEAE8.valid != 0 && D_800EEAE8.f50 != 0) {
+            break;
+        }
+        ok = D_800EEAE8.done_a;
+        break;
+    }
+    return ok;
+}

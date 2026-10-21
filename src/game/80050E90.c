@@ -1,41 +1,217 @@
-asm(".text\n\t.globl func_80050E90\nfunc_80050E90:\n\t"
-    ".word 0x27BDFFD0,0xAFB20020,0x00809021,0xAFB30024\n\t"
-    ".word 0x00A09821,0xAFB1001C,0x00008821,0xAFBF0028\n\t"
-    ".word 0xAFB00018,0x0C011D96,0x02208021,0x10400013\n\t"
-    ".word 0x24020009,0x8E43017C,0x00000000,0x1062000C\n\t"
-    ".word 0x2C62000A,0x10400005,0x24020006,0x10620008\n\t"
-    ".word 0x00008021,0x080143C3,0x00000000,0x2C620017\n\t"
-    ".word 0x10400005,0x2C620012,0x14400004,0x00008021\n\t"
-    ".word 0x080143C3,0x24100001,0x00008021,0x12000076\n\t"
-    ".word 0x02201021,0x8E42017C,0x00000000,0x14530003\n\t"
-    ".word 0x24020004,0x08014439,0x24111000,0x8E440208\n\t"
-    ".word 0x00000000,0x8C830014,0x00000000,0x1062000F\n\t"
-    ".word 0x00002821,0x2C620005,0x10400005,0x24020003\n\t"
-    ".word 0x10620010,0x24031000,0x080143E9,0x00000000\n\t"
-    ".word 0x24020005,0x10620008,0x24020006,0x10620009\n\t"
-    ".word 0x24031000,0x080143E9,0x00000000,0x8C82004C\n\t"
-    ".word 0x080143E8,0x2445000C,0x8C82004C,0x080143E8\n\t"
-    ".word 0x24450020,0x8C82004C,0x00000000,0x24450008\n\t"
-    ".word 0x24031000,0x10A00040,0x00000000,0x0C012576\n\t"
-    ".word 0x26440008,0x3C040800,0x00821023,0x3C038000\n\t"
-    ".word 0x00434024,0x04410002,0x00401821,0x00031823\n\t"
-    ".word 0x00803821,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20010,0xE85F0000,0x8FA50010,0x00000000\n\t"
-    ".word 0x24A6FFF4,0x04C10023,0x00000000,0x00A31804\n\t"
-    ".word 0x4887F000,0x00000000,0x00000000,0x27A20014\n\t"
-    ".word 0xE85F0000,0x8FA40014,0x00000000,0x00852823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00441023,0x04400003\n\t"
-    ".word 0x00000000,0x08014411,0x00471007,0x00021023\n\t"
-    ".word 0x00471004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x08014427,0x00A31804\n\t"
-    ".word 0x00061023,0x00471007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08014427\n\t"
-    ".word 0x00000000,0x00031B00,0x0064001B,0x14800002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x11000002\n\t"
-    ".word 0x00000000,0x00031823,0x8E44017C,0x00000000\n\t"
-    ".word 0x2C820016,0x10400005,0x24090199,0x2C820012\n\t"
-    ".word 0x14400002,0x00000000,0x24090E66,0x00690018\n\t"
-    ".word 0x00008812,0x00001010,0x00118B02,0x00021500\n\t"
-    ".word 0x02228825,0x02201021,0x8FBF0028,0x8FB30024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0x14];
+    unsigned int state;
+    char pad18[0x4C - 0x18];
+    char *anchor;
+} Owner;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0x17C - 0x14];
+    unsigned int state;
+    char pad180[0x208 - 0x180];
+    Owner *owner;
+} Tank;
+extern int func_80047658(Tank *);
+extern int func_800495D8(Vector *, Vector *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+extern int abs(int);
+
+static inline int abs_max(int a, int b) {
+    int r = abs(a);
+
+    b = abs(b);
+    if (r < b) {
+        r = b;
+    }
+    return r;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = denominator;
+
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    if (negative) {
+        quotient = -quotient;
+    }
+    return quotient;
+}
+
+int func_80050E90(Tank *tank, unsigned int target) {
+    int result = 0;
+    int ok;
+    Vector *point;
+    int v;
+    register int weight asm("$9");
+
+    __asm__("");
+    ok = 0;
+    if (func_80047658(tank) != 0) {
+        switch (tank->state) {
+        case 6:
+        case 9:
+        case 18:
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+            ok = 1;
+            break;
+        default:
+            ok = 0;
+            break;
+        }
+    }
+    if (ok != 0) {
+        if (tank->state == target) {
+            result = 4096;
+        } else {
+            Owner *o = tank->owner;
+
+            point = 0;
+            switch (o->state) {
+            case 4:
+                point = (Vector *)(o->anchor + 12);
+                break;
+            case 5:
+                point = (Vector *)(o->anchor + 32);
+                break;
+            case 3:
+            case 6:
+                point = (Vector *)(o->anchor + 8);
+                break;
+            }
+            v = 4096;
+            if (point != 0) {
+            {
+                int num = 0x8000000 - func_800495D8(&tank->position, point);
+                int den = 0x8000000;
+                int negative;
+                int n;
+                int d;
+                register int n_zeros asm("$5");
+                int d_zeros;
+                int excess;
+                int scale;
+
+                if (den == 0) {
+                    den = 2;
+                }
+                negative = (num & 0x80000000) ^ (den & 0x80000000);
+                __asm__("" : : "r"(negative));
+                n = abs(num);
+                d = abs(den);
+                n_zeros = leading_zeros(n);
+                excess = n_zeros - 12;
+                if (excess < 0) {
+                    n <<= n_zeros;
+                    d_zeros = leading_zeros(d);
+                    n_zeros = d_zeros - n_zeros;
+                    if (n_zeros >= 0) {
+                        scale = 12 - d_zeros;
+                        if (scale >= 0) {
+                            v = (unsigned int)n / (d >> scale);
+                        } else {
+                            v = (unsigned int)n / (d << -scale);
+                        }
+                        v <<= n_zeros;
+                    } else {
+                        v = (unsigned int)n / (d >> -excess);
+                    }
+                } else {
+                    n <<= 12;
+                    v = (unsigned int)n / d;
+                }
+                if (negative) {
+                    v = -v;
+                }
+
+            }
+            }
+            weight = 409;
+            switch (tank->state) {
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+                weight = 3686;
+                break;
+            }
+            result = fixed_mul(v, weight);
+        }
+    }
+    return result;
+}

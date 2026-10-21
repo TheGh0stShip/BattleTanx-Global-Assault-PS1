@@ -1,54 +1,192 @@
-asm(".text\n\t.globl func_80043454\nfunc_80043454:\n\t"
-    ".word 0x27BDFF70,0xAFB10084,0x00808821,0xAFB00080\n\t"
-    ".word 0x263002BC,0xAFBF0088,0x962B0068,0x24081000\n\t"
-    ".word 0xAE080000,0xAE000004,0xA600000C,0xAE000014\n\t"
-    ".word 0xAE000018,0xAE00001C,0x31684000,0x31693FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31688000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA60A000E,0x000A5022\n\t"
-    ".word 0xA60A000A,0x256A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA60A0008,0xA60A0010\n\t"
-    ".word 0x9625006A,0x0C022939,0x02002021,0x9625002C\n\t"
-    ".word 0x0C02292E,0x02002021,0x8E23009C,0x24020002\n\t"
-    ".word 0x10620035,0x00000000,0x9622006E,0x00000000\n\t"
-    ".word 0x10400031,0x27A50020,0x24081000,0xA4A80010\n\t"
-    ".word 0xA4A00004,0xA4A0000A,0xACA0000C,0xACA00014\n\t"
-    ".word 0xACA00018,0xACA0001C,0x30484000,0x30493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x30488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA4AA0006,0x000A5022\n\t"
-    ".word 0xA4AA0002,0x244A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA4AA0000,0xA4AA0008\n\t"
-    ".word 0x0C02294F,0x02002021,0x263002BC,0x02002021\n\t"
-    ".word 0x26250280,0x0C022997,0x27A60010,0x8E23009C\n\t"
-    ".word 0x24020003,0x14620036,0x00000000,0x9622027E\n\t"
-    ".word 0x00000000,0x10400032,0x00000000,0x27A50040\n\t"
-    ".word 0x24081000,0xA4A80010,0xA4A00004,0xA4A0000A\n\t"
-    ".word 0xACA0000C,0xACA00014,0xACA00018,0xACA0001C\n\t"
-    ".word 0x30484000,0x30493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x30488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA4AA0006,0x000A5022,0xA4AA0002,0x244A4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA4AA0000,0xA4AA0008,0x0C02294F,0x02002021\n\t"
-    ".word 0x27B00060,0x24081000,0xAE080000,0xAE000004\n\t"
-    ".word 0xAE080008,0xAE00000C,0xAE080010,0xAE000014\n\t"
-    ".word 0xAE000018,0xAE00001C,0x9625021C,0x0C022923\n\t"
-    ".word 0x02002021,0x96250224,0x0C022939,0x02002021\n\t"
-    ".word 0x02002021,0x263002BC,0x0C02296D,0x02002821\n\t"
-    ".word 0x02002021,0x8E220008,0x8FA50010,0x8E23000C\n\t"
-    ".word 0x8FA60014,0x8FA70018,0x00452821,0x8E220010\n\t"
-    ".word 0x00663021,0x0C02298B,0x00473821,0x8FBF0088\n\t"
-    ".word 0x8FB10084,0x8FB00080,0x03E00008,0x27BD0090\n");
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} VECTOR;
+typedef struct {
+    char pad0[8];
+    int x;
+    int y;
+    int z;
+    char pad14[0x2C - 0x14];
+    unsigned short yaw;
+    char pad2E[0x68 - 0x2E];
+    unsigned short pitch;
+    unsigned short roll;
+    char pad6C[0x6E - 0x6C];
+    unsigned short turret;
+    char pad70[0x9C - 0x70];
+    int kind;
+    char padA0[0x21C - 0xA0];
+    unsigned short barrel_pitch;
+    char pad21E[0x224 - 0x21E];
+    unsigned short barrel_roll;
+    char pad226[0x27E - 0x226];
+    unsigned short sub_turret;
+    VECTOR offset;
+    char pad28C[0x2BC - 0x28C];
+    MATRIX matrix;
+} Body;
+
+void func_8008A4E4(MATRIX *, int);
+void func_8008A4B8(MATRIX *, int);
+void func_8008A48C(MATRIX *, int);
+void func_8008A53C(MATRIX *, MATRIX *);
+void func_8008A5B4(MATRIX *, MATRIX *);
+void func_8008A65C(MATRIX *, VECTOR *, VECTOR *);
+void func_8008A62C(MATRIX *, int, int, int);
+
+static inline int table_sine_flat(int angle) {
+    register int quadrant asm("$8");
+    register int index asm("$9");
+
+    __asm__ volatile("");
+    quadrant = angle & 0x4000;
+    __asm__ volatile("");
+    index = angle & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(angle));
+    return index;
+}
+
+static inline int table_cosine_flat(int angle) {
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    register int turned asm("$10");
+
+    turned = angle + 0x4000;
+    __asm__ volatile("" : "+r"(turned));
+    quadrant = turned & 0x4000;
+    __asm__ volatile("");
+    index = turned & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(turned));
+    return index;
+}
+
+static inline void rot_matrix_z(MATRIX *m, int angle) {
+    register int one asm("$8");
+    register int value asm("$10");
+
+    __asm__ volatile("");
+    one = 4096;
+    m->m[2][2] = one;
+    m->m[0][2] = 0;
+    m->m[1][2] = 0;
+    *(int *)&m->m[2][0] = 0;
+    m->t[0] = 0;
+    m->t[1] = 0;
+    m->t[2] = 0;
+    value = table_sine_flat(angle) << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    m->m[1][0] = value;
+    __asm__ volatile("neg $10, $10" : "+r"(value));
+    m->m[0][1] = value;
+    value = table_cosine_flat(angle) << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    m->m[0][0] = value;
+    m->m[1][1] = value;
+    __asm__ volatile("");
+}
+
+void func_80043454(Body *body) {
+    VECTOR offset;
+    MATRIX turret;
+    MATRIX sub;
+    MATRIX barrel;
+    register MATRIX *m asm("$16");
+    register int one asm("$8");
+    register int value asm("$10");
+    register int pitch asm("$11");
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    MATRIX *rot;
+    register MATRIX *first asm("$4");
+
+    m = &body->matrix;
+    pitch = body->pitch;
+    __asm__ volatile("" : "+r"(m));
+    one = 4096;
+    *(int *)&m->m[0][0] = one;
+    *(int *)&m->m[0][2] = 0;
+    m->m[2][0] = 0;
+    m->t[0] = 0;
+    m->t[1] = 0;
+    m->t[2] = 0;
+    __asm__ volatile("");
+    quadrant = pitch & 0x4000;
+    __asm__ volatile("");
+    index = pitch & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(pitch));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    m->m[2][1] = value;
+    __asm__ volatile("neg $10, $10" : "+r"(value));
+    m->m[1][2] = value;
+    value = pitch + 0x4000;
+    __asm__ volatile("" : "+r"(value));
+    quadrant = value & 0x4000;
+    __asm__ volatile("");
+    index = value & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(value));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    m->m[1][1] = value;
+    m->m[2][2] = value;
+    func_8008A4E4(m, body->roll);
+    func_8008A4B8(m, body->yaw);
+    if (body->kind != 2 && body->turret != 0) {
+        rot = &turret;
+        __asm__ volatile("" : "+r"(rot));
+        rot_matrix_z(rot, body->turret);
+        func_8008A53C(m, rot);
+    }
+    m = &body->matrix;
+    __asm__ volatile("" : "+r"(m));
+    func_8008A65C(m, &body->offset, &offset);
+    if (body->kind == 3 && body->sub_turret != 0) {
+        rot = &sub;
+        __asm__ volatile("" : "+r"(rot));
+        rot_matrix_z(rot, body->sub_turret);
+        func_8008A53C(m, rot);
+    }
+    m = &barrel;
+    __asm__ volatile("" : "+r"(m));
+    one = 4096;
+    *(int *)&m->m[0][0] = one;
+    *(int *)&m->m[0][2] = 0;
+    *(int *)&m->m[1][1] = one;
+    *(int *)&m->m[2][0] = 0;
+    *(int *)&m->m[2][2] = one;
+    m->t[0] = 0;
+    m->t[1] = 0;
+    m->t[2] = 0;
+    func_8008A48C(m, body->barrel_pitch);
+    func_8008A4E4(m, body->barrel_roll);
+    first = m;
+    m = &body->matrix;
+    func_8008A5B4(first, m);
+    func_8008A62C(m, body->x + offset.x, body->y + offset.y, body->z + offset.z);
+}

@@ -1,60 +1,161 @@
-asm(".text\n\t.globl func_8002429C\nfunc_8002429C:\n\t"
-    ".word 0x27BDFFC0,0xAFB00020,0x00808021,0xAFB3002C\n\t"
-    ".word 0x00A09821,0x02602021,0x24050018,0xAFBF003C\n\t"
-    ".word 0xAFB60038,0xAFB50034,0xAFB40030,0xAFB20028\n\t"
-    ".word 0x0C022B24,0xAFB10024,0x26640018,0x24050020\n\t"
-    ".word 0x0C022B24,0xAE640000,0x8E030000,0x00000000\n\t"
-    ".word 0x8C620000,0x8E640000,0x00621021,0xAC820000\n\t"
-    ".word 0x8C620004,0x00000000,0x00621021,0xAC820004\n\t"
-    ".word 0x8C620008,0x00000000,0x00621021,0xAC820008\n\t"
-    ".word 0x8C62000C,0x00000000,0x00621021,0xAC820010\n\t"
-    ".word 0x8C620010,0x00000000,0x00621021,0xAC820014\n\t"
-    ".word 0x8C62000C,0x8C630008,0x00000000,0x00431023\n\t"
-    ".word 0x3C03AAAA,0x3463AAAB,0x00430019,0x3C02800A\n\t"
-    ".word 0x8C424B10,0xAC80001C,0xAC820018,0x00004010\n\t"
-    ".word 0x000810C2,0xAC82000C,0x8E630000,0x00000000\n\t"
-    ".word 0x8C620004,0x00000000,0x94420000,0x00000000\n\t"
-    ".word 0xAE620008,0x8C640018,0x000218C0,0x00621821\n\t"
-    ".word 0x000318C0,0x00041040,0x00441021,0x00021080\n\t"
-    ".word 0x00431021,0x3C03800A,0x8C6348DC,0x24560248\n\t"
-    ".word 0x14600005,0xAE64000C,0x0C01A369,0x02C02021\n\t"
-    ".word 0x3C03800D,0xAC622FE4,0x3C02800D,0x8C512FE4\n\t"
-    ".word 0x02C02821,0x0C022B24,0x02202021,0x0C00924F\n\t"
-    ".word 0xA22001B4,0x8E660008,0xAE200000,0xAE20001C\n\t"
-    ".word 0x8E620000,0x00000000,0x8C420004,0x3C0438E3\n\t"
-    ".word 0x84430014,0x34848E39,0x00031980,0x00640018\n\t"
-    ".word 0x00031FC3,0x00004010,0x00081103,0x00431023\n\t"
-    ".word 0xA622000C,0x8E620000,0x00000000,0x8C420004\n\t"
-    ".word 0x00000000,0x8442001A,0x00000000,0x00021180\n\t"
-    ".word 0x00440018,0x000217C3,0x00004010,0x00081903\n\t"
-    ".word 0x00621823,0xA6230010,0x8E620000,0x00000000\n\t"
-    ".word 0x8C420004,0x00000000,0x84420018,0x00000000\n\t"
-    ".word 0x00021180,0x00440018,0x000217C3,0x00004010\n\t"
-    ".word 0x00081903,0x00621823,0xA623000E,0x8E620000\n\t"
-    ".word 0x00000000,0x8C420004,0x00000000,0x8442001E\n\t"
-    ".word 0x00000000,0x00021180,0x00440018,0x2405FFF8\n\t"
-    ".word 0x000217C3,0x86240010,0x00004010,0x00081903\n\t"
-    ".word 0x00621823,0x262201CF,0x00453824,0x000610C0\n\t"
-    ".word 0x00461021,0x000210C0,0x00E21021,0x24420007\n\t"
-    ".word 0xA6230012,0x8623000C,0x00000000,0x14830007\n\t"
-    ".word 0x0045A024,0x2402D120,0xA622000C,0xA622000E\n\t"
-    ".word 0x24022EE0,0xA6220010,0xA6220012,0x8E620008\n\t"
-    ".word 0xAE270020,0xAE22001C,0x8E720000,0x00000000\n\t"
-    ".word 0x8E420018,0x00000000,0x1840000E,0x00008021\n\t"
-    ".word 0x8E42001C,0x02002021,0x02021021,0x00022840\n\t"
-    ".word 0x00A22821,0x00052880,0x0C00F711,0x02852821\n\t"
-    ".word 0x8E420018,0x26100001,0x0202102A,0x1440FFF4\n\t"
-    ".word 0x00000000,0xAE710010,0x0C00566C,0xAE740014\n\t"
-    ".word 0x8E750000,0x00000000,0x8EB40004,0x00000000\n\t"
-    ".word 0x96900002,0x96820000,0x00000000,0x02021021\n\t"
-    ".word 0x0202102A,0x1040001E,0x27B20010,0x00101040\n\t"
-    ".word 0x00501021,0x00028880,0x02602821,0x8EA60008\n\t"
-    ".word 0x26100001,0x00D13021,0x84C20000,0x84C30002\n\t"
-    ".word 0x84C40004,0x00021380,0x00031B80,0x00042380\n\t"
-    ".word 0xAFA20010,0xAE430004,0xAE440008,0x8EA20010\n\t"
-    ".word 0x8CC40008,0x94C70006,0x02403021,0x0C009425\n\t"
-    ".word 0x00442021,0x96820002,0x96830000,0x00000000\n\t"
-    ".word 0x00431021,0x0202102A,0x1440FFE7,0x2631000C\n\t"
-    ".word 0x02C01021,0x8FBF003C,0x8FB60038,0x8FB50034\n\t"
-    ".word 0x8FB40030,0x8FB3002C,0x8FB20028,0x8FB10024\n\t"
-    ".word 0x8FB00020,0x03E00008,0x27BD0040\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short x;
+    short y;
+    short z;
+    unsigned short angle;
+    int offset;
+} Placement;
+
+typedef struct {
+    unsigned short count;
+    unsigned short start;
+    char pad4[0x10];
+    short x0;
+    char pad16[2];
+    short z0;
+    short x1;
+    char pad1C[2];
+    short z1;
+} Bounds;
+
+typedef struct {
+    char *base;
+    Bounds *bounds;
+    Placement *placements;
+    int count;
+    char *objects;
+    char *extra;
+    int count2;
+    int first;
+} Header;
+
+typedef struct {
+    Header *header;
+    int pad4;
+    int items;
+    int count2;
+    void *level;
+    void *extra;
+    Header data;
+} Context;
+
+typedef struct {
+    int *data;
+} File;
+
+typedef struct {
+    int pad0;
+    char pad4[8];
+    short x0;
+    short z0;
+    short x1;
+    short z1;
+    char pad14[8];
+    int items;
+    char *item_base;
+    char pad24[0x1B4 - 0x24];
+    unsigned char flag;
+} Level;
+
+extern int D_800A4B10;
+extern int D_800A48DC;
+extern Level *D_800D2FE4;
+extern void func_8008AC90(void *, int);
+extern Level *func_80068DA4(int);
+extern void func_8002493C(void);
+extern void func_8003DC44(int, char *);
+extern void func_800159B0(void);
+extern void func_80025094(char *, Context *, Vector *, int);
+
+int func_8002429C(File *file, Context *ctx) {
+    int *raw;
+    Header *h;
+    int size;
+    register Level *level asm("$17");
+    char *items;
+    char *extra;
+    int i;
+    int n;
+    register Header *h2 asm("$21");
+    register Bounds *b asm("$20");
+    register Header *hdr asm("$18");
+    Vector v;
+    Vector *pv;
+
+    func_8008AC90(ctx, 24);
+    ctx->header = &ctx->data;
+    func_8008AC90(ctx->header, 32);
+    raw = file->data;
+    h = ctx->header;
+    h->base = (char *)raw + raw[0];
+    h->bounds = (Bounds *)((char *)raw + raw[1]);
+    h->placements = (Placement *)((char *)raw + raw[2]);
+    h->objects = (char *)raw + raw[3];
+    h->extra = (char *)raw + raw[4];
+    h->count = (unsigned int)(raw[3] - raw[2]) / 12;
+    h->first = 0;
+    h->count2 = D_800A4B10;
+    {
+        Header *hh = ctx->header;
+        int a;
+        int c;
+        int t;
+
+        ctx->items = a = hh->bounds->count;
+        ctx->count2 = c = hh->count2;
+        t = a * 72;
+        size = c * 12 + t + 584;
+    }
+    if (D_800A48DC == 0) {
+        D_800D2FE4 = func_80068DA4(size);
+    }
+    level = D_800D2FE4;
+    func_8008AC90(level, size);
+    level->flag = 0;
+    func_8002493C();
+    n = ctx->items;
+    level->pad0 = 0;
+    level->items = 0;
+    level->x0 = (ctx->header->bounds->x0 << 6) / 72;
+    level->x1 = (ctx->header->bounds->x1 << 6) / 72;
+    level->z0 = (ctx->header->bounds->z0 << 6) / 72;
+    level->z1 = (ctx->header->bounds->z1 << 6) / 72;
+    items = (char *)(((int)level + 463) & ~7);
+    extra = (char *)(((int)items + n * 72 + 7) & ~7);
+    if (level->x1 == level->x0) {
+        level->x0 = -12000;
+        level->z0 = -12000;
+        level->x1 = 12000;
+        level->z1 = 12000;
+    }
+    level->items = ctx->items;
+    level->item_base = items;
+    hdr = ctx->header;
+    for (i = 0; i < hdr->count2; i++) {
+        func_8003DC44(i, extra + (i + hdr->first) * 12);
+    }
+    ctx->level = level;
+    ctx->extra = extra;
+    func_800159B0();
+    pv = &v;
+    h2 = ctx->header;
+    b = h2->bounds;
+    for (i = b->start; i < b->start + b->count; i++) {
+        Placement *p = &h2->placements[i];
+        int x = p->x << 14;
+        int y = p->y << 14;
+        int z = p->z << 14;
+
+        v.x = x;
+        pv->y = y;
+        pv->z = z;
+        func_80025094(h2->objects + p->offset, ctx, pv, p->angle);
+    }
+    return size;
+}

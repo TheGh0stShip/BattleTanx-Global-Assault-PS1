@@ -1,41 +1,83 @@
-asm(".text\n\t.globl func_80089E04\nfunc_80089E04:\n\t"
-    ".word 0x27BDFFC0,0xAFB1002C,0x00C08821,0xAFB30034\n\t"
-    ".word 0x00E09821,0x3C02800F,0x2443EAE8,0xAFBF003C\n\t"
-    ".word 0xAFB40038,0xAFB20030,0xAFB00028,0xAFA40040\n\t"
-    ".word 0xAFA50044,0x90620030,0x24120001,0x1040007C\n\t"
-    ".word 0xAFB10020,0x00918021,0x00A0A021,0xA060003E\n\t"
-    ".word 0xA060003B,0xA060003A,0x1220000E,0x00000000\n\t"
-    ".word 0x8C620058,0xA072003A,0x0082102B,0x14400009\n\t"
-    ".word 0x00000000,0x8C62005C,0x00000000,0x0082102B\n\t"
-    ".word 0x10400004,0x27A40040,0x27A50044,0x0C02230C\n\t"
-    ".word 0x27A60020,0x8FA60020,0x00000000,0x10C00008\n\t"
-    ".word 0x02203821,0x8FA40040,0x8FA50044,0xAFB30010\n\t"
-    ".word 0xAFA00014,0x0C0226DC,0xAFB40018,0x00409021\n\t"
-    ".word 0x3C02800F,0x8FA40020,0x2443EAE8,0xA060003A\n\t"
-    ".word 0x1480004B,0xAC70008C,0x90620038,0x00000000\n\t"
-    ".word 0x1040000A,0x3C02800F,0x90620039,0x00000000\n\t"
-    ".word 0x10400006,0x3C02800F,0x9062003B,0x00000000\n\t"
-    ".word 0x14400023,0x00002821,0x3C02800F,0x2444EAE8\n\t"
-    ".word 0x90820033,0x00000000,0x10400026,0x00000000\n\t"
-    ".word 0x90820032,0x00000000,0x10400022,0x00000000\n\t"
-    ".word 0x90820039,0x00000000,0x1440001E,0x00000000\n\t"
-    ".word 0x9082003C,0x00000000,0x1440001A,0x00000000\n\t"
-    ".word 0x90820039,0x00000000,0x14400016,0x00000000\n\t"
-    ".word 0x8C830058,0x00000000,0x0203102B,0x14400004\n\t"
-    ".word 0x24620800,0x0202102B,0x1440000F,0x3C10800F\n\t"
-    ".word 0x8C82005C,0x00000000,0x1062000A,0x00002821\n\t"
-    ".word 0x24060800,0x3C02800F,0x00C03821,0x8C44EB44\n\t"
-    ".word 0x24020001,0xAFA00010,0xAFA20014,0x0C0226DC\n\t"
-    ".word 0xAFA00018,0x3C10800F,0x2603EAE8,0x24020001\n\t"
-    ".word 0xA0620033,0x12600007,0x02802821,0x02203021\n\t"
-    ".word 0x8C64002C,0x24070001,0xAC710084,0x0260F809\n\t"
-    ".word 0xAC710088,0x1220001B,0x02401021,0x8E02EAE8\n\t"
-    ".word 0x00000000,0x24420001,0x08022815,0xAE02EAE8\n\t"
-    ".word 0x10910006,0x00000000,0x8C620008,0x00000000\n\t"
-    ".word 0x24420001,0x08022815,0xAC620008,0x8C620004\n\t"
-    ".word 0x00000000,0x24420001,0x08022815,0xAC620004\n\t"
-    ".word 0x12600007,0x00003021,0x00C03821,0x8C64002C\n\t"
-    ".word 0x00C09021,0xAC600084,0x0260F809,0xAC600088\n\t"
-    ".word 0x02401021,0x8FBF003C,0x8FB40038,0x8FB30034\n\t"
-    ".word 0x8FB20030,0x8FB1002C,0x8FB00028,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct CacheCtl {
+    int reads;
+    int partial;
+    int misses;
+    char pad0C[32];
+    int arg;
+    volatile unsigned char enabled;
+    char pad31;
+    volatile unsigned char f50;
+    volatile unsigned char valid;
+    char pad34[4];
+    volatile unsigned char f56;
+    volatile unsigned char busy;
+    volatile unsigned char active;
+    volatile unsigned char hit;
+    volatile unsigned char f60;
+    char pad3D;
+    volatile unsigned char f62;
+    char pad3F[25];
+    unsigned int lo;
+    unsigned int hi;
+    char pad60[36];
+    int done_a;
+    int done_b;
+    unsigned int next;
+} CacheCtl;
+
+extern CacheCtl D_800EEAE8;
+extern void func_80088C30(unsigned int *, char **, int *);
+extern int func_80089B70(unsigned int, char *, int, int, void (*)(int, char *, int, int), int, char *);
+
+int func_80089E04(unsigned int addr, char *dst, int size, void (*cb)(int, char *, int, int)) {
+    int ret = 1;
+    int rem = size;
+    unsigned int end;
+    char *start;
+
+    if (D_800EEAE8.enabled != 0) {
+        end = addr + size;
+        start = dst;
+        D_800EEAE8.f62 = 0;
+        D_800EEAE8.hit = 0;
+        D_800EEAE8.active = 0;
+        if (size != 0) {
+            D_800EEAE8.active = 1;
+            if (addr >= D_800EEAE8.lo && addr < D_800EEAE8.hi) {
+                func_80088C30(&addr, &dst, &rem);
+            }
+        }
+        if (rem != 0) {
+            ret = func_80089B70(addr, dst, rem, size, cb, 0, start);
+        }
+        D_800EEAE8.active = 0;
+        D_800EEAE8.next = end;
+        if (rem == 0) {
+            if ((D_800EEAE8.f56 != 0 && D_800EEAE8.busy != 0 && D_800EEAE8.hit != 0) ||
+                (D_800EEAE8.valid != 0 && D_800EEAE8.f50 != 0 && D_800EEAE8.busy == 0 && D_800EEAE8.f60 == 0 &&
+                 D_800EEAE8.busy == 0 && !(end >= D_800EEAE8.lo && end < D_800EEAE8.lo + 2048) &&
+                 D_800EEAE8.lo != D_800EEAE8.hi)) {
+                func_80089B70(D_800EEAE8.hi, 0, 2048, 2048, 0, 1, 0);
+            }
+            D_800EEAE8.valid = 1;
+            if (cb != 0) {
+                D_800EEAE8.done_a = size;
+                D_800EEAE8.done_b = size;
+                cb(D_800EEAE8.arg, start, size, 1);
+            }
+            if (size != 0) {
+                D_800EEAE8.reads++;
+            }
+        } else if (rem != size) {
+            D_800EEAE8.misses++;
+        } else {
+            D_800EEAE8.partial++;
+        }
+    } else if (cb != 0) {
+        D_800EEAE8.done_a = 0;
+        D_800EEAE8.done_b = 0;
+        cb(D_800EEAE8.arg, dst, 0, 0);
+        ret = 0;
+    }
+    return ret;
+}

@@ -1,17 +1,33 @@
-asm(".text\n\t.globl func_80064EE8\nfunc_80064EE8:\n\t"
-    ".word 0x3c02800b,0x8c42d9e8,0x27bdffe8,0x14400024\n\t"
-    ".word 0xafbf0010,0x3c02800d,0x90432fec,0x24020001\n\t"
-    ".word 0x14620008,0x3c02800b,0x3c02800b,0x2442bd60\n\t"
-    ".word 0x24030004,0xa04301a0,0x24030007,0x080193d0\n\t"
-    ".word 0xa0430220,0x2442c080,0x24030004,0xa0430280\n\t"
-    ".word 0x24030007,0xa0430300,0x3c03800e,0x3c02800e\n\t"
-    ".word 0x8c425338,0x8c6352d0,0x2442ffe2,0x00621823\n\t"
-    ".word 0x3c028888,0x34428889,0x00620019,0x00002021\n\t"
-    ".word 0x3c03800e,0x00003010,0x00061102,0x0c01528c\n\t"
-    ".word 0xac6252b0,0x3c03800b,0x24020001,0xac62d9e8\n\t"
-    ".word 0x3c05800e,0x3c03800e,0x3c04800e,0x8ca25338\n\t"
-    ".word 0x8c6352b0,0x8c8452d0,0x00431021,0xaca25338\n\t"
-    ".word 0x0044102b,0x14400008,0x00001021,0x0c015353\n\t"
-    ".word 0xaca45338,0x0c01528c,0x2404000d,0x24020001\n\t"
-    ".word 0x3c03800b,0xac60d9e8,0x8fbf0010,0x00000000\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern int D_800AD9E8;
+extern unsigned char D_800D2FEC;
+extern unsigned char D_800ABD60[];
+extern unsigned char D_800AC080[];
+extern unsigned int D_800E5338;
+extern unsigned int D_800E52D0;
+extern unsigned int D_800E52B0;
+extern void func_80054A30(int);
+extern void func_80054D4C(void);
+
+int func_80064EE8(void) {
+    if (D_800AD9E8 == 0) {
+        if (D_800D2FEC == 1) {
+            D_800ABD60[0x1A0] = 4;
+            D_800ABD60[0x220] = 7;
+        } else {
+            D_800AC080[0x280] = 4;
+            D_800AC080[0x300] = 7;
+        }
+        D_800E52B0 = (D_800E52D0 + 30 - D_800E5338) / 30;
+        func_80054A30(0);
+        D_800AD9E8 = 1;
+    }
+    D_800E5338 += D_800E52B0;
+    if (D_800E5338 >= D_800E52D0) {
+        D_800E5338 = D_800E52D0;
+        func_80054D4C();
+        func_80054A30(13);
+        D_800AD9E8 = 0;
+        return 1;
+    }
+    return 0;
+}

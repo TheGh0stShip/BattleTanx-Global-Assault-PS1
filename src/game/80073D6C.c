@@ -1,42 +1,88 @@
-asm(".text\n\t.globl func_80073D6C\nfunc_80073D6C:\n\t"
-    ".word 0x27BDFFE0,0xAFB20018,0x00A09021,0xAFB10014\n\t"
-    ".word 0x00808821,0xAFBF001C,0xAFB00010,0x8E25001C\n\t"
-    ".word 0x00000000,0x14A00004,0x3C03800E,0x24020001\n\t"
-    ".word 0x0801CFF7,0xAE420000,0x8E220020,0x8C63E30C\n\t"
-    ".word 0x00000000,0x00431023,0x1C40000E,0xAE220020\n\t"
-    ".word 0x8E30001C,0x00000000,0x12000007,0x24020001\n\t"
-    ".word 0x0C008E0B,0x02002021,0x8E100008,0x00000000\n\t"
-    ".word 0x1600FFFB,0x24020001,0xAE20001C,0x0801CFF7\n\t"
-    ".word 0xAE420000,0x00603821,0x8CA80020,0x00000000\n\t"
-    ".word 0x00E80018,0x00001812,0x00001010,0x00031B02\n\t"
-    ".word 0x00021500,0x00621825,0x8CA20014,0x8CA80024\n\t"
-    ".word 0x00431021,0xACA20014,0x00E80018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8CA20018,0x8CA80028,0x00431021,0xACA20018\n\t"
-    ".word 0x00E80018,0x00001812,0x00001010,0x00031B02\n\t"
-    ".word 0x00021500,0x00621825,0x8CA2001C,0x00000000\n\t"
-    ".word 0x00431021,0xACA2001C,0x84A20032,0x00000000\n\t"
-    ".word 0x00E20018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x94A2002C,0x00000000\n\t"
-    ".word 0x00431021,0xA4A2002C,0x84A20034,0x00000000\n\t"
-    ".word 0x00E20018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x94A2002E,0x00000000\n\t"
-    ".word 0x00431021,0xA4A2002E,0x84A20036,0x00000000\n\t"
-    ".word 0x00E20018,0x00001812,0x00004010,0x00031B02\n\t"
-    ".word 0x00084500,0x00681825,0x94A20030,0x8CA40018\n\t"
-    ".word 0x00431021,0x04810024,0xA4A20030,0x8CA20024\n\t"
-    ".word 0x8CA30020,0x8CA40028,0xACA00018,0x00023023\n\t"
-    ".word 0x000317C2,0x00621821,0x00031843,0x000417C2\n\t"
-    ".word 0x00822021,0x00042043,0xACA30020,0x04C10002\n\t"
-    ".word 0xACA40028,0x24C60003,0x84A20032,0x00061883\n\t"
-    ".word 0xACA30024,0x00021023,0x00021FC2,0x00431021\n\t"
-    ".word 0x84A30034,0x00021043,0xA4A20032,0x00031823\n\t"
-    ".word 0x000317C2,0x00621821,0x84A20036,0x00031843\n\t"
-    ".word 0xA4A30034,0x00021023,0x00021FC2,0x00431021\n\t"
-    ".word 0x00021043,0xA4A20036,0x8CA20018,0x00000000\n\t"
-    ".word 0x1840000B,0x24081800,0x00E80018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8CA20024,0x00000000,0x00431023,0xACA20024\n\t"
-    ".word 0x8CA50008,0x00000000,0x14A0FF87,0x00000000\n\t"
-    ".word 0x8FBF001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+typedef struct Vec {
+    int x;
+    int y;
+    int z;
+} Vec;
+
+typedef struct SVec {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVec;
+
+typedef struct Part {
+    int pad0[2];
+    struct Part *next;
+    SVec offset;
+    Vec pos;
+    Vec vel;
+    unsigned short rx;
+    unsigned short ry;
+    unsigned short rz;
+    short spin_x;
+    short spin_y;
+    short spin_z;
+} Part;
+
+typedef struct Debris {
+    int pad0[7];
+    Part *parts;
+    int timer;
+} Debris;
+
+extern int D_800DE30C;
+extern void func_8002382C(Part *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_80073D6C(Debris *arg0, int *done) {
+    Debris *debris = arg0;
+    Part *part = debris->parts;
+    Part *piece;
+    int dt;
+
+    if (part == 0) {
+        *done = 1;
+        return;
+    }
+    debris->timer -= D_800DE30C;
+    if (debris->timer <= 0) {
+        for (piece = debris->parts; piece != 0; piece = piece->next) {
+            func_8002382C(piece);
+        }
+        debris->parts = 0;
+        *done = 1;
+        return;
+    }
+    dt = D_800DE30C;
+    do {
+        part->pos.x += fixed_mul(dt, part->vel.x);
+        part->pos.y += fixed_mul(dt, part->vel.y);
+        part->pos.z += fixed_mul(dt, part->vel.z);
+        part->rx += fixed_mul(dt, part->spin_x);
+        part->ry += fixed_mul(dt, part->spin_y);
+        part->rz += fixed_mul(dt, part->spin_z);
+        if (part->pos.y < 0) {
+            part->pos.y = 0;
+            part->vel.x /= 2;
+            part->vel.z /= 2;
+            part->vel.y = -part->vel.y / 4;
+            part->spin_x = -part->spin_x / 2;
+            part->spin_y = -part->spin_y / 2;
+            part->spin_z = -part->spin_z / 2;
+        }
+        if (part->pos.y > 0) {
+            part->vel.y -= fixed_mul(dt, 6144);
+        }
+        part = part->next;
+    } while (part != 0);
+}

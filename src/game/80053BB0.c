@@ -1,40 +1,140 @@
-asm(".text\n\t.globl func_80053BB0\nfunc_80053BB0:\n\t"
-    ".word 0x27BDFFA0,0xAFB20058,0x00809021,0x00005821\n\t"
-    ".word 0x3C02800D,0x90422FEC,0x00004821,0xAFBF005C\n\t"
-    ".word 0xAFB10054,0x10400089,0xAFB00050,0x3C02800E\n\t"
-    ".word 0x244C3E68,0x01205021,0x2402007F,0x15220002\n\t"
-    ".word 0x014C1021,0x00001021,0x8C42005C,0x00000000\n\t"
-    ".word 0x8C420008,0x00000000,0x00A21023,0x04400003\n\t"
-    ".word 0x00000000,0x08014F0A,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00402021,0x2402007F\n\t"
-    ".word 0x15220002,0x014C1021,0x00001021,0x8C42005C\n\t"
-    ".word 0x00000000,0x8C420010,0x00000000,0x00C21023\n\t"
-    ".word 0x04410004,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x04610002,0x00604021,0x00084023\n\t"
-    ".word 0x04810002,0x00000000,0x00042023,0x0104102A\n\t"
-    ".word 0x10400002,0x00000000,0x00804021,0x04610002\n\t"
-    ".word 0x00000000,0x00031823,0x0083102A,0x10400003\n\t"
-    ".word 0x00031040,0x00801821,0x00031040,0x00431021\n\t"
-    ".word 0x04410002,0x3C035555,0x24420007,0x34635556\n\t"
-    ".word 0x000210C3,0x01021021,0x00430018,0x000217C3\n\t"
-    ".word 0x3C03800E,0x84684654,0x94634654,0x00006810\n\t"
-    ".word 0x01A22023,0x0104102B,0x10400003,0x00641023\n\t"
-    ".word 0x01002021,0x00641023,0x00021400,0x00021403\n\t"
-    ".word 0x00E20018,0x00001012,0x04410004,0x00022303\n\t"
-    ".word 0x00021023,0x00021303,0x00022023,0x00041C00\n\t"
-    ".word 0x000B1400,0x0043102A,0x10400003,0x000B1400\n\t"
-    ".word 0x00805821,0x000B1400,0x00028C03,0x2A2200FB\n\t"
-    ".word 0x14400029,0x3C02800D,0x3C04800E,0x324200FF\n\t"
-    ".word 0x00021880,0x00621821,0x00031880,0x3C02800E\n\t"
-    ".word 0x8C844658,0x8C4246BC,0x00000000,0x14400023\n\t"
-    ".word 0x00838021,0x0C014CED,0x00002021,0x304200FF\n\t"
-    ".word 0xA6020012,0x00402021,0x24020064,0x1082001B\n\t"
-    ".word 0x3C03800E,0x2463465C,0x00041080,0x00431021\n\t"
-    ".word 0xA0520003,0x86030012,0x24020093,0xAFA20014\n\t"
-    ".word 0x24020001,0x00621004,0xAFA20010,0x8E020000\n\t"
-    ".word 0x00000000,0xAFA2002C,0x96020010,0x27A40010\n\t"
-    ".word 0xA7B10018,0xA7B1001A,0x0C0241E5,0xA7A20024\n\t"
-    ".word 0x08014F7F,0x00000000,0x90422FEC,0x25290001\n\t"
-    ".word 0x0122102A,0x1440FF7C,0x254A0114,0x8FBF005C\n\t"
-    ".word 0x8FB20058,0x8FB10054,0x8FB00050,0x03E00008\n\t"
-    ".word 0x27BD0060\n");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int func_800533B4(int);
+extern void func_80090794(SpuVoiceAttr *);
+
+typedef struct {
+    char pad0[8];
+    int x;
+    char padC[4];
+    int z;
+} Body;
+typedef struct Waypoint {
+    char pad000[0x5C];
+    Body *body;
+    char pad060[0x114 - 0x60];
+} Waypoint;
+typedef struct {
+    char pad0[8];
+    unsigned char count;
+} Game;
+extern Waypoint D_800E3E68[];
+extern Game D_800D2FE4;
+extern int abs(int);
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+static inline void play_at(unsigned char id, int level) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+
+    if (D_800E46BC != 0) {
+        return;
+    }
+    voice = sound->voice = (unsigned char)func_800533B4(0);
+    if (voice == 100) {
+        return;
+    }
+    D_800E465C[voice].sound = id;
+    attr.voice = 1 << sound->voice;
+    attr.mask = 147;
+    attr.addr = sound->addr;
+    attr.pitch = sound->pitch;
+    attr.volume.left = level;
+    attr.volume.right = level;
+    func_80090794(&attr);
+}
+
+void func_80053BB0(unsigned char id, int x, int z, int scale) {
+    short best = 0;
+    int i;
+
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        int dx;
+        int dz;
+        int big;
+        unsigned int d;
+        short volume;
+        short v;
+
+        {
+            int t = x - waypoint(i)->body->x;
+            dx = to_int(t);
+        }
+        {
+            int t = z - waypoint(i)->body->z;
+            dz = t >= 0 ? t >> 12 : -(-t >> 12);
+        }
+        big = abs(dz);
+        dx = abs(dx);
+        if (big < dx) {
+            big = dx;
+        }
+        dz = abs(dz);
+        if (dx < dz) {
+            dz = dx;
+        }
+        d = (big + dz * 3 / 8) / 3;
+        if (d > (short)D_800E4654) {
+            d = (short)D_800E4654;
+        }
+        volume = D_800E4654 - d;
+        v = to_int(scale * volume);
+        if (v > best) {
+            best = v;
+        }
+        if (best > 250) {
+            play_at(id, best);
+            return;
+        }
+    }
+}

@@ -1,30 +1,85 @@
-asm(".text\n\t.globl func_8002DEB0\nfunc_8002DEB0:\n\t"
-    ".word 0x27BDFFD8,0x3C02800B,0x2446D9EC,0xAFBF0024\n\t"
-    ".word 0xAFB00020,0x8CC20010,0x00000000,0x2443FFE0\n\t"
-    ".word 0x1860000B,0x00002821,0x8CC50004,0x8CC20014\n\t"
-    ".word 0xACC30010,0x24420001,0x24A30020,0xACC20014\n\t"
-    ".word 0x24020008,0xACC30004,0xA0A20000,0xA0A00002\n\t"
-    ".word 0x00A08021,0x12000058,0x00000000,0x8C830008\n\t"
-    ".word 0x00000000,0x04600005,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x0800B7D2,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x0800B7D4,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0xAFA20010,0x8C83000C,0x00000000,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x0800B7E4\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0800B7E6,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0xAFA20014,0x8C840010\n\t"
-    ".word 0x00000000,0x04800005,0x24820800,0x04410006\n\t"
-    ".word 0x00000000,0x0800B7F6,0x00021023,0x2482F800\n\t"
-    ".word 0x04400003,0x00000000,0x0800B7F8,0x00021303\n\t"
-    ".word 0x24020800,0x00441023,0x00021303,0x00021023\n\t"
-    ".word 0xAFA20018,0x8FA70010,0x8FA80014,0x8FA90018\n\t"
-    ".word 0xAE070008,0xAE08000C,0xAE090010,0x24020080\n\t"
-    ".word 0xA2020004,0xA2020005,0xA2020006,0x24020009\n\t"
-    ".word 0xA2020003,0x2402002C,0xA2020007,0x3C02800B\n\t"
-    ".word 0xA2000001,0x8C42DA04,0xA6000014,0xA6000016\n\t"
-    ".word 0xA2000001,0x244200E4,0x0C021B21,0xAE02001C\n\t"
-    ".word 0x00021402,0xA6020016,0x24020060,0xA6020018\n\t"
-    ".word 0xA602001A,0x92020007,0x24030020,0xA6030014\n\t"
-    ".word 0x34420002,0xA2020007,0x8FBF0024,0x8FB00020\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct {
+    unsigned char kind;
+    unsigned char b1;
+    unsigned char b2;
+    unsigned char b3;
+    unsigned char r, g, b;
+    unsigned char flags;
+    Vector pos;
+    short w0;
+    short frame;
+    short w;
+    short h;
+    int tex;
+} Sprite;
+typedef struct { int pad; char *next; int pad2[2]; int remaining; int count; int texbase; } Pool;
+typedef struct { int pad[2]; Vector pos; } Obj;
+extern Pool D_800AD9EC;
+unsigned int func_80086C84(void);
+
+static inline Sprite *alloc_sprite(void) {
+    Pool *pool = &D_800AD9EC;
+    Sprite *s = 0;
+    register int rem asm("$2");
+    register int left asm("$3");
+
+    rem = pool->remaining;
+    left = rem - 32;
+    if (left > 0) {
+        s = (Sprite *)pool->next;
+        pool->remaining = left;
+        {
+            register int c asm("$2") = pool->count + 1;
+            pool->next = (char *)s + 32;
+            pool->count = c;
+        }
+        s->kind = 8;
+        s->b2 = 0;
+    }
+    return s;
+}
+
+static inline int round_int(int v) {
+    if (v >= 0) {
+        if (v + 2048 >= 0) {
+            return (v + 2048) >> 12;
+        }
+        return -(-(v + 2048) >> 12);
+    }
+    if (v - 2048 >= 0) {
+        return (v - 2048) >> 12;
+    }
+    return -(-(v - 2048) >> 12);
+}
+
+void func_8002DEB0(Obj *o) {
+    Sprite *s;
+    Vector v;
+    int tex;
+
+    s = alloc_sprite();
+    if (s != 0) {
+        v.x = round_int(o->pos.x);
+        v.y = round_int(o->pos.y);
+        v.z = round_int(o->pos.z);
+        s->pos = v;
+        __asm__ volatile("");
+        s->r = 128;
+        s->g = 128;
+        s->b = 128;
+        s->b3 = 9;
+        s->flags = 44;
+        s->b1 = 0;
+        tex = D_800AD9EC.texbase;
+        s->w0 = 0;
+        s->frame = 0;
+        s->b1 = 0;
+        s->tex = tex + 228;
+        s->frame = func_80086C84() >> 16;
+        s->w = 96;
+        s->h = 96;
+        s->w0 = 32;
+        s->flags |= 2;
+    }
+}

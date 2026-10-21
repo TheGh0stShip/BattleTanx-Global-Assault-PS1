@@ -1,23 +1,60 @@
-asm(".text\n\t.globl func_8007906C\nfunc_8007906C:\n\t"
-    ".word 0x00804821,0x00A05021,0x3C02800F,0x2442E028\n\t"
-    ".word 0x314400FF,0x000418C0,0x00641821,0x00031880\n\t"
-    ".word 0x00641823,0x00031880,0x00621821,0x3C05800F\n\t"
-    ".word 0x24A5C0AC,0x00041080,0x00441021,0x00021080\n\t"
-    ".word 0x00441023,0x00491021,0x00021040,0x00451021\n\t"
-    ".word 0x8FAB0010,0x94640006,0x94680004,0x94450000\n\t"
-    ".word 0x94630008,0x00852024,0xACC40000,0x94420000\n\t"
-    ".word 0x01054024,0x00621824,0x2D220013,0xACE30000\n\t"
-    ".word 0x10400034,0xAD600000,0x3C02800C,0x24423F80\n\t"
-    ".word 0x00091880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x3C02800F,0x2442C0F8\n\t"
-    ".word 0x314400FF,0x00041880,0x00621821,0x8C630000\n\t"
-    ".word 0x24020001,0x1462000C,0x24020006,0x3C02800F\n\t"
-    ".word 0x2442E028,0x000418C0,0x00641821,0x00031880\n\t"
-    ".word 0x00641823,0x00031880,0x00621821,0x80620019\n\t"
-    ".word 0x0801E470,0xAD620000,0x14620016,0x3C02800F\n\t"
-    ".word 0x2442E028,0x000418C0,0x00641821,0x00031880\n\t"
-    ".word 0x00641823,0x00031880,0x00621821,0x80630019\n\t"
-    ".word 0x00000000,0x28620029,0x14400004,0x2862FFD8\n\t"
-    ".word 0x2402000D,0x11220005,0x2862FFD8,0x10400005\n\t"
-    ".word 0x2402000C,0x15220003,0x00000000,0x03E00008\n\t"
-    ".word 0x24020001,0x03E00008,0x01001021\n");
+typedef struct {
+    char pad0[4];
+    unsigned short held;
+    unsigned short pressed;
+    unsigned short released;
+    char padA[0xF];
+    signed char axis;
+    char pad1A[0x72];
+} PadState;
+
+extern PadState D_800EE028[];
+extern unsigned short D_800EC0AC[][19];
+extern int D_800EC0F8[];
+
+int func_8007906C(unsigned int button, unsigned char port, int *pressed, int *released, int *analog) {
+    int held;
+    int v;
+
+    unsigned short pr = D_800EE028[port].pressed;
+    unsigned short hd = D_800EE028[port].held;
+    unsigned short rl = D_800EE028[port].released;
+
+    held = hd & D_800EC0AC[port][button];
+    *pressed = pr & D_800EC0AC[port][button];
+    *released = rl & D_800EC0AC[port][button];
+    *analog = 0;
+    switch (button) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+        break;
+    case 12:
+    case 13:
+        if (D_800EC0F8[port] == 1) {
+            *analog = D_800EE028[port].axis;
+        } else if (D_800EC0F8[port] == 6) {
+            v = D_800EE028[port].axis;
+            if ((v > 40 && button == 13) || (v < -40 && button == 12)) {
+                return 1;
+            }
+        }
+        break;
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+        break;
+    }
+    return held;
+}

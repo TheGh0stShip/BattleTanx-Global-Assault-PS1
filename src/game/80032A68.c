@@ -1,28 +1,62 @@
-asm(".text\n\t.globl func_80032A68\nfunc_80032A68:\n\t"
-    ".word 0x27BDFFD0,0x3C02800D,0x8C422FE8,0x00A03821\n\t"
-    ".word 0xAFB1001C,0x00C08821,0xAFBF0028,0xAFB30024\n\t"
-    ".word 0xAFB20020,0x2443FFFE,0x2C62000D,0x10400059\n\t"
-    ".word 0xAFB00018,0x3C02800C,0x2442E268,0x00031880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x94850002,0x0C0098C0,0x00E02021\n\t"
-    ".word 0x3C03800D,0x0800CAFF,0xAC625AA0,0x94850002\n\t"
-    ".word 0x0C0098C0,0x00E02021,0x24040008,0x24050034\n\t"
-    ".word 0x0C008DF4,0x00409021,0x00408021,0x12000041\n\t"
-    ".word 0x27A40010,0x8E280000,0x8E290004,0x8E2A0008\n\t"
-    ".word 0xAE080020,0xAE090024,0xAE0A0028,0x8E020020\n\t"
-    ".word 0x00000000,0xAFA20010,0x8E020028,0x0C007A8F\n\t"
-    ".word 0xAFA20014,0x3C030003,0x34632000,0x00431021\n\t"
-    ".word 0xAE020024,0x3402FFFF,0xA6020032,0x2402007F\n\t"
-    ".word 0xA2020031,0xA2020030,0x24020001,0xAE02000C\n\t"
-    ".word 0x24020002,0x0800CAFB,0xAE020008,0x94850002\n\t"
-    ".word 0x0C0098C0,0x00E02021,0x24040008,0x24050034\n\t"
-    ".word 0x0C008DF4,0x00409021,0x00408021,0x1200001D\n\t"
-    ".word 0x24130001,0x8E280000,0x8E290004,0x8E2A0008\n\t"
-    ".word 0xAE080020,0xAE090024,0xAE0A0028,0x8E020020\n\t"
-    ".word 0x00000000,0xAFA20010,0x8E020028,0x27A40010\n\t"
-    ".word 0x0C007A8F,0xAFA20014,0x3C030003,0x34632000\n\t"
-    ".word 0x00431021,0xAE020024,0x3402FFFF,0xA6020032\n\t"
-    ".word 0x2402007F,0xA2020031,0xA2020030,0xAE13000C\n\t"
-    ".word 0xAE130008,0xAE000018,0xAE000014,0xAE120010\n\t"
-    ".word 0xAE00001C,0x8FBF0028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Point2;
+typedef struct {
+    int pad[2];
+    int kind;
+    int active;
+    int resource;
+    void *base;
+    void *home;
+    int link;
+    Vector pos;
+    int pad2;
+    unsigned char id_a;
+    unsigned char id_b;
+    unsigned short flags;
+} Marker;
+typedef struct { short pad; unsigned short body; } Def;
+extern unsigned int D_800D2FE8;
+extern int D_800D5AA0;
+int func_80026300(void *, int);
+Marker *func_800237D0(int, int);
+int func_8001EA3C(Point2 *);
+
+static inline void spawn(Def *def, void *ctx, Vector *pos, int kind) {
+    int res;
+    Marker *m;
+    Point2 p;
+
+    res = func_80026300(ctx, def->body);
+    m = func_800237D0(8, 52);
+    if (m != 0) {
+        m->pos = *pos;
+        p.x = m->pos.x;
+        p.z = m->pos.z;
+        m->pos.y = func_8001EA3C(&p) + 0x32000;
+        m->flags = 0xFFFF;
+        m->id_a = m->id_b = 127;
+        m->active = 1;
+        m->kind = kind;
+        m->home = 0;
+        m->base = 0;
+        m->resource = res;
+        m->link = 0;
+    }
+}
+
+void func_80032A68(Def *def, void *ctx, Vector *where) {
+    Vector *pos = where;
+    switch (D_800D2FE8) {
+    case 2:
+        D_800D5AA0 = func_80026300(ctx, def->body);
+        break;
+    case 7:
+    case 13:
+        spawn(def, ctx, pos, 2);
+        break;
+    case 3:
+    case 14:
+        spawn(def, ctx, pos, 1);
+        break;
+    }
+}

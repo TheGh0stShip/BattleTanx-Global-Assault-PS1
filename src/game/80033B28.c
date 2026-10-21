@@ -1,30 +1,78 @@
-asm(".text\n\t.globl func_80033B28\nfunc_80033B28:\n\t"
-    ".word 0x27BDFFC8,0xAFB5002C,0x00A0A821,0xAFB40028\n\t"
-    ".word 0x00C0A021,0xAFB30024,0x00E09821,0x3C02800D\n\t"
-    ".word 0x8C432FE8,0x24020003,0xAFBF0030,0xAFB20020\n\t"
-    ".word 0xAFB1001C,0x1062000B,0xAFB00018,0x2C620004\n\t"
-    ".word 0x10400005,0x24020001,0x10620006,0x00001021\n\t"
-    ".word 0x0800CEE4,0x00000000,0x2402000B,0x14620002\n\t"
-    ".word 0x00001021,0x24020001,0x1040004D,0x3C03800D\n\t"
-    ".word 0x90820004,0x24722FE4,0x00521021,0x90510034\n\t"
-    ".word 0x92420009,0x00000000,0x0222102A,0x10400044\n\t"
-    ".word 0x24040016,0x0C008DF4,0x24050020,0x00408021\n\t"
-    ".word 0x1200003F,0x00000000,0x8E880000,0x8E890004\n\t"
-    ".word 0x8E8A0008,0xAE080008,0xAE09000C,0xAE0A0010\n\t"
-    ".word 0xA6130014,0x0C008A05,0xA2110018,0x1040000B\n\t"
-    ".word 0x02321021,0x90420039,0x8E430040,0x00021080\n\t"
-    ".word 0x00621821,0x8C640018,0x0C014CCE,0x00000000\n\t"
-    ".word 0x90420014,0x0800CF26,0xA2020019,0x3C03800A\n\t"
-    ".word 0x24636084,0x00111080,0x00431021,0x8C430000\n\t"
-    ".word 0x24040002,0x10640010,0x2C620003,0x10400005\n\t"
-    ".word 0x24020001,0x1062000A,0x00000000,0x0800CF27\n\t"
-    ".word 0x02A02021,0x24020003,0x10620009,0x24020004\n\t"
-    ".word 0x10620009,0x02A02021,0x0800CF28,0x3C02800D\n\t"
-    ".word 0x0800CF26,0xA2040019,0x0800CF25,0x24020003\n\t"
-    ".word 0x0800CF25,0x24020004,0x24020001,0xA2020019\n\t"
-    ".word 0x02A02021,0x3C02800D,0x8C422FBC,0x02802821\n\t"
-    ".word 0xAE02001C,0x24020001,0xAFA20010,0xAFB00014\n\t"
-    ".word 0x8E07001C,0x0C00930E,0x3266FFFF,0xA6020016\n\t"
-    ".word 0x8FBF0030,0x8FB5002C,0x8FB40028,0x8FB30024\n\t"
-    ".word 0x8FB20020,0x8FB1001C,0x8FB00018,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[4]; unsigned char slot; } Owner;
+typedef struct { char pad[20]; unsigned char team; } Squad;
+typedef struct { char pad[24]; int ids[1]; } Roster;
+typedef struct {
+    int pad;
+    unsigned int mode;
+    unsigned char teams;
+    unsigned char limit;
+    char pad2[42];
+    unsigned char team_of[5];
+    unsigned char unit_of[7];
+    Roster *roster;
+} Rules;
+typedef struct {
+    int pad[2];
+    Vector pos;
+    short kind;
+    short handle;
+    unsigned char team;
+    unsigned char color;
+    char pad2[2];
+    int frame;
+} Mark;
+extern Rules D_800D2FE4;
+extern unsigned int D_800A6084[];
+extern int D_800D2FBC;
+Mark *func_800237D0(int, int);
+int func_80022814(void);
+Squad *func_80053338(int);
+short func_80024C38(int, Vector *, int, int, int, Mark *);
+
+static inline int team_mode(void) {
+    switch (D_800D2FE4.mode) {
+    case 1:
+    case 3:
+    case 11:
+        return 1;
+    }
+    return 0;
+}
+
+void func_80033B28(Owner *owner, int id, Vector *pos, short kind) {
+    int team;
+    Mark *m;
+
+    if (team_mode()) {
+        team = D_800D2FE4.team_of[owner->slot];
+        if (team < D_800D2FE4.limit) {
+            m = func_800237D0(22, 32);
+            if (m != 0) {
+                m->pos = *pos;
+                m->kind = kind;
+                m->team = team;
+                if (func_80022814() != 0) {
+                    m->color = func_80053338(D_800D2FE4.roster->ids[D_800D2FE4.unit_of[team]])->team;
+                } else {
+                    switch (D_800A6084[team]) {
+                    case 1:
+                        m->color = 2;
+                        break;
+                    case 2:
+                        m->color = 3;
+                        break;
+                    case 3:
+                        m->color = 4;
+                        break;
+                    case 4:
+                        m->color = 1;
+                        break;
+                    }
+                }
+                m->frame = D_800D2FBC;
+                m->handle = func_80024C38(id, pos, (unsigned short)kind, m->frame, 1, m);
+            }
+        }
+    }
+}

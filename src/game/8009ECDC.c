@@ -1,10 +1,29 @@
-asm(".text\n\t.globl func_8009ECDC\nfunc_8009ECDC:\n\t"
-    ".word 0x27bdffe8,0x3c03800c,0x8c638cd4,0x3c04800c\n\t"
-    ".word 0x8c848cd8,0x2402ff7f,0xafbf0010,0xac620000\n\t"
-    ".word 0x94820004,0x00000000,0x30420080,0x1040000d\n\t"
-    ".word 0x00000000,0x0c028e91,0x00000000,0x14400010\n\t"
-    ".word 0x00001021,0x3c02800c,0x8c428cd8,0x00000000\n\t"
-    ".word 0x94420004,0x00000000,0x30420080,0x1440fff5\n\t"
-    ".word 0x00000000,0x3c04800c,0x8c848cd8,0x00000000\n\t"
-    ".word 0x9483000a,0x24020001,0x34630010,0xa483000a\n\t"
-    ".word 0x8fbf0010,0x27bd0018,0x03e00008,0x00000000\n\t");
+typedef struct SioRegs {
+    short r0;
+    short r2;
+    unsigned short status;
+    short r6;
+    short r8;
+    unsigned short ctrl;
+} SioRegs;
+
+extern volatile int *D_800B8CD4;
+extern volatile SioRegs *D_800B8CD8;
+int func_800A3A44(void);
+
+int func_8009ECDC(void)
+{
+    volatile int *mask = D_800B8CD4;
+    volatile SioRegs *sio = D_800B8CD8;
+
+    *mask = ~0x80;
+    if (sio->status & 0x80) {
+        do {
+            if (func_800A3A44() != 0) {
+                return 0;
+            }
+        } while (D_800B8CD8->status & 0x80);
+    }
+    D_800B8CD8->ctrl |= 0x10;
+    return 1;
+}

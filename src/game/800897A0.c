@@ -1,13 +1,79 @@
-asm(".text\n\t.globl func_800897A0\nfunc_800897A0:\n\t"
-    ".word 0x27bdffe8,0x00002021,0xafbf0014,0x0c024586\n\t"
-    ".word 0xafb00010,0x3c02800f,0x2450eae8,0x9202003a\n\t"
-    ".word 0x00000000,0x10400004,0x24020001,0xa202003b\n\t"
-    ".word 0x08022612,0x00000000,0x0c025da8,0x2604009c\n\t"
-    ".word 0x8e040090,0x00000000,0x00041ac2,0x14430014\n\t"
-    ".word 0x00000000,0x0c0222c9,0x00000000,0x3c048009\n\t"
-    ".word 0x24849518,0x0c024586,0xae020098,0x8e040098\n\t"
-    ".word 0x0c025d46,0x24050200,0x1440000b,0x00000000\n\t"
-    ".word 0x0c022426,0x24040001,0x14400005,0x00000000\n\t"
-    ".word 0x0c022392,0x24040005,0x08022612,0x00000000\n\t"
-    ".word 0x0c022696,0x00000000,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    volatile unsigned char b34;
+    volatile unsigned char b35;
+    volatile unsigned char b36;
+    volatile unsigned char b37;
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    unsigned int w94;
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+extern void func_80089518(void);
+extern void func_80091618(void (*cb)(void));
+extern unsigned int func_800976A0(unsigned char *result);
+extern void *func_80088B24(void);
+extern int func_80097518(void *buf, int n);
+extern int func_80089098(int arg);
+extern void func_80089A58(void);
+extern void func_80088E48(int mode);
+
+void func_800897A0(void) {
+    StreamState *s;
+    register unsigned int pos asm("$4");
+    register unsigned int sh asm("$3");
+
+    func_80091618(0);
+    s = &D_800EEAE8;
+    if (s->b3a != 0) {
+        s->b3b = 1;
+        return;
+    }
+    if (func_800976A0(s->result) == (sh = (pos = s->w90) >> 11)) {
+        s->w98 = func_80088B24();
+        func_80091618(func_80089518);
+        if (func_80097518(s->w98, 512) != 0) {
+            return;
+        }
+        if (func_80089098(1) == 0) {
+            func_80088E48(5);
+            return;
+        }
+    }
+    func_80089A58();
+}

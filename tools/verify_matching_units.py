@@ -37,7 +37,8 @@ def oracle_slice(executable, address, size):
     return executable[offset:offset + size]
 
 
-COMPILERS = ("gcc-2.8.1-psx", "gcc-2.7.2-psx")
+COMPILERS = ("gcc-2.8.1-psx", "gcc-2.7.2-psx", "psyq-cc1psx")
+WINDOWS_COMPILER = "psyq-cc1psx"
 
 
 def compiler_path(unit, config):
@@ -45,7 +46,76 @@ def compiler_path(unit, config):
     name = unit.get("compiler", config.get("compiler", COMPILERS[0]))
     if name not in COMPILERS:
         raise ValueError("unsupported compiler for %s: %s" % (unit.get("name"), name))
+    if name == WINDOWS_COMPILER:
+        configured = unit.get("compiler_path", config.get("psyq_cc1psx"))
+        value = configured or os.environ.get("PSYQ_CC1PSX")
+        if not value:
+            return ROOT / ".toolchain/psyq-cc1psx/CC1PSX.EXE"
+        if re.match(r"^[A-Za-z]:[\\/]", value):
+            drive = value[0].lower()
+            relative = value[2:].replace("\\", "/").lstrip("/")
+            return Path("/mnt") / drive / relative
+        return Path(value).expanduser()
     return ROOT / (".toolchain/%s/cc1" % name)
+
+
+def compiler_name(unit, config):
+    return unit.get("compiler", config.get("compiler", COMPILERS[0]))
+
+
+def windows_temp_root():
+    """Return a Windows-local directory usable by old Win32 command-line tools."""
+    configured = os.environ.get("PSYQ_CC1PSX_TEMP")
+    if configured:
+        return Path(configured).expanduser()
+    user = os.environ.get("USERNAME") or os.environ.get("USER")
+    if user:
+        candidate = Path("/mnt/c/Users") / user / "AppData/Local/Temp"
+        if candidate.is_dir():
+            return candidate
+    raise SystemExit(
+        "cannot locate a Windows-local temporary directory; set PSYQ_CC1PSX_TEMP"
+    )
+
+
+def windows_path(path):
+    """Convert a mounted WSL path to a drive-letter path for CC1PSX.EXE."""
+    resolved = Path(path).resolve()
+    parts = resolved.parts
+    if len(parts) < 4 or parts[1] != "mnt" or len(parts[2]) != 1:
+        raise ValueError("CC1PSX staging path is not on a Windows drive: %s" % resolved)
+    return "%s:\\%s" % (parts[2].upper(), "\\".join(parts[3:]))
+
+
+def run_compiler(unit, config, source, assembly, flags):
+    """Compile through either native Linux cc1 or Windows PsyQ CC1PSX."""
+    compiler = compiler_path(unit, config)
+    if not compiler.is_file():
+        if compiler_name(unit, config) == WINDOWS_COMPILER:
+            raise SystemExit(
+                "PsyQ CC1PSX missing; set PSYQ_CC1PSX to a legally obtained "
+                "CC1PSX.EXE or place it at %s" % compiler
+            )
+        raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
+    if compiler_name(unit, config) != WINDOWS_COMPILER:
+        run_checked([str(compiler), str(source), *flags, "-o", str(assembly)])
+        return
+
+    with tempfile.TemporaryDirectory(prefix="btga-cc1psx-", dir=windows_temp_root()) as directory:
+        stage = Path(directory)
+        staged_source = stage / "unit.c"
+        staged_assembly = stage / "unit.s"
+        shutil.copyfile(source, staged_source)
+        # A drive-local cwd and drive-letter arguments avoid the UNC limitation of
+        # the original Win32 compiler when this repository lives inside WSL.
+        run_checked(
+            [str(compiler), windows_path(staged_source), *flags,
+             "-o", windows_path(staged_assembly)],
+            cwd=stage,
+        )
+        if not staged_assembly.is_file():
+            raise SystemExit("PsyQ CC1PSX did not produce %s" % staged_assembly)
+        shutil.copyfile(staged_assembly, assembly)
 
 
 def validate_units(config):
@@ -87,9 +157,8 @@ def rewrite_move_pseudos(path):
 
 
 def compile_unit(unit, config, prefix, work):
-    cc1 = compiler_path(unit, config)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
-    if not cc1.is_file() or not maspsx.is_file():
+    if not maspsx.is_file():
         raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
     assembler = command("as", prefix)
     linker = command("ld", prefix)
@@ -103,7 +172,7 @@ def compile_unit(unit, config, prefix, work):
     binary = work / "unit.bin"
 
     compiler_flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
-    run_checked([str(cc1), str(source), *compiler_flags, "-o", str(assembly)])
+    run_compiler(unit, config, source, assembly, compiler_flags)
     with processed.open("wb") as output:
         run_checked(
             [sys.executable, str(maspsx), *config["maspsx_flags"],

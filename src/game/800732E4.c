@@ -1,48 +1,145 @@
-asm(".text\n\t.globl func_800732E4\nfunc_800732E4:\n\t"
-    ".word 0x27BDFFE8,0x3C060001,0x3C038000,0x8C820020\n\t"
-    ".word 0x00C04021,0x00434824,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20010,0xE85F0000,0x8FA50010,0x00000000\n\t"
-    ".word 0x24A7FFF4,0x04E10023,0x00000000,0x00A31804\n\t"
-    ".word 0x4888F000,0x00000000,0x00000000,0x27A20014\n\t"
-    ".word 0xE85F0000,0x8FA60014,0x00000000,0x00C52823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00461023,0x04400003\n\t"
-    ".word 0x00000000,0x0801CCDE,0x00481007,0x00021023\n\t"
-    ".word 0x00481004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0801CCF4,0x00A31804\n\t"
-    ".word 0x00071023,0x00481007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0801CCF6\n\t"
-    ".word 0x00603821,0x00031B00,0x0066001B,0x14C00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00603821,0x11200002,0x00000000,0x00073823\n\t"
-    ".word 0x04E10002,0x00000000,0x00003821,0x8C830008\n\t"
-    ".word 0x00000000,0x04600005,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x0801CD0B,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x0801CD0D,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0xAFA20000,0x8C83000C,0x00000000,0x04600005\n\t"
-    ".word 0x24620800,0x04410006,0x00000000,0x0801CD1D\n\t"
-    ".word 0x00021023,0x2462F800,0x04400003,0x00000000\n\t"
-    ".word 0x0801CD1F,0x00021303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00021023,0xAFA20004,0x8C830010\n\t"
-    ".word 0x00000000,0x04600005,0x24620800,0x0441000C\n\t"
-    ".word 0x00021B03,0x0801CD2F,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x0801CD31,0x00021B03\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021823\n\t"
-    ".word 0x3C02800B,0x2445D9EC,0x8CA20010,0xAFA30008\n\t"
-    ".word 0x2443FFE0,0x1860000B,0x00003021,0x8CA60004\n\t"
-    ".word 0x8CA20014,0xACA30010,0x24420001,0x24C30020\n\t"
-    ".word 0xACA20014,0x24020008,0xACA30004,0xA0C20000\n\t"
-    ".word 0xA0C00002,0x00C02821,0x10A0002C,0x00000000\n\t"
-    ".word 0x8FAA0000,0x8FAB0004,0x8FAC0008,0xACAA0008\n\t"
-    ".word 0xACAB000C,0xACAC0010,0x04E10002,0x00E01021\n\t"
-    ".word 0x24E2001F,0x00021143,0xA0A20004,0xA0A20005\n\t"
-    ".word 0xA0A20006,0x24020009,0xA0A20003,0x2402002C\n\t"
-    ".word 0xA0A20007,0x3C02800B,0x24031000,0xA0A00001\n\t"
-    ".word 0x8C42DA04,0x00671823,0xA4A00014,0xA4A00016\n\t"
-    ".word 0xA0A00001,0x24420030,0xACA2001C,0x00031040\n\t"
-    ".word 0x00431021,0x000219C0,0x9482002A,0x00602021\n\t"
-    ".word 0x04610002,0xA4A20016,0x24640FFF,0x00041303\n\t"
-    ".word 0xA4A20018,0xA4C2001A,0x90C20007,0x24030020\n\t"
-    ".word 0xA4C30014,0x34420002,0xA0C20007,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct {
+    unsigned char *start;
+    unsigned char *cur;
+    int pad8;
+    int padC;
+    int free;
+    int count;
+} PacketList;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    int pad0;
+    int pad4;
+    int x, y, z;
+    char pad14[0x20 - 0x14];
+    int fade;
+    char pad24[0x2A - 0x24];
+    short frame;
+} Flash;
+
+extern PacketList D_800AD9EC;
+extern int D_800ADA04;
+
+extern int abs(int);
+
+static inline int round_shift(int d) {
+    return d >= 0 ? (d + 2048 >= 0 ? (d + 2048) >> 12 : -(-(d + 2048) >> 12))
+                  : (d - 2048 >= 0 ? (d - 2048) >> 12 : -(-(d - 2048) >> 12));
+}
+
+static inline void gte_ldlzc(unsigned int v) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(v));
+}
+
+static inline void gte_stlzc(int *out) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(out));
+}
+
+static inline unsigned char *packet_alloc(PacketList *list, int size) {
+    register unsigned char *p asm("$6");
+    unsigned char *q;
+
+    q = (unsigned char *)(list->free - size);
+    p = 0;
+    if ((int)q > 0) {
+        p = list->cur;
+        list->free = (int)q;
+        {
+            register int count asm("$2") = list->count + 1;
+            register unsigned char *next asm("$3") = p + size;
+
+            list->count = count;
+            list->cur = next;
+        }
+        p[0] = size >> 2;
+        p[2] = 0;
+    }
+    return p;
+}
+
+void func_800732E4(Flash *f) {
+    Vector v;
+    int level;
+    unsigned char *p;
+    register unsigned char *q asm("$5");
+    int left;
+    PacketList *list;
+    int scale;
+    int a;
+    register int b asm("$6");
+    unsigned int sign;
+    unsigned int ua;
+    int sb;
+    int lza;
+    int lzb;
+    int k;
+    int d;
+
+    a = f->fade;
+    b = 0x10000;
+    sign = (a & 0x80000000) ^ (b & 0x80000000);
+    sb = b;
+    __asm__("" : : "r"(sign));
+    ua = abs(a);
+    gte_ldlzc(ua);
+    gte_stlzc(&lza);
+    level = lza - 12;
+    if (level < 0) {
+        ua <<= lza;
+        gte_ldlzc(sb);
+        gte_stlzc(&lzb);
+        k = lzb - lza;
+        if (k >= 0) {
+            d = 12 - lzb;
+            if (d >= 0) {
+                d = sb >> d;
+            } else {
+                d = sb << -d;
+            }
+            ua = ua / d;
+            ua <<= k;
+        } else {
+            d = sb >> -level;
+            ua = ua / d;
+        }
+    } else {
+        ua <<= 12;
+        ua = ua / b;
+    }
+    level = ua;
+    if (sign) {
+        level = -level;
+    }
+    if (level < 0) {
+        level = 0;
+    }
+    v.x = round_shift(f->x);
+    v.y = round_shift(f->y);
+    v.z = round_shift(f->z);
+    p = packet_alloc(&D_800AD9EC, 32);
+    q = p;
+    if (q == 0) {
+        return;
+    }
+    *(Vector *)(q + 8) = v;
+    q[4] = level / 32;
+    q[5] = level / 32;
+    q[6] = level / 32;
+    q[3] = 9;
+    q[7] = 0x2C;
+    q[1] = 0;
+    *(int *)(q + 28) = D_800ADA04 + 48;
+    *(short *)(q + 20) = 0;
+    *(short *)(q + 22) = 0;
+    q[1] = 0;
+    *(short *)(q + 22) = f->frame;
+    scale = (4096 - level) * 384 / 4096;
+    *(short *)(q + 24) = (4096 - level) * 384 / 4096;
+    *(short *)(p + 26) = scale;
+    *(short *)(p + 20) = 32;
+    p[7] |= 2;
+}

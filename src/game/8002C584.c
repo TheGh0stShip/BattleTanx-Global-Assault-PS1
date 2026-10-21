@@ -1,60 +1,148 @@
-asm(".text\n\t.globl func_8002C584\nfunc_8002C584:\n\t"
-    ".word 0x27BDFF90,0xAFB00048,0x00808021,0xAFB70064\n\t"
-    ".word 0x00A0B821,0xAFB40058,0x00C0A021,0xAFB1004C\n\t"
-    ".word 0x00E08821,0xAFB20050,0x8FB20080,0x2404000C\n\t"
-    ".word 0xAFB5005C,0x93B50088,0x2405003C,0xAFBF006C\n\t"
-    ".word 0xAFBE0068,0xAFB60060,0x0C008DF4,0xAFB30054\n\t"
-    ".word 0x0220F021,0x00409821,0x0240B021,0x126000C5\n\t"
-    ".word 0x00001021,0x8E020000,0x3C03003E,0xAE620008\n\t"
-    ".word 0x8E020004,0x34638000,0xAE62000C,0x8E040008\n\t"
-    ".word 0x24024000,0xAE620018,0xAE62001C,0x24020001\n\t"
-    ".word 0xA262002B,0x32A200FF,0xAE770014,0xA271002A\n\t"
-    ".word 0xA6740028,0xAE630024,0xA272002C,0xAE600020\n\t"
-    ".word 0x1040001B,0xAE640010,0x8FA90084,0x00000000\n\t"
-    ".word 0x8D220008,0x00000000,0x8C420218,0x00000000\n\t"
-    ".word 0x30420002,0x10400012,0x24020005,0xA262002B\n\t"
-    ".word 0x32C300FF,0x2402007F,0x14620003,0x00031100\n\t"
-    ".word 0x0800B1A6,0x00002021,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00432021,0x02602821,0x0C014A98,0x00003021\n\t"
-    ".word 0x24050032,0x00004021,0x33C300FF,0x8FAA0084\n\t"
-    ".word 0x00A03821,0xAE6A0030,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20040,0xE85F0000,0x8FA40040\n\t"
-    ".word 0x00000000,0x2486FFF4,0x04C10023,0x00000000\n\t"
-    ".word 0x00831804,0x4887F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20044,0xE85F0000,0x8FA50044,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0800B1CB,0x00471007\n\t"
-    ".word 0x00021023,0x00471004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00008012,0x0800B1E1\n\t"
-    ".word 0x00908004,0x00061023,0x00471007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00008012\n\t"
-    ".word 0x0800B1E3,0x02001021,0x00031B00,0x0065001B\n\t"
-    ".word 0x14A00002,0x00000000,0x0007000D,0x00008012\n\t"
-    ".word 0x00000000,0x02001021,0x11000003,0x24501000\n\t"
-    ".word 0x00021023,0x24501000,0x001017C2,0x02028021\n\t"
-    ".word 0x00108043,0x3C0AFFFF,0x020A0018,0x00004812\n\t"
-    ".word 0x00001010,0x00094B02,0x00021500,0x01224825\n\t"
-    ".word 0xAFA90020,0x020A0018,0x00004812,0x00001010\n\t"
-    ".word 0x00094B02,0x00021500,0x01224825,0xAFA90024\n\t"
-    ".word 0x020A0018,0x00004812,0x00001010,0x00094B02\n\t"
-    ".word 0x00021500,0x01224825,0xAFA90028,0x3C090001\n\t"
-    ".word 0x02090018,0x00005012,0x00001010,0x000A5302\n\t"
-    ".word 0x00021500,0x01425025,0xAFAA0030,0x02090018\n\t"
-    ".word 0x00005012,0x00001010,0x000A5302,0x00021500\n\t"
-    ".word 0x01425025,0xAFAA0034,0x02090018,0x00005012\n\t"
-    ".word 0x00001010,0x000A5302,0x00021500,0x01425025\n\t"
-    ".word 0x24091400,0xAFAA0038,0x02090018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x3C127FFF,0x3652FFFF,0x02602021,0x00002821\n\t"
-    ".word 0x27A60020,0x27B10030,0x02203821,0xAFA20014\n\t"
-    ".word 0x24021800,0xAFA00010,0xAFA20018,0x0C01B0CD\n\t"
-    ".word 0xAFB2001C,0x240A1400,0xAE620034,0x020A0018\n\t"
-    ".word 0x00001012,0x00001810,0x00021302,0x00031D00\n\t"
-    ".word 0x00431025,0x02602021,0x24050001,0x27A60020\n\t"
-    ".word 0x02203821,0xAFA20014,0x24021000,0xAFA00010\n\t"
-    ".word 0xAFA20018,0x0C01B0CD,0xAFB2001C,0xAE620038\n\t"
-    ".word 0x02601021,0x8FBF006C,0x8FBE0068,0x8FB70064\n\t"
-    ".word 0x8FB60060,0x8FB5005C,0x8FB40058,0x8FB30054\n\t"
-    ".word 0x8FB20050,0x8FB1004C,0x8FB00048,0x03E00008\n\t"
-    ".word 0x27BD0070\n");
+int abs(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    unsigned int n;
+    int d;
+    unsigned int m;
+    int n_zeros;
+    int d_zeros;
+    register int excess asm("$6");
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    __asm__ volatile("" : "+r"(d));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        m = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = m / (d >> scale);
+            } else {
+                quotient = m / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            scale = -excess;
+            quotient = m / (d >> scale);
+        }
+    } else {
+        m = n << 12;
+        quotient = m / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+
+typedef struct { int x, y, z; } Vector;
+typedef struct { char pad[536]; int flags; } Unit;
+typedef struct { int pad[2]; Unit *unit; } Owner;
+typedef struct {
+    int pad[2];
+    Vector pos;
+    int kind;
+    int scale_x;
+    int scale_y;
+    int timer;
+    int speed;
+    short angle;
+    unsigned char size;
+    unsigned char flags;
+    unsigned char slot;
+    char pad2d[3];
+    Owner *owner;
+    int emitter0;
+    int emitter1;
+} Effect;
+typedef struct { char pad[0x114]; } Waypoint;
+extern Waypoint D_800E3E68[];
+Effect *func_800237D0(int, int);
+void func_80052A60(Waypoint *, Effect *, int);
+int func_8006C334(Effect *, int, Vector *, Vector *, int, int, int, int);
+
+Effect *func_8002C584(Vector *pos, int kind, short angle, unsigned char size, unsigned char slot, Owner *owner, unsigned char attach) {
+    Effect *e;
+    int scale;
+    Vector min;
+    Vector max;
+    Waypoint *wp;
+
+    e = func_800237D0(12, 60);
+    if (e == 0) {
+        return 0;
+    }
+    e->pos.x = pos->x;
+    e->pos.y = pos->y;
+    e->pos.z = pos->z;
+    e->scale_x = 16384;
+    e->scale_y = 16384;
+    e->flags = 1;
+    e->kind = kind;
+    e->size = size;
+    e->angle = angle;
+    {
+        register int speed asm("$3") = 0x3E8000;
+        e->speed = speed;
+    }
+    e->slot = slot;
+    e->timer = 0;
+    if (attach && (owner->unit->flags & 2)) {
+        e->flags = 5;
+        if (slot == 127) {
+            wp = 0;
+        } else {
+            wp = &D_800E3E68[slot];
+        }
+        func_80052A60(wp, e, 0);
+    }
+    e->owner = owner;
+    scale = (fixed_div(size, 50) + 4096) / 2;
+    min.x = fixed_mul(scale, -0x10000);
+    min.y = fixed_mul(scale, -0x10000);
+    min.z = fixed_mul(scale, -0x10000);
+    max.x = fixed_mul(scale, 0x10000);
+    max.y = fixed_mul(scale, 0x10000);
+    max.z = fixed_mul(scale, 0x10000);
+    e->emitter0 = func_8006C334(e, 0, &min, &max, 0, fixed_mul(scale, 5120), 6144, 0x7FFFFFFF);
+    e->emitter1 = func_8006C334(e, 1, &min, &max, 0, fixed_mul(scale, 5120), 4096, 0x7FFFFFFF);
+    return e;
+}

@@ -1,14 +1,74 @@
-asm(".text\n\t.globl func_80042F34\nfunc_80042F34:\n\t"
-    ".word 0x27BDFE28,0x27A60018,0x00003821,0xAFB001C0\n\t"
-    ".word 0x00E08021,0xAFBF01D0,0xAFB301CC,0xAFB201C8\n\t"
-    ".word 0xAFB101C4,0x948402B8,0x3C02800C,0xA440628C\n\t"
-    ".word 0xAFA00010,0x0C005EAB,0x3084FFFF,0x3052FFFF\n\t"
-    ".word 0x12400031,0x3C02800D,0x245332F4,0x00008821\n\t"
-    ".word 0x27A20018,0x00512021,0x8C820000,0x00000000\n\t"
-    ".word 0x10400025,0x00000000,0x84430004,0x24020011\n\t"
-    ".word 0x10620003,0x2402000B,0x1462001F,0x00000000\n\t"
-    ".word 0x24020002,0xAFA20160,0x24027530,0xAFA20148\n\t"
-    ".word 0x24020027,0xAFA0014C,0xAFA00150,0xA7A20184\n\t"
-    ".word 0x8C820000,0x00000000,0x84430004,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080\n\t"
-);
+typedef struct {
+    char pad0[4];
+    short type;
+} Object;
+typedef struct {
+    Object *obj;
+    char pad4[32];
+} Found;
+typedef struct {
+    char pad0[16];
+    int speed;
+    int dx;
+    int dz;
+    char pad1C[12];
+} HitSource;
+typedef struct {
+    int kind;
+    char pad4[28];
+} HitInfo;
+typedef struct {
+    char pad0[4];
+    short effect;
+    char pad6[58];
+} HitResult;
+typedef struct {
+    int unused;
+    void (*hit)(Object *, HitResult *, int, HitSource *, HitInfo *);
+    int pad8;
+} ObjectClass;
+typedef struct {
+    char pad0[0x2B8];
+    unsigned short box;
+} Tank;
+extern short D_800C628C;
+extern ObjectClass D_800D32F4[];
+extern unsigned short func_80017AAC(unsigned short, int, Found *, int, int);
+
+static inline int hit_objects(unsigned short box, int mask) {
+    Found found[8];
+    HitSource src;
+    HitInfo info;
+    HitResult result;
+    int count;
+    int i;
+    ObjectClass *cls;
+    short type;
+
+    D_800C628C = 0;
+    count = func_80017AAC(box, mask, found, 0, 0);
+    for (i = 0; i < count; i++) {
+        if (found[i].obj == 0) {
+            continue;
+        }
+        type = found[i].obj->type;
+        if (type != 17 && type != 11) {
+            continue;
+        }
+        info.kind = 2;
+        src.speed = 30000;
+        src.dx = 0;
+        src.dz = 0;
+        result.effect = 39;
+        type = found[i].obj->type;
+        cls = &D_800D32F4[type];
+        if (cls->hit != 0 && type != -1) {
+            cls->hit(found[i].obj, &result, 0, &src, &info);
+        }
+    }
+    return count;
+}
+
+int func_80042F34(Tank *tank, int mask) {
+    return hit_objects(tank->box, mask);
+}

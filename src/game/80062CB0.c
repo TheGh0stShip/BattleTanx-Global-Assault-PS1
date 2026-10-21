@@ -1,34 +1,149 @@
-asm(".text\n\t.globl func_80062CB0\nfunc_80062CB0:\n\t"
-    ".word 0x27BDFFF8,0x8CAA0008,0x3C02800B,0x2442AF5C\n\t"
-    ".word 0x11420006,0x00001821,0x3C02800B,0x2442AF68\n\t"
-    ".word 0x01421026,0x2C420001,0x00401821,0x3C02800A\n\t"
-    ".word 0x8042606C,0x00000000,0x28420002,0x14400002\n\t"
-    ".word 0x3C090004,0x3C090003,0x00031900,0x3C02800E\n\t"
-    ".word 0x24424D4C,0x00622021,0x8C870004,0x00000000\n\t"
-    ".word 0x14E00003,0x00000000,0x08018BAD,0xA5400008\n\t"
-    ".word 0x8C820000,0x8C830008,0x8C460000,0x00000000\n\t"
-    ".word 0x14660006,0x00000000,0x8C83000C,0x8CE20000\n\t"
-    ".word 0x00000000,0x1062005C,0x00001021,0x8C820004\n\t"
-    ".word 0xAC860008,0x00C01821,0x8C420000,0x00033300\n\t"
-    ".word 0xAC82000C,0x14C00002,0x00022300,0x24060002\n\t"
-    ".word 0x3C028000,0x00821824,0x00C21024,0x00625826\n\t"
-    ".word 0x04810002,0x00801021,0x00021023,0x04C10002\n\t"
-    ".word 0x00C03821,0x00073823,0x4882F000,0x00000000\n\t"
-    ".word 0x00000000,0xEBBF0000,0x8FA40000,0x00000000\n\t"
-    ".word 0x2488FFF4,0x05010023,0x00021B00,0x00821804\n\t"
-    ".word 0x4887F000,0x00000000,0x00000000,0x27A20004\n\t"
-    ".word 0xE85F0000,0x8FA60004,0x00000000,0x00C42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00461023,0x04400003\n\t"
-    ".word 0x00000000,0x08018B81,0x00471007,0x00021023\n\t"
-    ".word 0x00471004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x08018B96,0x00831804\n\t"
-    ".word 0x00081023,0x00471007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08018B96\n\t"
-    ".word 0x00000000,0x0067001B,0x14E00002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x11600002,0x00000000\n\t"
-    ".word 0x00031823,0x00690018,0x00002012,0x00001010\n\t"
-    ".word 0x00042302,0x00021500,0x00822025,0x04810004\n\t"
-    ".word 0x00041303,0x00041023,0x00021303,0x00021023\n\t"
-    ".word 0xA5420008,0x28620555,0x14400005,0x24020001\n\t"
-    ".word 0x28620AAA,0x14400002,0x24020002,0x24020003\n\t"
-    ".word 0xA0A20001,0x00001021,0x03E00008,0x27BD0008\n");
+typedef struct {
+    char pad0[8];
+    short value;
+} Gauge;
+
+typedef struct {
+    char pad0;
+    unsigned char level;
+    char pad2[6];
+    Gauge *gauge;
+} Widget;
+
+typedef struct {
+    int *current;
+    int *maximum;
+    int last_current;
+    int last_maximum;
+} Meter;
+
+extern Gauge D_800AAF5C;
+extern Gauge D_800AAF68;
+extern signed char D_800A606C;
+extern Meter D_800E4D4C[];
+int abs(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    __asm__("" : : "r"(negative));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    if (negative) {
+        quotient = -quotient;
+    }
+    return quotient;
+}
+
+
+int func_80062CB0(void *unused, Widget *w) {
+    Gauge *g = w->gauge;
+    short index;
+    int scale;
+    Meter *m;
+    int cur;
+    int max;
+    int ratio;
+    int num;
+    int den;
+
+    index = 0;
+    if (g != &D_800AAF5C) {
+        index = g == &D_800AAF68;
+    }
+    scale = 0x40000;
+    if (D_800A606C >= 2) {
+        scale = 0x30000;
+    }
+    m = &D_800E4D4C[index];
+    if (m->maximum == 0) {
+        g->value = 0;
+        return 0;
+    }
+    if (m->last_current != *m->current || m->last_maximum != *m->maximum) {
+        cur = *m->current;
+        m->last_current = cur;
+        max = *m->maximum;
+        m->last_maximum = max;
+        den = m->last_current << 12;
+        num = max << 12;
+        if (den == 0) {
+            den = 2;
+        }
+        ratio = fixed_div(num, den);
+        g->value = fixed_to_int(fixed_mul(ratio, scale));
+        if (ratio < 1365) {
+            w->level = 1;
+        } else if (ratio < 2730) {
+            w->level = 2;
+        } else {
+            w->level = 3;
+        }
+    }
+    return 0;
+}

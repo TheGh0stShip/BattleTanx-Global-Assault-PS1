@@ -1,41 +1,30 @@
-asm(".text\n\t.globl func_80097D64\nfunc_80097D64:\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x00808821,0xAFB3001C\n\t"
-    ".word 0x00A09821,0x24050010,0x24060001,0xAFBF0020\n\t"
-    ".word 0xAFB20018,0x0C025DC8,0xAFB00010,0x00408021\n\t"
-    ".word 0x12000012,0x3C02800F,0x2452F100,0x02402021\n\t"
-    ".word 0x2625032D,0x0C0229EF,0x24060011,0x0C025DF8\n\t"
-    ".word 0x2624009C,0x02202021,0x0C025EA8,0x02602821\n\t"
-    ".word 0x00408021,0x16000006,0x02001021,0x02402021\n\t"
-    ".word 0x00002821,0x0C022A92,0x24060011,0x02001021\n\t"
-    ".word 0x8FBF0020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0028,0x27BDFFE8\n\t"
-    ".word 0x3C04800F,0x2484F0EC,0x00002821,0xAFBF0010\n\t"
-    ".word 0x0C022A92,0x24060028,0x8FBF0010,0x00000000\n\t"
-    ".word 0x03E00008,0x27BD0018,0x27BDFFC0,0xAFB30024\n\t"
-    ".word 0x3C13800F,0x8E62F0EC,0xAFBE0038,0x0080F021\n\t"
-    ".word 0xAFB70034,0x00A0B821,0xAFB60030,0x0000B021\n\t"
-    ".word 0xAFB5002C,0x24150001,0xAFB1001C,0xAFB40028\n\t"
-    ".word 0x2674F0EC,0xAFBF003C,0xAFB20020,0xAFB00018\n\t"
-    ".word 0xAFA00010,0x8E920010,0x14400011,0x02C08821\n\t"
-    ".word 0x03C0F809,0x24040003,0x02C02021,0x02E02821\n\t"
-    ".word 0x00408021,0x03C0F809,0x02003021,0x00408821\n\t"
-    ".word 0x12200012,0xAE71F0EC,0x02301021,0x1640000F\n\t"
-    ".word 0xAE820008,0x26321000,0x08025FBC,0x02C0A821\n\t"
-    ".word 0x1640000B,0x00008021,0x00002021,0x02E02821\n\t"
-    ".word 0x03C0F809,0x24062000,0x00409021,0x12400004\n\t"
-    ".word 0x00008021,0x24080001,0xAFA80010,0x00008021\n\t"
-    ".word 0x3C13800F,0x8E62F0EC,0x2674F0EC,0x10400022\n\t"
-    ".word 0xAE820004,0x12400009,0x02402021,0x0C025F59\n\t"
-    ".word 0x02A02821,0x10400006,0x3C15800F,0x8E830004\n\t"
-    ".word 0x8E62F0EC,0x00000000,0x00628023,0x3C15800F\n\t"
-    ".word 0x26B4F0EC,0x8E83000C,0x00000000,0x0203102B\n\t"
-    ".word 0x10400003,0x24630003,0x2402FFFC,0x00628024\n\t"
-    ".word 0x8EA2F0EC,0x1220000C,0x00509821,0x24040001\n\t"
-    ".word 0x02E02821,0x02203021,0x03C0F809,0x02003821\n\t"
-    ".word 0x0200B021,0x16C00004,0xAE930008,0xAEA0F0EC\n\t"
-    ".word 0xAE800004,0xAE800008,0x8FA80010,0x00000000\n\t"
-    ".word 0x11000004,0x24040002,0x02E02821,0x03C0F809\n\t"
-    ".word 0x02403021,0x3C02800F,0xAC40F0FC,0x02C01021\n\t"
-    ".word 0x8FBF003C,0x8FBE0038,0x8FB70034,0x8FB60030\n\t"
-    ".word 0x8FB5002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0040\n");
+extern int func_80097720(void *, int, int);
+extern void func_8008A7BC(void *, void *, int);
+extern void func_800977E0(void *);
+extern int func_80097AA0(void *, int);
+extern void func_8008AA48(void *, int, int);
+
+typedef struct {
+    char *root;
+    char *cur;
+    char *end;
+    unsigned int min;
+    char *buf;
+} Dir80097D64;
+extern Dir80097D64 D_800EF0EC;
+extern char D_800EF100[];
+extern int D_800EF0FC;
+
+int func_80097D64(char *buf, int arg) {
+    int r = func_80097720(buf, 16, 1);
+
+    if (r != 0) {
+        func_8008A7BC(D_800EF100, buf + 813, 17);
+        func_800977E0(buf + 156);
+        r = func_80097AA0(buf, arg);
+        if (r == 0) {
+            func_8008AA48(D_800EF100, 0, 17);
+        }
+    }
+    return r;
+}

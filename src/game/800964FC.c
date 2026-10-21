@@ -1,21 +1,66 @@
-asm(".text\n\t.globl func_800964FC\nfunc_800964FC:\n\t"
-    ".word 0x27BDFFA8,0x3C03800F,0x2463F094,0xAFBF0050\n\t"
-    ".word 0x8C620000,0x00000000,0x14400014,0x24020001\n\t"
-    ".word 0x8C65000C,0x3C03800F,0x8C63F090,0x00A21004\n\t"
-    ".word 0x00621825,0x27A50010,0x3C01800F,0x0C0259C5\n\t"
-    ".word 0xAC23F090,0x0C025ABC,0x00000000,0x0C027DE3\n\t"
-    ".word 0x27A40010,0x0C025B34,0x00000000,0x0C02598F\n\t"
-    ".word 0x00402021,0x0802595E,0x00000000,0x3C04800C\n\t"
-    ".word 0x0C0250EC,0x24845368,0x2402FFFF,0x8FBF0050\n\t"
-    ".word 0x27BD0058,0x03E00008,0x00000000,0x27BDFF60\n\t"
-    ".word 0x3C02800F,0x2442F094,0xAFBF0098,0xAFB10094\n\t"
-    ".word 0xAFB00090,0x8C420000,0x00000000,0x10400008\n\t"
-    ".word 0x00808821,0x3C04800C,0x0C0250EC,0x24845368\n\t"
-    ".word 0x0802598A,0x2402FFFF,0x0802598A,0x00001021\n\t"
-    ".word 0x2403FFFF,0x2410007F,0x27A2008F,0xA0430000\n\t"
-    ".word 0x2610FFFF,0x0601FFFD,0x2442FFFF,0x00008021\n\t"
-    ".word 0x0C025ABC,0x00000000,0x0C027DE7,0x00000000\n\t"
-    ".word 0x02202021,0x02002821,0x0C027DEB,0x27A60010\n\t"
-    ".word 0x0C025B34,0x00000000,0x1440FFEB,0x26100001\n\t"
-    ".word 0x2A02000F,0x1440FFF2,0x24020001,0x8FBF0098\n\t"
-    ".word 0x8FB10094,0x8FB00090,0x03E00008,0x27BD00A0\n");
+typedef struct {
+    int busy;
+    int unk4;
+    int unk8;
+    int channel;
+} CardState;
+extern volatile int D_800EF090;
+extern CardState D_800EF094;
+
+extern char D_800C5368[];
+void func_800943B0(const char *, ...);
+void func_80096714(int, char *);
+void func_80096AF0(void);
+void func_8009F78C(char *);
+int func_80096CD0(void);
+int func_8009663C(int);
+void func_8009F79C(void);
+void func_8009F7AC(int, int, signed char *);
+
+int func_800964FC(int port)
+{
+    char name[64];
+
+    CardState *card;
+
+    card = &D_800EF094;
+    __asm__ volatile("" : "=r"(card) : "0"(card));
+
+    if (card->busy != 0) {
+        func_800943B0(D_800C5368);
+        return -1;
+    }
+    D_800EF090 |= 1 << card->channel;
+    func_80096714(port, name);
+    func_80096AF0();
+    func_8009F78C(name);
+    return func_8009663C(func_80096CD0());
+}
+
+int func_80096588(int port)
+{
+    signed char buf[128];
+    int i;
+    signed char c;
+    CardState *card;
+
+    card = &D_800EF094;
+    __asm__("" : "=r"(card) : "0"(card));
+    if (card->busy != 0) {
+        func_800943B0(D_800C5368);
+        return -1;
+    }
+    c = -1;
+    for (i = 127; i >= 0; i--) {
+        buf[i] = c;
+    }
+    for (i = 0; i < 15; i++) {
+        func_80096AF0();
+        func_8009F79C();
+        func_8009F7AC(port, i, buf);
+        if (func_80096CD0() != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}

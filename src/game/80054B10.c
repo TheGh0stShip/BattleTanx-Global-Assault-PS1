@@ -1,17 +1,53 @@
-asm(".text\n\t.globl func_80054B10\nfunc_80054B10:\n\t"
-    ".word 0x27bdffd0,0xafbf0028,0xafb50024,0xafb40020\n\t"
-    ".word 0xafb3001c,0xafb20018,0xafb10014,0x0c00f742\n\t"
-    ".word 0xafb00010,0x00409821,0x8e71000c,0x8e700004\n\t"
-    ".word 0x8e720008,0x8e740010,0x0c01a3f2,0x02202021\n\t"
-    ".word 0x00402021,0x26650014,0x3c15800e,0x02203021\n\t"
-    ".word 0x0c0229ef,0xaea44658,0x0c024261,0x02402021\n\t"
-    ".word 0x00002021,0x0c0240ad,0x00408821,0x0c0240b9\n\t"
-    ".word 0x02202021,0x02708021,0x02002021,0x0c0240d1\n\t"
-    ".word 0x02402821,0x0c024358,0x24040001,0x1280000f\n\t"
-    ".word 0x00002021,0x8ea54658,0x3083ffff,0x00031080\n\t"
-    ".word 0x00431021,0x00021080,0x00451021,0x8c430000\n\t"
-    ".word 0x24840001,0x00711821,0xac430000,0x3082ffff\n\t"
-    ".word 0x0054102b,0x1440fff5,0x3083ffff,0x0c01a40c\n\t"
-    ".word 0x02602021,0x8fbf0028,0x8fb50024,0x8fb40020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0030\n\t");
+typedef struct {
+    unsigned long addr;
+    char pad4[0x14 - 4];
+} Sound;
+typedef struct {
+    int pad0;
+    int data_offset;
+    int data_size;
+    int table_size;
+    unsigned int count;
+    Sound table[1];
+} Bank;
+extern Sound *D_800E4658;
+extern Bank *func_8003DD08(int);
+extern Sound *func_80068FC8(int);
+extern void func_8008A7BC(void *, void *, int);
+extern unsigned long func_80090984(int);
+extern void func_800902B4(int);
+extern void func_800902E4(unsigned long);
+extern void func_80090344(void *, int);
+extern void func_80090D60(int);
+extern void func_80069030(void *);
+
+static inline void upload(unsigned long base, void *data, int size) {
+    func_800902B4(0);
+    func_800902E4(base);
+    func_80090344(data, size);
+    func_80090D60(1);
+}
+
+void func_80054B10(int file) {
+    Bank *bank;
+    int table_size;
+    int offset;
+    int size;
+    unsigned int count;
+    unsigned long base;
+    unsigned short i;
+
+    bank = func_8003DD08(file);
+    table_size = bank->table_size;
+    offset = bank->data_offset;
+    size = bank->data_size;
+    count = bank->count;
+    D_800E4658 = func_80068FC8(table_size);
+    func_8008A7BC(D_800E4658, bank->table, table_size);
+    base = func_80090984(size);
+    upload(base, (char *)bank + offset, size);
+    for (i = 0; i < count; i++) {
+        D_800E4658[i].addr += base;
+    }
+    func_80069030(bank);
+}

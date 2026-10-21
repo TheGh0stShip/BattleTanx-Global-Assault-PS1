@@ -1,30 +1,62 @@
-asm(".text\n\t.globl func_800907C4\nfunc_800907C4:\n\t"
-    ".word 0x3C0200FF,0x3442FFFF,0x00A22824,0x10800035\n\t"
-    ".word 0x00053402,0x24020001,0x14820066,0x00000000\n\t"
-    ".word 0x3C02800B,0x8C427BBC,0x00000000,0x30420001\n\t"
-    ".word 0x10400024,0x00000000,0x3C04800F,0x2484F188\n\t"
-    ".word 0xA4850000,0xA4860002,0x3C02800B,0x8C427788\n\t"
-    ".word 0x00000000,0x34420001,0x3C01800B,0xAC227788\n\t"
-    ".word 0x3C02800B,0x8C427784,0x00000000,0x00451025\n\t"
-    ".word 0x3C01800B,0xAC227784,0x94820004,0x00000000\n\t"
-    ".word 0x00451024,0x10400005,0x00000000,0x94820004\n\t"
-    ".word 0x00051827,0x00431024,0xA4820004,0x94820006\n\t"
-    ".word 0x00000000,0x00461024,0x10400042,0x00000000\n\t"
-    ".word 0x94820006,0x00061827,0x00431024,0x0802425E\n\t"
-    ".word 0xA4820006,0x3C02800B,0x8C42775C,0x3C03800B\n\t"
-    ".word 0x8C6376F0,0x00451025,0xA4650188,0x0802425C\n\t"
-    ".word 0xA466018A,0x3C02800B,0x8C427BBC,0x00000000\n\t"
-    ".word 0x30420001,0x10400024,0x00000000,0x3C04800F\n\t"
-    ".word 0x2484F188,0xA4850004,0xA4860006,0x3C02800B\n\t"
-    ".word 0x8C427788,0x00000000,0x34420001,0x3C01800B\n\t"
-    ".word 0xAC227788,0x3C02800B,0x8C427784,0x00051827\n\t"
-    ".word 0x00431024,0x3C01800B,0xAC227784,0x94820000\n\t"
-    ".word 0x00000000,0x00451024,0x10400005,0x00000000\n\t"
-    ".word 0x94820000,0x00000000,0x00431024,0xA4820000\n\t"
-    ".word 0x94820002,0x00000000,0x00461024,0x10400011\n\t"
-    ".word 0x00000000,0x94820002,0x00061827,0x00431024\n\t"
-    ".word 0x0802425E,0xA4820002,0x3C02800B,0x8C4276F0\n\t"
-    ".word 0x00000000,0xA445018C,0xA446018E,0x3C02800B\n\t"
-    ".word 0x8C42775C,0x00051827,0x00431024,0x3C01800B\n\t"
-    ".word 0xAC22775C,0x03E00008,0x00000000\n\t"
-);
+typedef struct {
+    char pad[0x188];
+    unsigned short key_on[2];
+    unsigned short key_off[2];
+} SpuRegs;
+
+extern volatile int D_800B7BBC;
+extern volatile unsigned int D_800B7788;
+extern volatile unsigned int D_800B7784;
+extern volatile unsigned int D_800B775C;
+extern SpuRegs *D_800B76F0;
+extern volatile unsigned short D_800EF188[4];
+
+void func_800907C4(int on_off, unsigned int voice_bit) {
+    unsigned int high;
+    volatile unsigned short *req;
+
+    voice_bit &= 0xFFFFFF;
+    high = voice_bit >> 16;
+    switch (on_off) {
+    case 1:
+        if (D_800B7BBC & 1) {
+            req = D_800EF188;
+            __asm__("" : "=r"(req) : "0"(req));
+            req[0] = voice_bit;
+            req[1] = high;
+            D_800B7788 |= 1;
+            D_800B7784 |= voice_bit;
+            if (req[2] & voice_bit) {
+                req[2] &= ~voice_bit;
+            }
+            if (req[3] & high) {
+                req[3] &= ~high;
+            }
+        } else {
+            D_800B76F0->key_on[0] = voice_bit;
+            D_800B76F0->key_on[1] = high;
+            D_800B775C |= voice_bit;
+        }
+        break;
+    case 0:
+        if (D_800B7BBC & 1) {
+            req = D_800EF188;
+            __asm__("" : "=r"(req) : "0"(req));
+            req[2] = voice_bit;
+            req[3] = high;
+            D_800B7788 |= 1;
+            D_800B7784 &= ~voice_bit;
+            if (req[0] & voice_bit) {
+                req[0] &= ~voice_bit;
+            }
+            if (req[1] & high) {
+                req[1] &= ~high;
+            }
+        } else {
+            D_800B76F0->key_off[0] = voice_bit;
+            D_800B76F0->key_off[1] = high;
+            D_800B775C &= ~voice_bit;
+        }
+        break;
+    }
+}

@@ -1,21 +1,31 @@
-asm(".text\n\t.globl func_80083CD4\nfunc_80083CD4:\n\t"
-    ".word 0x00042600,0x00042603,0x00052E00,0x00052E03\n\t"
-    ".word 0x00852023,0x8FA30010,0x04810022,0x00041023\n\t"
-    ".word 0x00031E00,0x00031E03,0x0062102A,0x1040003E\n\t"
-    ".word 0x00000000,0x00061600,0x00021603,0x00451023\n\t"
-    ".word 0x00432821,0x00831021,0x000211C0,0x00021023\n\t"
-    ".word 0x0045001A,0x14A00002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14A10004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00002012,0x00000000\n\t"
-    ".word 0x2882FF80,0x10400003,0x00000000,0x08020F80\n\t"
-    ".word 0x2404FF80,0x18800025,0x00000000,0x08020F80\n\t"
-    ".word 0x00002021,0x18800022,0x00041600,0x00031600\n\t"
-    ".word 0x00021E03,0x0064102A,0x1040001B,0x00000000\n\t"
-    ".word 0x00071600,0x00021603,0x00451023,0x00432823\n\t"
-    ".word 0x00831823,0x000311C0,0x00431023,0x0045001A\n\t"
-    ".word 0x14A00002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x14A10004,0x3C018000,0x14410002,0x00000000\n\t"
-    ".word 0x0006000D,0x00002012,0x00000000,0x28820080\n\t"
-    ".word 0x14400003,0x00000000,0x08020F80,0x2404007F\n\t"
-    ".word 0x04810002,0x00000000,0x00002021,0x00041600\n\t"
-    ".word 0x03E00008,0x00021603\n");
+signed char func_80083CD4(signed char v, signed char center, signed char lo, signed char hi, signed char dead) {
+    int d = v - center;
+    int den;
+
+    if (d < 0) {
+        if (-d > dead) {
+            den = (lo - center) + dead;
+            d = -((d + dead) * 128) / den;
+            if (d < -128) {
+                d = -128;
+            } else if (d > 0) {
+                d = 0;
+            }
+        } else {
+            d = 0;
+        }
+    } else if (d > 0) {
+        if (d > dead) {
+            den = (hi - center) - dead;
+            d = ((d - dead) * 127) / den;
+            if (d >= 128) {
+                d = 127;
+            } else if (d < 0) {
+                d = 0;
+            }
+        } else {
+            d = 0;
+        }
+    }
+    return d;
+}

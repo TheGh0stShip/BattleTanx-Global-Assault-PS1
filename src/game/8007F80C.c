@@ -1,25 +1,52 @@
-asm(".text\n\t.globl func_8007F80C\nfunc_8007F80C:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0x32230007\n\t"
-    ".word 0x24020003,0xAFBF0018,0x1062000C,0xAFB00010\n\t"
-    ".word 0x28620004,0x10400005,0x24020005,0x10600007\n\t"
-    ".word 0x00000000,0x0801FE47,0x00000000,0x1062000A\n\t"
-    ".word 0x00000000,0x0801FE47,0x00000000,0x3C04800C\n\t"
-    ".word 0x24844B24,0x3C05800B,0x24A50C18,0x3C06800B\n\t"
-    ".word 0x0C0250EC,0x24C60C60,0x3C10800B,0x26100C60\n\t"
-    ".word 0x02002021,0x00002821,0x0C020799,0x24060080\n\t"
-    ".word 0x0C0250FC,0x00000000,0x3C0200FF,0x3C04800B\n\t"
-    ".word 0x8C840C58,0x3442FFFF,0x0C02528E,0x00822024\n\t"
-    ".word 0x0C020627,0x02202021,0x26040010,0xA2020000\n\t"
-    ".word 0x92020000,0x24030001,0xA2030001,0x00021080\n\t"
-    ".word 0x3C03800B,0x00621821,0x94630CE0,0x92020000\n\t"
-    ".word 0x2405FFFF,0x00021080,0xA6030004,0x3C01800B\n\t"
-    ".word 0x00220821,0x94220CEC,0x2406005C,0x0C020799\n\t"
-    ".word 0xA6020006,0x2604006C,0x2405FFFF,0x0C020799\n\t"
-    ".word 0x24060014,0x92020000,0x0801FE5B,0x00000000\n\t"
-    ".word 0x3C02800B,0x90420C62,0x00000000,0x2C420002\n\t"
-    ".word 0x14400008,0x00000000,0x3C04800C,0x24844B44\n\t"
-    ".word 0x3C02800B,0x8C420C5C,0x00000000,0x0040F809\n\t"
-    ".word 0x02202821,0x3C02800B,0x8C420C58,0x00000000\n\t"
-    ".word 0x8C420034,0x00000000,0x0040F809,0x24040001\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct {
+    int (*fn[16])();
+} GpuDriver;
+
+typedef struct {
+    volatile unsigned char version;
+    unsigned char reset;
+    unsigned char level;
+    char pad3;
+    unsigned short width;
+    unsigned short height;
+    char pad8[8];
+    char env[92];
+    char clip[20];
+} GpuState;
+
+extern GpuState D_800B0C60;
+extern int D_800B0C18;
+extern GpuDriver *D_800B0C58;
+extern int (*D_800B0C5C)(char *, ...);
+extern unsigned int D_800B0CE0[];
+extern unsigned int D_800B0CEC[];
+extern char D_800C4B24[];
+extern char D_800C4B44[];
+extern void func_800943B0(char *, ...);
+extern void func_80081E64(void *, int, int);
+extern void func_800943F0(void);
+extern void func_80094A38(int);
+extern int func_8008189C(int);
+
+int func_8007F80C(int mode) {
+    switch (mode & 7) {
+    case 3:
+    case 0:
+        func_800943B0(D_800C4B24, &D_800B0C18, &D_800B0C60);
+    case 5:
+        func_80081E64(&D_800B0C60, 0, 128);
+        func_800943F0();
+        func_80094A38((int)D_800B0C58 & 0xFFFFFF);
+        D_800B0C60.version = func_8008189C(mode);
+        D_800B0C60.reset = 1;
+        D_800B0C60.width = D_800B0CE0[D_800B0C60.version];
+        D_800B0C60.height = D_800B0CEC[D_800B0C60.version];
+        func_80081E64(D_800B0C60.env, -1, 92);
+        func_80081E64(D_800B0C60.clip, -1, 20);
+        return D_800B0C60.version;
+    }
+    if (D_800B0C60.level >= 2) {
+        D_800B0C5C(D_800C4B44, mode);
+    }
+    return D_800B0C58->fn[13](1);
+}

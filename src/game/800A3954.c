@@ -1,12 +1,48 @@
-asm(".text\n\t.globl func_800A3954\nfunc_800A3954:\n\t"
-    ".word 0x948200e6,0x00000000,0x10400026,0x24020001\n\t"
-    ".word 0x8c82000c,0x00000000,0x10400016,0x240200ff\n\t"
-    ".word 0x90830046,0x00000000,0x1462001e,0x24020001\n\t"
-    ".word 0x00002821,0x8c820010,0x240400ff,0x8c43000c\n\t"
-    ".word 0x00000000,0x90620046,0x00000000,0x10440003\n\t"
-    ".word 0x00000000,0x14400013,0x24020001,0x24a50001\n\t"
-    ".word 0x28a20004,0x1440fff7,0x246300f0,0x08028e7e\n\t"
-    ".word 0x00001021,0x8c820010,0x00000000,0x90430046\n\t"
-    ".word 0x240200ff,0x14620005,0x00002821,0x90820046\n\t"
-    ".word 0x00000000,0x10430003,0x00a01021,0x24050001\n\t"
-    ".word 0x00a01021,0x03e00008,0x00000000\n\t");
+typedef struct Unit {
+    unsigned char pad0[0x46];
+    unsigned char state;
+    unsigned char pad47[0xF0 - 0x47];
+} Unit;
+
+typedef struct Group {
+    unsigned char pad0[0x0C];
+    Unit *units;
+} Group;
+
+typedef struct Node {
+    unsigned char pad0[0x0C];
+    int multi;
+    Group *group;
+    unsigned char pad14[0x46 - 0x14];
+    unsigned char state;
+    unsigned char pad47[0xE6 - 0x47];
+    unsigned short active;
+} Node;
+
+int func_800A3954(Node *node)
+{
+    int i;
+    int r;
+    Unit *u;
+
+    if (node->active == 0) {
+        return 1;
+    }
+    if (node->multi != 0) {
+        if (node->state != 0xFF) {
+            return 1;
+        }
+        u = node->group->units;
+        for (i = 0; i < 4; i++, u++) {
+            if (u->state != 0xFF && u->state != 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    r = 0;
+    if (((Unit *)node->group)->state != 0xFF || node->state != 0xFF) {
+        r = 1;
+    }
+    return r;
+}

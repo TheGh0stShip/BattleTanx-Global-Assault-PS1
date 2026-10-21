@@ -1,24 +1,67 @@
-asm(".text\n\t.globl func_8007A1DC\nfunc_8007A1DC:\n\t"
-    ".word 0x00804021,0x250B0308,0x00005021,0x240CFFFF\n\t"
-    ".word 0x01003021,0x240904C8,0x01093821,0x3C04800A\n\t"
-    ".word 0x8D03009C,0x24844EF4,0x00031040,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021100,0x00441021\n\t"
-    ".word 0x8C4500CC,0x00000000,0x80A30000,0x00000000\n\t"
-    ".word 0x106C003B,0x000310C0,0x00431023,0x00021140\n\t"
-    ".word 0x90A30001,0x004B1021,0x00031880,0x00431021\n\t"
-    ".word 0x8C420014,0x00000000,0x884D0003,0x984D0000\n\t"
-    ".word 0x884E0007,0x984E0004,0x884F000B,0x984F0008\n\t"
-    ".word 0x8858000F,0x9858000C,0xA8ED0003,0xB8ED0000\n\t"
-    ".word 0xA8EE0007,0xB8EE0004,0xA8EF000B,0xB8EF0008\n\t"
-    ".word 0xA8F8000F,0xB8F8000C,0x884D0013,0x984D0010\n\t"
-    ".word 0x00000000,0xA8ED0013,0xB8ED0010,0x90A30001\n\t"
-    ".word 0x80A40000,0x00031880,0x000410C0,0x00441023\n\t"
-    ".word 0x00021140,0x00621821,0x01031821,0x01091021\n\t"
-    ".word 0xAC62031C,0x24021000,0xACC0052C,0xACC20530\n\t"
-    ".word 0x90A20003,0x00000000,0xA0C20539,0x90A20002\n\t"
-    ".word 0x00000000,0x00021042,0x30420001,0xA0C2053A\n\t"
-    ".word 0x90A20002,0x00000000,0x30420001,0x00E21021\n\t"
-    ".word 0x90430000,0xACC20534,0x0801E8C8,0xA0C30538\n\t"
-    ".word 0xACC00534,0x24C60010,0x25290014,0x24A50004\n\t"
-    ".word 0x254A0001,0x29420005,0x1440FFBA,0x24E70014\n\t"
-    ".word 0x03E00008,0x00000000\n");
+typedef struct Blob20 {
+    unsigned char b[20];
+} Blob20;
+
+typedef struct Group {
+    char pad0[20];
+    Blob20 *slots[51];
+} Group;
+
+typedef struct SlotState {
+    int phase;
+    int scale;
+    unsigned char *cur;
+    unsigned char value;
+    unsigned char extra;
+    unsigned char flag;
+    unsigned char pad;
+} SlotState;
+
+typedef struct SlotDef {
+    signed char group;
+    unsigned char index;
+    unsigned char flags;
+    unsigned char extra;
+} SlotDef;
+
+typedef struct VehicleDef {
+    char pad0[204];
+    SlotDef *slots;
+} VehicleDef;
+
+typedef struct Obj {
+    char pad0[156];
+    int type;
+    char pad1[616];
+    Group groups[2];
+    Blob20 copies[5];
+    SlotState state[5];
+} Obj;
+
+extern VehicleDef D_800A4EF4[];
+
+void func_8007A1DC(Obj *o) {
+    Obj *obj = o;
+    int i;
+    Blob20 *copies = obj->copies;
+    unsigned char *cur;
+    Group *groups = obj->groups;
+    SlotDef *def;
+
+    def = D_800A4EF4[obj->type].slots;
+    for (i = 0; i < 5; i++) {
+        if (def[i].group != -1) {
+            copies[i] = *groups[def[i].group].slots[def[i].index];
+            obj->groups[def[i].group].slots[def[i].index] = &obj->copies[i];
+            obj->state[i].phase = 0;
+            obj->state[i].scale = 4096;
+            obj->state[i].extra = def[i].extra;
+            obj->state[i].flag = (def[i].flags >> 1) & 1;
+            cur = &copies[i].b[def[i].flags & 1];
+            obj->state[i].value = *cur;
+            obj->state[i].cur = cur;
+        } else {
+            obj->state[i].cur = 0;
+        }
+    }
+}

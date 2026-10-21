@@ -1,54 +1,128 @@
-asm(".text\n\t.globl func_8001BB58\nfunc_8001BB58:\n\t"
-    ".word 0x27BDFFD8,0xAFB00018,0x00808021,0xAFBF0020\n\t"
-    ".word 0xAFB1001C,0x8E060060,0x00000000,0x10C00040\n\t"
-    ".word 0x00A08821,0x8E050000,0x8CC40008,0x00000000\n\t"
-    ".word 0x14A40006,0x00000000,0x8E030004,0x8CC2000C\n\t"
-    ".word 0x00000000,0x10620037,0x3C02800E,0x00850018\n\t"
-    ".word 0x00001812,0x00001010,0x00031B02,0x00021500\n\t"
-    ".word 0x00621825,0x8CC6000C,0x8E090004,0x00000000\n\t"
-    ".word 0x00C90018,0x00001012,0x00002010,0x00021302\n\t"
-    ".word 0x00042500,0x00441025,0x00621021,0x04410013\n\t"
-    ".word 0x00000000,0x00021023,0x8E090008,0x00000000\n\t"
-    ".word 0x00490018,0x00005012,0x00005810,0x000A5302\n\t"
-    ".word 0x000B5D00,0x014B5025,0x8E020060,0xAE0A0008\n\t"
-    ".word 0x8C420008,0x8E030060,0x00021023,0xAE020000\n\t"
-    ".word 0x8C62000C,0x08006F1C,0x00021023,0x8E090008\n\t"
-    ".word 0x00000000,0x00490018,0x00005012,0x00005810\n\t"
-    ".word 0x000A5302,0x000B5D00,0x014B5025,0x8E020060\n\t"
-    ".word 0x8E030060,0xAE0A0008,0x8C420008,0x00000000\n\t"
-    ".word 0xAE020000,0x8C62000C,0x00000000,0xAE020004\n\t"
-    ".word 0x3C02800E,0x8C4BE30C,0x8E090008,0x00000000\n\t"
-    ".word 0x01690018,0x00001812,0x00005010,0x00031B02\n\t"
-    ".word 0x000A5500,0x006A1825,0x8E0A0000,0x00000000\n\t"
-    ".word 0x006A0018,0x00002012,0x00001010,0x00042302\n\t"
-    ".word 0x00021500,0x00822025,0x8E220000,0x00000000\n\t"
-    ".word 0x00441021,0xAE220000,0x8E090004,0x00000000\n\t"
-    ".word 0x00690018,0x00005812,0x00001010,0x000B5B02\n\t"
-    ".word 0x00021500,0x01625825,0x8E220004,0x01601821\n\t"
-    ".word 0x00431021,0xAE220004,0x8E020060,0x00000000\n\t"
-    ".word 0x10400062,0x00000000,0x02002021,0x0C006C4C\n\t"
-    ".word 0x02202821,0x3042FFFF,0x1040005C,0x00000000\n\t"
-    ".word 0x8E04000C,0x8E050008,0x14800002,0x3C028000\n\t"
-    ".word 0x24040002,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20010,0xE85F0000,0x8FA40010\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20014,0xE85F0000,0x8FA50014,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x08006F74,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00003812,0x08006F8A\n\t"
-    ".word 0x00873804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00003812\n\t"
-    ".word 0x08006F8A,0x00000000,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00003812\n\t"
-    ".word 0x11000002,0x00000000,0x00073823,0x8E250000\n\t"
-    ".word 0x8E260004,0x0C014EEC,0x24040013,0x2409FFFF\n\t"
-    ".word 0x8E0A0008,0x00000000,0x012A0018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x0441000A,0xAE020008,0x8E020000,0x8E030008\n\t"
-    ".word 0x00021023,0xAE020000,0x8E020004,0x00031823\n\t"
-    ".word 0xAE030008,0x00021023,0xAE020004,0x8FBF0020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0028\n");
+typedef struct Dir {
+    char pad00[8];
+    int x;
+    int z;
+} Dir;
+typedef struct Mover {
+    int dx;
+    int dz;
+    int speed;
+    int length;
+    char pad10[0x60 - 0x10];
+    Dir *dir;
+} Mover;
+extern int D_800DE30C;
+unsigned short func_8001B130(Mover *, int *);
+void func_80053BB0(int, int, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int safe_div(int num, int den) {
+    if (den == 0) {
+        den = 2;
+    }
+    return fixed_div(num, den);
+}
+
+void func_8001BB58(Mover *m, int *pos) {
+    int dot;
+    int step;
+
+    if (m->dir != 0 && (m->dx != m->dir->x || m->dz != m->dir->z)) {
+        dot = fixed_mul(m->dir->x, m->dx) + fixed_mul(m->dir->z, m->dz);
+        if (dot < 0) {
+            dot = -dot;
+            m->speed = fixed_mul(dot, m->speed);
+            m->dx = -m->dir->x;
+            m->dz = -m->dir->z;
+        } else {
+            m->speed = fixed_mul(dot, m->speed);
+            m->dx = m->dir->x;
+            m->dz = m->dir->z;
+        }
+    }
+    step = fixed_mul(D_800DE30C, m->speed);
+    pos[0] += fixed_mul(step, m->dx);
+    pos[1] += fixed_mul(step, m->dz);
+    if (m->dir != 0 && func_8001B130(m, pos)) {
+        func_80053BB0(19, pos[0], pos[1], safe_div(m->speed, m->length));
+        m->speed = fixed_mul(-1, m->speed);
+        if (m->speed < 0) {
+            dot = -m->dx;
+            m->dx = dot;
+            m->dz = -m->dz;
+            m->speed = -m->speed;
+        }
+    }
+}

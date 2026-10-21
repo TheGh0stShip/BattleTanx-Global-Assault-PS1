@@ -1,25 +1,56 @@
-asm(".text\n\t.globl func_80082424\nfunc_80082424:\n\t"
-    ".word 0x27BDFFC8,0xAFBE0030,0x0080F021,0xAFB7002C\n\t"
-    ".word 0x00A0B821,0x3C02800F,0x2444DC9C,0xAFBF0034\n\t"
-    ".word 0xAFB60028,0xAFB50024,0xAFB40020,0xAFB3001C\n\t"
-    ".word 0xAFB20018,0xAFB10014,0xAFB00010,0x8C820144\n\t"
-    ".word 0x00000000,0x10400005,0x00002821,0x8C420000\n\t"
-    ".word 0x00000000,0x14400006,0x00009021,0x03C02021\n\t"
-    ".word 0x0C0208BB,0x02E02821,0x0802095C,0x00402821\n\t"
-    ".word 0x2414005C,0x2416002F,0x00809821,0x26750148\n\t"
-    ".word 0x8E630144,0x00121080,0x00431021,0x8C500000\n\t"
-    ".word 0x00000000,0x1200002D,0x00000000,0x0C024061\n\t"
-    ".word 0x02002021,0x00408821,0x1A20001F,0x26640148\n\t"
-    ".word 0x0C023681,0x02002821,0x02301021,0x9043FFFF\n\t"
-    ".word 0x2402003A,0x10620019,0x02352021,0x10740003\n\t"
-    ".word 0x00002021,0x14760002,0x00000000,0x24040001\n\t"
-    ".word 0x92E30000,0x00000000,0x10740003,0x00001021\n\t"
-    ".word 0x14760002,0x00000000,0x24020001,0x10800005\n\t"
-    ".word 0x00000000,0x10400009,0x02352021,0x08020953\n\t"
-    ".word 0x2631FFFF,0x14400005,0x02352021,0x02331021\n\t"
-    ".word 0xA0540148,0x26310001,0x02352021,0x0C023681\n\t"
-    ".word 0x02E02821,0x03C02021,0x0C0208BB,0x02A02821\n\t"
-    ".word 0x00402821,0x10A0FFCE,0x26520001,0x8FBF0034\n\t"
-    ".word 0x8FBE0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x00A01021,0x03E00008,0x27BD0038\n");
+typedef struct Request Request;
+
+typedef struct RequestTable {
+    char pad000[0x144];
+    char **search;
+    char path[0x80];
+} RequestTable;
+
+extern RequestTable D_800EDC9C;
+extern int func_800822EC(Request *, char *);
+extern int func_80090184(char *);
+extern void func_8008DA04(char *, char *);
+
+int func_80082424(Request *r, char *name) {
+    int ok = 0;
+    int i;
+    int len;
+    char *dir;
+    int dir_sep;
+    int name_sep;
+    char c;
+
+    if (D_800EDC9C.search == 0 || D_800EDC9C.search[0] == 0) {
+        ok = func_800822EC(r, name);
+    } else {
+        i = 0;
+        do {
+            dir = D_800EDC9C.search[i];
+            if (dir == 0) {
+                goto done;
+            }
+            len = func_80090184(dir);
+            if (len > 0) {
+                func_8008DA04(D_800EDC9C.path, dir);
+                c = dir[len - 1];
+                if (c != ':') {
+                    dir_sep = (c == '\\' || c == '/');
+                    name_sep = (name[0] == '\\' || name[0] == '/');
+                    if (dir_sep) {
+                        if (name_sep) {
+                            len--;
+                        }
+                    } else if (!name_sep) {
+                        D_800EDC9C.path[len] = '\\';
+                        len++;
+                    }
+                }
+            }
+            func_8008DA04(D_800EDC9C.path + len, name);
+            ok = func_800822EC(r, D_800EDC9C.path);
+            i++;
+        } while (ok == 0);
+    }
+done:
+    return ok;
+}

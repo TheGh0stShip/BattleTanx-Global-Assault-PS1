@@ -1,14 +1,44 @@
-asm(".text\n\t.globl func_8009E528\nfunc_8009E528:\n\t"
-    ".word 0x27bdffe8,0xafbf0014,0xafb00010,0x3c01800c\n\t"
-    ".word 0x0c025066,0xac208cac,0x24040002,0x3c10800f\n\t"
-    ".word 0x2610fc38,0x0c028e81,0x02002821,0x24040002\n\t"
-    ".word 0x0c028e85,0x02002821,0x24040003,0x3c03800c\n\t"
-    ".word 0x8c638cd4,0x2402fffe,0xac620000,0x8c620004\n\t"
-    ".word 0x00002821,0x34420001,0x0c025c03,0xac620004\n\t"
-    ".word 0x0c02505a,0x00000000,0x3c04800c,0x8c848ca8\n\t"
-    ".word 0x3c02800c,0x8c428c78,0x00000000,0x0040f809\n\t"
-    ".word 0x00000000,0x3c04800c,0x8c848ca8,0x3c02800c\n\t"
-    ".word 0x8c428c78,0x00000000,0x0040f809,0x248400f0\n\t"
-    ".word 0x3c02800f,0x2442fc48,0xac400004,0xac400000\n\t"
-    ".word 0x24020001,0x3c01800c,0xac228cac,0x8fbf0014\n\t"
-    ".word 0x8fb00010,0x03e00008,0x27bd0018\n\t");
+typedef struct PadRegs {
+    int unk00;
+    int unk04;
+} PadRegs;
+
+typedef struct PadPort {
+    char pad0[0xF0];
+} PadPort;
+
+extern int D_800B8CAC;
+extern int D_800EFC38;
+extern int D_800EFC48[2];
+extern PadRegs *D_800B8CD4;
+extern PadPort *D_800B8CA8;
+extern void (*D_800B8C78)(PadPort *p);
+
+void func_80094198(void);
+void func_80094168(void);
+void func_800A3A04(int n, void *p);
+void func_800A3A14(int n, void *p);
+void func_8009700C(int a, int b);
+
+void func_8009E528(void)
+{
+    volatile PadRegs *r;
+    int *c;
+
+    D_800B8CAC = 0;
+    func_80094198();
+    func_800A3A04(2, &D_800EFC38);
+    func_800A3A14(2, &D_800EFC38);
+    r = D_800B8CD4;
+    r->unk00 = -2;
+    r->unk04 |= 1;
+    func_8009700C(3, 0);
+    func_80094168();
+    D_800B8C78(D_800B8CA8);
+    D_800B8C78(D_800B8CA8 + 1);
+    c = D_800EFC48;
+    c[1] = 0;
+    c[0] = 0;
+    D_800B8CAC = 1;
+    __asm__ volatile("");
+}

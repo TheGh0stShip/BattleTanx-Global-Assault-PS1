@@ -14,13 +14,13 @@ from pathlib import Path
 
 try:
     from .verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int,
-        rewrite_move_pseudos, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
+        rewrite_move_pseudos, run_compiler, validate_units,
     )
 except ImportError:
     from verify_matching_units import (
-        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, compiler_path, parse_int,
-        rewrite_move_pseudos, validate_units,
+        HEADER_SIZE, LOAD_ADDRESS, MASPSX_COMMIT, ROOT, command, parse_int,
+        rewrite_move_pseudos, run_compiler, validate_units,
     )
 
 
@@ -52,7 +52,6 @@ def build_header(metadata):
 
 def compile_object(item, config, prefix, work_root):
     index, unit = item
-    cc1 = compiler_path(unit, config)
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
     assembler = command("as", prefix)
     linker = command("ld", prefix)
@@ -72,7 +71,7 @@ def compile_object(item, config, prefix, work_root):
     section = ".unit%04d" % index
     flags = config["compiler_flags"] + unit.get("compiler_flags_extra", [])
 
-    run([str(cc1), str(ROOT / unit["source"]), *flags, "-o", str(assembly)])
+    run_compiler(unit, config, ROOT / unit["source"], assembly, flags)
     with processed.open("wb") as output:
         result = subprocess.run(
             [sys.executable, str(maspsx), *config["maspsx_flags"],
@@ -144,9 +143,8 @@ def build(config_path, metadata_path, executable_path, output_path, report_path,
     if cursor != LOAD_ADDRESS + payload_size:
         raise SystemExit("manifest does not cover the complete executable payload")
 
-    compilers = {compiler_path(unit, config) for unit in units}
     maspsx = ROOT / (".toolchain/maspsx-%s/maspsx.py" % MASPSX_COMMIT)
-    if not all(cc1.is_file() for cc1 in compilers) or not maspsx.is_file():
+    if not maspsx.is_file():
         raise SystemExit("matching toolchain missing; run tools/bootstrap_toolchain.sh")
     linker = command("ld", prefix)
     objcopy = command("objcopy", prefix)

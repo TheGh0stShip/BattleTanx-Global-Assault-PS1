@@ -1,39 +1,82 @@
-asm(".text\n\t.globl func_80041210\nfunc_80041210:\n\t"
-    ".word 0x27BDFFD0,0xAFB00020,0x00808021,0x3C02800A\n\t"
-    ".word 0xAFBF0028,0xAFB10024,0x8E03009C,0x244B4EF4\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x004B3821,0x8CE20010,0x00000000\n\t"
-    ".word 0x30420001,0x10400078,0x00A08821,0x96020030\n\t"
-    ".word 0x00000000,0x30484000,0x30493FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x30488000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00092840\n\t"
-    ".word 0x00052903,0x244A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00092040,0x00042300,0x00042403,0x00042023\n\t"
-    ".word 0x8CE20080,0x00000000,0x00440018,0x00003012\n\t"
-    ".word 0x00001810,0x00063302,0x00031D00,0x00C33025\n\t"
-    ".word 0x00052C00,0x00052C03,0x00051823,0x8CEE0088\n\t"
-    ".word 0x00000000,0x01C30018,0x00006012,0x00006810\n\t"
-    ".word 0x000C6302,0x000D6D00,0x018D6025,0x01801821\n\t"
-    ".word 0x00461021,0x00431021,0xAFA20010,0x8E03009C\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00431021,0x00021100,0x004B1021,0x8C420084\n\t"
-    ".word 0x00000000,0xAFA20014,0x8E03009C,0x00000000\n\t"
-    ".word 0x00031040,0x00431021,0x00021080,0x00431021\n\t"
-    ".word 0x00021100,0x004B1021,0x8C4C0080,0x00000000\n\t"
-    ".word 0x01850018,0x00007812,0x00001810,0x000F7B02\n\t"
-    ".word 0x00031D00,0x01E37825,0x01E02821,0x8C420088\n\t"
-    ".word 0x00000000,0x00440018,0x00001812,0x00006810\n\t"
-    ".word 0x00031B02,0x000D6D00,0x006D1825,0x00451021\n\t"
-    ".word 0x00431021,0x260402BC,0x27A50010,0x02203021\n\t"
-    ".word 0x0C022997,0xAFA20018,0x8E220000,0x8E0302D0\n\t"
-    ".word 0x00000000,0x00431021,0xAE220000,0x8E220004\n\t"
-    ".word 0x8E0302D4,0x00000000,0x00431021,0xAE220004\n\t"
-    ".word 0x8E220008,0x8E0302D8,0x00000000,0x00431021\n\t"
-    ".word 0x08010514,0xAE220008,0x8E0E0008,0x8E0F000C\n\t"
-    ".word 0x8E0C0010,0xAE2E0000,0xAE2F0004,0xAE2C0008\n\t"
-    ".word 0x8FBF0028,0x8FB10024,0x8FB00020,0x03E00008\n\t"
-    ".word 0x27BD0030\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    char pad0[0x10];
+    int flags;
+    char pad14[0x80 - 0x14];
+    Vector mount;
+    char pad8C[0xD0 - 0x8C];
+} VehicleInfo;
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[0x30 - 0x14];
+    unsigned short heading;
+    char pad32[0x9C - 0x32];
+    int type;
+    char padA0[0x2BC - 0xA0];
+    MATRIX matrix;
+} Tank;
+extern VehicleInfo D_800A4EF4[];
+void func_8008A65C(MATRIX *, Vector *, Vector *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int sine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+
+
+void func_80041210(Tank *tank, Vector *out) {
+    Vector v;
+    short s;
+    short c;
+
+    if (D_800A4EF4[tank->type].flags & 1) {
+        s = sine_lookup(tank->heading) >> 4;
+        c = cosine_lookup(tank->heading) >> 4;
+        v.x = D_800A4EF4[tank->type].mount.x + fixed_mul(D_800A4EF4[tank->type].mount.x, -c) +
+              fixed_mul(D_800A4EF4[tank->type].mount.z, -s);
+        v.y = D_800A4EF4[tank->type].mount.y;
+        v.z = D_800A4EF4[tank->type].mount.z + fixed_mul(D_800A4EF4[tank->type].mount.x, s) +
+              fixed_mul(D_800A4EF4[tank->type].mount.z, -c);
+        func_8008A65C(&tank->matrix, &v, out);
+        out->x += tank->matrix.t[0];
+        out->y += tank->matrix.t[1];
+        out->z += tank->matrix.t[2];
+    } else {
+        *out = tank->pos;
+    }
+}

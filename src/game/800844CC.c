@@ -1,62 +1,174 @@
-asm(".text\n\t.globl func_800844CC\nfunc_800844CC:\n\t"
-    ".word 0x27BDFFC8,0xAFB60028,0x0080B021,0xAFB20018\n\t"
-    ".word 0x3C12800F,0xAFB00010,0x2650DF78,0xAFBF0030\n\t"
-    ".word 0xAFB7002C,0xAFB50024,0xAFB40020,0xAFB3001C\n\t"
-    ".word 0xAFB10014,0x8E140058,0x8E02005C,0x8E830010\n\t"
-    ".word 0x00563021,0xAE06005C,0x9602005C,0x02832821\n\t"
-    ".word 0x24420001,0x94A30000,0x3042FFFF,0x0043102B\n\t"
-    ".word 0x14400006,0x02802021,0x00601021,0x00C21023\n\t"
-    ".word 0x0C021025,0xAE02005C,0x00402821,0x8E030054\n\t"
-    ".word 0x24020004,0x146200C6,0x0000A821,0x24B10002\n\t"
-    ".word 0x02A09821,0x0240B821,0x02009021,0x3C02800F\n\t"
-    ".word 0x2450E028,0x24020001,0x8E830014,0x02621004\n\t"
-    ".word 0x00621824,0x106000B0,0x00151080,0x02821021\n\t"
-    ".word 0x96240000,0x26310002,0x8C430020,0x96060004\n\t"
-    ".word 0x24020006,0x14620031,0xAE030000,0x92220000\n\t"
-    ".word 0x00000000,0xA2020022,0x92220001,0x00000000\n\t"
-    ".word 0xA2020023,0x92020022,0x92030023,0xA2000019\n\t"
-    ".word 0xA200001A,0xA2020010,0xA2030011,0x8E42004C\n\t"
-    ".word 0x00000000,0x30420006,0x10400019,0x26310002\n\t"
-    ".word 0x82050010,0x82430050,0x00000000,0x00A3102A\n\t"
-    ".word 0x14400003,0x00031023,0x08021187,0x34840020\n\t"
-    ".word 0x0045102A,0x14400002,0x00000000,0x34840080\n\t"
-    ".word 0x82050011,0x82430050,0x00000000,0x00A3102A\n\t"
-    ".word 0x14400003,0x00031023,0x08021193,0x34840040\n\t"
-    ".word 0x0045102A,0x14400002,0x00000000,0x34840010\n\t"
-    ".word 0x96220000,0x26310002,0xA6020024,0x96220000\n\t"
-    ".word 0x26310002,0x08021202,0xA6020026,0x2462FFFE\n\t"
-    ".word 0x2C420003,0x10400048,0x00000000,0x92220000\n\t"
-    ".word 0x00000000,0xA2020010,0x92220001,0x26310002\n\t"
-    ".word 0xA2020011,0x92220000,0x00000000,0xA2020019\n\t"
-    ".word 0x92220001,0x00000000,0xA202001A,0x8E42004C\n\t"
-    ".word 0x00000000,0x30420002,0x10400019,0x26310002\n\t"
-    ".word 0x82050010,0x82430050,0x00000000,0x00A3102A\n\t"
-    ".word 0x14400003,0x00031023,0x080211BB,0x34840020\n\t"
-    ".word 0x0045102A,0x14400002,0x00000000,0x34840080\n\t"
-    ".word 0x82050011,0x82430050,0x00000000,0x00A3102A\n\t"
-    ".word 0x14400003,0x00031023,0x080211C7,0x34840040\n\t"
-    ".word 0x0045102A,0x14400002,0x00000000,0x34840010\n\t"
-    ".word 0x8E42004C,0x00000000,0x30420004,0x10400038\n\t"
-    ".word 0x00861826,0x82050019,0x82430050,0x00000000\n\t"
-    ".word 0x00A3102A,0x14400003,0x00031023,0x080211D8\n\t"
-    ".word 0x34840020,0x0045102A,0x14400002,0x00000000\n\t"
-    ".word 0x34840080,0x8205001A,0x82430050,0x00000000\n\t"
-    ".word 0x00A3102A,0x14400003,0x00031023,0x08021202\n\t"
-    ".word 0x34840040,0x0045102A,0x14400021,0x00861826\n\t"
-    ".word 0x08021202,0x34840010,0x8E42004C,0x00000000\n\t"
-    ".word 0x30420001,0x10400015,0x30820080,0x10400003\n\t"
-    ".word 0x2402FF80,0x080211F4,0xA2020010,0x30820020\n\t"
-    ".word 0x10400003,0x2402007F,0x080211F4,0xA2020010\n\t"
-    ".word 0xA2000010,0x30820010,0x10400003,0x2402FF80\n\t"
-    ".word 0x08021200,0xA2020011,0x30820040,0x10400004\n\t"
-    ".word 0x2402007F,0x08021200,0xA2020011,0xA2000010\n\t"
-    ".word 0xA2000011,0xA2000019,0xA200001A,0x00861826\n\t"
-    ".word 0x00831024,0xA6020006,0x00041027,0x00621824\n\t"
-    ".word 0xA6030008,0x8E030000,0x24020006,0x10620004\n\t"
-    ".word 0xA6040004,0x02602021,0x0C020FDB,0x02C02821\n\t"
-    ".word 0x08021213,0x26B50001,0x0C020F1C,0x02602021\n\t"
-    ".word 0x8E820014,0x26730001,0xAEE2DF78,0x00021027\n\t"
-    ".word 0xAE420004,0x2E620008,0x1440FF42,0x2610008C\n\t"
-    ".word 0x8FBF0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0038\n");
+typedef struct Stream {
+    int single;
+    int wrapped;
+    unsigned int size;
+    unsigned int mark;
+    unsigned int pos;
+    unsigned int mask;
+    int header_words;
+    int step;
+    int type[8];
+} Stream;
+
+typedef struct ReplayState {
+    unsigned int mask;
+    unsigned int unmask;
+    char pad08[0x44];
+    int flags;
+    signed char threshold;
+    char pad51[3];
+    int mode;
+    Stream *stream;
+    int counter;
+    int type;
+} ReplayState;
+
+typedef struct PadInput {
+    int type;
+    unsigned short buttons;
+    unsigned short pressed;
+    unsigned short released;
+    char pad0A[6];
+    signed char x1;
+    signed char y1;
+    char pad12[7];
+    signed char x2;
+    signed char y2;
+    char pad1B[7];
+    unsigned char b0;
+    unsigned char b1;
+    unsigned short a0;
+    unsigned short a1;
+    char pad28[0x64];
+} PadInput;
+
+extern ReplayState D_800EDF78;
+extern PadInput D_800EE028[8];
+extern unsigned short *func_80084094(Stream *, unsigned short *);
+extern void func_80083F6C(int, int);
+extern void func_80083C70(int);
+
+void func_800844CC(int frames) {
+    Stream *st = D_800EDF78.stream;
+    unsigned short *p;
+    unsigned short *q;
+    unsigned int i;
+    int n;
+    unsigned int buttons;
+    unsigned int old;
+    unsigned int changed;
+    int counter;
+    int type;
+
+    p = (unsigned short *)((char *)st + st->pos);
+    counter = D_800EDF78.counter + frames;
+    D_800EDF78.counter = counter;
+    if ((unsigned short)(*(unsigned short *)&D_800EDF78.counter + 1) >= *p) {
+        D_800EDF78.counter = counter - *p;
+        p = func_80084094(st, p);
+    }
+    if (D_800EDF78.mode != 4) {
+        return;
+    }
+    n = 0;
+    q = p + 1;
+    for (i = 0; i < 8; i++) {
+        if (st->mask & (1 << i)) {
+            buttons = *q++;
+            type = st->type[n];
+            D_800EE028[i].type = type;
+            old = D_800EE028[i].buttons;
+            if (type == 6) {
+                D_800EE028[i].b0 = ((unsigned char *)q)[0];
+                D_800EE028[i].b1 = ((unsigned char *)q)[1];
+                D_800EE028[i].x2 = 0;
+                D_800EE028[i].y2 = 0;
+                D_800EE028[i].x1 = D_800EE028[i].b0;
+                D_800EE028[i].y1 = D_800EE028[i].b1;
+                q++;
+                if (D_800EDF78.flags & 6) {
+                    if (D_800EE028[i].x1 >= D_800EDF78.threshold) {
+                        buttons |= 0x20;
+                    } else if (D_800EE028[i].x1 <= -D_800EDF78.threshold) {
+                        buttons |= 0x80;
+                    }
+                    if (D_800EE028[i].y1 >= D_800EDF78.threshold) {
+                        buttons |= 0x40;
+                    } else if (D_800EE028[i].y1 <= -D_800EDF78.threshold) {
+                        buttons |= 0x10;
+                    }
+                }
+                D_800EE028[i].a0 = *q++;
+                D_800EE028[i].a1 = *q++;
+            } else if ((unsigned int)(type - 2) < 3) {
+                D_800EE028[i].x1 = ((unsigned char *)q)[0];
+                D_800EE028[i].y1 = ((unsigned char *)q)[1];
+                q++;
+                D_800EE028[i].x2 = ((unsigned char *)q)[0];
+                D_800EE028[i].y2 = ((unsigned char *)q)[1];
+                q++;
+                if (D_800EDF78.flags & 2) {
+                    if (D_800EE028[i].x1 >= D_800EDF78.threshold) {
+                        buttons |= 0x20;
+                    } else if (D_800EE028[i].x1 <= -D_800EDF78.threshold) {
+                        buttons |= 0x80;
+                    }
+                    if (D_800EE028[i].y1 >= D_800EDF78.threshold) {
+                        buttons |= 0x40;
+                    } else if (D_800EE028[i].y1 <= -D_800EDF78.threshold) {
+                        buttons |= 0x10;
+                    }
+                }
+                if (D_800EDF78.flags & 4) {
+                    if (D_800EE028[i].x2 >= D_800EDF78.threshold) {
+                        buttons |= 0x20;
+                    } else if (D_800EE028[i].x2 <= -D_800EDF78.threshold) {
+                        buttons |= 0x80;
+                    }
+                    if (D_800EE028[i].y2 >= D_800EDF78.threshold) {
+                        buttons |= 0x40;
+                    } else if (D_800EE028[i].y2 <= -D_800EDF78.threshold) {
+                        buttons |= 0x10;
+                    }
+                }
+            } else {
+                if (D_800EDF78.flags & 1) {
+                    if (buttons & 0x80) {
+                        D_800EE028[i].x1 = -128;
+                    } else if (buttons & 0x20) {
+                        D_800EE028[i].x1 = 127;
+                    } else {
+                        D_800EE028[i].x1 = 0;
+                    }
+                    if (buttons & 0x10) {
+                        D_800EE028[i].y1 = -128;
+                    } else if (buttons & 0x40) {
+                        D_800EE028[i].y1 = 127;
+                    } else {
+                        D_800EE028[i].y1 = 0;
+                    }
+                } else {
+                    D_800EE028[i].x1 = 0;
+                    D_800EE028[i].y1 = 0;
+                }
+                D_800EE028[i].x2 = 0;
+                D_800EE028[i].y2 = 0;
+            }
+            changed = buttons ^ old;
+            D_800EE028[i].pressed = buttons & changed;
+            D_800EE028[i].released = changed & ~buttons;
+            D_800EE028[i].buttons = buttons;
+            if (D_800EE028[i].type != 6) {
+                func_80083F6C(i, frames);
+            }
+            n++;
+        } else {
+            func_80083C70(i);
+        }
+        {
+            unsigned int mask = st->mask;
+            D_800EDF78.mask = mask;
+            D_800EDF78.unmask = ~mask;
+        }
+    }
+}

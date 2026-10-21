@@ -1,41 +1,99 @@
-asm(".text\n\t.globl func_8009A578\nfunc_8009A578:\n\t"
-    ".word 0xAFA40000,0xAFA50004,0xAFA60008,0xAFA7000C\n\t"
-    ".word 0x27BDFFE8,0xAFB00010,0x27B0001C,0x24060001\n\t"
-    ".word 0xAFBF0014,0x10860019,0xAFA40018,0x28820002\n\t"
-    ".word 0x10400005,0x24020002,0x1080002F,0x00001021\n\t"
-    ".word 0x080269FA,0x00000000,0x10820005,0x24020003\n\t"
-    ".word 0x10820043,0x00001021,0x080269FA,0x00000000\n\t"
-    ".word 0x8FA4001C,0x3C02800B,0x8C427718,0x3C03800B\n\t"
-    ".word 0x8C6376F0,0x00441006,0x3C01800B,0xA4227708\n\t"
-    ".word 0xA46201A6,0x080269FA,0x00001021,0x3C05800B\n\t"
-    ".word 0x8CA576F0,0x3C04800B,0x94847708,0x94A201A6\n\t"
-    ".word 0x3C01800B,0xAC207740,0x10440009,0x00001821\n\t"
-    ".word 0x24630001,0x2C620F01,0x1040006D,0x2402FFFE\n\t"
-    ".word 0x94A201A6,0x00000000,0x1444FFFA,0x24630001\n\t"
-    ".word 0x3C03800B,0x8C6376F0,0x00000000,0x946201AA\n\t"
-    ".word 0x00000000,0x3042FFCF,0x34420020,0xA46201AA\n\t"
-    ".word 0x080269FA,0x00001021,0x3C05800B,0x8CA576F0\n\t"
-    ".word 0x3C04800B,0x94847708,0x94A201A6,0x3C01800B\n\t"
-    ".word 0xAC267740,0x10440009,0x00001821,0x24630001\n\t"
-    ".word 0x2C620F01,0x10400052,0x2402FFFE,0x94A201A6\n\t"
-    ".word 0x00000000,0x1444FFFA,0x24630001,0x3C03800B\n\t"
-    ".word 0x8C6376F0,0x00000000,0x946201AA,0x00000000\n\t"
-    ".word 0x34420030,0xA46201AA,0x080269FA,0x00001021\n\t"
-    ".word 0x3C02800B,0x8C427740,0x00000000,0x14460002\n\t"
-    ".word 0x24040020,0x24040030,0x3C05800B,0x8CA576F0\n\t"
-    ".word 0x00001821,0x94A201AA,0x3084FFFF,0x30420030\n\t"
-    ".word 0x10440009,0x24630001,0x2C620F01,0x10400034\n\t"
-    ".word 0x2402FFFE,0x94A201AA,0x00000000,0x30420030\n\t"
-    ".word 0x1444FFF9,0x24630001,0x3C03800B,0x8C637740\n\t"
-    ".word 0x24020001,0x14620005,0x00000000,0x0C026A79\n\t"
-    ".word 0x26100004,0x080269D8,0x3C060100,0x0C026A6F\n\t"
-    ".word 0x26100004,0x3C060100,0x8E04FFFC,0x3C01800B\n\t"
-    ".word 0xAC247744,0x8E040000,0x3C05800B,0x8CA576F4\n\t"
-    ".word 0x00041982,0x3082003F,0x0002102B,0x3C04800B\n\t"
-    ".word 0x8C847744,0x00621821,0x3C01800B,0xAC237748\n\t"
-    ".word 0xACA40000,0x3C02800B,0x8C427748,0x3C03800B\n\t"
-    ".word 0x8C6376F8,0x00021400,0x34420010,0xAC620000\n\t"
-    ".word 0x3C03800B,0x8C637740,0x24020001,0x14620003\n\t"
-    ".word 0x34C60201,0x3C060100,0x34C60200,0x3C02800B\n\t"
-    ".word 0x8C4276FC,0x00000000,0xAC460000,0x00001021\n\t"
-    ".word 0x8FBF0014,0x8FB00010,0x03E00008,0x27BD0018\n");
+typedef struct SpuRegs {
+    char pad0[422];
+    volatile unsigned short trans_addr;
+    volatile unsigned short trans_mode;
+    volatile unsigned short ctrl;
+} SpuRegs;
+
+extern SpuRegs *D_800B76F0;
+extern volatile unsigned int *volatile D_800B76F4;
+extern volatile unsigned int *volatile D_800B76F8;
+extern volatile unsigned int *volatile D_800B76FC;
+extern unsigned short D_800B7708;
+extern unsigned int D_800B7718;
+extern int D_800B7740;
+extern volatile unsigned int D_800B7744;
+extern unsigned int D_800B7748;
+extern void func_8009A9E4(void);
+extern void func_8009A9BC(void);
+
+int func_8009A578(int op, ...) {
+    unsigned int *ap = (unsigned int *)&op + 1;
+    unsigned int i;
+    register unsigned int size asm("$4");
+    register unsigned int chcr asm("$6");
+    unsigned short mode;
+
+    switch (op) {
+    case 2:
+        {
+            register unsigned int a asm("$4") = *ap;
+            register unsigned int n asm("$2") = D_800B7718;
+
+            D_800B7708 = a >> n;
+        }
+        D_800B76F0->trans_addr = D_800B7708;
+        break;
+    case 1:
+        D_800B7740 = 0;
+        i = 0;
+        while (D_800B76F0->trans_addr != D_800B7708) {
+            if (++i > 3840) {
+                return -2;
+            }
+        }
+        D_800B76F0->ctrl = (D_800B76F0->ctrl & ~0x30) | 0x20;
+        break;
+    case 0:
+        D_800B7740 = 1;
+        i = 0;
+        while (D_800B76F0->trans_addr != D_800B7708) {
+            if (++i > 3840) {
+                return -2;
+            }
+        }
+        D_800B76F0->ctrl |= 0x30;
+        break;
+    case 3:
+        mode = 0x20;
+        if (D_800B7740 == 1) {
+            mode = 0x30;
+        }
+        i = 0;
+        while ((D_800B76F0->ctrl & 0x30) != mode) {
+            if (++i > 3840) {
+                return -2;
+            }
+        }
+        if (D_800B7740 == 1) {
+            func_8009A9E4();
+        } else {
+            func_8009A9BC();
+        }
+        ap += 1;
+        chcr = 0x01000000;
+        __asm__ volatile("" : "=r"(chcr) : "0"(chcr));
+        {
+            register unsigned int t asm("$4") = ap[-1];
+
+            D_800B7744 = t;
+        }
+        size = *ap;
+        D_800B7748 = (size >> 6) + ((size & 0x3F) != 0);
+        {
+            volatile unsigned int *d = D_800B76F4;
+            register unsigned int w asm("$4") = D_800B7744;
+
+            *d = w;
+        }
+        *D_800B76F8 = (D_800B7748 << 16) | 0x10;
+        __asm__ volatile("" : "=r"(chcr) : "0"(chcr));
+        chcr |= 0x201;
+        if (D_800B7740 == 1) {
+            chcr = 0x01000200;
+        }
+        *D_800B76FC = chcr;
+        break;
+    }
+    return 0;
+}

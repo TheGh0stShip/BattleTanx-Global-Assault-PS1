@@ -1,60 +1,150 @@
-asm(".text\n\t.globl func_8001A9B4\nfunc_8001A9B4:\n\t"
-    ".word 0x27BDFFF0,0x8FAD0020,0x3084FFFF,0x2C820515\n\t"
-    ".word 0x38420001,0x10400003,0x00E06021,0x08006B55\n\t"
-    ".word 0x24020001,0x00041080,0x00441021,0x000210C0\n\t"
-    ".word 0x3C03800C,0x246362B0,0x00435821,0x30A5FFFF\n\t"
-    ".word 0x24020002,0x10A2001C,0x28A20003,0x10400005\n\t"
-    ".word 0x24020001,0x10A2000A,0x00000000,0x08006A74\n\t"
-    ".word 0x00000000,0x24020003,0x10A20032,0x24020004\n\t"
-    ".word 0x10A20022,0x00000000,0x08006B55,0x24020001\n\t"
-    ".word 0x95620016,0x9563001C,0x00461023,0x00021400\n\t"
-    ".word 0x00021083,0x00661821,0x00031C00,0x00031883\n\t"
-    ".word 0xAFA20000,0xAFA30004,0x95620018,0xAFA3000C\n\t"
-    ".word 0x08006AA8,0x00461021,0x95620018,0x9563001A\n\t"
-    ".word 0x00461021,0x00021400,0x00021083,0x00661823\n\t"
-    ".word 0x00031C00,0x00031883,0xAFA20000,0xAFA30004\n\t"
-    ".word 0x95620016,0xAFA3000C,0x00461023,0x00021400\n\t"
-    ".word 0x00021083,0x08006ACA,0xAFA20008,0x95630016\n\t"
-    ".word 0x9562001A,0x00661823,0x00031C00,0x00031883\n\t"
-    ".word 0x00461023,0x00021400,0x00021083,0xAFA30000\n\t"
-    ".word 0xAFA20004,0x9562001C,0xAFA30008,0x08006AC7\n\t"
-    ".word 0x00461021,0x95630018,0x9562001C,0x00661821\n\t"
-    ".word 0x00031C00,0x00031883,0x00461021,0x00021400\n\t"
-    ".word 0x00021083,0xAFA30000,0xAFA20004,0x9562001A\n\t"
-    ".word 0xAFA30008,0x00461023,0x00021400,0x00021083\n\t"
-    ".word 0xAFA2000C,0x95620024,0x00000000,0x10400073\n\t"
-    ".word 0x00000000,0x30484000,0x30493FFF,0x11000003\n\t"
-    ".word 0x00000000,0x24083FFF,0x01094822,0x31293FFE\n\t"
-    ".word 0x3C01800B,0x00290821,0x94290EEC,0x30488000\n\t"
-    ".word 0x11000002,0x00000000,0x00094822,0x00093040\n\t"
-    ".word 0x00063103,0x244A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00092840,0x00052903,0x85640010,0x8FA30004\n\t"
-    ".word 0x8FAE0000,0x00042380,0x01C50018,0x00001012\n\t"
-    ".word 0x00003810,0x00021302,0x00073D00,0x00471025\n\t"
-    ".word 0x00660018,0x00007812,0x00003810,0x000F7B02\n\t"
-    ".word 0x00073D00,0x01E77825,0x01E01821,0x00431021\n\t"
-    ".word 0x00822021,0x00063823,0xAD840000,0x85640012\n\t"
-    ".word 0x8FA30004,0x8FAE0000,0x00042380,0x01C70018\n\t"
-    ".word 0x00001012,0x00004010,0x00021302,0x00084500\n\t"
-    ".word 0x00481025,0x00650018,0x00007812,0x00004010\n\t"
-    ".word 0x000F7B02,0x00084500,0x01E87825,0x01E01821\n\t"
-    ".word 0x00431021,0x00822021,0xAD840004,0x85640010\n\t"
-    ".word 0x8FA3000C,0x8FAE0008,0x00042380,0x01C50018\n\t"
-    ".word 0x00001012,0x00004010,0x00021302,0x00084500\n\t"
-    ".word 0x00481025,0x00660018,0x00007812,0x00007010\n\t"
-    ".word 0x000F7B02,0x000E7500,0x01EE7825,0x01E01821\n\t"
-    ".word 0x00431021,0x00822021,0xADA40000,0x85640012\n\t"
-    ".word 0x8FA2000C,0x8FAF0008,0x00042380,0x01E70018\n\t"
-    ".word 0x00001812,0x00003010,0x00031B02,0x00063500\n\t"
-    ".word 0x00661825,0x00450018,0x00007012,0x00007810\n\t"
-    ".word 0x000E7302,0x000F7D00,0x01CF7025,0x01C02821\n\t"
-    ".word 0x00001021,0x08006B53,0x00651821,0x00001021\n\t"
-    ".word 0x85630010,0x8FA40000,0x00031B80,0x00832021\n\t"
-    ".word 0xAD840000,0x85630012,0x8FA40004,0x00031B80\n\t"
-    ".word 0x00832021,0xAD840004,0x85630010,0x8FA40008\n\t"
-    ".word 0x00031B80,0x00832021,0xADA40000,0x85630012\n\t"
-    ".word 0x8FA4000C,0x00031B80,0x00832021,0xADA40004\n\t"
-    ".word 0x03E00008,0x27BD0010\n");
+typedef struct {
+    int x;
+    int z;
+} Pos2;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0x10];
+    short cx;
+    short cz;
+    char pad14[2];
+    short x0;
+    short x1;
+    short z0;
+    short z1;
+    char pad1E[0x24 - 0x1E];
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Zone;
+extern Zone D_800C62B0[];
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int sine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+
+static inline int zone_invalid(unsigned short index) {
+    return index > 1300;
+}
+
+int func_8001A9B4(unsigned short index, unsigned short side, int margin, Pos2 *p0, Pos2 *p1) {
+    Zone *zone;
+    Pos2 q[2];
+    int s;
+    int c;
+    int ns;
+
+    if (zone_invalid(index)) {
+        return 1;
+    }
+    zone = &D_800C62B0[index];
+    switch (side) {
+    case 1:
+        {
+            int a = (short)(zone->x0 - margin) << 14;
+            int b = (short)(zone->z1 + margin) << 14;
+            q[0].x = a;
+            q[0].z = b;
+            q[1].x = (short)(zone->x1 + margin) << 14;
+            q[1].z = b;
+        }
+        break;
+    case 2:
+        {
+            int a = (short)(zone->x1 + margin) << 14;
+            int b = (short)(zone->z0 - margin) << 14;
+            q[0].x = a;
+            q[0].z = b;
+            q[1].x = (short)(zone->x0 - margin) << 14;
+            q[1].z = b;
+        }
+        break;
+    case 4:
+        {
+            int a = (short)(zone->x0 - margin) << 14;
+            int b = (short)(zone->z0 - margin) << 14;
+            q[0].x = a;
+            q[0].z = b;
+            q[1].z = (short)(zone->z1 + margin) << 14;
+            q[1].x = a;
+        }
+        break;
+    case 3:
+        {
+            int a = (short)(zone->x1 + margin) << 14;
+            int b = (short)(zone->z1 + margin) << 14;
+            q[0].x = a;
+            q[0].z = b;
+            q[1].z = (short)(zone->z0 - margin) << 14;
+            q[1].x = a;
+        }
+        break;
+    default:
+        return 1;
+    }
+    if (zone->angle == 0) {
+        p0->x = q[0].x + (zone->cx << 14);
+        p0->z = q[0].z + (zone->cz << 14);
+        p1->x = q[1].x + (zone->cx << 14);
+        p1->z = q[1].z + (zone->cz << 14);
+        return 0;
+    }
+    s = sine_lookup(zone->angle) >> 4;
+    c = cosine_lookup(zone->angle) >> 4;
+    {
+        int base = zone->cx << 14;
+        int z = q[0].z;
+        int x = q[0].x;
+        p0->x = base + (fixed_mul(x, c) + fixed_mul(z, s));
+    }
+    ns = -s;
+    {
+        int base = zone->cz << 14;
+        int z = q[0].z;
+        int x = q[0].x;
+        p0->z = base + (fixed_mul(x, ns) + fixed_mul(z, c));
+    }
+    {
+        int base = zone->cx << 14;
+        int z = q[1].z;
+        int x = q[1].x;
+        p1->x = base + (fixed_mul(x, c) + fixed_mul(z, s));
+    }
+    {
+        int base = zone->cz << 14;
+        int z = q[1].z;
+        int x = q[1].x;
+        p1->z = base + (fixed_mul(x, ns) + fixed_mul(z, c));
+    }
+    return 0;
+}

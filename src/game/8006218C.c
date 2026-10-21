@@ -1,33 +1,104 @@
-asm(".text\n\t.globl func_8006218C\nfunc_8006218C:\n\t"
-    ".word 0x2402007F,0x14C20003,0x27BDFFD8,0x08018870\n\t"
-    ".word 0x00003821,0x00061100,0x00461021,0x00021080\n\t"
-    ".word 0x00461021,0x00021080,0x3C03800E,0x24633E68\n\t"
-    ".word 0x00433821,0x8CE6005C,0x8C830000,0x8CC20008\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x08018882,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x08018884\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20008,0x8C830004,0x8CC2000C\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x08018896,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x08018898\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA2000C,0x8C830008,0x8CC20010\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x080188AA,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x080188AC\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0xAFA20010,0x97A20008,0x97A3000C\n\t"
-    ".word 0x97A40010,0xA7A20018,0xA7A3001A,0xA7A4001C\n\t"
-    ".word 0x8CE2005C,0x00000000,0x24420050,0x8C4C0000\n\t"
-    ".word 0x8C4D0004,0x48CC0000,0x48CD0800,0x8C4C0008\n\t"
-    ".word 0x8C4D000C,0x8C4E0010,0x48CC1000,0x48CD1800\n\t"
-    ".word 0x48CE2000,0x27A20018,0xC8400000,0xC8410004\n\t"
-    ".word 0x00000000,0x00000000,0x4A180001,0x27A20020\n\t"
-    ".word 0xE84E0000,0x97A40020,0x00000000,0x24820009\n\t"
-    ".word 0x3042FFFF,0x2C420213,0x10400011,0x00001021\n\t"
-    ".word 0x87A30022,0x00000000,0x2862FFF7,0x1440000C\n\t"
-    ".word 0x00001021,0x286200FA,0x10400006,0x00041400\n\t"
-    ".word 0x00021403,0xACA20000,0x87A20022,0x080188DE\n\t"
-    ".word 0xACA20004,0x080188DF,0x00001021,0x24020001\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct Matrix {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct Camera {
+    int pad[2];
+    Vector pos;
+    char pad2[0x50 - 0x14];
+    Matrix rot;
+} Camera;
+
+typedef struct Object {
+    char pad[0x5C];
+    Camera *camera;
+    char pad2[0x114 - 0x60];
+} Object;
+
+typedef struct SVector {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+
+typedef struct ScreenXY {
+    short x;
+    short y;
+} ScreenXY;
+
+extern Object D_800E3E68[];
+
+static inline void gte_SetRotMatrix(Matrix *r) {
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     :
+                     : "r"(r)
+                     : "$12", "$13", "$14");
+}
+
+static inline void gte_ldv0(SVector *v) {
+    __asm__ volatile("lwc2 $0, 0(%0)\n\tlwc2 $1, 4(%0)" : : "r"(v));
+}
+
+static inline void gte_rtps(void) {
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x0180001");
+}
+
+static inline void gte_stsxy(ScreenXY *v) {
+    __asm__ volatile("swc2 $14, 0(%0)" : : "r"(v) : "memory");
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+int func_8006218C(Vector *pos, int *out, int index) {
+    Object *object;
+    Camera *camera;
+    int unused[2];
+    int delta[3];
+    int diff;
+    SVector local;
+    ScreenXY screen;
+
+    if (index == 127) {
+        object = 0;
+    } else {
+        object = &D_800E3E68[index];
+    }
+    camera = object->camera;
+    diff = pos->x - camera->pos.x;
+    delta[0] = round_fixed(diff);
+    diff = pos->y - camera->pos.y;
+    delta[1] = round_fixed(diff);
+    diff = pos->z - camera->pos.z;
+    delta[2] = round_fixed(diff);
+    local.x = delta[0];
+    local.y = delta[1];
+    local.z = delta[2];
+    gte_SetRotMatrix(&object->camera->rot);
+    gte_ldv0(&local);
+    gte_rtps();
+    gte_stsxy(&screen);
+    if ((unsigned short)(screen.x + 9) < 531 && screen.y >= -9) {
+        if (screen.y < 250) {
+            out[0] = screen.x;
+            out[1] = screen.y;
+            goto ok;
+        }
+        return 0;
+    }
+    return 0;
+ok:
+    return 1;
+}

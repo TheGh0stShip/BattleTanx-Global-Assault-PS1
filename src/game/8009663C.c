@@ -1,15 +1,59 @@
-asm(".text\n\t.globl func_8009663C\nfunc_8009663C:\n\t"
-    ".word 0x24020001,0x10820010,0x00001821,0x28820002\n\t"
-    ".word 0x10400005,0x00000000,0x1080000c,0x00000000\n\t"
-    ".word 0x080259a2,0x34838000,0x24020002,0x10820007\n\t"
-    ".word 0x24030001,0x24020004,0x14820004,0x34838000\n\t"
-    ".word 0x080259a2,0x24030003,0x24030002,0x03e00008\n\t"
-    ".word 0x00601021,0x27bdffe8,0xafbf0010,0x0c027da5\n\t"
-    ".word 0x00000000,0x14400018,0x00000000,0x0c027d8a\n\t"
-    ".word 0x00000000,0x0c027da5,0x00000000,0x10400012\n\t"
-    ".word 0x24020001,0x3c03800f,0x2463f094,0xac620008\n\t"
-    ".word 0x8c620000,0x3c05800f,0x24a5f0dc,0xaca20000\n\t"
-    ".word 0x8c620004,0x8c660040,0xaca20004,0xac600000\n\t"
-    ".word 0x10c00005,0xac600004,0x8ca40000,0x8ca50004\n\t"
-    ".word 0x00c0f809,0x00000000,0x8fbf0010,0x27bd0018\n\t"
-    ".word 0x03e00008,0x00000000\n\t");
+typedef struct {
+    volatile int a;
+    volatile int b;
+    volatile int busy;
+    int pad[13];
+    void (*callback)(int, int);
+} CardState;
+typedef struct { int a; int b; } CardResult;
+extern CardState D_800EF094;
+extern volatile CardResult D_800EF0DC;
+int func_8009F694(void);
+void func_8009F628(void);
+
+int func_8009663C(int code)
+{
+    int r = 0;
+
+    switch (code) {
+    case 0:
+        break;
+    case 2:
+        r = 1;
+        break;
+    default:
+        r = code | 0x8000;
+        break;
+    case 4:
+        r = 3;
+        break;
+    case 1:
+        r = 2;
+        break;
+    }
+    return r;
+}
+
+void func_80096690(void)
+{
+    CardState *s;
+    volatile CardResult *d;
+    void (*cb)(int, int);
+
+    if (func_8009F694() == 0) {
+        func_8009F628();
+        if (func_8009F694() != 0) {
+            s = &D_800EF094;
+            s->busy = 1;
+            d = &D_800EF0DC;
+            d->a = s->a;
+            d->b = s->b;
+            cb = s->callback;
+            s->a = 0;
+            s->b = 0;
+            if (cb != 0) {
+                cb(d->a, d->b);
+            }
+        }
+    }
+}

@@ -1,31 +1,79 @@
-asm(".text\n\t.globl func_80059EAC\nfunc_80059EAC:\n\t"
-    ".word 0x27BDFFD8,0x3C04F200,0xAFBF0020,0x0C02452B\n\t"
-    ".word 0x34840001,0x3C03800E,0x8C6347F8,0x00404021\n\t"
-    ".word 0x0103102B,0x10400028,0x3C02FFFF,0x34420001\n\t"
-    ".word 0x3C050022,0x34A5B8E1,0x3C060022,0x34C6B8E1\n\t"
-    ".word 0x00621021,0x01021023,0x00021300,0x3C038000\n\t"
-    ".word 0x00434824,0x04410002,0x00401821,0x00031823\n\t"
-    ".word 0x4883F000,0x00000000,0x00000000,0x27A20010\n\t"
-    ".word 0xE85F0000,0x8FA40010,0x00000000,0x2487FFF4\n\t"
-    ".word 0x04E10048,0x00000000,0x00831804,0x4886F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20014,0xE85F0000\n\t"
-    ".word 0x8FA50014,0x00000000,0x00A42023,0x04800034\n\t"
-    ".word 0x2402000C,0x00451023,0x04410026,0x00000000\n\t"
-    ".word 0x08016803,0x00021023,0x3C050022,0x34A5B8E1\n\t"
-    ".word 0x3C060022,0x34C6B8E1,0x01031023,0x00021300\n\t"
-    ".word 0x3C038000,0x00434824,0x04410002,0x00401821\n\t"
-    ".word 0x00031823,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20018,0xE85F0000,0x8FA40018,0x00000000\n\t"
-    ".word 0x2487FFF4,0x04E10023,0x00000000,0x00831804\n\t"
-    ".word 0x4886F000,0x00000000,0x00000000,0x27A2001C\n\t"
-    ".word 0xE85F0000,0x8FA5001C,0x00000000,0x00A42023\n\t"
-    ".word 0x0480000F,0x2402000C,0x00451023,0x04400003\n\t"
-    ".word 0x00000000,0x08016804,0x00461007,0x00021023\n\t"
-    ".word 0x00461004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0801681A,0x00831804\n\t"
-    ".word 0x00071023,0x00461007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0801681A\n\t"
-    ".word 0x00000000,0x00031B00,0x0065001B,0x14A00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x11200002\n\t"
-    ".word 0x3C02800E,0x00031823,0xAC4347F4,0x8FBF0020\n\t"
-    ".word 0x3C02800E,0xAC4847F8,0x03E00008,0x27BD0028\n");
+extern unsigned int D_800E47F8;
+extern int D_800E47F4;
+extern unsigned int func_800914AC(int);
+int abs(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_div(int numerator, int den) {
+    register int denominator asm("$5") = den;
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    unsigned int dv;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        quotient = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                dv = d >> scale;
+            } else {
+                dv = d << -scale;
+            }
+            quotient = quotient / dv;
+            quotient <<= n_zeros;
+        } else {
+            quotient = quotient / (d >> -excess);
+        }
+    } else {
+        quotient = n << 12;
+        quotient = quotient / denominator;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+void func_80059EAC(void) {
+    unsigned int now = func_800914AC(0xF2000001);
+    unsigned int prev = D_800E47F8;
+
+    if (now < prev) {
+        unsigned int base = prev - 0xFFFF;
+
+        D_800E47F4 = fixed_div((now - base) << 12, 0x22B8E1);
+    } else {
+        D_800E47F4 = fixed_div((now - prev) << 12, 0x22B8E1);
+    }
+    D_800E47F8 = now;
+}

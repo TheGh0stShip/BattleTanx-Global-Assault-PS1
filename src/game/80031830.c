@@ -1,17 +1,33 @@
-asm(".text\n\t.globl func_80031830\nfunc_80031830:\n\t"
-    ".word 0x27bdfeb0,0xafb20140,0x00809021,0x3c050001\n\t"
-    ".word 0x27a60018,0x00003821,0xafbf014c,0xafb40148\n\t"
-    ".word 0xafb30144,0xafb1013c,0xafb00138,0x96440006\n\t"
-    ".word 0x3c02800c,0xa440628c,0xafa00010,0x0c005eab\n\t"
-    ".word 0x3084ffff,0x3042ffff,0x10400023,0x00409821\n\t"
-    ".word 0x10400021,0x00008021,0x3c02800d,0x245432f4\n\t"
-    ".word 0x02008821,0x27a20018,0x00512021,0x8c820000\n\t"
-    ".word 0x00000000,0x10400014,0x00000000,0x84430004\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00543821,0x8ce20004,0x00000000,0x1040000a\n\t"
-    ".word 0x2402ffff,0x10620008,0x02402821,0x00003021\n\t"
-    ".word 0xafa00010,0x8c840000,0x8ce20004,0x00000000\n\t"
-    ".word 0x0040f809,0x00c03821,0x26100001,0x0213102a\n\t"
-    ".word 0x1440ffe4,0x26310024,0x8fbf014c,0x8fb40148\n\t"
-    ".word 0x8fb30144,0x8fb20140,0x8fb1013c,0x8fb00138\n\t"
-    ".word 0x03e00008,0x27bd0150\n\t");
+typedef struct { int pad; short type; } Entity;
+typedef struct { Entity *obj; int pad[8]; } Hit;
+typedef void (*Handler)(Entity *, void *, int, int, int);
+typedef struct { int pad; Handler handler; int pad2; } TypeInfo;
+typedef struct { short pad[3]; unsigned short cell; } Obj;
+extern short D_800C628C;
+extern TypeInfo D_800D32F4[];
+int func_80017AAC(int, int, Hit *, int, int);
+
+static inline unsigned short query_cell(unsigned short cell, int mask, Hit *hits, int a, int b) {
+    D_800C628C = 0;
+    return func_80017AAC(cell, mask, hits, a, b);
+}
+
+void func_80031830(Obj *o) {
+    Hit hits[8];
+    int i;
+    register int n asm("$19");
+    unsigned short count;
+    Entity *e;
+
+    count = query_cell(o->cell, 0x10000, hits, 0, 0);
+    n = count;
+    if (count != 0) {
+        i = 0;
+        if (i < count) do {
+            e = hits[i].obj;
+            if (e != 0 && D_800D32F4[e->type].handler != 0 && e->type != -1) {
+                D_800D32F4[e->type].handler(hits[i].obj, o, 0, 0, 0);
+            }
+        } while (++i < n);
+    }
+}

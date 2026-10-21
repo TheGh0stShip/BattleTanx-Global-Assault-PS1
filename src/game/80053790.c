@@ -1,67 +1,216 @@
-asm(".text\n\t.globl func_80053790\nfunc_80053790:\n\t"
-    ".word 0x27BDFF88,0xAFB3006C,0x00809821,0xAFB10064\n\t"
-    ".word 0x00008821,0xAFBF0074,0xAFB40070,0xAFB20068\n\t"
-    ".word 0x04A00003,0xAFB00060,0x08014DF3,0x00051303\n\t"
-    ".word 0x00051023,0x00021303,0x00021023,0x04C00003\n\t"
-    ".word 0x00402821,0x08014DFA,0x00063303,0x00061023\n\t"
-    ".word 0x00021303,0x00023023,0x3C02800D,0x90422FEC\n\t"
-    ".word 0x00000000,0x104000E6,0x00004821,0x3C02800E\n\t"
-    ".word 0x244B3E68,0x3C02800D,0x244C3034,0x258D0054\n\t"
-    ".word 0x27B40020,0x3123FFFF,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x08014E11,0x00001021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x004B1021,0x8C42005C,0x00000000,0x8C420008\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08014E1C\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00405021,0x3123FFFF,0x2402007F,0x14620003\n\t"
-    ".word 0x00602021,0x08014E29,0x00001021,0x00041100\n\t"
-    ".word 0x00441021,0x00021080,0x00441021,0x00021080\n\t"
-    ".word 0x004B1021,0x8C42005C,0x00000000,0x8C420010\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x08014E34\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00C24023,0x05010002,0x01003821,0x00073823\n\t"
-    ".word 0x00AA5023,0x05410002,0x01402021,0x00042023\n\t"
-    ".word 0x00E4102A,0x10400002,0x00000000,0x00803821\n\t"
-    ".word 0x05010002,0x01001821,0x00031823,0x0083102A\n\t"
-    ".word 0x10400003,0x00031040,0x00801821,0x00031040\n\t"
-    ".word 0x00431021,0x04410002,0x3C035555,0x24420007\n\t"
-    ".word 0x34635556,0x000210C3,0x00E21021,0x00430018\n\t"
-    ".word 0x000217C3,0x3C03800E,0x84674654,0x94634654\n\t"
-    ".word 0x00007810,0x01E22023,0x00E4102B,0x10400003\n\t"
-    ".word 0x00642023,0x00E02021,0x00642023,0x00041C00\n\t"
-    ".word 0x00111400,0x0043102A,0x10400003,0x00111400\n\t"
-    ".word 0x00808821,0x00111400,0x00021403,0x284200FB\n\t"
-    ".word 0x14400079,0x25290001,0x91830001,0xA7AA0010\n\t"
-    ".word 0xA7A00012,0xA7A80014,0x00031080,0x00431021\n\t"
-    ".word 0x000210C0,0x00431023,0x00021080,0x004D1021\n\t"
-    ".word 0x8C4C0000,0x8C4D0004,0x48CC0000,0x48CD0800\n\t"
-    ".word 0x8C4C0008,0x8C4D000C,0x8C4E0010,0x48CC1000\n\t"
-    ".word 0x48CD1800,0x48CE2000,0x27A20010,0xC8400000\n\t"
-    ".word 0xC8410004,0x00000000,0x00000000,0x4A486012\n\t"
-    ".word 0x27A20018,0x480C4800,0x480D5000,0x480E5800\n\t"
-    ".word 0xA44C0000,0xA44D0002,0xA44E0004,0x87A40018\n\t"
-    ".word 0x87A5001C,0x0C022B8C,0x00000000,0x00408021\n\t"
-    ".word 0x0C022E0C,0x02002021,0x28420401,0x14400006\n\t"
-    ".word 0x00101900,0x1A000002,0x2402F800,0x24020800\n\t"
-    ".word 0x00501023,0x00021900,0x00111400,0x00028C03\n\t"
-    ".word 0x00031400,0x00029403,0x3C04800E,0x326200FF\n\t"
-    ".word 0x00021880,0x00621821,0x00031880,0x3C02800E\n\t"
-    ".word 0x8C844658,0x8C4246BC,0x00000000,0x14400040\n\t"
-    ".word 0x00838021,0x0C014CED,0x00002021,0x304200FF\n\t"
-    ".word 0xA6020012,0x00402021,0x24020064,0x10820038\n\t"
-    ".word 0x3C03800E,0x02203021,0x2463465C,0x00041080\n\t"
-    ".word 0x00431021,0xA0530003,0x24020001,0x86030012\n\t"
-    ".word 0x02202821,0x00621004,0xAFA20020,0x24020093\n\t"
-    ".word 0xAE820004,0x8E020000,0x02402021,0x1080001A\n\t"
-    ".word 0xAFA2003C,0x04810002,0x00801021,0x00021023\n\t"
-    ".word 0x24033FFF,0x00621023,0x00510018,0x00003812\n\t"
-    ".word 0x00000000,0x00000000,0x00E3001A,0x14600002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14610004\n\t"
-    ".word 0x3C018000,0x14E10002,0x00000000,0x0006000D\n\t"
-    ".word 0x00001812,0x04810003,0x00000000,0x08014ED6\n\t"
-    ".word 0x00602821,0x00603021,0x96020010,0x27A40020\n\t"
-    ".word 0xA7A60028,0xA7A5002A,0x0C0241E5,0xA7A20034\n\t"
-    ".word 0x08014EE4,0x00000000,0x3C02800D,0x90432FEC\n\t"
-    ".word 0x3122FFFF,0x0043102B,0x1440FF23,0x3123FFFF\n\t"
-    ".word 0x8FBF0074,0x8FB40070,0x8FB3006C,0x8FB20068\n\t"
-    ".word 0x8FB10064,0x8FB00060,0x03E00008,0x27BD0078\n");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int func_800533B4(int);
+extern void func_80090794(SpuVoiceAttr *);
+
+typedef struct {
+    char pad0[8];
+    int x;
+    char padC[4];
+    int z;
+} Body;
+typedef struct Waypoint {
+    char pad000[0x5C];
+    Body *body;
+    char pad060[0x114 - 0x60];
+} Waypoint;
+typedef struct {
+    char pad0[8];
+    unsigned char count;
+} Game;
+extern Waypoint D_800E3E68[];
+extern Game D_800D2FE4;
+extern int abs(int);
+
+static inline Waypoint *waypoint(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+typedef struct {
+    short m[3][3];
+    int t[3];
+} Matrix;
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVector;
+typedef struct {
+    Matrix matrix;
+    char pad20[156 - 0x20];
+} View;
+typedef struct {
+    char pad0;
+    unsigned char view;
+    char pad2[84 - 2];
+    View views[1];
+} ViewState;
+extern ViewState D_800D3034;
+extern int func_8008AE30(int, int);
+extern int func_8008B830(int);
+
+static inline void gte_SetRotMatrix(Matrix *m) {
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     :
+                     : "r"(m)
+                     : "$12", "$13", "$14");
+}
+
+static inline void gte_ldv0(SVector *v) {
+    __asm__ volatile("lwc2 $0, 0(%0)\n\tlwc2 $1, 4(%0)" : : "r"(v));
+}
+
+static inline void gte_rtv0(void) {
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x0486012");
+}
+
+static inline void gte_stsv(SVector *v) {
+    __asm__ volatile("mfc2 $12, $9\n\tmfc2 $13, $10\n\tmfc2 $14, $11\n\tsh $12, 0(%0)\n\tsh $13, 2(%0)\n\tsh $14, 4(%0)"
+                     :
+                     : "r"(v)
+                     : "$12", "$13", "$14", "memory");
+}
+
+static inline void play_pan(unsigned char id, int volume, int pn) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+    short left;
+    short right;
+    short pan;
+
+    if (D_800E46BC != 0) {
+        return;
+    }
+    voice = sound->voice = (unsigned char)func_800533B4(0);
+    if (voice == 100) {
+        return;
+    }
+    D_800E465C[voice].sound = id;
+    attr.voice = 1 << sound->voice;
+    attr.mask = 147;
+    attr.addr = sound->addr;
+    left = volume;
+    right = volume;
+    pan = pn;
+    if (pan != 0) {
+        int scaled = abs(pan);
+        int full = 0x3FFF;
+        scaled = (full - scaled) * volume / full;
+        if (pan < 0) {
+            right = scaled;
+        } else {
+            left = scaled;
+        }
+    }
+    attr.pitch = sound->pitch;
+    attr.volume.left = left;
+    attr.volume.right = right;
+    func_80090794(&attr);
+}
+
+void func_80053790(unsigned char id, int x, int z) {
+    short best = 0;
+    unsigned short i;
+    int hx;
+    int hz;
+    int px;
+    int pz;
+    int dx;
+    unsigned int d;
+    short volume;
+    SVector v;
+    SVector out;
+    int angle;
+    short pan;
+
+    hx = to_int(x);
+    hz = to_int(z);
+    for (i = 0; i < D_800D2FE4.count; i++) {
+        px = to_int(waypoint(i)->body->x);
+        pz = to_int(waypoint(i)->body->z);
+        pz = hz - pz;
+        {
+            int max = abs(pz);
+            int adx;
+            int min;
+            dx = hx - px;
+            adx = abs(dx);
+            if (max < adx) max = adx;
+            min = adx < abs(pz) ? adx : abs(pz);
+            d = (max + min * 3 / 8) / 3;
+        }
+        if (d > (short)D_800E4654) {
+            d = (short)D_800E4654;
+        }
+        volume = D_800E4654 - d;
+        if (volume > best) {
+            best = volume;
+        }
+        if (best > 250) {
+            v.vx = dx;
+            v.vy = 0;
+            v.vz = pz;
+            gte_SetRotMatrix(&D_800D3034.views[D_800D3034.view].matrix);
+            gte_ldv0(&v);
+            gte_rtv0();
+            gte_stsv(&out);
+            angle = func_8008AE30(out.vx, out.vz);
+            if (func_8008B830(angle) > 1024) {
+                pan = ((angle > 0 ? 2048 : -2048) - angle) << 4;
+            } else {
+                pan = angle << 4;
+            }
+            play_pan(id, best, pan);
+            return;
+        }
+    }
+}

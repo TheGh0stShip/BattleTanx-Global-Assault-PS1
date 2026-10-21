@@ -1,31 +1,97 @@
-asm(".text\n\t.globl func_80088094\nfunc_80088094:\n\t"
-    ".word 0x27BDFFD0,0xAFB00010,0x00808021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFB20018,0x00C09021,0xAFB50024\n\t"
-    ".word 0x00E0A821,0x3C02800F,0xAFB10014,0x2451E588\n\t"
-    ".word 0xAFBF0028,0xAFB40020,0x92220004,0x00000000\n\t"
-    ".word 0x10400003,0x0000A021,0x0C021C78,0x00000000\n\t"
-    ".word 0x92220006,0x00000000,0x10400057,0x02801021\n\t"
-    ".word 0x8E220030,0x00000000,0x16020053,0x02801021\n\t"
-    ".word 0x8E24002C,0x0C021BF1,0x00000000,0x30420003\n\t"
-    ".word 0x24030003,0x1443004C,0x02801021,0x8E2300C0\n\t"
-    ".word 0x24020001,0xAE3300C4,0xAE3300C8,0xAE2000D0\n\t"
-    ".word 0xAE3200D4,0xAE3500E4,0xA2220004,0x10600017\n\t"
-    ".word 0x24020080,0x00438023,0x0250102B,0x10400002\n\t"
-    ".word 0x02602021,0x02408021,0x2625003C,0x00652821\n\t"
-    ".word 0x0C0229EF,0x02003021,0x02709821,0x8E2200C0\n\t"
-    ".word 0xAE3300C8,0xAE3000D0,0x00501021,0xAE2200C0\n\t"
-    ".word 0x2C420080,0x14400005,0x02509023,0x8E2200BC\n\t"
-    ".word 0xAE2000C0,0x24420080,0xAE2200BC,0x16400005\n\t"
-    ".word 0x3C02800F,0x0C021C4D,0x24040001,0x08022092\n\t"
-    ".word 0x24140001,0x2444E588,0x8C8300BC,0x8C8200C0\n\t"
-    ".word 0x00000000,0x00621821,0x8C820034,0x00721821\n\t"
-    ".word 0x0043102B,0x14400019,0x2E420080,0x10400004\n\t"
-    ".word 0x24110080,0x2493003C,0x08022080,0xAC9200CC\n\t"
-    ".word 0x2402FF80,0x02428824,0xAC9100CC,0x3C048008\n\t"
-    ".word 0x24847F28,0x3C10800F,0x2610E588,0xAE1300D8\n\t"
-    ".word 0xAE1100DC,0x0C025802,0xAE0000E0,0x02602021\n\t"
-    ".word 0x8E0500BC,0x0C025525,0x02203021,0x10400003\n\t"
-    ".word 0x00000000,0x08022092,0x24140001,0x0C021C4D\n\t"
-    ".word 0x00002021,0x02801021,0x8FBF0028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct CardWrite {
+    char pad0[4];
+    volatile unsigned char active;
+    unsigned char busy;
+    unsigned char open;
+    char pad7;
+    unsigned char verify;
+    char pad9[35];
+    int channel;
+    int port;
+    unsigned int limit;
+    char pad38[4];
+    char sector_buf[128];
+    unsigned int sector;
+    unsigned int offset;
+    char *start;
+    char *src;
+    unsigned int chunk;
+    unsigned int done;
+    unsigned int total;
+    char *buf;
+    unsigned int len;
+    unsigned int retries;
+    int read_callback;
+    int callback;
+} CardWrite;
+
+extern CardWrite D_800EE588;
+extern void func_800871E0(void);
+extern unsigned int func_80086FC4(int);
+extern void func_80087134(int);
+extern void *func_8008A7BC(void *, void *, unsigned int);
+extern void func_80096008(void (*)(int, int));
+extern int func_80095494(char *, int, unsigned int);
+extern void func_80087F28(int, int);
+
+int func_80088094(int port, char *dst, unsigned int size, int callback) {
+    CardWrite *card = &D_800EE588;
+    int ok = 0;
+    unsigned int offset;
+    unsigned int n;
+    unsigned int len;
+
+    if (card->active) {
+        func_800871E0();
+    }
+    if (card->open != 0 && port == card->port && (func_80086FC4(card->channel) & 3) == 3) {
+        offset = card->offset;
+        card->start = dst;
+        card->src = dst;
+        card->done = 0;
+        card->total = size;
+        card->read_callback = callback;
+        card->active = 1;
+        if (offset != 0) {
+            n = 128 - offset;
+            if (size < n) {
+                n = size;
+            }
+            func_8008A7BC(dst, D_800EE588.sector_buf + offset, n);
+            dst += n;
+            card->src = dst;
+            card->done = n;
+            card->offset += n;
+            size -= n;
+            if (card->offset >= 128) {
+                card->offset = 0;
+                card->sector += 128;
+            }
+        }
+        if (size == 0) {
+            func_80087134(1);
+            ok = 1;
+        } else if (D_800EE588.sector + D_800EE588.offset + size > D_800EE588.limit) {
+            func_80087134(0);
+        } else {
+            if (size < 128) {
+                len = 128;
+                dst = D_800EE588.sector_buf;
+                D_800EE588.chunk = size;
+            } else {
+                len = size & ~127;
+                D_800EE588.chunk = len;
+            }
+            D_800EE588.buf = dst;
+            D_800EE588.len = len;
+            D_800EE588.retries = 0;
+            func_80096008(func_80087F28);
+            if (func_80095494(dst, D_800EE588.sector, len)) {
+                ok = 1;
+            } else {
+                func_80087134(0);
+            }
+        }
+    }
+    return ok;
+}

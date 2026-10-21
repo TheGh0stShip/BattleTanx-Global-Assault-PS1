@@ -1,37 +1,73 @@
-asm(".text\n\t.globl func_8009EAA8\nfunc_8009EAA8:\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00808021,0xAFB3001C\n\t"
-    ".word 0x00A09821,0xAFBF0020,0xAFB20018,0xAFB10014\n\t"
-    ".word 0x8E02003C,0x00000000,0x90420000,0x24030008\n\t"
-    ".word 0x00021103,0x14430007,0x24110088,0x92020044\n\t"
-    ".word 0x00000000,0x2C420009,0x14400002,0x00000000\n\t"
-    ".word 0x24110022,0x3C03800C,0x8C638CD8,0x00000000\n\t"
-    ".word 0x94620004,0x00000000,0x30420002,0x1040FFFC\n\t"
-    ".word 0x00000000,0x0C028E89,0x24040190,0x3C04800C\n\t"
-    ".word 0x8C848CD8,0x00000000,0x90820000,0x92030044\n\t"
-    ".word 0x00000000,0x14600005,0x305200FF,0x00121903\n\t"
-    ".word 0x24020008,0x10620004,0x24020022,0xA491000E\n\t"
-    ".word 0x08027AD9,0x00000000,0xA482000E,0x3C03800C\n\t"
-    ".word 0x8C638CD4,0x00000000,0x8C620000,0x00000000\n\t"
-    ".word 0x30420080,0x1440002D,0x00000000,0x3C091F80\n\t"
-    ".word 0x35291120,0x3C061F80,0x34C61128,0x3C0A0001\n\t"
-    ".word 0x3C081F80,0x35081124,0x00603821,0x3C04800F\n\t"
-    ".word 0x8C84FE40,0x3C05800F,0x8CA5FE3C,0x95220000\n\t"
-    ".word 0x00000000,0x3043FFFF,0x0064102B,0x10400009\n\t"
-    ".word 0x00000000,0x94C20000,0x00000000,0x10400004\n\t"
-    ".word 0x00000000,0x94C20000,0x08027AFB,0x00431821\n\t"
-    ".word 0x006A1821,0x95020000,0x00000000,0x30420200\n\t"
-    ".word 0x10400004,0x00641023,0x0045102B,0x1040002E\n\t"
-    ".word 0x2402FFFE,0x00641023,0x000210C2,0x0045102B\n\t"
-    ".word 0x10400029,0x2402FFFE,0x8CE20000,0x00000000\n\t"
-    ".word 0x30420080,0x1040FFE1,0x00000000,0x920300E8\n\t"
-    ".word 0x24020008,0x1062000C,0x24020002,0x3C03800C\n\t"
-    ".word 0x8C638CB8,0x00000000,0x14620007,0x00000000\n\t"
-    ".word 0x0C028E89,0x2404003C,0x0C028E91,0x00000000\n\t"
-    ".word 0x1040FFFD,0x00000000,0x3C02800C,0x8C428CD8\n\t"
-    ".word 0x00000000,0xA0530000,0x92020045,0x92030044\n\t"
-    ".word 0x24420001,0xA2020045,0x240200FF,0x10620006\n\t"
-    ".word 0x00000000,0x92030044,0x8E02003C,0x00000000\n\t"
-    ".word 0x00431021,0xA0520000,0x92030044,0x02401021\n\t"
-    ".word 0x24630001,0xA2030044,0x8FBF0020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0028\n");
+typedef struct {
+    volatile unsigned char data;
+    char pad1[3];
+    volatile unsigned short stat;
+    char pad6[8];
+    volatile unsigned short baud;
+} SioRegs;
+
+typedef struct {
+    char pad0[0x3C];
+    signed char *buf;
+    char pad40[4];
+    unsigned char idx;
+    unsigned char count;
+    char pad46[0xA2];
+    unsigned char type;
+} PadPort;
+
+extern SioRegs *D_800B8CD8;
+extern volatile int *D_800B8CD4;
+extern int D_800B8CB8;
+extern unsigned int D_800EFE40;
+extern unsigned int D_800EFE3C;
+extern void func_800A3A24(int n);
+extern int func_800A3A44(void);
+
+int func_8009EAA8(PadPort *p, int out) {
+    register int baud asm("$17");
+    int in;
+    unsigned int t;
+
+    baud = 136;
+    if (((*p->buf & 0xFF) >> 4) == 8 && p->idx >= 9) {
+        baud = 34;
+    }
+    while (!(D_800B8CD8->stat & 2)) {
+    }
+    func_800A3A24(400);
+    in = D_800B8CD8->data;
+    if (p->idx != 0 || (in >> 4) != 8) {
+        D_800B8CD8->baud = baud;
+    } else {
+        D_800B8CD8->baud = 34;
+    }
+    while (!(*D_800B8CD4 & 0x80)) {
+        t = *(volatile unsigned short *)0x1F801120;
+        if (t < D_800EFE40) {
+            if (*(volatile unsigned short *)0x1F801128 != 0) {
+                t += *(volatile unsigned short *)0x1F801128;
+            } else {
+                t += 0x10000;
+            }
+        }
+        if ((*(volatile unsigned short *)0x1F801124 & 0x200) && t - D_800EFE40 >= D_800EFE3C) {
+            return -2;
+        }
+        if ((t - D_800EFE40) >> 3 >= D_800EFE3C) {
+            return -2;
+        }
+    }
+    if (p->type != 8 && D_800B8CB8 == 2) {
+        func_800A3A24(60);
+        while (func_800A3A44() == 0) {
+        }
+    }
+    D_800B8CD8->data = out;
+    p->count++;
+    if (*(volatile unsigned char *)&p->idx != 0xFF) {
+        p->buf[p->idx] = in;
+    }
+    p->idx++;
+    return in;
+}

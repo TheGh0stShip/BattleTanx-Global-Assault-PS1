@@ -1,18 +1,39 @@
-asm(".text\n\t.globl func_800866FC\nfunc_800866FC:\n\t"
-    ".word 0x27bdffd0,0xafb20018,0x00809021,0xafb50024\n\t"
-    ".word 0x00a0a821,0x3c028008,0xafb3001c,0x00009821\n\t"
-    ".word 0xafb40020,0x8c546068,0x0255102b,0xafbf002c\n\t"
-    ".word 0xafb60028,0xafb10014,0xafb00010,0x10400026\n\t"
-    ".word 0x0014b023,0x8e420000,0x00000000,0x8c500010\n\t"
-    ".word 0x00000000,0x8e020000,0x00000000,0x10400015\n\t"
-    ".word 0x24110001,0x12200016,0x02541021,0x8e040000\n\t"
-    ".word 0x0c0219a5,0x00000000,0x14400004,0x00000000\n\t"
-    ".word 0x0000000d,0x080219e0,0x00000000,0x8c42000c\n\t"
-    ".word 0x00000000,0x14400002,0x00000000,0x00008821\n\t"
-    ".word 0x26100004,0x8e020000,0x00000000,0x1440ffed\n\t"
-    ".word 0x00000000,0x12200002,0x02541021,0x02409821\n\t"
-    ".word 0x00569024,0x0255102b,0x10400004,0x02601021\n\t"
-    ".word 0x1260ffdc,0x00000000,0x02601021,0x8fbf002c\n\t"
-    ".word 0x8fb60028,0x8fb50024,0x8fb40020,0x8fb3001c\n\t"
-    ".word 0x8fb20018,0x8fb10014,0x8fb00010,0x03e00008\n\t"
-    ".word 0x27bd0030\n\t");
+typedef struct Module {
+    void *init;
+    char pad04[8];
+    int order;
+    void **deps;
+} Module;
+
+extern unsigned int D_80086068;
+extern Module *func_80086694(void *name);
+
+Module **func_800866FC(Module **p, Module **end) {
+    unsigned int align = D_80086068;
+    unsigned int mask = -align;
+    Module **found = 0;
+    void **deps;
+    int ok;
+    Module *m;
+
+    for (; p < end && found == 0; p = (Module **)(((unsigned int)p + align) & mask)) {
+        deps = (*p)->deps;
+        ok = 1;
+        while (*deps != 0 && ok) {
+            m = func_80086694(*deps);
+            if (m == 0) {
+                __asm__ volatile("break 0");
+                for (;;) {
+                }
+            }
+            if (m->order == 0) {
+                ok = 0;
+            }
+            deps++;
+        }
+        if (ok) {
+            found = p;
+        }
+    }
+    return found;
+}

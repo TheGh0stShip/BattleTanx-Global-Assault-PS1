@@ -1,20 +1,50 @@
-asm(".text\n\t.globl func_80085898\nfunc_80085898:\n\t"
-    ".word 0x27BDFFC8,0xAFB50024,0x0080A821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB3001C,0x00C09821,0x2663000C\n\t"
-    ".word 0xAFB10014,0x02838821,0xAFBF0030,0xAFB7002C\n\t"
-    ".word 0xAFB60028,0xAFB20018,0xAFB00010,0x8EA20000\n\t"
-    ".word 0x8FB60048,0x0222102B,0x1040002D,0x00002021\n\t"
-    ".word 0x0267B823,0x02C73823,0x8E230004,0x2402FFFE\n\t"
-    ".word 0x00628024,0x10700026,0x2612000C,0x0247102B\n\t"
-    ".word 0x14400023,0x00000000,0x0C0214AF,0x02002021\n\t"
-    ".word 0x02A02021,0x02202821,0x02003021,0x0C0214CB\n\t"
-    ".word 0x00403821,0x02723021,0x24C3000C,0xAE860004\n\t"
-    ".word 0x8EA20000,0x02831821,0x0062102B,0x10400002\n\t"
-    ".word 0x00D71023,0xAC740000,0x00568023,0x2E020010\n\t"
-    ".word 0x1440000E,0x02A02021,0x02802821,0x02F63021\n\t"
-    ".word 0x2610FFF4,0x0C0214E5,0x36070001,0x00408821\n\t"
-    ".word 0x0C0214AF,0x02002021,0x02A02021,0x02202821\n\t"
-    ".word 0x02003021,0x0C0214C0,0x00403821,0x24040001\n\t"
-    ".word 0x8FBF0030,0x8FB7002C,0x8FB60028,0x8FB50024\n\t"
-    ".word 0x8FB40020,0x8FB3001C,0x8FB20018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x00801021,0x03E00008,0x27BD0038\n");
+typedef struct Block {
+    struct Block *prev;
+    unsigned int size;
+    int pad08;
+} Block;
+
+typedef struct Heap {
+    char *end;
+} Heap;
+
+extern int func_800852BC(unsigned int);
+extern void func_8008532C(Heap *, Block *, unsigned int, int);
+extern Block *func_80085394(Heap *, Block *, unsigned int, unsigned int);
+extern void func_80085300(Heap *, Block *, unsigned int, int);
+
+int func_80085898(Heap *h, Block *b, unsigned int size, unsigned int base, unsigned int want) {
+    int ok = 0;
+    Block *next = (Block *)((char *)b + (size + 12));
+    unsigned int offset;
+    unsigned int need;
+    unsigned int free_size;
+    unsigned int merged;
+    unsigned int total;
+    Block *after;
+
+    if ((char *)next < h->end) {
+        offset = size - base;
+        need = want - base;
+        __asm__ volatile("");
+        free_size = next->size & ~1;
+        merged = free_size + 12;
+        if (next->size != free_size && merged >= need) {
+            func_8008532C(h, next, free_size, func_800852BC(free_size));
+            total = size + merged;
+            b->size = total;
+            after = (Block *)((char *)b + (total + 12));
+            if ((char *)after < h->end) {
+                after->prev = b;
+            }
+            free_size = total - offset - want;
+            if (free_size >= 16) {
+                next = func_80085394(h, b, offset + want, (free_size - 12) | 1);
+                free_size -= 12;
+                func_80085300(h, next, free_size, func_800852BC(free_size));
+            }
+            ok = 1;
+        }
+    }
+    return ok;
+}

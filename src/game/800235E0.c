@@ -1,32 +1,74 @@
-asm(".text\n\t.globl func_800235E0\nfunc_800235E0:\n\t"
-    ".word 0x27BDFE80,0xAFB1016C,0x00808821,0xAFB30174\n\t"
-    ".word 0x00C09821,0xAFB40178,0x00E0A021,0x00A01821\n\t"
-    ".word 0x3C05800A,0x8CA24394,0x24040001,0xAFBF017C\n\t"
-    ".word 0xAFB20170,0x10440066,0xAFB00168,0x8E220000\n\t"
-    ".word 0x00000000,0x04400003,0xACA44394,0x08008D90\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x8E240008,0x00000000,0x04800003\n\t"
-    ".word 0x00022C03,0x08008D9A,0x00041303,0x00041023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x8E270004\n\t"
-    ".word 0x00000000,0x04E00003,0x00023403,0x08008DA4\n\t"
-    ".word 0x00071303,0x00071023,0x00021303,0x00021023\n\t"
-    ".word 0x00002021,0x00023B80,0x00073C03,0x00031023\n\t"
-    ".word 0x00021400,0x00021403,0x00031C00,0x00031C03\n\t"
-    ".word 0xAFA20010,0xAFA30014,0xAFA20018,0xAFA3001C\n\t"
-    ".word 0xAFA20020,0xAFA30024,0xAFA00028,0x0C006BB5\n\t"
-    ".word 0xAFA0002C,0x3044FFFF,0x27A60030,0x00003821\n\t"
-    ".word 0x8FA50190,0x3C02800C,0xA440628C,0x0C005EAB\n\t"
-    ".word 0xAFA00010,0x3042FFFF,0x1040002B,0x00409021\n\t"
-    ".word 0x00008021,0x8E280000,0x8E290004,0x8E2A0008\n\t"
-    ".word 0xAFA80150,0xAFA90154,0xAFAA0158,0xAFB3015C\n\t"
-    ".word 0x10400021,0xAFB40164,0x3C02800D,0x245332F4\n\t"
-    ".word 0x02008821,0x27A20030,0x00512021,0x8C820000\n\t"
-    ".word 0x00000000,0x10400014,0x00000000,0x84430004\n\t"
-    ".word 0x00000000,0x00031040,0x00431021,0x00021080\n\t"
-    ".word 0x00533821,0x8CE20004,0x00000000,0x1040000A\n\t"
-    ".word 0x2402FFFF,0x10620008,0x24050001,0x24060003\n\t"
-    ".word 0xAFA00010,0x8C840000,0x8CE20004,0x00000000\n\t"
-    ".word 0x0040F809,0x27A70150,0x26100001,0x0212102A\n\t"
-    ".word 0x1440FFE4,0x26310024,0x3C02800A,0xAC404394\n\t"
-    ".word 0x8FBF017C,0x8FB40178,0x8FB30174,0x8FB20170\n\t"
-    ".word 0x8FB1016C,0x8FB00168,0x03E00008,0x27BD0180\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Node {
+    unsigned short id;
+    unsigned short found;
+    short kind;
+    short next;
+} Node;
+typedef struct ProbeHit {
+    Node *node;
+    char pad04[0x24 - 4];
+} ProbeHit;
+typedef struct NodeClass {
+    void (*update)();
+    void (*notify)(Node *, int, int, void *, int);
+    void (*draw)();
+} NodeClass;
+typedef struct BlastInfo {
+    Vector pos;
+    int damage;
+    int unk10;
+    int owner;
+} BlastInfo;
+extern int D_800A4394;
+extern short D_800C628C;
+extern NodeClass D_800D32F4[];
+unsigned short func_8001AED4(int, short, short, short, short, short, short, short, short, short, int, int);
+unsigned short func_80017AAC(unsigned short, int, ProbeHit *, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_800235E0(Vector *pos, int radius, int damage, int owner, int arg4) {
+    ProbeHit hits[8];
+    BlastInfo info;
+    unsigned short count;
+    int i;
+    unsigned short id;
+    int found;
+
+    int r = radius;
+
+    if (D_800A4394 == 1) {
+        return;
+    }
+    D_800A4394 = 1;
+    id = func_8001AED4(0, to_int(pos->x) >> 2, to_int(pos->z) >> 2, to_int(pos->y) >> 2,
+                       -r, r, -r, r, -r, r, 0, 0);
+    D_800C628C = 0;
+    found = func_80017AAC(id, arg4, hits, 0, 0);
+    count = found;
+    if (found != 0) {
+        info.pos = *pos;
+        info.damage = damage;
+        info.owner = owner;
+        i = 0;
+        if (i < found) {
+            do {
+                Node *node = hits[i].node;
+                if (node != 0 && D_800D32F4[node->kind].notify != 0 && node->kind != -1) {
+                    D_800D32F4[node->kind].notify(hits[i].node, 1, 3, &info, 0);
+                }
+            } while (++i < count);
+        }
+    }
+    D_800A4394 = 0;
+}

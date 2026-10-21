@@ -1,54 +1,167 @@
-asm(".text\n\t.globl func_80069494\nfunc_80069494:\n\t"
-    ".word 0x27BDFFA0,0xAFB40050,0x97B40070,0xAFB50054\n\t"
-    ".word 0x93B50074,0xAFB20048,0x00809021,0xAFB10044\n\t"
-    ".word 0x00A08821,0xAFB3004C,0x00E09821,0xAFBF0058\n\t"
-    ".word 0x124000BB,0xAFB00040,0x8E420000,0x00000000\n\t"
-    ".word 0x104000B7,0x3C03800D,0x8E420008,0x00000000\n\t"
-    ".word 0x84420022,0x8E290000,0x00023B00,0x8C622E04\n\t"
-    ".word 0x01272021,0x00021300,0x0082202A,0x14800014\n\t"
-    ".word 0x24682E04,0x8E240008,0x8D020004,0x00871821\n\t"
-    ".word 0x00021300,0x0062182A,0x1460000E,0x00001021\n\t"
-    ".word 0x8D020008,0x01271823,0x00021300,0x0043102A\n\t"
-    ".word 0x14400008,0x00001021,0x8D02000C,0x00871823\n\t"
-    ".word 0x00021300,0x0043102A,0x10400002,0x24020001\n\t"
-    ".word 0x00001021,0x10400096,0x27B00010,0x24081000\n\t"
-    ".word 0xAE080000,0xAE000004,0xAE080008,0xAE00000C\n\t"
-    ".word 0xAE080010,0xAE000014,0xAE000018,0xAE00001C\n\t"
-    ".word 0x30C5FFFF,0x10A00003,0x00000000,0x0C022923\n\t"
-    ".word 0x02002021,0x3265FFFF,0x10A00003,0x00000000\n\t"
-    ".word 0x0C02292E,0x02002021,0x3285FFFF,0x10A00004\n\t"
-    ".word 0x3C04800D,0x0C022939,0x02002021,0x3C04800D\n\t"
-    ".word 0x24843034,0x8E260000,0x8E220004,0x8E250008\n\t"
-    ".word 0x90830001,0x24840004,0xAFA20034,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00431023,0x00021080\n\t"
-    ".word 0x00442021,0xAFA60030,0xAFA50038,0x8C820008\n\t"
-    ".word 0x00000000,0x00C23023,0x04C00005,0x24C20800\n\t"
-    ".word 0x04410006,0x00000000,0x0801A590,0x00021023\n\t"
-    ".word 0x24C2F800,0x04400003,0x00000000,0x0801A592\n\t"
-    ".word 0x00021303,0x24020800,0x00461023,0x00021303\n\t"
-    ".word 0x00021023,0x8FA30034,0xAFA20024,0x8C82000C\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801A5A4,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801A5A6\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0x8FA30038,0xAFA20028,0x8C820010\n\t"
-    ".word 0x00000000,0x00621823,0x04600005,0x24620800\n\t"
-    ".word 0x04410006,0x00000000,0x0801A5B8,0x00021023\n\t"
-    ".word 0x2462F800,0x04400003,0x00000000,0x0801A5BA\n\t"
-    ".word 0x00021303,0x24020800,0x00431023,0x00021303\n\t"
-    ".word 0x00021023,0x12400032,0xAFA2002C,0x3C03800B\n\t"
-    ".word 0x2463DD14,0x8C640010,0x8C62001C,0x2487FFEC\n\t"
-    ".word 0x2442FFEC,0xAC62001C,0x24020004,0xAC670010\n\t"
-    ".word 0xAC82FFEC,0xACF20008,0x8C650014,0x8C62001C\n\t"
-    ".word 0x24A40020,0x2442FFE0,0xAC640014,0xAC62001C\n\t"
-    ".word 0xACE5000C,0x8FAA0010,0x8FAB0014,0x8FAC0018\n\t"
-    ".word 0x8FAD001C,0xACAA0000,0xACAB0004,0xACAC0008\n\t"
-    ".word 0xACAD000C,0x8FAA0020,0x8FAB0024,0x8FAC0028\n\t"
-    ".word 0x8FAD002C,0xACAA0010,0xACAB0014,0xACAC0018\n\t"
-    ".word 0xACAD001C,0x8E420000,0x8C660014,0x8C450008\n\t"
-    ".word 0x8C62001C,0x000528C0,0x00C52021,0x00451023\n\t"
-    ".word 0xAC640014,0xAC62001C,0xACE60004,0xA0F50010\n\t"
-    ".word 0x8C62000C,0x00000000,0x24420001,0xAC62000C\n\t"
-    ".word 0x8FBF0058,0x8FB50054,0x8FB40050,0x8FB3004C\n\t"
-    ".word 0x8FB20048,0x8FB10044,0x8FB00040,0x03E00008\n\t"
-    ".word 0x27BD0060\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+typedef struct {
+    int x0;
+    int z0;
+    int x1;
+    int z1;
+} Rect;
+
+typedef struct {
+    char pad0[0x22];
+    short radius;
+} Bounds;
+
+typedef struct {
+    char pad0[8];
+    int count;
+} Mesh;
+
+typedef struct {
+    Mesh *mesh;
+    int pad4;
+    Bounds *bounds;
+} Model;
+
+typedef struct {
+    char pad0[8];
+    Vector pos;
+    char pad14[0x9C - 0x14];
+} Camera;
+
+typedef struct {
+    char pad0;
+    unsigned char current;
+    char pad2[2];
+    Camera cams[1];
+} CameraSet;
+
+typedef struct {
+    int type;
+    void *verts;
+    Model *model;
+    Matrix *matrix;
+    unsigned char flags;
+} DrawNode;
+
+typedef struct {
+    char pad0[0xC];
+    int count;
+    char *nodes;
+    char *data;
+    int pad18;
+    int free;
+} DrawQueue;
+
+extern Rect D_800D2E04;
+extern CameraSet D_800D3034;
+extern DrawQueue D_800ADD14;
+
+static inline void *pool_push(int size) {
+    DrawQueue *pool = &D_800ADD14;
+
+    pool->nodes -= size;
+    pool->free -= size;
+    return pool->nodes;
+}
+
+static inline void *pool_alloc(int size) {
+    DrawQueue *pool = &D_800ADD14;
+    char *p = pool->data;
+
+    pool->data += size;
+    pool->free -= size;
+    return p;
+}
+
+static inline int in_bounds(Vector *pos, int radius) {
+    if (pos->x + radius < D_800D2E04.x0 << 12 || pos->z + radius < D_800D2E04.z0 << 12
+        || D_800D2E04.x1 << 12 < pos->x - radius || D_800D2E04.z1 << 12 < pos->z - radius) {
+        return 0;
+    }
+    return 1;
+}
+
+static inline int round_to_int(int value) {
+    if (value >= 0) {
+        value += 2048;
+        if (value >= 0) {
+            return value >> 12;
+        }
+        return -(-value >> 12);
+    }
+    if (value - 2048 >= 0) {
+        return (value - 2048) >> 12;
+    }
+    return -((2048 - value) >> 12);
+}
+
+extern void func_8008A48C(Matrix *m, int angle);
+extern void func_8008A4B8(Matrix *m, int angle);
+extern void func_8008A4E4(Matrix *m, int angle);
+
+static inline void set_identity(Matrix *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\t"
+                     "sw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     : : "r"(m) : "$8", "memory");
+}
+
+void func_80069494(Model *model, Vector *pos, unsigned short rx, unsigned short ry, unsigned short rz,
+                   unsigned char flags) {
+    Matrix local;
+    Vector p;
+    Camera *cam;
+    DrawNode *node;
+    Matrix *m;
+
+    if (model == 0 || model->mesh == 0) {
+        return;
+    }
+    if (!in_bounds(pos, model->bounds->radius << 12)) {
+        return;
+    }
+    set_identity(&local);
+    if (rx != 0) {
+        func_8008A48C(&local, rx);
+    }
+    if (ry != 0) {
+        func_8008A4B8(&local, ry);
+    }
+    if (rz != 0) {
+        func_8008A4E4(&local, rz);
+    }
+    {
+        int x = pos->x;
+        int y = pos->y;
+        int z = pos->z;
+
+        p.x = x;
+        p.y = y;
+        p.z = z;
+    }
+    cam = &D_800D3034.cams[D_800D3034.current];
+    local.t[0] = round_to_int(p.x - cam->pos.x);
+    local.t[1] = round_to_int(p.y - cam->pos.y);
+    local.t[2] = round_to_int(p.z - cam->pos.z);
+    if (model == 0) {
+        return;
+    }
+    node = pool_push(sizeof(DrawNode));
+    node->type = 4;
+    node->model = model;
+    m = node->matrix = pool_alloc(sizeof(Matrix));
+    *m = local;
+    node->verts = pool_alloc(model->mesh->count * 8);
+    node->flags = flags;
+    D_800ADD14.count++;
+}

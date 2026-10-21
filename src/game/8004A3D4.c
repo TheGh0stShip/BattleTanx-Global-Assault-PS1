@@ -1,25 +1,86 @@
-asm(".text\n\t.globl func_8004A3D4\nfunc_8004A3D4:\n\t"
-    ".word 0x27BDFFD0,0xAFB10014,0x00808821,0xAFB40020\n\t"
-    ".word 0x0000A021,0xAFB3001C,0x00009821,0xAFB50024\n\t"
-    ".word 0x3C15800A,0xAFBF0028,0xAFB20018,0xAFB00010\n\t"
-    ".word 0x96230000,0x00000000,0x14600003,0x000310C0\n\t"
-    ".word 0x0801290C,0x00001821,0x00431023,0x00021080\n\t"
-    ".word 0x8EA35B24,0x24420008,0x00621821,0x1060003C\n\t"
-    ".word 0x24020003,0x90640000,0x00000000,0x10820007\n\t"
-    ".word 0x28820004,0x10400036,0x24020002,0x10820005\n\t"
-    ".word 0x00000000,0x0801294A,0x24130001,0x0801294A\n\t"
-    ".word 0x2471001A,0x96230000,0x00000000,0x14600003\n\t"
-    ".word 0x000310C0,0x08012925,0x00001821,0x00431023\n\t"
-    ".word 0x00021080,0x8EA35B24,0x24420008,0x00621821\n\t"
-    ".word 0x9462000E,0x94720002,0x10400006,0x24020001\n\t"
-    ".word 0x9464000C,0x00000000,0x10800002,0x00001021\n\t"
-    ".word 0x2C820001,0x10400004,0x00000000,0x9470000C\n\t"
-    ".word 0x08012935,0xA460000C,0x9470000E,0xA460000E\n\t"
-    ".word 0x02202021,0x0C012858,0x00002821,0xA6300000\n\t"
-    ".word 0x3203FFFF,0x14600003,0x00402021,0x08012944\n\t"
-    ".word 0x00001821,0x000310C0,0x00431023,0x00021080\n\t"
-    ".word 0x8EA35B24,0x24420008,0x00621821,0x10600002\n\t"
-    ".word 0x3082FFFF,0xA4720002,0x0801294A,0x0282A021\n\t"
-    ".word 0x24130001,0x1260FFB6,0x3282FFFF,0x8FBF0028\n\t"
-    ".word 0x8FB50024,0x8FB40020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0030\n");
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    unsigned short prev;
+    char pad4[8];
+    unsigned short branch_a;
+    unsigned short branch_b;
+    char pad10[2];
+    unsigned char branch;
+    char pad13[7];
+    unsigned short link;
+} Node;
+typedef struct {
+    char pad0[8];
+    Node nodes[1];
+} NodeSystem;
+extern NodeSystem *D_800A5B24;
+
+static inline Node *node_lookup(unsigned short id) {
+    if (id == 0) {
+        return 0;
+    }
+    return &D_800A5B24->nodes[id];
+}
+
+static inline int take_branch_a(Node *node) {
+    if (node->branch_b == 0) {
+        return 1;
+    }
+    if (node->branch_a == 0) {
+        return 0;
+    }
+    return node->branch_a == 0;
+}
+
+extern int func_8004A160(unsigned short *, int);
+
+unsigned short func_8004A3D4(unsigned short *link) {
+    int total = 0;
+    int done;
+    Node *node;
+    unsigned short prev;
+    unsigned short id;
+    unsigned short count;
+
+    __asm__("" : "=r"(total) : "0"(total));
+    done = 0;
+    do {
+        node = node_lookup(*link);
+        if (node == 0) {
+            done = 1;
+        } else {
+            switch (node->kind) {
+            case 3:
+                link = &node->link;
+                break;
+            case 2:
+                node = node_lookup(*link);
+                prev = node->prev;
+                if (take_branch_a(node)) {
+                    id = node->branch_a;
+                    node->branch_a = 0;
+                } else {
+                    id = node->branch_b;
+                    node->branch_b = 0;
+                }
+                count = func_8004A160(link, 0);
+                *link = id;
+                node = node_lookup(id);
+                if (node != 0) {
+                    node->prev = prev;
+                }
+                total += count;
+                break;
+            case 4:
+                done = 1;
+                break;
+            default:
+                done = 1;
+                break;
+            }
+        }
+    } while (!done);
+    prev = total;
+    return prev;
+}

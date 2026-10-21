@@ -1,36 +1,78 @@
-asm(".text\n\t.globl func_80032E1C\nfunc_80032E1C:\n\t"
-    ".word 0x27BDFFD0,0xAFB50024,0x00A0A821,0xAFB20018\n\t"
-    ".word 0x00809021,0x3C02800D,0x8C432FE8,0x2402000B\n\t"
-    ".word 0xAFBF002C,0xAFB60028,0xAFB40020,0xAFB3001C\n\t"
-    ".word 0xAFB10014,0x1062000D,0xAFB00010,0x2C62000C\n\t"
-    ".word 0x14400006,0x2C620004,0x2402000E,0x1062003E\n\t"
-    ".word 0x00002821,0x0800CBFE,0x00000000,0x1040005F\n\t"
-    ".word 0x00000000,0x1060005D,0x00000000,0x8E440208\n\t"
-    ".word 0x0C014C75,0x24050005,0x92A20030,0x2404007F\n\t"
-    ".word 0x1044000F,0x00000000,0x14440003,0x00401821\n\t"
-    ".word 0x0800CBB5,0x00002021,0x00031100,0x00431021\n\t"
-    ".word 0x00021080,0x00431021,0x00021080,0x3C03800E\n\t"
-    ".word 0x24633E68,0x00432021,0x0800CBFC,0x24050006\n\t"
-    ".word 0x3C02800D,0x24432FE4,0x90620008,0x00000000\n\t"
-    ".word 0x10400042,0x00008021,0x2414007F,0x3C02800E\n\t"
-    ".word 0x24533E68,0x0060B021,0x02008821,0x12140002\n\t"
-    ".word 0x00001821,0x02331821,0x8E420208,0x8C63000C\n\t"
-    ".word 0x8C42000C,0x00000000,0x10620006,0x00000000\n\t"
-    ".word 0x12140002,0x00002021,0x02332021,0x0C014C75\n\t"
-    ".word 0x24050006,0x92C20008,0x26100001,0x0202102A\n\t"
-    ".word 0x1440FFEE,0x26310114,0x0800CBFE,0x00000000\n\t"
-    ".word 0x0800CBEB,0x24050001,0x24070001,0x2406FFFF\n\t"
-    ".word 0x3C03800D,0x3C02800D,0x84423270,0x8C633258\n\t"
-    ".word 0x00021180,0x00622021,0x10950005,0x00000000\n\t"
-    ".word 0x8C82000C,0x00000000,0x1047FFF1,0x00000000\n\t"
-    ".word 0x84820002,0x00000000,0x1446FFF6,0x00021180\n\t"
-    ".word 0x14A00004,0x3C02800D,0x8E440208,0x0800CBFC\n\t"
-    ".word 0x2405000B,0x8C433028,0x2402000E,0x10620005\n\t"
-    ".word 0x24020021,0x10620006,0x24050008,0x0800CBFE\n\t"
-    ".word 0x00000000,0x8E440208,0x0800CBFC,0x00002821\n\t"
-    ".word 0x8E440208,0x0C014C75,0x00000000,0x8E4200A4\n\t"
-    ".word 0x00000000,0xAEA2001C,0x24020002,0xAE5500A4\n\t"
-    ".word 0xAEA2000C,0x8E420000,0x00000000,0xAEA20018\n\t"
-    ".word 0x8FBF002C,0x8FB60028,0x8FB50024,0x8FB40020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+typedef struct { char pad[12]; int team; char rest[0x114 - 16]; } Waypoint;
+typedef struct Node Node;
+struct Node { short pad; short next; int pad2[2]; int active; char rest[48]; };
+typedef struct { int pad[3]; int team; } Owner;
+typedef struct Marker Marker;
+typedef struct { int id; char pad[160]; Marker *markers; char pad2[520 - 168]; Waypoint *home; } Tank;
+struct Marker { int pad[3]; int state; int pad2[2]; int owner; Marker *next; char pad3[16]; unsigned char waypoint; };
+typedef struct { int pad; unsigned int mode; unsigned char teams; } Rules;
+extern unsigned int D_800D2FE8;
+extern Rules D_800D2FE4;
+extern short D_800D3270;
+extern Node *D_800D3258;
+extern int D_800D3028;
+extern Waypoint D_800E3E68[];
+void func_800531D4(Waypoint *, int);
+
+static inline Waypoint *waypoint_at(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80032E1C(Tank *owner, Marker *m) {
+    Tank *tank = owner;
+    int i;
+    int found;
+    int k;
+    Node *n;
+
+    switch (D_800D2FE8) {
+    case 1:
+    case 2:
+    case 3:
+    case 11:
+        func_800531D4(tank->home, 5);
+        if (m->waypoint != 127) {
+            func_800531D4(waypoint_at(m->waypoint), 6);
+        } else {
+            for (i = 0; i < D_800D2FE4.teams; i++) {
+                if (waypoint_at(i)->team != tank->home->team) {
+                    func_800531D4(waypoint_at(i), 6);
+                }
+            }
+        }
+        break;
+    case 14:
+        found = 0;
+        n = &D_800D3258[D_800D3270];
+        while (1) {
+            if (n != (Node *)m && n->active == 1) {
+                found = 1;
+                break;
+            }
+            if (n->next == -1) {
+                break;
+            }
+            n = &D_800D3258[n->next];
+        }
+        if (!found) {
+            func_800531D4(tank->home, 11);
+        } else {
+            switch (D_800D3028) {
+            case 14:
+                func_800531D4(tank->home, 0);
+                break;
+            case 33:
+                func_800531D4(tank->home, 8);
+                break;
+            }
+        }
+        break;
+    }
+    m->next = tank->markers;
+    tank->markers = m;
+    m->state = 2;
+    m->owner = tank->id;
+}

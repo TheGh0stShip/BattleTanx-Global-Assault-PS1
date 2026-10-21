@@ -1,39 +1,124 @@
-asm(".text\n\t.globl func_80073FF4\nfunc_80073FF4:\n\t"
-    ".word 0x27BDFF98,0x00802821,0xAFBF0064,0xAFB60060\n\t"
-    ".word 0xAFB5005C,0xAFB40058,0xAFB30054,0xAFB20050\n\t"
-    ".word 0xAFB1004C,0xAFB00048,0x8CB0001C,0x00000000\n\t"
-    ".word 0x12000081,0x00000000,0x8CA40008,0x0C01A70B\n\t"
-    ".word 0x24A50010,0x00409021,0x1240007B,0x27B10028\n\t"
-    ".word 0x27B30010,0x3C02800D,0x24543034,0x26960004\n\t"
-    ".word 0x26950054,0x24081000,0xAE280000,0xAE200004\n\t"
-    ".word 0xAE280008,0xAE20000C,0xAE280010,0xAE200014\n\t"
-    ".word 0xAE200018,0xAE20001C,0x9605002C,0x0C022923\n\t"
-    ".word 0x02202021,0x9605002E,0x0C02292E,0x02202021\n\t"
-    ".word 0x96050030,0x0C022939,0x02202021,0x02202021\n\t"
-    ".word 0x2605000C,0x0C02298F,0x27A60020,0x87A20020\n\t"
-    ".word 0x8E050014,0x87A30022,0x87A40024,0x00021300\n\t"
-    ".word 0x00A22823,0x00031B00,0xAFA50010,0x8E020018\n\t"
-    ".word 0x00042300,0x00431023,0xAFA20014,0x8E02001C\n\t"
-    ".word 0x92830001,0x00441023,0xAFA20018,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00431023,0x00021080\n\t"
-    ".word 0x00562021,0x8C820008,0x00000000,0x00A22823\n\t"
-    ".word 0x04A00005,0x24A20800,0x04410006,0x00000000\n\t"
-    ".word 0x0801D052,0x00021023,0x24A2F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801D054,0x00021303,0x24020800\n\t"
-    ".word 0x00451023,0x00021303,0x00021023,0xAFA2003C\n\t"
-    ".word 0x8E630004,0x8C82000C,0x00000000,0x00621823\n\t"
-    ".word 0x04600005,0x24620800,0x04410006,0x00000000\n\t"
-    ".word 0x0801D066,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801D068,0x00021303,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021023,0xAFA20040\n\t"
-    ".word 0x8E630008,0x8C820010,0x00000000,0x00621823\n\t"
-    ".word 0x04600005,0x24620800,0x0441000C,0x00021B03\n\t"
-    ".word 0x0801D07A,0x00021023,0x2462F800,0x04400003\n\t"
-    ".word 0x00000000,0x0801D07C,0x00021B03,0x24020800\n\t"
-    ".word 0x00431023,0x00021303,0x00021823,0x27A50028\n\t"
-    ".word 0x92820001,0x02403021,0xAFA30044,0x00022080\n\t"
-    ".word 0x00822021,0x000420C0,0x00822023,0x00042080\n\t"
-    ".word 0x0C00F839,0x00952021,0x8E100008,0x00000000\n\t"
-    ".word 0x1600FF8C,0x26520020,0x8FBF0064,0x8FB60060\n\t"
-    ".word 0x8FB5005C,0x8FB40058,0x8FB30054,0x8FB20050\n\t"
-    ".word 0x8FB1004C,0x8FB00048,0x03E00008,0x27BD0068\n");
+typedef struct SVec {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVec;
+
+typedef struct Vec {
+    int x;
+    int y;
+    int z;
+} Vec;
+
+typedef struct Vec4 {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vec4;
+
+typedef struct Mat {
+    int w[5];
+    int t[3];
+} Mat;
+
+typedef struct Part {
+    int pad0[2];
+    struct Part *next;
+    SVec offset;
+    Vec pos;
+    int pad20[3];
+    unsigned short rx;
+    unsigned short ry;
+    unsigned short rz;
+} Part;
+
+typedef struct Model {
+    int pad0[2];
+    int id;
+    int pad0C;
+    char info[12];
+    Part *parts;
+} Model;
+
+typedef struct Camera {
+    int pad0[2];
+    Vec pos;
+    char pad14[60];
+    char view[76];
+} Camera;
+
+typedef struct CameraSet {
+    unsigned char pad0;
+    unsigned char current;
+    char pad2[2];
+    Camera cams[1];
+} CameraSet;
+
+extern CameraSet D_800D3034;
+extern char *func_80069C2C(int, void *);
+extern void func_8008A48C(Mat *, int);
+extern void func_8008A4B8(Mat *, int);
+extern void func_8008A4E4(Mat *, int);
+extern void func_8008A63C(Mat *, SVec *, SVec *);
+extern void func_8003E0E4(void *, Mat *, char *);
+
+static inline void set_identity(Mat *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 0(%0)\n\tsw $0, 4(%0)\n\tsw $8, 8(%0)\n\tsw $0, 12(%0)\n\tsw $8, 16(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     :
+                     : "r"(m)
+                     : "$8", "memory");
+}
+
+static inline int div_fixed(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+static inline int round_fixed(int v) {
+    if (v >= 0) {
+        return div_fixed(v + 2048);
+    }
+    return div_fixed(v - 2048);
+}
+
+static inline void set_translation(Mat *m, Vec4 *d) {
+    Camera *cam = &D_800D3034.cams[D_800D3034.current];
+
+    m->t[0] = ((d->x - cam->pos.x) >= 0 ? (((d->x - cam->pos.x) + 2048) >= 0 ? (((d->x - cam->pos.x) + 2048)) >> 12 : -(-(((d->x - cam->pos.x) + 2048)) >> 12)) : (((d->x - cam->pos.x) - 2048) >= 0 ? (((d->x - cam->pos.x) - 2048)) >> 12 : -(-(((d->x - cam->pos.x) - 2048)) >> 12)));
+    m->t[1] = ((d->y - cam->pos.y) >= 0 ? (((d->y - cam->pos.y) + 2048) >= 0 ? (((d->y - cam->pos.y) + 2048)) >> 12 : -(-(((d->y - cam->pos.y) + 2048)) >> 12)) : (((d->y - cam->pos.y) - 2048) >= 0 ? (((d->y - cam->pos.y) - 2048)) >> 12 : -(-(((d->y - cam->pos.y) - 2048)) >> 12)));
+    m->t[2] = ((d->z - cam->pos.z) >= 0 ? (((d->z - cam->pos.z) + 2048) >= 0 ? (((d->z - cam->pos.z) + 2048)) >> 12 : -(-(((d->z - cam->pos.z) + 2048)) >> 12)) : (((d->z - cam->pos.z) - 2048) >= 0 ? (((d->z - cam->pos.z) - 2048)) >> 12 : -(-(((d->z - cam->pos.z) - 2048)) >> 12)));
+}
+
+void func_80073FF4(Model *model) {
+    Part *part = model->parts;
+    char *out;
+    Vec4 d;
+    SVec o;
+    Mat m;
+
+    if (part == 0) {
+        return;
+    }
+    out = func_80069C2C(model->id, model->info);
+    if (out == 0) {
+        return;
+    }
+    do {
+        set_identity(&m);
+        func_8008A48C(&m, part->rx);
+        func_8008A4B8(&m, part->ry);
+        func_8008A4E4(&m, part->rz);
+        func_8008A63C(&m, &part->offset, &o);
+        d.x = part->pos.x - (o.x << 12);
+        d.y = part->pos.y - (o.y << 12);
+        d.z = part->pos.z - (o.z << 12);
+        set_translation(&m, &d);
+        func_8003E0E4(D_800D3034.cams[D_800D3034.current].view, &m, out);
+        part = part->next;
+        out += 32;
+    } while (part != 0);
+}

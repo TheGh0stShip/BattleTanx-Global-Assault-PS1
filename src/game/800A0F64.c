@@ -1,30 +1,65 @@
-asm(".text\n\t.globl func_800A0F64\nfunc_800A0F64:\n\t"
-    ".word 0x3C02800C,0x8C428FEC,0x3C062102,0xA0400000\n\t"
-    ".word 0x3C03800C,0x8C638FF8,0x24020080,0xA0620000\n\t"
-    ".word 0x3C02800C,0x8C429020,0x34C60843,0xAC460000\n\t"
-    ".word 0x3C03800C,0x8C638FFC,0x24021325,0xAC620000\n\t"
-    ".word 0x3C03800C,0x8C639024,0x00000000,0x8C620000\n\t"
-    ".word 0x00000000,0x34428000,0xAC620000,0x3C02800C\n\t"
-    ".word 0x8C429028,0x00000000,0xAC440000,0x3C020001\n\t"
-    ".word 0x3C03800C,0x8C63902C,0x00A22825,0xAC650000\n\t"
-    ".word 0x3C03800C,0x8C638FEC,0x00000000,0x90620000\n\t"
-    ".word 0x00000000,0x30420040,0x14400006,0x27BDFFF8\n\t"
-    ".word 0x90620000,0x00000000,0x30420040,0x1040FFFC\n\t"
-    ".word 0x00000000,0x3C031140,0x3C02800C,0x8C429030\n\t"
-    ".word 0x34630100,0xAC430000,0x3C02800C,0x8C429030\n\t"
-    ".word 0x00000000,0x8C420000,0x00000000,0xAFA20000\n\t"
-    ".word 0x00001021,0x03E00008,0x27BD0008,0x3C01800C\n\t"
-    ".word 0x03E00008,0xAC248FD0,0x3C02800C,0x8C428FEC\n\t"
-    ".word 0x27BDFFD8,0xAFB10014,0x3C11800C,0x26319005\n\t"
-    ".word 0xAFBF0020,0xAFB3001C,0xAFB20018,0xAFB00010\n\t"
-    ".word 0x90420000,0x2633FFFF,0x30520003,0x0C027E75\n\t"
-    ".word 0x00000000,0x00408021,0x1200001A,0x32020004\n\t"
-    ".word 0x1040000B,0x32020002,0x3C02800C,0x8C428D28\n\t"
-    ".word 0x00000000,0x10400005,0x00000000,0x92240000\n\t"
-    ".word 0x3C05800F,0x0040F809,0x24A5FCE0,0x32020002\n\t"
-    ".word 0x1040FFEE,0x00000000,0x3C02800C,0x8C428D24\n\t"
-    ".word 0x00000000,0x1040FFE9,0x00000000,0x92640000\n\t"
-    ".word 0x3C05800F,0x0040F809,0x24A5FCD8,0x08028424\n\t"
-    ".word 0x00000000,0x3C02800C,0x8C428FEC,0x00000000\n\t"
-    ".word 0xA0520000,0x8FBF0020,0x8FB3001C,0x8FB20018\n\t"
-    ".word 0x8FB10014,0x8FB00010,0x03E00008,0x27BD0028\n");
+typedef struct CdMode {
+    unsigned char a;
+    unsigned char b;
+    unsigned char c;
+} CdMode;
+
+typedef void (*CdCallback)(int, unsigned char *);
+
+extern volatile unsigned char *D_800B8FEC;
+extern volatile unsigned char *D_800B8FF8;
+extern volatile unsigned int *D_800B8FFC;
+extern volatile unsigned int *D_800B9020;
+extern volatile unsigned int *D_800B9024;
+extern volatile unsigned int *D_800B9028;
+extern volatile unsigned int *D_800B902C;
+extern volatile unsigned int *D_800B9030;
+extern int D_800B8FD0;
+extern CdCallback D_800B8D28;
+extern CdCallback D_800B8D24;
+extern unsigned char D_800EFCE0[];
+extern unsigned char D_800EFCD8[];
+extern CdMode D_800B9004;
+extern int func_8009F9D4(void);
+
+int func_800A0F64(unsigned int *buf, int words) {
+    volatile unsigned int dummy;
+
+    *D_800B8FEC = 0;
+    *D_800B8FF8 = 0x80;
+    *D_800B9020 = 0x21020843;
+    *D_800B8FFC = 0x1325;
+    *D_800B9024 |= 0x8000;
+    *D_800B9028 = (unsigned int)buf;
+    *D_800B902C = words | 0x10000;
+    while (!(*D_800B8FEC & 0x40)) {
+    }
+    *D_800B9030 = 0x11400100;
+    dummy = *D_800B9030;
+    return 0;
+}
+
+void func_800A1050(int value) {
+    D_800B8FD0 = value;
+}
+
+void func_800A105C(void) {
+    unsigned char *intr = &D_800B9004.b;
+    unsigned char *sync = &D_800B9004.a;
+    int saved = *D_800B8FEC & 3;
+    int flags;
+
+    while ((flags = func_8009F9D4()) != 0) {
+        if (flags & 4) {
+            if (D_800B8D28 != 0) {
+                D_800B8D28(*intr, D_800EFCE0);
+            }
+        }
+        if (flags & 2) {
+            if (D_800B8D24 != 0) {
+                D_800B8D24(*sync, D_800EFCD8);
+            }
+        }
+    }
+    *D_800B8FEC = saved;
+}

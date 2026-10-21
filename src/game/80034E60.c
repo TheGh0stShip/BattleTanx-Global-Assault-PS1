@@ -1,63 +1,155 @@
-asm(".text\n\t.globl func_80034E60\nfunc_80034E60:\n\t"
-    ".word 0x27BDFF80,0xAFB40070,0x0080A021,0xAFB00060\n\t"
-    ".word 0x00A08021,0xAFB3006C,0x00C09821,0x24040018\n\t"
-    ".word 0x2405003C,0xAFB50074,0x00E0A821,0xAFBF0078\n\t"
-    ".word 0xAFB20068,0x0C008DF4,0xAFB10064,0x00408821\n\t"
-    ".word 0x122000DC,0x00000000,0x96850002,0x0C0098C0\n\t"
-    ".word 0x02002021,0x02002021,0x96850004,0x0C0098C0\n\t"
-    ".word 0x00409021,0xAE22000C,0x96850006,0x0C0098C0\n\t"
-    ".word 0x02002021,0xAE220010,0x9685000A,0x0C0098C0\n\t"
-    ".word 0x02002021,0x02002021,0x02402821,0x02603021\n\t"
-    ".word 0x32A7FFFF,0xAE220014,0x240200F0,0xAFA00010\n\t"
-    ".word 0xAFA20014,0x0C009863,0xAFA00018,0xAE220008\n\t"
-    ".word 0x8E620000,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x0800D3CD,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E630008,0x00000000\n\t"
-    ".word 0x04600003,0x00022C03,0x0800D3D7,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x8E630004,0x00000000,0x04600003,0x00023C03\n\t"
-    ".word 0x0800D3E1,0x00031303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x8E660004,0x00000000\n\t"
-    ".word 0x04C00003,0x00022403,0x0800D3EB,0x00063303\n\t"
-    ".word 0x00061023,0x00021303,0x00023023,0x8E420008\n\t"
-    ".word 0x00000000,0x84420004,0x00000000,0xAFA20010\n\t"
-    ".word 0x8E420008,0x00000000,0x8442000C,0x00000000\n\t"
-    ".word 0xAFA20014,0x8E420008,0x00000000,0x84420008\n\t"
-    ".word 0x00000000,0xAFA20018,0x8E420008,0x00000000\n\t"
-    ".word 0x84430010,0x00061380,0x00021403,0x24420064\n\t"
-    ".word 0x00021400,0x00021403,0xAFA20024,0x32A2FFFF\n\t"
-    ".word 0xAFA40020,0xAFA20028,0xAFA3001C,0x92830008\n\t"
-    ".word 0x00000000,0x2462FFFE,0x2C420002,0x14400005\n\t"
-    ".word 0x24020002,0x24020006,0x14620002,0x34028000\n\t"
-    ".word 0x24020002,0xAFA2002C,0x02202021,0x00E03021\n\t"
-    ".word 0x0C0058BC,0x00003821,0x27B00030,0xA6220030\n\t"
-    ".word 0x24081000,0xAE080008,0xA6000002,0xA6000006\n\t"
-    ".word 0xA600000E,0xAE000014,0xAE000018,0xAE00001C\n\t"
-    ".word 0x32A84000,0x32A93FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x32A88000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA60A0004,0x000A5022,0xA60A000C,0x26AA4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00095040,0x000A5103\n\t"
-    ".word 0xA60A0000,0xA60A0010,0x02002021,0x8E450008\n\t"
-    ".word 0x27A60050,0x0C02298F,0x24A50004,0x02002021\n\t"
-    ".word 0x8E450008,0x27A60058,0x0C02298F,0x24A5000C\n\t"
-    ".word 0x8E230008,0x87A20050,0x8C630020,0x00021380\n\t"
-    ".word 0x00621821,0xAE230018,0x8E230008,0x87A20052\n\t"
-    ".word 0x8C630024,0x00021380,0x00621821,0xAE23001C\n\t"
-    ".word 0x8E230008,0x87A20054,0x8C630028,0x00021380\n\t"
-    ".word 0x00621821,0xAE230020,0x8E230008,0x87A20058\n\t"
-    ".word 0x8C630020,0x00021380,0x00621821,0xAE230024\n\t"
-    ".word 0x8E230008,0x87A2005A,0x8C630024,0x00021380\n\t"
-    ".word 0x00621821,0xAE230028,0x8E230008,0x87A2005C\n\t"
-    ".word 0x8C630028,0x00021380,0xA6350032,0x00621821\n\t"
-    ".word 0xAE23002C,0x92830008,0x24040001,0x10640003\n\t"
-    ".word 0x24020006,0x14620003,0x00000000,0x0800D47E\n\t"
-    ".word 0xA2240034,0xA2200034,0x92820009,0x00000000\n\t"
-    ".word 0xA2220035,0x92830008,0x24020096,0xAE220038\n\t"
-    ".word 0xA2230036,0x8FBF0078,0x8FB50074,0x8FB40070\n\t"
-    ".word 0x8FB3006C,0x8FB20068,0x8FB10064,0x8FB00060\n\t"
-    ".word 0x03E00008,0x27BD0080\n");
+typedef struct {
+    short m[3][3];
+    int t[3];
+} MATRIX;
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVECTOR;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[4];
+    SVECTOR lo;
+    SVECTOR hi;
+    char pad14[0x20 - 0x14];
+    Vector origin;
+} Bounds;
+typedef struct {
+    char pad0[8];
+    Bounds *bounds;
+} Model;
+typedef struct {
+    char pad0[2];
+    unsigned short model;
+    unsigned short part1;
+    unsigned short part2;
+    unsigned char type;
+    unsigned char team;
+    unsigned short part3;
+} Spec;
+typedef struct {
+    char pad0[8];
+    Bounds *bounds;
+    Model *part1;
+    Model *part2;
+    Model *part3;
+    Vector lo;
+    Vector hi;
+    unsigned short cell;
+    unsigned short angle;
+    unsigned char solid;
+    unsigned char team;
+    unsigned char type;
+    char pad37;
+    int health;
+} Prop;
+
+extern Prop *func_800237D0(int, int);
+extern Model *func_80026300(void *, unsigned short);
+extern Bounds *func_8002618C(void *, Model *, Vector *, unsigned short, int, int, int);
+extern unsigned short func_800162F0(Prop *, int, int, int, int, int, int, int, int, int, int, int);
+extern void func_8008A63C(MATRIX *, SVECTOR *, SVECTOR *);
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline short to_cell(int value) {
+    return fixed_to_int(value) >> 2;
+}
+
+void func_80034E60(Spec *spec, void *context, Vector *pos, int rot) {
+    register int angle asm("$21");
+    register int quadrant asm("$8");
+    register int index asm("$9");
+    Prop *prop;
+    Model *model;
+    MATRIX m;
+    SVECTOR lo;
+    SVECTOR hi;
+    register MATRIX *mp asm("$16");
+    register int one asm("$8");
+    register int value asm("$10");
+
+    angle = rot;
+    prop = func_800237D0(24, 60);
+    if (prop == 0) {
+        return;
+    }
+    model = func_80026300(context, spec->model);
+    prop->part1 = func_80026300(context, spec->part1);
+    prop->part2 = func_80026300(context, spec->part2);
+    prop->part3 = func_80026300(context, spec->part3);
+    prop->bounds = func_8002618C(context, model, pos, angle, 0, 240, 0);
+    prop->cell = func_800162F0(prop, to_cell(pos->x), to_cell(pos->z), 0, model->bounds->lo.vx,
+                               model->bounds->hi.vx, model->bounds->lo.vz, model->bounds->hi.vz,
+                               to_cell(pos->y), (short)(to_cell(pos->y) + 100), (unsigned short)angle,
+                               (spec->type == 2 || spec->type == 3 || spec->type == 6) ? 2 : 0x8000);
+    mp = &m;
+    __asm__ volatile("" : "+r"(mp));
+    one = 4096;
+    *(int *)&mp->m[1][1] = one;
+    mp->m[0][1] = 0;
+    mp->m[1][0] = 0;
+    mp->m[2][1] = 0;
+    mp->t[0] = 0;
+    mp->t[1] = 0;
+    mp->t[2] = 0;
+    __asm__ volatile("");
+    quadrant = angle & 0x4000;
+    __asm__ volatile("");
+    index = angle & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(angle));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    mp->m[0][2] = value;
+    __asm__ volatile("neg $10, $10" : "+r"(value));
+    mp->m[2][0] = value;
+    value = angle + 0x4000;
+    __asm__ volatile("" : "+r"(value));
+    quadrant = value & 0x4000;
+    __asm__ volatile("");
+    index = value & 0x3fff;
+    __asm__ volatile("beqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\tandi $9, $9, 0x3ffe\n\t"
+                     "lui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\tandi $8, %2, 0x8000\n\t"
+                     "beqz $8, .+12\n\tnop\n\tneg $9, $9"
+                     : "+r"(quadrant), "+r"(index)
+                     : "r"(value));
+    value = index << 1;
+    __asm__ volatile("" : "+r"(value));
+    value >>= 4;
+    mp->m[0][0] = value;
+    mp->m[2][2] = value;
+    __asm__ volatile("");
+    func_8008A63C(mp, &model->bounds->lo, &lo);
+    func_8008A63C(mp, &model->bounds->hi, &hi);
+    prop->lo.x = prop->bounds->origin.x + (lo.vx << 14);
+    prop->lo.y = prop->bounds->origin.y + (lo.vy << 14);
+    prop->lo.z = prop->bounds->origin.z + (lo.vz << 14);
+    prop->hi.x = prop->bounds->origin.x + (hi.vx << 14);
+    prop->hi.y = prop->bounds->origin.y + (hi.vy << 14);
+    prop->hi.z = prop->bounds->origin.z + (hi.vz << 14);
+    prop->angle = angle;
+    if (spec->type == 1 || spec->type == 6) {
+        prop->solid = 1;
+    } else {
+        prop->solid = 0;
+    }
+    prop->team = spec->team;
+    prop->type = spec->type;
+    prop->health = 150;
+}

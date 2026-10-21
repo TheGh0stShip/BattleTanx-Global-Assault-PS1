@@ -1,24 +1,92 @@
-asm(".text\n\t.globl func_80024114\nfunc_80024114:\n\t"
-    ".word 0x3C02800D,0x8C425A80,0x27BDFFF8,0x00403021\n\t"
-    ".word 0x14C00002,0x00C52823,0x24060002,0x3C028000\n\t"
-    ".word 0x00A21824,0x00C21024,0x00624826,0x04A10002\n\t"
-    ".word 0x00A01021,0x00021023,0x04C10002,0x00C03821\n\t"
-    ".word 0x00073823,0x4882F000,0x00000000,0x00000000\n\t"
-    ".word 0xEBBF0000,0x8FA50000,0x00000000,0x24A8FFF4\n\t"
-    ".word 0x05010023,0x00021B00,0x00A21804,0x4887F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20004,0xE85F0000\n\t"
-    ".word 0x8FA60004,0x00000000,0x00C52823,0x04A0000F\n\t"
-    ".word 0x2402000C,0x00461023,0x04400003,0x00000000\n\t"
-    ".word 0x08009071,0x00471007,0x00021023,0x00471004\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x08009086,0x00A31804,0x00081023\n\t"
-    ".word 0x00471007,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x08009088,0x00601021\n\t"
-    ".word 0x0067001B,0x14E00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00601021,0x11200002\n\t"
-    ".word 0x240B0C00,0x00021023,0x01620018,0x00005012\n\t"
-    ".word 0x00001810,0x000A5302,0x00031D00,0x01435025\n\t"
-    ".word 0x01401021,0x24420400,0x1C400003,0x00440018\n\t"
-    ".word 0x0800909F,0x00001021,0x00001012,0x04400003\n\t"
-    ".word 0x00000000,0x0800909F,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x03E00008,0x27BD0008\n");
+extern int D_800D5A80;
+int abs(int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+static inline int fixed_to_int(int value) {
+    if (value >= 0) {
+        return value >> 12;
+    }
+    return -(-value >> 12);
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int shifted;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    __asm__("" : : "r"(negative));
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        shifted = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)shifted / (d >> scale);
+            } else {
+                quotient = (unsigned int)shifted / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)shifted / (d >> -excess);
+        }
+    } else {
+        shifted = n << 12;
+        quotient = (unsigned int)shifted / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+int func_80024114(int value, int elapsed) {
+    int total = D_800D5A80;
+    int scale;
+
+    scale = fixed_mul(3072, fixed_div(total - elapsed, total != 0 ? total : 2)) + 1024;
+    if (scale <= 0) {
+        return 0;
+    }
+    return fixed_to_int(scale * value);
+}

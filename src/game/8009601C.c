@@ -1,19 +1,62 @@
-asm(".text\n\t.globl func_8009601C\nfunc_8009601C:\n\t"
-    ".word 0x3C03800F,0x2463F094,0x8C620000,0x00000000\n\t"
-    ".word 0x14400005,0x00000000,0x8C620008,0x00000000\n\t"
-    ".word 0x1040003C,0x2402FFFF,0x8C680000,0x8C670004\n\t"
-    ".word 0x1480001D,0x00000000,0x8C620008,0x00000000\n\t"
-    ".word 0x14400006,0x00000000,0x24630008,0x8C620000\n\t"
-    ".word 0x00000000,0x1040FFFD,0x00000000,0x10C00006\n\t"
-    ".word 0x00000000,0x3C02800F,0x2442F0E0,0x8C420000\n\t"
-    ".word 0x00000000,0xACC20000,0x10A00006,0x00000000\n\t"
-    ".word 0x3C02800F,0x2442F0DC,0x8C420000,0x00000000\n\t"
-    ".word 0xACA20000,0x3C02800F,0x2442F094,0xAC400008\n\t"
-    ".word 0x0802584C,0x24020001,0x8C620008,0x00000000\n\t"
-    ".word 0x14400008,0x00000000,0x10C00002,0x00000000\n\t"
-    ".word 0xACC70000,0x10A00013,0x00001021,0x0802584C\n\t"
-    ".word 0xACA80000,0x10C00006,0x00000000,0x3C02800F\n\t"
-    ".word 0x2442F0E0,0x8C420000,0x00000000,0xACC20000\n\t"
-    ".word 0x10A00006,0x00000000,0x3C02800F,0x2442F0DC\n\t"
-    ".word 0x8C420000,0x00000000,0xACA20000,0xAC600008\n\t"
-    ".word 0x24020001,0x03E00008,0x00000000\n");
+typedef struct {
+    volatile int a;
+    volatile int b;
+    volatile int busy;
+    int pad[13];
+    void (*callback)(int, int);
+} CardState;
+typedef struct { int a; int b; } CardResult;
+extern CardState D_800EF094;
+extern volatile CardResult D_800EF0DC;
+
+int func_8009601C(int mode, int *out_a, int *out_b)
+{
+    CardState *s;
+    int a;
+    int b;
+    volatile int *p;
+    CardState *t;
+
+    s = &D_800EF094;
+    __asm__("" : "=r"(s) : "0"(s));
+
+    if (s->a == 0 && s->busy == 0) {
+        return -1;
+    }
+    a = s->a;
+    b = s->b;
+    if (mode == 0) {
+        if (s->busy == 0) {
+            p = &s->busy;
+            do {
+            } while (*p == 0);
+        }
+        if (out_b != 0) {
+            *out_b = D_800EF0DC.b;
+        }
+        if (out_a != 0) {
+            *out_a = D_800EF0DC.a;
+        }
+        t = &D_800EF094;
+        __asm__("" : "=r"(t) : "0"(t));
+        t->busy = 0;
+        return 1;
+    }
+    if (s->busy == 0) {
+        if (out_b != 0) {
+            *out_b = b;
+        }
+        if (out_a != 0) {
+            *out_a = a;
+        }
+        return 0;
+    }
+    if (out_b != 0) {
+        *out_b = D_800EF0DC.b;
+    }
+    if (out_a != 0) {
+        *out_a = D_800EF0DC.a;
+    }
+    s->busy = 0;
+    return 1;
+}

@@ -1,131 +1,317 @@
-asm(".text\n\t.globl func_80053FF4\nfunc_80053FF4:\n\t"
-    ".word 0x27BDFF80,0xAFB3006C,0x00809821,0xAFBF007C\n\t"
-    ".word 0xAFB60078,0xAFB50074,0xAFB40070,0xAFB20068\n\t"
-    ".word 0xAFB10064,0xAFB00060,0x8E620218,0x00000000\n\t"
-    ".word 0x30420002,0x104001EE,0x00000000,0x8E620000\n\t"
-    ".word 0x00000000,0x8C420008,0x00000000,0x104001E8\n\t"
-    ".word 0x3C02800E,0x8C4246BC,0x00000000,0x144001E4\n\t"
-    ".word 0x00000000,0x8E640040,0x8E65003C,0x14800002\n\t"
-    ".word 0x3C028000,0x24040002,0x00A21824,0x00821024\n\t"
-    ".word 0x00624026,0x04A10002,0x00A01821,0x00031823\n\t"
-    ".word 0x04810002,0x00803021,0x00063023,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20050,0xE85F0000\n\t"
-    ".word 0x8FA40050,0x00000000,0x2487FFF4,0x04E10023\n\t"
-    ".word 0x00000000,0x00831804,0x4886F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20054,0xE85F0000,0x8FA50054\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x08015040\n\t"
-    ".word 0x00461007,0x00021023,0x00461004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08015056,0x00831804,0x00071023,0x00461007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x08015058,0x0060B021,0x00031B00\n\t"
-    ".word 0x0066001B,0x14C00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x0060B021,0x11000002\n\t"
-    ".word 0x3C02800D,0x0016B023,0x8C432FE0,0x8E620294\n\t"
-    ".word 0x00000000,0x00629023,0x2A420008,0x10400041\n\t"
-    ".word 0x24020064,0x92710292,0x00000000,0x1622002A\n\t"
-    ".word 0x2A420005,0x3C03800E,0x3C02800E,0x8C554658\n\t"
-    ".word 0x3C02800E,0x8C4246BC,0x84744654,0x1440001F\n\t"
-    ".word 0x26B00118,0x0C014CED,0x24040001,0x304200FF\n\t"
-    ".word 0x00401821,0x10710019,0xA6020012,0x3C02800E\n\t"
-    ".word 0x2442465C,0x00031880,0x00621821,0x2402000E\n\t"
-    ".word 0xA0620003,0x86030012,0x24020093,0xAFA20014\n\t"
-    ".word 0x24020001,0x00621004,0xAFA20010,0x8EA20118\n\t"
-    ".word 0x00000000,0xAFA2002C,0x96020010,0x27A40010\n\t"
-    ".word 0xA7B40018,0xA7B4001A,0x0C0241E5,0xA7A20024\n\t"
-    ".word 0x92020012,0x0801508E,0xA2620292,0x24020064\n\t"
-    ".word 0xA2620292,0x2A420005,0x14400034,0x2411002E\n\t"
-    ".word 0x3C02800E,0x84434654,0x2642FFFC,0x00620018\n\t"
-    ".word 0x00001812,0x04610002,0x00000000,0x24630003\n\t"
-    ".word 0x92640292,0x00032B80,0x00052C03,0x0C024338\n\t"
-    ".word 0x00A03021,0x080150C4,0x2411002E,0x080150BD\n\t"
-    ".word 0xA4620012,0x92630292,0x00000000,0x307000FF\n\t"
-    ".word 0x1202001D,0x02002021,0x00002821,0x00A03021\n\t"
-    ".word 0x0C024338,0x00608821,0x00002821,0x3C02800E\n\t"
-    ".word 0x8C464658,0x02002021,0x30A200FF,0x00021880\n\t"
-    ".word 0x00621821,0x00031880,0x00661821,0x84620012\n\t"
-    ".word 0x00000000,0x1044FFE9,0x2402FFFF,0x24A50001\n\t"
-    ".word 0x30A200FF,0x2C420018,0x1440FFF4,0x30A200FF\n\t"
-    ".word 0x00002021,0x24050001,0x0C0241F1,0x02252804\n\t"
-    ".word 0x24020064,0xA2620292,0x2411002E,0x8E63009C\n\t"
-    ".word 0x24020004,0x14620002,0x00000000,0x24110018\n\t"
-    ".word 0x92720290,0x24020064,0x16420031,0x26C20800\n\t"
-    ".word 0x3C02800E,0x3C04800E,0x94424654,0x8C844658\n\t"
-    ".word 0x00021400,0x00021C03,0x000217C2,0x00621821\n\t"
-    ".word 0x0003A043,0x00111080,0x00511021,0x00021080\n\t"
-    ".word 0x3C03800E,0x8C6346BC,0x00000000,0x1460001D\n\t"
-    ".word 0x00828021,0x0C014CED,0x24040001,0x304200FF\n\t"
-    ".word 0x10520018,0xA6020012,0x3C03800E,0x2463465C\n\t"
-    ".word 0x00021080,0x00431021,0xA0510003,0x86030012\n\t"
-    ".word 0x24020093,0xAFA20014,0x24020001,0x00621004\n\t"
-    ".word 0xAFA20010,0x8E020000,0x00000000,0xAFA2002C\n\t"
-    ".word 0x96020010,0x27A40010,0xA7B40018,0xA7B4001A\n\t"
-    ".word 0x0C0241E5,0xA7A20024,0x92020012,0x080150FC\n\t"
-    ".word 0xA2620290,0x24020064,0xA2620290,0x26C20800\n\t"
-    ".word 0x24051800,0x3C038000,0x00434024,0x04410002\n\t"
-    ".word 0x00401821,0x00031823,0x00A03821,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20058,0xE85F0000\n\t"
-    ".word 0x8FA40058,0x00000000,0x2486FFF4,0x04C10023\n\t"
-    ".word 0x00000000,0x00831804,0x4887F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A2005C,0xE85F0000,0x8FA5005C\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x08015120\n\t"
-    ".word 0x00471007,0x00021023,0x00471004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08015136,0x00831804,0x00061023,0x00471007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x08015138,0x00602821,0x00031B00\n\t"
-    ".word 0x0065001B,0x14A00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00602821,0x11000002\n\t"
-    ".word 0x3C03800A,0x00052823,0x8E64009C,0x24635FAC\n\t"
-    ".word 0x00041080,0x00431021,0x8C4A0000,0x00000000\n\t"
-    ".word 0x01450018,0x00001812,0x00004810,0x00031B02\n\t"
-    ".word 0x00094D00,0x00691825,0x24020004,0x14820002\n\t"
-    ".word 0x240205DC,0x00031843,0x00620018,0x92640290\n\t"
-    ".word 0x00001012,0x04400003,0x00000000,0x08015155\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00402821,0x30A2FFFF,0x2C424000,0x14400002\n\t"
-    ".word 0x00000000,0x24053FFF,0x0C0240E9,0x30A5FFFF\n\t"
-    ".word 0x3C10800E,0x96024654,0x92640290,0x00021400\n\t"
-    ".word 0x00022C03,0x000217C2,0x00A22821,0x00052843\n\t"
-    ".word 0x0C024338,0x00A03021,0x8E63009C,0x24020004\n\t"
-    ".word 0x1062008F,0x2AC20334,0x1440006C,0x24020064\n\t"
-    ".word 0x92710291,0x00000000,0x1622002F,0x00000000\n\t"
-    ".word 0x96024654,0x00000000,0x00021400,0x00021C03\n\t"
-    ".word 0x000217C2,0x00621821,0x0003A043,0x3C02800E\n\t"
-    ".word 0x3C03800E,0x8C524658,0x8C6246BC,0x00000000\n\t"
-    ".word 0x1440001F,0x265003C0,0x0C014CED,0x24040001\n\t"
-    ".word 0x304200FF,0x00401821,0x10710019,0xA6020012\n\t"
-    ".word 0x3C02800E,0x2442465C,0x00031880,0x00621821\n\t"
-    ".word 0x24020030,0xA0620003,0x86030012,0x24020093\n\t"
-    ".word 0xAFA20014,0x24020001,0x00621004,0xAFA20010\n\t"
-    ".word 0x8E4203C0,0x00000000,0xAFA2002C,0x96020010\n\t"
-    ".word 0x27A40010,0xA7B40018,0xA7B4001A,0x0C0241E5\n\t"
-    ".word 0xA7A20024,0x92020012,0x0801519F,0xA2620291\n\t"
-    ".word 0x24020064,0xA2620291,0x8E620218,0x00000000\n\t"
-    ".word 0x30420800,0x10400008,0x3C02800E,0x84424654\n\t"
-    ".word 0x00000000,0x000212C0,0x04410009,0x00000000\n\t"
-    ".word 0x080151B4,0x00021023,0x84424654,0x00000000\n\t"
-    ".word 0x02C20018,0x00001012,0x04400003,0x00000000\n\t"
-    ".word 0x080151B6,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00022C00,0x00052C03,0x92640291\n\t"
-    ".word 0x0C024338,0x00A03021,0x3C03800A,0x8E62009C\n\t"
-    ".word 0x24635FAC,0x00021080,0x00431021,0x8C430000\n\t"
-    ".word 0x240205DC,0x00620018,0x92640291,0x00001012\n\t"
-    ".word 0x04400003,0x00000000,0x080151CC,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00401821\n\t"
-    ".word 0x3062FFFF,0x2C424000,0x14400002,0x00000000\n\t"
-    ".word 0x24033FFF,0x0C0240E9,0x3065FFFF,0x080151F9\n\t"
-    ".word 0x00000000,0x080151F3,0xA4620012,0x92630291\n\t"
-    ".word 0x00000000,0x307000FF,0x1202001D,0x02002021\n\t"
-    ".word 0x00002821,0x00A03021,0x0C024338,0x00608821\n\t"
-    ".word 0x00002821,0x3C02800E,0x8C464658,0x02002021\n\t"
-    ".word 0x30A200FF,0x00021880,0x00621821,0x00031880\n\t"
-    ".word 0x00661821,0x84620012,0x00000000,0x1044FFE9\n\t"
-    ".word 0x2402FFFF,0x24A50001,0x30A200FF,0x2C420018\n\t"
-    ".word 0x1440FFF4,0x30A200FF,0x00002021,0x24050001\n\t"
-    ".word 0x0C0241F1,0x02252804,0x24020064,0xA2620291\n\t"
-    ".word 0x8FBF007C,0x8FB60078,0x8FB50074,0x8FB40070\n\t"
-    ".word 0x8FB3006C,0x8FB20068,0x8FB10064,0x8FB00060\n\t"
-    ".word 0x03E00008,0x27BD0080\n");
+typedef struct {
+    short left;
+    short right;
+} SpuVolume;
+typedef struct {
+    unsigned long voice;
+    unsigned long mask;
+    SpuVolume volume;
+    SpuVolume volmode;
+    SpuVolume volumex;
+    unsigned short pitch;
+    unsigned short note;
+    unsigned short sample_note;
+    short envx;
+    unsigned long addr;
+    unsigned long loop_addr;
+    long a_mode;
+    long s_mode;
+    long r_mode;
+    unsigned short ar;
+    unsigned short dr;
+    unsigned short sr;
+    unsigned short rr;
+    unsigned short sl;
+    unsigned short adsr1;
+    unsigned short adsr2;
+} SpuVoiceAttr;
+typedef struct {
+    unsigned long addr;
+    char pad4[0x10 - 4];
+    unsigned short pitch;
+    short voice;
+} Sound;
+typedef struct {
+    char pad0[3];
+    unsigned char sound;
+} Voice;
+extern Sound *D_800E4658;
+extern Voice D_800E465C[];
+extern int D_800E46BC;
+extern unsigned short D_800E4654;
+extern int D_800D2FE0;
+extern int D_800A5FAC[];
+extern int func_800533B4(int);
+extern void func_80090794(SpuVoiceAttr *);
+extern void func_80090CE0(unsigned char, short, short);
+extern void func_800907C4(int, int);
+extern void func_800903A4(unsigned char, unsigned short);
+extern int abs(int);
+
+typedef struct {
+    char pad0[8];
+    int active;
+} Owner;
+typedef struct {
+    Owner *owner;
+    char pad4[0x3C - 4];
+    int speed;
+    int top_speed;
+    char pad44[0x9C - 0x44];
+    int type;
+    char padA0[0x218 - 0xA0];
+    unsigned int status;
+    char pad21C[0x290 - 0x21C];
+    unsigned char engine_voice;
+    unsigned char move_voice;
+    unsigned char start_voice;
+    char pad293;
+    int start_time;
+} Tank;
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    if (denominator == 0) {
+        denominator = 2;
+    }
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+static inline int to_int(int x) {
+    return x >= 0 ? x >> 12 : -(-x >> 12);
+}
+
+static inline unsigned char play_voice(int id, int volume) {
+    SpuVoiceAttr attr;
+    Sound *sound = &D_800E4658[id];
+    int voice;
+
+    if (D_800E46BC == 0) {
+        voice = sound->voice = (unsigned char)func_800533B4(1);
+        if (voice != 100) {
+            D_800E465C[voice].sound = id;
+            attr.voice = 1 << sound->voice;
+            attr.mask = 147;
+            attr.addr = sound->addr;
+            attr.pitch = sound->pitch;
+            attr.volume.left = volume;
+            attr.volume.right = volume;
+            func_80090794(&attr);
+            return sound->voice;
+        }
+    }
+    return 100;
+}
+
+static inline void set_volume(unsigned char voice, short volume) {
+    func_80090CE0(voice, volume, volume);
+}
+
+
+static inline void release_voice(unsigned char voice) {
+    unsigned char i;
+
+    set_volume(voice, 0);
+    for (i = 0; i < 24; i++) {
+        if (D_800E4658[i].voice == voice) {
+            D_800E4658[i].voice = -1;
+            break;
+        }
+    }
+    func_800907C4(0, 1 << voice);
+}
+
+static inline int scale_pitch(int pitch) {
+    int k = 1500;
+
+    return pitch * k;
+}
+
+static inline void set_pitch(unsigned char voice, int value) {
+    int pitch = to_int(value);
+
+    if ((unsigned short)pitch >= 16384) {
+        pitch = 16383;
+    }
+    func_800903A4(voice, pitch);
+}
+
+static inline unsigned short clamp_pitch(int pitch) {
+    if ((unsigned short)pitch >= 16384) {
+        pitch = 16383;
+    }
+    return pitch;
+}
+
+void func_80053FF4(Tank *tank) {
+    int ratio;
+    int elapsed;
+    int sound;
+    int pitch;
+    short level;
+
+    if (!(tank->status & 2) || tank->owner->active == 0 || D_800E46BC != 0) {
+        return;
+    }
+    {
+        int num = tank->speed;
+        int den = tank->top_speed;
+        int negative;
+        int n;
+        int d;
+        int n_zeros;
+        int d_zeros;
+        int excess;
+        int scale;
+        unsigned int quotient;
+
+        if (den == 0) {
+            den = 2;
+        }
+        negative = (num & 0x80000000) ^ (den & 0x80000000);
+        __asm__("" : : "r"(negative));
+        n = abs(num);
+        d = abs(den);
+        n_zeros = leading_zeros(n);
+        excess = n_zeros - 12;
+        if (excess < 0) {
+            n <<= n_zeros;
+            d_zeros = leading_zeros(d);
+            n_zeros = d_zeros - n_zeros;
+            if (n_zeros >= 0) {
+                scale = 12 - d_zeros;
+                if (scale >= 0) {
+                    quotient = (unsigned int)n / (d >> scale);
+                } else {
+                    quotient = (unsigned int)n / (d << -scale);
+                }
+                quotient <<= n_zeros;
+            } else {
+                quotient = (unsigned int)n / (d >> -excess);
+            }
+        } else {
+            n <<= 12;
+            quotient = (unsigned int)n / d;
+        }
+        ratio = quotient;
+        if (negative) {
+            ratio = -ratio;
+        }
+
+    }
+    elapsed = D_800D2FE0 - tank->start_time;
+    if (elapsed < 8) {
+        if (tank->start_voice == 100) {
+            tank->start_voice = play_voice(14, (short)D_800E4654);
+        }
+        if (elapsed >= 5) {
+            set_volume(tank->start_voice, (short)D_800E4654 * (elapsed - 4) / 4);
+        }
+    } else {
+        if (tank->start_voice != 100) {
+            release_voice(tank->start_voice);
+            tank->start_voice = 100;
+        }
+    }
+    sound = 46;
+    if (tank->type == 4) {
+        sound = 24;
+    }
+    if (tank->engine_voice == 100) {
+        tank->engine_voice = play_voice(sound, (short)D_800E4654 / 2);
+    }
+    pitch = fixed_div(ratio + 2048, 6144);
+    pitch = fixed_mul(D_800A5FAC[tank->type], pitch);
+    if (tank->type == 4) {
+        pitch >>= 1;
+    }
+    set_pitch(tank->engine_voice, scale_pitch(pitch));
+    set_volume(tank->engine_voice, (short)D_800E4654 / 2);
+    if (tank->type == 4) {
+        return;
+    }
+    if (ratio >= 820) {
+        if (tank->move_voice == 100) {
+            tank->move_voice = play_voice(48, (short)D_800E4654 / 2);
+        }
+        if (tank->status & 0x800) {
+            int t = (short)D_800E4654 << 11;
+            level = to_int(t);
+        } else {
+            level = to_int(ratio * (short)D_800E4654);
+        }
+        set_volume(tank->move_voice, level);
+        set_pitch(tank->move_voice, scale_pitch(D_800A5FAC[tank->type]));
+    } else {
+        if (tank->move_voice != 100) {
+            release_voice(tank->move_voice);
+            tank->move_voice = 100;
+        }
+    }
+}

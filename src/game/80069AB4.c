@@ -1,25 +1,98 @@
-asm(".text\n\t.globl func_80069AB4\nfunc_80069AB4:\n\t"
-    ".word 0x00804821,0x00A05821,0x00C05021,0x11200058\n\t"
-    ".word 0x00003021,0x8D220000,0x00000000,0x10400054\n\t"
-    ".word 0x3C03800D,0x8D220008,0x00000000,0x84420022\n\t"
-    ".word 0x8D480000,0x00022B00,0x8C622E04,0x01052021\n\t"
-    ".word 0x00021300,0x0082202A,0x14800014,0x24672E04\n\t"
-    ".word 0x8D460008,0x8CE20004,0x00C51821,0x00021300\n\t"
-    ".word 0x0062182A,0x1460000E,0x00001021,0x8CE20008\n\t"
-    ".word 0x01051823,0x00021300,0x0043102A,0x14400008\n\t"
-    ".word 0x00001021,0x8CE2000C,0x00C51823,0x00021300\n\t"
-    ".word 0x0043102A,0x10400002,0x24020001,0x00001021\n\t"
-    ".word 0x14400003,0x3C03800B,0x03E00008,0x00001021\n\t"
-    ".word 0x2463DD14,0x8C640010,0x8C62001C,0x2487FFEC\n\t"
-    ".word 0x2442FFEC,0xAC62001C,0x24020006,0xAC670010\n\t"
-    ".word 0xAC82FFEC,0xACE90008,0x8C650014,0x8C62001C\n\t"
-    ".word 0x24A40020,0x2442FFE0,0xAC640014,0xAC62001C\n\t"
-    ".word 0xACE5000C,0x8D6C0000,0x8D6D0004,0x8D6E0008\n\t"
-    ".word 0x8D6F000C,0xACAC0000,0xACAD0004,0xACAE0008\n\t"
-    ".word 0xACAF000C,0x8D6C0010,0x8D6D0014,0x8D6E0018\n\t"
-    ".word 0x8D6F001C,0xACAC0010,0xACAD0014,0xACAE0018\n\t"
-    ".word 0xACAF001C,0x8D220000,0x8C660014,0x8C450008\n\t"
-    ".word 0x8C62001C,0x000528C0,0x00C52021,0x00451023\n\t"
-    ".word 0xAC640014,0xAC62001C,0xACE60004,0xA0E00010\n\t"
-    ".word 0x8C62000C,0x00000000,0x24420001,0xAC62000C\n\t"
-    ".word 0x03E00008,0x00C01021\n");
+typedef struct {
+    int pad;
+    int count32;
+    int count8;
+} ModelHeader;
+
+typedef struct {
+    char pad[0x22];
+    short radius;
+} ModelInfo;
+
+typedef struct {
+    ModelHeader *header;
+    int pad;
+    ModelInfo *info;
+} Model;
+
+typedef struct {
+    int kind;
+    void *buffer;
+    Model *model;
+    void *verts;
+    char done;
+} Node;
+
+typedef struct {
+    int x, y, z;
+} Vector;
+
+typedef struct {
+    int data[8];
+} Block32;
+
+typedef struct {
+    int min_x;
+    int min_z;
+    int max_x;
+    int max_z;
+} Bounds;
+
+typedef struct {
+    char pad[0xC];
+    int count;
+    char *top;
+    char *heap;
+    int pad18;
+    int free;
+} Pool;
+
+extern Pool D_800ADD14;
+extern Bounds D_800D2E04;
+
+static inline void *pool_push(int size) {
+    Pool *pool = &D_800ADD14;
+
+    pool->top -= size;
+    pool->free -= size;
+    return pool->top;
+}
+
+static inline void *pool_alloc(int size) {
+    Pool *pool = &D_800ADD14;
+    char *p = pool->heap;
+
+    pool->heap += size;
+    pool->free -= size;
+    return p;
+}
+
+static inline int in_bounds(Vector *pos, int radius) {
+    if (pos->x + radius < D_800D2E04.min_x << 12 || pos->z + radius < D_800D2E04.min_z << 12
+        || D_800D2E04.max_x << 12 < pos->x - radius || D_800D2E04.max_z << 12 < pos->z - radius) {
+        return 0;
+    }
+    return 1;
+}
+
+void *func_80069AB4(Model *model, Block32 *params, Vector *pos) {
+    Node *node;
+    Block32 *copy;
+    void *buffer = 0;
+
+    if (model != 0 && model->header != 0) {
+        if (!in_bounds(pos, model->info->radius << 12)) {
+            return 0;
+        }
+        node = pool_push(sizeof(Node));
+        node->kind = 6;
+        node->model = model;
+        copy = pool_alloc(sizeof(Block32));
+        node->verts = copy;
+        *copy = *params;
+        buffer = node->buffer = pool_alloc(model->header->count8 * 8);
+        node->done = 0;
+        D_800ADD14.count++;
+    }
+    return buffer;
+}

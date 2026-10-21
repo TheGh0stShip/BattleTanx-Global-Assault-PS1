@@ -1,85 +1,93 @@
-asm(".text\n\t.globl func_800399D0\nfunc_800399D0:\n\t"
-    ".word 0x27BDFF98,0xAFB50054,0x0080A821,0x00A05821\n\t"
-    ".word 0x3402FFFF,0x01625004,0x00004021,0xAFBF0064\n\t"
-    ".word 0xAFBE0060,0xAFB7005C,0xAFB60058,0xAFB40050\n\t"
-    ".word 0xAFB3004C,0xAFB20048,0xAFB10044,0xAFB00040\n\t"
-    ".word 0x96AC0002,0x24070001,0x01803021,0xA7AC0020\n\t"
-    ".word 0x00071400,0x00021343,0x00552821,0x00061400\n\t"
-    ".word 0x00021403,0x84A40002,0x94A30002,0x0082102A\n\t"
-    ".word 0x10400004,0x00061400,0x00603021,0x00E04021\n\t"
-    ".word 0x00061400,0x00021403,0x1482000B,0x00071400\n\t"
-    ".word 0x00081400,0x00021343,0x00551021,0x84A30000\n\t"
-    ".word 0x84420000,0x00000000,0x0062182A,0x10600002\n\t"
-    ".word 0x00071400,0x00E04021,0x00021343,0x00551021\n\t"
-    ".word 0x97AC0020,0x84440002,0x94420002,0x000C1C00\n\t"
-    ".word 0x00031C03,0x0064182A,0x10600002,0x00000000\n\t"
-    ".word 0xA7A20020,0x24E20001,0x00403821,0x00021400\n\t"
-    ".word 0x00021403,0x28420004,0x1440FFD6,0x00071400\n\t"
-    ".word 0x00003821,0x27A90010,0x00071C00,0x00031C03\n\t"
-    ".word 0x00033080,0x000328C0,0x00B52821,0x24630001\n\t"
-    ".word 0x30630003,0x000318C0,0x00751821,0x94A20000\n\t"
-    ".word 0x94640000,0x01263021,0x00441023,0xA4C20000\n\t"
-    ".word 0x24E20001,0x00403821,0x00021400,0x00021403\n\t"
-    ".word 0x94A40002,0x94630002,0x28420004,0x00832023\n\t"
-    ".word 0x1440FFE9,0xA4C40002,0x00081400,0x00021383\n\t"
-    ".word 0x27A40010,0x00821021,0x94420002,0x00000000\n\t"
-    ".word 0x1440000A,0x0100B021,0x25020001,0x30420003\n\t"
-    ".word 0x00021880,0x00831821,0x94630002,0x00000000\n\t"
-    ".word 0x1060FFF9,0x00404021,0x0100B021,0x00161C00\n\t"
-    ".word 0x00031C03,0x000320C0,0x00952021,0x24620001\n\t"
-    ".word 0x30420003,0x000210C0,0x00551021,0x27A50010\n\t"
-    ".word 0x94910002,0x84840000,0x94420002,0x00049C00\n\t"
-    ".word 0xA7A20028,0x00031080,0x00A21021,0x84440000\n\t"
-    ".word 0x94420002,0x00042400,0x00021400,0x00021403\n\t"
-    ".word 0x0082001A,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14410004,0x3C018000,0x14810002\n\t"
-    ".word 0x00000000,0x0006000D,0x00006012,0x2463FFFF\n\t"
-    ".word 0x30630003,0x00031880,0x00A31821,0x94630002\n\t"
-    ".word 0x02C03021,0x1460000B,0xAFAC0030,0x24C2FFFF\n\t"
-    ".word 0x30420003,0x2443FFFF,0x30630003,0x00031880\n\t"
-    ".word 0x00A31821,0x94630002,0x00000000,0x1060FFF7\n\t"
-    ".word 0x00403021,0x24C3FFFF,0x30630003,0x00609021\n\t"
-    ".word 0x27A20010,0x0040A021,0x00062400,0x00042343\n\t"
-    ".word 0x00952021,0x000310C0,0x00551021,0x00031880\n\t"
-    ".word 0x02831821,0x84840000,0x945E0002,0x94620002\n\t"
-    ".word 0x00048400,0x00021400,0x84640000,0x00021403\n\t"
-    ".word 0x00042400,0x0082001A,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14410004,0x3C018000\n\t"
-    ".word 0x14810002,0x00000000,0x0006000D,0x0000B812\n\t"
-    ".word 0x00111400,0x001E1C00,0x0043102A,0x14400020\n\t"
-    ".word 0x001210C0,0x00551021,0x84420000,0x00000000\n\t"
-    ".word 0x00028400,0x2642FFFF,0x30420003,0x00401821\n\t"
-    ".word 0x00031080,0x02822821,0x94A20002,0x00000000\n\t"
-    ".word 0x00021400,0x00022403,0x1080FFF6,0x00609021\n\t"
-    ".word 0x000318C0,0x00751821,0x84A20000,0x947E0002\n\t"
-    ".word 0x00021400,0x0044001A,0x14800002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14810004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x0000B812\n\t"
-    ".word 0x97AC0028,0x00111400,0x000C1C00,0x0043102A\n\t"
-    ".word 0x14400027,0x00101403,0x26C20001,0x30420003\n\t"
-    ".word 0x00401821,0x00031080,0x02822821,0x94A20002\n\t"
-    ".word 0x00000000,0x00021400,0x00022403,0x1080FFF6\n\t"
-    ".word 0x0060B021,0x24620001,0x30420003,0x000210C0\n\t"
-    ".word 0x00551021,0x94420002,0x00000000,0xA7A20028\n\t"
-    ".word 0x000310C0,0x00551021,0x84430000,0x84A20000\n\t"
-    ".word 0x00039C00,0x00021400,0x0044001A,0x14800002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14810004\n\t"
-    ".word 0x3C018000,0x14410002,0x00000000,0x0006000D\n\t"
-    ".word 0x00006012,0x00000000,0xAFAC0030,0x00101403\n\t"
-    ".word 0x00131C03,0x00431023,0x01623807,0x24020001\n\t"
-    ".word 0x11620005,0x24020002,0x11620013,0x01432024\n\t"
-    ".word 0x0800E7A7,0x24030001,0x01432024,0x00042580\n\t"
-    ".word 0x00042403,0x022A2824,0x00052D80,0x00052C03\n\t"
-    ".word 0x24060001,0x00073C00,0x00073C03,0xAFAA0038\n\t"
-    ".word 0x0C00EBD9,0xAFAB003C,0x8FAA0038,0x8FAB003C\n\t"
-    ".word 0x0800E7A7,0x24030001,0x00042580,0x00042403\n\t"
-    ".word 0x022A2824,0x00052D80,0x00052C03,0x00073400\n\t"
-    ".word 0x00063403,0xAFAA0038,0x0C00EDCE,0xAFAB003C\n\t"
-    ".word 0x8FAB003C,0x8FAA0038,0x24030001,0x01631804\n\t"
-    ".word 0x02231821,0x00608821,0x8FAC0030,0x00031C00\n\t"
-    ".word 0x016C1004,0x02629821,0x01771004,0x97AC0020\n\t"
-    ".word 0x02028021,0x000C1400,0x0043102A,0x1040FF7C\n\t"
-    ".word 0x00000000,0x8FBF0064,0x8FBE0060,0x8FB7005C\n\t"
-    ".word 0x8FB60058,0x8FB50054,0x8FB40050,0x8FB3004C\n\t"
-    ".word 0x8FB20048,0x8FB10044,0x8FB00040,0x03E00008\n\t"
-    ".word 0x27BD0068\n");
+typedef struct { short x, y, z, pad; } Vert;
+typedef struct { short x, y; } Delta;
+void func_8003AF64(short, short, int, short);
+void func_8003B738(short, short, short);
+
+void func_800399D0(Vert *v, int shift) {
+    int mask;
+    short i;
+    short top;
+    short miny;
+    short maxy;
+    Delta d[4];
+    short right;
+    short left;
+    short y;
+    short right_end;
+    short left_end;
+    int right_x;
+    int left_x;
+    int right_step;
+    int left_step;
+    short w;
+    short dy;
+    short j;
+
+    mask = 0xFFFF << shift;
+    top = 0;
+    miny = maxy = v[0].y;
+    for (i = 1; i < 4; i++) {
+        if (v[i].y < miny) {
+            miny = v[i].y;
+            top = i;
+        }
+        if (v[i].y == miny && v[i].x < v[top].x) {
+            top = i;
+        }
+        if (maxy < v[i].y) {
+            maxy = v[i].y;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        d[i].x = v[i].x - v[(i + 1) & 3].x;
+        d[i].y = v[i].y - v[(i + 1) & 3].y;
+    }
+    while (d[top].y == 0) {
+        top = (top + 1) & 3;
+    }
+    right = top;
+    y = v[right].y;
+    right_x = v[right].x << 16;
+    right_end = v[(right + 1) & 3].y;
+    right_step = (d[right].x << 16) / d[right].y;
+    j = right;
+    while (d[(j - 1) & 3].y == 0) {
+        j = (j - 1) & 3;
+    }
+    left = (j - 1) & 3;
+    left_x = v[j].x << 16;
+    left_end = v[left].y;
+    left_step = (d[left].x << 16) / d[left].y;
+    do {
+        if (y >= left_end) {
+            left_x = v[left].x << 16;
+            do {
+                left = (left - 1) & 3;
+                dy = d[left].y;
+            } while (dy == 0);
+            left_end = v[left].y;
+            left_step = (d[left].x << 16) / dy;
+        }
+        if (y >= right_end) {
+            do {
+                right = (right + 1) & 3;
+                dy = d[right].y;
+            } while (dy == 0);
+            right_end = v[(right + 1) & 3].y;
+            right_x = v[right].x << 16;
+            right_step = (d[right].x << 16) / dy;
+        }
+        w = ((left_x >> 16) - (right_x >> 16)) >> shift;
+        switch (shift) {
+        case 1:
+            func_8003AF64((mask & (right_x >> 16)) << 6, (y & mask) << 6, 1, w);
+            break;
+        case 2:
+            func_8003B738((mask & (right_x >> 16)) << 6, (y & mask) << 6, w);
+            break;
+        }
+        y += 1 << shift;
+        right_x += right_step << shift;
+        left_x += left_step << shift;
+    } while (y <= maxy);
+}

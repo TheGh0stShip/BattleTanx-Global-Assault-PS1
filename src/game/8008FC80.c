@@ -1,33 +1,78 @@
-asm(".text\n\t.globl func_8008FC80\nfunc_8008FC80:\n\t"
-    ".word 0x27BDFFD0,0xAFB60028,0x0080B021,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB3001C,0x00C09821,0xAFB10014\n\t"
-    ".word 0x3C11800F,0xAFB00010,0x2630EDF4,0xAFBF002C\n\t"
-    ".word 0xAFB50024,0xAFB20018,0x8E02002C,0x00000000\n\t"
-    ".word 0x10400003,0x00E0A821,0x0C023D2D,0x00002021\n\t"
-    ".word 0x8E020004,0x00000000,0x30420008,0x14400044\n\t"
-    ".word 0x00000000,0x0C023D04,0x00002021,0x1260002B\n\t"
-    ".word 0x00009021,0x02008821,0x8E240028,0x00000000\n\t"
-    ".word 0x10800026,0x00000000,0x8E220020,0x8E230024\n\t"
-    ".word 0x00000000,0x00438023,0x0090102B,0x10400002\n\t"
-    ".word 0x02721823,0x00808021,0x0070102B,0x10400002\n\t"
-    ".word 0x00000000,0x00608021,0x0C023D04,0x24040001\n\t"
-    ".word 0x02802021,0x8E22001C,0x8E250024,0x02003021\n\t"
-    ".word 0x0C0229EF,0x00452821,0x0C023D04,0x00002021\n\t"
-    ".word 0x8E220028,0x00000000,0x00501023,0xAE220028\n\t"
-    ".word 0x8E220024,0x8E230020,0x00501021,0xAE220024\n\t"
-    ".word 0x0043102B,0x14400002,0x02509021,0xAE200024\n\t"
-    ".word 0x0253102B,0x1440FFD8,0x00000000,0x1653000A\n\t"
-    ".word 0x3C02800F,0x0C023D04,0x24040001,0x12A00017\n\t"
-    ".word 0x3C02800F,0x8C44EDF4,0x02802821,0x02403021\n\t"
-    ".word 0x08023F81,0x24070001,0x2442EDF4,0xAC550030\n\t"
-    ".word 0xAC540034,0xAC530038,0xAC52003C,0xAC56002C\n\t"
-    ".word 0x0C023D04,0x24040001,0x08023F84,0x3C02800F\n\t"
-    ".word 0x12A00006,0x02802821,0x8E24EDF4,0x00003021\n\t"
-    ".word 0x00C03821,0x02A0F809,0x00000000,0x3C02800F\n\t"
-    ".word 0x2444EDF4,0x8C820004,0x00000000,0x30420010\n\t"
-    ".word 0x1440000A,0x00000000,0x8C820020,0x8C830028\n\t"
-    ".word 0x8C840014,0x00431023,0x0044102B,0x14400003\n\t"
-    ".word 0x00000000,0x0C023CDA,0x24040001,0x8FBF002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x24020001\n\t"
-    ".word 0x03E00008,0x27BD0030\n");
+extern void func_8008F4B4(int);
+extern void func_8008F410(int);
+extern void func_8008F368(int);
+extern void func_8008A7BC(void *, void *, unsigned int);
+
+typedef void (*ReadCb8008FC80)(int, char *, unsigned int, int);
+
+typedef struct {
+    int handle;
+    int flags;
+    char pad8[12];
+    unsigned int low_water;
+    char pad24[4];
+    char *ring;
+    unsigned int size;
+    unsigned int head;
+    unsigned int count;
+    volatile int direct;
+    ReadCb8008FC80 cb;
+    char *dbuf;
+    unsigned int dlen;
+    unsigned int dpos;
+} S8008FC80;
+extern S8008FC80 D_800EEDF4;
+
+int func_8008FC80(int handle, char *dst, unsigned int len, ReadCb8008FC80 cb) {
+    S8008FC80 *s = &D_800EEDF4;
+    unsigned int got;
+    unsigned int n;
+
+    if (s->direct != 0) {
+        func_8008F4B4(0);
+    }
+    if (!(s->flags & 8)) {
+        func_8008F410(0);
+        got = 0;
+        while (got < len) {
+            if (D_800EEDF4.count == 0) {
+                break;
+            }
+            n = D_800EEDF4.size - D_800EEDF4.head;
+            if (D_800EEDF4.count < n) {
+                n = D_800EEDF4.count;
+            }
+            if (len - got < n) {
+                n = len - got;
+            }
+            func_8008F410(1);
+            func_8008A7BC(dst, D_800EEDF4.ring + D_800EEDF4.head, n);
+            func_8008F410(0);
+            D_800EEDF4.count -= n;
+            D_800EEDF4.head += n;
+            got += n;
+            if (D_800EEDF4.head >= D_800EEDF4.size) {
+                D_800EEDF4.head = 0;
+            }
+        }
+        if (got == len) {
+            func_8008F410(1);
+            if (cb != 0) {
+                cb(D_800EEDF4.handle, dst, got, 1);
+            }
+        } else {
+            D_800EEDF4.cb = cb;
+            D_800EEDF4.dbuf = dst;
+            D_800EEDF4.dlen = len;
+            D_800EEDF4.dpos = got;
+            D_800EEDF4.direct = handle;
+            func_8008F410(1);
+        }
+        } else if (cb != 0) {
+        cb(D_800EEDF4.handle, dst, 0, 0);
+    }
+    if (!(D_800EEDF4.flags & 0x10) && D_800EEDF4.size - D_800EEDF4.count >= D_800EEDF4.low_water) {
+        func_8008F368(1);
+    }
+    return 1;
+}

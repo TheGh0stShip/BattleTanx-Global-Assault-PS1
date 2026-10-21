@@ -1,48 +1,56 @@
-asm(".text\n\t.globl func_8003475C\nfunc_8003475C:\n\t"
-    ".word 0x27BDFFC0,0xAFB10034,0x00808821,0xAFBF003C\n\t"
-    ".word 0xAFB20038,0xAFB00030,0x8E260008,0x8E27000C\n\t"
-    ".word 0x8E280010,0xAFA60010,0xAFA70014,0xAFA80018\n\t"
-    ".word 0x8E230020,0x00000000,0x10600006,0x00A09021\n\t"
-    ".word 0x24020001,0x10620031,0x24060D99,0x0800D28A\n\t"
-    ".word 0x00000000,0x3C02800E,0x8C43E30C,0x8E260014\n\t"
-    ".word 0x00000000,0x00660018,0x00002012,0x00001010\n\t"
-    ".word 0x00042302,0x00021500,0x00822025,0x8E220008\n\t"
-    ".word 0x8E270018,0x00441021,0xAE220008,0x00670018\n\t"
-    ".word 0x00002012,0x00001010,0x00042302,0x00021500\n\t"
-    ".word 0x00822025,0x8E22000C,0x8E29001C,0x00441021\n\t"
-    ".word 0xAE22000C,0x00690018,0x00004012,0x00001010\n\t"
-    ".word 0x00084302,0x00021500,0x01024025,0x01001821\n\t"
-    ".word 0x8E220010,0x8E240024,0x00431021,0x3C03800D\n\t"
-    ".word 0xAE220010,0x00E01021,0x8C632FE0,0x2442FE67\n\t"
-    ".word 0x00641823,0x28630005,0x14600074,0xAE220018\n\t"
-    ".word 0x24020001,0x0800D28A,0xAE220020,0x8E270014\n\t"
-    ".word 0x00000000,0x00C70018,0x00008012,0x00001010\n\t"
-    ".word 0x00108302,0x00021500,0x02028025,0x0C021B21\n\t"
-    ".word 0x00000000,0x304207FF,0x02028021,0x2610FC00\n\t"
-    ".word 0x24080D99,0xAFB00020,0x8E29001C,0x00000000\n\t"
-    ".word 0x01090018,0x00008012,0x00001010,0x00108302\n\t"
-    ".word 0x00021500,0x02028025,0x0C021B21,0x00000000\n\t"
-    ".word 0x304207FF,0x02028021,0x2610FC00,0xAFB00028\n\t"
-    ".word 0x8E220018,0x00000000,0x18400008,0x24070D99\n\t"
-    ".word 0x00E20018,0x00003012,0x00001810,0x00063302\n\t"
-    ".word 0x00031D00,0x00C33025,0x00C01021,0x2442FE67\n\t"
-    ".word 0xAFA20024,0x8FA20024,0x00000000,0x2842C000\n\t"
-    ".word 0x10400002,0x2402C000,0xAFA20024,0x8FA20020\n\t"
-    ".word 0x8E230014,0x00000000,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0x3C03800E,0x8C64E30C\n\t"
-    ".word 0x00000000,0x00820018,0x00001812,0x00004010\n\t"
-    ".word 0x00031B02,0x00084500,0x00681825,0x8E220008\n\t"
-    ".word 0x00000000,0x00431021,0xAE220008,0x8FA20024\n\t"
-    ".word 0x8E230018,0x00000000,0x00431021,0x00021FC2\n\t"
-    ".word 0x00431021,0x00021043,0x00820018,0x00001812\n\t"
-    ".word 0x00004810,0x00031B02,0x00094D00,0x00691825\n\t"
-    ".word 0x8E22000C,0x00000000,0x00431021,0xAE22000C\n\t"
-    ".word 0x8FA20028,0x8E23001C,0x00000000,0x00431021\n\t"
-    ".word 0x00021FC2,0x00431021,0x00021043,0x00820018\n\t"
-    ".word 0x00001812,0x00003010,0x00031B02,0x00063500\n\t"
-    ".word 0x00661825,0x8E220010,0x8E24000C,0x00431021\n\t"
-    ".word 0x04810004,0xAE220010,0x24020001,0x0800D28A\n\t"
-    ".word 0xAE420000,0x8FA70020,0x8FA80024,0x8FA90028\n\t"
-    ".word 0xAE270014,0xAE280018,0xAE29001C,0x8FBF003C\n\t"
-    ".word 0x8FB20038,0x8FB10034,0x8FB00030,0x03E00008\n\t"
-    ".word 0x27BD0040\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int pad[2]; Vector pos; Vector vel; int state; int start_time; } Debris;
+extern int D_800DE30C;
+extern int D_800D2FE0;
+unsigned int func_80086C84(void);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+void func_8003475C(Debris *d, int *done) {
+    Vector old;
+    Vector nv;
+    int vy;
+    int state;
+
+    old = d->pos;
+    switch (d->state) {
+    case 0:
+        d->pos.x += fixed_mul(D_800DE30C, d->vel.x);
+        d->pos.y += fixed_mul(D_800DE30C, d->vel.y);
+        d->pos.z += fixed_mul(D_800DE30C, d->vel.z);
+        d->vel.y -= 409;
+        if (D_800D2FE0 - d->start_time >= 5) {
+            d->state = 1;
+        }
+        break;
+    case 1:
+        nv.x = fixed_mul(3481, d->vel.x) + (func_80086C84() & 0x7FF) - 1024;
+        nv.z = fixed_mul(3481, d->vel.z) + (func_80086C84() & 0x7FF) - 1024;
+        vy = d->vel.y;
+        if (vy > 0) {
+            nv.y = fixed_mul(3481, vy) - 409;
+        } else {
+            nv.y = vy - 409;
+        }
+        if (nv.y < -16384) {
+            nv.y = -16384;
+        }
+        d->pos.x += fixed_mul(D_800DE30C, (nv.x + d->vel.x) / 2);
+        d->pos.y += fixed_mul(D_800DE30C, (nv.y + d->vel.y) / 2);
+        d->pos.z += fixed_mul(D_800DE30C, (nv.z + d->vel.z) / 2);
+        if (d->pos.y < 0) {
+            *done = 1;
+        } else {
+            d->vel = nv;
+        }
+        break;
+    }
+}

@@ -1,19 +1,95 @@
-asm(".text\n\t.globl func_80089A58\nfunc_80089A58:\n\t"
-    ".word 0x27bdffd8,0x3c02800f,0x2443eae8,0xafbf0020\n\t"
-    ".word 0xafb3001c,0xafb20018,0xafb10014,0xafb00010\n\t"
-    ".word 0x90620036,0x00000000,0x10400004,0x24110001\n\t"
-    ".word 0xa0710037,0x080226d5,0x02201021,0x3c01800c\n\t"
-    ".word 0xac3160bc,0xac600044,0xa0600042,0xa0710041\n\t"
-    ".word 0xa0710040,0x3c02800f,0x2452eae8,0x26530060\n\t"
-    ".word 0x3c048009,0x24849984,0x24020001,0xa2400037\n\t"
-    ".word 0xa2420036,0x0c024581,0x00008021,0x0c024586\n\t"
-    ".word 0x00002021,0x0c02458b,0x00002021,0x8e440090\n\t"
-    ".word 0x02602821,0x0c025d67,0x000422c2,0x24040002\n\t"
-    ".word 0x02602821,0x0c025c4f,0x02003021,0x14400009\n\t"
-    ".word 0x00000000,0x0c022426,0x02002021,0x00408021\n\t"
-    ".word 0x16000004,0x00000000,0x0c022392,0x24040005\n\t"
-    ".word 0x00008821,0xa2400036,0x1600ffdf,0x3c02800f\n\t"
-    ".word 0x12200004,0x00000000,0x92420037,0x00000000\n\t"
-    ".word 0x0002802b,0x1600ffda,0x02201021,0x8fbf0020\n\t"
-    ".word 0x8fb3001c,0x8fb20018,0x8fb10014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0028\n\t");
+typedef struct {
+    char pad0[0xC];
+    int w0c;
+    char pad10[8];
+    int w18;
+    char pad1c[4];
+    int w20;
+    char pad24[0xC];
+    volatile unsigned char b30;
+    volatile unsigned char b31;
+    volatile unsigned char b32;
+    volatile unsigned char b33;
+    volatile unsigned char b34;
+    volatile unsigned char b35;
+    volatile unsigned char b36;
+    volatile unsigned char b37;
+    volatile unsigned char b38;
+    volatile unsigned char b39;
+    volatile unsigned char b3a;
+    volatile unsigned char b3b;
+    volatile unsigned char b3c;
+    char pad3d[3];
+    volatile unsigned char b40;
+    volatile unsigned char b41;
+    volatile unsigned char b42;
+    volatile unsigned char b43;
+    volatile unsigned int w44;
+    int w48;
+    int w4c;
+    int w50;
+    int w54;
+    int w58;
+    int w5c;
+    unsigned char loc[4];
+    int w64;
+    char pad68[8];
+    int w70;
+    char pad74[0x10];
+    int w84;
+    char pad88[8];
+    unsigned int w90;
+    unsigned int w94;
+    void *w98;
+    unsigned char result[0xC];
+} StreamState;
+extern StreamState D_800EEAE8;
+
+extern volatile int D_800C60BC;
+extern void func_80089984(unsigned char intr);
+extern void func_80091604(void (*cb)(unsigned char));
+extern void func_80091618(void (*cb)(unsigned char));
+extern void func_8009162C(void (*cb)(unsigned char));
+extern void func_8009759C(unsigned int sector, unsigned char *loc);
+extern int func_8009713C(int cmd, unsigned char *param, int c);
+extern int func_80089098(int arg);
+extern void func_80088E48(int mode);
+
+int func_80089A58(void) {
+    StreamState *s = &D_800EEAE8;
+    int retry;
+    int ok = 1;
+
+    if (s->b36 != 0) {
+        s->b37 = ok;
+        return ok;
+    }
+    D_800C60BC = ok;
+    s->w44 = 0;
+    s->b42 = 0;
+    s->b41 = ok;
+    s->b40 = ok;
+    do {
+        StreamState *st = &D_800EEAE8;
+
+        st->b37 = 0;
+        st->b36 = 1;
+        func_80091604(func_80089984);
+        func_80091618(0);
+        func_8009162C(0);
+        retry = 0;
+        func_8009759C(st->w90 >> 11, st->loc);
+        if (func_8009713C(2, st->loc, retry) == 0) {
+            retry = func_80089098(retry);
+            if (retry == 0) {
+                func_80088E48(5);
+                ok = 0;
+            }
+        }
+        st->b36 = 0;
+        if (retry == 0 && ok != 0) {
+            retry = st->b37 != 0;
+        }
+    } while (retry != 0);
+    return ok;
+}

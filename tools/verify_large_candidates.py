@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Compile and size the current large-function research candidates."""
 
+import argparse
 import json
 import re
 import shutil
 from pathlib import Path
 
-from verify_matching_units import compile_unit, oracle_slice
+try:
+    from .verify_matching_units import compile_unit, oracle_slice
+except ImportError:
+    from verify_matching_units import compile_unit, oracle_slice
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,7 +36,15 @@ def candidate_symbols(source, entry):
     return symbols
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--name", action="append", choices=sorted(CANDIDATES),
+        help="verify only this candidate (repeatable)",
+    )
+    parser.add_argument("--json", action="store_true", help="write JSON lines")
+    args = parser.parse_args(argv)
+
     config = json.loads(CONFIG_PATH.read_text())
     executable = EXECUTABLE_PATH.read_bytes()
     units = {unit["name"]: unit for unit in config["units"]}
@@ -41,7 +53,10 @@ def main():
     work_root.mkdir(parents=True)
 
     failed = False
+    selected = set(args.name or CANDIDATES)
     for name, relative_source in CANDIDATES.items():
+        if name not in selected:
+            continue
         unit = units[name].copy()
         unit["source"] = relative_source
         unit["symbols"] = candidate_symbols(ROOT / relative_source, name)
@@ -73,19 +88,31 @@ def main():
             ),
             compared,
         )
-        print(
-            "%-15s generated %5d / target %5d (%+d), "
-            "%5d equal bytes, first difference +0x%X%s"
-            % (
-                name,
-                len(generated),
-                target_size,
-                delta,
-                equal_bytes,
-                first_difference,
-                " EXACT" if exact else "",
+        result = {
+            "name": name,
+            "generated": len(generated),
+            "target": target_size,
+            "delta": delta,
+            "equal_bytes": equal_bytes,
+            "first_difference": first_difference,
+            "exact": exact,
+        }
+        if args.json:
+            print(json.dumps(result, sort_keys=True))
+        else:
+            print(
+                "%-15s generated %5d / target %5d (%+d), "
+                "%5d equal bytes, first difference +0x%X%s"
+                % (
+                    name,
+                    len(generated),
+                    target_size,
+                    delta,
+                    equal_bytes,
+                    first_difference,
+                    " EXACT" if exact else "",
+                )
             )
-        )
 
     return int(failed)
 

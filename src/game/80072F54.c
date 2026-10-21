@@ -1,58 +1,153 @@
-asm(".text\n\t.globl func_80072F54\nfunc_80072F54:\n\t"
-    ".word 0x27BDFF58,0xAFB00098,0x00808021,0xAFBF00A0\n\t"
-    ".word 0xAFB1009C,0x8E030020,0x00000000,0x1C600004\n\t"
-    ".word 0x00008821,0x24020001,0x0801CCB4,0xACA20000\n\t"
-    ".word 0x3C02800E,0x8C45E30C,0x240A007A,0x00651023\n\t"
-    ".word 0xAE020020,0x00AA0018,0x00001812,0x00001010\n\t"
-    ".word 0x00031B02,0x00021500,0x00621825,0x9602002A\n\t"
-    ".word 0x96040028,0x00431021,0x148000C4,0xA602002A\n\t"
-    ".word 0x8E0B0014,0x00000000,0x00AB0018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8E020008,0x00000000,0x00431021,0xAFA20040\n\t"
-    ".word 0x8E0C0018,0x00000000,0x00AC0018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8E02000C,0x00000000,0x00431021,0xAFA20044\n\t"
-    ".word 0x8E0D001C,0x00000000,0x00AD0018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8E020010,0x240A2000,0x00431021,0xAFA20048\n\t"
-    ".word 0x00AA0018,0x00004812,0x00001010,0x00094B02\n\t"
-    ".word 0x00021500,0x01224825,0x26040008,0x27A50040\n\t"
-    ".word 0x3C060064,0x34C6940B,0x00003821,0x3C08800C\n\t"
-    ".word 0x8E020018,0x24030001,0xA503628C,0x00491023\n\t"
-    ".word 0xAE020018,0x27A20018,0xAFA00010,0x0C006760\n\t"
-    ".word 0xAFA20014,0x3042FFFF,0x1040005D,0x00000000\n\t"
-    ".word 0x8E03002C,0x00000000,0x10600005,0x00000000\n\t"
-    ".word 0x8FA20018,0x00000000,0x10430055,0x00000000\n\t"
-    ".word 0x8FA20018,0x00000000,0x1040004F,0x3C02800C\n\t"
-    ".word 0x244A05E8,0x8D4B0000,0x8D4C0004,0x8D4D0008\n\t"
-    ".word 0xAFAB0078,0xAFAC007C,0xAFAD0080,0x8D4B000C\n\t"
-    ".word 0x8D4C0010,0x8D4D0014,0xAFAB0084,0xAFAC0088\n\t"
-    ".word 0xAFAD008C,0x8D4B0018,0x00000000,0xAFAB0090\n\t"
-    ".word 0x8FA20020,0x8FA30024,0x8FA40028,0xA7A0005C\n\t"
-    ".word 0xAFA20050,0xAFA30054,0xAFA40058,0x96020024\n\t"
-    ".word 0x00000000,0xAFA20060,0x96030026,0x2402007F\n\t"
-    ".word 0x14620003,0x00031100,0x0801CC60,0x00001021\n\t"
-    ".word 0x00431021,0x00021080,0x00431021,0x00021080\n\t"
-    ".word 0x3C03800E,0x24633E68,0x00431021,0xAFA20064\n\t"
-    ".word 0x24020001,0xAFA20068,0x8FA20018,0x3C03800D\n\t"
-    ".word 0xAFA00070,0x84440004,0x246332F4,0x00041040\n\t"
-    ".word 0x00441021,0x00021080,0x00431821,0x8C620004\n\t"
-    ".word 0x00000000,0x1040000B,0x2402FFFF,0x10820009\n\t"
-    ".word 0x02002821,0x00003021,0x27A20078,0xAFA20010\n\t"
-    ".word 0x8FA40018,0x8C620004,0x00000000,0x0040F809\n\t"
-    ".word 0x27A70050,0x8FA30078,0x24020003,0x1062000A\n\t"
-    ".word 0x2C620004,0x10400005,0x24020001,0x10620006\n\t"
-    ".word 0x00000000,0x0801CC89,0xAE00002C,0x24020005\n\t"
-    ".word 0x14620002,0x00000000,0x24110001,0xAE00002C\n\t"
-    ".word 0x12200003,0x24020001,0x0801CCB4,0xA6020028\n\t"
-    ".word 0x8FA20044,0x00000000,0x1C40001E,0x27A40050\n\t"
-    ".word 0x24020001,0xA6020028,0x8E020008,0x3C03FFF0\n\t"
-    ".word 0x00431021,0xAFA20050,0x8E02000C,0x3C070004\n\t"
-    ".word 0x00471021,0xAFA20054,0x8E020010,0x27A50060\n\t"
-    ".word 0x00431021,0xAFA20058,0x8E020008,0x3C030010\n\t"
-    ".word 0x00431021,0xAFA20060,0x8E02000C,0x24060200\n\t"
-    ".word 0x00471021,0xAFA20064,0x8E020010,0x3C070002\n\t"
-    ".word 0x00431021,0x0C01C357,0xAFA20068,0x0801CCB4\n\t"
-    ".word 0x00000000,0x8FAB0040,0x8FAC0044,0x8FAD0048\n\t"
-    ".word 0xAE0B0008,0xAE0C000C,0xAE0D0010,0x8FBF00A0\n\t"
-    ".word 0x8FB1009C,0x8FB00098,0x03E00008,0x27BD00A8\n");
+typedef struct Vec {
+    int x;
+    int y;
+    int z;
+} Vec;
+
+typedef struct Obj {
+    int pad0;
+    short kind;
+} Obj;
+
+typedef struct Hit {
+    Obj *obj;
+    int pad04;
+    Vec pos;
+    int pad14[4];
+} Hit;
+
+typedef struct Impact {
+    Vec pos;
+    short flag;
+    short pad0E;
+    int damage;
+    void *owner;
+    int count;
+    int pad1C;
+    int extra;
+} Impact;
+
+typedef struct Response {
+    int code;
+    int data[6];
+} Response;
+
+typedef struct ObjClass {
+    void *update;
+    void (*hit)(Obj *, void *, int, Impact *, Response *);
+    void *draw;
+} ObjClass;
+
+typedef struct Shell {
+    int pad0[2];
+    Vec pos;
+    Vec vel;
+    int timer;
+    unsigned short damage;
+    unsigned short owner;
+    unsigned short landed;
+    unsigned short spin;
+    Obj *ignore;
+} Shell;
+
+typedef struct Waypoint {
+    char data[0x114];
+} Waypoint;
+
+extern int D_800DE30C;
+extern short D_800C628C;
+extern Response D_800C05E8;
+extern ObjClass D_800D32F4[];
+extern Waypoint D_800E3E68[];
+extern unsigned short func_80019D80(Vec *, Vec *, int, int, int, Hit *);
+extern void func_80070D5C(Vec *, Vec *, int, int);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline Waypoint *waypoint_ptr(int index) {
+    if (index == 127) {
+        return 0;
+    }
+    return &D_800E3E68[index];
+}
+
+void func_80072F54(Shell *shell, int *done) {
+    Hit hit;
+    Vec next;
+    int dt;
+    int stop = 0;
+
+    if (shell->timer <= 0) {
+        *done = 1;
+        return;
+    }
+    dt = D_800DE30C;
+    shell->timer -= dt;
+    shell->spin += fixed_mul(dt, 122);
+    if (shell->landed) {
+        return;
+    }
+    next.x = shell->pos.x + fixed_mul(dt, shell->vel.x);
+    next.y = shell->pos.y + fixed_mul(dt, shell->vel.y);
+    next.z = shell->pos.z + fixed_mul(dt, shell->vel.z);
+    shell->vel.y -= fixed_mul(dt, 8192);
+    D_800C628C = 1;
+    if (func_80019D80(&shell->pos, &next, 0x64940B, 0, 0, &hit)) {
+        if (shell->ignore == 0 || hit.obj != shell->ignore) {
+            if (hit.obj == 0) {
+                stop = 1;
+            } else {
+                Impact impact;
+                Response response;
+
+                response = D_800C05E8;
+                impact.pos.x = hit.pos.x;
+                impact.pos.y = hit.pos.y;
+                impact.pos.z = hit.pos.z;
+                impact.flag = 0;
+                impact.damage = shell->damage;
+                impact.owner = waypoint_ptr(shell->owner);
+                impact.count = 1;
+                impact.extra = 0;
+                if (D_800D32F4[hit.obj->kind].hit != 0 && hit.obj->kind != -1) {
+                    D_800D32F4[hit.obj->kind].hit(hit.obj, shell, 0, &impact, &response);
+                }
+                switch ((unsigned int)response.code) {
+                case 1:
+                case 3:
+                case 5:
+                    stop = 1;
+                    break;
+                }
+            }
+            shell->ignore = 0;
+        }
+    }
+    if (stop) {
+        shell->landed = 1;
+        return;
+    }
+    if (next.y <= 0) {
+        Vec lo;
+        Vec hi;
+
+        shell->landed = 1;
+        lo.x = shell->pos.x - 0x100000;
+        lo.y = shell->pos.y + 0x40000;
+        lo.z = shell->pos.z - 0x100000;
+        hi.x = shell->pos.x + 0x100000;
+        hi.y = shell->pos.y + 0x40000;
+        hi.z = shell->pos.z + 0x100000;
+        func_80070D5C(&lo, &hi, 512, 0x20000);
+    } else {
+        shell->pos = next;
+    }
+}

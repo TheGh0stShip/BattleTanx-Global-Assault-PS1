@@ -1,13 +1,43 @@
-asm(".text\n\t.set noreorder\n\t.globl func_80068888\nfunc_80068888:\n\t"
-    "addiu $29,$29,-0x20\n\tsw $17,0x14($29)\n\taddu $17,$4,$0\n\tsw $18,0x18($29)\n\t"
-    "addu $18,$5,$0\n\tsll $6,$6,16\n\tsw $16,0x10($29)\n\tsra $16,$6,16\n\t"
-    ".word 0x12000015\n\tsw $31,0x1C($29)\n\t.word 0x0C022B58\n\taddu $4,$16,$0\n\t"
-    "addu $4,$16,$0\n\t.word 0x0C022B30\n\taddu $16,$2,$0\n\tandi $12,$2,0xFFFF\n\t"
-    "andi $13,$16,0xFFFF\n\taddiu $14,$0,0x1000\n\tsub $15,$0,$16\n\tandi $15,$15,0xFFFF\n\t"
-    "sw $12,0($17)\n\tsw $13,4($17)\n\tsw $14,8($17)\n\tsw $15,0xC($17)\n\t"
-    "sw $12,0x10($17)\n\taddu $4,$17,$0\n\t.word 0x0C01A32A\n\taddu $5,$18,$0\n\t"
-    ".word 0x0801A24A\n\tnop\n\tlw $12,0($18)\n\tlw $13,4($18)\n\t"
-    "ctc2 $12,$0\n\tctc2 $13,$1\n\tlw $12,8($18)\n\tlw $13,0xC($18)\n\t"
-    "lw $14,0x10($18)\n\tctc2 $12,$2\n\tctc2 $13,$3\n\tctc2 $14,$4\n\t"
-    "lw $31,0x1C($29)\n\tlw $18,0x18($29)\n\tlw $17,0x14($29)\n\tlw $16,0x10($29)\n\t"
-    "jr $31\n\taddiu $29,$29,0x20");
+typedef struct {
+    short m[3][3];
+    short pad;
+    int t[3];
+} Matrix;
+
+extern int func_8008AD60(int angle);
+extern int func_8008ACC0(int angle);
+extern void func_80068CA8(Matrix *a, Matrix *b);
+
+static inline void pack_rot_z(int *out, int s, int c) {
+    __asm__ volatile("andi $12, %6, 0xffff\n\tandi $13, %5, 0xffff\n\tli $14, 4096\n\tneg $15, %5\n\tandi $15, $15, 0xffff\n\t"
+                     "sw $12, %0\n\tsw $13, %1\n\tsw $14, %2\n\tsw $15, %3\n\tsw $12, %4"
+                     : "=m"(out[0]), "=m"(out[1]), "=m"(out[2]), "=m"(out[3]), "=m"(out[4])
+                     : "r"(s), "r"(c) : "$12", "$13", "$14", "$15");
+}
+
+static inline void set_rot_matrix(Matrix *m) {
+    register int r0 __asm__("$12");
+    register int r1 __asm__("$13");
+    register int r2 __asm__("$14");
+    r0 = ((int *)m)[0];
+    r1 = ((int *)m)[1];
+    __asm__ volatile("ctc2 %0, $0\n\tctc2 %1, $1" : : "r"(r0), "r"(r1));
+    r0 = ((int *)m)[2];
+    r1 = ((int *)m)[3];
+    r2 = ((int *)m)[4];
+    __asm__ volatile("ctc2 %0, $2\n\tctc2 %1, $3\n\tctc2 %2, $4" : : "r"(r0), "r"(r1), "r"(r2));
+}
+
+void func_80068888(Matrix *out, Matrix *base, short angle) {
+    int s;
+    int c;
+
+    if (angle != 0) {
+        s = func_8008AD60(angle);
+        c = func_8008ACC0(angle);
+        pack_rot_z((int *)out, s, c);
+        func_80068CA8(out, base);
+    } else {
+        set_rot_matrix(base);
+    }
+}

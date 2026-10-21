@@ -1,40 +1,150 @@
-asm(".text\n\t.globl func_8008FF1C\nfunc_8008FF1C:\n\t"
-    ".word 0xAFA40000,0xAFA50004,0xAFA60008,0xAFA7000C\n\t"
-    ".word 0x27BDFFD8,0xAFB00010,0x00008021,0x27A8002C\n\t"
-    ".word 0x2C820011,0xAFBF0020,0xAFB3001C,0xAFB20018\n\t"
-    ".word 0xAFB10014,0x10400083,0xAFA40028,0x3C02800C\n\t"
-    ".word 0x244250A4,0x00041880,0x00621821,0x8C620000\n\t"
-    ".word 0x00000000,0x00400008,0x00000000,0x00008021\n\t"
-    ".word 0x8D030000,0x3C02800F,0x08024058,0xAC43EDF4\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x25080004,0x8D05FFFC\n\t"
-    ".word 0x8D110000,0x0C023F9E,0x00000000,0x1220006D\n\t"
-    ".word 0x00408021,0x08024058,0xAE200000,0x3C02800F\n\t"
-    ".word 0x2442EDF4,0x8C42002C,0x00000000,0x10400002\n\t"
-    ".word 0x24030003,0x2403000B,0x08024058,0x00608021\n\t"
-    ".word 0x3C03800F,0x2463EDF4,0x8C620010,0x8D07000C\n\t"
-    ".word 0x24420001,0x00408021,0x10E0005A,0xAC700010\n\t"
-    ".word 0x08024058,0xACE00000,0x08024058,0x24100001\n\t"
-    ".word 0x25080004,0x8D04FFFC,0x25080008,0x8D05FFFC\n\t"
-    ".word 0x25080004,0x8D070000,0x8D06FFFC,0x0C023F20\n\t"
-    ".word 0x00000000,0x08024058,0x00408021,0x25080004\n\t"
-    ".word 0x8D04FFFC,0x25080008,0x8D13FFFC,0x25080004\n\t"
-    ".word 0x8D11FFFC,0x8D120000,0x02602821,0x0C023EEF\n\t"
-    ".word 0x02203021,0x1240003F,0x00408021,0x16000002\n\t"
-    ".word 0x3C02800F,0x00008821,0x8C44EDF4,0x02602821\n\t"
-    ".word 0x02203021,0x0240F809,0x02003821,0x0802405A\n\t"
-    ".word 0x02001021,0x25080004,0x3C02800F,0x2444EDF4\n\t"
-    ".word 0x8D03FFFC,0x8C82002C,0x8D070000,0x1443002D\n\t"
-    ".word 0x24100001,0x10E0000A,0x3C02800F,0x8C82002C\n\t"
-    ".word 0x00000000,0x10400005,0x00801821,0x8C62002C\n\t"
-    ".word 0x00000000,0x1440FFFD,0x00000000,0x3C02800F\n\t"
-    ".word 0x2442EDF4,0x8C42002C,0x08024058,0x2C500001\n\t"
-    ".word 0x3C02800F,0x2445EDF4,0x8D020000,0x8CA3002C\n\t"
-    ".word 0x00000000,0x14620019,0x02001021,0x10600017\n\t"
-    ".word 0x00000000,0x8CA20004,0x00002021,0x34420004\n\t"
-    ".word 0xACA20004,0x0C023D2D,0x00000000,0x0802405A\n\t"
-    ".word 0x02001021,0x08024058,0x00008021,0x3C02800F\n\t"
-    ".word 0x2444EDF4,0x8D020000,0x8C83002C,0x00000000\n\t"
-    ".word 0x14620004,0x00008021,0x10600004,0x02001021\n\t"
-    ".word 0x8C90003C,0x00000000,0x02001021,0x8FBF0020\n\t"
-    ".word 0x8FB3001C,0x8FB20018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+extern int func_8008FE78(char *, int *);
+extern int func_8008FC80(int, char *, unsigned int, void *);
+extern int func_8008FBBC(int, unsigned char *, unsigned int);
+extern void func_8008F4B4(int);
+
+typedef struct {
+    int handle;
+    volatile int flags;
+    char pad8[8];
+    int count;
+    char pad20[24];
+    volatile int direct;
+    char pad48[12];
+    int dpos;
+} S8008FF1C;
+extern S8008FF1C D_800EEDF4;
+
+int func_8008FF1C(unsigned int cmd, ...) {
+    int r = 0;
+    char *ap = (char *)&cmd + 4;
+
+    switch (cmd) {
+    case 0:
+        r = 0;
+        D_800EEDF4.handle = *(int *)ap;
+        break;
+    case 1: {
+        int a;
+        int b;
+        int *z;
+
+        ap += 4;
+        a = ((int *)ap)[-1];
+        ap += 4;
+        b = ((int *)ap)[-1];
+        z = *(int **)ap;
+        r = func_8008FE78((char *)a, (int *)b);
+        if (z != 0) {
+            *z = 0;
+        }
+        break;
+    }
+    case 2: {
+        register int m asm("$3") = 3;
+
+        if (D_800EEDF4.direct != 0) {
+            m = 11;
+        }
+        r = m;
+        break;
+    }
+    case 5:
+    case 6: {
+        int *q = ((int **)ap)[3];
+
+        r = ++D_800EEDF4.count;
+        if (q != 0) {
+            *q = 0;
+        }
+        break;
+    }
+    case 7:
+        r = 1;
+        break;
+    case 10: {
+        int a;
+        int b;
+        int c;
+        void *d;
+
+        ap += 4;
+        a = ((int *)ap)[-1];
+        ap += 8;
+        b = ((int *)ap)[-1];
+        ap += 4;
+        c = ((int *)ap)[-1];
+        ap += 4;
+        d = ((void **)ap)[-1];
+        r = func_8008FC80(a, (char *)b, c, d);
+        break;
+    }
+    case 11: {
+        int a;
+        int b;
+        int c;
+        void (*cb)(int, int, int, int);
+
+        ap += 4;
+        a = ((int *)ap)[-1];
+        ap += 8;
+        b = ((int *)ap)[-1];
+        ap += 4;
+        c = ((int *)ap)[-1];
+        cb = *(void (**)(int, int, int, int))ap;
+        r = func_8008FBBC(a, (unsigned char *)b, c);
+        if (cb != 0) {
+            if (r == 0) {
+                c = 0;
+            }
+            cb(D_800EEDF4.handle, b, c, r);
+            return r;
+        }
+        break;
+    }
+    case 12: {
+        int a;
+        int b;
+
+        ap += 4;
+        a = ((int *)ap)[-1];
+        b = *(int *)ap;
+        r = 1;
+        if (D_800EEDF4.direct == a) {
+            if (b != 0) {
+                while (D_800EEDF4.direct != 0) {
+                }
+            }
+            r = D_800EEDF4.direct == 0;
+        }
+        break;
+    }
+    case 13: {
+        int a = *(int *)ap;
+
+        if (D_800EEDF4.direct == a && a != 0) {
+            D_800EEDF4.flags |= 4;
+            func_8008F4B4(0);
+        }
+        return r;
+    }
+    case 3:
+    case 4:
+    case 8:
+    case 9:
+    case 14:
+    case 15:
+        r = 0;
+        break;
+    case 16: {
+        int a = *(int *)ap;
+
+        r = 0;
+        if (D_800EEDF4.direct == a && a != 0) {
+            r = D_800EEDF4.dpos;
+        }
+        break;
+    }
+    }
+    return r;
+}

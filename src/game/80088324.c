@@ -1,49 +1,184 @@
-asm(".text\n\t.globl func_80088324\nfunc_80088324:\n\t"
-    ".word 0xAFA40000,0xAFA50004,0xAFA60008,0xAFA7000C\n\t"
-    ".word 0x27BDFFE0,0xAFB00010,0x00008021,0x27A60024\n\t"
-    ".word 0x2C820011,0xAFBF0018,0xAFB10014,0x104000AA\n\t"
-    ".word 0xAFA40020,0x3C02800C,0x24424D74,0x00041880\n\t"
-    ".word 0x00621821,0x8C620000,0x00000000,0x00400008\n\t"
-    ".word 0x00000000,0x00008021,0x8CC30000,0x3C02800F\n\t"
-    ".word 0x0802217F,0xAC43E588,0x24C60004,0x8CC4FFFC\n\t"
-    ".word 0x24C60004,0x8CC5FFFC,0x8CD10000,0x0C021B4F\n\t"
-    ".word 0x00000000,0x12200094,0x00408021,0x0802217F\n\t"
-    ".word 0xAE200000,0x3C02800F,0x2442E588,0x90420004\n\t"
-    ".word 0x8CD00000,0x10400003,0x00000000,0x0C021C78\n\t"
-    ".word 0x00000000,0x0C021BF1,0x02002021,0x0802217F\n\t"
-    ".word 0x00408021,0x8CC40000,0x0C021C9A,0x00000000\n\t"
-    ".word 0x0802217F,0x00408021,0x24C60004,0x8CC4FFFC\n\t"
-    ".word 0x24C60004,0x8CC5FFFC,0x8CD00004,0x0C021E0C\n\t"
-    ".word 0x00000000,0x08022110,0x00402021,0x24C60004\n\t"
-    ".word 0x8CC4FFFC,0x24C60004,0x8CC5FFFC,0x8CD00000\n\t"
-    ".word 0x0C021E54,0x00000000,0x00402021,0x10800009\n\t"
-    ".word 0x00000000,0x12000007,0x3C02800F,0x2442E588\n\t"
-    ".word 0x8C430034,0x8C420038,0x00000000,0x00621823\n\t"
-    ".word 0xAE030000,0x0802217F,0x00808021,0x8CC40000\n\t"
-    ".word 0x0C021D18,0x00000000,0x0802217F,0x00408021\n\t"
-    ".word 0x24C60004,0x8CC4FFFC,0x8CC50000,0x0C021DD7\n\t"
-    ".word 0x00000000,0x0802217F,0x00408021,0x0802217F\n\t"
-    ".word 0x00008021,0x24C60004,0x8CC4FFFC,0x24C60008\n\t"
-    ".word 0x8CC5FFFC,0x24C60004,0x8CC70000,0x8CC6FFFC\n\t"
-    ".word 0x0C022025,0x00000000,0x0802217F,0x00408021\n\t"
-    ".word 0x24C60004,0x8CC4FFFC,0x24C60008,0x8CC5FFFC\n\t"
-    ".word 0x24C60004,0x8CC70000,0x8CC6FFFC,0x0C021F53\n\t"
-    ".word 0x00000000,0x0802217F,0x00408021,0x24C60004\n\t"
-    ".word 0x3C02800F,0x2445E588,0x8CC3FFFC,0x8CA20030\n\t"
-    ".word 0x8CC40000,0x14430038,0x24100001,0x1080000A\n\t"
-    ".word 0x3C02800F,0x90A20004,0x00000000,0x10400005\n\t"
-    ".word 0x00A01821,0x90620004,0x00000000,0x1440FFFD\n\t"
-    ".word 0x00000000,0x3C02800F,0x2442E588,0x90420004\n\t"
-    ".word 0x0802217F,0x2C500001,0x3C02800F,0x8CC30000\n\t"
-    ".word 0x8C42E5B8,0x00000000,0x14430025,0x02001021\n\t"
-    ".word 0x0C021C78,0x00000000,0x08022181,0x02001021\n\t"
-    ".word 0x24C60004,0x8CC4FFFC,0x24C60004,0x8CC5FFFC\n\t"
-    ".word 0x8CD10000,0x0C021D5B,0x00000000,0x14400008\n\t"
-    ".word 0x02202021,0x0802217F,0xA2200000,0x8CD10000\n\t"
-    ".word 0x0C021D99,0x00000000,0x10400005,0x02202021\n\t"
-    ".word 0x0C023681,0x00402821,0x0802217F,0x24100001\n\t"
-    ".word 0x0802217F,0xA2200000,0x3C02800F,0x2444E588\n\t"
-    ".word 0x8CC30000,0x8C820030,0x00000000,0x14430002\n\t"
-    ".word 0x00008021,0x8C9000D0,0x00000000,0x02001021\n\t"
-    ".word 0x8FBF0018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0020\n");
+typedef struct CardState {
+    int mode;
+    volatile unsigned char active;
+    char pad05[0x27];
+    int channel;
+    int port;
+    unsigned int limit;
+    unsigned int used;
+    char pad3C[0x94];
+    unsigned int done;
+} CardState;
+
+extern CardState D_800EE588;
+extern int func_80086D3C(int, int);
+extern void func_800871E0(void);
+extern int func_80086FC4(int);
+extern int func_80087268(int);
+extern int func_80087830(int, int);
+extern int func_80087950(int, int);
+extern int func_80087460(int);
+extern int func_8008775C(int, int);
+extern int func_80088094(int, int, int, int);
+extern int func_80087D4C(int, int, int, int);
+extern int func_8008756C(int, int);
+extern int func_80087664(void);
+extern void func_8008DA04(char *, int);
+
+int func_80088324(int cmd, ...) {
+    int result = 0;
+    char *ap = (char *)&cmd + 4;
+    int *out;
+    char *name;
+    int n;
+
+    switch ((unsigned int)cmd) {
+    case 0:
+        result = 0;
+        D_800EE588.mode = *(int *)ap;
+        break;
+    case 1:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int *zero_out = *(int **)ap;
+            result = func_80086D3C(a, b);
+            if (zero_out != 0) {
+                *zero_out = 0;
+            }
+        }
+        break;
+    case 2:
+        {
+            int a = *(int *)ap;
+            if (D_800EE588.active) {
+                func_800871E0();
+            }
+            result = func_80086FC4(a);
+        }
+        break;
+    case 3:
+        result = func_80087268(*(int *)ap);
+        break;
+    case 5:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            out = ((int **)ap)[1];
+            n = func_80087830(a, b);
+        }
+        goto size_out;
+    case 6:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            out = *(int **)ap;
+            n = func_80087950(a, b);
+        }
+    size_out:
+        if (n != 0 && out != 0) {
+            *out = D_800EE588.limit - D_800EE588.used;
+        }
+        result = n;
+        break;
+    case 7:
+        result = func_80087460(*(int *)ap);
+        break;
+    case 8:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            result = func_8008775C(a, *(int *)ap);
+        }
+        break;
+    case 4:
+    case 9:
+        result = 0;
+        break;
+    case 10:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b;
+            int c;
+            int d;
+            ap += 4;
+            b = (ap += 4, *(int *)(ap - 4));
+            c = (ap += 4, *(int *)(ap - 4));
+            d = (ap += 4, *(int *)(ap - 4));
+            result = func_80088094(a, b, c, d);
+        }
+        break;
+    case 11:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b;
+            int c;
+            int d;
+            ap += 4;
+            b = (ap += 4, *(int *)(ap - 4));
+            c = (ap += 4, *(int *)(ap - 4));
+            d = (ap += 4, *(int *)(ap - 4));
+            result = func_80087D4C(a, b, c, d);
+        }
+        break;
+    case 12:
+        {
+        int a = (ap += 4, *(int *)(ap - 4));
+        int b = *(int *)ap;
+        result = 1;
+        if (D_800EE588.port == a) {
+            if (b != 0) {
+                while (D_800EE588.active) {
+                }
+            }
+            result = D_800EE588.active == 0;
+        }
+        }
+        break;
+    case 13:
+        {
+            int port = *(int *)ap;
+            if (D_800EE588.port == port) {
+                func_800871E0();
+            }
+        }
+        break;
+    case 14:
+        {
+            int a = (ap += 4, *(int *)(ap - 4));
+            int b = (ap += 4, *(int *)(ap - 4));
+            int len;
+            name = *(char **)ap;
+            len = func_8008756C(a, b);
+            if (len != 0) {
+                func_8008DA04(name, len);
+                result = 1;
+            } else {
+                *name = 0;
+            }
+        }
+        break;
+    case 15:
+        {
+            int len;
+            name = *(char **)ap;
+            len = func_80087664();
+            if (len != 0) {
+                func_8008DA04(name, len);
+                result = 1;
+            } else {
+                *name = 0;
+            }
+        }
+        break;
+    case 16:
+        {
+            int port = *(int *)ap;
+            result = 0;
+            if (D_800EE588.port == port) {
+                result = D_800EE588.done;
+            }
+        }
+        break;
+    }
+    return result;
+}

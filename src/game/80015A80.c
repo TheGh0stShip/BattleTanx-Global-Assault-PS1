@@ -1,28 +1,78 @@
-asm(".text\n\t.globl func_80015A80\nfunc_80015A80:\n\t"
-    ".word 0x27BDFFE0,0x3C08800C,0xAFB00010,0x25106290\n\t"
-    ".word 0x00C43023,0x30C2FFFF,0x00021282,0x24420001\n\t"
-    ".word 0x00E53823,0xAFBF0018,0xAFB10014,0xA6020008\n\t"
-    ".word 0x30E2FFFF,0x00021282,0x24420001,0xA602000A\n\t"
-    ".word 0x3042FFFF,0x96030008,0x00021080,0x00620018\n\t"
-    ".word 0xA5046290,0xA6050002,0xA6060004,0xA6070006\n\t"
-    ".word 0x3C02800A,0x8C4248DC,0x00004812,0x14400005\n\t"
-    ".word 0x35310001,0x3224FFFF,0x0C0091C0,0x00042040\n\t"
-    ".word 0xAE02000C,0x8E05000C,0x3224FFFF,0x10800008\n\t"
-    ".word 0x00001821,0x3406FFFF,0xA4A60000,0x24630001\n\t"
-    ".word 0x3062FFFF,0x0044102B,0x1440FFFB,0x24A50002\n\t"
-    ".word 0x3C06800E,0x24C649A0,0x90C30006,0x24021999\n\t"
-    ".word 0x00620018,0x3C02800D,0x8C432FE4,0x00000000\n\t"
-    ".word 0x94640010,0x9462000C,0x00004012,0x00822023\n\t"
-    ".word 0x3084FFFF,0x0104001A,0x14800002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14810004,0x3C018000\n\t"
-    ".word 0x15010002,0x00000000,0x0006000D,0x00003812\n\t"
-    ".word 0x94650012,0x9462000E,0xAE060018,0x00C01821\n\t"
-    ".word 0x00A22823,0x3C02800D,0xAE070010,0x90630006\n\t"
-    ".word 0x30A5FFFF,0xA0432DFC,0x90C60007,0x8E030018\n\t"
-    ".word 0x3C02800D,0xAC442DF8,0x3C02800C,0xAC4560F4\n\t"
-    ".word 0x3C02800C,0xA04662AC,0x90620007,0x00000000\n\t"
-    ".word 0x00021300,0x0045001A,0x14A00002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14A10004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x00001012\n\t"
-    ".word 0x00000000,0xAE020014,0x8FBF0018,0x8FB10014\n\t"
-    ".word 0x8FB00010,0x03E00008,0x27BD0020\n");
+typedef struct GridConfig {
+    char pad00[6];
+    unsigned char scale_x;
+    unsigned char scale_z;
+} GridConfig;
+typedef struct Grid {
+    short x0;
+    short z0;
+    short width;
+    short depth;
+    unsigned short cols;
+    unsigned short rows;
+    unsigned short *cells;
+    int scale_x;
+    int scale_z;
+    GridConfig *config;
+} Grid;
+typedef struct LevelBounds {
+    char pad00[0xC];
+    unsigned short x0;
+    unsigned short z0;
+    unsigned short x1;
+    unsigned short z1;
+} LevelBounds;
+extern Grid D_800C6290;
+extern int D_800A48DC;
+extern GridConfig D_800E49A0;
+extern LevelBounds *D_800D2FE4;
+extern unsigned char D_800D2DFC;
+extern int D_800D2DF8;
+extern int D_800C60F4;
+extern unsigned char D_800C62AC;
+unsigned short *func_80024700(int);
+
+static inline int imul(int a, int b) {
+    return a * b;
+}
+
+void func_80015A80(int x0, int z0, int x1, int z1) {
+    Grid *g = &D_800C6290;
+    GridConfig *config;
+    unsigned short count;
+    unsigned short i;
+    unsigned short *cell;
+    int scale;
+    unsigned short dx;
+    unsigned short dz;
+
+    x1 -= x0;
+    g->cols = ((unsigned short)x1 >> 10) + 1;
+    z1 -= z0;
+    g->rows = ((unsigned short)z1 >> 10) + 1;
+    count = g->cols * (g->rows << 2) + 1;
+    D_800C6290.x0 = x0;
+    g->z0 = z0;
+    g->width = x1;
+    g->depth = z1;
+    if (D_800A48DC == 0) {
+        g->cells = func_80024700(count * 2);
+    }
+    cell = g->cells;
+    for (i = 0; i < count; i++) {
+        *cell++ = 0xFFFF;
+    }
+    do {
+        config = &D_800E49A0;
+        dx = (unsigned short)(D_800D2FE4->x1 - D_800D2FE4->x0);
+        scale = imul(config->scale_x, 6553) / dx;
+        dz = (unsigned short)(D_800D2FE4->z1 - D_800D2FE4->z0);
+        g->config = config;
+        g->scale_x = scale;
+        D_800D2DFC = g->config->scale_x;
+        D_800C62AC = g->config->scale_z;
+        D_800D2DF8 = dx;
+        D_800C60F4 = dz;
+        g->scale_z = (g->config->scale_z << 12) / dz;
+    } while (0);
+}

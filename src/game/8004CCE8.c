@@ -1,34 +1,68 @@
-asm(".text\n\t.globl func_8004CCE8\nfunc_8004CCE8:\n\t"
-    ".word 0x27BDFFB8,0xAFB20038,0x00809021,0xAFBF0040\n\t"
-    ".word 0xAFB3003C,0xAFB10034,0x0C0133ED,0xAFB00030\n\t"
-    ".word 0x00408821,0x16200034,0x02201021,0x8E420180\n\t"
-    ".word 0x00000000,0x30420080,0x14400003,0x02402021\n\t"
-    ".word 0x08013377,0xA6400148,0x964200FC,0xA640014A\n\t"
-    ".word 0x0C0133ED,0xA6420148,0x00408821,0x12200025\n\t"
-    ".word 0x27A40010,0x26500008,0x02002821,0x02203021\n\t"
-    ".word 0x0C012583,0x2653013C,0x02002021,0x8E220000\n\t"
-    ".word 0x8FA30018,0x27A50020,0x00431021,0xAFA20020\n\t"
-    ".word 0x8E220008,0x8FA30010,0x02203021,0x00431023\n\t"
-    ".word 0x0C01253F,0xAFA20028,0x24030001,0x14430007\n\t"
-    ".word 0x00000000,0x8FA20020,0x00000000,0xAE42013C\n\t"
-    ".word 0x8FA20028,0x08013377,0xAE620008,0x8E220000\n\t"
-    ".word 0x8FA30018,0x00000000,0x00431023,0xAE42013C\n\t"
-    ".word 0x8E220008,0x8FA30010,0x00000000,0x00431021\n\t"
-    ".word 0xAE620008,0x02201021,0x1040003D,0x02402021\n\t"
-    ".word 0x0C0133FF,0x00402821,0x10400039,0x00000000\n\t"
-    ".word 0x0C012B19,0x02402021,0x0C0133ED,0x02402021\n\t"
-    ".word 0x14400033,0x00000000,0x8E420180,0x00000000\n\t"
-    ".word 0x30420080,0x14400003,0x02402021,0x080133B6\n\t"
-    ".word 0xA6400148,0x964200FC,0xA640014A,0x0C0133ED\n\t"
-    ".word 0xA6420148,0x00408821,0x12200025,0x27A40010\n\t"
-    ".word 0x26500008,0x02002821,0x02203021,0x0C012583\n\t"
-    ".word 0x2653013C,0x02002021,0x8E220000,0x8FA30018\n\t"
-    ".word 0x27A50020,0x00431021,0xAFA20020,0x8E220008\n\t"
-    ".word 0x8FA30010,0x02203021,0x00431023,0x0C01253F\n\t"
-    ".word 0xAFA20028,0x24030001,0x14430007,0x00000000\n\t"
-    ".word 0x8FA20020,0x00000000,0xAE42013C,0x8FA20028\n\t"
-    ".word 0x080133B6,0xAE620008,0x8E220000,0x8FA30018\n\t"
-    ".word 0x00000000,0x00431023,0xAE42013C,0x8E220008\n\t"
-    ".word 0x8FA30010,0x00000000,0x00431021,0xAE620008\n\t"
-    ".word 0x8FBF0040,0x8FB3003C,0x8FB20038,0x8FB10034\n\t"
-    ".word 0x8FB00030,0x03E00008,0x27BD0048\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[8];
+    Vector position;
+    char pad14[0xFC - 0x14];
+    unsigned short route;
+    char padFE[0x13C - 0xFE];
+    Vector side_goal;
+    char pad148[0x148 - 0x148];
+    unsigned short route_seen;
+    unsigned short route_seen2;
+    char pad14C[0x180 - 0x14C];
+    int flags;
+} Tank;
+extern Vector *func_8004CFB4(Tank *);
+extern int func_8004CFFC(Tank *, Vector *);
+extern void func_8004AC64(Tank *);
+extern void func_8004960C(Vector *, Vector *, Vector *);
+extern int func_800494FC(Vector *, Vector *, Vector *);
+
+static inline Vector *find_route_goal(Tank *tank, int pinned) {
+    Vector dir;
+    Vector side;
+    Vector *sg;
+    Vector *goal;
+
+    goal = func_8004CFB4(tank);
+    if (pinned) {
+        __asm__("" : "+r"(goal));
+    }
+    if (goal != 0) {
+        return goal;
+    }
+    if (!(tank->flags & 0x80)) {
+        tank->route_seen = 0;
+    } else {
+        tank->route_seen2 = 0;
+        tank->route_seen = tank->route;
+        goal = func_8004CFB4(tank);
+        if (goal != 0) {
+            sg = &tank->side_goal;
+            func_8004960C(&dir, &tank->position, goal);
+            side.x = goal->x + dir.z;
+            side.z = goal->z - dir.x;
+            if (func_800494FC(&tank->position, &side, goal) == 1) {
+                tank->side_goal.x = side.x;
+                sg->z = side.z;
+            } else {
+                tank->side_goal.x = goal->x - dir.z;
+                sg->z = goal->z + dir.x;
+            }
+        }
+    }
+    return goal;
+}
+
+void func_8004CCE8(Tank *tank) {
+    Vector *goal = find_route_goal(tank, 1);
+
+    if (goal != 0 && func_8004CFFC(tank, goal) != 0) {
+        func_8004AC64(tank);
+        find_route_goal(tank, 0);
+    }
+}

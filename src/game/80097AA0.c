@@ -1,46 +1,110 @@
-asm(".text\n\t.globl func_80097AA0\nfunc_80097AA0:\n\t"
-    ".word 0x3C02800F,0x8C47F0EC,0x27BDFF68,0xAFB40080\n\t"
-    ".word 0x0080A021,0xAFB60088,0x24160001,0xAFBF0094\n\t"
-    ".word 0xAFBE0090,0xAFB7008C,0xAFB50084,0xAFB3007C\n\t"
-    ".word 0xAFB20078,0xAFB10074,0xAFB00070,0xAFA5009C\n\t"
-    ".word 0xAFA70058,0x3C08800F,0x2508F0EC,0x8D040004\n\t"
-    ".word 0x8FA70058,0x00000000,0x00E4102B,0x1040008C\n\t"
-    ".word 0x3C033FFF,0x3463FFFF,0x0000A821,0x02809821\n\t"
-    ".word 0xAFA00068,0x8CE20004,0x8CE80000,0x02A0B821\n\t"
-    ".word 0xAFA40064,0x00431024,0x2C5E0001,0xAFA8005C\n\t"
-    ".word 0xAFA20060,0x12C00070,0x3C07800F,0x17C0006F\n\t"
-    ".word 0x24E7F0EC,0x8FA70060,0x00000000,0x00F51823\n\t"
-    ".word 0x2C622000,0x10400003,0x24100004,0x246207FF\n\t"
-    ".word 0x000282C2,0x02802021,0x8FA5005C,0x0C025DC8\n\t"
-    ".word 0x02003021,0x0040B021,0x8FA8005C,0x00008821\n\t"
-    ".word 0x01104021,0x12C0005B,0xAFA8005C,0x12740007\n\t"
-    ".word 0x02712021,0x27A40010,0x00972021,0x8FA60068\n\t"
-    ".word 0x0C0229EF,0x02802821,0x02712021,0x90920000\n\t"
-    ".word 0x00000000,0x12400026,0x362207FF,0x90820021\n\t"
-    ".word 0x00000000,0x2C420002,0x1440001E,0x3C07800F\n\t"
-    ".word 0x24E7F0EC,0x8CE30004,0x8CE20008,0x00000000\n\t"
-    ".word 0x0062182B,0x10600016,0x00000000,0x0C025DF8\n\t"
-    ".word 0x00000000,0x8FA8009C,0x00000000,0x15000011\n\t"
-    ".word 0x3C07800F,0x24E7F0EC,0x8CE20004,0x00000000\n\t"
-    ".word 0x02821023,0x2C42000D,0x1040000A,0x26901000\n\t"
-    ".word 0x02002021,0x02802821,0x0C022A21,0x24062000\n\t"
-    ".word 0x16740004,0x0200A021,0x08025F11,0x02009821\n\t"
-    ".word 0x0000B021,0x02328821,0x08025F17,0x02B2A821\n\t"
-    ".word 0x24510001,0x36A207FF,0x24550001,0x8FA80060\n\t"
-    ".word 0x00000000,0x02A8102B,0x14400003,0x02712821\n\t"
-    ".word 0x08025F32,0x241E0001,0x12740004,0x2E222000\n\t"
-    ".word 0x8FB10068,0x08025F32,0x02809821,0x1040000E\n\t"
-    ".word 0x00000000,0x90A30000,0x00000000,0x02231021\n\t"
-    ".word 0x2C422001,0x14400008,0x24022000,0x0051B823\n\t"
-    ".word 0x00771823,0xAFA30068,0x27A40010,0x0C0229EF\n\t"
-    ".word 0x02E03021,0x27B30010,0x12C0000B,0x3C07800F\n\t"
-    ".word 0x17C0FF98,0x00000000,0x2E222000,0x1040FF95\n\t"
-    ".word 0x00000000,0x1274FFB1,0x02712021,0x08025ECD\n\t"
-    ".word 0x00000000,0x3C07800F,0x24E7F0EC,0x8CE30004\n\t"
-    ".word 0x8FA4005C,0x8FA70064,0x8FA80058,0x3C028000\n\t"
-    ".word 0xAD070000,0x00671823,0x00621825,0xAFA30060\n\t"
-    ".word 0x0C025E5B,0xAD030004,0x16C0FF6E,0xAFA20058\n\t"
-    ".word 0x02C01021,0x8FBF0094,0x8FBE0090,0x8FB7008C\n\t"
-    ".word 0x8FB60088,0x8FB50084,0x8FB40080,0x8FB3007C\n\t"
-    ".word 0x8FB20078,0x8FB10074,0x8FB00070,0x03E00008\n\t"
-    ".word 0x27BD0098\n");
+typedef struct {
+    unsigned int sector;
+    unsigned int size;
+    int hash;
+} DirEntry;
+
+typedef struct {
+    DirEntry *root;
+    DirEntry *cur;
+    DirEntry *end;
+} DirTable;
+
+extern DirTable D_800EF0EC;
+extern int func_80097720(void *buf, int sector, int count);
+extern void func_800977E0(unsigned char *rec);
+extern DirEntry *func_8009796C(unsigned int sector);
+extern void *func_8008A7BC(void *dst, void *src, int n);
+extern void *func_8008A884(void *dst, void *src, int n);
+
+int func_80097AA0(unsigned char *buf, int flat)
+{
+    unsigned char tmp[72];
+    DirEntry *dir;
+    int sector;
+    unsigned int size;
+    DirEntry *first;
+    unsigned int carry;
+    unsigned char *cur;
+    unsigned char *rec;
+    unsigned int pos;
+    unsigned int off;
+    unsigned int len;
+    unsigned int n;
+    unsigned int split;
+    int count;
+    int ok;
+    int done;
+
+    ok = 1;
+    dir = D_800EF0EC.root;
+    while (ok && dir < D_800EF0EC.cur) {
+        carry = 0;
+        size = dir->size & 0x3FFFFFFF;
+        pos = 0;
+        cur = buf;
+        sector = dir->sector;
+        split = pos;
+        first = D_800EF0EC.cur;
+        done = size == 0;
+        while (ok && !done) {
+            count = 4;
+            if (size - pos < 0x2000) {
+                count = (size - pos + 0x7FF) >> 11;
+            }
+            ok = func_80097720(buf, sector, count);
+            sector += count;
+            off = 0;
+            if (!ok) {
+                break;
+            }
+            if (cur != buf) {
+                func_8008A7BC(tmp + split, buf, carry);
+            }
+            do {
+                len = cur[off];
+                if (len != 0) {
+                    if (cur[off + 33] >= 2) {
+                        if (D_800EF0EC.cur < D_800EF0EC.end) {
+                            func_800977E0(cur + off);
+                            if (!flat && (unsigned int)(buf - (unsigned char *)D_800EF0EC.cur) < 13) {
+                                func_8008A884(buf + 0x1000, buf, 0x2000);
+                                if (cur == buf) {
+                                    cur = buf + 0x1000;
+                                }
+                                buf += 0x1000;
+                            }
+                        } else {
+                            ok = 0;
+                        }
+                    }
+                    off += len;
+                    pos += len;
+                } else {
+                    off = (off | 0x7FF) + 1;
+                    pos = (pos | 0x7FF) + 1;
+                }
+                rec = cur + off;
+                if (pos >= size) {
+                    done = 1;
+                } else if (cur != buf) {
+                    off = carry;
+                    cur = buf;
+                } else if (off < 0x2000) {
+                    n = *rec;
+                    if (off + n > 0x2000) {
+                        split = 0x2000 - off;
+                        carry = n - split;
+                        func_8008A7BC(tmp, rec, split);
+                        cur = tmp;
+                    }
+                }
+            } while (ok && !done && off < 0x2000 && cur == buf);
+        }
+        size = ((unsigned int)D_800EF0EC.cur - (unsigned int)first) | 0x80000000;
+        dir->sector = (unsigned int)first;
+        dir->size = size;
+        dir = func_8009796C(sector);
+    }
+    return ok;
+}

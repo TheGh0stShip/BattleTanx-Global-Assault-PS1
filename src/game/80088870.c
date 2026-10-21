@@ -1,25 +1,52 @@
-asm(".text\n\t.globl func_80088870\nfunc_80088870:\n\t"
-    ".word 0x3C02800B,0x8C420E98,0x3C05800B,0x8CA50E9C\n\t"
-    ".word 0x27BDFFD8,0xAFBF0020,0xAFB1001C,0xAFB00018\n\t"
-    ".word 0x8C500000,0x8CA20000,0x00000000,0xAFA20010\n\t"
-    ".word 0x8FA30010,0x8CA20000,0x00000000,0x1462FFF9\n\t"
-    ".word 0x00000000,0x8FA20010,0x3C03800B,0x8C630EA0\n\t"
-    ".word 0x00000000,0x00431023,0x04810005,0x3051FFFF\n\t"
-    ".word 0x3C02800B,0x8C426C74,0x08022275,0x00000000\n\t"
-    ".word 0x24020001,0x1082003A,0x00000000,0x18800007\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C420EA4,0x00000000\n\t"
-    ".word 0x2442FFFF,0x08022245,0x00441021,0x3C02800B\n\t"
-    ".word 0x8C420EA4,0x18800002,0x00002821,0x2485FFFF\n\t"
-    ".word 0x0C02227A,0x00402021,0x3C02800B,0x8C420E98\n\t"
-    ".word 0x00000000,0x8C500000,0x3C04800B,0x8C846C74\n\t"
-    ".word 0x24050001,0x0C02227A,0x24840001,0x3C020040\n\t"
-    ".word 0x02021024,0x1040000F,0x00000000,0x3C03800B\n\t"
-    ".word 0x8C630E98,0x00000000,0x8C620000,0x00000000\n\t"
-    ".word 0x02021026,0x04400007,0x3C048000,0x8C620000\n\t"
-    ".word 0x00000000,0x02021026,0x00441024,0x1040FFFB\n\t"
-    ".word 0x00000000,0x3C02800B,0x8C426C74,0x3C04800B\n\t"
-    ".word 0x8C840E9C,0x3C01800B,0xAC220EA4,0x8C820000\n\t"
-    ".word 0x3C01800B,0xAC220EA0,0x3C03800B,0x8C630EA0\n\t"
-    ".word 0x8C820000,0x00000000,0x1462FFF8,0x00000000\n\t"
-    ".word 0x02201021,0x8FBF0020,0x8FB1001C,0x8FB00018\n\t"
-    ".word 0x03E00008,0x27BD0028\n");
+
+extern volatile unsigned int *D_800B0E98;
+extern volatile int *D_800B0E9C;
+extern volatile int D_800B0EA0;
+extern int D_800B0EA4;
+extern volatile int D_800B6C74;
+extern void func_800889E8(int target, int timeout);
+int func_80088870(int mode)
+{
+  unsigned int status;
+  volatile int rcnt;
+  int ret;
+  int new_var;
+  int target;
+  status = *D_800B0E98;
+  do
+  {
+    rcnt = *D_800B0E9C;
+  }
+  while (rcnt != (*D_800B0E9C));
+  ret = (rcnt - D_800B0EA0) & 0xFFFF;
+  if (mode < 0)
+  {
+    return D_800B6C74;
+  }
+  if (mode == 1)
+  {
+    return ret;
+  }
+  new_var = mode;
+  if (new_var > 0) { int base = D_800B0EA4 - 1; target = base + new_var; } else { target = D_800B0EA4; }
+  func_800889E8(target, (new_var > 0) ? (new_var - 1) : (0));
+  status = *D_800B0E98;
+  func_800889E8(D_800B6C74 + 1, 1);
+  if (status & 0x400000)
+  {
+    if (((int) (status ^ (*D_800B0E98))) >= 0)
+    {
+      do
+      {
+      }
+      while (((status ^ (*D_800B0E98)) & 0x80000000) == 0);
+    }
+  }
+  D_800B0EA4 = D_800B6C74;
+  do
+  {
+    D_800B0EA0 = *D_800B0E9C;
+  }
+  while (D_800B0EA0 != (*D_800B0E9C));
+  return ret;
+}

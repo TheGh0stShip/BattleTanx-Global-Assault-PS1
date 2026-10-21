@@ -1,36 +1,121 @@
-asm(".text\n\t.globl func_8004C970\nfunc_8004C970:\n\t"
-    ".word 0x27BDFF68,0xAFB3007C,0x00809821,0xAFBE0090\n\t"
-    ".word 0x00A0F021,0xAFB60088,0x0000B021,0xAFB7008C\n\t"
-    ".word 0x02C0B821,0x03C02021,0x24050002,0x27A60018\n\t"
-    ".word 0xAFBF0094,0xAFB50084,0xAFB40080,0xAFB20078\n\t"
-    ".word 0xAFB10074,0xAFB00070,0x8E620208,0x00000000\n\t"
-    ".word 0x8C550010,0x0C0124F9,0x267400F8,0x27A40018\n\t"
-    ".word 0x27B20030,0x02403021,0x27B00020,0x8E850040\n\t"
-    ".word 0x0C01251A,0x02003821,0x26710008,0x02202021\n\t"
-    ".word 0x02002821,0x0C01253F,0x02403021,0x24030001\n\t"
-    ".word 0x10430015,0x02602021,0x0C012558,0x00602821\n\t"
-    ".word 0x3C06002C,0x34C6700F,0x02202021,0x02402821\n\t"
-    ".word 0x02A63021,0x3047FFFF,0x8E630000,0x3C02800C\n\t"
-    ".word 0xA440628C,0x27A20040,0xAFA20014,0x0C006760\n\t"
-    ".word 0xAFA30010,0x3042FFFF,0x14400003,0x02602021\n\t"
-    ".word 0x080132A9,0x0240B021,0x0C012558,0x24050001\n\t"
-    ".word 0x3C06002C,0x34C6700F,0x26640008,0x27A50020\n\t"
-    ".word 0x02A63021,0x3047FFFF,0x8E630000,0x3C02800C\n\t"
-    ".word 0xA440628C,0x27A20040,0xAFA20014,0x0C006760\n\t"
-    ".word 0xAFA30010,0x3042FFFF,0x14400002,0x00000000\n\t"
-    ".word 0x27B60020,0x12C0002F,0x02E01021,0x27A40068\n\t"
-    ".word 0x0C0129A5,0x24050003,0x03C02021,0x8FA50068\n\t"
-    ".word 0x00408021,0x0C0124F0,0x24A50010,0x8FA30068\n\t"
-    ".word 0x8FA20020,0x02602021,0xAC620004,0x8FA50028\n\t"
-    ".word 0x24020002,0xA0620018,0x0C012FA7,0xAC65000C\n\t"
-    ".word 0x00002021,0x26910004,0x02202821,0x0C012955\n\t"
-    ".word 0x3206FFFF,0x96830006,0x00000000,0x00621821\n\t"
-    ".word 0x3C02800A,0x8C445B24,0x34028000,0xA6830006\n\t"
-    ".word 0x00822821,0x94A26010,0x3063FFFF,0x0062182B\n\t"
-    ".word 0x14600008,0x02202021,0x00402821,0x0C012A08\n\t"
-    ".word 0x02803021,0x96830006,0x00000000,0x00621823\n\t"
-    ".word 0xA6830006,0x0C01333A,0x02602021,0x24170001\n\t"
-    ".word 0x02E01021,0x8FBF0094,0x8FBE0090,0x8FB7008C\n\t"
-    ".word 0x8FB60088,0x8FB50084,0x8FB40080,0x8FB3007C\n\t"
-    ".word 0x8FB20078,0x8FB10074,0x8FB00070,0x03E00008\n\t"
-    ".word 0x27BD0098\n");
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    int x;
+    int y;
+    int z;
+    int pad;
+} Vector4;
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short pad;
+} SVector;
+typedef struct {
+    int a;
+    int b;
+} Segment;
+typedef struct {
+    unsigned char kind;
+    char pad1;
+    short current;
+    int x;
+    int pad8;
+    int z;
+    SVector point;
+    unsigned char mode;
+    char pad19;
+    short d;
+} MoveC;
+typedef struct {
+    char data[40];
+} Hit;
+typedef struct {
+    char pad0[0x10];
+    int probe_mask;
+} Owner;
+typedef struct {
+    char pad0[4];
+    unsigned short head;
+    unsigned short count;
+    char pad8[0x40 - 8];
+    int width;
+} Route;
+typedef struct {
+    int id;
+    char pad04[4];
+    Vector position;
+    char pad14[0xF8 - 0x14];
+    Route route;
+    char pad13C[0x208 - 0x13C];
+    Owner *owner;
+} Tank;
+typedef struct {
+    char pad0[0xE010];
+    unsigned short max_route;
+} MoveSystem;
+extern MoveSystem *D_800A5B24;
+extern short D_800C628C;
+extern void func_800493E4(void *, int, Segment *);
+extern void func_80049468(Segment *, int, Vector4 *, Vector4 *);
+extern int func_800494FC(Vector *, Vector4 *, Vector4 *);
+extern int func_80049560(Tank *, int);
+extern unsigned short func_80019D80(Vector *, Vector4 *, int, int, int, Hit *);
+extern unsigned short func_8004A694(MoveC **, int);
+extern void func_800493C0(void *, SVector *);
+extern void func_8004BE9C(Tank *);
+extern int func_8004A554(int, unsigned short *, unsigned short);
+extern int func_8004A820(unsigned short *, unsigned short, Route *);
+extern void func_8004CCE8(Tank *);
+
+static inline int path_clear(Tank *tank, Vector4 *to, int mask, Hit *hit) {
+    unsigned short reach = func_80049560(tank, 1);
+
+    D_800C628C = 0;
+    return func_80019D80(&tank->position, to, mask + 0x2C700F, reach, tank->id, hit) == 0;
+}
+
+int func_8004C970(Tank *tank, void *hit_point) {
+    Vector4 *chosen = 0;
+    int result = 0;
+    register int mask asm("$21") = tank->owner->probe_mask;
+    register Route *route asm("$20") = &tank->route;
+    Segment segment;
+    Vector4 near;
+    Vector4 far;
+    Hit hit;
+    MoveC *move;
+    MoveC *m;
+    unsigned short id;
+    int probe_mask;
+    register Vector4 *farp asm("$18") = &far;
+
+    func_800493E4(hit_point, 2, &segment);
+    probe_mask = mask;
+    func_80049468(&segment, route->width, farp, &near);
+    if (func_800494FC(&tank->position, &near, farp) != 1 && path_clear(tank, farp, probe_mask, &hit)) {
+        chosen = farp;
+    } else if (path_clear(tank, &near, probe_mask, &hit)) {
+        chosen = &near;
+    }
+    if (chosen != 0) {
+        id = func_8004A694(&move, 3);
+        func_800493C0(hit_point, &move->point);
+        m = move;
+        m->x = near.x;
+        m->z = near.z;
+        m->mode = 2;
+        func_8004BE9C(tank);
+        route->count += func_8004A554(0, &route->head, id);
+        if (route->count >= D_800A5B24->max_route) {
+            route->count -= func_8004A820(&route->head, D_800A5B24->max_route, route);
+        }
+        func_8004CCE8(tank);
+        result = 1;
+    }
+    return result;
+}

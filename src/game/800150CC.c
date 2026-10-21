@@ -1,38 +1,107 @@
-asm(".text\n\t.globl func_800150CC\nfunc_800150CC:\n\t"
-    ".word 0x27BDFFA8,0xAFB10044,0x00808821,0xAFB20048\n\t"
-    ".word 0x00A09021,0xAFBF0050,0xAFB3004C,0xAFB00040\n\t"
-    ".word 0x96220024,0x96250026,0x00000000,0x00451023\n\t"
-    ".word 0x00021400,0x00021C03,0x04610002,0x00602021\n\t"
-    ".word 0x00042023,0x28820009,0x10400003,0x00C09821\n\t"
-    ".word 0x0800544C,0x24020004,0x28820011,0x1040000F\n\t"
-    ".word 0x24020002,0x0062001A,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14410004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00001012\n\t"
-    ".word 0x00000000,0x00A21021,0xA6220024,0x96230024\n\t"
-    ".word 0x00000000,0x00601021,0x244200CC,0x00021400\n\t"
-    ".word 0x00021403,0xA6220024,0x28421001,0x14400003\n\t"
-    ".word 0xA6230026,0x24021000,0xA6220024,0x02202021\n\t"
-    ".word 0x02603021,0x27A70028,0x86250024,0x27B00018\n\t"
-    ".word 0x0C0054C6,0xAFB00010,0x02202021,0x27A50030\n\t"
-    ".word 0x8E420000,0x8FA3001C,0x8E470008,0x02003021\n\t"
-    ".word 0xAFA20030,0xAFA30034,0x0C005516,0xAFA70038\n\t"
-    ".word 0x00402021,0x00041400,0x00021C03,0x28621000\n\t"
-    ".word 0x10400008,0x24020F99,0x00620018,0x00001012\n\t"
-    ".word 0x04410004,0x00022302,0x00021023,0x00021303\n\t"
-    ".word 0x00022023,0x86230024,0x00041400,0x00021403\n\t"
-    ".word 0x00620018,0x00001012,0x04410005,0x00000000\n\t"
-    ".word 0x00021023,0x00021303,0x08005490,0x00021023\n\t"
-    ".word 0x00021302,0x02202021,0x00022C00,0x00052C03\n\t"
-    ".word 0x02603021,0x26270028,0xA6220024,0x26220008\n\t"
-    ".word 0x0C0054C6,0xAFA20010,0x3C047482,0x86220094\n\t"
-    ".word 0x3484296B,0x00021400,0x00440018,0x000217C3\n\t"
-    ".word 0x00004010,0x00081B83,0x00621823,0x86220024\n\t"
-    ".word 0x00000000,0x00430018,0x00002812,0x00004810\n\t"
-    ".word 0x00052B02,0x00094D00,0x00A92825,0x8622009A\n\t"
-    ".word 0x00000000,0x00021400,0x00440018,0xA6250000\n\t"
-    ".word 0x000217C3,0x86240024,0x00004010,0x00081B83\n\t"
-    ".word 0x00621823,0x24021000,0x00441023,0x00430018\n\t"
-    ".word 0x00004812,0x00004010,0x00094B02,0x00084500\n\t"
-    ".word 0x01284825,0x01201021,0x00A22821,0xA6250000\n\t"
-    ".word 0x8FBF0050,0x8FB3004C,0x8FB20048,0x8FB10044\n\t"
-    ".word 0x8FB00040,0x03E00008,0x27BD0058\n");
+typedef struct SVec3 {
+    short x;
+    short y;
+    short z;
+} SVec3;
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Matrix Matrix;
+typedef struct View {
+    short fov;
+    char pad02[6];
+    Vector pos;
+    char pad14[0x24 - 0x14];
+    short scale_x;
+    short scale_y;
+    SVec3 rot;
+    char pad2E[0x90 - 0x2E];
+    SVec3 angle;
+    SVec3 offset;
+} View;
+void func_80015318(View *, short, Matrix *, SVec3 *, Vector *);
+short func_80015458(View *, Vector *, Vector *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+int abs(int);
+
+static inline int imul(int a, int b) {
+    return a * b;
+}
+
+static inline int to_int1(int v) {
+    return v < 0 ? -(-v >> 12) : (unsigned int)v >> 12;
+}
+
+void func_800150CC(View *view, Vector *target, Matrix *m) {
+    Vector res;
+    SVec3 rel;
+    Vector probe;
+    short x;
+    short y;
+    int d = (short)((x = view->scale_x) - (y = view->scale_y));
+    int ad = abs(d);
+    short t;
+    short s;
+    int v;
+    int k;
+    int px;
+    int py;
+    int pz;
+    int f;
+    int step;
+    register unsigned short old asm("$3");
+    int grown;
+
+    if (ad < 9) {
+        step = 4;
+    } else if (ad < 17) {
+        step = 2;
+    } else {
+        goto grow;
+    }
+    view->scale_x = y + d / step;
+grow:
+    old = view->scale_x;
+    grown = old;
+    __asm__("" : "=r"(grown) : "0"(grown));
+    grown = (short)(grown + 204);
+    view->scale_x = grown;
+    view->scale_y = old;
+    if (grown > 4096) {
+        view->scale_x = 4096;
+    }
+    func_80015318(view, view->scale_x, m, &rel, &res);
+    px = target->x;
+    py = res.y;
+    pz = target->z;
+    probe.x = px;
+    probe.y = py;
+    probe.z = pz;
+    t = func_80015458(view, &probe, &res);
+    if (t < 4096) {
+        v = imul(t, 3993);
+        t = (unsigned int)v >> 12;
+        if (v < 0) {
+            t = -(-v >> 12);
+        }
+    }
+    s = to_int1(view->scale_x * t);
+    view->scale_x = s;
+    func_80015318(view, s, m, &view->rot, &view->pos);
+    f = fixed_mul(view->scale_x, (view->angle.z << 16) / 36000);
+    view->fov = f;
+    k = (view->offset.z << 16) / 36000;
+    view->fov = f + fixed_mul(4096 - view->scale_x, k);
+}

@@ -1,57 +1,151 @@
-asm(".text\n\t.globl func_800173EC\nfunc_800173EC:\n\t"
-    ".word 0x27BDFFA0,0xAFB1004C,0x00C08821,0xAFB30054\n\t"
-    ".word 0x00E09821,0x3084FFFF,0xAFB00048,0x00048080\n\t"
-    ".word 0x02048021,0x001080C0,0x3C03800C,0x246362B0\n\t"
-    ".word 0x02038021,0x02002021,0x30A5FFFF,0x00051080\n\t"
-    ".word 0x00451021,0x000210C0,0xAFB20050,0x00439021\n\t"
-    ".word 0x02402821,0xAFBF0058,0x0C005BB8,0x27A60010\n\t"
-    ".word 0x02002021,0x0C005C98,0x27A50010,0x3042FFFF\n\t"
-    ".word 0x144000B9,0x00001021,0x02402021,0x02002821\n\t"
-    ".word 0x0C005BB8,0x27A60010,0x02402021,0x0C005C98\n\t"
-    ".word 0x27A50010,0x3042FFFF,0x144000AF,0x00001021\n\t"
-    ".word 0x96430024,0x00000000,0x30684000,0x30693FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x30688000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x00023903,0x246A4000,0x31484000\n\t"
-    ".word 0x31493FFF,0x11000003,0x00000000,0x24083FFF\n\t"
-    ".word 0x01094822,0x31293FFE,0x3C01800B,0x00290821\n\t"
-    ".word 0x94290EEC,0x31488000,0x11000002,0x00000000\n\t"
-    ".word 0x00094822,0x00091840,0x00002021,0xAE200000\n\t"
-    ".word 0xAE200004,0xA6600000,0x87A50020,0x86420016\n\t"
-    ".word 0x00000000,0x00A2102A,0x10400007,0x00033103\n\t"
-    ".word 0x24040001,0x00061023,0xAE220000,0x24020004\n\t"
-    ".word 0x08005D5E,0xAE270004,0x86420018,0x00000000\n\t"
-    ".word 0x0045102A,0x10400006,0x00071023,0x24040001\n\t"
-    ".word 0xAE220004,0x24020003,0xAE260000,0xA6620000\n\t"
-    ".word 0x87A30022,0x8642001A,0x00000000,0x0062102A\n\t"
-    ".word 0x10400009,0x00000000,0x24840001,0x8E220000\n\t"
-    ".word 0x8E230004,0x00471023,0x00661823,0xAE220000\n\t"
-    ".word 0x08005D79,0x24020002,0x8642001C,0x00000000\n\t"
-    ".word 0x0043102A,0x1040000A,0x00000000,0x24840001\n\t"
-    ".word 0x8E220000,0x8E230004,0x00471021,0x00661821\n\t"
-    ".word 0xAE220000,0x24020001,0xAE230004,0xA6620000\n\t"
-    ".word 0x8E220000,0x00000000,0x14400004,0x00001821\n\t"
-    ".word 0x8E220004,0x00000000,0x2C430001,0x1060002A\n\t"
-    ".word 0x3082FFFF,0x87A20020,0x00000000,0x04410007\n\t"
-    ".word 0x00000000,0x24840001,0x00061023,0xAE220000\n\t"
-    ".word 0x24020004,0x08005D94,0xAE270004,0x18400006\n\t"
-    ".word 0x00071023,0x24840001,0xAE220004,0x24020003\n\t"
-    ".word 0xAE260000,0xA6620000,0x87A20022,0x00000000\n\t"
-    ".word 0x04410009,0x00000000,0x24840001,0x8E220000\n\t"
-    ".word 0x8E230004,0x00471023,0x00661823,0xAE220000\n\t"
-    ".word 0x08005DAA,0x24020002,0x1840000B,0x3082FFFF\n\t"
-    ".word 0x24840001,0x8E220000,0x8E230004,0x00471021\n\t"
-    ".word 0x00661821,0xAE220000,0x24020001,0xAE230004\n\t"
-    ".word 0xA6620000,0x3082FFFF,0x2C420002,0x14400022\n\t"
-    ".word 0x24020001,0x0C006B93,0x02202021,0x00401821\n\t"
-    ".word 0x10600008,0x00000000,0x8E220000,0xAFA0003C\n\t"
-    ".word 0x00621007,0xAFA20038,0x8E220004,0x08005DC0\n\t"
-    ".word 0x00621007,0x8E220000,0xAFA0003C,0xAFA20038\n\t"
-    ".word 0x8E220004,0x00000000,0xAFA20040,0x27A40038\n\t"
-    ".word 0x0C022AB4,0x00802821,0x8FA20038,0x00000000\n\t"
-    ".word 0xAE220000,0x8FA40040,0x00001821,0x14400002\n\t"
-    ".word 0xAE240004,0x2C830001,0x10600002,0x24021000\n\t"
-    ".word 0xAE220004,0x24020001,0x8FBF0058,0x8FB30054\n\t"
-    ".word 0x8FB20050,0x8FB1004C,0x8FB00048,0x03E00008\n\t"
-    ".word 0x27BD0060\n");
+typedef struct {
+    int x;
+    int z;
+} Pos2;
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct {
+    char pad0[0x10];
+    short cx;
+    short cz;
+    char pad14[2];
+    short x0;
+    short x1;
+    short z0;
+    short z1;
+    char pad1E[0x24 - 0x1E];
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Zone;
+extern Zone D_800C62B0[];
+int func_8001AE4C(Pos2 *);
+void func_8008AAD0(Vector *, Vector *);
+void func_80016EE0(Zone *, Zone *, Zone *);
+unsigned short func_80017260(Zone *, Zone *);
+
+static inline int is_zero_pos(Pos2 *p) {
+    return p->x == 0 && p->z == 0;
+}
+
+static inline int is_zero2(int x, int z) {
+    return x == 0 && z == 0;
+}
+
+static inline int sine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("andi $8, %1, 0x4000\n\tandi $9, %1, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return value;
+}
+
+static inline int cosine_lookup(int angle) {
+    int value;
+
+    __asm__ volatile("addiu $10, %1, 0x4000\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll %0, $9, 1"
+                     : "=r"(value)
+                     : "r"(angle)
+                     : "$8", "$9", "$10");
+    return value;
+}
+
+
+int func_800173EC(unsigned short index_a, unsigned short index_b, Pos2 *out, short *side) {
+    register Zone *a asm("$16");
+    Zone *b;
+    Zone rel;
+    Vector v;
+    unsigned short angle;
+    int s;
+    int c;
+    unsigned short count;
+    int shift;
+
+    a = &D_800C62B0[index_a];
+    b = &D_800C62B0[index_b];
+    func_80016EE0(a, b, &rel);
+    if (func_80017260(a, &rel) != 0) {
+        return 0;
+    }
+    func_80016EE0(b, a, &rel);
+    if (func_80017260(b, &rel) != 0) {
+        return 0;
+    }
+    angle = b->angle;
+    s = sine_lookup(angle) >> 4;
+    c = cosine_lookup(angle) >> 4;
+    count = 0;
+    out->x = 0;
+    out->z = 0;
+    *side = 0;
+    if (rel.cx < b->x0) {
+        count = 1;
+        out->x = -c;
+        out->z = s;
+        *side = 4;
+    } else if (b->x1 < rel.cx) {
+        count = 1;
+        out->z = -s;
+        out->x = c;
+        *side = 3;
+    }
+    if (rel.cz < b->z0) {
+        count++;
+        out->x -= s;
+        out->z -= c;
+        *side = 2;
+    } else if (b->z1 < rel.cz) {
+        count++;
+        out->x += s;
+        out->z += c;
+        *side = 1;
+    }
+    if (is_zero_pos(out)) {
+        if (rel.cx < 0) {
+            count++;
+            out->x = -c;
+            out->z = s;
+            *side = 4;
+        } else if (rel.cx > 0) {
+            count++;
+            out->z = -s;
+            out->x = c;
+            *side = 3;
+        }
+        if (rel.cz < 0) {
+            count++;
+            out->x -= s;
+            out->z -= c;
+            *side = 2;
+        } else if (rel.cz > 0) {
+            count++;
+            out->x += s;
+            out->z += c;
+            *side = 1;
+        }
+    }
+    if (count >= 2) {
+        shift = func_8001AE4C(out);
+        if (shift != 0) {
+            v.x = out->x >> shift;
+            v.y = 0;
+            v.z = out->z >> shift;
+        } else {
+            v.x = out->x;
+            v.y = 0;
+            v.z = out->z;
+        }
+        func_8008AAD0(&v, &v);
+        out->x = v.x;
+        out->z = v.z;
+        if (is_zero2(out->x, out->z)) {
+            out->z = 4096;
+        }
+    }
+    return 1;
+}

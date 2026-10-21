@@ -1,36 +1,110 @@
-asm(".text\n\t.globl func_80093248\nfunc_80093248:\n\t"
-    ".word 0x27BDFFE0,0xAFB10014,0x00808821,0x3C02800F\n\t"
-    ".word 0x2444EF0C,0xAFBF0018,0xAFB00010,0x90820002\n\t"
-    ".word 0x00000000,0x1040007A,0x00008021,0x8C82000C\n\t"
-    ".word 0x00000000,0x14510077,0x02001021,0x90820004\n\t"
-    ".word 0x00000000,0x14400070,0x00000000,0x8E220058\n\t"
-    ".word 0x8E230014,0x00471021,0x00620018,0x00004812\n\t"
-    ".word 0x3C031062,0x34634DD3,0x01230019,0xAE220058\n\t"
-    ".word 0x8E230018,0x00004810,0x00091182,0x00621821\n\t"
-    ".word 0x8C82008C,0x24630001,0x0043102B,0x10400060\n\t"
-    ".word 0x24020003,0xA4850090,0xA4860092,0x8E230010\n\t"
-    ".word 0x00000000,0x14620008,0x30A2FFFF,0x8E230000\n\t"
-    ".word 0x00000000,0x00431021,0x30420001,0x10400003\n\t"
-    ".word 0x2462FFFF,0xAE220000,0x8E230000,0x8E220010\n\t"
-    ".word 0x00000000,0x00620018,0x3C02800F,0x2442EF0C\n\t"
-    ".word 0x00004012,0x00081842,0xAC430010,0x8E240004\n\t"
-    ".word 0xAC430018,0xAC440014,0x8E230010,0x24020003\n\t"
-    ".word 0x14620003,0x00000000,0x08024CDA,0x24050001\n\t"
-    ".word 0x8E220064,0x00000000,0x30420001,0x00022840\n\t"
-    ".word 0x3C02800F,0x2450EF0C,0x8E020034,0x24030001\n\t"
-    ".word 0xA2030003,0x00021080,0x00501021,0x8C44002C\n\t"
-    ".word 0x0C02714B,0x00000000,0x8E020034,0x00000000\n\t"
-    ".word 0xAE020078,0x00021140,0x00501021,0x94440048\n\t"
-    ".word 0x8E230010,0x00000000,0x00830018,0x00004012\n\t"
-    ".word 0x00081842,0xAE030020,0x9443004A,0x8E220010\n\t"
-    ".word 0x00000000,0x00620018,0x8E020084,0x00000000\n\t"
-    ".word 0x00021080,0x00501021,0x00004012,0x00082900\n\t"
-    ".word 0x00052882,0xAE05001C,0x8C44007C,0x0C02716A\n\t"
-    ".word 0x00000000,0x8E050034,0x00000000,0x38A50001\n\t"
-    ".word 0x00051080,0x00501021,0xAE050034,0x00052940\n\t"
-    ".word 0x8C44002C,0x26020038,0x0C024B7C,0x00A22821\n\t"
-    ".word 0x92020003,0x00000000,0x10400005,0x02001821\n\t"
-    ".word 0x90620003,0x00000000,0x1440FFFD,0x00000000\n\t"
-    ".word 0x08024D16,0x24100001,0x0C024B34,0x00000000\n\t"
-    ".word 0x02001021,0x8FBF0018,0x8FB10014,0x8FB00010\n\t"
-    ".word 0x03E00008,0x27BD0020\n");
+extern void func_80092CD0(void);
+extern void func_8009C52C(void *, int);
+extern void func_8009C5A8(void *);
+extern int func_80092DF0(void *, void *);
+
+typedef struct {
+    unsigned int w0;
+    int w4;
+    char pad8[8];
+    unsigned int format;
+    int rate;
+    int base;
+    char pad28[60];
+    int time;
+    char pad92[8];
+    int flags;
+} Req80093248;
+
+typedef struct {
+    char pad0[16];
+    unsigned short w;
+    unsigned short h;
+    char pad20[12];
+} Slot80093248;
+
+typedef struct {
+    char pad0[2];
+    unsigned char busy;
+    volatile unsigned char decoding;
+    unsigned char b4;
+    char pad5[7];
+    Req80093248 *req;
+    unsigned int w16;
+    int w20;
+    unsigned int w24;
+    unsigned int stride;
+    unsigned int w32;
+    char pad36[8];
+    void *bufs[2];
+    int cur;
+    Slot80093248 slots[2];
+    int w120;
+    void *out[2];
+    int w132;
+    char pad136[4];
+    unsigned int frame;
+    unsigned short x;
+    unsigned short y;
+} S80093248;
+extern S80093248 D_800EEF0C;
+
+int func_80093248(Req80093248 *p, int x, int y, int dt) {
+    S80093248 *g = &D_800EEF0C;
+    S80093248 *g2;
+    S80093248 *g3;
+    int r = 0;
+    int mode;
+    unsigned int t;
+    S80093248 *q;
+    Slot80093248 *sl;
+
+    if (g->busy != 0) {
+        if (g->req != p) {
+            return r;
+        }
+        if (g->b4 == 0) {
+            p->time += dt;
+            if (g->frame < p->base + (unsigned int)(p->rate * p->time) / 1000 + 1) {
+                g->x = x;
+                g->y = y;
+                if (p->format == 3) {
+                    if (((unsigned short)x + p->w0) & 1) {
+                        p->w0--;
+                    }
+                }
+                g2 = &D_800EEF0C;
+                t = (p->w0 * p->format) >> 1;
+                g2->w16 = t;
+                g2->w20 = p->w4;
+                g2->w24 = t;
+                if (p->format == 3) {
+                    mode = 1;
+                } else {
+                    mode = (p->flags & 1) << 1;
+                }
+                g3 = &D_800EEF0C;
+                D_800EEF0C.decoding = 1;
+                func_8009C52C(D_800EEF0C.bufs[D_800EEF0C.cur], mode);
+                D_800EEF0C.w120 = D_800EEF0C.cur;
+                D_800EEF0C.w32 = (D_800EEF0C.slots[D_800EEF0C.cur].w * p->format) >> 1;
+                {
+                    register unsigned int st asm("$5") = ((D_800EEF0C.slots[D_800EEF0C.cur].h * p->format) << 4) >> 2;
+                    D_800EEF0C.stride = st;
+                }
+                func_8009C5A8(D_800EEF0C.out[D_800EEF0C.w132]);
+                D_800EEF0C.cur ^= 1;
+                func_80092DF0(D_800EEF0C.bufs[D_800EEF0C.cur], &D_800EEF0C.slots[D_800EEF0C.cur]);
+                if (g3->decoding != 0) {
+                    q = g3;
+                    while (q->decoding != 0) {
+                    }
+                }
+                r = 1;
+            }
+        } else {
+            func_80092CD0();
+        }
+    }
+    return r;
+}

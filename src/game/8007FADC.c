@@ -1,19 +1,35 @@
-asm(".text\n\t.globl func_8007FADC\nfunc_8007FADC:\n\t"
-    ".word 0x27BDFFE0,0x00804021,0xAFB00018,0x3C04800B\n\t"
-    ".word 0x24840C62,0xAFBF001C,0x90830000,0x24020001\n\t"
-    ".word 0x10620006,0x00A08021,0x24020002,0x10620026\n\t"
-    ".word 0x00000000,0x0801FEFA,0x00000000,0x86050004\n\t"
-    ".word 0x84830002,0x00000000,0x0065102A,0x1440001B\n\t"
-    ".word 0x00000000,0x86070000,0x00000000,0x00A71021\n\t"
-    ".word 0x0062102A,0x14400015,0x00000000,0x86030002\n\t"
-    ".word 0x84840004,0x00000000,0x0083102A,0x1440000F\n\t"
-    ".word 0x00000000,0x86060006,0x00000000,0x00661021\n\t"
-    ".word 0x0082102A,0x14400009,0x00000000,0x18A00007\n\t"
-    ".word 0x00000000,0x04E00005,0x00000000,0x04600003\n\t"
-    ".word 0x00000000,0x1CC00015,0x00000000,0x3C04800C\n\t"
-    ".word 0x0801FEEB,0x24844BDC,0x3C04800C,0x24844BFC\n\t"
-    ".word 0x3C02800B,0x8C420C5C,0x00000000,0x0040F809\n\t"
-    ".word 0x01002821,0x86050000,0x86060002,0x86070004\n\t"
-    ".word 0x86030006,0x3C02800B,0x8C420C5C,0x3C04800C\n\t"
-    ".word 0x24844BE8,0x0040F809,0xAFA30010,0x8FBF001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0020\n");
+typedef struct {
+    short x;
+    short y;
+    short w;
+    short h;
+} RECT;
+
+typedef struct {
+    unsigned char level;
+    char pad1;
+    short width;
+    short height;
+} GpuDebug;
+
+extern GpuDebug D_800B0C62;
+extern int (*D_800B0C5C)(char *, ...);
+extern char D_800C4BDC[];
+extern char D_800C4BE8[];
+extern char D_800C4BFC[];
+
+void func_8007FADC(char *name, RECT *r) {
+    switch (D_800B0C62.level) {
+    case 1:
+        if (r->w > D_800B0C62.width || r->w + r->x > D_800B0C62.width || r->y > D_800B0C62.height ||
+            r->y + r->h > D_800B0C62.height || r->w <= 0 || r->x < 0 || r->y < 0 || r->h <= 0) {
+            D_800B0C5C(D_800C4BDC, name);
+            D_800B0C5C(D_800C4BE8, r->x, r->y, r->w, r->h);
+        }
+        break;
+    case 2:
+        D_800B0C5C(D_800C4BFC, name);
+        D_800B0C5C(D_800C4BE8, r->x, r->y, r->w, r->h);
+        break;
+    }
+}

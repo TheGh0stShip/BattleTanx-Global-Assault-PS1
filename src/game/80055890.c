@@ -1,64 +1,170 @@
-asm(".text\n\t.globl func_80055890\nfunc_80055890:\n\t"
-    ".word 0x27BDFF88,0xAFB10064,0x00C08821,0xAFB00060\n\t"
-    ".word 0x00E08021,0xAFB20068,0x00809021,0xAFB3006C\n\t"
-    ".word 0x00A09821,0xAFBF0070,0x0C01A3BA,0x2404001C\n\t"
-    ".word 0x00405821,0x116000E7,0x24020006,0xA1620003\n\t"
-    ".word 0x24020030,0xA1620007,0x240200FA,0xA1620004\n\t"
-    ".word 0xA1620005,0xA1620006,0x92020000,0x00000000\n\t"
-    ".word 0xA162000C,0x92020001,0x00000000,0xA162000D\n\t"
-    ".word 0x92020002,0x00000000,0xA162000E,0x92020000\n\t"
-    ".word 0x00000000,0xA1620014,0x92020001,0x00000000\n\t"
-    ".word 0xA1620015,0x92020002,0x00000000,0xA1620016\n\t"
-    ".word 0x92020003,0x00000000,0x2C4200FF,0x10400006\n\t"
-    ".word 0x27A20010,0x91620007,0x00000000,0x34420002\n\t"
-    ".word 0xA1620007,0x27A20010,0x24081000,0xAC480008\n\t"
-    ".word 0xA4400002,0xA4400006,0xA440000E,0xAC400014\n\t"
-    ".word 0xAC400018,0xAC40001C,0x32284000,0x32293FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x32288000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA44A0004,0x000A5022\n\t"
-    ".word 0xA44A000C,0x262A4000,0x31484000,0x31493FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x31488000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00095040,0x000A5103,0xA44A0000,0xA44A0010\n\t"
-    ".word 0x00003021,0x00403821,0x27A50048,0x27A40030\n\t"
-    ".word 0x24030003,0x2402FFFD,0xA7A00030,0xA7A00032\n\t"
-    ".word 0xA7A30034,0xA7A20038,0xA7A0003A,0xA7A2003C\n\t"
-    ".word 0xA7A30040,0xA7A00042,0xA7A20044,0x8CEC0000\n\t"
-    ".word 0x8CED0004,0x48CC0000,0x48CD0800,0x8CEC0008\n\t"
-    ".word 0x8CED000C,0x8CEE0010,0x48CC1000,0x48CD1800\n\t"
-    ".word 0x48CE2000,0xC8800000,0xC8810004,0x00000000\n\t"
-    ".word 0x00000000,0x4A486012,0x480C4800,0x480D5000\n\t"
-    ".word 0x480E5800,0xA4AC0000,0xA4AD0002,0xA4AE0004\n\t"
-    ".word 0x24A50008,0x24C60001,0x28C20003,0x1440FFE7\n\t"
-    ".word 0x24840008,0x87A30048,0x24021999,0x00620018\n\t"
-    ".word 0x00001812,0x04600005,0x24620800,0x0441000A\n\t"
-    ".word 0x00022303,0x080156BC,0x00021023,0x2462F800\n\t"
-    ".word 0x04410005,0x00022303,0x24020800,0x00431023\n\t"
-    ".word 0x00021303,0x00022023,0x87A30050,0x24021999\n\t"
-    ".word 0x00620018,0x00001812,0x04600006,0xA7A40048\n\t"
-    ".word 0x24620800,0x0441000A,0x00022303,0x080156CE\n\t"
-    ".word 0x00021023,0x2462F800,0x04410005,0x00022303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00022023\n\t"
-    ".word 0x87A30058,0x24021999,0x00620018,0x00001812\n\t"
-    ".word 0x04600006,0xA7A40050,0x24620800,0x04410006\n\t"
-    ".word 0x00000000,0x080156E2,0x00021023,0x2462F800\n\t"
-    ".word 0x04400003,0x00000000,0x080156E4,0x00021303\n\t"
-    ".word 0x24020800,0x00431023,0x00021303,0x00021023\n\t"
-    ".word 0x97A40048,0xA7A20058,0x00521021,0xA7A20058\n\t"
-    ".word 0x97A2004C,0x97A30050,0x00531021,0xA7A2004C\n\t"
-    ".word 0x97A20054,0x00721821,0xA7A30050,0x97A3005C\n\t"
-    ".word 0x00922021,0xA7A40048,0x00531021,0x00731821\n\t"
-    ".word 0xA7A20054,0xA7A3005C,0xA5640008,0x97A2004C\n\t"
-    ".word 0x3C0600FF,0xA562000A,0x97A20050,0x34C6FFFF\n\t"
-    ".word 0xA5620010,0x97A20054,0x3C07FF00,0xA5620012\n\t"
-    ".word 0x97A20058,0x2564001C,0xA5620018,0x3C02800A\n\t"
-    ".word 0x8C4248B4,0x97A3005C,0x00022AC0,0x00A22821\n\t"
-    ".word 0x000528C0,0x3C02800D,0x24425B8C,0x00A22821\n\t"
-    ".word 0xA563001A,0x8D630000,0x8CA20000,0x00671824\n\t"
-    ".word 0x00461024,0x00621825,0xAD630000,0x8CA20000\n\t"
-    ".word 0x01663024,0x00471024,0x00461025,0x0C01FDFA\n\t"
-    ".word 0xACA20000,0x8FBF0070,0x8FB3006C,0x8FB20068\n\t"
-    ".word 0x8FB10064,0x8FB00060,0x03E00008,0x27BD0078\n");
+typedef struct {
+    unsigned long tag;
+    unsigned char r0;
+    unsigned char g0;
+    unsigned char b0;
+    unsigned char code;
+    short x0;
+    short y0;
+    unsigned char r1;
+    unsigned char g1;
+    unsigned char b1;
+    unsigned char pad1;
+    short x1;
+    short y1;
+    unsigned char r2;
+    unsigned char g2;
+    unsigned char b2;
+    unsigned char pad2;
+    short x2;
+    short y2;
+} POLY_G3;
+typedef struct {
+    unsigned addr : 24;
+    unsigned len : 8;
+} P_TAG;
+typedef struct {
+    unsigned long ot[0x4008 / 4];
+} OrderingTable;
+typedef struct {
+    short m[3][3];
+    int t[3];
+} Matrix;
+typedef struct {
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} SVector;
+extern OrderingTable D_800D5B8C[];
+extern int D_800A48B4;
+extern void *func_80068EE8(int);
+extern void func_8007F7E8(void *);
+
+static inline void matrix_clear_y(Matrix *m) {
+    __asm__ volatile("li $8, 4096\n\tsw $8, 8(%0)\n\tsh $0, 2(%0)\n\tsh $0, 6(%0)\n\tsh $0, 14(%0)\n\tsw $0, 20(%0)\n\tsw $0, 24(%0)\n\tsw $0, 28(%0)"
+                     :
+                     : "r"(m)
+                     : "$8", "memory");
+}
+
+static inline void matrix_sin_y(Matrix *m, int angle) {
+    __asm__ volatile("andi $8, %0, 0x4000\n\tandi $9, %0, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at"
+                     :
+                     : "r"(angle)
+                     : "$8", "$9");
+    __asm__ volatile("andi $8, %1, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll $10, $9, 1\n\tsra $10, $10, 4\n\tsh $10, 4(%0)\n\tneg $10, $10\n\tsh $10, 12(%0)"
+                     :
+                     : "r"(m), "r"(angle)
+                     : "$8", "$9", "$10", "memory");
+}
+
+static inline void matrix_cos_y(Matrix *m, int angle) {
+    __asm__ volatile("addiu $10, %1, 16384\n\tandi $8, $10, 0x4000\n\tandi $9, $10, 0x3fff\n\tbeqz $8, 1f\n\tnop\n\tli $8, 16383\n\tsub $9, $8, $9\n1:\n\tandi $9, $9, 0x3ffe\n\t.set noat\n\tlui $1, 0x800b\n\taddu $1, $1, $9\n\tlhu $9, 3820($1)\n\t.set at\n\tandi $8, $10, 0x8000\n\tbeqz $8, 2f\n\tnop\n\tneg $9, $9\n2:\n\tsll $10, $9, 1\n\tsra $10, $10, 4\n\tsh $10, 0(%0)\n\tsh $10, 16(%0)"
+                     :
+                     : "r"(m), "r"(angle)
+                     : "$8", "$9", "$10", "memory");
+}
+
+static inline void gte_SetRotMatrix(Matrix *m) {
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     :
+                     : "r"(m)
+                     : "$12", "$13", "$14");
+}
+
+static inline void gte_ldv0(SVector *v) {
+    __asm__ volatile("lwc2 $0, 0(%0)\n\tlwc2 $1, 4(%0)" : : "r"(v));
+}
+
+static inline void gte_rtv0(void) {
+    __asm__ volatile("nop\n\tnop\n\tcop2 0x0486012");
+}
+
+static inline void gte_stsv(SVector *v) {
+    __asm__ volatile("mfc2 $12, $9\n\tmfc2 $13, $10\n\tmfc2 $14, $11\n\tsh $12, 0(%0)\n\tsh $13, 2(%0)\n\tsh $14, 4(%0)"
+                     :
+                     : "r"(v)
+                     : "$12", "$13", "$14", "memory");
+}
+
+static inline int round_fixed(int x) {
+    return x >= 0 ? (x + 2048 >= 0 ? (x + 2048) >> 12 : -(-(x + 2048) >> 12))
+                  : (x - 2048 >= 0 ? (x - 2048) >> 12 : -(-(x - 2048) >> 12));
+}
+
+static inline int aspect(int v) {
+    int k = 6553;
+    return round_fixed(v * k);
+}
+
+void func_80055890(short x, short y, int angle, unsigned char *color) {
+    POLY_G3 *poly;
+    Matrix m;
+    SVector in[3];
+    SVector out[3];
+    SVector *src;
+    SVector *dst;
+    Matrix *mp;
+    int i;
+    unsigned long *ot;
+
+    poly = func_80068EE8(sizeof(POLY_G3));
+    if (poly == 0) {
+        return;
+    }
+    ((unsigned char *)poly)[3] = 6;
+    poly->code = 0x30;
+    poly->r0 = 250;
+    poly->g0 = 250;
+    poly->b0 = 250;
+    poly->r1 = color[0];
+    poly->g1 = color[1];
+    poly->b1 = color[2];
+    poly->r2 = color[0];
+    poly->g2 = color[1];
+    poly->b2 = color[2];
+    if (color[3] < 255) {
+        poly->code |= 2;
+    }
+    matrix_clear_y(&m);
+    matrix_sin_y(&m, angle);
+    matrix_cos_y(&m, angle);
+    in[0].vx = 0;
+    in[0].vy = 0;
+    in[0].vz = 3;
+    in[1].vx = -3;
+    in[1].vy = 0;
+    in[1].vz = -3;
+    in[2].vx = 3;
+    in[2].vy = 0;
+    in[2].vz = -3;
+    for (i = 0, mp = &m, dst = out, src = in; i < 3; i++) {
+        gte_SetRotMatrix(mp);
+        gte_ldv0(src);
+        gte_rtv0();
+        gte_stsv(dst);
+        dst++;
+        src++;
+    }
+    out[0].vx = aspect(out[0].vx);
+    out[1].vx = aspect(out[1].vx);
+    out[2].vx = aspect(out[2].vx);
+    out[0].vx += x;
+    out[0].vz += y;
+    out[1].vx += x;
+    out[1].vz += y;
+    out[2].vx += x;
+    out[2].vz += y;
+    poly->x0 = out[0].vx;
+    poly->y0 = out[0].vz;
+    poly->x1 = out[1].vx;
+    poly->y1 = out[1].vz;
+    poly->x2 = out[2].vx;
+    poly->y2 = out[2].vz;
+    ot = D_800D5B8C[D_800A48B4].ot;
+    ((P_TAG *)poly)->addr = ((P_TAG *)ot)->addr;
+    ((P_TAG *)ot)->addr = (unsigned long)poly;
+    func_8007F7E8(poly + 1);
+}

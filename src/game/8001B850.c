@@ -1,50 +1,121 @@
-asm(".text\n\t.globl func_8001B850\nfunc_8001B850:\n\t"
-    ".word 0x27BDFFC0,0xAFB00030,0x00808021,0xAFBF003C\n\t"
-    ".word 0xAFB20038,0xAFB10034,0x8E030030,0x24021000\n\t"
-    ".word 0x1462000B,0x00000000,0x8E0B000C,0x00000000\n\t"
-    ".word 0x00AB0018,0x00008812,0x00001010,0x00118B02\n\t"
-    ".word 0x00021500,0x02228825,0x08006E37,0x00000000\n\t"
-    ".word 0x8E0D000C,0x00000000,0x006D0018,0x00006012\n\t"
-    ".word 0x00001010,0x000C6302,0x00021500,0x01826025\n\t"
-    ".word 0x01801821,0x00A30018,0x00008812,0x00001010\n\t"
-    ".word 0x00118B02,0x00021500,0x02228825,0x12200098\n\t"
-    ".word 0x00000000,0x8E120008,0x30C84000,0x30C93FFF\n\t"
-    ".word 0x11000003,0x00000000,0x24083FFF,0x01094822\n\t"
-    ".word 0x31293FFE,0x3C01800B,0x00290821,0x94290EEC\n\t"
-    ".word 0x30C88000,0x11000002,0x00000000,0x00094822\n\t"
-    ".word 0x00091040,0x00022103,0xAFA40018,0x24CA4000\n\t"
-    ".word 0x31484000,0x31493FFF,0x11000003,0x00000000\n\t"
-    ".word 0x24083FFF,0x01094822,0x31293FFE,0x3C01800B\n\t"
-    ".word 0x00290821,0x94290EEC,0x31488000,0x11000002\n\t"
-    ".word 0x00000000,0x00094822,0x00091040,0x00021903\n\t"
-    ".word 0x06210006,0xAFA3001C,0x00118823,0x00041023\n\t"
-    ".word 0xAFA20018,0x00031023,0xAFA2001C,0x3C02800E\n\t"
-    ".word 0x8C4CE30C,0x8E0D0010,0x00000000,0x018D0018\n\t"
-    ".word 0x00005812,0x00001810,0x000B5B02,0x00031D00\n\t"
-    ".word 0x01635825,0x01601021,0x8FAC0018,0x00000000\n\t"
-    ".word 0x01820018,0x00005812,0x00001810,0x000B5B02\n\t"
-    ".word 0x00031D00,0x01635825,0x8FAC001C,0xAFAB0010\n\t"
-    ".word 0x01820018,0x00006812,0x00005810,0x000D6B02\n\t"
-    ".word 0x000B5D00,0x01AB6825,0xAFAD0014,0x8E0B0008\n\t"
-    ".word 0x8E0C0000,0x00000000,0x016C0018,0x00006812\n\t"
-    ".word 0x00001010,0x000D6B02,0x00021500,0x01A26825\n\t"
-    ".word 0x8E0C0004,0xAE0D0000,0x016C0018,0x00006812\n\t"
-    ".word 0x00001010,0x000D6B02,0x00021500,0x01A26825\n\t"
-    ".word 0x01A02821,0x8E020000,0x00003021,0xAE0D0004\n\t"
-    ".word 0x8FA30010,0x00C03821,0x00431021,0xAE020000\n\t"
-    ".word 0x8FA20014,0x8E040000,0x00A22821,0x0C007B84\n\t"
-    ".word 0xAE050004,0x02002021,0x0C007B97,0xAE020008\n\t"
-    ".word 0x00401821,0x10600008,0x00000000,0x8E020000\n\t"
-    ".word 0xAFA00024,0x00621007,0xAFA20020,0x8E020004\n\t"
-    ".word 0x08006EAE,0x00621007,0x8E020000,0xAFA00024\n\t"
-    ".word 0xAFA20020,0x8E020004,0x00000000,0xAFA20028\n\t"
-    ".word 0x27A40020,0x0C022AB4,0x00802821,0x8FA20020\n\t"
-    ".word 0x00000000,0xAE020000,0x8FA40028,0x00001821\n\t"
-    ".word 0x14400002,0xAE040004,0x2C830001,0x10600002\n\t"
-    ".word 0x24021000,0xAE020004,0x0232182A,0x1460000A\n\t"
-    ".word 0x00000000,0x8E020008,0x00000000,0x0222102A\n\t"
-    ".word 0x10400003,0x00000000,0x08006ED0,0xAE110008\n\t"
-    ".word 0x10600007,0x00000000,0x8E020008,0x00000000\n\t"
-    ".word 0x0242102A,0x10400002,0x00000000,0xAE120008\n\t"
-    ".word 0x8FBF003C,0x8FB20038,0x8FB10034,0x8FB00030\n\t"
-    ".word 0x03E00008,0x27BD0040\n");
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+typedef struct Vec3 {
+    int x;
+    int y;
+    int z;
+} Vec3;
+typedef struct Mover {
+    int dx;
+    int dz;
+    int speed;
+    int length;
+    int accel;
+    char pad14[0x30 - 0x14];
+    int grip;
+} Mover;
+extern unsigned short D_800B0EEC[];
+extern int D_800DE30C;
+int func_8001EE10(int, int, int, int);
+int func_8001EE5C(Mover *);
+void func_8008AAD0(Vec3 *, Vec3 *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int table_sin_t2(int value) {
+    register int angle asm("$10") = value;
+    int r;
+
+    __asm__ volatile("andi $8,%1,0x4000\n\tandi $9,%1,0x3FFF\n\tbeqz $8,1f\n\tnop\n\taddiu $8,$0,0x3FFF\n\t"
+                     "sub $9,$8,$9\n1:\n\tandi $9,$9,0x3FFE\n\tlui $1,%%hi(D_800B0EEC)\n\taddu $1,$1,$9\n\t"
+                     "lhu $9,%%lo(D_800B0EEC)($1)\n\tandi $8,%1,0x8000\n\tbeqz $8,2f\n\tnop\n\tsub $9,$0,$9\n2:\n\t"
+                     "sll %0,$9,1"
+                     : "=r"(r)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return r >> 4;
+}
+
+static inline int table_sin(int angle) {
+    int r;
+
+    __asm__ volatile("andi $8,%1,0x4000\n\tandi $9,%1,0x3FFF\n\tbeqz $8,1f\n\tnop\n\taddiu $8,$0,0x3FFF\n\t"
+                     "sub $9,$8,$9\n1:\n\tandi $9,$9,0x3FFE\n\tlui $1,%%hi(D_800B0EEC)\n\taddu $1,$1,$9\n\t"
+                     "lhu $9,%%lo(D_800B0EEC)($1)\n\tandi $8,%1,0x8000\n\tbeqz $8,2f\n\tnop\n\tsub $9,$0,$9\n2:\n\t"
+                     "sll %0,$9,1"
+                     : "=r"(r)
+                     : "r"(angle)
+                     : "$8", "$9");
+    return r >> 4;
+}
+
+void func_8001B850(Mover *m, int force, int angle) {
+    Pos2 add;
+    Pos2 dir;
+    Vec3 t;
+    int power;
+    int top;
+    int k;
+    int shift;
+    int zero;
+    int lt;
+
+    if (m->grip == 4096) {
+        power = fixed_mul(force, m->length);
+    } else {
+        power = fixed_mul(force, fixed_mul(m->grip, m->length));
+    }
+    if (power == 0) {
+        return;
+    }
+    top = m->speed;
+    dir.x = table_sin(angle);
+    __asm__ volatile("");
+    dir.z = table_sin_t2(angle + 0x4000);
+    if (power < 0) {
+        power = -power;
+        dir.x = -dir.x;
+        dir.z = -dir.z;
+    }
+    k = fixed_mul(D_800DE30C, m->accel);
+    add.x = fixed_mul(dir.x, k);
+    add.z = fixed_mul(dir.z, k);
+    m->dx = fixed_mul(m->speed, m->dx);
+    m->dz = fixed_mul(m->speed, m->dz);
+    m->dx += add.x;
+    m->dz += add.z;
+    m->speed = func_8001EE10(m->dx, m->dz, 0, 0);
+    shift = func_8001EE5C(m);
+    if (shift != 0) {
+        t.x = m->dx >> shift;
+        t.y = 0;
+        t.z = m->dz >> shift;
+    } else {
+        t.x = m->dx;
+        t.y = 0;
+        t.z = m->dz;
+    }
+    func_8008AAD0(&t, &t);
+    m->dx = t.x;
+    m->dz = t.z;
+    zero = m->dx == 0 && m->dz == 0;
+    if (zero) {
+        m->dz = 4096;
+    }
+    lt = power < top;
+    if (!lt && power < m->speed) {
+        m->speed = power;
+    } else if (lt && top < m->speed) {
+        m->speed = top;
+    }
+}

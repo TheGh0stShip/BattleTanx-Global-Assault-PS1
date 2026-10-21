@@ -1,119 +1,225 @@
-asm(".text\n\t.globl func_800190CC\nfunc_800190CC:\n\t"
-    ".word 0x27BDFF78,0xAFB1006C,0x00808821,0xAFB00068\n\t"
-    ".word 0x00A08021,0x27A50018,0xAFBF0084,0xAFB60080\n\t"
-    ".word 0xAFB5007C,0xAFB40078,0xAFB30074,0xAFB20070\n\t"
-    ".word 0x8E240000,0x8E020000,0x8FB40098,0x00822023\n\t"
-    ".word 0xAFA40018,0x8E230004,0x8E020004,0x00004021\n\t"
-    ".word 0x00624823,0xACA90004,0x8E230008,0x8E020008\n\t"
-    ".word 0x00E0B021,0x00621823,0x14800004,0xACA30008\n\t"
-    ".word 0x15200002,0x00000000,0x2C680001,0x1100003C\n\t"
-    ".word 0x00061400,0x8E220000,0x00000000,0x04410004\n\t"
-    ".word 0x00021B03,0x00021023,0x00021303,0x00021823\n\t"
-    ".word 0x8E220008,0x00000000,0x04400003,0x00034082\n\t"
-    ".word 0x08006464,0x00021B03,0x00021023,0x00021303\n\t"
-    ".word 0x00021823,0x8E220004,0x00000000,0x04400003\n\t"
-    ".word 0x00032882,0x0800646D,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00022380,0x30C6FFFF\n\t"
-    ".word 0x00061880,0x00661821,0x000318C0,0x3C02800C\n\t"
-    ".word 0x244262B0,0x00621821,0x84670014,0x8462001E\n\t"
-    ".word 0x00042403,0x00E21021,0x0082102A,0x1440000E\n\t"
-    ".word 0x00000000,0x84620020,0x00000000,0x00E21021\n\t"
-    ".word 0x0044102A,0x14400009,0x00001821,0x00082400\n\t"
-    ".word 0x00042403,0x00052C00,0x0C005B5E,0x00052C03\n\t"
-    ".word 0x0800648A,0x00401821,0x00001821,0x3063FFFF\n\t"
-    ".word 0x14600174,0x24020007,0x08006600,0x00001021\n\t"
-    ".word 0x00021403,0x00021880,0x00621821,0x000318C0\n\t"
-    ".word 0x3C02800C,0x244262B0,0x00629021,0xAE800004\n\t"
-    ".word 0x96430014,0x96420020,0x9644001E,0x00621021\n\t"
-    ".word 0x00021400,0x0002A883,0x00641821,0x00031C00\n\t"
-    ".word 0x8E240004,0x00000000,0x02A4102A,0x10400006\n\t"
-    ".word 0x00039883,0x8E020004,0x00000000,0x02A2102A\n\t"
-    ".word 0x14400158,0x00001021,0x0093102A,0x10400006\n\t"
-    ".word 0x00000000,0x8E020004,0x00000000,0x0053102A\n\t"
-    ".word 0x14400150,0x00001021,0x8E220000,0x8E230008\n\t"
-    ".word 0x27A40038,0xAFA20038,0xAFA3003C,0x8E020000\n\t"
-    ".word 0x8E030008,0x27A50040,0xAFA20040,0xAFA30044\n\t"
-    ".word 0x8EC20000,0x8EC30008,0x30C6FFFF,0xAFA20048\n\t"
-    ".word 0xAFA3004C,0x8E820000,0x8E830008,0x27A70048\n\t"
-    ".word 0xAFA20050,0x27A20050,0xAFA30054,0x0C005FB9\n\t"
-    ".word 0xAFA20010,0x8FA30038,0x00000000,0xAE230000\n\t"
-    ".word 0x8FA3003C,0x00000000,0xAE230008,0x8FA30040\n\t"
-    ".word 0x00000000,0xAE030000,0x8FA30044,0x00000000\n\t"
-    ".word 0xAE030008,0x8FA30048,0x00000000,0xAEC30000\n\t"
-    ".word 0x8FA3004C,0x00000000,0xAEC30008,0x8FA30050\n\t"
-    ".word 0x00404821,0xAE830000,0x8FA30054,0x3122FFFF\n\t"
-    ".word 0x1040011F,0xAE830008,0x8FA50018,0x00000000\n\t"
-    ".word 0x14A00004,0x00000000,0x8E220004,0x08006538\n\t"
-    ".word 0xAFA2002C,0x8EC30000,0x8E220000,0x04A10002\n\t"
-    ".word 0x00A03821,0x00073823,0x00621823,0x3C028000\n\t"
-    ".word 0x00622024,0x00A21024,0x00822026,0x04610002\n\t"
-    ".word 0x00000000,0x00031823,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20058,0xE85F0000,0x8FA50058\n\t"
-    ".word 0x00000000,0x24A8FFF4,0x05010023,0x00000000\n\t"
-    ".word 0x00A31804,0x4887F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A2005C,0xE85F0000,0x8FA6005C,0x00000000\n\t"
-    ".word 0x00C52823,0x04A0000F,0x2402000C,0x00461023\n\t"
-    ".word 0x04400003,0x00000000,0x08006511,0x00471007\n\t"
-    ".word 0x00021023,0x00471004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08006527\n\t"
-    ".word 0x00A31804,0x00081023,0x00471007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x08006529,0x00602821,0x00031B00,0x0067001B\n\t"
-    ".word 0x14E00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00602821,0x10800002,0x00000000\n\t"
-    ".word 0x00052823,0x8FAA001C,0x00000000,0x01450018\n\t"
-    ".word 0x00001812,0x00001010,0x00031B02,0x00021500\n\t"
-    ".word 0x00621825,0x8E220004,0x00000000,0x00431021\n\t"
-    ".word 0xAFA2002C,0x8FA3002C,0x00000000,0x0073102A\n\t"
-    ".word 0x14400005,0x02A3102A,0x14400003,0x3122FFFF\n\t"
-    ".word 0x08006600,0xAEC30004,0x8FA2002C,0x00000000\n\t"
-    ".word 0x02A2102A,0x10400002,0x02604821,0x02A04821\n\t"
-    ".word 0x8FA5001C,0x00000000,0x14A00007,0x3C028000\n\t"
-    ".word 0x8E220004,0x00000000,0xAFA20028,0x8E220008\n\t"
-    ".word 0x080065A9,0xAFA20030,0x8E230004,0x04A10002\n\t"
-    ".word 0x00A03821,0x00073823,0x01231823,0x00622024\n\t"
-    ".word 0x00A21024,0x00822026,0x04610002,0x00000000\n\t"
-    ".word 0x00031823,0x4883F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20060,0xE85F0000,0x8FA50060,0x00000000\n\t"
-    ".word 0x24A8FFF4,0x05010023,0x00000000,0x00A31804\n\t"
-    ".word 0x4887F000,0x00000000,0x00000000,0x27A20064\n\t"
-    ".word 0xE85F0000,0x8FA60064,0x00000000,0x00C52823\n\t"
-    ".word 0x04A0000F,0x2402000C,0x00461023,0x04400003\n\t"
-    ".word 0x00000000,0x08006578,0x00471007,0x00021023\n\t"
-    ".word 0x00471004,0x0062001B,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x00001812,0x0800658E,0x00A31804\n\t"
-    ".word 0x00081023,0x00471007,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x08006590\n\t"
-    ".word 0x00602821,0x00031B00,0x0067001B,0x14E00002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x00000000\n\t"
-    ".word 0x00602821,0x10800002,0x00000000,0x00052823\n\t"
-    ".word 0x8FAA0018,0x00000000,0x01450018,0x00001812\n\t"
-    ".word 0x00001010,0x00031B02,0x00021500,0x00621825\n\t"
-    ".word 0x8E220000,0x8FAA0020,0x00431021,0xAFA20028\n\t"
-    ".word 0x01450018,0x00001812,0x00001010,0x00031B02\n\t"
-    ".word 0x00021500,0x00621825,0x8E220008,0x00000000\n\t"
-    ".word 0x00431021,0xAFA20030,0x8FA20028,0x00000000\n\t"
-    ".word 0x04400003,0x00000000,0x080065B2,0x00021303\n\t"
-    ".word 0x00021023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x86430010,0x86440016,0x00021403,0x00641821\n\t"
-    ".word 0x0062182A,0x10600047,0x00001021,0x8FA20028\n\t"
-    ".word 0x00000000,0x04400003,0x00000000,0x080065C3\n\t"
-    ".word 0x00021303,0x00021023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x86430010,0x86440018,0x00021403\n\t"
-    ".word 0x00641821,0x0043102A,0x10400036,0x00001021\n\t"
-    ".word 0x8FA20030,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x080065D4,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x86430012,0x8644001A\n\t"
-    ".word 0x00021403,0x00641821,0x0062182A,0x10600025\n\t"
-    ".word 0x00001021,0x8FA20030,0x00000000,0x04400003\n\t"
-    ".word 0x00000000,0x080065E5,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x86430012\n\t"
-    ".word 0x8644001C,0x00021403,0x00641821,0x0043102A\n\t"
-    ".word 0x10400014,0x00001021,0x8FA20028,0x00000000\n\t"
-    ".word 0xAEC20000,0x8FA2002C,0x00000000,0xAEC20004\n\t"
-    ".word 0x8FA20030,0x15350004,0xAEC20008,0x24020005\n\t"
-    ".word 0x080065FB,0x24031000,0x24020006,0x2403F000\n\t"
-    ".word 0xAE800000,0xAE830004,0x08006600,0xAE800008\n\t"
-    ".word 0x00001021,0x8FBF0084,0x8FB60080,0x8FB5007C\n\t"
-    ".word 0x8FB40078,0x8FB30074,0x8FB20070,0x8FB1006C\n\t"
-    ".word 0x8FB00068,0x03E00008,0x27BD0088\n");
+typedef struct { int x, y, z; } Vector;
+typedef struct { int x, z; } Pos2;
+typedef struct Cell {
+    int head;
+    char pad04[4];
+    unsigned short next[4];
+    short x;
+    short z;
+    short y;
+    short min_x;
+    short max_x;
+    short min_z;
+    short max_z;
+    short min_y;
+    short max_y;
+    unsigned short angle;
+    char pad26[0x28 - 0x26];
+} Cell;
+extern Cell D_800C62B0[];
+extern int func_80016D78(int, int, unsigned short);
+extern int func_80017EE4(Pos2 *, Pos2 *, unsigned short, Pos2 *, Pos2 *);
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        quotient = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = quotient / (d >> scale);
+            } else {
+                quotient = quotient / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = quotient / (d >> -excess);
+        }
+    } else {
+        quotient = n << 12;
+        quotient = quotient / d;
+    }
+    result = quotient;
+    if (negative) {
+        return -result;
+    }
+    return result;
+}
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline int point_in_cell(Vector *p, unsigned short id) {
+    short x = to_int(p->x) >> 2;
+    short z = to_int(p->z) >> 2;
+    int y = (short)(to_int(p->y) >> 2);
+    Cell *e = &D_800C62B0[id];
+    int r;
+
+    if (y >= e->y + e->min_y && y <= e->y + e->max_y) {
+        r = func_80016D78(x, z, id);
+    } else {
+        r = 0;
+    }
+    return r;
+}
+
+static inline void vec_sub(Vector *r, Vector *a, Vector *b) {
+    r->x = a->x - b->x;
+    r->y = a->y - b->y;
+    r->z = a->z - b->z;
+}
+
+static inline void set_pos2(Pos2 *p, int x, int z) {
+    p->x = x;
+    p->z = z;
+}
+
+static inline int is_zero(Vector *v) {
+    return v->x == 0 && v->y == 0 && v->z == 0;
+}
+
+int func_800190CC(Vector *a, Vector *b, short id, Vector *out, Vector *normal)
+{
+    Vector d;
+    Vector p;
+    Pos2 pa;
+    Pos2 pb;
+    Pos2 po;
+    Pos2 pn;
+    Cell *e;
+    int top;
+    int bottom;
+    int limit;
+    int scale;
+    int y;
+    unsigned short hit;
+
+    vec_sub(&d, a, b);
+    if (is_zero(&d)) {
+        if ((unsigned short)point_in_cell(a, id)) {
+            return 7;
+        }
+        return 0;
+    }
+    e = &D_800C62B0[id];
+    normal->y = 0;
+    top = (short)(e->y + e->max_y) << 14;
+    bottom = (short)(e->y + e->min_y) << 14;
+    y = a->y;
+    if (y > top && b->y > top) {
+        return 0;
+    }
+    if (y < bottom && b->y < bottom) {
+        return 0;
+    }
+    set_pos2(&pa, a->x, a->z);
+    set_pos2(&pb, b->x, b->z);
+    set_pos2(&po, out->x, out->z);
+    set_pos2(&pn, normal->x, normal->z);
+    hit = func_80017EE4(&pa, &pb, id, &po, &pn);
+    a->x = pa.x;
+    a->z = pa.z;
+    b->x = pb.x;
+    b->z = pb.z;
+    out->x = po.x;
+    out->z = po.z;
+    normal->x = pn.x;
+    normal->z = pn.z;
+    if (hit != 0) {
+        if (d.x == 0) {
+            p.y = a->y;
+        } else {
+            scale = fixed_div(out->x - a->x, d.x);
+            p.y = a->y + fixed_mul(d.y, scale);
+        }
+        if (p.y >= bottom && p.y <= top) {
+            out->y = p.y;
+            return hit;
+        }
+        if (p.y > top) {
+            limit = top;
+        } else {
+            limit = bottom;
+        }
+        if (d.y == 0) {
+            p.x = a->y;
+            p.z = a->z;
+        } else {
+            scale = fixed_div(limit - a->y, d.y);
+            p.x = a->x + fixed_mul(d.x, scale);
+            p.z = a->z + fixed_mul(d.z, scale);
+        }
+        if ((short)(to_int(p.x) >> 2) <= e->x + e->min_x) {
+            return 0;
+        }
+        if ((short)(to_int(p.x) >> 2) >= e->x + e->max_x) {
+            return 0;
+        }
+        if ((short)(to_int(p.z) >> 2) <= e->z + e->min_z) {
+            return 0;
+        }
+        if ((short)(to_int(p.z) >> 2) >= e->z + e->max_z) {
+            return 0;
+        }
+        out->x = p.x;
+        out->y = p.y;
+        out->z = p.z;
+        if (limit == top) {
+            normal->x = 0;
+            normal->y = 4096;
+            normal->z = 0;
+            return 5;
+        }
+        normal->x = 0;
+        normal->y = -4096;
+        normal->z = 0;
+        return 6;
+    }
+    return 0;
+}

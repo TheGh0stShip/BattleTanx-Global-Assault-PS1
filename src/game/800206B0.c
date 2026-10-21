@@ -1,41 +1,133 @@
-asm(".text\n\t.globl func_800206B0\nfunc_800206B0:\n\t"
-    ".word 0x27BDFFE8,0x3C02800D,0x24442FE4,0xAFBF0014\n\t"
-    ".word 0xAFB00010,0x90830049,0x3C02800B,0x10600008\n\t"
-    ".word 0xAC40DED8,0x90830048,0x00000000,0x2C620064\n\t"
-    ".word 0x10400004,0x24620001,0x080081BD,0xA0820048\n\t"
-    ".word 0xA0800048,0x3C02800B,0x9042ED4F,0x3C03800D\n\t"
-    ".word 0x30420001,0x10400004,0xA060302D,0x3C03800A\n\t"
-    ".word 0x080081C8,0x24020005,0x3C03800A,0x24020014\n\t"
-    ".word 0x0C01A9FF,0xA462570C,0x3C03800D,0x24642FE4\n\t"
-    ".word 0xAC820040,0x8C430008,0x00000000,0xAC830004\n\t"
-    ".word 0x8C430050,0x00000000,0xAC830010,0x8C430004\n\t"
-    ".word 0x00000000,0xAC830044,0x90830008,0x9042000C\n\t"
-    ".word 0x00000000,0x00621821,0x90820008,0x24050004\n\t"
-    ".word 0xA085000A,0xA0830009,0x24030001,0x14430008\n\t"
-    ".word 0x24020002,0xA082003A,0x24020003,0xA0800039\n\t"
-    ".word 0xA082003B,0xA085003C,0x080081EE,0xA083003D\n\t"
-    ".word 0xA082003B,0x24020003,0xA0800039,0xA083003A\n\t"
-    ".word 0xA082003C,0xA085003D,0x00001821,0x3C02800D\n\t"
-    ".word 0x24442FE4,0x00641021,0x90420039,0x00000000\n\t"
-    ".word 0x00441021,0xA0430034,0x24630001,0x28620005\n\t"
-    ".word 0x1440FFF9,0x00641021,0x00002821,0x3C02800D\n\t"
-    ".word 0x24462FE4,0x00A62021,0x8CC20040,0x90830039\n\t"
-    ".word 0x00000000,0x00431021,0x9042000D,0x24A50001\n\t"
-    ".word 0xA082000B,0x28A20005,0x1440FFF7,0x00A62021\n\t"
-    ".word 0x3C02800D,0x24502FE4,0x8E030004,0x2402000C\n\t"
-    ".word 0x14620003,0x3C03800D,0xAE000010,0xAE000014\n\t"
-    ".word 0x24020001,0x0C00F235,0xA0623030,0x0C012049\n\t"
-    ".word 0x00000000,0x0C0147D5,0x00000000,0x0C01210B\n\t"
-    ".word 0x00000000,0x8E020004,0x00000000,0x2443FFF9\n\t"
-    ".word 0x2C620008,0x10400021,0x3C02800C,0x2442D51C\n\t"
-    ".word 0x00031880,0x00621821,0x8C620000,0x00000000\n\t"
-    ".word 0x00400008,0x00000000,0x0C00CD70,0x00000000\n\t"
-    ".word 0x3C02800B,0x0C00CDA4,0xAC40AF40,0x3C02800D\n\t"
-    ".word 0x8C432FF4,0x3C02800B,0xAC43AF38,0x3C02800B\n\t"
-    ".word 0x08008243,0xAC43AF3C,0x0C00CDA4,0x00000000\n\t"
-    ".word 0x08008240,0x3C02800B,0x0C00CDA4,0x00000000\n\t"
-    ".word 0x3C02800B,0xAC40AF3C,0x3C02800D,0x8C432FF4\n\t"
-    ".word 0x3C02800B,0x08008243,0xAC43AF38,0x3C02800B\n\t"
-    ".word 0xAC40AF38,0x3C02800B,0xAC40AF3C,0x0C00D37B\n\t"
-    ".word 0x00000000,0x8FBF0014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0018\n");
+typedef struct {
+    char pad0[4];
+    int mode;
+    int map;
+    unsigned char players;
+    unsigned char slots[16];
+    char padD;
+    char pad1E[0x50 - 0x1E];
+    int timer;
+} Level;
+
+typedef struct {
+    void *screen;
+    int mode;
+    volatile unsigned char players;
+    unsigned char total;
+    unsigned char teams;
+    unsigned char slot_kind[5];
+    char pad10[0x10 - 0x10];
+    int timer;
+    int timer2;
+    char pad18[0x34 - 0x18];
+    unsigned char rank[5];
+    unsigned char order[5];
+    char pad3E[2];
+    Level *level;
+    int map;
+    unsigned char streak;
+    unsigned char won;
+    char pad4A[2];
+    unsigned char active;
+} Globals;
+
+extern Globals D_800D2FE4;
+extern unsigned char D_800D302D;
+extern unsigned char D_800D3030;
+extern int D_800D2FF4;
+extern int D_800ADED8;
+extern unsigned char D_800AED4F;
+extern short D_800A570C;
+extern int D_800AAF38;
+extern int D_800AAF3C;
+extern int D_800AAF40;
+extern Level *func_8006A7FC(void);
+extern void func_8003C8D4(void);
+extern void func_80048124(void);
+extern void func_80051F54(void);
+extern void func_8004842C(void);
+extern void func_800335C0(void);
+extern void func_80033690(void);
+extern void func_80034DEC(void);
+
+void func_800206B0(void) {
+    Level *level;
+    int i;
+    int j;
+
+    D_800ADED8 = 0;
+    if (D_800D2FE4.won != 0) {
+        if (D_800D2FE4.streak < 100) {
+            D_800D2FE4.streak++;
+        }
+    } else {
+        D_800D2FE4.streak = 0;
+    }
+    D_800D302D = 0;
+    if (D_800AED4F & 1) {
+        D_800A570C = 5;
+    } else {
+        D_800A570C = 20;
+    }
+    level = func_8006A7FC();
+    D_800D2FE4.level = level;
+    D_800D2FE4.mode = level->map;
+    D_800D2FE4.timer = level->timer;
+    D_800D2FE4.map = level->mode;
+    D_800D2FE4.total = D_800D2FE4.players + level->players;
+    D_800D2FE4.teams = 4;
+    if (D_800D2FE4.players == 1) {
+        D_800D2FE4.order[0] = 0;
+        D_800D2FE4.order[1] = 2;
+        D_800D2FE4.order[2] = 3;
+        D_800D2FE4.order[3] = 4;
+        D_800D2FE4.order[4] = 1;
+    } else {
+        D_800D2FE4.order[0] = 0;
+        D_800D2FE4.order[1] = 1;
+        D_800D2FE4.order[2] = 2;
+        D_800D2FE4.order[3] = 3;
+        D_800D2FE4.order[4] = 4;
+    }
+    for (j = 0; j < 5; j++) {
+        D_800D2FE4.rank[D_800D2FE4.order[j]] = j;
+    }
+    for (i = 0; i < 5; i++) {
+        D_800D2FE4.slot_kind[i] = D_800D2FE4.level->slots[D_800D2FE4.order[i]];
+    }
+    if (D_800D2FE4.mode == 12) {
+        D_800D2FE4.timer = 0;
+        D_800D2FE4.timer2 = 0;
+    }
+    D_800D3030 = 1;
+    func_8003C8D4();
+    func_80048124();
+    func_80051F54();
+    func_8004842C();
+    switch (D_800D2FE4.mode) {
+    case 11:
+        func_800335C0();
+    case 14:
+        D_800AAF40 = 0;
+        func_80033690();
+        D_800AAF38 = D_800D2FF4;
+        D_800AAF3C = D_800D2FF4;
+        break;
+    case 7:
+        func_80033690();
+        D_800AAF38 = 0;
+        D_800AAF3C = 0;
+        break;
+    case 13:
+        func_80033690();
+    case 12:
+        D_800AAF3C = 0;
+        D_800AAF38 = D_800D2FF4;
+        break;
+    default:
+        D_800AAF38 = 0;
+        D_800AAF3C = 0;
+        break;
+    }
+    func_80034DEC();
+}

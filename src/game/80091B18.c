@@ -1,28 +1,41 @@
-asm(".text\n\t.globl func_80091B18\nfunc_80091B18:\n\t"
-    ".word 0x3C028008,0x8C42605C,0x00000000,0x00820018\n\t"
-    ".word 0x27BDFFC0,0xAFB00018,0x00008012,0x3C021062\n\t"
-    ".word 0x34424DD3,0x02020019,0x00001810,0x00038182\n\t"
-    ".word 0x8FA30050,0xAFBF003C,0xAFBE0038,0xAFB70034\n\t"
-    ".word 0xAFB60030,0xAFB5002C,0xAFB40028,0xAFB30024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0xA7A70010,0x16000002\n\t"
-    ".word 0x0060F021,0x24100001,0x00072400,0x00042403\n\t"
-    ".word 0x00051400,0x00021403,0x00822023,0x0090001A\n\t"
-    ".word 0x16000002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x16010004,0x3C018000,0x14810002,0x00000000\n\t"
-    ".word 0x0006000D,0x00002012,0x00031C00,0x00031C03\n\t"
-    ".word 0x00061400,0x00021403,0x00621823,0x0070001A\n\t"
-    ".word 0x16000002,0x00000000,0x0007000D,0x2401FFFF\n\t"
-    ".word 0x16010004,0x3C018000,0x14610002,0x00000000\n\t"
-    ".word 0x0006000D,0x00001812,0x00A0A821,0x00C0A021\n\t"
-    ".word 0x0080B821,0x0060B021,0x02B71021,0x0040A821\n\t"
-    ".word 0x02961821,0x0060A021,0x00021400,0x00028C03\n\t"
-    ".word 0x02202021,0x00031C00,0x00039403,0x0C0246A4\n\t"
-    ".word 0x02402821,0x00409821,0x0C02221C,0x00002021\n\t"
-    ".word 0x12600003,0x2610FFFF,0x1600FFF0,0x02B71021\n\t"
-    ".word 0x97A80010,0x00000000,0x00081400,0x00022403\n\t"
-    ".word 0x16240005,0x001E2C00,0x001E1400,0x00021403\n\t"
-    ".word 0x12420007,0x02601021,0x0C0246A4,0x00052C03\n\t"
-    ".word 0x14400003,0x02601021,0x00009821,0x02601021\n\t"
-    ".word 0x8FBF003C,0x8FBE0038,0x8FB70034,0x8FB60030\n\t"
-    ".word 0x8FB5002C,0x8FB40028,0x8FB30024,0x8FB20020\n\t"
-    ".word 0x8FB1001C,0x8FB00018,0x03E00008,0x27BD0040\n");
+extern int func_80091A90(int, int);
+extern void func_80088870(int);
+
+typedef struct {
+    int w0;
+    int rate;
+} Cfg80091B18;
+extern Cfg80091B18 D_80086058;
+
+int func_80091B18(int ms, short x0, short y0, short x1, short y1) {
+    unsigned int steps;
+    short dx;
+    short dy;
+    short x;
+    short y;
+    int ok;
+
+    steps = ms * D_80086058.rate;
+    steps /= 1000;
+    if (steps == 0) {
+        steps = 1;
+    }
+    x = x0;
+    y = y0;
+    dx = (x1 - x0) / (int)steps;
+    dy = (y1 - y0) / (int)steps;
+    do {
+        x += dx;
+        y += dy;
+        ok = func_80091A90(x, y);
+        func_80088870(0);
+        steps--;
+        if (ok == 0) {
+            break;
+        }
+    } while (steps != 0);
+    if ((x != x1 || y != y1) && func_80091A90(x1, y1) == 0) {
+        ok = 0;
+    }
+    return ok;
+}

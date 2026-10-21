@@ -1,57 +1,163 @@
-asm(".text\n\t.globl func_8002F3D8\nfunc_8002F3D8:\n\t"
-    ".word 0x27BDFFC8,0xAFB00028,0x00808021,0xAFB1002C\n\t"
-    ".word 0x00C08821,0xAFBF0030,0x8E030008,0x8E240000\n\t"
-    ".word 0x8E020010,0x8E250004,0x00642023,0x0C022B8C\n\t"
-    ".word 0x00452823,0x92030037,0x24020001,0x14620005\n\t"
-    ".word 0x3C02800D,0x90435A88,0x24020061,0x106200C7\n\t"
-    ".word 0x00000000,0x8E030008,0x8E220000,0x00000000\n\t"
-    ".word 0x00621023,0x04410004,0x00022303,0x00021023\n\t"
-    ".word 0x00021303,0x00022023,0x8E030010,0x8E220004\n\t"
-    ".word 0x00000000,0x00621023,0x04400003,0x00401821\n\t"
-    ".word 0x0800BD1F,0x00021303,0x00031023,0x00021303\n\t"
-    ".word 0x00021023,0x00840018,0x00001812,0x00000000\n\t"
-    ".word 0x00000000,0x00420018,0x3C02800D,0x8C445A80\n\t"
-    ".word 0x00004012,0x00682821,0x0085102A,0x144000A7\n\t"
-    ".word 0x00000000,0x92030035,0x00000000,0x28620004\n\t"
-    ".word 0x104000A2,0x00000000,0x046000A0,0x240200FA\n\t"
-    ".word 0x8E230014,0x00000000,0x1062000A,0x24090333\n\t"
-    ".word 0x82020016,0x00000000,0x0043102A,0x92030016\n\t"
-    ".word 0x14400042,0x00000000,0x92220014,0x0800BDD0\n\t"
-    ".word 0x00621023,0x01240018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x00A2102A\n\t"
-    ".word 0x14400013,0x240A0666,0x01440018,0x00001012\n\t"
-    ".word 0x00001810,0x00021302,0x00031D00,0x00431025\n\t"
-    ".word 0x00A2102A,0x1040000E,0x24090999,0x96060014\n\t"
-    ".word 0x26050008,0xAFA00010,0xAFA00014,0xAFA00018\n\t"
-    ".word 0xAFA0001C,0x8E040028,0x0C00D652,0x00003821\n\t"
-    ".word 0x0C00BA9C,0x02002021,0x0800BDD1,0x00000000\n\t"
-    ".word 0x01240018,0x00001012,0x00001810,0x00021302\n\t"
-    ".word 0x00031D00,0x00431025,0x00A2102A,0x10400009\n\t"
-    ".word 0x240A0CCC,0x82020016,0x92030016,0x284200FA\n\t"
-    ".word 0x14400012,0x00000000,0x92220014,0x0800BDD0\n\t"
-    ".word 0x00621023,0x01440018,0x00001012,0x00001810\n\t"
-    ".word 0x00021302,0x00031D00,0x00431025,0x00A2102A\n\t"
-    ".word 0x1040000B,0x00851823,0x82020016,0x92030016\n\t"
-    ".word 0x284200FA,0x10400003,0x00000000,0x0800BDD1\n\t"
-    ".word 0xA2000016,0x92220014,0x0800BDD0,0x00621023\n\t"
-    ".word 0x00031080,0x14800002,0x00432821,0x24040002\n\t"
-    ".word 0x3C028000,0x00A21824,0x00821024,0x00624026\n\t"
-    ".word 0x04A10002,0x00A01821,0x00031823,0x04810002\n\t"
-    ".word 0x00803021,0x00063023,0x4883F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20020,0xE85F0000,0x8FA40020\n\t"
-    ".word 0x00000000,0x2487FFF4,0x04E10023,0x00000000\n\t"
-    ".word 0x00831804,0x4886F000,0x00000000,0x00000000\n\t"
-    ".word 0x27A20024,0xE85F0000,0x8FA50024,0x00000000\n\t"
-    ".word 0x00A42023,0x0480000F,0x2402000C,0x00451023\n\t"
-    ".word 0x04400003,0x00000000,0x0800BDAC,0x00461007\n\t"
-    ".word 0x00021023,0x00461004,0x0062001B,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x00001812,0x0800BDC2\n\t"
-    ".word 0x00831804,0x00071023,0x00461007,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800BDC4,0x00601021,0x00031B00,0x0066001B\n\t"
-    ".word 0x14C00002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x00000000,0x00601021,0x11000002,0x240A000F\n\t"
-    ".word 0x00021023,0x01420018,0x00001812,0x00004810\n\t"
-    ".word 0x00031B02,0x00094D00,0x00691825,0x92020016\n\t"
-    ".word 0x00000000,0x00431023,0xA2020016,0x8FBF0030\n\t"
-    ".word 0x8FB1002C,0x8FB00028,0x03E00008,0x27BD0038\n");
+int abs(int);
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+static inline int fixed_mul(int a, int b) {
+    int low;
+    int high;
+
+    __asm__ volatile("mult %2, %3\n\tmflo %0\n\tmfhi %1\n\tsrl %0, %0, 12\n\tsll %1, %1, 20\n\tor %0, %0, %1"
+                     : "=&r"(low), "=&r"(high)
+                     : "r"(a), "r"(b));
+    return low;
+}
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    unsigned int n;
+    int d;
+    unsigned int m;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    negative = (numerator & 0x80000000) ^ (denominator & 0x80000000);
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        m = n << n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = m / (d >> scale);
+            } else {
+                quotient = m / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = m / (d >> -excess);
+        }
+    } else {
+        m = n << 12;
+        quotient = m / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+
+typedef struct {
+    int pad[2];
+    int x;
+    int pad2;
+    int z;
+    unsigned short heading;
+    signed char hp;
+    char pad4[40 - 23];
+    int model;
+    char pad5[53 - 44];
+    unsigned char state;
+    char pad6;
+    unsigned char team;
+} Obj;
+typedef struct { int x; int z; int pad[3]; int amount; } Blast;
+extern unsigned char D_800D5A88;
+extern int D_800D5A80;
+int func_8008AE30(int, int);
+void func_8002EA70(Obj *);
+void func_80035948(int, int *, int, int, int, int, int, int);
+
+static inline int to_int(int v) {
+    if (v >= 0) {
+        return v >> 12;
+    }
+    return -(-v >> 12);
+}
+
+void func_8002F3D8(Obj *obj, void *msg, Blast *b) {
+    int dx;
+    int dz;
+    int dist;
+    int range;
+
+    func_8008AE30(obj->x - b->x, obj->z - b->z);
+    if (obj->team == 1 && D_800D5A88 == 97) {
+        return;
+    }
+    dx = to_int(obj->x - b->x);
+    dz = to_int(obj->z - b->z);
+    dist = dx * dx + dz * dz;
+    range = D_800D5A80;
+    if (dist > range) {
+        return;
+    }
+    switch (obj->state) {
+    case 0 ... 3:
+        break;
+    default:
+        return;
+    }
+    if (b->amount != 250) {
+        if (obj->hp < b->amount) {
+            obj->hp = 0;
+        } else {
+            obj->hp -= b->amount;
+        }
+    } else {
+        if (dist < fixed_mul(819, range)) {
+            func_8002EA70(obj);
+            return;
+        }
+        if (dist < fixed_mul(1638, range)) {
+            func_80035948(obj->model, &obj->x, obj->heading, 0, 0, 0, 0, 0);
+            func_8002EA70(obj);
+            return;
+        }
+        if (dist < fixed_mul(2457, range)) {
+            if (obj->hp < b->amount) {
+                obj->hp = 0;
+            } else {
+                obj->hp -= b->amount;
+            }
+            return;
+        }
+        if (dist < fixed_mul(3276, range)) {
+            if (obj->hp < b->amount) {
+                obj->hp = 0;
+            } else {
+                obj->hp -= b->amount;
+            }
+            return;
+        }
+        dist = (range - dist) * 5;
+        if (range == 0) {
+            range = 2;
+        }
+        obj->hp -= fixed_mul(15, fixed_div(dist, range));
+    }
+}

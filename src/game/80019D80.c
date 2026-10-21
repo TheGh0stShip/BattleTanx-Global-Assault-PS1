@@ -1,106 +1,137 @@
-asm(".text\n\t.globl func_80019D80\nfunc_80019D80:\n\t"
-    ".word 0x27BDFF80,0xAFBE0078,0x0080F021,0x00A04821\n\t"
-    ".word 0xAFBF007C,0xAFB70074,0xAFB60070,0xAFB5006C\n\t"
-    ".word 0xAFB40068,0xAFB30064,0xAFB20060,0xAFB1005C\n\t"
-    ".word 0xAFB00058,0x8D240000,0x8FC20000,0x00C06021\n\t"
-    ".word 0x00822023,0x04810002,0x00801821,0x00031823\n\t"
-    ".word 0x24020200,0x0062001A,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14410004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00003012\n\t"
-    ".word 0x0000B021,0x00E04021,0x8FAA0090,0x8FAB0094\n\t"
-    ".word 0x8FC50008,0x8D230008,0x2402FFFF,0xAFA20038\n\t"
-    ".word 0x3C02800C,0x24546290,0xAFA40030,0x00651823\n\t"
-    ".word 0x04C00003,0xAFA30034,0x08006793,0x00062303\n\t"
-    ".word 0x00061023,0x00021303,0x00022023,0x8FA20034\n\t"
-    ".word 0x24030200,0x04410002,0x00000000,0x00021023\n\t"
-    ".word 0x0043001A,0x14600002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14610004,0x3C018000,0x14410002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x00000000\n\t"
-    ".word 0x04600003,0x00043882,0x080067AB,0x00031303\n\t"
-    ".word 0x00031023,0x00021303,0x00021023,0x00021380\n\t"
-    ".word 0x00022403,0x00E01821,0x3062FFFF,0x14400002\n\t"
-    ".word 0x00803021,0x24030001,0x00603821,0x30C2FFFF\n\t"
-    ".word 0x14400002,0x00801821,0x24030001,0x00603021\n\t"
-    ".word 0x30E5FFFF,0x30C4FFFF,0x00A4102B,0xAFA00028\n\t"
-    ".word 0x1440001D,0xAFA0002C,0x8FA30030,0x00000000\n\t"
-    ".word 0x0065001A,0x14A00002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14A10004,0x3C018000,0x14610002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x8FA20034\n\t"
-    ".word 0x00000000,0x0045001A,0x14A00002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14A10004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x00001012\n\t"
-    ".word 0x080067F5,0xA7A7003C,0x8FA30030,0x00000000\n\t"
-    ".word 0x0064001A,0x14800002,0x00000000,0x0007000D\n\t"
-    ".word 0x2401FFFF,0x14810004,0x3C018000,0x14610002\n\t"
-    ".word 0x00000000,0x0006000D,0x00001812,0x8FA20034\n\t"
-    ".word 0x00000000,0x0044001A,0x14800002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14810004,0x3C018000\n\t"
-    ".word 0x14410002,0x00000000,0x0006000D,0x00001012\n\t"
-    ".word 0xA7A6003C,0xAFA30028,0xAFA2002C,0x8FA30028\n\t"
-    ".word 0x24020002,0x0062001A,0x14400002,0x00000000\n\t"
-    ".word 0x0007000D,0x2401FFFF,0x14410004,0x3C018000\n\t"
-    ".word 0x14610002,0x00000000,0x0006000D,0x00001812\n\t"
-    ".word 0x8FC20000,0x00000000,0x00431021,0x04410004\n\t"
-    ".word 0x00022303,0x00021023,0x00021303,0x00022023\n\t"
-    ".word 0x8FA3002C,0x24020002,0x0062001A,0x14400002\n\t"
-    ".word 0x00000000,0x0007000D,0x2401FFFF,0x14410004\n\t"
-    ".word 0x3C018000,0x14610002,0x00000000,0x0006000D\n\t"
-    ".word 0x00001812,0x8FC50008,0x00041380,0x96840000\n\t"
-    ".word 0x00021403,0x00449823,0x00A31021,0x04400003\n\t"
-    ".word 0x00000000,0x08006826,0x00021303,0x00021023\n\t"
-    ".word 0x00021303,0x00021023,0x00021380,0x96830002\n\t"
-    ".word 0x00021403,0x00431823,0x00131400,0x00022403\n\t"
-    ".word 0x04800011,0x0060B821,0x00031400,0x00021C03\n\t"
-    ".word 0x0460000E,0x3C02800A,0x96820008,0x00000000\n\t"
-    ".word 0x00021280,0x0082102A,0x10400008,0x3C02800A\n\t"
-    ".word 0x9682000A,0x00000000,0x00021280,0x0062102A\n\t"
-    ".word 0x14400022,0x0000A821,0x3C02800A,0x9443436C\n\t"
-    ".word 0x00000000,0x10600019,0x00002021,0x3C02800C\n\t"
-    ".word 0x244860F8,0x3C02800C,0x244762B0,0x3C06FBFF\n\t"
-    ".word 0x34C6FFFF,0x00602821,0x3082FFFF,0x00021040\n\t"
-    ".word 0x00481021,0x94430000,0x00000000,0x00031080\n\t"
-    ".word 0x00431021,0x000210C0,0x00471021,0x8C430000\n\t"
-    ".word 0x24840001,0x00661824,0xAC430000,0x3082FFFF\n\t"
-    ".word 0x0045102B,0x1440FFF0,0x00000000,0x3C02800A\n\t"
-    ".word 0xA440436C,0x080068F7,0x00001021,0x00131400\n\t"
-    ".word 0x00022403,0x04800067,0x00171400,0x00021C03\n\t"
-    ".word 0x04600064,0x00000000,0x96820008,0x00000000\n\t"
-    ".word 0x00021280,0x0082102A,0x1040005E,0x00000000\n\t"
-    ".word 0x9682000A,0x00000000,0x00021280,0x0062102A\n\t"
-    ".word 0x10400058,0x00008021,0x00809021,0x00608821\n\t"
-    ".word 0x9682000A,0x00000000,0x02020018,0x3207FFFF\n\t"
-    ".word 0x00073040,0x3C02800A,0x24424364,0x00C21021\n\t"
-    ".word 0x94420000,0x96830008,0x02221021,0x00006812\n\t"
-    ".word 0x00021283,0x004D1021,0x00430018,0x03C02021\n\t"
-    ".word 0x01202821,0x26100001,0x3C0D800A,0x25AD435C\n\t"
-    ".word 0x00CD3021,0x94C20000,0x8E83000C,0x02421021\n\t"
-    ".word 0x00021283,0x00006812,0x01A21021,0x3042FFFF\n\t"
-    ".word 0x00021040,0x00621821,0x94660002,0x3102FFFF\n\t"
-    ".word 0xAFA20014,0x27A20038,0xAFAC0010,0xAFAA0018\n\t"
-    ".word 0xAFAB001C,0xAFA20020,0xAFA80040,0xAFA90044\n\t"
-    ".word 0xAFAA0048,0xAFAB004C,0x0C00660A,0xAFAC0050\n\t"
-    ".word 0x02C2B025,0x3202FFFF,0x2C420004,0x8FA80040\n\t"
-    ".word 0x8FA90044,0x8FAA0048,0x8FAB004C,0x8FAC0050\n\t"
-    ".word 0x1440FFCB,0x32C2FFFF,0x1440001F,0x03C02021\n\t"
-    ".word 0x8FA20028,0x00000000,0x04400003,0x00000000\n\t"
-    ".word 0x080068B5,0x00021303,0x00021023,0x00021303\n\t"
-    ".word 0x00021023,0x00021380,0x00021403,0x8FA3002C\n\t"
-    ".word 0x00000000,0x04600003,0x02629821,0x080068C0\n\t"
-    ".word 0x00031303,0x00031023,0x00021303,0x00021023\n\t"
-    ".word 0x00021380,0x00021403,0x02E2B821,0x26B50001\n\t"
-    ".word 0x97A2003C,0x32A3FFFF,0x0043102B,0x1040FF98\n\t"
-    ".word 0x00131400,0x03C02021,0x01202821,0x8E82000C\n\t"
-    ".word 0x00003821,0x94460000,0x3102FFFF,0xAFA20014\n\t"
-    ".word 0x27A20038,0xAFAC0010,0xAFAA0018,0xAFAB001C\n\t"
-    ".word 0x0C00660A,0xAFA20020,0x02C2B025,0x3C02800A\n\t"
-    ".word 0x9443436C,0x00000000,0x1060001A,0x00002021\n\t"
-    ".word 0x3C02800C,0x244860F8,0x3C02800C,0x244762B0\n\t"
-    ".word 0x3C06FBFF,0x34C6FFFF,0x00602821,0x3082FFFF\n\t"
-    ".word 0x00021040,0x00481021,0x94430000,0x00000000\n\t"
-    ".word 0x00031080,0x00431021,0x000210C0,0x00471021\n\t"
-    ".word 0x8C430000,0x24840001,0x00661824,0xAC430000\n\t"
-    ".word 0x3082FFFF,0x0045102B,0x1440FFF1,0x3082FFFF\n\t"
-    ".word 0x3C02800A,0xA440436C,0x32C2FFFF,0x8FBF007C\n\t"
-    ".word 0x8FBE0078,0x8FB70074,0x8FB60070,0x8FB5006C\n\t"
-    ".word 0x8FB40068,0x8FB30064,0x8FB20060,0x8FB1005C\n\t"
-    ".word 0x8FB00058,0x03E00008,0x27BD0080\n");
+typedef struct Vector {
+    int x;
+    int y;
+    int z;
+} Vector;
+typedef struct Pos2 {
+    int x;
+    int z;
+} Pos2;
+typedef struct Cell {
+    int flags;
+    void *owner;
+    unsigned short next[4];
+    char pad10[0x28 - 0x10];
+} Cell;
+typedef struct Grid {
+    unsigned short x0;
+    unsigned short z0;
+    short width;
+    short depth;
+    unsigned short cols;
+    unsigned short rows;
+    unsigned short *cells;
+} Grid;
+typedef struct Hit Hit;
+extern Cell D_800C62B0[];
+extern Grid D_800C6290;
+extern unsigned short D_800A435C[4];
+extern unsigned short D_800A4364[4];
+extern unsigned short D_800A436C;
+extern unsigned short D_800C60F8[];
+int abs(int);
+unsigned short func_80019828(Vector *, Vector *, unsigned short, unsigned short, int, unsigned short, void *, Hit *,
+                             unsigned int *);
+
+static inline int to_int(int v) {
+    return v >= 0 ? v >> 12 : -(-v >> 12);
+}
+
+static inline int idiv(int a, int b) {
+    return a / b;
+}
+
+static inline short to_cell(int v) {
+    return to_int(v) >> 2;
+}
+
+static inline unsigned short at_least_one(unsigned short v) {
+    return v ? v : 1;
+}
+
+static inline void clear_visited(void) {
+    unsigned short i;
+    unsigned short idx;
+
+    for (i = 0; i < D_800A436C; i++) {
+        idx = D_800C60F8[i];
+        D_800C62B0[idx].flags &= ~0x04000000;
+    }
+    D_800A436C = 0;
+}
+
+unsigned short func_80019D80(Vector *from, Vector *to, int mask, unsigned short reach, void *ignore, Hit *out) {
+    Grid *g;
+    Pos2 step;
+    Pos2 d;
+    unsigned int best;
+    unsigned short count;
+    unsigned short nx;
+    unsigned short nz;
+    unsigned short result;
+    unsigned short i;
+    unsigned short k;
+    unsigned short idx;
+    int col;
+    unsigned short *cell;
+    short gx;
+    short gz;
+    int ax;
+    int dx;
+    int az;
+
+    dx = to->x - from->x;
+    ax = idiv(abs(dx), 512);
+    result = 0;
+    best = 0xFFFFFFFF;
+    g = &D_800C6290;
+    d.z = to->z - from->z;
+    d.x = dx;
+    nx = to_int(ax) >> 2;
+    az = abs(d.z);
+    nz = to_cell(idiv(az, 512));
+    nx = nx ? nx : 1;
+    nz = nz ? nz : 1;
+    step.x = 0;
+    step.z = 0;
+    if (nx >= nz) {
+        step.x = d.x / nx;
+        step.z = d.z / nx;
+        count = nx;
+    } else {
+        step.x = d.x / nz;
+        step.z = d.z / nz;
+        count = nz;
+    }
+    gx = to_cell(from->x + idiv(step.x, 2)) - g->x0;
+    gz = to_cell(from->z + idiv(step.z, 2)) - g->z0;
+    if (gx < 0 || gz < 0 || gx >= g->cols << 10 || gz >= g->rows << 10) {
+        clear_visited();
+        return 0;
+    }
+    i = 0;
+    for (;;) {
+        if (gx < 0 || gz < 0 || gx >= g->cols << 10 || gz >= g->rows << 10) {
+            break;
+        }
+        for (k = 0; k < 4; k++) {
+            col = (gx + D_800A435C[k]) >> 10;
+            idx = ((gz + D_800A4364[k]) >> 10) + k * g->rows;
+            idx = idx * g->cols + col;
+            cell = g->cells + idx + 1;
+            result |= func_80019828(from, to, *cell, k, mask, reach, ignore, out, &best);
+        }
+        if (result) {
+            break;
+        }
+        gx += to_cell(step.x);
+        gz += to_cell(step.z);
+        i++;
+        if (i > count) {
+            break;
+        }
+    }
+    result |= func_80019828(from, to, g->cells[0], 0, mask, reach, ignore, out, &best);
+    clear_visited();
+    return result;
+}

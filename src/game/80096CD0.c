@@ -1,15 +1,23 @@
-asm(".text\n\t.globl func_80096CD0\nfunc_80096CD0:\n\t"
-    ".word 0x27bdffe8,0xafbf0014,0xafb00010,0x3c02800f\n\t"
-    ".word 0x8c42f084,0x3c04800f,0x8c84f080,0x3c03800f\n\t"
-    ".word 0x8c63f088,0x00021040,0x00822021,0x00031880\n\t"
-    ".word 0x3c02800f,0x8c42f08c,0x00832021,0x000210c0\n\t"
-    ".word 0x00828021,0x1200fff1,0x00000000,0x3c04800f\n\t"
-    ".word 0x8c84f050,0x0c026bb5,0x00000000,0x3c04800f\n\t"
-    ".word 0x8c84f054,0x0c026bb5,0x00000000,0x3c04800f\n\t"
-    ".word 0x8c84f058,0x0c026bb5,0x00000000,0x3c04800f\n\t"
-    ".word 0x8c84f05c,0x0c026bb5,0x00000000,0x3c01800f\n\t"
-    ".word 0xac20f08c,0x3c02800f,0x8c42f08c,0x3c01800f\n\t"
-    ".word 0xac22f088,0x3c02800f,0x8c42f088,0x3c01800f\n\t"
-    ".word 0xac22f084,0x3c03800f,0x8c63f084,0x00101043\n\t"
-    ".word 0x3c01800f,0xac23f080,0x8fbf0014,0x8fb00010\n\t"
-    ".word 0x03e00008,0x27bd0018\n\t");
+extern int func_8009AED4(int);
+extern int D_800EF050;
+extern int D_800EF054;
+extern int D_800EF058;
+extern int D_800EF05C;
+extern volatile int D_800EF080;
+extern volatile int D_800EF084;
+extern volatile int D_800EF088;
+extern volatile int D_800EF08C;
+
+int func_80096CD0(void) {
+    int r;
+
+    do {
+        r = D_800EF080 + D_800EF084 * 2 + D_800EF088 * 4 + D_800EF08C * 8;
+    } while (r == 0);
+    func_8009AED4(D_800EF050);
+    func_8009AED4(D_800EF054);
+    func_8009AED4(D_800EF058);
+    func_8009AED4(D_800EF05C);
+    D_800EF080 = D_800EF084 = D_800EF088 = D_800EF08C = 0;
+    return r >> 1;
+}

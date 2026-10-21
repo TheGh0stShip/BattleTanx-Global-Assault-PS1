@@ -1,30 +1,74 @@
-asm(".text\n\t.globl func_8007ED6C\nfunc_8007ED6C:\n\t"
-    ".word 0x27BDFFC8,0xAFB50024,0x0080A821,0xAFB40020\n\t"
-    ".word 0x00A0A021,0xAFB3001C,0x00C09821,0xAFB60028\n\t"
-    ".word 0xAFB10014,0x3C11800F,0xAFB00010,0x2630C200\n\t"
-    ".word 0xAFBF0030,0xAFB7002C,0xAFB20018,0x8E030108\n\t"
-    ".word 0x24020002,0x1062000D,0x00E0B021,0x0C01FD14\n\t"
-    ".word 0x00000000,0x12C0004F,0x00409021,0x16400002\n\t"
-    ".word 0x00000000,0x00009821,0x8E24C200,0x02802821\n\t"
-    ".word 0x02603021,0x0801FBBE,0x02403821,0x8E02010C\n\t"
-    ".word 0x00000000,0x14400021,0x00000000,0x8E020128\n\t"
-    ".word 0x00000000,0x1455001D,0x00000000,0x8E02012C\n\t"
-    ".word 0x00000000,0x00021AC2,0x00531021,0x000212C2\n\t"
-    ".word 0x14620016,0x02A02021,0xAE000130,0x02802821\n\t"
-    ".word 0x0C01FAC7,0x02603021,0x00409021,0x12400006\n\t"
-    ".word 0x00000000,0x8E02012C,0x00000000,0x00531021\n\t"
-    ".word 0x0801FB96,0xAE02012C,0xAE000128,0x12C00029\n\t"
-    ".word 0x02802821,0x3C02800F,0x8C44C200,0x2442C200\n\t"
-    ".word 0x8C460130,0x0801FBBE,0x02403821,0x0C01FB0B\n\t"
-    ".word 0x3C17800F,0x26F1C200,0x8E220128,0x00000000\n\t"
-    ".word 0x10550002,0x02608021,0xAE20012C,0x2E021401\n\t"
-    ".word 0x14400002,0x00000000,0x24101400,0xAE200130\n\t"
-    ".word 0x02A02021,0x02802821,0x0C01FAC7,0x02003021\n\t"
-    ".word 0x00409021,0x12400008,0x00000000,0xAE34011C\n\t"
-    ".word 0xAE330120,0xAE300124,0xAE360114,0xAE35010C\n\t"
-    ".word 0x0801FBC1,0x02401021,0x12C00006,0x02802821\n\t"
-    ".word 0x8EE4C200,0x00003021,0x00C03821,0x02C0F809\n\t"
-    ".word 0x00000000,0x02401021,0x8FBF0030,0x8FB7002C\n\t"
-    ".word 0x8FB60028,0x8FB50024,0x8FB40020,0x8FB3001C\n\t"
-    ".word 0x8FB20018,0x8FB10014,0x8FB00010,0x03E00008\n\t"
-    ".word 0x27BD0038\n");
+typedef struct FileCtl {
+    int handle;
+    char pad4[260];
+    int mode;
+    volatile int active;
+    void (*callback)(int, int);
+    void (*callback4)(int, char *, unsigned int, int);
+    int pad118;
+    char *buf;
+    unsigned int total;
+    unsigned int done;
+    int busy;
+    unsigned int pos;
+    unsigned int count;
+} FileCtl;
+
+extern FileCtl D_800EC200;
+extern int func_8007F450(int, char *, unsigned int);
+extern int func_8007EB1C(int, char *, unsigned int);
+extern void func_8007EC2C(void);
+
+int func_8007ED6C(int handle, char *buf, unsigned int len, void (*done)(int, char *, unsigned int, int)) {
+    register FileCtl *ctl asm("$16") = &D_800EC200;
+    register unsigned int n asm("$16");
+    register int ok asm("$18");
+
+    if (ctl->mode != 2) {
+        ok = func_8007F450(handle, buf, len);
+        if (done != 0) {
+            if (ok == 0) {
+                __asm__ volatile("" : "=r"(ok) : "0"(ok));
+                len = 0;
+            }
+            done(D_800EC200.handle, buf, len, ok);
+        }
+    } else if (ctl->active == 0 && ctl->busy == handle && (ctl->pos >> 11) == ((ctl->pos + len) >> 11)) {
+        ctl->count = 0;
+        ok = func_8007EB1C(handle, buf, len);
+        if (ok) {
+            ctl->pos += len;
+        } else {
+            __asm__ volatile("" : "=r"(ok) : "0"(ok));
+            ctl->busy = 0;
+        }
+        if (done != 0) {
+            done(D_800EC200.handle, buf, D_800EC200.count, ok);
+        }
+    } else {
+        func_8007EC2C();
+        n = len;
+        if (D_800EC200.busy != handle) {
+            D_800EC200.pos = 0;
+        }
+        if (n > 5120) {
+            n = 5120;
+        }
+        D_800EC200.count = 0;
+        ok = func_8007EB1C(handle, buf, n);
+        if (ok) {
+            D_800EC200.buf = buf;
+            D_800EC200.total = len;
+            D_800EC200.done = n;
+            D_800EC200.callback4 = done;
+            D_800EC200.active = handle;
+            goto out;
+        }
+        __asm__ volatile("" : "=r"(ok) : "0"(ok));
+        if (done != 0) {
+            done(D_800EC200.handle, buf, 0, 0);
+        }
+    }
+out:
+    return ok;
+}

@@ -1,71 +1,182 @@
-asm(".text\n\t.globl func_8003E1F4\nfunc_8003E1F4:\n\t"
-    ".word 0x27BDFFD0,0xAFBF002C,0xAFB40028,0xAFB30024\n\t"
-    ".word 0xAFB20020,0xAFB1001C,0x0C023703,0xAFB00018\n\t"
-    ".word 0x3C03800D,0x3C10800D,0x26022FE4,0x90420008\n\t"
-    ".word 0x90633035,0x2442FFFF,0x14620008,0x24040300\n\t"
-    ".word 0x0C016A30,0x00000000,0x0C01B01B,0x00000000\n\t"
-    ".word 0x0C00FAE0,0x00000000,0x24040300,0x3C03800A\n\t"
-    ".word 0x00801021,0x0C02290E,0xA4625B94,0x24440300\n\t"
-    ".word 0x3C03800A,0xAC625B98,0x3C02800A,0x0C023721\n\t"
-    ".word 0xAC445B9C,0x3C03800A,0xAC625BA0,0x8E022FE4\n\t"
-    ".word 0x00000000,0x8C440008,0x8C450004,0x14800002\n\t"
-    ".word 0x3C028000,0x24040002,0x00A21824,0x00821024\n\t"
-    ".word 0x00624026,0x04A10002,0x00A01821,0x00031823\n\t"
-    ".word 0x04810002,0x00803021,0x00063023,0x4883F000\n\t"
-    ".word 0x00000000,0x00000000,0x27A20010,0xE85F0000\n\t"
-    ".word 0x8FA40010,0x00000000,0x2487FFF4,0x04E10023\n\t"
-    ".word 0x00000000,0x00831804,0x4886F000,0x00000000\n\t"
-    ".word 0x00000000,0x27A20014,0xE85F0000,0x8FA50014\n\t"
-    ".word 0x00000000,0x00A42023,0x0480000F,0x2402000C\n\t"
-    ".word 0x00451023,0x04400003,0x00000000,0x0800F8CC\n\t"
-    ".word 0x00461007,0x00021023,0x00461004,0x0062001B\n\t"
-    ".word 0x14400002,0x00000000,0x0007000D,0x00001812\n\t"
-    ".word 0x0800F8E2,0x00831804,0x00071023,0x00461007\n\t"
-    ".word 0x0062001B,0x14400002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x0800F8E4,0x00601021,0x00031B00\n\t"
-    ".word 0x0066001B,0x14C00002,0x00000000,0x0007000D\n\t"
-    ".word 0x00001812,0x00000000,0x00601021,0x11000002\n\t"
-    ".word 0x24051000,0x00021023,0x00A22823,0x3C10800D\n\t"
-    ".word 0x8E022FE4,0x00052C00,0x8C440008,0x00052C03\n\t"
-    ".word 0x0C00FA6A,0x00042080,0x0C01A837,0x00008821\n\t"
-    ".word 0x8E022FE4,0x00000000,0x8C520020,0x0C008070\n\t"
-    ".word 0x00000000,0x00409821,0x1A600022,0x3C14800D\n\t"
-    ".word 0x8E822E00,0x00118080,0x02021021,0x8C420000\n\t"
-    ".word 0x00000000,0x000220C0,0x00822021,0x000420C0\n\t"
-    ".word 0x0C00FA8F,0x02442021,0x8E822E00,0x00000000\n\t"
-    ".word 0x02028021,0x8E030000,0x00000000,0x000310C0\n\t"
-    ".word 0x00431021,0x000210C0,0x00522021,0x8C83003C\n\t"
-    ".word 0x00000000,0x8C620000,0x00000000,0x10400005\n\t"
-    ".word 0x00000000,0x10600003,0x00000000,0x0C01A4EE\n\t"
-    ".word 0x00000000,0x26310001,0x0233102A,0x1440FFE0\n\t"
-    ".word 0x00000000,0x0C008BCB,0x3C11800E,0x3C02800D\n\t"
-    ".word 0x2631E0EC,0x8C502FE4,0x02202021,0x261001B4\n\t"
-    ".word 0x92050004,0x92060005,0x92070006,0x00052900\n\t"
-    ".word 0x00063100,0x0C00EF50,0x00073900,0x02202021\n\t"
-    ".word 0x92050003,0x92020002,0x92030001,0x00052C00\n\t"
-    ".word 0x00021200,0x00A22821,0x0C00EF54,0x00A32825\n\t"
-    ".word 0x2632003C,0x02402021,0x9205000A,0x9206000B\n\t"
-    ".word 0x9207000C,0x00052900,0x00063100,0x0C00EF50\n\t"
-    ".word 0x00073900,0x02402021,0x92050009,0x92020008\n\t"
-    ".word 0x92030007,0x00052C00,0x00021200,0x00A22821\n\t"
-    ".word 0x0C00EF54,0x00A32825,0x02202021,0x0C00EEDE\n\t"
-    ".word 0x24050002,0x92040012,0x92020011,0x92030010\n\t"
-    ".word 0x00042400,0x00021200,0x00822021,0x0C00EF1A\n\t"
-    ".word 0x00832025,0x3C10800D,0x26103034,0x3C13800A\n\t"
-    ".word 0x26120054,0x3C11800D,0x92020001,0x26315B94\n\t"
-    ".word 0x00022080,0x00822021,0x000420C0,0x00822023\n\t"
-    ".word 0x00042080,0x8E6248B4,0x00922021,0x00022AC0\n\t"
-    ".word 0x00A22821,0x000528C0,0x0C01A847,0x00B12821\n\t"
-    ".word 0x0C00E7C1,0x00000000,0x0C00F994,0x00000000\n\t"
-    ".word 0x0C01A837,0x00000000,0x92050001,0x00000000\n\t"
-    ".word 0x00051080,0x00451021,0x000210C0,0x00451023\n\t"
-    ".word 0x00021080,0x00521021,0x8C4C0000,0x8C4D0004\n\t"
-    ".word 0x48CC0000,0x48CD0800,0x8C4C0008,0x8C4D000C\n\t"
-    ".word 0x8C4E0010,0x48CC1000,0x48CD1800,0x48CE2000\n\t"
-    ".word 0x8E6248B4,0x00000000,0x000222C0,0x00822021\n\t"
-    ".word 0x000420C0,0x0C019648,0x00912021,0x3C10800A\n\t"
-    ".word 0x8E045BA0,0x0C023721,0x3C11800A,0x96245B94\n\t"
-    ".word 0x3C02800A,0xAC405B9C,0x3C02800A,0xAE005BA0\n\t"
-    ".word 0x0C02291B,0xAC405B98,0xA6205B94,0x8FBF002C\n\t"
-    ".word 0x8FB40028,0x8FB30024,0x8FB20020,0x8FB1001C\n\t"
-    ".word 0x8FB00018,0x03E00008,0x27BD0030\n");
+typedef struct { short m[3][3]; short pad; int t[3]; } Matrix;
+typedef struct { char pad[0x50]; Matrix rot; char pad2[156 - 0x70]; } View;
+typedef struct { unsigned char f0; unsigned char current; char pad[2]; View views[1]; } ViewSet;
+typedef struct { unsigned char c[20]; } SkyColors;
+typedef struct { char pad[0x3C]; int *model; char pad2[72 - 0x40]; } Prop;
+typedef struct { char pad[4]; int num; int den; char pad2[0x20 - 0xC]; Prop *props; char pad3[0x1B4 - 0x24]; SkyColors sky; } LevelData;
+typedef struct { LevelData *data; int f4; unsigned char last_view; } Game;
+typedef struct { char data[60]; } Light;
+typedef struct { int ot[4098]; } OrderTable;
+extern Game D_800D2FE4;
+extern ViewSet D_800D3034;
+extern unsigned short D_800A5B94;
+extern int D_800A5B98;
+extern int D_800A5B9C;
+extern int D_800A5BA0;
+extern int *D_800D2E00;
+extern Light D_800DE0EC[2];
+extern OrderTable D_800D5B94[];
+extern int D_800A48B4;
+extern void func_8008DC0C(void);
+extern void func_8005A8C0(void);
+extern void func_8006C06C(void);
+extern void func_8003EB80(void);
+extern int func_8008A438(int);
+extern int func_8008DC84(int);
+extern void func_8003E9A8(int, short);
+extern void func_8006A0DC(void);
+extern int func_800201C0(void);
+extern void func_8003EA3C(Prop *);
+extern void func_800693B8(Prop *);
+extern void func_80022F2C(void);
+extern void func_8003BD40(Light *, int, int, int);
+extern void func_8003BD50(Light *, int);
+extern void func_8003BB78(Light *, int);
+extern void func_8003BC68(int);
+extern void func_8006A11C(Matrix *, OrderTable *);
+extern void func_80039F04(void);
+extern void func_8003E650(void);
+extern void func_80065920(OrderTable *);
+extern void func_8008A46C(int);
+
+static inline void gte_SetRotMatrix(Matrix *r)
+{
+    __asm__ volatile("lw $12, 0(%0)\n\tlw $13, 4(%0)\n\tctc2 $12, $0\n\tctc2 $13, $1\n\t"
+                     "lw $12, 8(%0)\n\tlw $13, 12(%0)\n\tlw $14, 16(%0)\n\tctc2 $12, $2\n\tctc2 $13, $3\n\tctc2 $14, $4"
+                     : : "r"(r) : "$12", "$13", "$14");
+}
+
+static inline void gte_ldlzc(int value) {
+    __asm__ volatile("mtc2 %0, $30\n\tnop\n\tnop" : : "r"(value));
+}
+
+static inline void gte_stlzc(int *result) {
+    __asm__ volatile("swc2 $31, 0(%0)" : : "r"(result) : "memory");
+}
+
+static inline int leading_zeros(int value) {
+    int count;
+
+    gte_ldlzc(value);
+    gte_stlzc(&count);
+    return count;
+}
+
+
+int abs(int);
+
+static inline int fixed_div(int numerator, int denominator) {
+    int negative;
+    int n;
+    int sign;
+    int d;
+    int n_zeros;
+    int d_zeros;
+    int excess;
+    int scale;
+    unsigned int quotient;
+    int result;
+
+    sign = numerator & 0x80000000;
+    negative = sign ^ (denominator & 0x80000000);
+    __asm__("" : : "r"(negative));
+    n = abs(numerator);
+    d = abs(denominator);
+    n_zeros = leading_zeros(n);
+    excess = n_zeros - 12;
+    if (excess < 0) {
+        n <<= n_zeros;
+        d_zeros = leading_zeros(d);
+        n_zeros = d_zeros - n_zeros;
+        if (n_zeros >= 0) {
+            scale = 12 - d_zeros;
+            if (scale >= 0) {
+                quotient = (unsigned int)n / (d >> scale);
+            } else {
+                quotient = (unsigned int)n / (d << -scale);
+            }
+            quotient <<= n_zeros;
+        } else {
+            quotient = (unsigned int)n / (d >> -excess);
+        }
+    } else {
+        n <<= 12;
+        quotient = (unsigned int)n / d;
+    }
+    result = quotient;
+    if (negative) {
+        result = -result;
+    }
+    return result;
+}
+
+void func_8003E1F4(void)
+{
+    int count;
+    int i;
+    Prop *props;
+    Prop *prop;
+    SkyColors *sky;
+    int den;
+    int num;
+    LevelData *data;
+
+    func_8008DC0C();
+    if (D_800D3034.current == D_800D2FE4.last_view - 1) {
+        func_8005A8C0();
+        func_8006C06C();
+        func_8003EB80();
+    }
+    D_800A5B94 = 768;
+    D_800A5B98 = func_8008A438(768);
+    D_800A5B9C = D_800A5B98 + 768;
+    D_800A5BA0 = func_8008DC84(D_800A5B98 + 768);
+    __asm__ volatile("");
+    data = D_800D2FE4.data;
+    den = data->den;
+    num = data->num;
+    if (den == 0) {
+        den = 2;
+    }
+    func_8003E9A8(D_800D2FE4.data->den * 4, 4096 - fixed_div(num, den));
+    func_8006A0DC();
+    props = D_800D2FE4.data->props;
+    count = func_800201C0();
+    for (i = 0; i < count; i++) {
+        func_8003EA3C(&props[D_800D2E00[i]]);
+        if (*props[D_800D2E00[i]].model != 0 && props[D_800D2E00[i]].model != 0) {
+            func_800693B8(&props[D_800D2E00[i]]);
+        }
+    }
+    func_80022F2C();
+    sky = &D_800D2FE4.data->sky;
+    func_8003BD40(&D_800DE0EC[0], sky->c[4] << 4, sky->c[5] << 4, sky->c[6] << 4);
+    func_8003BD50(&D_800DE0EC[0], ((sky->c[3] << 16) + (sky->c[2] << 8)) | sky->c[1]);
+    func_8003BD40(&D_800DE0EC[1], sky->c[10] << 4, sky->c[11] << 4, sky->c[12] << 4);
+    func_8003BD50(&D_800DE0EC[1], ((sky->c[9] << 16) + (sky->c[8] << 8)) | sky->c[7]);
+    func_8003BB78(D_800DE0EC, 2);
+    func_8003BC68(((sky->c[18] << 16) + (sky->c[17] << 8)) | sky->c[16]);
+    {
+        OrderTable *ot;
+
+        ot = &D_800D5B94[D_800A48B4];
+        func_8006A11C(&D_800D3034.views[D_800D3034.current].rot, ot);
+    }
+    func_80039F04();
+    func_8003E650();
+    func_8006A0DC();
+    {
+        register int c asm("$5");
+
+        c = D_800D3034.current;
+        gte_SetRotMatrix(&D_800D3034.views[c].rot);
+    }
+    func_80065920(&D_800D5B94[D_800A48B4]);
+    func_8008DC84(D_800A5BA0);
+    D_800A5B9C = 0;
+    D_800A5BA0 = 0;
+    D_800A5B98 = 0;
+    func_8008A46C(D_800A5B94);
+    D_800A5B94 = 0;
+    __asm__ volatile("");
+}
