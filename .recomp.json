@@ -10,7 +10,7 @@
     "sha1": "5c3280f903d442922a7764a4d9f9f6f9fd0c0c34"
   },
   "project": "BattleTanx: Global Assault (PlayStation)",
-  "status": "in-progress",
+  "status": "complete",
   "approach": "Matching source reconstruction with exact linked-file verification",
   "maintainers": [
     {
@@ -18,15 +18,10 @@
       "link": "https://github.com/TheGh0stShip"
     }
   ],
-  "help": [
-    "Semantic function reconstruction",
-    "Compiler identification",
-    "Asset field research"
-  ],
   "tags": [
     "matching",
     "MIPS",
     "Psy-Q"
   ],
-  "notes": "The US executable rebuilds byte-for-byte from 1,869 source units. Semantic naming and reconstruction continue. Original game data is not distributed."
+  "notes": "The US executable rebuilds byte-for-byte from 1,898 source units. All 589,836 code bytes and all 1,794 functions are matched. Original game data is not distributed."
 }
