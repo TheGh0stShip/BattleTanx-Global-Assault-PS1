@@ -22164,11 +22164,12 @@
       "name": "fragment_8008BB14",
       "address": "0x8008BB14",
       "size": "0x8",
-      "source": "src/game/8008BB14.c",
+      "source": "src/game/8008BB14.s",
       "symbols": {
         "func_8008DBE8": "0x8008DBE8"
       },
-      "kind": "code_fragment"
+      "kind": "code_fragment",
+      "language": "assembly"
     },
     {
       "name": "pad_8008D1B4",

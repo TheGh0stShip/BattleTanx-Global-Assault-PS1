@@ -27,8 +27,8 @@ executable measurement.
 | Executable work | Complete | Remaining | Progress |
 |---|---:|---:|---:|
 | Exact reconstructed payload | 747,520 bytes | 0 bytes | 100% |
-| Semantic matching source | 550,680 code bytes | 39,156 code bytes | 93.36% |
-| Semantic functions | 1,744 functions | 50 raw instruction units | 97.21% by provisional function count |
+| Semantic matching source | 550,688 code bytes | 39,148 code bytes | 93.36% |
+| Semantic functions | 1,745 functions | 49 raw instruction units | 97.27% by provisional function count |
 | Original compiler identified | 0 | 1 | 0.00% |
 | Reproducible target build | 1 | 0 | 100% |
 | Executable segment map | 1 | 0 | 100% |
